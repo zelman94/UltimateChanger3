@@ -157,7 +157,7 @@
                     <Image x:Name="imgSonic" Grid.Column="0" Grid.Row="3"  Height="34" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" Margin="32,25,52,16">
                         <!--<Image.Source>C:/UltimateChanger/sonic2.png</Image.Source>-->
                     </Image>
-                    <Image x:Name="imgOticonMedical" Grid.Column="0" Grid.Row="4"  Height="34" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" Margin="37,34,47,8">
+                    <Image x:Name="imgOticonMedical" Grid.Column="0" Grid.Row="4"  Height="66" VerticalAlignment="Center" HorizontalAlignment="Center" Width="150" Margin="24,5,10,5">
                         <!--<Image.Source>C:/UltimateChanger/sonic2.png</Image.Source>-->
                     </Image>
                     <Image x:Name="imgStarto" Grid.Column="0" Grid.Row="5" Height="34" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" Margin="33,34,51,8">
