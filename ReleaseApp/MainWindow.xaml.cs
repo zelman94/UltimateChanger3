@@ -57,7 +57,7 @@ namespace UltimateChanger
         internal List<pathAndDir> Paths_Dirs { get => paths_Dirs; set => paths_Dirs = value; }
 
 
-
+        // sprawdzam GITA :)
         public MainWindow()
         {
 
