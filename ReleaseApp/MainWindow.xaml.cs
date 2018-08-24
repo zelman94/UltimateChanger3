@@ -31,7 +31,7 @@ using System.Net;
 
 [assembly: System.Reflection.AssemblyVersion("3.0.0.0")]
 namespace UltimateChanger
-{
+{//
     public partial class MainWindow : Window
     {
         int Licznik_All_button = 0;
@@ -52,6 +52,7 @@ namespace UltimateChanger
         List<CheckBox> checkBoxList = new List<CheckBox>();
         List<Rectangle> ListRactanglesNames;
         BackgroundWorker worker;
+        HIs Random_HI = new HIs();
         public List<List<string>> AllbuildsPerFS = new List<List<string>>();
 
         internal List<pathAndDir> Paths_Dirs { get => paths_Dirs; set => paths_Dirs = value; }
@@ -105,18 +106,22 @@ namespace UltimateChanger
                 // napisac funkcje w fileoperation na pobieranie zapisanych danych z pliku i wpisanie do PathDir lista czy cos 
 
                 /*refreshUI(); */// funkcja  caly ui
-                refreshUI(new object(), new EventArgs());
-                dataBaseManager = new DataBaseManager();
-                if (dataBaseManager!= null)
-                {
-                    dataBaseManager.getInformation_DB();
-                }
+                
+                
                
                 //fileOperator.GetInfoAboutFs(@"C:\ProgramData\Bernafon\Common\ManufacturerInfo.xml"); // dziala 
             }
             catch (Exception x)
             {
                 MessageBox.Show(x.ToString());
+            }
+            sliderRelease.Maximum = cmbRelease.Items.Count-1 ; // max dla slidera -1 bo count nie uwzglednia zerowego indexu
+            sliderRelease.Value = cmbRelease.SelectedIndex; // ustalenie defaulta jako obecny release
+            refreshUI(new object(), new EventArgs());
+            dataBaseManager = new DataBaseManager();
+            if (dataBaseManager != null)
+            {
+                dataBaseManager.getInformation_DB();
             }
         }
 
@@ -1620,12 +1625,49 @@ namespace UltimateChanger
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
-
+            Random_HI.Magneto = !Random_HI.Magneto;
         }
 
         private void btnRANDHI_Click(object sender, RoutedEventArgs e)
         {
+            dataBaseManager.getHI(Random_HI.T_Coil, Random_HI.Led, Random_HI.twoButtons, Random_HI.Wireless, Random_HI.Custom, Random_HI.S, Random_HI.Magneto, Random_HI.Release);
+        }
 
+        private void sliderRelease_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        { 
+                lblRelease.Content = cmbRelease.Items[Convert.ToInt32(sliderRelease.Value)];
+                Random_HI.Release = lblRelease.Content.ToString();           
+
+        }
+
+        private void chBt_coil_Checked(object sender, RoutedEventArgs e)
+        {
+            Random_HI.T_Coil = !Random_HI.T_Coil;
+        }
+
+        private void chBlED_Checked(object sender, RoutedEventArgs e)
+        {
+            Random_HI.Led = !Random_HI.Led;
+        }
+
+        private void chBbUTTONS_Checked(object sender, RoutedEventArgs e)
+        {
+            Random_HI.twoButtons = !Random_HI.twoButtons;
+        }
+
+        private void chBWireless_Checked(object sender, RoutedEventArgs e)
+        {
+            Random_HI.Wireless = !Random_HI.Wireless;
+        }
+
+        private void CheckBox_Checked_1(object sender, RoutedEventArgs e)
+        {
+            Random_HI.Custom = !Random_HI.Custom;
+        }
+
+        private void CheckBox_Checked_2(object sender, RoutedEventArgs e)
+        {
+            Random_HI.S = !Random_HI.S;
         }
 
         private void btnAdvancelogs_Click(object sender, RoutedEventArgs e)

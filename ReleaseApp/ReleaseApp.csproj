@@ -110,6 +110,7 @@
       <DependentUpon>DowngradeWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="FSInstaller.cs" />
+    <Compile Include="HIs.cs" />
     <Compile Include="pathAndDir.cs" />
     <Compile Include="TrashCleaner.cs" />
     <Compile Include="UpdateWindow.xaml.cs">
@@ -187,48 +188,20 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-
-  <ItemGroup />
-=======
   <ItemGroup>
-    <Content Include="Images\audigy %283%29.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Resource Include="Images\audigy.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\audika.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\bernafon.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Content Include="Images\Fake.PNG">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Resource Include="Images\kind.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\oticon.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\oticonmedical.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\Preconditioner.PNG">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\prescriptives.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\sonic.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\starto.PNG">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="Images\audigy %283%29.png" />
+    <Resource Include="Images\audigy.png" />
+    <Resource Include="Images\audika.png" />
+    <Resource Include="Images\bernafon.png" />
+    <Resource Include="Images\Fake.PNG" />
+    <Resource Include="Images\kind.png" />
+    <Resource Include="Images\oticon.png" />
+    <Resource Include="Images\oticonmedical.png" />
+    <Resource Include="Images\Preconditioner.PNG" />
+    <Resource Include="Images\prescriptives.png" />
+    <Resource Include="Images\sonic.png" />
+    <Resource Include="Images\starto.PNG" />
   </ItemGroup>
-
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
