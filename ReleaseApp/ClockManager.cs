@@ -71,7 +71,7 @@ namespace UltimateChanger
 
         public void ResetTime()
         {
-            // TO DO
+            // TO DO KMPU TU BYL
             //systemTime.wYear = (short)DateTime.Now.Year;
             //systemTime.wMonth = (short)DateTime.Now.Month;
             //systemTime.wDay = (short)DateTime.Now.Day;
