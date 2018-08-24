@@ -80,7 +80,7 @@ namespace UltimateChanger
             };
 
 
-       public static SortedDictionary<string, string> BrandtoFS = new SortedDictionary<string, string>
+        public static SortedDictionary<string, string> BrandtoFS = new SortedDictionary<string, string>
             {
                 { "Oticon", "Genie"},
                 { "Bernafon", "Oasis"},
@@ -92,8 +92,6 @@ namespace UltimateChanger
 
         public void bindlogmode()
         {
-
-
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbLogMode.ItemsSource = mode;
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbLogMode.DisplayMemberPath = "Key";
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbLogMode.SelectedValuePath = "Value";
@@ -102,8 +100,6 @@ namespace UltimateChanger
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbLogSettings.ItemsSource = Settings;
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbLogSettings.DisplayMemberPath = "Key";
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbLogSettings.SelectedValuePath = "Value";
-
-
         }
 
         public void setMarketCmb()
@@ -115,12 +111,12 @@ namespace UltimateChanger
 
         public void setFScomboBox()
         {
-            List<string> bind = new List<string> { "Oticon", "Bernafon", "Sonic", "GenieMedical", "Cumulus", "Oticon_PRE", "Bernafon_PRE", "Sonic_PRE", "GenieMedical_PRE", "Cumulus_PRE" };          
+            List<string> bind = new List<string> { "Oticon", "Bernafon", "Sonic", "GenieMedical", "Cumulus", "Oticon_PRE", "Bernafon_PRE", "Sonic_PRE", "GenieMedical_PRE", "Cumulus_PRE" };
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbBrandstoinstall.ItemsSource = bind;
         }
         public void setReleaseComboBox()
         {
-            List<string> bind = new List<string> { "16.1", "16.2", "17.1", "17.2" , "18.2" , "19.1" , "19.2", "20.1" };
+            List<string> bind = new List<string> { "16.1", "16.2", "17.1", "17.2", "18.2", "19.1", "19.2", "20.1" };
             List<string> tmp = new List<string>();
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease.ItemsSource = bind;
 
@@ -155,7 +151,7 @@ namespace UltimateChanger
 
         }
 
-       
+
 
         public void setOEMComboBox(string FS)
         {
@@ -165,7 +161,7 @@ namespace UltimateChanger
                 ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM.ItemsSource = bind;
                 ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM.SelectedIndex = 5;
             }
-            else if(FS.Contains("Bernafon"))
+            else if (FS.Contains("Bernafon"))
             {
                 List<string> bind = new List<string> { "PrivateLable", "AccuQuest", "Audilab", "Bernafon", "Costco", "GPL", "HansAnders", "Horex", "Maico", "Meditrend", "ProAkustik" };
                 ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM.ItemsSource = bind;
@@ -178,7 +174,7 @@ namespace UltimateChanger
                 ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM.SelectedIndex = 0;
             }
 
-            
+
         }
 
         public List<string> GetFS()
@@ -201,13 +197,13 @@ namespace UltimateChanger
                     lista.Add(dirName);
                 }
 
-               
+
             }
             catch (Exception)
             {
                 return null;
             }
-            
+
 
 
             return lista;

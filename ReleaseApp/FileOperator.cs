@@ -238,13 +238,13 @@ namespace UltimateChanger
         }
 
 
-        public void setLogMode(string mode,int setting_number,byte number_checkbox,bool advance, string sett1="",string sett2="",string sett3="") // advance true czyli zaawansowane ustawienia usera
+        public void setLogMode(string mode, int setting_number, byte number_checkbox, bool advance, string sett1 = "", string sett2 = "", string sett3 = "") // advance true czyli zaawansowane ustawienia usera
         {
             List<string> plik = new List<string>();
             List<string> plik_edited = new List<string>();
             try
             {
-                 plik = File.ReadAllLines(pathToLogMode[number_checkbox]).ToList<string>();
+                plik = File.ReadAllLines(pathToLogMode[number_checkbox]).ToList<string>();
             }
             catch (Exception x)
             {
@@ -261,14 +261,14 @@ namespace UltimateChanger
             foreach (var item in plik)
             {
                 bool przepis = true;
-                if (licznik == 15 )
+                if (licznik == 15)
                 {
-                    plik_edited.Add ($"      <level value=\"{mode}\"/>");
+                    plik_edited.Add($"      <level value=\"{mode}\"/>");
                     przepis = false; // zaminaim na false zeby nie przepisywać tego samego wiersza bo juz go zmienilem
                 }
                 if (advance)
                 {
-                    if (licznik == 21 && sett1!="")
+                    if (licznik == 21 && sett1 != "")
                     {
                         plik_edited.Add($"      <maximumFileSize value=\"{sett1} \"/>");
                         przepis = false; // zaminaim na false zeby nie przepisywać tego samego wiersza bo juz go zmienilem
@@ -289,22 +289,22 @@ namespace UltimateChanger
                 {
                     if (setting_number == 0) //Default
                     {
-                            if (licznik == 21 )
-                            {
-                                plik_edited.Add($"      <maximumFileSize value=\"10MB\"/>");
-                                przepis = false; // zaminaim na false zeby nie przepisywać tego samego wiersza bo juz go zmienilem
-                            }
-                           
-                            if (licznik == 24 )
-                            {
-                                plik_edited.Add($"      <maxSizeRollBackups value=\"10\"/>");
-                                przepis = false; // zaminaim na false zeby nie przepisywać tego samego wiersza bo juz go zmienilem
-                            }
-                        
+                        if (licznik == 21)
+                        {
+                            plik_edited.Add($"      <maximumFileSize value=\"10MB\"/>");
+                            przepis = false; // zaminaim na false zeby nie przepisywać tego samego wiersza bo juz go zmienilem
+                        }
+
+                        if (licznik == 24)
+                        {
+                            plik_edited.Add($"      <maxSizeRollBackups value=\"10\"/>");
+                            przepis = false; // zaminaim na false zeby nie przepisywać tego samego wiersza bo juz go zmienilem
+                        }
+
                     }
                     if (setting_number == 1) //New file with Start FS
                     {
-                        if (licznik == 21 )
+                        if (licznik == 21)
                         {
                             plik_edited.Add($"      <maximumFileSize value=\"50MB \"/>");
                             przepis = false; // zaminaim na false zeby nie przepisywać tego samego wiersza bo juz go zmienilem
@@ -314,7 +314,7 @@ namespace UltimateChanger
                             plik_edited.Add($"      <appendToFile value=\"true\"/>");
                             przepis = false; // zaminaim na false zeby nie przepisywać tego samego wiersza bo juz go zmienilem
                         }
-                        if (licznik == 24 )
+                        if (licznik == 24)
                         {
                             plik_edited.Add($"      <maxSizeRollBackups value=\"10\"/>");
                             przepis = false; // zaminaim na false zeby nie przepisywać tego samego wiersza bo juz go zmienilem
@@ -327,7 +327,7 @@ namespace UltimateChanger
                             plik_edited.Add($"      <maximumFileSize value=\"100MB \"/>");
                             przepis = false; // zaminaim na false zeby nie przepisywać tego samego wiersza bo juz go zmienilem
                         }
-                        
+
                         if (licznik == 24)
                         {
                             plik_edited.Add($"      <maxSizeRollBackups value=\"1\"/>");
@@ -342,10 +342,10 @@ namespace UltimateChanger
                 {
                     plik_edited.Add(item);
                 }
-                
-                   
-                
-                
+
+
+
+
                 licznik++;
             }
             if (plik_edited.Count != plik.Count)
@@ -368,7 +368,7 @@ namespace UltimateChanger
 
                 MessageBox.Show(x.ToString());
             }
-          
+
 
 
         }
@@ -394,10 +394,10 @@ namespace UltimateChanger
 
             try
             {
-                int i = 0; 
+                int i = 0;
                 foreach (var item in dirs)
                 {
-                    var logFile = File.ReadAllLines(@"C:\Program Files\DGS - PAZE & MIBW\Data\"+item);
+                    var logFile = File.ReadAllLines(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + item);
                     foreach (var s in logFile) dirstmp.Add(s);
 
                     logFile = File.ReadAllLines(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + paths[i]);
@@ -419,14 +419,14 @@ namespace UltimateChanger
                 MessageBox.Show(x.ToString());
             }
              ((MainWindow)System.Windows.Application.Current.MainWindow).Paths_Dirs = tmpPathAdnDir;
-            
+
         }
 
         public void setMarket(int licz, string market)
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(BuildInfo.ListPathsToManInfo[licz]);
-           
+
             doc.SelectSingleNode("/ManufacturerInfo/MarketName").InnerText = market;
             doc.Save(BuildInfo.ListPathsToManInfo[licz]);
 
@@ -437,8 +437,8 @@ namespace UltimateChanger
             XmlDocument doc = new XmlDocument();
             doc.Load(BuildInfo.ListPathsToManInfo[licz]);
 
-           return doc.SelectSingleNode("/ManufacturerInfo/MarketName").InnerText; 
-           
+            return doc.SelectSingleNode("/ManufacturerInfo/MarketName").InnerText;
+
 
         }
 
@@ -458,7 +458,8 @@ namespace UltimateChanger
             if (File.Exists(@"C:\Program Files (x86)\REMedy\REMedy.Launcher.exe"))
             {
                 return true; // jezeli istnieje to prawde
-            }else
+            }
+            else
                 return false;
         }
 
@@ -499,7 +500,7 @@ namespace UltimateChanger
             {
                 string tmop = item.ProcessName;
                 if (tmop.Contains(name))
-                {                   
+                {
                     return true;
                 }
             }
@@ -515,13 +516,13 @@ namespace UltimateChanger
             {
                 killRunningProcess(item);
             }
-           
+
         }
 
         public List<pathAndDir> getAllDirPath(string release) // pobieram wszystkie sciezki i dir z path i podmieniam w glownym pliku 
         {
             List<pathAndDir> lista2 = new List<pathAndDir>();
-            
+
 
             foreach (var item in listPathTobuilds)
             {
@@ -534,80 +535,81 @@ namespace UltimateChanger
                 }
                 else
                     lista2.Add(GetBindDirNames(item, listExeFiles, tmp, 0));
-               
-                    
+
+
                 //((MainWindow)System.Windows.Application.Current.MainWindow).progress.Value = ((MainWindow)System.Windows.Application.Current.MainWindow).progress.Value + (100 / listPathTobuilds.Count);
             }
-            
-                return lista2;
-            
+
+            return lista2;
+
         }
 
 
         private pathAndDir GetBindDirNames(string path, List<string> exenames, pathAndDir tmp, int nr)
         {
-            
-                List<string> dir = null;
-                bool flag = false;
-                int dl;
-                try
-                {
-                    dir = System.IO.Directory.GetDirectories(path).ToList<string>();
 
-                    var firstItems = dir.OrderBy(q => q).Take(20);
-                    dir = firstItems.ToList<string>();
+            List<string> dir = null;
+            bool flag = false;
+            int dl;
+            try
+            {
+                dir = System.IO.Directory.GetDirectories(path).ToList<string>();
+
+                var firstItems = dir.OrderBy(q => q).Take(20);
+                dir = firstItems.ToList<string>();
+            }
+            catch (Exception)
+            {
+
+            }
+
+
+
+            if (nr == 0 && dir != null)
+            {
+                foreach (var item in dir)
+                {
+                    tmp.dir.Add(new DirectoryInfo(item).Name);
                 }
-                catch (Exception)
+            }
+
+            if (dir != null)
+            {
+                foreach (var item in dir)
                 {
+                    GetBindDirNames($"{item}", exenames, tmp, ++nr);
+                    List<string> pliczki = System.IO.Directory.GetFiles(item).ToList<string>();
 
-                }
-
-
-
-                if (nr == 0 && dir != null)
-                {
-                    foreach (var item in dir)
+                    foreach (var item2 in exenames)
                     {
-                        tmp.dir.Add(new DirectoryInfo(item).Name);
-                    }
-                }
-
-                if (dir != null)
-                {
-                    foreach (var item in dir)
-                    {
-                        GetBindDirNames($"{item}", exenames, tmp, ++nr);
-                        List<string> pliczki = System.IO.Directory.GetFiles(item).ToList<string>();
-
-                        foreach (var item2 in exenames)
+                        foreach (var item3 in pliczki)
                         {
-                            foreach (var item3 in pliczki)
-                            {
-                                dl = item3.Length - 1;
+                            dl = item3.Length - 1;
 
-                                string tmp_item3 = item3.Substring(dl - item2.Length);
-                                if (tmp_item3 == ("\\" + item2))
-                                {
-                                    tmp.path.Add(item3);
-                                    flag = true;
-                                    break;
-                                }
-                            }
-                            if (flag)
+                            string tmp_item3 = item3.Substring(dl - item2.Length);
+                            if (tmp_item3 == ("\\" + item2))
                             {
-                                flag = false;
+                                tmp.path.Add(item3);
+                                flag = true;
                                 break;
                             }
                         }
+                        if (flag)
+                        {
+                            flag = false;
+                            break;
+                        }
                     }
-
                 }
-           
+
+            }
+
             return tmp;
 
         }
 
-        public FileOperator() {
+        public FileOperator()
+        {
 
             licznik_przejsc = 0;
         }
@@ -645,14 +647,14 @@ namespace UltimateChanger
                     //File.Create(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + listFilesName[j]);
 
 
-                 
-                        using (StreamWriter outputFile = new StreamWriter(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + listFilesName[k]))
-                        {
-                            foreach (string line in tmpList[i].dir)
-                                outputFile.WriteLine(line);
+
+                    using (StreamWriter outputFile = new StreamWriter(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + listFilesName[k]))
+                    {
+                        foreach (string line in tmpList[i].dir)
+                            outputFile.WriteLine(line);
 
                         outputFile.Close();
-                        }
+                    }
 
                     using (StreamWriter outputFile = new StreamWriter(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + listFilesName[j]))
                     {
@@ -678,7 +680,7 @@ namespace UltimateChanger
             }
 
         }
-                
+
         public bool getDataToBuildCombobox()
         {
             if (Directory.Exists(@"C:\Program Files\DGS - PAZE & MIBW\Data"))
@@ -702,25 +704,25 @@ namespace UltimateChanger
                 pathAndDir tmp = new pathAndDir();
                 List<List<string>> dirsList = new List<List<string>>();
                 List<List<string>> pathsList = new List<List<string>>();
-       
+
 
                 foreach (var item in files)
                 {
-                    
+
                     try
                     {
                         List<string> logList = new List<string>();
                         using (StreamReader sr = new StreamReader(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + item))
                         {
-                            while (!sr.EndOfStream)                            
+                            while (!sr.EndOfStream)
                                 logList.Add(sr.ReadLine());
 
                             sr.Close();
                         }
-                        
+
                         dirsList.Add(logList);
-                        
-                       
+
+
                     }
                     catch (Exception e)
                     {
@@ -746,7 +748,7 @@ namespace UltimateChanger
                         }
                         pathsList.Add(logList);
                         //tmp.path.AddRange(logList2);
-                       
+
                     }
                     catch (Exception e)
                     {
@@ -763,8 +765,8 @@ namespace UltimateChanger
                     ((MainWindow)System.Windows.Application.Current.MainWindow).Paths_Dirs.Add(tmpp);
 
                 }
-                
-                
+
+
 
                 return true;
             }
@@ -800,7 +802,7 @@ namespace UltimateChanger
                     try
                     {
 
-                        File.Create(@"C:\Program Files\DGS - PAZE & MIBW\Data\"+ listFilesName[k]);
+                        File.Create(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + listFilesName[k]);
                         File.Create(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + listFilesName[j]);
 
 
@@ -808,8 +810,8 @@ namespace UltimateChanger
                         {
                             foreach (string line in tmpList[i].dir)
                             {
-                                
-                                    file.WriteLine(line);
+
+                                file.WriteLine(line);
 
                             }
                             file.Close();
@@ -828,7 +830,7 @@ namespace UltimateChanger
 
 
                 return true;
-               
+
             }
         }
 
@@ -851,9 +853,9 @@ namespace UltimateChanger
                             sr.Close();
                             return false;
                         }
-                        
+
                     }
-                   
+
                 }
                 catch (Exception e)
                 {
@@ -861,22 +863,23 @@ namespace UltimateChanger
                     return false;
                 }
             }
-            else {
+            else
+            {
                 try
                 {
                     File.Create(@"C:\Program Files\DGS - PAZE & MIBW\Multi Changer\info.txt");
                 }
                 catch (Exception)
                 {
-                    if(!Directory.Exists(@"C:\Program Files\DGS - PAZE & MIBW"))
-                    Directory.CreateDirectory(@"C:\Program Files\DGS - PAZE & MIBW");
-                    if(!Directory.Exists(@"C:\Program Files\DGS - PAZE & MIBW\Multi Changer"))
-                    Directory.CreateDirectory(@"C:\Program Files\DGS - PAZE & MIBW\Multi Changer");
+                    if (!Directory.Exists(@"C:\Program Files\DGS - PAZE & MIBW"))
+                        Directory.CreateDirectory(@"C:\Program Files\DGS - PAZE & MIBW");
+                    if (!Directory.Exists(@"C:\Program Files\DGS - PAZE & MIBW\Multi Changer"))
+                        Directory.CreateDirectory(@"C:\Program Files\DGS - PAZE & MIBW\Multi Changer");
                     File.Create(@"C:\Program Files\DGS - PAZE & MIBW\Multi Changer\info.txt");
                 }
-                
+
                 return false;
-            } 
+            }
         }
 
 
@@ -989,7 +992,7 @@ namespace UltimateChanger
             string about = Major[0].InnerText + "." + Minor[0].InnerText + "." + Build[0].InnerText + "." + Revision[0].InnerText;
 
 
-            return new BuildInfo(Brand[0].InnerText, MarketName[0].InnerText, OEM[0].InnerText, SelectedLanguage[0].InnerText,about);
+            return new BuildInfo(Brand[0].InnerText, MarketName[0].InnerText, OEM[0].InnerText, SelectedLanguage[0].InnerText, about);
         }
 
 

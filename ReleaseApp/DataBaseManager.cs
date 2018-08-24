@@ -18,11 +18,11 @@ namespace UltimateChanger
     {
         public MySqlConnection SQLConnection;
         private ClickCounter clickCounter;
-        public string pathsToUpdate="";
-        public bool DB_connection ; //jezeli jest polaczenie z BD 
+        public string pathsToUpdate = "";
+        public bool DB_connection; //jezeli jest polaczenie z BD 
         private Stopwatch time;
         public string APPversion;
-       
+
         public string GetActualVersion(string brand)
         {
             string IPVersion = "";
@@ -61,9 +61,9 @@ namespace UltimateChanger
                 }
                 catch (Exception)
                 {
-                    return "";
                     SQLConnection.Close();
-                }               
+                    return "";
+                }
 
                 SQLConnection.Close();
             }
@@ -95,7 +95,7 @@ namespace UltimateChanger
                         brand = "Sonic";
                         break;
                 }
-                
+
                 MySqlDataReader myReader;
                 try
                 {
@@ -112,9 +112,9 @@ namespace UltimateChanger
                 }
                 catch (Exception)
                 {
-                    SQLConnection.Close();                    
+                    SQLConnection.Close();
                 }
-              
+
 
                 SQLConnection.Close();
             }
@@ -151,7 +151,7 @@ namespace UltimateChanger
                 }
                 catch (Exception ee)
                 {
-                
+                    Console.WriteLine(ee.Message);
                 }
                 MySqlDataReader myReader;
                 using (MySqlCommand myCommand = new MySqlCommand($"SELECT {IPVersion} FROM BD_FOR_MultiChanger_DGS WHERE {AboutVersion} = {about}", SQLConnection))
@@ -168,7 +168,7 @@ namespace UltimateChanger
                     }
                     catch (Exception ee2)
                     {
-                       
+                        Console.WriteLine(ee2.Message);
                     }
 
                 }
@@ -201,7 +201,7 @@ namespace UltimateChanger
             try
             {
                 SQLConnection.Open();
-               // SQLConnection.Close();
+                // SQLConnection.Close();
                 DB_connection = true;
 
 
@@ -209,13 +209,13 @@ namespace UltimateChanger
             }
             catch (Exception)
             {
-               // DB_connection = false;
+                // DB_connection = false;
                 //MessageBox.Show("no acess to DB");
 
             }
 
 
-             
+
         }
 
         private MySqlConnection ConnectToDB()
@@ -248,8 +248,8 @@ namespace UltimateChanger
             }
         }
 
-       
-        public void AddKnowlage(string deffinition, string param1, string param2="",string param3="")
+
+        public void AddKnowlage(string deffinition, string param1, string param2 = "", string param3 = "")
         {
             try
             {
@@ -313,45 +313,43 @@ namespace UltimateChanger
 
         public bool getInformation_DB()
         {
-          
-                List<string> Kolumna = new List<string>();
-                try
+
+            List<string> Kolumna = new List<string>();
+            try
+            {
+                if (SQLConnection != null)
                 {
-                    if (SQLConnection != null)
+                    MySqlCommand myCommand = new MySqlCommand("SELECT * FROM information", SQLConnection);
+                    MySqlDataReader myReader;
+                    myReader = myCommand.ExecuteReader();
+                    myReader.Read();
+                    string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
+                    Kolumna.Add(myReader.GetString(0)); //update 1 = true
+                    Kolumna.Add(myReader.GetString(1)); // path update string
+                    Kolumna.Add(myReader.GetString(2)); // info 1 = true
+                    Kolumna.Add(myReader.GetString(3)); // information string 
+                    Kolumna.Add(myReader.GetString(4)); // information version update
+
+                    string tmp = Kolumna[4];
+                    //-----------------------------------
+                    int[] ver = new int[3]; // wersja z srvera
+                    int.TryParse(tmp[0].ToString(), out ver[0]);
+                    int.TryParse(tmp[2].ToString(), out ver[1]);
+                    int.TryParse(tmp[4].ToString(), out ver[2]);
+                    //-----------------------------------------
+                    //wersja apki
+                    int[] ver_apki = new int[3];
+
+                    int.TryParse(version[0].ToString(), out ver_apki[0]);
+                    int.TryParse(version[2].ToString(), out ver_apki[1]);
+                    int.TryParse(version[4].ToString(), out ver_apki[2]);
+                    APPversion = version.ToString();
+                    bool message = false;
+                    for (int i = 0; i < 3; i++)
                     {
-                        
-
-                        MySqlCommand myCommand = new MySqlCommand("SELECT * FROM information", SQLConnection);
-                        MySqlDataReader myReader;
-                        myReader = myCommand.ExecuteReader();
-                        myReader.Read();
-                        string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-
-                        Kolumna.Add(myReader.GetString(0)); //update 1 = true
-                        Kolumna.Add(myReader.GetString(1)); // path update string
-                        Kolumna.Add(myReader.GetString(2)); // info 1 = true
-                        Kolumna.Add(myReader.GetString(3)); // information string 
-                        Kolumna.Add(myReader.GetString(4)); // information version update
-
-                        string tmp = Kolumna[4];
-                        //-----------------------------------
-                        int[] ver = new int[3]; // wersja z srvera
-                        int.TryParse(tmp[0].ToString(), out ver[0]);
-                        int.TryParse(tmp[2].ToString(), out ver[1]);
-                        int.TryParse(tmp[4].ToString(), out ver[2]);
-                        //-----------------------------------------
-                        //wersja apki
-                        int[] ver_apki = new int[3];
-
-                        int.TryParse(version[0].ToString(), out ver_apki[0]);
-                        int.TryParse(version[2].ToString(), out ver_apki[1]);
-                        int.TryParse(version[4].ToString(), out ver_apki[2]);
-                        APPversion = version.ToString();
-                        bool message = false;
-                        for (int i = 0; i < 3; i++)
+                        if (ver_apki[i] < ver[i] && message == false)
                         {
-                            if (ver_apki[i] < ver[i] && message == false)
-                            {
                             //MessageBox.Show($"Update available: {Kolumna[1]}");
 
                             Window Update = new UpdateWindow(Kolumna[1], Kolumna[3]);
@@ -359,36 +357,35 @@ namespace UltimateChanger
 
 
                             pathsToUpdate = Kolumna[1];
-                                message = true;
-                            }
+                            message = true;
                         }
-                        if (message)
-                        {
-                           
-                            return true;
-                        }
-                        else
-                        {
-                           
-                            return false;
-                        }
+                    }
+                    if (message)
+                    {
+
+                        return true;
+                    }
+                    else
+                    {
+
+                        return false;
+                    }
 
                 }
                 else
                 {
-                    return false;
-                }
-                }
-
-                catch (Exception ee)
-                {
-
-                   
                     SQLConnection.Close();
                     return false;
                 }
+            }
+
+            catch (Exception ee)
+            {
+
+
                 SQLConnection.Close();
- 
+                return false;
+            }
         }
 
     }
