@@ -1,0 +1,14 @@
+﻿<Window x:Class="UltimateChanger.DowngradeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UltimateChanger"
+        mc:Ignorable="d"
+        Title="DowngradeWindow" Height="300" Width="300">
+    <Grid>
+        <Button Name="btnFitting" Content="FittingLink"  Margin="93,100,90,143" Click="btnFitting_Click"/>
+        <Button Name="btnNoah" Content="NoahLink"  Margin="93,155,90,82" Click="btnNoah_Click"/>
+
+    </Grid>
+</Window>
