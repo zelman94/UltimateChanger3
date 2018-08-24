@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace UltimateChanger
 {
-    
+
     public class BuildInfo
     {
-        public string Brand, MarketName, OEM, SelectedLanguage,Version;
+        public string Brand, MarketName, OEM, SelectedLanguage, Version;
         static public List<string> ListPathsToManInfo = new List<string>()
         {
             @"C:\ProgramData\Oticon\Common\ManufacturerInfo.xml",
@@ -27,7 +27,7 @@ namespace UltimateChanger
             @"C:\Program Files (x86)\Strato\Cumulus\Cumulus2\Cumulus.exe"
         };
 
-        static public List<string> ListPathsToHattori= new List<string>()
+        static public List<string> ListPathsToHattori = new List<string>()
         {
             @"C:\Program Files (x86)\Oticon\Genie\Genie2\",
             @"C:\Program Files (x86)\Bernafon\Oasis\Oasis2\",
@@ -36,7 +36,7 @@ namespace UltimateChanger
             @"C:\Program Files (x86)\Strato\Cumulus\Cumulus2\"
         };
 
-        static public List<string> ListPathsToAboutInfo= new List<string>()
+        static public List<string> ListPathsToAboutInfo = new List<string>()
         {
             @"C:\ProgramData\Oticon\Genie2\ApplicationVersion.xml",
             @"C:\ProgramData\Bernafon\Oasis2\ApplicationVersion.xml",

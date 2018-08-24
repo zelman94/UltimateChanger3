@@ -10,13 +10,13 @@ namespace UltimateChanger
 {
     public class TrashCleaner
     {
-  
+
 
         private Dictionary<string, string> BrandtoSoft;
 
         public TrashCleaner(/*Dictionary<string, string> BrandtoSofte*/)
         {
-   
+
         }
 
         public void DeleteTrash(string DirectoryName)
@@ -32,9 +32,9 @@ namespace UltimateChanger
                 {
                     MessageBox.Show(x.ToString());
                 }
-                
+
             }
-           
+
         }
 
         public void DeleteLogs(string brand_name)
@@ -45,25 +45,25 @@ namespace UltimateChanger
             try
             {
                 string tempName;
-                if(Directory.Exists(DirectoryName))
-                foreach (FileInfo file in di.GetFiles())
-                {
-                    tempName = $"{di.ToString()}/{file.Name.ToString()}";
-                    if (File.Exists(tempName))
+                if (Directory.Exists(DirectoryName))
+                    foreach (FileInfo file in di.GetFiles())
                     {
-                        File.SetAttributes(tempName, FileAttributes.Normal);
-                        File.Delete($"{di.ToString()}/{file.Name.ToString()}");
+                        tempName = $"{di.ToString()}/{file.Name.ToString()}";
+                        if (File.Exists(tempName))
+                        {
+                            File.SetAttributes(tempName, FileAttributes.Normal);
+                            File.Delete($"{di.ToString()}/{file.Name.ToString()}");
+                        }
                     }
-                }
             }
             catch (UnauthorizedAccessException ex)
             {
-               
+
                 MessageBox.Show("Cos sie zepsulo");
             }
             catch (DirectoryNotFoundException ee)
             {
-                
+
                 MessageBox.Show("Cos sie mocno zepsulo");
             }
         }

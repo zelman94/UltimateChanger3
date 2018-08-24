@@ -190,7 +190,7 @@
                     <Border BorderBrush="LightBlue" BorderThickness="10" Grid.ColumnSpan="2" Grid.RowSpan="8" Margin="0,0,0,10">
 
                     </Border>
-                    <Border Grid.Row="0" BorderBrush="LightBlue" BorderThickness="10" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+                    <Border Grid.Row="0" BorderBrush="LightBlue" BorderThickness="10" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="0,0,0,110"/>
 
 
                     <Label x:Name="lblSelectMarket" Content="Select market:" Margin="14,4,62,46"/>
@@ -201,7 +201,7 @@
                     <Button x:Name="btnUpdate" Grid.Row="0" Grid.Column="1" Margin="9,30,12,20" Content="Update market"  Click="btnUpdate_Click" IsEnabled="False"/>
 
                     <Label x:Name="lblSelectLogMode" Grid.Row="1" Grid.Column="0"  Content="Select log mode:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="132" Margin="14,10,0,0" Height="27"/>
-                    <Label x:Name="lblSelectlogSettings" Grid.Row="2" Grid.Column="0"  Content="Select log settings:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="132" Margin="14,10,0,0" Height="27"/>
+                    <Label x:Name="lblSelectlogSettings" Grid.Row="1" Grid.Column="0"  Content="Select log settings:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="132" Margin="13,78,0,0" Height="27"/>
                     <Label x:Name="lblSetlog1" Grid.Row="4" Grid.Column="0"  Content="maximumFileSize :" HorizontalAlignment="Left" VerticalAlignment="Top" Width="132" Margin="19,10,0,0" Height="27" Visibility="Hidden"/>
                     <Label x:Name="lblSetlog2" Grid.Row="5" Grid.Column="0"  Content="maxSizeRollBackups :" HorizontalAlignment="Left" VerticalAlignment="Top" Width="132" Margin="19,10,0,0" Height="27" Visibility="Hidden"/>
                     <Label x:Name="lblSetlog3" Grid.Row="6" Grid.Column="0"  Content="appendToFile :" HorizontalAlignment="Left" VerticalAlignment="Top" Width="132" Margin="19,10,0,0" Height="27" Visibility="Hidden"></Label>
@@ -211,7 +211,7 @@
                     <TextBox x:Name="txtsettlog3" Grid.Row="6" Grid.Column="1" TextWrapping="Wrap" Text="" Margin="32,18,33,10" Visibility="Hidden"/>
 
                     <ComboBox x:Name="cmbLogMode" Margin="13,42,6,43" Grid.Row="1" Grid.Column="0" MaxDropDownHeight="150" SelectedIndex="0"  SelectionChanged="cmbLogMode_SelectionChanged" IsEnabled="False"/>
-                    <ComboBox x:Name="cmbLogSettings" Margin="14,37,6,10" Grid.Row="2" Grid.Column="0" MaxDropDownHeight="150" SelectedIndex="0"  SelectionChanged="cmbLogMode_SelectionChanged" IsEnabled="False" />
+                    <ComboBox x:Name="cmbLogSettings" Margin="14,110,6,52" Grid.Row="1" Grid.Column="0" MaxDropDownHeight="150" SelectedIndex="0"  SelectionChanged="cmbLogMode_SelectionChanged" IsEnabled="False" Grid.RowSpan="2" />
 
 
 
@@ -225,8 +225,8 @@
                         <Button x:Name="btnDeletelogs" Grid.Row="0" Margin="8,-82,12,62" Content="Delete log files" Click="btnDelete_logs" ToolTip="All log files of selected FS will be deleted" IsEnabled="False"/>
                         <Button x:Name="btnSavelogs" Grid.Row="0" Margin="8,-41,12,21" Content="Save Log" Click="btnSavelogs_Click" IsEnabled="False" />
 
-                        <Button x:Name="btnLogMode"  Margin="8,10,12,10"   Content="Update mode"  Click="btnChange_mode_log" Grid.Row="1" IsEnabled="False"/>
-                        <Button x:Name="btnAdvancelogs" Content="Advance" Margin="8,8,12,7" Grid.Row="2" Click="btnAdvancelogs_Click" IsEnabled="False"/>
+                        <Button x:Name="btnLogMode"  Margin="-79,37,99,19"   Content="Update mode"  Click="btnChange_mode_log" Grid.Row="1" IsEnabled="False" Grid.RowSpan="2"/>
+                        <Button x:Name="btnAdvancelogs" Content="Advance" Margin="8,0,12,30" Click="btnAdvancelogs_Click" IsEnabled="False" Grid.RowSpan="2"/>
                     </Grid>
                 </Grid>
 

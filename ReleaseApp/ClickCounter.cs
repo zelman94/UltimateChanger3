@@ -47,6 +47,6 @@ namespace UltimateChanger
         {
             clicks[button]++;
             sumOfClicks++;
-        }    
+        }
     }
 }

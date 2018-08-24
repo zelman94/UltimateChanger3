@@ -8,9 +8,9 @@ using System.Diagnostics;
 
 namespace UltimateChanger
 {
-     public class FSInstaller 
+    public class FSInstaller
     {
-         public bool InstallBrand(string path, bool mode_normal)
+        public bool InstallBrand(string path, bool mode_normal)
         {
             if (File.Exists(path) && mode_normal)
             {
@@ -30,11 +30,11 @@ namespace UltimateChanger
                 try
                 {
                     //string tmp2 = @"\\10.128.3.1\DFS_Data_SSC_FS_GenieBuilds\Phoenix\ExpressFit\ExpressFit_4.0.784.161\Full\Sonic\Setup.exe /quiet";
-                    Process.Start(path , " /uninstall /quiet");
+                    Process.Start(path, " /uninstall /quiet");
                     return true;
                 }
                 catch (Exception)
-                {                   
+                {
                     return false;
                 }
 
@@ -45,7 +45,7 @@ namespace UltimateChanger
             }
         }
 
-         public bool UninstallBrand(string path, bool mode_normal)
+        public bool UninstallBrand(string path, bool mode_normal)
         {
             if (File.Exists(path) && mode_normal)
             {

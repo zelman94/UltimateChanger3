@@ -16,7 +16,7 @@ namespace UltimateChanger
             dir = new List<string>();
         }
 
-        public pathAndDir( pathAndDir tmp)
+        public pathAndDir(pathAndDir tmp)
         {
             path = tmp.path;
             dir = tmp.dir;
