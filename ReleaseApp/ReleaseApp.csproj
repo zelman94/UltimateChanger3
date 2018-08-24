@@ -187,6 +187,20 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\audigy %283%29.png" />
+    <Resource Include="Images\audigy.png" />
+    <Resource Include="Images\audika.png" />
+    <Resource Include="Images\bernafon.png" />
+    <Resource Include="Images\Fake.PNG" />
+    <Resource Include="Images\kind.png" />
+    <Resource Include="Images\oticon.png" />
+    <Resource Include="Images\oticonmedical.png" />
+    <Resource Include="Images\Preconditioner.PNG" />
+    <Resource Include="Images\prescriptives.png" />
+    <Resource Include="Images\sonic.png" />
+    <Resource Include="Images\starto.PNG" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
