@@ -379,8 +379,11 @@ namespace UltimateChanger
                 }
             }
 
-            catch (Exception)
+            catch (Exception ee)
             {
+
+
+                SQLConnection.Close();
                 return false;
             }
         }
