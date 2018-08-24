@@ -1623,11 +1623,6 @@ namespace UltimateChanger
 
         }
 
-        private void btnRANDHI_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void btnAdvancelogs_Click(object sender, RoutedEventArgs e)
         {
 
