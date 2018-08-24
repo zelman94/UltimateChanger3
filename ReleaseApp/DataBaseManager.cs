@@ -222,17 +222,17 @@ namespace UltimateChanger
         {
             try
             {
-                //string tmp = "server=zadanko-z-zutu.cba.pl;" +
-                //                    "database=zelman;" +
-                //                   "uid=zelman;" +
-                //                   "password=Santiego94;";
-
-
-
-                string tmp = "server=10.128.64.19;" +
+                string tmp = "server=zadanko-z-zutu.cba.pl;" +
                                     "database=zelman;" +
-                                   "uid=changer;" +
-                                   "password=changer;";
+                                   "uid=zelman;" +
+                                   "password=Santiego94;SslMode=none;";
+
+
+
+                //string tmp = "server=10.128.64.19;" +
+                //                    "database=zelman;" +
+                //                   "uid=changer;" +
+                //                   "password=changer;";
 
                 MySqlConnection sqlConn = new MySqlConnection(tmp);
                 sqlConn.Open();
@@ -249,66 +249,6 @@ namespace UltimateChanger
         }
 
 
-        public void AddKnowlage(string deffinition, string param1, string param2 = "", string param3 = "")
-        {
-            try
-            {
-                using (MySqlCommand myCommand = new MySqlCommand($"INSERT INTO `glossary` VALUES('{param1}','{param2}','{param3}','{deffinition}')", SQLConnection))
-                {
-                    myCommand.ExecuteReader();
-
-                }
-
-            }
-            catch (Exception x)
-            {
-                System.Windows.MessageBox.Show(x.ToString());
-            }
-
-        }
-
-        public string FindKnowlage(string param1, string param2, string param3)
-        {
-            try
-            {
-                string zapytanie;
-
-                if (param2 == "")
-                {
-                    zapytanie = $"SELECT `deffinition` FROM `glossary` WHERE `parameter1` = '{param1}'";
-                }
-                else if (param3 == "")
-                {
-                    zapytanie = $"SELECT `deffinition` FROM `glossary` WHERE `parameter1` = '{param1}' AND  `parameter2` = '{param2}' AND  `parameter3` = '{param3}'"; // wszyskie parametry 
-                }
-                else
-                {
-                    zapytanie = $"SELECT `deffinition` FROM `glossary` WHERE `parameter1` = '{param1}' AND  `parameter2` = '{param2}'"; //par 1 i 2
-                }
-
-                using (MySqlCommand myCommand = new MySqlCommand(zapytanie, SQLConnection))
-                {
-                    MySqlDataReader myReader = myCommand.ExecuteReader();
-                    List<string> odpowiedzi = new List<string>();
-                    while (myReader.Read())
-                    {
-                        odpowiedzi.Add(myReader[0].ToString());
-                    }
-
-                    myReader.Close();
-
-
-                    return string.Join("\n", odpowiedzi.ToArray());
-                }
-
-            }
-            catch (Exception x)
-            {
-                System.Windows.MessageBox.Show(x.ToString());
-            }
-
-            return "";
-        }
 
 
         public bool getInformation_DB()
@@ -387,6 +327,39 @@ namespace UltimateChanger
                 return false;
             }
         }
+
+
+        public List<string> getHI(bool t_coil,bool led, bool twobuttons, bool wireless,bool custom, bool s,bool magnego, string release)
+        {
+            List<string> HIs = new List<string>();
+
+
+            MySqlDataReader myReader;
+            try
+            {
+                using (MySqlCommand myCommand = new MySqlCommand($"SELECT Name FROM HIS WHERE t_coil = {t_coil} AND led = {led} AND twobuttons = {twobuttons} AND wireless = {wireless} AND customm = {custom} AND s = {s} AND magneto = {magnego} AND release = {release} ", SQLConnection))
+                {
+                    myReader = myCommand.ExecuteReader();
+                    while (myReader.Read())
+                    {
+                        HIs.Add(myReader.ToString());
+                    }
+                    myReader.Close();
+                }
+            }
+            catch (Exception)
+            {
+                SQLConnection.Close();
+                return null;
+            }
+
+            SQLConnection.Close();
+
+
+            return HIs;
+        }
+
+
 
     }
 }
