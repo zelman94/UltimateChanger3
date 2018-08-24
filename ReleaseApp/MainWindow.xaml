@@ -680,19 +680,34 @@
         <TabItem Header="Random HI">
 
             <Grid x:Name="GridRandom" Margin="0,0,0,-3">
-                <Image x:Name="imgHI" HorizontalAlignment="Left" Height="170" Margin="453,41,0,0" VerticalAlignment="Top" Width="200"/>
+                <Image x:Name="imgHIL" HorizontalAlignment="Left" Height="170" Margin="238,284,0,0" VerticalAlignment="Top" Width="200"/>
+                <Image x:Name="imgHIR" HorizontalAlignment="Left" Height="170" Margin="488,284,0,0" VerticalAlignment="Top" Width="200"/>
+
                 <StackPanel HorizontalAlignment="Left" Height="117" Margin="41,94,0,0" VerticalAlignment="Top" Width="96">
                     <CheckBox Content="T-Coil" Margin="0,0,10,0"/>
-                    <CheckBox Content="Custom" Margin="0,0,10,0"/>
-                    <CheckBox Content="Rechargeable" Checked="CheckBox_Checked"/>
-                    <CheckBox Content="&quot;S&quot;"/>
                     <CheckBox Content="LED"/>
                     <CheckBox Content="2 buttons"/>
+                    <CheckBox Content="Wireless"/>
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Left" Height="58" Margin="41,20,0,0" VerticalAlignment="Top" Width="159">
                     <RadioButton Content="1 HI"/>
                     <RadioButton Content="2 HI"/>
                 </StackPanel>
+                <StackPanel HorizontalAlignment="Left" Height="100" Margin="197,94,0,0" VerticalAlignment="Top" Width="100">
+                    <CheckBox Content="CheckBox"/>
+                    <CheckBox Content="Custom" Margin="0,0,14,0" RenderTransformOrigin="2.163,0.733"/>
+                    <CheckBox Content="&quot;S&quot;" Margin="0,0,4,0"/>
+                    <CheckBox Content="Rechargeable" Checked="CheckBox_Checked" Margin="0,0,4,0"/>
+                </StackPanel>
+                <Button Name="btnRANDHI" Content="RANDOM" HorizontalAlignment="Left" Margin="41,307,0,0" VerticalAlignment="Top" Width="75" Click="btnRANDHI_Click"/>
+                <StackPanel HorizontalAlignment="Left" Height="100" Margin="338,94,0,0" VerticalAlignment="Top" Width="100">
+                    <Slider/>
+                    <Label Name="lblRelease" Content="Label"/>
+                </StackPanel>
+                <Label Content="Label" HorizontalAlignment="Left" Margin="41,68,0,0" VerticalAlignment="Top" Width="75"/>
+                <Label Content="Label" HorizontalAlignment="Left" Margin="197,63,0,0" VerticalAlignment="Top" Width="100"/>
+                <Label Content="Label" HorizontalAlignment="Left" Margin="338,68,0,0" VerticalAlignment="Top" Width="100"/>
+                
 
 
             </Grid>
@@ -702,20 +717,19 @@
 
         </TabItem>
 
+        <TabItem Header="Glossary">
+            <Grid x:Name="Glossary">
+                
+            </Grid>
+        </TabItem>
 
         <TabItem Header="Help">
-
             <Grid x:Name="helpGrid">
-
                 <WebBrowser Name="przegladarka" HorizontalAlignment="Left" Height="723" Margin="10,10,0,0" VerticalAlignment="Top" Width="768"/>
-
-
-
             </Grid>
+            </TabItem>
 
 
-        </TabItem>
-
-
+        
     </TabControl>
 </Window>
