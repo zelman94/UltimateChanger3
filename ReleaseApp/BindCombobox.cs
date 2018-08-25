@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace UltimateChanger
 {
@@ -88,7 +89,6 @@ namespace UltimateChanger
                 { "Medical", "Genie Medical"},
                 { "Cumulus", "Cumulus"}
             };
-
 
         public void bindlogmode()
         {

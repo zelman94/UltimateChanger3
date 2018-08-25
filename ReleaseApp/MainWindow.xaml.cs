@@ -50,11 +50,16 @@ namespace UltimateChanger
         List<Image> ListImages;
         List<Label> listlabelsinfoFS;
         List<CheckBox> checkBoxList = new List<CheckBox>();
+        List<RadioButton> RadioButtonsList = new List<RadioButton>();
+        public SortedDictionary<string, string> StringToUI = new SortedDictionary<string, string>(); // slownik do zamiany stringow z xml do wartości UI 
         List<Rectangle> ListRactanglesNames;
         BackgroundWorker worker;
         HIs Random_HI = new HIs();
+        myXMLReader XMLReader = new myXMLReader();
         public List<List<string>> AllbuildsPerFS = new List<List<string>>();
         internal List<pathAndDir> Paths_Dirs { get => paths_Dirs; set => paths_Dirs = value; }
+
+
 
         public MainWindow()
         {
@@ -64,14 +69,16 @@ namespace UltimateChanger
                 if (exists) // jezeli wiecej niz 1 instancja to nie uruchomi sie
                 {
                     System.Environment.Exit(1);
-                }
+                }             
                 fileOperator = new FileOperator();
                 clockManager = new ClockManager();
                 InitializeComponent();
                 // Localization.SetAttributes(this,"TOP"); 
+
                 przegladarka.Navigate("http://confluence.kitenet.com/display/SWSQA/Ultimate+Changer");
                 initializeElements();
                 initiationForprograms();
+                setUIdefaults(XMLReader.getDefaultSettings());
                 BindCombo = new BindCombobox();
                 BindCombo.setFScomboBox();
                 BindCombo.setReleaseComboBox();
@@ -107,10 +114,40 @@ namespace UltimateChanger
             {
                 dataBaseManager.getInformation_DB();
             }
-        }
-        //________________________________________________________________________________________________________________________________________________
 
-            public void initiationForprograms()
+
+
+    }
+    //________________________________________________________________________________________________________________________________________________
+
+        public void setUIdefaults(SortedDictionary<string,string> settings)
+        {
+
+
+            foreach (var item in RadioButtonsList)
+            {
+                try
+                {
+                    //string tmpNameOfRadioButton = StringToUI[item.Name];
+                    // w item mam nazwe radiobuttona i radiobutton
+                    foreach (var item2 in StringToUI.Keys)
+                    {
+                        if (item2 == item.Name)
+                        {
+                            item.IsChecked = Convert.ToBoolean(settings[StringToUI[item2]]);
+                        }
+                    }
+                }
+                catch (Exception x)
+                {
+
+                }
+                
+
+            }
+        }
+
+    public void initiationForprograms()
             {
 
             try
@@ -186,6 +223,15 @@ namespace UltimateChanger
                 {
                     btnNewPrecon.IsEnabled = false;
                 }
+
+
+            StringToUI.Add("rbnStartwithWindows","StartWithWindows" );
+            StringToUI.Add("rbnholdlogs","HoldLogs");
+            StringToUI.Add("rbnNotStartwithWindows", "NotStartWithWindows");
+            StringToUI.Add("rbnDeletelogs", "NotHoldLogs");
+            StringToUI.Add("RBnormal", "InstallModeNormal");
+            StringToUI.Add("RBsilet", "InstallModeSilent");
+            //StringToUI.Add("Release", cmbRelease);
         }
 
         public void checkbox(object sender, RoutedEventArgs e)
@@ -411,6 +457,16 @@ namespace UltimateChanger
                 Sonic,
                 Medical,
                 Cumulus
+            };
+
+            RadioButtonsList = new List<RadioButton>()
+            {
+                rbnStartwithWindows,
+                rbnNotStartwithWindows,
+                rbnholdlogs,
+                rbnDeletelogs,
+                RBnormal,
+                RBsilet
             };
 
             ListRactanglesNames = new List<Rectangle>()
