@@ -1,0 +1,12 @@
+﻿<?xml version="1.0"?>
+<Settings>
+  <StartWithWindows>
+    <Value>FALSE</Value>
+  </StartWithWindows>
+  <HoldLogs>
+    <Value>FALSE</Value>
+  </HoldLogs>
+  <InstallModeNormal>
+    <Value>FALSE</Value>
+  </InstallModeNormal>
+</Settings>
