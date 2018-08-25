@@ -23,7 +23,6 @@ namespace UltimateChanger
                 {
                     return false;
                 }
-
             }
             if (File.Exists(path) && !mode_normal) //silent installation
             {
@@ -37,7 +36,6 @@ namespace UltimateChanger
                 {
                     return false;
                 }
-
             }
             else
             {
@@ -58,7 +56,6 @@ namespace UltimateChanger
                 {
                     return false;
                 }
-
             }
             if (File.Exists(path) && !mode_normal) //silent installation
             {
@@ -72,7 +69,6 @@ namespace UltimateChanger
                 {
                     return false;
                 }
-
             }
             else
             {
