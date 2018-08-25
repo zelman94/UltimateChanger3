@@ -28,5 +28,16 @@ namespace UltimateChanger
             Magneto = false;
             Release = "";
         }
+        public HIs(bool t_coil,bool led,bool twobuttons,bool wireless,bool custom,bool s, bool magneto, string release)
+        {
+            T_Coil = t_coil;
+            Led = led;
+            twoButtons = twobuttons;
+            Wireless = wireless;
+            Custom = custom;
+            S = s;
+            Magneto = magneto;
+            Release = release;
+        }
     }
 }

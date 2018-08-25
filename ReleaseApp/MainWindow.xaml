@@ -165,7 +165,7 @@
                     </Image>
 
 
-                    <Button Grid.Column="1" Grid.Row="6" Margin="0,2,10,10" Content="All" Click="Button_Click" RenderTransformOrigin="0.549,1.4"/>
+                    <Button Grid.Column="1" Grid.Row="6" Margin="0,2,10,0" Content="All" Click="Button_Click" RenderTransformOrigin="0.549,1.4" HorizontalAlignment="Right" Width="52" Height="32" VerticalAlignment="Top"/>
 
 
                 </Grid>
@@ -707,7 +707,7 @@
                 <Label Content="Phisical" HorizontalAlignment="Left" Margin="41,68,0,0" VerticalAlignment="Top" Width="75"/>
                 <Label Content="Type" HorizontalAlignment="Left" Margin="197,63,0,0" VerticalAlignment="Top" Width="100"/>
                 <Label Content="Available since Release : " HorizontalAlignment="Left" Margin="331,68,0,0" VerticalAlignment="Top" Width="144"/>
-                
+
 
 
             </Grid>
@@ -719,7 +719,7 @@
 
         <TabItem Header="Glossary">
             <Grid x:Name="Glossary">
-                
+
             </Grid>
         </TabItem>
 
@@ -727,9 +727,9 @@
             <Grid x:Name="helpGrid">
                 <WebBrowser Name="przegladarka" HorizontalAlignment="Left" Height="723" Margin="10,10,0,0" VerticalAlignment="Top" Width="768"/>
             </Grid>
-            </TabItem>
+        </TabItem>
 
 
-        
+
     </TabControl>
 </Window>
