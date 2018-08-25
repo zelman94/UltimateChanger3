@@ -1278,7 +1278,27 @@ namespace UltimateChanger
 
         private void btnRANDHI_Click(object sender, RoutedEventArgs e)
         {
-            dataBaseManager.getHI(Random_HI.T_Coil, Random_HI.Led, Random_HI.twoButtons, Random_HI.Wireless, Random_HI.Custom, Random_HI.S, Random_HI.Magneto, Random_HI.Release);
+            List<string> listofpossibleHI = dataBaseManager.getHI(Random_HI.T_Coil, Random_HI.Led, Random_HI.twoButtons, Random_HI.Wireless, Random_HI.Custom, Random_HI.S, Random_HI.Magneto, Random_HI.Release);
+            if (listofpossibleHI == null)
+            {
+                MessageBox.Show("lack of adequate HI");
+                return;
+            }
+            else
+            {
+                Random rnd = new Random();
+                if (rbnHI_1.IsChecked.Value)
+                {                   
+                    // random HI to :
+                    MessageBox.Show(listofpossibleHI[rnd.Next(listofpossibleHI.Count)]);
+                }
+                else
+                {                   
+                    // random HI to :
+                    MessageBox.Show(listofpossibleHI[rnd.Next(listofpossibleHI.Count)] +"\n" + listofpossibleHI[rnd.Next(listofpossibleHI.Count)]);
+                }
+               
+            }
         }
 
         private void sliderRelease_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

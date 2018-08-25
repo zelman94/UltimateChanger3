@@ -61,11 +61,11 @@ namespace UltimateChanger
                 }
                 catch (Exception)
                 {
-                    SQLConnection.Close();
+                    //SQLConnection.Close();
                     return "";
                 }
 
-                SQLConnection.Close();
+               // SQLConnection.Close();
             }
             return PreBrand;
         }
@@ -112,11 +112,11 @@ namespace UltimateChanger
                 }
                 catch (Exception)
                 {
-                    SQLConnection.Close();
+                   // SQLConnection.Close();
                 }
 
 
-                SQLConnection.Close();
+               // SQLConnection.Close();
             }
             return PreBrand;
         }
@@ -164,7 +164,7 @@ namespace UltimateChanger
                             directory = myReader[IPVersion].ToString();
                         }
                         myReader.Close();
-                        SQLConnection.Close();
+                        //SQLConnection.Close();
                     }
                     catch (Exception ee2)
                     {
@@ -270,7 +270,7 @@ namespace UltimateChanger
                     Kolumna.Add(myReader.GetString(2)); // info 1 = true
                     Kolumna.Add(myReader.GetString(3)); // information string 
                     Kolumna.Add(myReader.GetString(4)); // information version update
-
+                    myReader.Close();
                     string tmp = Kolumna[4];
                     //-----------------------------------
                     int[] ver = new int[3]; // wersja z srvera
@@ -314,7 +314,7 @@ namespace UltimateChanger
                 }
                 else
                 {
-                    SQLConnection.Close();
+                    //SQLConnection.Close();
                     return false;
                 }
             }
@@ -323,7 +323,7 @@ namespace UltimateChanger
             {
 
 
-                SQLConnection.Close();
+                //SQLConnection.Close();
                 return false;
             }
         }
@@ -332,28 +332,27 @@ namespace UltimateChanger
         public List<string> getHI(bool t_coil,bool led, bool twobuttons, bool wireless,bool custom, bool s,bool magnego, string release)
         {
             List<string> HIs = new List<string>();
-
-
-            MySqlDataReader myReader;
             try
             {
-                using (MySqlCommand myCommand = new MySqlCommand($"SELECT Name FROM HIS WHERE t_coil = {t_coil} AND led = {led} AND twobuttons = {twobuttons} AND wireless = {wireless} AND customm = {custom} AND s = {s} AND magneto = {magnego} AND release = {release} ", SQLConnection))
+                MySqlCommand myCommand = new MySqlCommand($"SELECT Name FROM HIS WHERE t_coil = {t_coil} AND led = {led} AND twobuttons = {twobuttons} AND wireless = {wireless} AND custom = {custom} AND s = {s} AND magneto = {magnego} AND releasee = {release} ", SQLConnection);
+                MySqlDataReader myReader;
+                myReader = myCommand.ExecuteReader();
+            
+                while (myReader.Read())
                 {
-                    myReader = myCommand.ExecuteReader();
-                    while (myReader.Read())
-                    {
-                        HIs.Add(myReader.ToString());
-                    }
-                    myReader.Close();
+                    HIs.Add(myReader.GetString(0));
                 }
+                myReader.Close();
+
+               
             }
-            catch (Exception)
+            catch (Exception x)
             {
-                SQLConnection.Close();
+                //SQLConnection.Close();
                 return null;
             }
 
-            SQLConnection.Close();
+           // SQLConnection.Close();
 
 
             return HIs;
