@@ -298,8 +298,8 @@
                     <Button x:Name="btnInfo" Content="Copy path to build" Grid.Column="1" HorizontalAlignment="Left" Margin="19,87,0,0" Grid.Row="1" VerticalAlignment="Top" Width="159" Click="btnInfo_Click" RenderTransformOrigin="0.255,-0.25" />
 
                 </Grid>
-                <RadioButton Name="RBsilet" Content="Silent" Grid.Column="1" HorizontalAlignment="Left" Margin="10,45,0,0" Grid.Row="1" VerticalAlignment="Top" Height="18" Width="84"/>
-                <RadioButton Name="RBnormal" Content="Normal " Grid.Column="1" HorizontalAlignment="Left" Margin="94,45,0,0" Grid.Row="1" VerticalAlignment="Top" IsChecked="True"/>
+                <RadioButton Name="RBsilet" Content="Silent" Grid.Column="1" HorizontalAlignment="Left" Margin="10,45,0,0" Grid.Row="1" VerticalAlignment="Top" Height="18" Width="84" Checked="RBsilet_Checked"/>
+                <RadioButton Name="RBnormal" Content="Normal " Grid.Column="1" HorizontalAlignment="Left" Margin="94,45,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="RBnormal_Checked"/>
                 <Label Content="Select mode un/install" Grid.Column="1" HorizontalAlignment="Left" Margin="15,14,0,0" Grid.Row="1" VerticalAlignment="Top"/>
                 <ProgressBar Name="progress" Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="202,45,0,0" Grid.Row="1" VerticalAlignment="Top" Width="160" RenderTransformOrigin="0.5,0.5">
                     <ProgressBar.RenderTransform>
@@ -655,14 +655,11 @@
 
 
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="3" Height="80" Margin="6,84,602,84" Width="180">
-                    <RadioButton Name="rbnStartwithWindows" Content="Start with Windows"  Margin="10,10,0,0" RenderTransformOrigin="0.52,0.47" HorizontalAlignment="Left" Width="143" GroupName="group1"/>
-                    <RadioButton Name="rbnNotStartwithWindows" Content="Do not Start with Windows"  Margin="10,0,0,0" RenderTransformOrigin="0.52,0.47" HorizontalAlignment="Left" Width="171" GroupName="group1"/>
-                    <RadioButton Name="rbnDeletelogs" Content="Delete logs after run FS" Margin="10,10,0,0" HorizontalAlignment="Left" Width="145" Checked="RadioButton_Checked" GroupName="group2" />
-                    <RadioButton Name="rbnholdlogs" Content="Hold logs" Margin="10,0,0,0" HorizontalAlignment="Left" Width="145" GroupName="group2" />
+                    <RadioButton Name="rbnStartwithWindows" Content="Start with Windows"  Margin="10,10,0,0" RenderTransformOrigin="0.52,0.47" HorizontalAlignment="Left" Width="143" GroupName="group1" Checked="rbnStartwithWindows_Checked"/>
+                    <RadioButton Name="rbnNotStartwithWindows" Content="Do not Start with Windows"  Margin="10,0,0,0" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Width="171" GroupName="group1" Checked="rbnNotStartwithWindows_Checked"/>
+                    <RadioButton Name="rbnDeletelogs" Content="Delete logs after run FS" Margin="10,10,0,0" HorizontalAlignment="Left" Width="145" Checked="rbnDeletelogs_Checked" GroupName="group2" />
+                    <RadioButton Name="rbnholdlogs" Content="Hold logs" Margin="10,0,0,0" HorizontalAlignment="Left" Width="145" GroupName="group2" Checked="rbnholdlogs_Checked" />
                 </StackPanel>
-
-                <Border BorderBrush="LightBlue" BorderThickness="0,0,1,0"  Grid.RowSpan="3" Margin="0 5 0 5" Grid.ColumnSpan="2"/>
-                <Border BorderBrush="LightBlue" BorderThickness="0,0,0,1"  Margin="10 0 10 0" Grid.ColumnSpan="2"/>
 
                 <StackPanel Grid.Row="1" Margin="22,0,35,0" Grid.Column="1">
                     <Label Grid.Row="1" Content="Version:" HorizontalAlignment="Left" Width="76"/>

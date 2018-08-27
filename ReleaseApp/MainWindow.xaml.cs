@@ -1286,9 +1286,7 @@ namespace UltimateChanger
             }
         }
 
-        private void RadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-        }
+
         private void txtCompositionPart2_TextChanged(object sender, TextChangedEventArgs e)
         {
             // Releases_prereleases          
@@ -1479,6 +1477,54 @@ namespace UltimateChanger
             Random_HI.S = !Random_HI.S;
         }
 
+        private void RBnormal_Checked(object sender, RoutedEventArgs e)
+        {
+            XMLReader.setSetting("InstallModeNormal", "RadioButtons", Convert.ToString(RBnormal.IsChecked.Value));
+            bool tmp = RBnormal.IsChecked.Value;
+            tmp = !tmp;
+            XMLReader.setSetting("InstallModeSilent", "RadioButtons", Convert.ToString(tmp));
+        }
+
+        private void RBsilet_Checked(object sender, RoutedEventArgs e)
+        {
+            XMLReader.setSetting("InstallModeSilent", "RadioButtons", Convert.ToString(RBsilet.IsChecked.Value));           
+            bool tmp = RBsilet.IsChecked.Value;
+            tmp = !tmp;
+            XMLReader.setSetting("InstallModeNormal", "RadioButtons", Convert.ToString(tmp));
+        }
+
+        private void rbnStartwithWindows_Checked(object sender, RoutedEventArgs e)
+        {
+            XMLReader.setSetting("StartWithWindows", "RadioButtons", Convert.ToString(rbnStartwithWindows.IsChecked.Value));
+            bool tmp = rbnStartwithWindows.IsChecked.Value;
+            tmp = !tmp;
+            XMLReader.setSetting("NotStartWithWindows", "RadioButtons", Convert.ToString(tmp));
+        }
+
+        private void rbnNotStartwithWindows_Checked(object sender, RoutedEventArgs e)
+        {
+            XMLReader.setSetting("NotStartWithWindows", "RadioButtons", Convert.ToString(rbnNotStartwithWindows.IsChecked.Value));
+            bool tmp = rbnNotStartwithWindows.IsChecked.Value;
+            tmp = !tmp;
+            XMLReader.setSetting("StartWithWindows", "RadioButtons", Convert.ToString(tmp));
+        }
+
+        private void rbnholdlogs_Checked(object sender, RoutedEventArgs e)
+        {
+            XMLReader.setSetting("HoldLogs", "RadioButtons", Convert.ToString(rbnholdlogs.IsChecked.Value));
+            bool tmp = rbnholdlogs.IsChecked.Value;
+            tmp = !tmp;
+            XMLReader.setSetting("NotHoldLogs", "RadioButtons", Convert.ToString(tmp));
+        }
+
+        private void rbnDeletelogs_Checked(object sender, RoutedEventArgs e)
+        {
+            XMLReader.setSetting("NotHoldLogs", "RadioButtons", Convert.ToString(rbnDeletelogs.IsChecked.Value));
+            bool tmp = rbnDeletelogs.IsChecked.Value;
+            tmp = !tmp;
+            XMLReader.setSetting("HoldLogs", "RadioButtons", Convert.ToString(tmp));
+        }
+
         private void btnAdvancelogs_Click(object sender, RoutedEventArgs e)
         {
             if (txtsettlog1.Visibility == Visibility.Visible)
@@ -1509,6 +1555,7 @@ namespace UltimateChanger
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             cmbRelease.Items.Refresh();
+            XMLReader.setSetting("Release", "ComboBox", cmbRelease.Text);
             try
             {
                 if (!Rekurencja.IsEnabled)

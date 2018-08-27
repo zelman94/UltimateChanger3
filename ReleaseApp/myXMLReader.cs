@@ -23,26 +23,26 @@ namespace UltimateChanger
             doc2.Load("Settings\\Defaults.xml");
             XmlNodeList NodesNames = doc2.SelectNodes(string.Format($"/Settings/{type}/Name"));
             XmlNodeList NodesValues = doc2.SelectNodes(string.Format($"/Settings/{type}/Value"));
-
             for (int i = 0; i < NodesNames.Count; i++)
             {
                 StringToUI.Add(NodesNames[i].InnerText, NodesValues[i].InnerText);
-            }
-            
+            }          
 
             return StringToUI;
         }
-        public void setSetting(string tmp)
+        public void setSetting(string node_toEdit,string type,string value)// type to nazwa noda do ustawien czyli RadioButtons albo CheckBoxes albo ComboBox
         {
             XmlDocument doc = new XmlDocument();
             doc.Load("Settings\\Defaults.xml");
             XmlNode root = doc.DocumentElement;
-            XmlNode myNode = root.SelectSingleNode($"{tmp}::Value");
-            myNode.Value = "blabla";
-            doc.Save("D:\\build.xml");
-        }
-        
-
-
+            foreach (XmlNode item in root.SelectNodes($"/Settings/{type}/Name"))
+            {
+                if (item.InnerText == node_toEdit)
+                {
+                    item.NextSibling.InnerText = value;
+                }
+            }
+            doc.Save("Settings\\Defaults.xml");
+        }      
     }
 }
