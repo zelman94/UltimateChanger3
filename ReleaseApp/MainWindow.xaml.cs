@@ -231,6 +231,8 @@ namespace UltimateChanger
             StringToUI.Add("rbnDeletelogs", "NotHoldLogs");
             StringToUI.Add("RBnormal", "InstallModeNormal");
             StringToUI.Add("RBsilet", "InstallModeSilent");
+            StringToUI.Add("rbnHI_1", "HI_1");
+            StringToUI.Add("rbnHI_2", "HI_2");
             //StringToUI.Add("Release", cmbRelease);
         }
 
@@ -466,7 +468,9 @@ namespace UltimateChanger
                 rbnholdlogs,
                 rbnDeletelogs,
                 RBnormal,
-                RBsilet
+                RBsilet,
+                rbnHI_1,
+                rbnHI_2
             };
 
             ListRactanglesNames = new List<Rectangle>()
@@ -1343,16 +1347,25 @@ namespace UltimateChanger
             else
             {
                 Random rnd = new Random();
-                if (rbnHI_1.IsChecked.Value)
-                {                   
-                    // random HI to :
-                    MessageBox.Show(listofpossibleHI[rnd.Next(listofpossibleHI.Count)]);
+                try
+                {
+                    if (rbnHI_1.IsChecked.Value)
+                    {
+                        // random HI to :
+                        MessageBox.Show(listofpossibleHI[rnd.Next(listofpossibleHI.Count)]);
+                    }
+                    else
+                    {
+                        // random HI to :
+                        MessageBox.Show(listofpossibleHI[rnd.Next(listofpossibleHI.Count)] + "\n" + listofpossibleHI[rnd.Next(listofpossibleHI.Count)]);
+                    }
                 }
-                else
-                {                   
-                    // random HI to :
-                    MessageBox.Show(listofpossibleHI[rnd.Next(listofpossibleHI.Count)] +"\n" + listofpossibleHI[rnd.Next(listofpossibleHI.Count)]);
+                catch ( ArgumentOutOfRangeException x)
+                {
+                    MessageBox.Show("lack of adequate HI");
+
                 }
+              
                
             }
         }
@@ -1378,7 +1391,9 @@ namespace UltimateChanger
             Random_HI.twoButtons = !Random_HI.twoButtons;
         }
 
+
         private void chBWireless_Checked(object sender, RoutedEventArgs e)
+
         {
             Random_HI.Wireless = !Random_HI.Wireless;
         }
