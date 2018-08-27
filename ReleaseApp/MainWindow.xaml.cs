@@ -79,7 +79,6 @@ namespace UltimateChanger
                 przegladarka.Navigate("http://confluence.kitenet.com/display/SWSQA/Ultimate+Changer");
                 initializeElements();
                 initiationForprograms();
-
                 BindCombo = new BindCombobox();
                 BindCombo.setFScomboBox();
                 BindCombo.setReleaseComboBox();
@@ -114,7 +113,7 @@ namespace UltimateChanger
             sliderRelease.Maximum = cmbRelease.Items.Count-1 ; // max dla slidera -1 bo count nie uwzglednia zerowego indexu
             sliderRelease.Value = cmbRelease.SelectedIndex; // ustalenie defaulta jako obecny release
             refreshUI(new object(), new EventArgs());
-            dataBaseManager = new DataBaseManager();
+            dataBaseManager = new DataBaseManager(XMLReader.getDefaultSettings("DataBase").ElementAt(0).Value);
             if (dataBaseManager != null)
             {
                 dataBaseManager.getInformation_DB();
@@ -216,7 +215,7 @@ namespace UltimateChanger
 
     public void initiationForprograms()
             {
-
+            lblVersion.Content = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             try
             {
                 
@@ -296,8 +295,8 @@ namespace UltimateChanger
             StringToUI.Add("rbnholdlogs","HoldLogs");
             StringToUI.Add("rbnNotStartwithWindows", "NotStartWithWindows");
             StringToUI.Add("rbnDeletelogs", "NotHoldLogs");
-            StringToUI.Add("RBnormal", "InstallModeNormal");
-            StringToUI.Add("RBsilet", "InstallModeSilent");
+            StringToUI.Add("rbnDefaultNormal", "InstallModeNormal");
+            StringToUI.Add("rbnDefaultSilent", "InstallModeSilent");
             StringToUI.Add("rbnHI_1", "HI_1");
             StringToUI.Add("rbnHI_2", "HI_2");
             StringToUI.Add("cmbRelease", "Release");
@@ -534,8 +533,8 @@ namespace UltimateChanger
                 rbnNotStartwithWindows,
                 rbnholdlogs,
                 rbnDeletelogs,
-                RBnormal,
-                RBsilet,
+                rbnDefaultNormal,
+                rbnDefaultSilent,
                 rbnHI_1,
                 rbnHI_2
             };
@@ -810,55 +809,8 @@ namespace UltimateChanger
         //    if (Sonic.IsChecked == false)    sonicnRectangle.BeginAnimation(Rectangle.OpacityProperty, blinkAnimation);
         //}
 
-        //private void btnUpdate_Click(object sender, RoutedEventArgs e)
-        //{
-        //    bool message = false;
-        //    int count3 = 0;
-        //    foreach (CheckBox checkbox in checkBoxList)
-        //    {
-        //        if ((bool)checkbox.IsChecked)
-        //        {
-        //            if (checkRunningProcess(marki[count3]))
-        //            {
-        //                changeMarket($"C:/ProgramData/{checkbox.Name}/Common/ManufacturerInfo.XML");
-        //            }
-        //            else
-        //            {
-        //                message = true;
-        //            }
-        //        }
-        //        count3++;
-        //    }
-        //    if (message)
-        //    {
-        //        MessageBox.Show("Close fitting software", "Brand", MessageBoxButton.OK, MessageBoxImage.Warning);
-        //    }
-        //    fileOperator.UpdateLabels();
-        //    verifyInstalledBrands();
 
-        //    clickCounter.AddClick((int)Buttons.UpdateMarket);
-        //}
 
-        //void deleteLogs()
-        //{
-        //    foreach (CheckBox checkbox in checkBoxList)
-        //    {
-        //        int brandCounter = 0;
-        //        if ((bool)checkbox.IsChecked) //analiza => jeden zaznaczony dwa nie 
-        //        {
-        //            if (checkRunningProcess(marki[brandCounter]))
-        //            {
-        //                Cleaner.DeleteLogs(checkbox.Name.ToString());
-        //                MessageBox.Show($" Deleted logs for {checkbox.Name}");
-        //            }
-        //            else
-        //            {
-        //                MessageBox.Show("Close fitting software", "Brand", MessageBoxButton.OK, MessageBoxImage.Warning);
-        //            }
-        //        }
-        //        brandCounter++;
-        //    }
-        //}
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
@@ -1479,18 +1431,12 @@ namespace UltimateChanger
 
         private void RBnormal_Checked(object sender, RoutedEventArgs e)
         {
-            XMLReader.setSetting("InstallModeNormal", "RadioButtons", Convert.ToString(RBnormal.IsChecked.Value));
-            bool tmp = RBnormal.IsChecked.Value;
-            tmp = !tmp;
-            XMLReader.setSetting("InstallModeSilent", "RadioButtons", Convert.ToString(tmp));
+
         }
 
         private void RBsilet_Checked(object sender, RoutedEventArgs e)
         {
-            XMLReader.setSetting("InstallModeSilent", "RadioButtons", Convert.ToString(RBsilet.IsChecked.Value));           
-            bool tmp = RBsilet.IsChecked.Value;
-            tmp = !tmp;
-            XMLReader.setSetting("InstallModeNormal", "RadioButtons", Convert.ToString(tmp));
+
         }
 
         private void rbnStartwithWindows_Checked(object sender, RoutedEventArgs e)
@@ -1523,6 +1469,42 @@ namespace UltimateChanger
             bool tmp = rbnDeletelogs.IsChecked.Value;
             tmp = !tmp;
             XMLReader.setSetting("HoldLogs", "RadioButtons", Convert.ToString(tmp));
+        }
+
+        private void rbnDefaultNormal_Checked(object sender, RoutedEventArgs e)
+        {
+            XMLReader.setSetting("InstallModeNormal", "RadioButtons", Convert.ToString(rbnDefaultNormal.IsChecked.Value));
+            bool tmp = rbnDefaultNormal.IsChecked.Value;
+            tmp = !tmp;
+            XMLReader.setSetting("InstallModeSilent", "RadioButtons", Convert.ToString(tmp));
+            RBnormal.IsChecked = true;
+            RBsilet.IsChecked = false;
+        }
+
+        private void rbnDefaultSilent_Checked(object sender, RoutedEventArgs e)
+        {
+            XMLReader.setSetting("InstallModeSilent", "RadioButtons", Convert.ToString(RBsilet.IsChecked.Value));
+            bool tmp = RBsilet.IsChecked.Value;
+            tmp = !tmp;
+            XMLReader.setSetting("InstallModeNormal", "RadioButtons", Convert.ToString(tmp));
+            RBnormal.IsChecked = false;
+            RBsilet.IsChecked = true;
+        }
+
+        private void rbnHI_1_Checked(object sender, RoutedEventArgs e)
+        {
+            XMLReader.setSetting("HI_1", "RadioButtons", Convert.ToString(rbnHI_1.IsChecked.Value));
+            bool tmp = rbnHI_1.IsChecked.Value;
+            tmp = !tmp;
+            XMLReader.setSetting("HI_2", "RadioButtons", Convert.ToString(tmp));
+        }
+
+        private void rbnHI_2_Checked(object sender, RoutedEventArgs e)
+        {
+            XMLReader.setSetting("HI_2", "RadioButtons", Convert.ToString(rbnHI_2.IsChecked.Value));
+            bool tmp = rbnHI_2.IsChecked.Value;
+            tmp = !tmp;
+            XMLReader.setSetting("HI_1", "RadioButtons", Convert.ToString(tmp));
         }
 
         private void btnAdvancelogs_Click(object sender, RoutedEventArgs e)

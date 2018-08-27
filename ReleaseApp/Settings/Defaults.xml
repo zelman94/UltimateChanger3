@@ -26,4 +26,8 @@
     <Name>Release</Name>
     <Value>19.1</Value>
   </ComboBox>
+  <DataBase>
+	  <Name>connectionString</Name>
+	  <Value>0</Value>
+  </DataBase>
 </Settings>

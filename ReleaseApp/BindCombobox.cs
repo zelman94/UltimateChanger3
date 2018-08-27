@@ -116,7 +116,8 @@ namespace UltimateChanger
         }
         public void setReleaseComboBox()
         {
-            List<string> bind = new List<string> { "16.1", "16.2", "17.1", "17.2", "18.2", "19.1", "19.2", "20.1" };
+            List<string> bind;//= new List<string> { "16.1", "16.2", "17.1", "17.2", "18.2", "19.1", "19.2", "20.1" }; //zamienic na odczytanie z XML 
+            bind = myXMLReader.getReleases();
             List<string> tmp = new List<string>();
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease.ItemsSource = bind;
 
