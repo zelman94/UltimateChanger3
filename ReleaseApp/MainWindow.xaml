@@ -165,7 +165,7 @@
                     </Image>
 
 
-                    <Button Grid.Column="1" Grid.Row="6" Margin="0,2,10,0" Content="All" Click="Button_Click" RenderTransformOrigin="0.549,1.4" HorizontalAlignment="Right" Width="52" Height="32" VerticalAlignment="Top"/>
+                    <Button Grid.Column="1" Grid.Row="6" Margin="0,2,5,0" Content="All" Click="Button_Click" RenderTransformOrigin="0.549,1.4" HorizontalAlignment="Right" Width="52" Height="32" VerticalAlignment="Top"/>
 
 
                 </Grid>
@@ -654,11 +654,15 @@
 
 
 
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="3" Height="80" Margin="6,84,602,84" Width="180">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="3" Height="164" Margin="6,84,602,0" Width="180">
                     <RadioButton Name="rbnStartwithWindows" Content="Start with Windows"  Margin="10,10,0,0" RenderTransformOrigin="0.52,0.47" HorizontalAlignment="Left" Width="143" GroupName="group1" Checked="rbnStartwithWindows_Checked"/>
                     <RadioButton Name="rbnNotStartwithWindows" Content="Do not Start with Windows"  Margin="10,0,0,0" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Width="171" GroupName="group1" Checked="rbnNotStartwithWindows_Checked"/>
                     <RadioButton Name="rbnDeletelogs" Content="Delete logs after run FS" Margin="10,10,0,0" HorizontalAlignment="Left" Width="145" Checked="rbnDeletelogs_Checked" GroupName="group2" />
                     <RadioButton Name="rbnholdlogs" Content="Hold logs" Margin="10,0,0,0" HorizontalAlignment="Left" Width="145" GroupName="group2" Checked="rbnholdlogs_Checked" />
+                    <Label Content="Default Installation mode:" Margin="8,0,-8,0"/>
+                    <RadioButton Name="rbnDefaultNormal" Content="Normal" GroupName="group3" Checked="rbnDefaultNormal_Checked" Margin="10,0,-10,0"/>
+                    <RadioButton Name="rbnDefaultSilent" Content="Silent" GroupName="group3" Checked="rbnDefaultSilent_Checked" Margin="10,0,-10,0"/>
+
                 </StackPanel>
 
                 <StackPanel Grid.Row="1" Margin="22,0,35,0" Grid.Column="1">
@@ -667,6 +671,7 @@
 
                 </StackPanel>
                 <CheckBox Content="CheckBox" Grid.Column="2" HorizontalAlignment="Left" Margin="317,-58,0,0" VerticalAlignment="Top"/>
+                
 
 
             </Grid>
@@ -687,8 +692,8 @@
                     <CheckBox Name="chBWireless" Content="Wireless" Checked="chBWireless_Checked"/>
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Left" Height="58" Margin="41,20,0,0" VerticalAlignment="Top" Width="159">
-                    <RadioButton Name="rbnHI_1" Content="1 HI"/>
-                    <RadioButton Name="rbnHI_2" Content="2 HI"/>
+                    <RadioButton Name="rbnHI_1" Content="1 HI" Checked="rbnHI_1_Checked"/>
+                    <RadioButton Name="rbnHI_2" Content="2 HI" Checked="rbnHI_2_Checked"/>
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Left" Height="100" Margin="197,94,0,0" VerticalAlignment="Top" Width="100">
                     <CheckBox Content="CheckBox"/>

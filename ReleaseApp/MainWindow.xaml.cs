@@ -216,7 +216,7 @@ namespace UltimateChanger
 
     public void initiationForprograms()
             {
-
+            lblVersion.Content = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             try
             {
                 
@@ -296,8 +296,8 @@ namespace UltimateChanger
             StringToUI.Add("rbnholdlogs","HoldLogs");
             StringToUI.Add("rbnNotStartwithWindows", "NotStartWithWindows");
             StringToUI.Add("rbnDeletelogs", "NotHoldLogs");
-            StringToUI.Add("RBnormal", "InstallModeNormal");
-            StringToUI.Add("RBsilet", "InstallModeSilent");
+            StringToUI.Add("rbnDefaultNormal", "InstallModeNormal");
+            StringToUI.Add("rbnDefaultSilent", "InstallModeSilent");
             StringToUI.Add("rbnHI_1", "HI_1");
             StringToUI.Add("rbnHI_2", "HI_2");
             StringToUI.Add("cmbRelease", "Release");
@@ -534,8 +534,8 @@ namespace UltimateChanger
                 rbnNotStartwithWindows,
                 rbnholdlogs,
                 rbnDeletelogs,
-                RBnormal,
-                RBsilet,
+                rbnDefaultNormal,
+                rbnDefaultSilent,
                 rbnHI_1,
                 rbnHI_2
             };
@@ -1479,18 +1479,12 @@ namespace UltimateChanger
 
         private void RBnormal_Checked(object sender, RoutedEventArgs e)
         {
-            XMLReader.setSetting("InstallModeNormal", "RadioButtons", Convert.ToString(RBnormal.IsChecked.Value));
-            bool tmp = RBnormal.IsChecked.Value;
-            tmp = !tmp;
-            XMLReader.setSetting("InstallModeSilent", "RadioButtons", Convert.ToString(tmp));
+
         }
 
         private void RBsilet_Checked(object sender, RoutedEventArgs e)
         {
-            XMLReader.setSetting("InstallModeSilent", "RadioButtons", Convert.ToString(RBsilet.IsChecked.Value));           
-            bool tmp = RBsilet.IsChecked.Value;
-            tmp = !tmp;
-            XMLReader.setSetting("InstallModeNormal", "RadioButtons", Convert.ToString(tmp));
+
         }
 
         private void rbnStartwithWindows_Checked(object sender, RoutedEventArgs e)
@@ -1523,6 +1517,42 @@ namespace UltimateChanger
             bool tmp = rbnDeletelogs.IsChecked.Value;
             tmp = !tmp;
             XMLReader.setSetting("HoldLogs", "RadioButtons", Convert.ToString(tmp));
+        }
+
+        private void rbnDefaultNormal_Checked(object sender, RoutedEventArgs e)
+        {
+            XMLReader.setSetting("InstallModeNormal", "RadioButtons", Convert.ToString(rbnDefaultNormal.IsChecked.Value));
+            bool tmp = rbnDefaultNormal.IsChecked.Value;
+            tmp = !tmp;
+            XMLReader.setSetting("InstallModeSilent", "RadioButtons", Convert.ToString(tmp));
+            RBnormal.IsChecked = true;
+            RBsilet.IsChecked = false;
+        }
+
+        private void rbnDefaultSilent_Checked(object sender, RoutedEventArgs e)
+        {
+            XMLReader.setSetting("InstallModeSilent", "RadioButtons", Convert.ToString(RBsilet.IsChecked.Value));
+            bool tmp = RBsilet.IsChecked.Value;
+            tmp = !tmp;
+            XMLReader.setSetting("InstallModeNormal", "RadioButtons", Convert.ToString(tmp));
+            RBnormal.IsChecked = false;
+            RBsilet.IsChecked = true;
+        }
+
+        private void rbnHI_1_Checked(object sender, RoutedEventArgs e)
+        {
+            XMLReader.setSetting("HI_1", "RadioButtons", Convert.ToString(rbnHI_1.IsChecked.Value));
+            bool tmp = rbnHI_1.IsChecked.Value;
+            tmp = !tmp;
+            XMLReader.setSetting("HI_2", "RadioButtons", Convert.ToString(tmp));
+        }
+
+        private void rbnHI_2_Checked(object sender, RoutedEventArgs e)
+        {
+            XMLReader.setSetting("HI_2", "RadioButtons", Convert.ToString(rbnHI_2.IsChecked.Value));
+            bool tmp = rbnHI_2.IsChecked.Value;
+            tmp = !tmp;
+            XMLReader.setSetting("HI_1", "RadioButtons", Convert.ToString(tmp));
         }
 
         private void btnAdvancelogs_Click(object sender, RoutedEventArgs e)
