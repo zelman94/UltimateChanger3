@@ -61,11 +61,11 @@ namespace UltimateChanger
                 }
                 catch (Exception)
                 {
-                    SQLConnection.Close();
+                    //SQLConnection.Close();
                     return "";
                 }
 
-                SQLConnection.Close();
+               // SQLConnection.Close();
             }
             return PreBrand;
         }
@@ -112,11 +112,11 @@ namespace UltimateChanger
                 }
                 catch (Exception)
                 {
-                    SQLConnection.Close();
+                   // SQLConnection.Close();
                 }
 
 
-                SQLConnection.Close();
+               // SQLConnection.Close();
             }
             return PreBrand;
         }
@@ -164,7 +164,7 @@ namespace UltimateChanger
                             directory = myReader[IPVersion].ToString();
                         }
                         myReader.Close();
-                        SQLConnection.Close();
+                        //SQLConnection.Close();
                     }
                     catch (Exception ee2)
                     {
@@ -194,10 +194,10 @@ namespace UltimateChanger
             return $"{FormatElementOfDate(now.Day.ToString())}.{FormatElementOfDate(now.Month.ToString())}.{now.Year} {FormatElementOfDate(now.Hour.ToString())}:{FormatElementOfDate(now.Minute.ToString())}:{FormatElementOfDate(now.Second.ToString())}";
         }
 
-        public DataBaseManager()
+        public DataBaseManager(string switch_)
         {
 
-            SQLConnection = ConnectToDB();
+            SQLConnection = ConnectToDB(switch_);
             try
             {
                 SQLConnection.Open();
@@ -218,21 +218,33 @@ namespace UltimateChanger
 
         }
 
-        private MySqlConnection ConnectToDB()
+        private MySqlConnection ConnectToDB(string switch_)
         {
             try
             {
-                string tmp = "server=zadanko-z-zutu.cba.pl;" +
+                string tmp = "";
+                // odczyt z XML DataBase ConnectionString :0/1 0 to zewnętrzny server a 1 to malina
+                switch (switch_)
+                {
+                    case ("0"):
+                        tmp = "server=zadanko-z-zutu.cba.pl;" +
                                     "database=zelman;" +
                                    "uid=zelman;" +
                                    "password=Santiego94;SslMode=none;";
+                        break;
+                    case ("1"):
+                        tmp = "server=10.128.64.19;" +
+                                            "database=zelman;" +
+                                           "uid=changer;" +
+                                           "password=changer;";
 
+                        break;
+                    default:
 
-
-                //string tmp = "server=10.128.64.19;" +
-                //                    "database=zelman;" +
-                //                   "uid=changer;" +
-                //                   "password=changer;";
+                        break;
+                }
+                
+                
 
                 MySqlConnection sqlConn = new MySqlConnection(tmp);
                 sqlConn.Open();
@@ -243,7 +255,7 @@ namespace UltimateChanger
             catch (Exception e)
             {
                 Console.WriteLine("Wystąpił nieoczekiwany błąd!");
-                Console.WriteLine(e.Message);
+                System.Windows.MessageBox.Show(e.Message + "  " + switch_);
                 return null;
             }
         }
@@ -270,7 +282,7 @@ namespace UltimateChanger
                     Kolumna.Add(myReader.GetString(2)); // info 1 = true
                     Kolumna.Add(myReader.GetString(3)); // information string 
                     Kolumna.Add(myReader.GetString(4)); // information version update
-
+                    myReader.Close();
                     string tmp = Kolumna[4];
                     //-----------------------------------
                     int[] ver = new int[3]; // wersja z srvera
@@ -314,7 +326,7 @@ namespace UltimateChanger
                 }
                 else
                 {
-                    SQLConnection.Close();
+                    //SQLConnection.Close();
                     return false;
                 }
             }
@@ -323,7 +335,7 @@ namespace UltimateChanger
             {
 
 
-                SQLConnection.Close();
+                //SQLConnection.Close();
                 return false;
             }
         }
@@ -332,28 +344,27 @@ namespace UltimateChanger
         public List<string> getHI(bool t_coil,bool led, bool twobuttons, bool wireless,bool custom, bool s,bool magnego, string release)
         {
             List<string> HIs = new List<string>();
-
-
-            MySqlDataReader myReader;
             try
             {
-                using (MySqlCommand myCommand = new MySqlCommand($"SELECT Name FROM HIS WHERE t_coil = {t_coil} AND led = {led} AND twobuttons = {twobuttons} AND wireless = {wireless} AND customm = {custom} AND s = {s} AND magneto = {magnego} AND release = {release} ", SQLConnection))
+                MySqlCommand myCommand = new MySqlCommand($"SELECT Name FROM HIS WHERE t_coil = {t_coil} AND led = {led} AND twobuttons = {twobuttons} AND wireless = {wireless} AND custom = {custom} AND s = {s} AND magneto = {magnego} AND releasee = {release} ", SQLConnection);
+                MySqlDataReader myReader;
+                myReader = myCommand.ExecuteReader();
+            
+                while (myReader.Read())
                 {
-                    myReader = myCommand.ExecuteReader();
-                    while (myReader.Read())
-                    {
-                        HIs.Add(myReader.ToString());
-                    }
-                    myReader.Close();
+                    HIs.Add(myReader.GetString(0));
                 }
+                myReader.Close();
+
+               
             }
-            catch (Exception)
+            catch (Exception x)
             {
-                SQLConnection.Close();
+                //SQLConnection.Close();
                 return null;
             }
 
-            SQLConnection.Close();
+           // SQLConnection.Close();
 
 
             return HIs;

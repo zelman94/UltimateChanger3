@@ -1,0 +1,33 @@
+﻿<?xml version="1.0"?>
+<Settings>
+  <RadioButtons>
+      <Name>StartWithWindows</Name>      
+            <Value>FALSE</Value>
+      <Name>NotStartWithWindows</Name>
+            <Value>TRUE</Value>
+      <Name>HoldLogs</Name>
+            <Value>FALSE</Value>
+      <Name>NotHoldLogs</Name>  
+            <Value>True</Value>
+      <Name>InstallModeNormal</Name>
+            <Value>TRUE</Value>
+      <Name>InstallModeSilent</Name>
+            <Value>FALSE</Value>
+      <Name>HI_1</Name>
+            <Value>FALSE</Value>
+      <Name>HI_2</Name>
+            <Value>TRUE</Value>
+  </RadioButtons>
+  <CheckBoxes>
+    <Name>TEST</Name>
+    <Value>FALSE</Value>
+    </CheckBoxes>
+  <ComboBox>
+    <Name>Release</Name>
+    <Value>19.1</Value>
+  </ComboBox>
+  <DataBase>
+	  <Name>connectionString</Name>
+	  <Value>0</Value>
+  </DataBase>
+</Settings>

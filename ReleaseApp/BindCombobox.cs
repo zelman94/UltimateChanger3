@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace UltimateChanger
 {
@@ -89,7 +90,6 @@ namespace UltimateChanger
                 { "Cumulus", "Cumulus"}
             };
 
-
         public void bindlogmode()
         {
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbLogMode.ItemsSource = mode;
@@ -116,7 +116,8 @@ namespace UltimateChanger
         }
         public void setReleaseComboBox()
         {
-            List<string> bind = new List<string> { "16.1", "16.2", "17.1", "17.2", "18.2", "19.1", "19.2", "20.1" };
+            List<string> bind;//= new List<string> { "16.1", "16.2", "17.1", "17.2", "18.2", "19.1", "19.2", "20.1" }; //zamienic na odczytanie z XML 
+            bind = myXMLReader.getReleases();
             List<string> tmp = new List<string>();
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease.ItemsSource = bind;
 
@@ -135,17 +136,17 @@ namespace UltimateChanger
             }
             if (tmp.Count == 1)
             {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease.SelectedItem = "19.1";// tmp[0];
+                //((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease.SelectedItem = "19.1";// tmp[0];
             }
             else
             {
                 if (wydanie < 0)
                 {
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease.SelectedItem = release + ".1";
+                   // ((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease.SelectedItem = release + ".1";
                 }
                 else
                 {
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease.SelectedItem = release + ".2";
+                    //((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease.SelectedItem = release + ".2";
                 }
             }
 

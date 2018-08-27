@@ -113,7 +113,7 @@
                     Grid.Column="0"
                     Grid.Row="1"
                     Margin="10,10"
-                     Fill="#c6168d"  RadiusY="27.4" RadiusX="27.4">
+                     Fill="Khaki"  RadiusY="27.4" RadiusX="27.4">
                     </Rectangle>
 
                     <Rectangle
@@ -148,24 +148,24 @@
                     Fill="Blue"   RadiusY="27.4" RadiusX="27.4"/>
 
                     <!--LOGO-->
-                    <Image x:Name="imgOticon" Grid.Column="0" Grid.Row="1" Height="34" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" Margin="32,20,52,20">
+                    <Image x:Name="imgOticon" Grid.Column="0" Grid.Row="1" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" Width="118" Margin="27,17,39,21">
                         <!--<Image.Source>C:/UltimateChanger/oticon2.png</Image.Source>-->
                     </Image>
-                    <Image x:Name="imgBernafon" Grid.Column="0" Grid.Row="2" Height="34" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" Margin="32,20,52,21">
+                    <Image x:Name="imgBernafon" Grid.Column="0" Grid.Row="2" Height="34" VerticalAlignment="Center" HorizontalAlignment="Center" Width="118" Margin="37,22,29,19">
                         <!--<Image.Source>C:/UltimateChanger/bernafon2.png</Image.Source>-->
                     </Image>
-                    <Image x:Name="imgSonic" Grid.Column="0" Grid.Row="3"  Height="34" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" Margin="32,25,52,16">
+                    <Image x:Name="imgSonic" Grid.Column="0" Grid.Row="3"  Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" Margin="32,10,52,10">
                         <!--<Image.Source>C:/UltimateChanger/sonic2.png</Image.Source>-->
                     </Image>
                     <Image x:Name="imgOticonMedical" Grid.Column="0" Grid.Row="4"  Height="66" VerticalAlignment="Center" HorizontalAlignment="Center" Width="150" Margin="24,5,10,5">
                         <!--<Image.Source>C:/UltimateChanger/sonic2.png</Image.Source>-->
                     </Image>
-                    <Image x:Name="imgStarto" Grid.Column="0" Grid.Row="5" Height="34" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" Margin="33,34,51,8">
+                    <Image x:Name="imgStarto" Grid.Column="0" Grid.Row="5" Height="66" VerticalAlignment="Center" HorizontalAlignment="Center" Width="150" Margin="16,7,10,3">
                         <!--<Image.Source>C:/UltimateChanger/sonic2.png</Image.Source>-->
                     </Image>
 
 
-                    <Button Grid.Column="1" Grid.Row="6" Margin="0,2,10,10" Content="All" Click="Button_Click" RenderTransformOrigin="0.549,1.4"/>
+                    <Button Grid.Column="1" Grid.Row="6" Margin="0,2,5,0" Content="All" Click="Button_Click" RenderTransformOrigin="0.549,1.4" HorizontalAlignment="Right" Width="52" Height="32" VerticalAlignment="Top"/>
 
 
                 </Grid>
@@ -226,7 +226,7 @@
                         <Button x:Name="btnSavelogs" Grid.Row="0" Margin="8,-41,12,21" Content="Save Log" Click="btnSavelogs_Click" IsEnabled="False" />
 
                         <Button x:Name="btnLogMode"  Margin="-79,37,99,19"   Content="Update mode"  Click="btnChange_mode_log" Grid.Row="1" IsEnabled="False" Grid.RowSpan="2"/>
-                        <Button x:Name="btnAdvancelogs" Content="Advance" Margin="8,0,12,30" Click="btnAdvancelogs_Click" IsEnabled="False" Grid.RowSpan="2"/>
+                        <Button x:Name="btnAdvancelogs" Content="Advance" Margin="8,0,12,30" Click="btnAdvancelogs_Click" IsEnabled="False" Grid.RowSpan="2" Height="26" VerticalAlignment="Bottom"/>
                     </Grid>
                 </Grid>
 
@@ -298,8 +298,8 @@
                     <Button x:Name="btnInfo" Content="Copy path to build" Grid.Column="1" HorizontalAlignment="Left" Margin="19,87,0,0" Grid.Row="1" VerticalAlignment="Top" Width="159" Click="btnInfo_Click" RenderTransformOrigin="0.255,-0.25" />
 
                 </Grid>
-                <RadioButton Name="RBsilet" Content="Silent" Grid.Column="1" HorizontalAlignment="Left" Margin="10,45,0,0" Grid.Row="1" VerticalAlignment="Top" Height="18" Width="84"/>
-                <RadioButton Name="RBnormal" Content="Normal " Grid.Column="1" HorizontalAlignment="Left" Margin="94,45,0,0" Grid.Row="1" VerticalAlignment="Top" IsChecked="True"/>
+                <RadioButton Name="RBsilet" Content="Silent" Grid.Column="1" HorizontalAlignment="Left" Margin="10,45,0,0" Grid.Row="1" VerticalAlignment="Top" Height="18" Width="84" Checked="RBsilet_Checked"/>
+                <RadioButton Name="RBnormal" Content="Normal " Grid.Column="1" HorizontalAlignment="Left" Margin="94,45,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="RBnormal_Checked"/>
                 <Label Content="Select mode un/install" Grid.Column="1" HorizontalAlignment="Left" Margin="15,14,0,0" Grid.Row="1" VerticalAlignment="Top"/>
                 <ProgressBar Name="progress" Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="202,45,0,0" Grid.Row="1" VerticalAlignment="Top" Width="160" RenderTransformOrigin="0.5,0.5">
                     <ProgressBar.RenderTransform>
@@ -654,6 +654,7 @@
 
 
 
+<<<<<<< HEAD
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" Height="80" Margin="4,84,5,84" Width="180">
                     <RadioButton Name="rbnStartwithWindows" Content="Start with Windows"  Margin="10,10,0,0" RenderTransformOrigin="0.52,0.47" HorizontalAlignment="Left" Width="143" GroupName="group1"/>
                     <RadioButton Name="rbnNotStartwithWindows" Content="Do not Start with Windows"  Margin="10,0,0,0" RenderTransformOrigin="0.52,0.47" HorizontalAlignment="Left" Width="171" GroupName="group1"/>
@@ -663,16 +664,33 @@
 
                 <Border BorderBrush="LightBlue" BorderThickness="0,0,1,0"  Grid.RowSpan="2" Margin="0,5,1,0" Grid.ColumnSpan="2"/>
                 <Border BorderBrush="LightBlue" BorderThickness="0,0,0,1"  Margin="0,10,10,0" Grid.Column="1"/>
+=======
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="3" Height="164" Margin="6,84,602,0" Width="180">
+                    <RadioButton Name="rbnStartwithWindows" Content="Start with Windows"  Margin="10,10,0,0" RenderTransformOrigin="0.52,0.47" HorizontalAlignment="Left" Width="143" GroupName="group1" Checked="rbnStartwithWindows_Checked"/>
+                    <RadioButton Name="rbnNotStartwithWindows" Content="Do not Start with Windows"  Margin="10,0,0,0" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Width="171" GroupName="group1" Checked="rbnNotStartwithWindows_Checked"/>
+                    <RadioButton Name="rbnDeletelogs" Content="Delete logs after run FS" Margin="10,10,0,0" HorizontalAlignment="Left" Width="145" Checked="rbnDeletelogs_Checked" GroupName="group2" />
+                    <RadioButton Name="rbnholdlogs" Content="Hold logs" Margin="10,0,0,0" HorizontalAlignment="Left" Width="145" GroupName="group2" Checked="rbnholdlogs_Checked" />
+                    <Label Content="Default Installation mode:" Margin="8,0,-8,0"/>
+                    <RadioButton Name="rbnDefaultNormal" Content="Normal" GroupName="group3" Checked="rbnDefaultNormal_Checked" Margin="10,0,-10,0"/>
+                    <RadioButton Name="rbnDefaultSilent" Content="Silent" GroupName="group3" Checked="rbnDefaultSilent_Checked" Margin="10,0,-10,0"/>
+
+                </StackPanel>
+>>>>>>> master
 
                 <StackPanel Grid.Row="1" Margin="22,0,35,0" Grid.Column="1">
                     <Label Grid.Row="1" Content="Version:" HorizontalAlignment="Left" Width="76"/>
                     <Label Grid.Row="1" Name="lblVersion" Content="" Height="35" HorizontalAlignment="Left" Width="135" Margin="0,0,-20,0" />
 
                 </StackPanel>
+<<<<<<< HEAD
                 <CheckBox Content="CheckBox" Grid.Column="2" HorizontalAlignment="Left" Margin="317,-58,0,0" VerticalAlignment="Top" Height="15" Width="71"/>
                 <Label x:Name="Skin" Content="Skin:" Grid.Column="1" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" Height="26" Width="35"/>
                 <RadioButton x:Name="Light_skin" Content="Light" Grid.Column="1" HorizontalAlignment="Left" Margin="10,53,0,0" Grid.Row="2" VerticalAlignment="Top" Checked="Light_skin_Checked_1" Height="15" Width="85"/>
                 <RadioButton x:Name="Dark_skin" Content="Dark" Grid.Column="1" HorizontalAlignment="Left" Margin="10,73,0,0" Grid.Row="2" VerticalAlignment="Top" Height="15" Width="85" Checked="Dark_skin_Checked"/>
+=======
+                <CheckBox Content="CheckBox" Grid.Column="2" HorizontalAlignment="Left" Margin="317,-58,0,0" VerticalAlignment="Top"/>
+                
+>>>>>>> master
 
 
             </Grid>
@@ -693,8 +711,8 @@
                     <CheckBox Name="chBWireless" Content="Wireless" Checked="chBWireless_Checked"/>
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Left" Height="58" Margin="41,20,0,0" VerticalAlignment="Top" Width="159">
-                    <RadioButton Name="rbnHI_1" Content="1 HI"/>
-                    <RadioButton Name="rbnHI_2" Content="2 HI"/>
+                    <RadioButton Name="rbnHI_1" Content="1 HI" Checked="rbnHI_1_Checked"/>
+                    <RadioButton Name="rbnHI_2" Content="2 HI" Checked="rbnHI_2_Checked"/>
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Left" Height="100" Margin="197,94,0,0" VerticalAlignment="Top" Width="100">
                     <CheckBox Content="CheckBox"/>

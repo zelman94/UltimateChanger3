@@ -53,11 +53,8 @@ namespace UltimateChanger
 
         };
         public List<string> listExeFiles = new List<string> {
-
             @"Setup.exe",
-            @"EXPRESSfitMini.exe"// po kolei  
-       
-
+            @"EXPRESSfitMini.exe"// po kolei 
         };
 
         public List<string> listFilesName = new List<string> {
@@ -82,7 +79,6 @@ namespace UltimateChanger
             @"3GenieMedical_PRE_path.txt",
             @"4Cumulus_PRE_dir.txt", // 0FS_dir.txt
             @"4Cumulus_PRE_path.txt"
-
         };
         public List<string> pathToLogMode = new List<string>
         {
@@ -119,7 +115,6 @@ namespace UltimateChanger
         public List<string> getLogMode()
         {
             List<string> listalogmode = new List<string>();
-
             foreach (var item in pathToLogMode)
             {
                 try
@@ -142,7 +137,6 @@ namespace UltimateChanger
                             {
                                 listalogmode.Add("ALL");
                             }
-
                         }
                         licznik++;
                     }
@@ -151,10 +145,7 @@ namespace UltimateChanger
                 {
                     listalogmode.Add("");
                 }
-
             }
-
-
             return listalogmode;
         }
         public bool deleteinfoaboutinstallerpath(string FSname)
@@ -169,7 +160,6 @@ namespace UltimateChanger
                 MessageBox.Show(x.ToString());
                 return false;
             }
-
             foreach (var item in plik)
             {
                 if (item.Contains(BindCombobox.BrandtoFS[FSname]))
@@ -184,9 +174,6 @@ namespace UltimateChanger
 
                 outputFile.Close();
             }
-
-
-
             return true;
         }
 
@@ -207,7 +194,6 @@ namespace UltimateChanger
             {
                 foreach (string line in plik)
                     outputFile.WriteLine(line);
-
                 outputFile.Close();
             }
         }
@@ -231,12 +217,8 @@ namespace UltimateChanger
                     return item;
                 }
             }
-
-
-
             return "";
         }
-
 
         public void setLogMode(string mode, int setting_number, byte number_checkbox, bool advance, string sett1 = "", string sett2 = "", string sett3 = "") // advance true czyli zaawansowane ustawienia usera
         {
@@ -251,8 +233,6 @@ namespace UltimateChanger
                 MessageBox.Show(x.ToString());
                 return;
             }
-
-
             // mode linia : 15 "      <level value="ERROR"/>"
             // sett1 linia: 21 "      <maximumFileSize value="1MB"/>"
             // sett2 linia: 24 "      <maxSizeRollBackups value="10"/>"
@@ -283,7 +263,6 @@ namespace UltimateChanger
                         plik_edited.Add($"      <maxSizeRollBackups value=\"{sett2}\"/>");
                         przepis = false; // zaminaim na false zeby nie przepisywać tego samego wiersza bo juz go zmienilem
                     }
-
                 }
                 else // jezeli nie advance to jakies ustawienia zdefiniowane 
                 {
@@ -300,7 +279,6 @@ namespace UltimateChanger
                             plik_edited.Add($"      <maxSizeRollBackups value=\"10\"/>");
                             przepis = false; // zaminaim na false zeby nie przepisywać tego samego wiersza bo juz go zmienilem
                         }
-
                     }
                     if (setting_number == 1) //New file with Start FS
                     {
@@ -335,17 +313,10 @@ namespace UltimateChanger
                         }
                     }
                 }
-
-
-
                 if (przepis)
                 {
                     plik_edited.Add(item);
                 }
-
-
-
-
                 licznik++;
             }
             if (plik_edited.Count != plik.Count)
@@ -357,20 +328,14 @@ namespace UltimateChanger
             try
             {
                 TextWriter tw = new StreamWriter(pathToLogMode[number_checkbox]);
-
                 foreach (String s in plik_edited)
                     tw.WriteLine(s);
-
                 tw.Close();
             }
             catch (Exception x)
             {
-
                 MessageBox.Show(x.ToString());
             }
-
-
-
         }
 
         public void GetfilesSaveData() // pobieram pliki z dysku i zapisuje z nich dane do zmiennej potrzebnej do cmbbuilds
@@ -399,10 +364,8 @@ namespace UltimateChanger
                 {
                     var logFile = File.ReadAllLines(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + item);
                     foreach (var s in logFile) dirstmp.Add(s);
-
                     logFile = File.ReadAllLines(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + paths[i]);
                     foreach (var s in logFile) pathstmp.Add(s);
-
 
                     pathAndDir tmp = new pathAndDir();
                     tmp.dir = new List<string>(dirstmp);
@@ -412,34 +375,27 @@ namespace UltimateChanger
                     pathstmp.Clear();
                     i++;
                 }
-
             }
             catch (Exception x)
             {
                 MessageBox.Show(x.ToString());
             }
              ((MainWindow)System.Windows.Application.Current.MainWindow).Paths_Dirs = tmpPathAdnDir;
-
         }
 
         public void setMarket(int licz, string market)
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(BuildInfo.ListPathsToManInfo[licz]);
-
             doc.SelectSingleNode("/ManufacturerInfo/MarketName").InnerText = market;
             doc.Save(BuildInfo.ListPathsToManInfo[licz]);
-
         }
 
         public string getMarket(int licz)
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(BuildInfo.ListPathsToManInfo[licz]);
-
             return doc.SelectSingleNode("/ManufacturerInfo/MarketName").InnerText;
-
-
         }
 
         public bool checkInstanceOfFS(int number)
@@ -478,7 +434,6 @@ namespace UltimateChanger
         {
             Process[] proc = Process.GetProcessesByName(name);
             Process[] localAll = Process.GetProcesses();
-
             foreach (Process item in localAll)
             {
                 string tmop = item.ProcessName;
@@ -507,22 +462,17 @@ namespace UltimateChanger
             return false;
         }
 
-
-
         public void KillFS()
         {
-
             foreach (var item in marki)
             {
                 killRunningProcess(item);
             }
-
         }
 
         public List<pathAndDir> getAllDirPath(string release) // pobieram wszystkie sciezki i dir z path i podmieniam w glownym pliku 
         {
             List<pathAndDir> lista2 = new List<pathAndDir>();
-
 
             foreach (var item in listPathTobuilds)
             {
@@ -530,40 +480,27 @@ namespace UltimateChanger
                 //licznik_przejsc++;
                 if (item.Contains("FS_Programs"))
                 {
-
                     lista2.Add(GetBindDirNames(item + release + @"\Pre-releases", listExeFiles, tmp, 0));
                 }
                 else
                     lista2.Add(GetBindDirNames(item, listExeFiles, tmp, 0));
-
-
-                //((MainWindow)System.Windows.Application.Current.MainWindow).progress.Value = ((MainWindow)System.Windows.Application.Current.MainWindow).progress.Value + (100 / listPathTobuilds.Count);
             }
-
             return lista2;
-
         }
-
-
+        
         private pathAndDir GetBindDirNames(string path, List<string> exenames, pathAndDir tmp, int nr)
         {
-
             List<string> dir = null;
             bool flag = false;
             int dl;
             try
             {
                 dir = System.IO.Directory.GetDirectories(path).ToList<string>();
-
                 var firstItems = dir.OrderBy(q => q).Take(20);
                 dir = firstItems.ToList<string>();
             }
             catch (Exception)
-            {
-
-            }
-
-
+            {}
 
             if (nr == 0 && dir != null)
             {
@@ -601,16 +538,12 @@ namespace UltimateChanger
                         }
                     }
                 }
-
             }
-
             return tmp;
-
         }
 
         public FileOperator()
         {
-
             licznik_przejsc = 0;
         }
 
@@ -623,7 +556,6 @@ namespace UltimateChanger
             this.cmbMarket = cmbMarket;
             this.checkBoxList = checkBoxList;
             this.marketIndex = marketIndex;
-
             this.imgOticon = imgOticon;
             this.imgBernafon = imgBernafon;
             this.imgSonic = imgSonic;
@@ -632,8 +564,6 @@ namespace UltimateChanger
         public void Savebuildsinfo()
         {
             List<pathAndDir> tmpList = ((MainWindow)System.Windows.Application.Current.MainWindow).Paths_Dirs;
-
-
             int j = 1;
             int k = 0;
             for (int i = 0; i < tmpList.Count; i++)
@@ -644,9 +574,7 @@ namespace UltimateChanger
                     //File.Delete(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + listFilesName[j]);
 
                     //File.Create(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + listFilesName[k]);
-                    //File.Create(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + listFilesName[j]);
-
-
+                    //File.Create(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + listFilesName[j]);                    
 
                     using (StreamWriter outputFile = new StreamWriter(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + listFilesName[k]))
                     {
@@ -664,12 +592,9 @@ namespace UltimateChanger
                         outputFile.Close();
                     }
 
-
                     //System.IO.File.WriteAllLines(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + listFilesName[k], tmpList[i].dir);
                     //System.IO.File.WriteAllLines(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + listFilesName[j], tmpList[i].path);
-
-
-
+                                       
                     j += 2; ;
                     k += 2; ;
                 }
@@ -678,14 +603,12 @@ namespace UltimateChanger
                     MessageBox.Show("cannot write to file");
                 }
             }
-
         }
 
         public bool getDataToBuildCombobox()
         {
             if (Directory.Exists(@"C:\Program Files\DGS - PAZE & MIBW\Data"))
             {
-
                 string[] filess = Directory.GetFiles(@"C:\Program Files\DGS - PAZE & MIBW\Data").Select(file => Path.GetFileName(file)).ToArray(); // wszystkie pliki z katalogu
                 List<string> files = new List<string>(); // wszystkie pliki z dir
                 List<string> paths = new List<string>(); // wszystkie pliki z path
@@ -700,15 +623,12 @@ namespace UltimateChanger
                         paths.Add(item);
                     }
                 }
-
                 pathAndDir tmp = new pathAndDir();
                 List<List<string>> dirsList = new List<List<string>>();
                 List<List<string>> pathsList = new List<List<string>>();
 
-
                 foreach (var item in files)
                 {
-
                     try
                     {
                         List<string> logList = new List<string>();
@@ -719,23 +639,17 @@ namespace UltimateChanger
 
                             sr.Close();
                         }
-
                         dirsList.Add(logList);
-
-
                     }
                     catch (Exception e)
                     {
                         Console.WriteLine("The file could not be read:");
                         return false;
                     }
-
-                    //                   
                 }
 
                 foreach (var item2 in paths)
                 {
-
                     try
                     {
                         List<string> logList = new List<string>();
@@ -743,12 +657,9 @@ namespace UltimateChanger
                         {
                             while (!sr.EndOfStream)
                                 logList.Add(sr.ReadLine());
-
                             sr.Close();
                         }
                         pathsList.Add(logList);
-                        //tmp.path.AddRange(logList2);
-
                     }
                     catch (Exception e)
                     {
@@ -763,11 +674,7 @@ namespace UltimateChanger
                     tmpp.dir = dirsList[i];
                     tmpp.path = pathsList[i];
                     ((MainWindow)System.Windows.Application.Current.MainWindow).Paths_Dirs.Add(tmpp);
-
                 }
-
-
-
                 return true;
             }
             else
@@ -783,14 +690,12 @@ namespace UltimateChanger
                         Directory.CreateDirectory(@"C:\Program Files\DGS - PAZE & MIBW\");
                         Directory.CreateDirectory(@"C:\Program Files\DGS - PAZE & MIBW\Data");
                     }
-
                     // zrobić bindowanie z rekurencji podpiąć i zapisać do pliku 
 
                     //return true;
                 }
                 catch (Exception)
                 {
-
                     return false;
                 }
 
@@ -801,24 +706,17 @@ namespace UltimateChanger
                 {
                     try
                     {
-
                         File.Create(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + listFilesName[k]);
                         File.Create(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + listFilesName[j]);
-
 
                         using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + listFilesName[k]))
                         {
                             foreach (string line in tmpList[i].dir)
                             {
-
                                 file.WriteLine(line);
-
                             }
                             file.Close();
                         }
-
-
-
                         j += 2; ;
                         k += 2; ;
                     }
@@ -827,10 +725,7 @@ namespace UltimateChanger
                         MessageBox.Show("cannot write to file");
                     }
                 }
-
-
                 return true;
-
             }
         }
 
@@ -853,9 +748,7 @@ namespace UltimateChanger
                             sr.Close();
                             return false;
                         }
-
                     }
-
                 }
                 catch (Exception e)
                 {
@@ -877,13 +770,9 @@ namespace UltimateChanger
                         Directory.CreateDirectory(@"C:\Program Files\DGS - PAZE & MIBW\Multi Changer");
                     File.Create(@"C:\Program Files\DGS - PAZE & MIBW\Multi Changer\info.txt");
                 }
-
                 return false;
             }
         }
-
-
-
 
         public bool Get_delete_logs_file() // czytanie z pliku czy chcemy zeby byly usuwane log mody
         {
@@ -904,9 +793,7 @@ namespace UltimateChanger
                             sr.Close();
                             return false;
                         }
-
                     }
-
                 }
                 catch (Exception e)
                 {
@@ -917,13 +804,10 @@ namespace UltimateChanger
             }
             else
             {
-
                 File.Create(@"C:\Program Files\DGS - PAZE & MIBW\Multi Changer\info2.txt");
                 return false;
             }
         }
-
-
 
         public static long GetDirectorySize(string parentDirectory) //zwraca rozmiar directory w bajtach
         {
@@ -971,7 +855,6 @@ namespace UltimateChanger
             }
         }
 
-
         public BuildInfo GetInfoAboutFs(string path, string path2)
         {
             XmlDocument xmlDoc = new XmlDocument(); // Create an XML document object
@@ -982,19 +865,15 @@ namespace UltimateChanger
             XmlNodeList MarketName = xmlDoc.GetElementsByTagName("MarketName");
             XmlNodeList OEM = xmlDoc.GetElementsByTagName("OEM");
             XmlNodeList SelectedLanguage = xmlDoc.GetElementsByTagName("SelectedLanguage");
-
             xmlDoc2.Load(path2);
             XmlNodeList Major = xmlDoc2.GetElementsByTagName("Major");
             XmlNodeList Minor = xmlDoc2.GetElementsByTagName("Minor");
             XmlNodeList Build = xmlDoc2.GetElementsByTagName("Build");
             XmlNodeList Revision = xmlDoc2.GetElementsByTagName("Revision");
-
             string about = Major[0].InnerText + "." + Minor[0].InnerText + "." + Build[0].InnerText + "." + Revision[0].InnerText;
-
 
             return new BuildInfo(Brand[0].InnerText, MarketName[0].InnerText, OEM[0].InnerText, SelectedLanguage[0].InnerText, about);
         }
-
 
         public void UpdateLabels()
         {
@@ -1054,10 +933,5 @@ namespace UltimateChanger
                 }
             }
         }
-
-
-
-
-
     }
 }
