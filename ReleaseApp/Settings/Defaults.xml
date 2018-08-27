@@ -22,4 +22,8 @@
     <Name>TEST</Name>
     <Value>FALSE</Value>
     </CheckBoxes>
+  <ComboBox>
+    <Name>Release</Name>
+    <Value>19.1</Value>
+  </ComboBox>
 </Settings>

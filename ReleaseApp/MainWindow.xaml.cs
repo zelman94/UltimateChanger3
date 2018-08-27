@@ -50,6 +50,7 @@ namespace UltimateChanger
         List<Image> ListImages;
         List<Label> listlabelsinfoFS;
         List<CheckBox> checkBoxList = new List<CheckBox>();
+        List<ComboBox> comboBoxList = new List<ComboBox>();
         List<RadioButton> RadioButtonsList = new List<RadioButton>();
         public SortedDictionary<string, string> StringToUI = new SortedDictionary<string, string>(); // slownik do zamiany stringow z xml do wartości UI 
         List<Rectangle> ListRactanglesNames;
@@ -78,14 +79,17 @@ namespace UltimateChanger
                 przegladarka.Navigate("http://confluence.kitenet.com/display/SWSQA/Ultimate+Changer");
                 initializeElements();
                 initiationForprograms();
-                setUIdefaults(XMLReader.getDefaultSettings("RadioButtons"),"RadioButtons");
-                setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
+
                 BindCombo = new BindCombobox();
                 BindCombo.setFScomboBox();
                 BindCombo.setReleaseComboBox();
                 BindCombo.setMarketCmb();
                 BindCombo.bindlogmode();
                 bindMarketDictionary();
+                setUIdefaults(XMLReader.getDefaultSettings("RadioButtons"), "RadioButtons");
+                setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
+                setUIdefaults(XMLReader.getDefaultSettings("ComboBox"), "ComboBox");
+
                 fileOperator.getDataToBuildCombobox();
                 initializeTimers();
                 // zamiast watku napisac maly programik osobny ktory bedzie uruchamiany na timerze co 3 s i bedzie sprawdzac czy sie zakonczyl ! :D
@@ -172,6 +176,35 @@ namespace UltimateChanger
 
 
                     }
+
+                    break;
+
+                case ("ComboBox"):
+                    foreach (var item in comboBoxList)
+                    {
+                        try
+                        {
+                            //string tmpNameOfRadioButton = StringToUI[item.Name];
+                            // w item mam nazwe radiobuttona i radiobutton
+                            foreach (var item2 in StringToUI.Keys)
+                            {
+                                if (item2 == item.Name)
+                                {
+                                    //item.Text = (settings[StringToUI[item2]]);
+                                    cmbRelease.Text = settings[StringToUI[item2]];
+                                    cmbRelease.Items.Refresh();
+                                    sliderRelease.Value = cmbRelease.SelectedIndex;
+                                }
+                            }
+                        }
+                        catch (Exception x)
+                        {
+
+                        }
+
+
+                    }
+
 
                     break;
                 default:
@@ -267,7 +300,7 @@ namespace UltimateChanger
             StringToUI.Add("RBsilet", "InstallModeSilent");
             StringToUI.Add("rbnHI_1", "HI_1");
             StringToUI.Add("rbnHI_2", "HI_2");
-            //StringToUI.Add("Release", cmbRelease);
+            StringToUI.Add("cmbRelease", "Release");
         }
 
         public void checkbox(object sender, RoutedEventArgs e)
@@ -505,6 +538,10 @@ namespace UltimateChanger
                 RBsilet,
                 rbnHI_1,
                 rbnHI_2
+            };
+            comboBoxList = new List<ComboBox>()
+            {
+                cmbRelease
             };
 
             ListRactanglesNames = new List<Rectangle>()
