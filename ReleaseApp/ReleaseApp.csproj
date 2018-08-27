@@ -164,6 +164,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Content Include="reku\Rekurencjon.exe.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -228,6 +231,12 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="reku\Rekurencjon.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="reku\Rekurencjon.pdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Settings\Defaults.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
