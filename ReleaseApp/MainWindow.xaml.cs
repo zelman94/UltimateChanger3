@@ -78,7 +78,8 @@ namespace UltimateChanger
                 przegladarka.Navigate("http://confluence.kitenet.com/display/SWSQA/Ultimate+Changer");
                 initializeElements();
                 initiationForprograms();
-                setUIdefaults(XMLReader.getDefaultSettings());
+                setUIdefaults(XMLReader.getDefaultSettings("RadioButtons"),"RadioButtons");
+                setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
                 BindCombo = new BindCombobox();
                 BindCombo.setFScomboBox();
                 BindCombo.setReleaseComboBox();
@@ -120,31 +121,64 @@ namespace UltimateChanger
     }
     //________________________________________________________________________________________________________________________________________________
 
-        public void setUIdefaults(SortedDictionary<string,string> settings)
+        public void setUIdefaults(SortedDictionary<string,string> settings, string mode) // mode to tryb ustawienia co zmieniasz radiobutton checkbox
         {
 
-
-            foreach (var item in RadioButtonsList)
+            switch (mode)
             {
-                try
-                {
-                    //string tmpNameOfRadioButton = StringToUI[item.Name];
-                    // w item mam nazwe radiobuttona i radiobutton
-                    foreach (var item2 in StringToUI.Keys)
+                case ("RadioButtons"):
+                    foreach (var item in RadioButtonsList)
                     {
-                        if (item2 == item.Name)
+                        try
                         {
-                            item.IsChecked = Convert.ToBoolean(settings[StringToUI[item2]]);
+                            //string tmpNameOfRadioButton = StringToUI[item.Name];
+                            // w item mam nazwe radiobuttona i radiobutton
+                            foreach (var item2 in StringToUI.Keys)
+                            {
+                                if (item2 == item.Name)
+                                {
+                                    item.IsChecked = Convert.ToBoolean(settings[StringToUI[item2]]);
+                                }
+                            }
                         }
+                        catch (Exception x)
+                        {
+
+                        }
+
+
                     }
-                }
-                catch (Exception x)
-                {
+                    break;
 
-                }
-                
+                case ("CheckBoxes"):
+                    foreach (var item in checkBoxList)
+                    {
+                        try
+                        {
+                            //string tmpNameOfRadioButton = StringToUI[item.Name];
+                            // w item mam nazwe radiobuttona i radiobutton
+                            foreach (var item2 in StringToUI.Keys)
+                            {
+                                if (item2 == item.Name)
+                                {
+                                    item.IsChecked = Convert.ToBoolean(settings[StringToUI[item2]]);
+                                }
+                            }
+                        }
+                        catch (Exception x)
+                        {
 
+                        }
+
+
+                    }
+
+                    break;
+                default:
+                    break;
             }
+
+
         }
 
     public void initiationForprograms()
