@@ -10,18 +10,12 @@ namespace UltimateChanger
 {
     public class TrashCleaner
     {
-
-
         private Dictionary<string, string> BrandtoSoft;
-
         public TrashCleaner(/*Dictionary<string, string> BrandtoSofte*/)
         {
-
         }
-
         public void DeleteTrash(string DirectoryName)
         {
-
             if (Directory.Exists(DirectoryName) && !DirectoryName.Contains("SoundStudio"))
             {
                 try
@@ -32,15 +26,12 @@ namespace UltimateChanger
                 {
                     MessageBox.Show(x.ToString());
                 }
-
             }
-
         }
 
         public void DeleteLogs(string brand_name)
         {
             string DirectoryName = $"C:/ProgramData/{brand_name}/{BrandtoSoft[brand_name]}/Logfiles/";
-
             System.IO.DirectoryInfo di = new DirectoryInfo(DirectoryName);
             try
             {
@@ -58,12 +49,10 @@ namespace UltimateChanger
             }
             catch (UnauthorizedAccessException ex)
             {
-
                 MessageBox.Show("Cos sie zepsulo");
             }
             catch (DirectoryNotFoundException ee)
             {
-
                 MessageBox.Show("Cos sie mocno zepsulo");
             }
         }

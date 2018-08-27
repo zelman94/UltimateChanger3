@@ -44,9 +44,6 @@ namespace UltimateChanger
             @"C:\ProgramData\OticonMedical\GenieMedical2\ApplicationVersion.xml",
              @"C:\ProgramData\Strato\Cumulus2\ApplicationVersion.xml"
         };
-
-
-
         public BuildInfo(string brand, string market, string oem, string language, string ver)
         {
             this.Brand = brand;
@@ -55,6 +52,5 @@ namespace UltimateChanger
             this.SelectedLanguage = language;
             this.Version = ver;
         }
-
     }
 }

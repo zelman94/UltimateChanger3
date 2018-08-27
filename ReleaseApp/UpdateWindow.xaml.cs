@@ -17,13 +17,9 @@ using System.Xml;
 
 namespace UltimateChanger
 {
-    /// <summary>
-    /// Interaction logic for UpdateWindow.xaml
-    /// </summary>
     public partial class UpdateWindow : Window
     {
         string PATHS = "";
-
         public UpdateWindow(string paths, string info)
         {
             PATHS = paths;            
@@ -69,8 +65,7 @@ namespace UltimateChanger
                         catch (Exception)
                         {
                         }
-                    }
-                 
+                    }                 
                 }
                 else if (IP == "DK")
                 {
@@ -79,9 +74,7 @@ namespace UltimateChanger
                         System.Diagnostics.Process.Start(lines[4]);
                     }
                     catch (Exception)
-                    {                        
-                    }
-                   
+                    { }                   
                 }
                 else
                 {

@@ -24,8 +24,7 @@ namespace UltimateChanger
     {
         private SYSTEMTIME systemTime;
         private string time;
-        private bool wasChanged;
-       
+        private bool wasChanged;       
         public ClockManager()
         {
             DateTime now = DateTime.Now;
@@ -34,7 +33,6 @@ namespace UltimateChanger
             systemTime.wMinute = (short)now.Minute;
             systemTime.wMilliseconds = (short)now.Millisecond;
         }
-
         public void SetTime(short year, short month, short day)
         {
             systemTime.wYear = year;
@@ -71,14 +69,6 @@ namespace UltimateChanger
 
         public void ResetTime()
         {
-            // TO DO KMPU TU BYL
-            //systemTime.wYear = (short)DateTime.Now.Year;
-            //systemTime.wMonth = (short)DateTime.Now.Month;
-            //systemTime.wDay = (short)DateTime.Now.Day;
-            //systemTime.wHour = (short)DateTime.Now.Hour;
-            //systemTime.wMinute = (short)DateTime.Now.Minute;
-            //systemTime.wSecond = (short)DateTime.Now.Second;
-
             SetSystemTime(ref systemTime);
         }
 

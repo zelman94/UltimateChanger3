@@ -165,7 +165,7 @@
                     </Image>
 
 
-                    <Button Grid.Column="1" Grid.Row="6" Margin="0,2,10,10" Content="All" Click="Button_Click" RenderTransformOrigin="0.549,1.4"/>
+                    <Button Grid.Column="1" Grid.Row="6" Margin="0,2,10,0" Content="All" Click="Button_Click" RenderTransformOrigin="0.549,1.4" HorizontalAlignment="Right" Width="52" Height="32" VerticalAlignment="Top"/>
 
 
                 </Grid>
@@ -684,30 +684,30 @@
                 <Image x:Name="imgHIR" HorizontalAlignment="Left" Height="170" Margin="488,284,0,0" VerticalAlignment="Top" Width="200"/>
 
                 <StackPanel HorizontalAlignment="Left" Height="117" Margin="41,94,0,0" VerticalAlignment="Top" Width="96">
-                    <CheckBox Content="T-Coil" Margin="0,0,10,0"/>
-                    <CheckBox Content="LED"/>
-                    <CheckBox Content="2 buttons"/>
-                    <CheckBox Content="Wireless"/>
+                    <CheckBox Name="chBt_coil" Content="T-Coil" Margin="0,0,10,0" HorizontalAlignment="Right" Width="86" Checked="chBt_coil_Checked"/>
+                    <CheckBox Name="chBlED" Content="LED" Checked="chBlED_Checked"/>
+                    <CheckBox Name="chBbUTTONS" Content="2 buttons" Checked="chBbUTTONS_Checked"/>
+                    <CheckBox Name="chBWireless" Content="Wireless" Checked="chBWireless_Checked"/>
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Left" Height="58" Margin="41,20,0,0" VerticalAlignment="Top" Width="159">
-                    <RadioButton Content="1 HI"/>
-                    <RadioButton Content="2 HI"/>
+                    <RadioButton Name="rbnHI_1" Content="1 HI"/>
+                    <RadioButton Name="rbnHI_2" Content="2 HI"/>
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Left" Height="100" Margin="197,94,0,0" VerticalAlignment="Top" Width="100">
                     <CheckBox Content="CheckBox"/>
-                    <CheckBox Content="Custom" Margin="0,0,14,0" RenderTransformOrigin="2.163,0.733"/>
-                    <CheckBox Content="&quot;S&quot;" Margin="0,0,4,0"/>
+                    <CheckBox Content="Custom" Margin="0,0,14,0" RenderTransformOrigin="2.163,0.733" Checked="CheckBox_Checked_1"/>
+                    <CheckBox Content="&quot;S&quot;" Margin="0,0,4,0" Checked="CheckBox_Checked_2"/>
                     <CheckBox Content="Rechargeable" Checked="CheckBox_Checked" Margin="0,0,4,0"/>
                 </StackPanel>
                 <Button Name="btnRANDHI" Content="RANDOM" HorizontalAlignment="Left" Margin="41,307,0,0" VerticalAlignment="Top" Width="75" Click="btnRANDHI_Click"/>
                 <StackPanel HorizontalAlignment="Left" Height="100" Margin="338,94,0,0" VerticalAlignment="Top" Width="100">
-                    <Slider/>
+                    <Slider Name="sliderRelease" SmallChange="1" TickFrequency="0" ValueChanged="sliderRelease_ValueChanged" HorizontalAlignment="Right" Width="100"/>
                     <Label Name="lblRelease" Content="Label"/>
                 </StackPanel>
-                <Label Content="Label" HorizontalAlignment="Left" Margin="41,68,0,0" VerticalAlignment="Top" Width="75"/>
-                <Label Content="Label" HorizontalAlignment="Left" Margin="197,63,0,0" VerticalAlignment="Top" Width="100"/>
-                <Label Content="Label" HorizontalAlignment="Left" Margin="338,68,0,0" VerticalAlignment="Top" Width="100"/>
-                
+                <Label Content="Phisical" HorizontalAlignment="Left" Margin="41,68,0,0" VerticalAlignment="Top" Width="75"/>
+                <Label Content="Type" HorizontalAlignment="Left" Margin="197,63,0,0" VerticalAlignment="Top" Width="100"/>
+                <Label Content="Available since Release : " HorizontalAlignment="Left" Margin="331,68,0,0" VerticalAlignment="Top" Width="144"/>
+
 
 
             </Grid>
@@ -719,7 +719,7 @@
 
         <TabItem Header="Glossary">
             <Grid x:Name="Glossary">
-                
+
             </Grid>
         </TabItem>
 
@@ -727,9 +727,9 @@
             <Grid x:Name="helpGrid">
                 <WebBrowser Name="przegladarka" HorizontalAlignment="Left" Height="723" Margin="10,10,0,0" VerticalAlignment="Top" Width="768"/>
             </Grid>
-            </TabItem>
+        </TabItem>
 
 
-        
+
     </TabControl>
 </Window>

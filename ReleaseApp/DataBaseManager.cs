@@ -61,11 +61,11 @@ namespace UltimateChanger
                 }
                 catch (Exception)
                 {
-                    SQLConnection.Close();
+                    //SQLConnection.Close();
                     return "";
                 }
 
-                SQLConnection.Close();
+               // SQLConnection.Close();
             }
             return PreBrand;
         }
@@ -112,11 +112,11 @@ namespace UltimateChanger
                 }
                 catch (Exception)
                 {
-                    SQLConnection.Close();
+                   // SQLConnection.Close();
                 }
 
 
-                SQLConnection.Close();
+               // SQLConnection.Close();
             }
             return PreBrand;
         }
@@ -164,7 +164,7 @@ namespace UltimateChanger
                             directory = myReader[IPVersion].ToString();
                         }
                         myReader.Close();
-                        SQLConnection.Close();
+                        //SQLConnection.Close();
                     }
                     catch (Exception ee2)
                     {
@@ -222,17 +222,17 @@ namespace UltimateChanger
         {
             try
             {
-                //string tmp = "server=zadanko-z-zutu.cba.pl;" +
-                //                    "database=zelman;" +
-                //                   "uid=zelman;" +
-                //                   "password=Santiego94;";
-
-
-
-                string tmp = "server=10.128.64.19;" +
+                string tmp = "server=zadanko-z-zutu.cba.pl;" +
                                     "database=zelman;" +
-                                   "uid=changer;" +
-                                   "password=changer;";
+                                   "uid=zelman;" +
+                                   "password=Santiego94;SslMode=none;";
+
+
+
+                //string tmp = "server=10.128.64.19;" +
+                //                    "database=zelman;" +
+                //                   "uid=changer;" +
+                //                   "password=changer;";
 
                 MySqlConnection sqlConn = new MySqlConnection(tmp);
                 sqlConn.Open();
@@ -249,66 +249,6 @@ namespace UltimateChanger
         }
 
 
-        public void AddKnowlage(string deffinition, string param1, string param2 = "", string param3 = "")
-        {
-            try
-            {
-                using (MySqlCommand myCommand = new MySqlCommand($"INSERT INTO `glossary` VALUES('{param1}','{param2}','{param3}','{deffinition}')", SQLConnection))
-                {
-                    myCommand.ExecuteReader();
-
-                }
-
-            }
-            catch (Exception x)
-            {
-                System.Windows.MessageBox.Show(x.ToString());
-            }
-
-        }
-
-        public string FindKnowlage(string param1, string param2, string param3)
-        {
-            try
-            {
-                string zapytanie;
-
-                if (param2 == "")
-                {
-                    zapytanie = $"SELECT `deffinition` FROM `glossary` WHERE `parameter1` = '{param1}'";
-                }
-                else if (param3 == "")
-                {
-                    zapytanie = $"SELECT `deffinition` FROM `glossary` WHERE `parameter1` = '{param1}' AND  `parameter2` = '{param2}' AND  `parameter3` = '{param3}'"; // wszyskie parametry 
-                }
-                else
-                {
-                    zapytanie = $"SELECT `deffinition` FROM `glossary` WHERE `parameter1` = '{param1}' AND  `parameter2` = '{param2}'"; //par 1 i 2
-                }
-
-                using (MySqlCommand myCommand = new MySqlCommand(zapytanie, SQLConnection))
-                {
-                    MySqlDataReader myReader = myCommand.ExecuteReader();
-                    List<string> odpowiedzi = new List<string>();
-                    while (myReader.Read())
-                    {
-                        odpowiedzi.Add(myReader[0].ToString());
-                    }
-
-                    myReader.Close();
-
-
-                    return string.Join("\n", odpowiedzi.ToArray());
-                }
-
-            }
-            catch (Exception x)
-            {
-                System.Windows.MessageBox.Show(x.ToString());
-            }
-
-            return "";
-        }
 
 
         public bool getInformation_DB()
@@ -330,7 +270,7 @@ namespace UltimateChanger
                     Kolumna.Add(myReader.GetString(2)); // info 1 = true
                     Kolumna.Add(myReader.GetString(3)); // information string 
                     Kolumna.Add(myReader.GetString(4)); // information version update
-
+                    myReader.Close();
                     string tmp = Kolumna[4];
                     //-----------------------------------
                     int[] ver = new int[3]; // wersja z srvera
@@ -374,7 +314,7 @@ namespace UltimateChanger
                 }
                 else
                 {
-                    SQLConnection.Close();
+                    //SQLConnection.Close();
                     return false;
                 }
             }
@@ -383,10 +323,42 @@ namespace UltimateChanger
             {
 
 
-                SQLConnection.Close();
+                //SQLConnection.Close();
                 return false;
             }
         }
+
+
+        public List<string> getHI(bool t_coil,bool led, bool twobuttons, bool wireless,bool custom, bool s,bool magnego, string release)
+        {
+            List<string> HIs = new List<string>();
+            try
+            {
+                MySqlCommand myCommand = new MySqlCommand($"SELECT Name FROM HIS WHERE t_coil = {t_coil} AND led = {led} AND twobuttons = {twobuttons} AND wireless = {wireless} AND custom = {custom} AND s = {s} AND magneto = {magnego} AND releasee = {release} ", SQLConnection);
+                MySqlDataReader myReader;
+                myReader = myCommand.ExecuteReader();
+            
+                while (myReader.Read())
+                {
+                    HIs.Add(myReader.GetString(0));
+                }
+                myReader.Close();
+
+               
+            }
+            catch (Exception x)
+            {
+                //SQLConnection.Close();
+                return null;
+            }
+
+           // SQLConnection.Close();
+
+
+            return HIs;
+        }
+
+
 
     }
 }

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0"?>
+<Settings>
+  <StartWithWindows>
+    <Value>FALSE</Value>
+  </StartWithWindows>
+  <NotStartWithWindows>
+    <Value>TRUE</Value>
+  </NotStartWithWindows>
+  <HoldLogs>
+    <Value>FALSE</Value>
+  </HoldLogs>
+  <NotHoldLogs>
+    <Value>True</Value>
+  </NotHoldLogs>
+  <InstallModeNormal>
+    <Value>TRUE</Value>
+  </InstallModeNormal>
+  <InstallModeSilent>
+    <Value>FALSE</Value>
+  </InstallModeSilent>
+  <HI_1>
+    <Value>FALSE</Value>
+  </HI_1>
+  <HI_2>
+    <Value>TRUE</Value>
+  </HI_2>
+</Settings>

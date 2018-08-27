@@ -110,6 +110,8 @@
       <DependentUpon>DowngradeWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="FSInstaller.cs" />
+    <Compile Include="HIs.cs" />
+    <Compile Include="myXMLReader.cs" />
     <Compile Include="pathAndDir.cs" />
     <Compile Include="TrashCleaner.cs" />
     <Compile Include="UpdateWindow.xaml.cs">
@@ -200,6 +202,9 @@
     <Resource Include="Images\prescriptives.png" />
     <Resource Include="Images\sonic.png" />
     <Resource Include="Images\starto.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Settings\Defaults.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

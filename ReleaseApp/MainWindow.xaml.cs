@@ -31,7 +31,7 @@ using System.Net;
 
 [assembly: System.Reflection.AssemblyVersion("3.0.0.0")]
 namespace UltimateChanger
-{
+{//
     public partial class MainWindow : Window
     {
         int Licznik_All_button = 0;
@@ -50,25 +50,26 @@ namespace UltimateChanger
         List<Image> ListImages;
         List<Label> listlabelsinfoFS;
         List<CheckBox> checkBoxList = new List<CheckBox>();
+        List<RadioButton> RadioButtonsList = new List<RadioButton>();
+        public SortedDictionary<string, string> StringToUI = new SortedDictionary<string, string>(); // slownik do zamiany stringow z xml do wartości UI 
         List<Rectangle> ListRactanglesNames;
         BackgroundWorker worker;
+        HIs Random_HI = new HIs();
+        myXMLReader XMLReader = new myXMLReader();
         public List<List<string>> AllbuildsPerFS = new List<List<string>>();
-
         internal List<pathAndDir> Paths_Dirs { get => paths_Dirs; set => paths_Dirs = value; }
 
 
 
         public MainWindow()
         {
-
             try
             {
-
                 var exists = System.Diagnostics.Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location)).Count() > 1;
                 if (exists) // jezeli wiecej niz 1 instancja to nie uruchomi sie
                 {
                     System.Environment.Exit(1);
-                }
+                }             
                 fileOperator = new FileOperator();
                 clockManager = new ClockManager();
                 InitializeComponent();
@@ -77,25 +78,20 @@ namespace UltimateChanger
                 przegladarka.Navigate("http://confluence.kitenet.com/display/SWSQA/Ultimate+Changer");
                 initializeElements();
                 initiationForprograms();
-
-
+                setUIdefaults(XMLReader.getDefaultSettings());
                 BindCombo = new BindCombobox();
                 BindCombo.setFScomboBox();
                 BindCombo.setReleaseComboBox();
                 BindCombo.setMarketCmb();
                 BindCombo.bindlogmode();
                 bindMarketDictionary();
-
-
                 fileOperator.getDataToBuildCombobox();
-
                 initializeTimers();
                 // zamiast watku napisac maly programik osobny ktory bedzie uruchamiany na timerze co 3 s i bedzie sprawdzac czy sie zakonczyl ! :D
                 if (!statusOfProcess("Rekurencjon"))
                 {
                     Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", cmbRelease.Text);
                 }
-
                 cmbRelease.IsEnabled = false;
                 Rekurencja = new DispatcherTimer();
                 Rekurencja.Tick += checkRekurencja;
@@ -103,26 +99,55 @@ namespace UltimateChanger
                 Rekurencja.Start();
 
                 // napisac funkcje w fileoperation na pobieranie zapisanych danych z pliku i wpisanie do PathDir lista czy cos 
-
                 /*refreshUI(); */// funkcja  caly ui
-                refreshUI(new object(), new EventArgs());
-                dataBaseManager = new DataBaseManager();
-                if (dataBaseManager!= null)
-                {
-                    dataBaseManager.getInformation_DB();
-                }
-               
                 //fileOperator.GetInfoAboutFs(@"C:\ProgramData\Bernafon\Common\ManufacturerInfo.xml"); // dziala 
             }
             catch (Exception x)
             {
                 MessageBox.Show(x.ToString());
             }
+            sliderRelease.Maximum = cmbRelease.Items.Count-1 ; // max dla slidera -1 bo count nie uwzglednia zerowego indexu
+            sliderRelease.Value = cmbRelease.SelectedIndex; // ustalenie defaulta jako obecny release
+            refreshUI(new object(), new EventArgs());
+            dataBaseManager = new DataBaseManager();
+            if (dataBaseManager != null)
+            {
+                dataBaseManager.getInformation_DB();
+            }
+
+
+
+    }
+    //________________________________________________________________________________________________________________________________________________
+
+        public void setUIdefaults(SortedDictionary<string,string> settings)
+        {
+
+
+            foreach (var item in RadioButtonsList)
+            {
+                try
+                {
+                    //string tmpNameOfRadioButton = StringToUI[item.Name];
+                    // w item mam nazwe radiobuttona i radiobutton
+                    foreach (var item2 in StringToUI.Keys)
+                    {
+                        if (item2 == item.Name)
+                        {
+                            item.IsChecked = Convert.ToBoolean(settings[StringToUI[item2]]);
+                        }
+                    }
+                }
+                catch (Exception x)
+                {
+
+                }
+                
+
+            }
         }
 
-        //________________________________________________________________________________________________________________________________________________
-
-            public void initiationForprograms()
+    public void initiationForprograms()
             {
 
             try
@@ -135,7 +160,6 @@ namespace UltimateChanger
                 {
                     MessageBox.Show(x.ToString());
                 }
-
                 try
                 {
                 CredentialCache.DefaultNetworkCredentials.Domain = "EMEA";
@@ -148,19 +172,14 @@ namespace UltimateChanger
                     if (fileOperator.checkInstanceFakeVerifit())
                     {
                         btnFakeV.IsEnabled = true;
-                        FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(@"C:\Program Files (x86)\REMedy\REMedy.Launcher.exe");
-
-
-
+                        FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(@"C:\Program Files (x86)\REMedy\REMedy.Launcher.exe");                                       
                         FileVersionInfo veronserver = FileVersionInfo.GetVersionInfo(fileonServer[0]);//pobieram info o pliku 
-
 
                         if (myFileVersionInfo.FileVersion != veronserver.FileVersion)
                         {
                         try
                         {
                             string[] dd = Directory.GetFiles(@"C:\Program Files\DGS - PAZE & MIBW\Resources");
-
                             FileInfo nazwa = new FileInfo(dd[0]);
                             Process.Start(dd.Last(), "/uninstall /quiet ");
                         }
@@ -168,9 +187,7 @@ namespace UltimateChanger
                         {
                             MessageBox.Show("Dir Error :) kiedyś naprawie :)");
                         }
-
                         }
-
                         btnFakeV.ToolTip = myFileVersionInfo.FileVersion;
                     }
                     else
@@ -188,21 +205,14 @@ namespace UltimateChanger
                         catch (Exception)
                         {
                         }
-
-
                         Process.Start(fileonServer[0], "/silent /install ");
                         // uruchomic silent installera 
-
                     }
-                }
-                    catch (Exception x)
+                } catch (Exception x)
                     {
                         MessageBox.Show(x.ToString());
                     }
-
-
-
-
+            
             if (fileOperator.checkInstanceNewPreconditioner())
             {
                 btnNewPrecon.IsEnabled = true;
@@ -213,9 +223,18 @@ namespace UltimateChanger
                 {
                     btnNewPrecon.IsEnabled = false;
                 }
+
+
+            StringToUI.Add("rbnStartwithWindows","StartWithWindows" );
+            StringToUI.Add("rbnholdlogs","HoldLogs");
+            StringToUI.Add("rbnNotStartwithWindows", "NotStartWithWindows");
+            StringToUI.Add("rbnDeletelogs", "NotHoldLogs");
+            StringToUI.Add("RBnormal", "InstallModeNormal");
+            StringToUI.Add("RBsilet", "InstallModeSilent");
+            StringToUI.Add("rbnHI_1", "HI_1");
+            StringToUI.Add("rbnHI_2", "HI_2");
+            //StringToUI.Add("Release", cmbRelease);
         }
-
-
 
         public void checkbox(object sender, RoutedEventArgs e)
         {
@@ -255,7 +274,6 @@ namespace UltimateChanger
             {
                 cmbMarket.SelectedIndex = -1;
             }
-
         }
         public void uncheckbox(object sender, RoutedEventArgs e)
         {
@@ -312,7 +330,6 @@ namespace UltimateChanger
                     cmbMarket.SelectedIndex = -1;
                 }
             }
-
         }
 
         public void refreshUI(object sender, EventArgs e)
@@ -335,7 +352,6 @@ namespace UltimateChanger
                     }
                     licznik++;
                 }
-
                 for (int i = 0; i < ListBuildsInfo.Count; i++)
                 {
                     ListRactanglesNames[i].ToolTip = ListBuildsInfo[i].Brand + "\n" + ListBuildsInfo[i].Version +"\n"+ logmodesFS[i];
@@ -362,21 +378,17 @@ namespace UltimateChanger
                                 }
                             }
                         }
-                    }
-                    
+                    }                    
                 }
-
             }
             catch (Exception x)
             {
                 MessageBox.Show(x.ToString());
             }
-
             //for (int i = 0; i < checkBoxList.Count; i++)
             int licz = 0;
            foreach (var item in checkBoxList)
             {
-
                 try
                 {
                     listlabelsinfoFS[licz].Foreground = new SolidColorBrush(Colors.Black);
@@ -387,11 +399,8 @@ namespace UltimateChanger
                     listlabelsinfoFS[licz].Foreground = new SolidColorBrush(Colors.Red);
                     listlabelsinfoFS[licz].Content = "FS not installed";
                 }
-                licz++;
-                
+                licz++;                
             }
-
-
         }
      
         void initializeTimers()
@@ -403,8 +412,7 @@ namespace UltimateChanger
                 dispatcherTimer.Start();
             }
             catch (Exception)
-            {
-                
+            {               
                
             }
 
@@ -419,9 +427,7 @@ namespace UltimateChanger
             RefUiTIMER.Tick += refreshUI;
             RefUiTIMER.Interval = new TimeSpan(0, 0, 20);
             RefUiTIMER.Start();
-
-
-
+            
             try
             {
                 uninstallTimer.Tick += checkUninstallation_Tick;
@@ -429,26 +435,9 @@ namespace UltimateChanger
             }
             catch (Exception)
             {
-
             }
-
-        }   
-
-        void TemporaryToolTipMethod()
-        {
-            List<string> brands = new List<String>()
-            {
-                "C:/ProgramData/Bernafon/Oasis2/ApplicationVersion.XML",
-                "C:/ProgramData/Sonic/EXPRESSfit2/ApplicationVersion.XML",
-                "C:/ProgramData/Oticon/Genie2/ApplicationVersion.XML"
-            };
-           // Image[] images = { imgBernafon, imgSonic, imgOticon_Copy };
-            String[] brandely = { "Oasis", "EF", "Genie" };
-
-
-        }
-
-        void bindMarketDictionary()
+        }  
+        void bindMarketDictionary()// czy to potrzebne ?
         {
 
             FStoPath = new Dictionary<string, string>()
@@ -459,23 +448,6 @@ namespace UltimateChanger
             };
 
 
-
-            //BrandtoSoft = new Dictionary<string, string>()
-            //{
-            //    {"Oticon", "Genie"},
-            //    {"Bernafon", "Oasis"},
-            //    {"Sonic", "ExpressFit"},
-            //    {"Genie", "Oticon"},
-            //    {"Oasis", "Bernafon"},
-            //    {"EXPRESSFit", "Sonic"},
-            //    {"Genie_N", "Oticon"},
-            //    {"Oasis_N", "Bernafon"},
-            //    {"EXPRESSfit_N", "Sonic"}
-            //};
-
-            //cmbMarket.ItemsSource = market;
-            //cmbMarket.DisplayMemberPath = "Key";
-            //cmbMarket.SelectedValuePath = "Value";
         }
 
         void initializeElements()
@@ -487,6 +459,18 @@ namespace UltimateChanger
                 Sonic,
                 Medical,
                 Cumulus
+            };
+
+            RadioButtonsList = new List<RadioButton>()
+            {
+                rbnStartwithWindows,
+                rbnNotStartwithWindows,
+                rbnholdlogs,
+                rbnDeletelogs,
+                RBnormal,
+                RBsilet,
+                rbnHI_1,
+                rbnHI_2
             };
 
             ListRactanglesNames = new List<Rectangle>()
@@ -534,38 +518,7 @@ namespace UltimateChanger
             //}
         }
 
-     
-   
-
-
-        //void getNamesInstallationFolders(string DirectoryName)
-        //{
-        //    try
-        //    {
-        //        System.IO.DirectoryInfo di = new DirectoryInfo(DirectoryName);
-        //        nameFolders = di.EnumerateDirectories().ToArray();
-        //    }
-        //    catch (Exception)
-        //    {
-        //        //MessageBox.Show("directody doesnt exist");
-        //    }
-
-        //}
-
-        //public bool IsDirectoryEmpty(string path)
-        //{
-        //    return !Directory.EnumerateFileSystemEntries(path).Any();
-        //}
-
-  
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            
-        }
-
-
-
+ 
         void changeMarket(string source)
         {
             string[] oldFile;
@@ -591,16 +544,13 @@ namespace UltimateChanger
                 }
             }
             catch (FileNotFoundException ex)
-            {
-               
+            {               
             }
             catch (DirectoryNotFoundException ee)
-            {
-                
+            {                
             }
             catch (NullReferenceException e)
-            {
-               
+            {               
             }
         }
         void UpdateLogModeOnUI()
@@ -642,9 +592,7 @@ namespace UltimateChanger
             {
                 cmbLogMode.SelectedIndex = -1;
             }
-
         }
-
         string GetLogMode(string source)
         {
             string line = "";
@@ -676,92 +624,8 @@ namespace UltimateChanger
 
         }
 
-        //void SetLogSettings(bool mode) // powinno dzialac // ustawienia od TOOJ co do logow FS cos z tym ze same sie usuwaja po ponownym wlaczeniu 
-        //{
-        //    string[] oldFile;
-        //    int counter = 0;
-        //    string source;
-        //    int count3 = 0;
-        //    foreach (CheckBox checkbox in checkBoxList)
-        //    {
-        //        if ((bool)checkbox.IsEnabled)
-        //        {
-        //            try
-        //            {
-        //                source = $"C:/Program Files (x86)/{checkbox.Name}/{marki[count3]}/{marki[count3]}{"2"}/Configure.log4net";
-        //                count3++;
-        //                oldFile = File.ReadAllLines(source);
-        //                using (StreamWriter sw = new StreamWriter(source))
-        //                {
-        //                    foreach (var line in oldFile)
-        //                    {
-        //                        if (mode)
-        //                        {
-        //                            if (counter == 36)
-        //                            {
-        //                                sw.WriteLine($"      <appendToFile value=\"{false.ToString().ToLower()}\"/>");
-        //                            }
-        //                            if (counter == 38)
-        //                            {
-        //                                sw.WriteLine($"      <staticLogFileName value=\"{false.ToString().ToLower()}\"/>");
-        //                            }
-        //                        }
-        //                        else
-        //                        {
-        //                            if (counter == 36)
-        //                            {
-        //                                sw.WriteLine($"      <appendToFile value=\"{true.ToString().ToLower()}\"/>");
-        //                            }
-        //                            if (counter == 38)
-        //                            {
-        //                                sw.WriteLine($"      <staticLogFileName value=\"{true.ToString().ToLower()}\"/>");
-        //                            }
-        //                        }
-
-
-
-        //                        if (counter != 36 && counter != 38)
-        //                        {
-        //                            sw.WriteLine(line);
-        //                        }
-        //                        counter++;
-        //                    }
-        //                }
-
-        //            }
-        //            catch (Exception ee)
-        //            {
-        //                dataBaseManager.LogException(ee.ToString(), "SetLogSettings ");
-        //            }
-        //        }
-
-        //    }
-
-
- 
-
-        //}
+   
         
-     
-        
-
-        //bool verifyInstanceOfExec(string name)
-        //{
-        //    foreach (CheckBox checkbox in checkBoxList)
-        //    {
-        //        if (checkbox.Name == name)
-        //        {     
-        //            if (File.Exists($"C:/Program Files (x86)/{name}/{BrandtoSoft[checkbox.Name]}/{BrandtoSoft[checkbox.Name]}2/{BrandtoSoft[checkbox.Name]}.exe"))
-        //            {
-        //                return true;
-        //            }
-        //            else return false;
-        //        }
-        //    }
-        //    return false;
-        //}
-        
-        //[Obsolete]
         void verifyInstalledBrands()
         {
            // if (!File.Exists(@"C:/Program Files (x86)/Oticon/Genie/Genie2/Genie.exe"))
@@ -821,7 +685,6 @@ namespace UltimateChanger
                 oticonmedicalnRectangle.Opacity = 1.0;
             }
 
-
             if (!Directory.Exists(@"C:\ProgramData\Strato")) // cumulus
             {
                 Cumulus.IsEnabled = false;
@@ -835,7 +698,6 @@ namespace UltimateChanger
                 Cumulus.IsEnabled = true;
                 startoRectangle.Opacity = 1.0;
             }
-
         }
 
         bool checkRunningProcess(string name)
@@ -927,7 +789,6 @@ namespace UltimateChanger
         //    }
         //}
 
-      
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             TrashCleaner smieciarka = new TrashCleaner();
@@ -944,21 +805,17 @@ namespace UltimateChanger
                         smieciarka.DeleteTrash(FileOperator.pathToTrash[j]);
                         refreshUI(new object(),new EventArgs());
                         MessageBox.Show(item.Name  + " Deleted");
-
                     }
                     else
                     {
                         MessageBox.Show("Close FS or uninstall");
-                    }
-                   
+                    }                   
                 }
                 i += 2;
                 j += 2;
                 licznik++;
             }
-
         }
-
         private void btnFS_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -968,10 +825,8 @@ namespace UltimateChanger
             catch (Exception x )
             {
                 MessageBox.Show(x.ToString());
-            }
-           
+            }           
         }
-
         private void btnHattori_Click(object sender, RoutedEventArgs e)
         {
             byte licznik = 0;
@@ -990,10 +845,8 @@ namespace UltimateChanger
                 }
                 licznik++;
             }
-
             refreshUI(new object(), new EventArgs());
         }
-
         private void btnuninstal_Click(object sender, RoutedEventArgs e)
         {
             byte count = 0;
@@ -1011,9 +864,6 @@ namespace UltimateChanger
                 MessageBox.Show("Only 1 FS could be uninstalled");
                 return;
             }
-
-            
-
             FSInstaller instal = new FSInstaller();
 
             try
@@ -1035,9 +885,7 @@ namespace UltimateChanger
             uruchomienie procesu z path usunięcie informacji o path z pliku             
              
              */
-        }
-
-
+        }        
         private void Button_Click(object sender, RoutedEventArgs e)
         {
                 foreach (CheckBox checkbox in checkBoxList)
@@ -1059,20 +907,14 @@ namespace UltimateChanger
                 }        
             Licznik_All_button++;       
         }
-
         private void cmbMarket_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
         }
-
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-
         }
-
         private void btnChange_mode_log(object sender, RoutedEventArgs e)
         {
-
             if (cmbLogSettings.Visibility == Visibility.Hidden)
             {
                 if (txtsettlog1.Text != "" || txtsettlog2.Text != "" || txtsettlog3.Text != "")
@@ -1085,7 +927,6 @@ namespace UltimateChanger
                             fileOperator.setLogMode(cmbLogMode.Text, cmbLogSettings.SelectedIndex, licznik,true, txtsettlog1.Text, txtsettlog2.Text, txtsettlog3.Text);
                             MessageBox.Show($"Updated [{item.Name}]");
                         }
-
                         licznik++;
                     }
                 }
@@ -1106,11 +947,9 @@ namespace UltimateChanger
                         {
                             fileOperator.setLogMode(cmbLogMode.Text, cmbLogSettings.SelectedIndex, licznik,false);
                             MessageBox.Show($"Updated [{item.Name}]");
-                        }
-                        
+                        }                        
                         licznik++;
-                    }
-                    
+                    }                    
                 }
                 else
                 {
@@ -1119,19 +958,15 @@ namespace UltimateChanger
                 }
             }
 
-
             try
             {
-
                 txtsettlog1.Text = "";
                 txtsettlog2.Text = "";
                 txtsettlog3.Text = "";
-
                 cmbLogSettings.Visibility = Visibility.Visible;
                 txtsettlog1.Visibility = Visibility.Hidden;
                 txtsettlog2.Visibility = Visibility.Hidden;
                 txtsettlog3.Visibility = Visibility.Hidden;
-
                 lblSetlog1.Visibility = Visibility.Hidden;
                 lblSetlog2.Visibility = Visibility.Hidden;
                 lblSetlog3.Visibility = Visibility.Hidden;
@@ -1139,11 +974,9 @@ namespace UltimateChanger
             catch (Exception x)
             {
                 MessageBox.Show(x.ToString());
-            }
-            
+            }            
             refreshUI(new object(), new EventArgs());
         }
-
         private void btnDelete_logs(object sender, RoutedEventArgs e)
         {
             byte licznik = 0;
@@ -1165,7 +998,6 @@ namespace UltimateChanger
             }
             MessageBox.Show("Deleted");
         }
-
         private void cmbLogMode_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (cmbLogMode.SelectedIndex < 0)
@@ -1178,7 +1010,6 @@ namespace UltimateChanger
                 btnLogMode.IsEnabled = true;
             }
         }
-
         private void btninstal_Click(object sender, RoutedEventArgs e)
         {
             if ( cmbBuild.SelectedIndex > -1 )
@@ -1198,10 +1029,8 @@ namespace UltimateChanger
             else
             {
                 MessageBox.Show("select build to install");
-            }
-               
+            }               
         }
-
         private static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
         {
             // Get the subdirectories for the specified directory.
@@ -1254,9 +1083,6 @@ namespace UltimateChanger
             {
                 MessageBox.Show("Error FS Combo \n" + x.ToString());
             }
-
-           
-            
         }
         private void cmbbuild_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -1267,10 +1093,8 @@ namespace UltimateChanger
             else
             {
                 btninstal.IsEnabled = false;
-            }
-            
+            }            
         }
-
         private void LoggingMouseEnter(object sender, MouseEventArgs e)
         {
             int border;
@@ -1290,7 +1114,6 @@ namespace UltimateChanger
                 }
             }
         }
-
         private void btnChangeDate_Click(object sender, RoutedEventArgs e)
         {
             DateTime dateTime;
@@ -1306,132 +1129,47 @@ namespace UltimateChanger
             }
             clockManager.DateWasSet();
         }
-
         private void btnHoursDown_Click(object sender, RoutedEventArgs e)
         {
             clockManager.HourDown();
             lblTime.Content = clockManager.GetTime();
             clockManager.DateWasChanged();
         }
-
         private void btnHoursUp_Click(object sender, RoutedEventArgs e)
         {
             clockManager.HourUp();
             lblTime.Content = clockManager.GetTime();
             clockManager.DateWasChanged();
         }
-
         private void btnMinutesDown_Click(object sender, RoutedEventArgs e)
         {
             clockManager.MinuteDown();
             lblTime.Content = clockManager.GetTime();
             clockManager.DateWasChanged();
         }
-
         private void btnMinutesUp_Click(object sender, RoutedEventArgs e)
         {
             clockManager.MinuteUp();
             lblTime.Content = clockManager.GetTime();
             clockManager.DateWasChanged();
         }
-
         private void btnResetDate_Click(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start("CMD.exe", "/C NET TIME /domain:EMEA /SET /Y");
             lblTime.Content = clockManager.GetTime(); 
         }
-
         private void btnLogToDB_Click(object sender, RoutedEventArgs e)
         {
         }
-
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string firstHalf = cmbBuild.Text.ToString().Split(new char[] { ' ' }, 2)[0];
             //cmbBuild.ToolTip = Directory_toIntall + firstHalf;
         }
-
         private void textBox_TextChanged(object sender, RoutedEventArgs e)
         {
         }
-
-
-
-        private void makeProgress(object sender, EventArgs e)
-        {
-            int count = cmbBrandstoinstall.Items.Count;
-            List<pathAndDir> tmplistapathdir = new List<pathAndDir>();
-            Console.WriteLine("watek sobie dziala :)");
-            bool warunek = true;
-            while (warunek)
-            {
-                this.Dispatcher.Invoke((Action)delegate ()  //nie mam pojecia o co tu chodzi
-                {
-                    this.progress.Value += 10;
-                });
-
-                //List<pathAndDir> tmp = new List<pathAndDir>();
-                try
-                {
-                    
-                    this.Dispatcher.Invoke((Action)delegate ()  //nie mam pojecia o co tu chodzi
-                    {
-                        tmplistapathdir = this.fileOperator.getAllDirPath(cmbRelease.Text);
-                        if (worker.IsBusy)
-                        {
-
-                            this.progress.Value += 10;
-                        }
-                        else
-                            this.progress.Value += 10;
-
-                    });
-                }
-                catch (Exception x)
-                {
-                    MessageBox.Show(x.ToString());
-                }
-
-
-
-                this.Dispatcher.Invoke((Action)delegate ()  //nie mam pojecia o co tu chodzi
-                {
-                    if (this.progress.Value >= 100)
-                    {
-
-                        fileOperator.Savebuildsinfo();
-
-                        this.Dispatcher.Invoke((Action)delegate ()  //nie mam pojecia o co tu chodzi
-                        {
-                            this.progress.Value = 0;
-                            this.progress.Visibility = Visibility.Hidden;
-                        });
-
-                        if (worker.IsBusy)
-                        {
-                            worker.WorkerSupportsCancellation = true;
-                            this.Paths_Dirs = tmplistapathdir;
-                            this.fileOperator.lista = tmplistapathdir;
-                            worker.CancelAsync();
-
-                            fileOperator.Savebuildsinfo();
-                            Console.WriteLine("WATEK UMARL");
-                            warunek = false;
-                        }
-
-
-                    }
-                    else
-                    {
-                        this.progress.Value += 10;
-                    }
-                });
-            }
-
-            
-        }
-
-
+               
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
             //fileOperator.UpdateLabels();
@@ -1444,16 +1182,10 @@ namespace UltimateChanger
             //CheckFileinfo2();
             //clockManager.UpdateTime();
             //lblTime.Content = clockManager.GetTime();
-
-            
-
         }
-
         private void checkUninstallation_Tick(object sender, EventArgs e)
         {
-
         }
-
         public bool statusOfProcess(string name)
         {
             Process[] pname = Process.GetProcessesByName(name);
@@ -1465,8 +1197,7 @@ namespace UltimateChanger
             {
                 return false; // process nie istnieje
             }
-        }
-        
+        }        
         private void checkRekurencja(object sender, EventArgs e)
         {
             Process[] pname = Process.GetProcessesByName("Rekurencjon");
@@ -1476,30 +1207,24 @@ namespace UltimateChanger
                 progress.Value = 0;
             }
             if (pname.Length == 0)
-            {
-                //Thread.Sleep(1000);
+            {  
                 fileOperator.GetfilesSaveData();
                 Rekurencja.Stop();
                 cmbRelease.IsEnabled = true;
-                progress.Visibility = Visibility.Hidden;
-                
+                progress.Visibility = Visibility.Hidden;                
             }
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
-
         }
-
         private void txtCompositionPart2_TextChanged(object sender, TextChangedEventArgs e)
         {
-            // Releases_prereleases
-          
+            // Releases_prereleases          
         }
 
         private void txtOEM_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            
+        {            
         }
 
         private void btnInfo_Click(object sender, RoutedEventArgs e)
@@ -1511,8 +1236,7 @@ namespace UltimateChanger
             catch (Exception x)
             {
                 Console.WriteLine(x.ToString());
-            }
-            
+            }            
         }
 
         private void btnFakeV_Click(object sender, RoutedEventArgs e)
@@ -1523,7 +1247,6 @@ namespace UltimateChanger
             }
             catch (Exception)
             {
-
                 btnFakeV.IsEnabled = false;
             }
            
@@ -1548,8 +1271,7 @@ namespace UltimateChanger
                     catch (Exception)
                     {
                         MessageBox.Show("Probably FS is not installed! \n Please delete Trashs");
-                    }
-                    
+                    }                    
                 }
                 licznik++;
             }
@@ -1564,7 +1286,6 @@ namespace UltimateChanger
         {
             Stream myStream;
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-
             saveFileDialog1.Filter = "txt files (*.zip)|*.zip|All files (*.*)|*.*";
             saveFileDialog1.FilterIndex = 2;
             saveFileDialog1.RestoreDirectory = true;
@@ -1585,7 +1306,6 @@ namespace UltimateChanger
                             }
                             catch (Exception x)
                             {
-
                                 MessageBox.Show(x.ToString());
                             }
                         }
@@ -1593,10 +1313,7 @@ namespace UltimateChanger
                     }
                    myStream.Close();
                 }
-
-
             }
-
         }
 
         private void Downgrade(object sender, RoutedEventArgs e)
@@ -1604,10 +1321,6 @@ namespace UltimateChanger
             Window downgrade = new DowngradeWindow();
             downgrade.ShowDialog();
         }
-
-
-
-
         private void txtOdp_TextChanged(object sender, TextChangedEventArgs e)
         {
             //if (txtOdp.Text != "")
@@ -1620,27 +1333,98 @@ namespace UltimateChanger
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
-
+            Random_HI.Magneto = !Random_HI.Magneto;
         }
 
+        private void btnRANDHI_Click(object sender, RoutedEventArgs e)
+        {
+            List<string> listofpossibleHI = dataBaseManager.getHI(Random_HI.T_Coil, Random_HI.Led, Random_HI.twoButtons, Random_HI.Wireless, Random_HI.Custom, Random_HI.S, Random_HI.Magneto, Random_HI.Release);
+            if (listofpossibleHI == null)
+            {
+                MessageBox.Show("lack of adequate HI");
+                return;
+            }
+            else
+            {
+                Random rnd = new Random();
+                try
+                {
+                    if (rbnHI_1.IsChecked.Value)
+                    {
+                        // random HI to :
+                        MessageBox.Show(listofpossibleHI[rnd.Next(listofpossibleHI.Count)]);
+                    }
+                    else
+                    {
+                        // random HI to :
+                        MessageBox.Show(listofpossibleHI[rnd.Next(listofpossibleHI.Count)] + "\n" + listofpossibleHI[rnd.Next(listofpossibleHI.Count)]);
+                    }
+                }
+                catch ( ArgumentOutOfRangeException x)
+                {
+                    MessageBox.Show("lack of adequate HI");
+
+                }
+              
+               
+            }
+        }
+
+        private void sliderRelease_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        { 
+                lblRelease.Content = cmbRelease.Items[Convert.ToInt32(sliderRelease.Value)];
+                Random_HI.Release = lblRelease.Content.ToString();
+        }
+
+        private void chBt_coil_Checked(object sender, RoutedEventArgs e)
+        {
+            Random_HI.T_Coil = !Random_HI.T_Coil;
+        }
+
+        private void chBlED_Checked(object sender, RoutedEventArgs e)
+        {
+            Random_HI.Led = !Random_HI.Led;
+        }
+
+        private void chBbUTTONS_Checked(object sender, RoutedEventArgs e)
+        {
+            Random_HI.twoButtons = !Random_HI.twoButtons;
+        }
+
+<<<<<<< HEAD
         private void btnRANDHI_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
         private void btnAdvancelogs_Click(object sender, RoutedEventArgs e)
+=======
+        private void chBWireless_Checked(object sender, RoutedEventArgs e)
+>>>>>>> c3aa7b2a62d903a1737e5c6cb1043ba04ea6914f
         {
+            Random_HI.Wireless = !Random_HI.Wireless;
+        }
 
+        private void CheckBox_Checked_1(object sender, RoutedEventArgs e)
+        {
+            Random_HI.Custom = !Random_HI.Custom;
+        }
+
+        private void CheckBox_Checked_2(object sender, RoutedEventArgs e)
+        {
+            Random_HI.S = !Random_HI.S;
+        }
+
+        private void btnAdvancelogs_Click(object sender, RoutedEventArgs e)
+        {
             if (txtsettlog1.Visibility == Visibility.Visible)
             {
                 txtsettlog1.Visibility = Visibility.Hidden;
                 txtsettlog2.Visibility = Visibility.Hidden;
                 txtsettlog3.Visibility = Visibility.Hidden;
-
                 lblSetlog1.Visibility = Visibility.Hidden;
                 lblSetlog2.Visibility = Visibility.Hidden;
                 lblSetlog3.Visibility = Visibility.Hidden;
-
                 cmbLogSettings.SelectedIndex = -1;
                 cmbLogSettings.Visibility = Visibility.Visible;
             }
@@ -1649,17 +1433,12 @@ namespace UltimateChanger
                 txtsettlog1.Visibility = Visibility.Visible;
                 txtsettlog2.Visibility = Visibility.Visible;
                 txtsettlog3.Visibility = Visibility.Visible;
-
                 lblSetlog1.Visibility = Visibility.Visible;
                 lblSetlog2.Visibility = Visibility.Visible;
                 lblSetlog3.Visibility = Visibility.Visible;
-
                 cmbLogSettings.SelectedIndex = -1;
                 cmbLogSettings.Visibility = Visibility.Hidden;
-            }
-
-                
-            
+            }        
 
         }
 

@@ -21,7 +21,5 @@ namespace UltimateChanger
             path = tmp.path;
             dir = tmp.dir;
         }
-
-
     }
 }
