@@ -1429,6 +1429,24 @@ namespace UltimateChanger
             Random_HI.S = !Random_HI.S;
         }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+        private void Dark_skin_Checked(object sender, RoutedEventArgs e)
+        {
+            tabControl.Background = new SolidColorBrush(Color.FromRgb(70, 70, 70));
+            //Zmiany na ciemny motyw (można zmienić kolor ramki itd.)
+        }
+
+        private void Light_skin_Checked_1(object sender, RoutedEventArgs e)
+        {
+            tabControl.Background = new SolidColorBrush(Color.FromRgb(240, 240, 240));
+            //Zmiany na jasny motyw
+        }
+
+=======
+>>>>>>> parent of 971df94... Basic skins
+        private void btnAdvancelogs_Click(object sender, RoutedEventArgs e)
+=======
         private void RBnormal_Checked(object sender, RoutedEventArgs e)
         {
 
@@ -1464,6 +1482,7 @@ namespace UltimateChanger
         }
 
         private void rbnDeletelogs_Checked(object sender, RoutedEventArgs e)
+>>>>>>> master
         {
             XMLReader.setSetting("NotHoldLogs", "RadioButtons", Convert.ToString(rbnDeletelogs.IsChecked.Value));
             bool tmp = rbnDeletelogs.IsChecked.Value;
