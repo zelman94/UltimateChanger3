@@ -861,7 +861,7 @@ namespace UltimateChanger
             }
             if (count>1)
             {
-                MessageBox.Show("Only 1 FS could be uninstalled");
+                MessageBox.Show("Only one FS at a time can be uninstalled");
                 return;
             }
             FSInstaller instal = new FSInstaller();
@@ -872,7 +872,7 @@ namespace UltimateChanger
             }
             catch (Exception)
             {
-                MessageBox.Show("can not uninstall by Ultimate Changer");
+                MessageBox.Show("Can not be uninstalled by Ultimate Changer");
                 return;
             }
             fileOperator.deleteinfoaboutinstallerpath(BindCombobox.BrandtoFS[checkboxname]); // dopisać funkcje
