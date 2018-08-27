@@ -810,55 +810,8 @@ namespace UltimateChanger
         //    if (Sonic.IsChecked == false)    sonicnRectangle.BeginAnimation(Rectangle.OpacityProperty, blinkAnimation);
         //}
 
-        //private void btnUpdate_Click(object sender, RoutedEventArgs e)
-        //{
-        //    bool message = false;
-        //    int count3 = 0;
-        //    foreach (CheckBox checkbox in checkBoxList)
-        //    {
-        //        if ((bool)checkbox.IsChecked)
-        //        {
-        //            if (checkRunningProcess(marki[count3]))
-        //            {
-        //                changeMarket($"C:/ProgramData/{checkbox.Name}/Common/ManufacturerInfo.XML");
-        //            }
-        //            else
-        //            {
-        //                message = true;
-        //            }
-        //        }
-        //        count3++;
-        //    }
-        //    if (message)
-        //    {
-        //        MessageBox.Show("Close fitting software", "Brand", MessageBoxButton.OK, MessageBoxImage.Warning);
-        //    }
-        //    fileOperator.UpdateLabels();
-        //    verifyInstalledBrands();
 
-        //    clickCounter.AddClick((int)Buttons.UpdateMarket);
-        //}
 
-        //void deleteLogs()
-        //{
-        //    foreach (CheckBox checkbox in checkBoxList)
-        //    {
-        //        int brandCounter = 0;
-        //        if ((bool)checkbox.IsChecked) //analiza => jeden zaznaczony dwa nie 
-        //        {
-        //            if (checkRunningProcess(marki[brandCounter]))
-        //            {
-        //                Cleaner.DeleteLogs(checkbox.Name.ToString());
-        //                MessageBox.Show($" Deleted logs for {checkbox.Name}");
-        //            }
-        //            else
-        //            {
-        //                MessageBox.Show("Close fitting software", "Brand", MessageBoxButton.OK, MessageBoxImage.Warning);
-        //            }
-        //        }
-        //        brandCounter++;
-        //    }
-        //}
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
