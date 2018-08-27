@@ -653,23 +653,9 @@
                 </Grid.RowDefinitions>
 
 
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" Height="80" Margin="4,84,5,84" Width="180">
-=======
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="3" Height="80" Margin="6,84,602,84" Width="180">
->>>>>>> parent of 971df94... Basic skins
-                    <RadioButton Name="rbnStartwithWindows" Content="Start with Windows"  Margin="10,10,0,0" RenderTransformOrigin="0.52,0.47" HorizontalAlignment="Left" Width="143" GroupName="group1"/>
-                    <RadioButton Name="rbnNotStartwithWindows" Content="Do not Start with Windows"  Margin="10,0,0,0" RenderTransformOrigin="0.52,0.47" HorizontalAlignment="Left" Width="171" GroupName="group1"/>
-                    <RadioButton Name="rbnDeletelogs" Content="Delete logs after run FS" Margin="10,10,0,0" HorizontalAlignment="Left" Width="145" Checked="RadioButton_Checked" GroupName="group2" />
-                    <RadioButton Name="rbnholdlogs" Content="Hold logs" Margin="10,0,0,0" HorizontalAlignment="Left" Width="145" GroupName="group2" />
-                </StackPanel>
-
-<<<<<<< HEAD
                 <Border BorderBrush="LightBlue" BorderThickness="0,0,1,0"  Grid.RowSpan="2" Margin="0,5,1,0" Grid.ColumnSpan="2"/>
                 <Border BorderBrush="LightBlue" BorderThickness="0,0,0,1"  Margin="0,10,10,0" Grid.Column="1"/>
-=======
+
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="3" Height="164" Margin="6,84,602,0" Width="180">
                     <RadioButton Name="rbnStartwithWindows" Content="Start with Windows"  Margin="10,10,0,0" RenderTransformOrigin="0.52,0.47" HorizontalAlignment="Left" Width="143" GroupName="group1" Checked="rbnStartwithWindows_Checked"/>
                     <RadioButton Name="rbnNotStartwithWindows" Content="Do not Start with Windows"  Margin="10,0,0,0" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Width="171" GroupName="group1" Checked="rbnNotStartwithWindows_Checked"/>
@@ -680,30 +666,28 @@
                     <RadioButton Name="rbnDefaultSilent" Content="Silent" GroupName="group3" Checked="rbnDefaultSilent_Checked" Margin="10,0,-10,0"/>
 
                 </StackPanel>
->>>>>>> master
-=======
+
                 <Border BorderBrush="LightBlue" BorderThickness="0,0,1,0"  Grid.RowSpan="3" Margin="0 5 0 5" Grid.ColumnSpan="2"/>
                 <Border BorderBrush="LightBlue" BorderThickness="0,0,0,1"  Margin="10 0 10 0" Grid.ColumnSpan="2"/>
->>>>>>> parent of 971df94... Basic skins
+
 
                 <StackPanel Grid.Row="1" Margin="22,0,35,0" Grid.Column="1">
                     <Label Grid.Row="1" Content="Version:" HorizontalAlignment="Left" Width="76"/>
                     <Label Grid.Row="1" Name="lblVersion" Content="" Height="35" HorizontalAlignment="Left" Width="135" Margin="0,0,-20,0" />
 
                 </StackPanel>
-<<<<<<< HEAD
-<<<<<<< HEAD
+
                 <CheckBox Content="CheckBox" Grid.Column="2" HorizontalAlignment="Left" Margin="317,-58,0,0" VerticalAlignment="Top" Height="15" Width="71"/>
                 <Label x:Name="Skin" Content="Skin:" Grid.Column="1" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" Height="26" Width="35"/>
                 <RadioButton x:Name="Light_skin" Content="Light" Grid.Column="1" HorizontalAlignment="Left" Margin="10,53,0,0" Grid.Row="2" VerticalAlignment="Top" Checked="Light_skin_Checked_1" Height="15" Width="85"/>
                 <RadioButton x:Name="Dark_skin" Content="Dark" Grid.Column="1" HorizontalAlignment="Left" Margin="10,73,0,0" Grid.Row="2" VerticalAlignment="Top" Height="15" Width="85" Checked="Dark_skin_Checked"/>
-=======
+
                 <CheckBox Content="CheckBox" Grid.Column="2" HorizontalAlignment="Left" Margin="317,-58,0,0" VerticalAlignment="Top"/>
                 
->>>>>>> master
-=======
+
+
                 <CheckBox Content="CheckBox" Grid.Column="2" HorizontalAlignment="Left" Margin="317,-58,0,0" VerticalAlignment="Top"/>
->>>>>>> parent of 971df94... Basic skins
+
 
 
             </Grid>
