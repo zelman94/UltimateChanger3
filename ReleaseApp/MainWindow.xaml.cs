@@ -1670,6 +1670,18 @@ namespace UltimateChanger
             Random_HI.S = !Random_HI.S;
         }
 
+        private void Dark_skin_Checked(object sender, RoutedEventArgs e)
+        {
+            tabControl.Background = new SolidColorBrush(Color.FromRgb(70, 70, 70));
+            //Zmiany na ciemny motyw (można zmienić kolor ramki itd.)
+        }
+
+        private void Light_skin_Checked_1(object sender, RoutedEventArgs e)
+        {
+            tabControl.Background = new SolidColorBrush(Color.FromRgb(240, 240, 240));
+            //Zmiany na jasny motyw
+        }
+
         private void btnAdvancelogs_Click(object sender, RoutedEventArgs e)
         {
 
