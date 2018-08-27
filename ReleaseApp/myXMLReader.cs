@@ -11,6 +11,22 @@ namespace UltimateChanger
     class myXMLReader
     {
 
+        public static List<string> getReleases()
+        {
+            List<string> lista = new List<string>();
+            XmlDocument doc = new XmlDocument();
+            doc.Load("Settings\\Releases.xml");
+
+
+            XmlNodeList NodesValues = doc.SelectNodes(string.Format($"/Release/Value"));
+            for (int i = 0; i < NodesValues.Count; i++)
+            {
+                lista.Add(NodesValues[i].InnerText);
+            }
+
+            return lista;
+        }
+
         public SortedDictionary<string, string> getDefaultSettings(string type) // type to nazwa noda do ustawien czyli RadioButtons albo CheckBoxes
         {
             //pobieram z XML ustawienia default
