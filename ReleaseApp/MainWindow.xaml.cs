@@ -114,7 +114,7 @@ namespace UltimateChanger
             sliderRelease.Maximum = cmbRelease.Items.Count-1 ; // max dla slidera -1 bo count nie uwzglednia zerowego indexu
             sliderRelease.Value = cmbRelease.SelectedIndex; // ustalenie defaulta jako obecny release
             refreshUI(new object(), new EventArgs());
-            dataBaseManager = new DataBaseManager();
+            dataBaseManager = new DataBaseManager(XMLReader.getDefaultSettings("DataBase").ElementAt(0).Value);
             if (dataBaseManager != null)
             {
                 dataBaseManager.getInformation_DB();
