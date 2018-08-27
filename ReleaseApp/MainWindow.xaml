@@ -6,7 +6,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:UltimateChanger"
         mc:Ignorable="d"
-        Title="Ultimate Changer 3.0" Height="800" Width="800" ResizeMode="CanMinimize" Closing="Window_Closing_1" 
+        Title="Ultimate Changer 3.0" Height="800" Width="800" ResizeMode="CanMinimize" Closing="Window_Closing_1"
         MinHeight="500"
         MinWidth="750"
         Localization.Attributes="Center"
@@ -639,12 +639,12 @@
 
         <TabItem Header="Settings">
 
-            <Grid x:Name="aboutGrid" Margin="0,15,13,0">
+            <Grid x:Name="aboutGrid">
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="8*"/>
-                    <ColumnDefinition Width="181*"/>
-                    <ColumnDefinition Width="599*" />
+                    <ColumnDefinition Width="13*"/>
+                    <ColumnDefinition Width="172*"/>
+                    <ColumnDefinition Width="603*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
@@ -655,13 +655,18 @@
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" Height="80" Margin="4,84,5,84" Width="180">
+=======
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="3" Height="80" Margin="6,84,602,84" Width="180">
+>>>>>>> parent of 971df94... Basic skins
                     <RadioButton Name="rbnStartwithWindows" Content="Start with Windows"  Margin="10,10,0,0" RenderTransformOrigin="0.52,0.47" HorizontalAlignment="Left" Width="143" GroupName="group1"/>
                     <RadioButton Name="rbnNotStartwithWindows" Content="Do not Start with Windows"  Margin="10,0,0,0" RenderTransformOrigin="0.52,0.47" HorizontalAlignment="Left" Width="171" GroupName="group1"/>
                     <RadioButton Name="rbnDeletelogs" Content="Delete logs after run FS" Margin="10,10,0,0" HorizontalAlignment="Left" Width="145" Checked="RadioButton_Checked" GroupName="group2" />
                     <RadioButton Name="rbnholdlogs" Content="Hold logs" Margin="10,0,0,0" HorizontalAlignment="Left" Width="145" GroupName="group2" />
                 </StackPanel>
 
+<<<<<<< HEAD
                 <Border BorderBrush="LightBlue" BorderThickness="0,0,1,0"  Grid.RowSpan="2" Margin="0,5,1,0" Grid.ColumnSpan="2"/>
                 <Border BorderBrush="LightBlue" BorderThickness="0,0,0,1"  Margin="0,10,10,0" Grid.Column="1"/>
 =======
@@ -676,12 +681,17 @@
 
                 </StackPanel>
 >>>>>>> master
+=======
+                <Border BorderBrush="LightBlue" BorderThickness="0,0,1,0"  Grid.RowSpan="3" Margin="0 5 0 5" Grid.ColumnSpan="2"/>
+                <Border BorderBrush="LightBlue" BorderThickness="0,0,0,1"  Margin="10 0 10 0" Grid.ColumnSpan="2"/>
+>>>>>>> parent of 971df94... Basic skins
 
                 <StackPanel Grid.Row="1" Margin="22,0,35,0" Grid.Column="1">
                     <Label Grid.Row="1" Content="Version:" HorizontalAlignment="Left" Width="76"/>
                     <Label Grid.Row="1" Name="lblVersion" Content="" Height="35" HorizontalAlignment="Left" Width="135" Margin="0,0,-20,0" />
 
                 </StackPanel>
+<<<<<<< HEAD
 <<<<<<< HEAD
                 <CheckBox Content="CheckBox" Grid.Column="2" HorizontalAlignment="Left" Margin="317,-58,0,0" VerticalAlignment="Top" Height="15" Width="71"/>
                 <Label x:Name="Skin" Content="Skin:" Grid.Column="1" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" Height="26" Width="35"/>
@@ -691,6 +701,9 @@
                 <CheckBox Content="CheckBox" Grid.Column="2" HorizontalAlignment="Left" Margin="317,-58,0,0" VerticalAlignment="Top"/>
                 
 >>>>>>> master
+=======
+                <CheckBox Content="CheckBox" Grid.Column="2" HorizontalAlignment="Left" Margin="317,-58,0,0" VerticalAlignment="Top"/>
+>>>>>>> parent of 971df94... Basic skins
 
 
             </Grid>
@@ -728,7 +741,7 @@
                 <Label Content="Phisical" HorizontalAlignment="Left" Margin="41,68,0,0" VerticalAlignment="Top" Width="75"/>
                 <Label Content="Type" HorizontalAlignment="Left" Margin="197,63,0,0" VerticalAlignment="Top" Width="100"/>
                 <Label Content="Available since Release : " HorizontalAlignment="Left" Margin="331,68,0,0" VerticalAlignment="Top" Width="144"/>
-
+                
 
 
             </Grid>
@@ -740,7 +753,7 @@
 
         <TabItem Header="Glossary">
             <Grid x:Name="Glossary">
-
+                
             </Grid>
         </TabItem>
 
@@ -748,9 +761,9 @@
             <Grid x:Name="helpGrid">
                 <WebBrowser Name="przegladarka" HorizontalAlignment="Left" Height="723" Margin="10,10,0,0" VerticalAlignment="Top" Width="768"/>
             </Grid>
-        </TabItem>
+            </TabItem>
 
 
-
+        
     </TabControl>
 </Window>

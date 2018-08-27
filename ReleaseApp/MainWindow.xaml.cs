@@ -1430,6 +1430,7 @@ namespace UltimateChanger
         }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         private void Dark_skin_Checked(object sender, RoutedEventArgs e)
         {
             tabControl.Background = new SolidColorBrush(Color.FromRgb(70, 70, 70));
@@ -1442,6 +1443,8 @@ namespace UltimateChanger
             //Zmiany na jasny motyw
         }
 
+=======
+>>>>>>> parent of 971df94... Basic skins
         private void btnAdvancelogs_Click(object sender, RoutedEventArgs e)
 =======
         private void RBnormal_Checked(object sender, RoutedEventArgs e)
