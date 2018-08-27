@@ -228,7 +228,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Settings\Defaults.xml" />
+    <Content Include="Settings\Defaults.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
