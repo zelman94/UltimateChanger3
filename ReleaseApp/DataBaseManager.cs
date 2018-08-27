@@ -255,7 +255,7 @@ namespace UltimateChanger
             catch (Exception e)
             {
                 Console.WriteLine("Wystąpił nieoczekiwany błąd!");
-                System.Windows.MessageBox.Show(e.Message + "  " + switch_);
+                System.Windows.MessageBox.Show(e.Message + " switch: " + switch_);
                 return null;
             }
         }
