@@ -1391,16 +1391,9 @@ namespace UltimateChanger
             Random_HI.twoButtons = !Random_HI.twoButtons;
         }
 
-<<<<<<< HEAD
-        private void btnRANDHI_Click(object sender, RoutedEventArgs e)
-        {
 
-        }
-
-        private void btnAdvancelogs_Click(object sender, RoutedEventArgs e)
-=======
         private void chBWireless_Checked(object sender, RoutedEventArgs e)
->>>>>>> c3aa7b2a62d903a1737e5c6cb1043ba04ea6914f
+
         {
             Random_HI.Wireless = !Random_HI.Wireless;
         }
