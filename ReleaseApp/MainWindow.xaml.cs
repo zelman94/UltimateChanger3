@@ -50,6 +50,7 @@ namespace UltimateChanger
         List<Image> ListImages;
         List<Label> listlabelsinfoFS;
         List<CheckBox> checkBoxList = new List<CheckBox>();
+        List<ComboBox> comboBoxList = new List<ComboBox>();
         List<RadioButton> RadioButtonsList = new List<RadioButton>();
         public SortedDictionary<string, string> StringToUI = new SortedDictionary<string, string>(); // slownik do zamiany stringow z xml do wartości UI 
         List<Rectangle> ListRactanglesNames;
@@ -78,13 +79,17 @@ namespace UltimateChanger
                 przegladarka.Navigate("http://confluence.kitenet.com/display/SWSQA/Ultimate+Changer");
                 initializeElements();
                 initiationForprograms();
-                setUIdefaults(XMLReader.getDefaultSettings());
+
                 BindCombo = new BindCombobox();
                 BindCombo.setFScomboBox();
                 BindCombo.setReleaseComboBox();
                 BindCombo.setMarketCmb();
                 BindCombo.bindlogmode();
                 bindMarketDictionary();
+                setUIdefaults(XMLReader.getDefaultSettings("RadioButtons"), "RadioButtons");
+                setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
+                setUIdefaults(XMLReader.getDefaultSettings("ComboBox"), "ComboBox");
+
                 fileOperator.getDataToBuildCombobox();
                 initializeTimers();
                 // zamiast watku napisac maly programik osobny ktory bedzie uruchamiany na timerze co 3 s i bedzie sprawdzac czy sie zakonczyl ! :D
@@ -120,31 +125,93 @@ namespace UltimateChanger
     }
     //________________________________________________________________________________________________________________________________________________
 
-        public void setUIdefaults(SortedDictionary<string,string> settings)
+        public void setUIdefaults(SortedDictionary<string,string> settings, string mode) // mode to tryb ustawienia co zmieniasz radiobutton checkbox
         {
 
-
-            foreach (var item in RadioButtonsList)
+            switch (mode)
             {
-                try
-                {
-                    //string tmpNameOfRadioButton = StringToUI[item.Name];
-                    // w item mam nazwe radiobuttona i radiobutton
-                    foreach (var item2 in StringToUI.Keys)
+                case ("RadioButtons"):
+                    foreach (var item in RadioButtonsList)
                     {
-                        if (item2 == item.Name)
+                        try
                         {
-                            item.IsChecked = Convert.ToBoolean(settings[StringToUI[item2]]);
+                            //string tmpNameOfRadioButton = StringToUI[item.Name];
+                            // w item mam nazwe radiobuttona i radiobutton
+                            foreach (var item2 in StringToUI.Keys)
+                            {
+                                if (item2 == item.Name)
+                                {
+                                    item.IsChecked = Convert.ToBoolean(settings[StringToUI[item2]]);
+                                }
+                            }
                         }
+                        catch (Exception x)
+                        {
+
+                        }
+
+
                     }
-                }
-                catch (Exception x)
-                {
+                    break;
 
-                }
-                
+                case ("CheckBoxes"):
+                    foreach (var item in checkBoxList)
+                    {
+                        try
+                        {
+                            //string tmpNameOfRadioButton = StringToUI[item.Name];
+                            // w item mam nazwe radiobuttona i radiobutton
+                            foreach (var item2 in StringToUI.Keys)
+                            {
+                                if (item2 == item.Name)
+                                {
+                                    item.IsChecked = Convert.ToBoolean(settings[StringToUI[item2]]);
+                                }
+                            }
+                        }
+                        catch (Exception x)
+                        {
 
+                        }
+
+
+                    }
+
+                    break;
+
+                case ("ComboBox"):
+                    foreach (var item in comboBoxList)
+                    {
+                        try
+                        {
+                            //string tmpNameOfRadioButton = StringToUI[item.Name];
+                            // w item mam nazwe radiobuttona i radiobutton
+                            foreach (var item2 in StringToUI.Keys)
+                            {
+                                if (item2 == item.Name)
+                                {
+                                    //item.Text = (settings[StringToUI[item2]]);
+                                    cmbRelease.Text = settings[StringToUI[item2]];
+                                    cmbRelease.Items.Refresh();
+                                    sliderRelease.Value = cmbRelease.SelectedIndex;
+                                }
+                            }
+                        }
+                        catch (Exception x)
+                        {
+
+                        }
+
+
+                    }
+
+
+                    break;
+                default:
+                    break;
             }
+
+
         }
 
     public void initiationForprograms()
@@ -233,7 +300,7 @@ namespace UltimateChanger
             StringToUI.Add("RBsilet", "InstallModeSilent");
             StringToUI.Add("rbnHI_1", "HI_1");
             StringToUI.Add("rbnHI_2", "HI_2");
-            //StringToUI.Add("Release", cmbRelease);
+            StringToUI.Add("cmbRelease", "Release");
         }
 
         public void checkbox(object sender, RoutedEventArgs e)
@@ -471,6 +538,10 @@ namespace UltimateChanger
                 RBsilet,
                 rbnHI_1,
                 rbnHI_2
+            };
+            comboBoxList = new List<ComboBox>()
+            {
+                cmbRelease
             };
 
             ListRactanglesNames = new List<Rectangle>()
@@ -1215,9 +1286,7 @@ namespace UltimateChanger
             }
         }
 
-        private void RadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-        }
+
         private void txtCompositionPart2_TextChanged(object sender, TextChangedEventArgs e)
         {
             // Releases_prereleases          
@@ -1408,6 +1477,54 @@ namespace UltimateChanger
             Random_HI.S = !Random_HI.S;
         }
 
+        private void RBnormal_Checked(object sender, RoutedEventArgs e)
+        {
+            XMLReader.setSetting("InstallModeNormal", "RadioButtons", Convert.ToString(RBnormal.IsChecked.Value));
+            bool tmp = RBnormal.IsChecked.Value;
+            tmp = !tmp;
+            XMLReader.setSetting("InstallModeSilent", "RadioButtons", Convert.ToString(tmp));
+        }
+
+        private void RBsilet_Checked(object sender, RoutedEventArgs e)
+        {
+            XMLReader.setSetting("InstallModeSilent", "RadioButtons", Convert.ToString(RBsilet.IsChecked.Value));           
+            bool tmp = RBsilet.IsChecked.Value;
+            tmp = !tmp;
+            XMLReader.setSetting("InstallModeNormal", "RadioButtons", Convert.ToString(tmp));
+        }
+
+        private void rbnStartwithWindows_Checked(object sender, RoutedEventArgs e)
+        {
+            XMLReader.setSetting("StartWithWindows", "RadioButtons", Convert.ToString(rbnStartwithWindows.IsChecked.Value));
+            bool tmp = rbnStartwithWindows.IsChecked.Value;
+            tmp = !tmp;
+            XMLReader.setSetting("NotStartWithWindows", "RadioButtons", Convert.ToString(tmp));
+        }
+
+        private void rbnNotStartwithWindows_Checked(object sender, RoutedEventArgs e)
+        {
+            XMLReader.setSetting("NotStartWithWindows", "RadioButtons", Convert.ToString(rbnNotStartwithWindows.IsChecked.Value));
+            bool tmp = rbnNotStartwithWindows.IsChecked.Value;
+            tmp = !tmp;
+            XMLReader.setSetting("StartWithWindows", "RadioButtons", Convert.ToString(tmp));
+        }
+
+        private void rbnholdlogs_Checked(object sender, RoutedEventArgs e)
+        {
+            XMLReader.setSetting("HoldLogs", "RadioButtons", Convert.ToString(rbnholdlogs.IsChecked.Value));
+            bool tmp = rbnholdlogs.IsChecked.Value;
+            tmp = !tmp;
+            XMLReader.setSetting("NotHoldLogs", "RadioButtons", Convert.ToString(tmp));
+        }
+
+        private void rbnDeletelogs_Checked(object sender, RoutedEventArgs e)
+        {
+            XMLReader.setSetting("NotHoldLogs", "RadioButtons", Convert.ToString(rbnDeletelogs.IsChecked.Value));
+            bool tmp = rbnDeletelogs.IsChecked.Value;
+            tmp = !tmp;
+            XMLReader.setSetting("HoldLogs", "RadioButtons", Convert.ToString(tmp));
+        }
+
         private void btnAdvancelogs_Click(object sender, RoutedEventArgs e)
         {
             if (txtsettlog1.Visibility == Visibility.Visible)
@@ -1438,6 +1555,7 @@ namespace UltimateChanger
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             cmbRelease.Items.Refresh();
+            XMLReader.setSetting("Release", "ComboBox", cmbRelease.Text);
             try
             {
                 if (!Rekurencja.IsEnabled)

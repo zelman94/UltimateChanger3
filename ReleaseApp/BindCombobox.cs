@@ -135,17 +135,17 @@ namespace UltimateChanger
             }
             if (tmp.Count == 1)
             {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease.SelectedItem = "19.1";// tmp[0];
+                //((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease.SelectedItem = "19.1";// tmp[0];
             }
             else
             {
                 if (wydanie < 0)
                 {
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease.SelectedItem = release + ".1";
+                   // ((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease.SelectedItem = release + ".1";
                 }
                 else
                 {
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease.SelectedItem = release + ".2";
+                    //((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease.SelectedItem = release + ".2";
                 }
             }
 
