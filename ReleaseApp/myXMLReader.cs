@@ -64,7 +64,6 @@ namespace UltimateChanger
         public static List<MyHardware> getHardware()
         {
             List<MyHardware> lista = new List<MyHardware>();
-
             XmlDocument doc = new XmlDocument();
             doc.Load("Settings\\Hardware.xml");
 
@@ -84,7 +83,6 @@ namespace UltimateChanger
                 {
                 }
             } 
-
             return lista;
         }
 
@@ -128,14 +126,36 @@ namespace UltimateChanger
         {
             XmlDocument doc = new XmlDocument();
             doc.Load("Settings\\Hardware.xml");
-
             XmlNodeList NodesId = doc.SelectNodes(string.Format($"/Hardware/Element/Id"));
-
             XmlNode parent = NodesId[index].ParentNode;
             parent.ParentNode.RemoveChild(parent);
+            doc.Save("Settings\\Hardware.xml");
+        }
 
-           // NodesId[index].ParentNode.RemoveAll();
+        public static void SetEditItem(int index,string txtName, string txtManuf, string txtType, string txtId, string txtLocal)
+        {
+            List<MyHardware> lista = new List<MyHardware>();
+            XmlDocument doc = new XmlDocument();
+            doc.Load("Settings\\Hardware.xml");
 
+            XmlNodeList NodesNames = doc.SelectNodes(string.Format($"/Hardware/Element/Name"));
+            XmlNodeList NodesId = doc.SelectNodes(string.Format($"/Hardware/Element/Id"));
+            XmlNodeList NodesManufacturer = doc.SelectNodes(string.Format($"/Hardware/Element/Manufacturer"));
+            XmlNodeList NodesType = doc.SelectNodes(string.Format($"/Hardware/Element/Type"));
+            XmlNodeList NodesLocalization = doc.SelectNodes(string.Format($"/Hardware/Element/Localization"));
+
+                try
+                {
+                NodesNames[index].InnerText = txtName;
+                NodesId[index].InnerText = txtId;
+                NodesManufacturer[index].InnerText = txtManuf;
+                NodesType[index].InnerText = txtType;
+                NodesLocalization[index].InnerText = txtLocal;
+                }
+
+                catch (Exception x)
+                {
+                }
             doc.Save("Settings\\Hardware.xml");
         }
 
