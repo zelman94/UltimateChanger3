@@ -31,9 +31,12 @@
     <!--<Window.Icon>
          <BitmapImage UriSource="file:///C:/Users/Misiek/Documents/visual studio 2015/Projects/ReleaseApp/ReleaseApp/icon.jpg"/>
          </Window.Icon>-->
-
-        <TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">
-        <!-- FANCY - SEMI WORKING: <dragablz:TabablzControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503"> -->
+        
+    <dragablz:TabablzControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">
+        <!-- not fancy:  <TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">-->
+        <dragablz:TabablzControl.InterTabController>
+            <dragablz:InterTabController />
+        </dragablz:TabablzControl.InterTabController>
         <TabItem Header="Main">
             <TabItem.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
