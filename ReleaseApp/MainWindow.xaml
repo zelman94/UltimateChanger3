@@ -29,11 +29,35 @@
         </LinearGradientBrush>
     </Window.Background>
     <!--<Window.Icon>
-        <BitmapImage UriSource="file:///C:/Users/Misiek/Documents/visual studio 2015/Projects/ReleaseApp/ReleaseApp/icon.jpg"/>
-    </Window.Icon>-->
+         <BitmapImage UriSource="file:///C:/Users/Misiek/Documents/visual studio 2015/Projects/ReleaseApp/ReleaseApp/icon.jpg"/>
+         </Window.Icon>-->
 
-    <dragablz:TabablzControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">
-
+    <TabControl x:Name="tabControl" BorderBrush="Gainsboro" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">
+        <TabControl.Resources>
+            <Style TargetType="TabItem">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TabItem">
+                            <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" CornerRadius="3,3,0,0" Margin="2,0">
+                                <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter TargetName="Border" Property="Background" Value="#9C27B0" />
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="False">
+                                    <Setter TargetName="Border" Property="Background" Value="#E1BEE7" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </TabControl.Resources>
 
         <TabItem Header="Main">
             <TabItem.Background>
@@ -105,44 +129,50 @@
                     <Label x:Name="lblC" Content="" FontSize="13" FontWeight="Bold" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="5" VerticalAlignment="Center" Height="26" Margin="0,30,0,18" Width="149"/>
                     <!--TLO NA LOGO-->
                     <Rectangle
-                    x:Name="oticonRectangle" 
-                    Grid.Column="0"
-                    Grid.Row="1"
-                    Margin="10,10"
-                     Fill="Khaki"  RadiusY="27.4" RadiusX="27.4"
-                    Opacity="0.75">
+                        x:Name="oticonRectangle" 
+                        Grid.Column="0"
+                        Grid.Row="1"
+                        Margin="10,10"
+                        Fill="Khaki"  RadiusY="27.4" RadiusX="27.4"
+                        Opacity="0.75">
                     </Rectangle>
 
                     <Rectangle
-                    x:Name="bernafonRectangle" 
-                    Grid.Column="0"
-                    Grid.Row="2"
-                    Margin="10,10"
-                    Fill="Red"  RadiusY="27.4" RadiusX="27.4">
+                        x:Name="bernafonRectangle" 
+                        Grid.Column="0"
+                        Grid.Row="2"
+                        Margin="10,10"
+                        Fill="Red" 
+                        Opacity="0.75"
+                        RadiusY="27.4" RadiusX="27.4">
                     </Rectangle>
 
                     <Rectangle
-                    x:Name="sonicRectangle" 
-                    Margin="10,10"
-                    Grid.Column="0"
-                    Grid.Row="3"
-                    Fill="DeepSkyBlue"   RadiusY="27.4" RadiusX="27.4">
+                        x:Name="sonicRectangle" 
+                        Margin="10,10"
+                        Grid.Column="0"
+                        Grid.Row="3"
+                        Fill="DeepSkyBlue"   
+                        Opacity="0.75"
+                        RadiusY="27.4" RadiusX="27.4">
                     </Rectangle>
 
                     <Rectangle
-                    x:Name="oticonmedicalnRectangle" 
-                    Margin="10,10"
-                    Grid.Column="0"
-                    Grid.Row="4"
-                    Fill="Orange"   RadiusY="27.4" RadiusX="27.4">
+                        x:Name="oticonmedicalnRectangle" 
+                        Margin="10,10"
+                        Grid.Column="0"
+                        Grid.Row="4"
+                        Fill="Orange"  Opacity="0.75"
+                        RadiusY="27.4" RadiusX="27.4">
                     </Rectangle>
 
                     <Rectangle
-                    x:Name="startoRectangle" 
-                    Margin="10,10,10,8"
-                    Grid.Column="0"
-                    Grid.Row="5"
-                    Fill="Blue"   RadiusY="27.4" RadiusX="27.4"/>
+                        x:Name="startoRectangle" 
+                        Margin="10,10,10,8"
+                        Grid.Column="0"
+                        Grid.Row="5"
+                        Opacity="0.75"
+                        Fill="Blue"   RadiusY="27.4" RadiusX="27.4"/>
 
                     <!--LOGO-->
                     <Image x:Name="imgOticon" Grid.Column="0" Grid.Row="1" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" Width="118" Margin="31,17,43,21">
@@ -741,5 +771,5 @@
             </Grid>
         </TabItem>
 
-    </dragablz:TabablzControl>
+    </TabControl>
 </Window>
