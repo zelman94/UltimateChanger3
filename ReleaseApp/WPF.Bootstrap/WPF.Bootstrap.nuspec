@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Bootstrap.Wpf</id>
+    <version>0.0.9</version>
+    <title>Bootstrap.Wpf</title>
+    <authors>Felix.x</authors>
+    <owners>flyingxu</owners>
+    <licenseUrl>https://github.com/flyingxu/Bootstrap.WPF/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/flyingxu/Bootstrap.WPF</projectUrl>
+    <iconUrl>https://github.com/flyingxu/Bootstrap.WPF/blob/master/WPF.Bootstrap/Bootstrap.WPF.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>WPF theme and controls inspired by bootstrap UI</description>
+    <releaseNotes>Remove the border of readonly textbox</releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>Wpf XAML bootstrap TabControl</tags>
+  </metadata>
+</package>
