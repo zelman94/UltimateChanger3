@@ -1484,6 +1484,7 @@ namespace UltimateChanger
             if (ListBoxHardware.SelectedIndex != -1)
             {
                 txtMyItemsList.Text =  txtMyItemsList.Text +"\n"+ (MyHardware.convertToString(MyHardware.findHardwareByID(ListBoxHardware.SelectedIndex)));
+                BindCombo.bindListBox();
             }
             else
             {
@@ -1512,6 +1513,38 @@ namespace UltimateChanger
             if (ListBoxHardware.SelectedIndex != -1)
             {
                 myXMLReader.DeleteItem(ListBoxHardware.SelectedIndex);
+                BindCombo.bindListBox();
+            }
+            else
+            {
+                MessageBox.Show("select item");
+            }
+        }
+
+        private void ListBoxHardware_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+          MyHardware tmp = myXMLReader.getHardware()[ListBoxHardware.SelectedIndex];
+            txtName.Text = tmp.Name;
+            txtManuf.Text = tmp.Manufacturer;
+            txtType.Text = tmp.Type;
+            txtId.Text = tmp.ID;
+            txtLocal.Text = tmp.Localization;
+        }
+
+        private void btnClearFields_Click(object sender, RoutedEventArgs e)
+        {
+            txtName.Text = "";
+            txtManuf.Text = "";
+            txtType.Text = "";
+            txtId.Text = "";
+            txtLocal.Text = "";
+        }
+
+        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListBoxHardware.SelectedIndex != -1)
+            {
+                myXMLReader.SetEditItem(ListBoxHardware.SelectedIndex, txtName.Text, txtManuf.Text, txtType.Text, txtId.Text, txtLocal.Text);
                 BindCombo.bindListBox();
             }
             else

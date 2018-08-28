@@ -740,7 +740,7 @@
                 <TextBox Name="txtMyItemsList" HorizontalAlignment="Left" Height="442" Margin="483,25,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="275" IsEnabled="False"/>
                 <Label Content="Add Hardware:" HorizontalAlignment="Left" Margin="41,335,0,0" VerticalAlignment="Top"/>
                 <Label Content="Select Hardware:" HorizontalAlignment="Left" Margin="41,25,0,0" VerticalAlignment="Top"/>
-                <ListBox Name="ListBoxHardware" HorizontalAlignment="Left" Height="80" Margin="41,71,0,0" VerticalAlignment="Top" Width="250"/>
+                <ListBox Name="ListBoxHardware" HorizontalAlignment="Left" Height="100" Margin="41,71,0,0" VerticalAlignment="Top" Width="250" SelectionChanged="ListBoxHardware_SelectionChanged"/>
                 <Button Name="btnAdd" Content="Add" HorizontalAlignment="Left" Margin="43,204,0,0" VerticalAlignment="Top" Width="75" Click="btnAdd_Click"/>
                 <Button Name="btnClear" Content="Clear" HorizontalAlignment="Left" Margin="644,525,0,0" VerticalAlignment="Top" Width="75" Click="btnClear_Click"/>
                 <TextBox Name="txtName" HorizontalAlignment="Left" Height="23" Margin="41,396,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
@@ -756,6 +756,8 @@
                 <Button Name="btnAddNewHardware" Content="Add" HorizontalAlignment="Left" Margin="41,670,0,0" VerticalAlignment="Top" Width="75" Click="btnAddNewHardware_Click"/>
                 <Button Name="btnCopy" Content="Copy" HorizontalAlignment="Left" Margin="545,525,0,0" VerticalAlignment="Top" Width="75" Click="btnCopy_Click"/>
                 <Button Name="btnRemove" Content="Remove" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="143,204,0,0" Click="btnRemove_Click"/>
+                <Button Name="btnEdit" Content="Edit" HorizontalAlignment="Left" Margin="43,257,0,0" VerticalAlignment="Top" Width="75" Click="btnEdit_Click"/>
+                <Button Name="btnClearFields" Content="Clear" HorizontalAlignment="Left" Margin="143,670,0,0" VerticalAlignment="Top" Width="75" Click="btnClearFields_Click"/>
             </Grid>
         </TabItem>
 
