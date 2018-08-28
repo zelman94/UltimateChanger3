@@ -1443,6 +1443,8 @@ namespace UltimateChanger
             XMLReader.setSetting("Dark_skin", "RadioButtons", Convert.ToString(rbnDark_skin.IsChecked.Value).ToUpper());
             bool tmp = !rbnLight_skin.IsChecked.Value;
             XMLReader.setSetting("Light_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+
+            imgBrandSkin.Visibility = Visibility.Hidden;
         }
 
         private void Light_skin_Checked_1(object sender, RoutedEventArgs e)
@@ -1455,7 +1457,48 @@ namespace UltimateChanger
             XMLReader.setSetting("Light_skin", "RadioButtons",Convert.ToString(rbnLight_skin.IsChecked.Value).ToUpper());
             bool tmp = !rbnLight_skin.IsChecked.Value;
             XMLReader.setSetting("Dark_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+
+            imgBrandSkin.Visibility = Visibility.Hidden;
         }
+
+        private void Radio_Genie_Checked(object sender, RoutedEventArgs e)
+        {
+            Brush c1 = new SolidColorBrush(Color.FromRgb(183, 18, 180));
+            Brush c2 = new SolidColorBrush(Colors.Black);
+
+            ChangeSkin(c1, c2);
+
+            imgBrandSkin.Visibility = Visibility.Visible;
+
+            imgBrandSkin.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + $"\\Images\\oticon.png"));
+
+        }
+
+
+        private void Radio_Oasis_Checked(object sender, RoutedEventArgs e)
+        {
+            Brush c1 = new SolidColorBrush(Color.FromRgb(183, 18, 18));
+            Brush c2 = new SolidColorBrush(Colors.Black);
+
+            ChangeSkin(c1, c2);
+
+            imgBrandSkin.Visibility = Visibility.Visible;
+
+            imgBrandSkin.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + $"\\Images\\bernafon.png"));
+        }
+
+        private void Radio_ExpressFit_Checked(object sender, RoutedEventArgs e)
+        {
+            Brush c1 = new SolidColorBrush(Color.FromRgb(72, 196, 249));
+            Brush c2 = new SolidColorBrush(Colors.Black);
+
+            ChangeSkin(c1, c2);
+
+            imgBrandSkin.Visibility = Visibility.Visible;
+
+            imgBrandSkin.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + $"\\Images\\sonic.png"));
+        }
+
 
 
         private void RBnormal_Checked(object sender, RoutedEventArgs e)

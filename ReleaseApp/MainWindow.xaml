@@ -656,7 +656,9 @@
 
 
                 <Border BorderBrush="LightBlue" BorderThickness="0,0,1,0"  Grid.RowSpan="2" Margin="0,5,1,0" Grid.ColumnSpan="2"/>
-                <Border BorderBrush="LightBlue" BorderThickness="0,0,0,1"  Margin="0,10,10,0" Grid.Column="1"/>
+                <Border BorderBrush="LightBlue" BorderThickness="0,0,0,1"  Margin="0,10,10,0" Grid.Column="1">
+                    <Image x:Name="imgBrandSkin" HorizontalAlignment="Left" Height="43" VerticalAlignment="Top" Width="142" Margin="10,10,0,0"/>
+                </Border>
 
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="3" Height="164" Margin="6,84,602,0" Width="180">
                     <RadioButton Name="rbnStartwithWindows" Content="Start with Windows"  Margin="10,10,0,0" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Width="143" GroupName="group1" Checked="rbnStartwithWindows_Checked"/>
@@ -680,6 +682,9 @@
                 <Label x:Name="Skin" Content="Skin:" Grid.Column="1" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" Height="26" Width="35"/>
                 <RadioButton x:Name="rbnLight_skin" Content="Light" Grid.Column="1" HorizontalAlignment="Left" Margin="10,53,0,0" Grid.Row="2" VerticalAlignment="Top" Checked="Light_skin_Checked_1" Height="28" Width="85"/>
                 <RadioButton x:Name="rbnDark_skin" Content="Dark" Grid.Column="1" HorizontalAlignment="Left" Margin="10,86,0,0" Grid.Row="2" VerticalAlignment="Top" Height="24" Width="85" Checked="Dark_skin_Checked"/>
+                <RadioButton x:Name="rbn_Genie" Content="Genie" Grid.Column="1" HorizontalAlignment="Left" Margin="10,115,0,0" Grid.Row="2" VerticalAlignment="Top" Checked="Radio_Genie_Checked"/>
+                <RadioButton x:Name="rbn_Oasis" Content="Oasis" Grid.Column="1" HorizontalAlignment="Left" Margin="10,147,0,0" Grid.Row="2" VerticalAlignment="Top" Checked="Radio_Oasis_Checked"/>
+                <RadioButton x:Name="rbn_ExpressFit" Content="ExpressFit" Grid.Column="1" HorizontalAlignment="Left" Margin="10,181,0,0" Grid.Row="2" VerticalAlignment="Top" Checked="Radio_ExpressFit_Checked"/>
 
             </Grid>
         </TabItem>
