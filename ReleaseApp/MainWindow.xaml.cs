@@ -1481,6 +1481,9 @@ namespace UltimateChanger
             bool tmp = rbnStartwithWindows.IsChecked.Value;
             tmp = !tmp;
             XMLReader.setSetting("NotStartWithWindows", "RadioButtons", Convert.ToString(tmp));
+            fileOperator.setAutostart(true);
+
+
         }
 
         private void rbnNotStartwithWindows_Checked(object sender, RoutedEventArgs e)
@@ -1489,6 +1492,7 @@ namespace UltimateChanger
             bool tmp = rbnNotStartwithWindows.IsChecked.Value;
             tmp = !tmp;
             XMLReader.setSetting("StartWithWindows", "RadioButtons", Convert.ToString(tmp));
+            fileOperator.setAutostart(false);
         }
 
         private void rbnholdlogs_Checked(object sender, RoutedEventArgs e)
