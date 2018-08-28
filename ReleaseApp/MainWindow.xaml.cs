@@ -85,6 +85,7 @@ namespace UltimateChanger
                 BindCombo.setMarketCmb();
                 BindCombo.bindlogmode();
                 bindMarketDictionary();
+                BindCombo.bindListBox();
                 setUIdefaults(XMLReader.getDefaultSettings("RadioButtons"), "RadioButtons");
                 setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
                 setUIdefaults(XMLReader.getDefaultSettings("ComboBox"), "ComboBox");
@@ -1476,6 +1477,47 @@ namespace UltimateChanger
             bool tmp = rbnHI_2.IsChecked.Value;
             tmp = !tmp;
             XMLReader.setSetting("HI_1", "RadioButtons", Convert.ToString(tmp));
+        }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListBoxHardware.SelectedIndex != -1)
+            {
+                txtMyItemsList.Text =  txtMyItemsList.Text +"\n"+ (MyHardware.convertToString(MyHardware.findHardwareByID(ListBoxHardware.SelectedIndex)));
+            }
+            else
+            {
+                MessageBox.Show("select item");
+            }
+        }
+
+        private void btnClear_Click(object sender, RoutedEventArgs e)
+        {
+            txtMyItemsList.Text = "";
+        }
+
+        private void btnCopy_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(txtMyItemsList.Text);
+        }
+
+        private void btnAddNewHardware_Click(object sender, RoutedEventArgs e)
+        {
+            myXMLReader.SetNewHardware(txtName.Text, txtManuf.Text, txtType.Text, txtId.Text, txtLocal.Text);
+            BindCombo.bindListBox();
+        }
+
+        private void btnRemove_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListBoxHardware.SelectedIndex != -1)
+            {
+                myXMLReader.DeleteItem(ListBoxHardware.SelectedIndex);
+                BindCombo.bindListBox();
+            }
+            else
+            {
+                MessageBox.Show("select item");
+            }
         }
 
         private void btnAdvancelogs_Click(object sender, RoutedEventArgs e)

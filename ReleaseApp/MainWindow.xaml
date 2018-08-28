@@ -735,11 +735,36 @@
             </Grid>
         </TabItem>
 
+        <TabItem Header="My Hardware">
+            <Grid x:Name="Hardware">
+                <TextBox Name="txtMyItemsList" HorizontalAlignment="Left" Height="442" Margin="483,25,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="275" IsEnabled="False"/>
+                <Label Content="Add Hardware:" HorizontalAlignment="Left" Margin="41,335,0,0" VerticalAlignment="Top"/>
+                <Label Content="Select Hardware:" HorizontalAlignment="Left" Margin="41,25,0,0" VerticalAlignment="Top"/>
+                <ListBox Name="ListBoxHardware" HorizontalAlignment="Left" Height="80" Margin="41,71,0,0" VerticalAlignment="Top" Width="250"/>
+                <Button Name="btnAdd" Content="Add" HorizontalAlignment="Left" Margin="43,204,0,0" VerticalAlignment="Top" Width="75" Click="btnAdd_Click"/>
+                <Button Name="btnClear" Content="Clear" HorizontalAlignment="Left" Margin="644,525,0,0" VerticalAlignment="Top" Width="75" Click="btnClear_Click"/>
+                <TextBox Name="txtName" HorizontalAlignment="Left" Height="23" Margin="41,396,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+                <TextBox Name="txtManuf" HorizontalAlignment="Left" Height="23" Margin="41,444,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+                <TextBox Name="txtType" HorizontalAlignment="Left" Height="23" Margin="41,495,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+                <TextBox Name="txtId" HorizontalAlignment="Left" Height="23" Margin="41,549,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+                <TextBox Name="txtLocal" HorizontalAlignment="Left" Height="23" Margin="43,598,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+                <Label Name="lblName" Content="Name" HorizontalAlignment="Left" Margin="196,393,0,0" VerticalAlignment="Top"/>
+                <Label Name="lblManuf" Content="Manufacturer" HorizontalAlignment="Left" Margin="196,441,0,0" VerticalAlignment="Top"/>
+                <Label Name="lblType" Content="Type" HorizontalAlignment="Left" Margin="196,492,0,0" VerticalAlignment="Top"/>
+                <Label Name="lblId" Content="ID" HorizontalAlignment="Left" Margin="196,546,0,0" VerticalAlignment="Top"/>
+                <Label Name="lblLocal" Content="Localization" HorizontalAlignment="Left" Margin="196,595,0,0" VerticalAlignment="Top"/>
+                <Button Name="btnAddNewHardware" Content="Add" HorizontalAlignment="Left" Margin="41,670,0,0" VerticalAlignment="Top" Width="75" Click="btnAddNewHardware_Click"/>
+                <Button Name="btnCopy" Content="Copy" HorizontalAlignment="Left" Margin="545,525,0,0" VerticalAlignment="Top" Width="75" Click="btnCopy_Click"/>
+                <Button Name="btnRemove" Content="Remove" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="143,204,0,0" Click="btnRemove_Click"/>
+            </Grid>
+        </TabItem>
+
         <TabItem Header="Help">
             <Grid x:Name="helpGrid">
                 <WebBrowser Name="przegladarka" HorizontalAlignment="Left" Height="723" Margin="10,10,0,0" VerticalAlignment="Top" Width="768"/>
             </Grid>
         </TabItem>
+
 
 
     </TabControl>
