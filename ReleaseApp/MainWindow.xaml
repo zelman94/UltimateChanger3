@@ -32,7 +32,7 @@
          <BitmapImage UriSource="file:///C:/Users/Misiek/Documents/visual studio 2015/Projects/ReleaseApp/ReleaseApp/icon.jpg"/>
          </Window.Icon>-->
 
-        <TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">
+    <TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">
         <!-- FANCY - SEMI WORKING: <dragablz:TabablzControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503"> -->
         <TabItem Header="Main">
             <TabItem.Background>
@@ -81,11 +81,11 @@
                     </Grid.RowDefinitions>
 
 
-                    <Border Grid.Row="1" Grid.ColumnSpan="3" BorderBrush="LightBlue" BorderThickness="0,0,0,1" Margin="10 0"/>
-                    <Border Grid.Row="2" Grid.ColumnSpan="3" BorderBrush="LightBlue" BorderThickness="0,0,0,1" Margin="10 0"/>
-                    <Border Grid.Row="3" Grid.ColumnSpan="3" BorderBrush="LightBlue" BorderThickness="0,0,0,1" Margin="10 0"/>
-                    <Border Grid.Row="4" Grid.ColumnSpan="3" BorderBrush="LightBlue" BorderThickness="0,0,0,1" Margin="10 0"/>
-                    <Border Grid.Row="5" Grid.ColumnSpan="3" BorderBrush="LightBlue" BorderThickness="0,0,0,1" Margin="10,0,10,3"/>
+                    <Border x:Name="Grid1" Grid.Row="1" Grid.ColumnSpan="3" BorderBrush="LightBlue" BorderThickness="0,0,0,1" Margin="10 0"/>
+                    <Border x:Name="Grid2" Grid.Row="2" Grid.ColumnSpan="3" BorderBrush="LightBlue" BorderThickness="0,0,0,1" Margin="10 0"/>
+                    <Border x:Name="Grid3" Grid.Row="3" Grid.ColumnSpan="3" BorderBrush="LightBlue" BorderThickness="0,0,0,1" Margin="10 0"/>
+                    <Border x:Name="Grid4" Grid.Row="4" Grid.ColumnSpan="3" BorderBrush="LightBlue" BorderThickness="0,0,0,1" Margin="10 0"/>
+                    <Border x:Name="Grid5" Grid.Row="5" Grid.ColumnSpan="3" BorderBrush="LightBlue" BorderThickness="0,0,0,1" Margin="10,0,10,3"/>
 
                     <Label x:Name="lblBrand" Grid.Column="0" Grid.Row="0" Content="Brand" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Height="36" Margin="65,12" Width="62"/>
                     <Label x:Name="lblMarket" Grid.Column="2" Grid.Row="0" Content="Market" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Height="36" Margin="37,12,40,12" Width="72"/>
@@ -733,5 +733,6 @@
             </Grid>
         </TabItem>
 
-    </dragablz:TabablzControl>
+        <!--</dragablz:TabablzControl>-->
+    </TabControl>
 </Window>
