@@ -552,7 +552,7 @@ namespace UltimateChanger
             {
                 oticonRectangle,
                 bernafonRectangle,
-                sonicRectangle,  // dodac medical i cumulus
+                sonicRectangle,
                 oticonmedicalnRectangle,
                 startoRectangle
             };
@@ -593,81 +593,6 @@ namespace UltimateChanger
             //}
         }
 
-
-        void changeMarket(string source)
-        {
-            string[] oldFile;
-            int counter = 0;
-
-            try
-            {
-                oldFile = File.ReadAllLines(source);
-                using (StreamWriter sw = new StreamWriter(source))
-                {
-                    foreach (var line in oldFile)
-                    {
-                        if (counter == 3)
-                        {
-                            sw.WriteLine($"  <MarketName>{cmbMarket.SelectedValue}</MarketName>");
-                        }
-                        else
-                        {
-                            sw.WriteLine(line);
-                        }
-                        counter++;
-                    }
-                }
-            }
-            catch (FileNotFoundException ex)
-            {
-            }
-            catch (DirectoryNotFoundException ee)
-            {
-            }
-            catch (NullReferenceException e)
-            {
-            }
-        }
-        void UpdateLogModeOnUI()
-        {
-            List<string> mode = new List<string>() { "ALL", "DEBUG", "ERROR" };
-            int numberOfChecks = 0;
-            string[] selectedModes = new string[3];
-            bool AreEqual = true;
-
-            if (Oticon.IsChecked == true)
-            {
-                selectedModes[numberOfChecks] = GetLogMode(@"C:\Program Files (x86)\Oticon\Genie\Genie2\Configure.log4net");
-                numberOfChecks++;
-            }
-            if (Bernafon.IsChecked == true)
-            {
-                selectedModes[numberOfChecks] = GetLogMode(@"C:\Program Files (x86)\Bernafon\Oasis\Oasis2\Configure.log4net");
-                numberOfChecks++;
-            }
-            if (Sonic.IsChecked == true)
-            {
-                selectedModes[numberOfChecks] = GetLogMode(@"C:\Program Files (x86)\Sonic\ExpressFit\ExpressFit2\Configure.log4net");
-                numberOfChecks++;
-            }
-
-            for (int i = 0; i < numberOfChecks - 1; ++i)
-            {
-                if (selectedModes[i] != selectedModes[i + 1])
-                {
-                    AreEqual = false;
-                }
-            }
-
-            if (AreEqual)
-            {
-                cmbLogMode.SelectedIndex = mode.IndexOf(selectedModes[0]);
-            }
-            else
-            {
-                cmbLogMode.SelectedIndex = -1;
-            }
-        }
         string GetLogMode(string source)
         {
             string line = "";
