@@ -1431,16 +1431,31 @@ namespace UltimateChanger
             Random_HI.S = !Random_HI.S;
         }
 
+        private void ChangeSkin(Brush c1, Brush c2)
+        {
+            tabControl.Background = c1;
+
+            Grid1.BorderBrush = c2;
+            Grid2.BorderBrush = c2;
+            Grid3.BorderBrush = c2;
+            Grid4.BorderBrush = c2;
+            Grid5.BorderBrush = c2;
+        }
 
         private void Dark_skin_Checked(object sender, RoutedEventArgs e)
         {
-            tabControl.Background = new SolidColorBrush(Color.FromRgb(70, 70, 70));
+            Brush c1 = new SolidColorBrush(Color.FromRgb(70, 70, 70));
+
+            ChangeSkin(c1, c1);
             //Zmiany na ciemny motyw (można zmienić kolor ramki itd.)
         }
 
         private void Light_skin_Checked_1(object sender, RoutedEventArgs e)
         {
-            tabControl.Background = new SolidColorBrush(Color.FromRgb(240, 240, 240));
+            Brush c1 = new SolidColorBrush(Color.FromRgb(240, 240, 240));
+            Brush c2 = new SolidColorBrush(Colors.LightBlue);
+
+            ChangeSkin(c1, c2);
             //Zmiany na jasny motyw
         }
 
