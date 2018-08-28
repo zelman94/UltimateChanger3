@@ -36,17 +36,18 @@ namespace UltimateChanger
     {
         int Licznik_All_button = 0;
 
-        TrashCleaner Cleaner;
+        //TrashCleaner Cleaner;
         Dictionary<string, string> FStoPath;
         FileOperator fileOperator;
         DataBaseManager dataBaseManager;
         ClockManager clockManager;
         // DataBaseManager dataBaseManager;
-        DispatcherTimer dispatcherTimer, progressBarTimer, RefUiTIMER, Rekurencja;
+        DispatcherTimer RefUiTIMER, Rekurencja;
+        DispatcherTimer dispatcherTimer, progressBarTimer;
         DispatcherTimer uninstallTimer;
         BindCombobox BindCombo;
         private List<pathAndDir> paths_Dirs = new List<pathAndDir>();
-        string OEMname = "";
+        //string OEMname = "";
         List<Image> ListImages;
         List<Label> listlabelsinfoFS;
         List<CheckBox> checkBoxList = new List<CheckBox>();
@@ -54,7 +55,7 @@ namespace UltimateChanger
         List<RadioButton> RadioButtonsList = new List<RadioButton>();
         public SortedDictionary<string, string> StringToUI = new SortedDictionary<string, string>(); // slownik do zamiany stringow z xml do wartości UI 
         List<Rectangle> ListRactanglesNames;
-        BackgroundWorker worker;
+        //BackgroundWorker worker;
         HIs Random_HI = new HIs();
         myXMLReader XMLReader = new myXMLReader();
         public List<List<string>> AllbuildsPerFS = new List<List<string>>();
@@ -144,12 +145,8 @@ namespace UltimateChanger
                                 }
                             }
                         }
-                        catch (Exception x)
-                        {
-
-                        }
-
-
+                        catch (Exception)
+                        {}
                     }
                     break;
 
@@ -168,10 +165,8 @@ namespace UltimateChanger
                                 }
                             }
                         }
-                        catch (Exception x)
-                        {
-
-                        }
+                        catch (Exception)
+                        { }
 
 
                     }
@@ -196,12 +191,8 @@ namespace UltimateChanger
                                 }
                             }
                         }
-                        catch (Exception x)
-                        {
-
-                        }
-
-
+                        catch (Exception)
+                        { }
                     }
 
 
@@ -413,7 +404,7 @@ namespace UltimateChanger
                     {
                         ListBuildsInfo.Add(fileOperator.GetInfoAboutFs(item, BuildInfo.ListPathsToAboutInfo[licznik]));
                     }
-                    catch (Exception x)
+                    catch (Exception)
                     {
                         ListBuildsInfo.Add(new BuildInfo("", "", "", "", ""));
                     }
@@ -614,15 +605,12 @@ namespace UltimateChanger
                     }
                 }
             }
-            catch (FileNotFoundException ex)
-            {
-            }
-            catch (DirectoryNotFoundException ee)
-            {
-            }
-            catch (NullReferenceException e)
-            {
-            }
+            catch (FileNotFoundException)
+            { }
+            catch (DirectoryNotFoundException)
+            { }
+            catch (NullReferenceException)
+            { }
         }
         void UpdateLogModeOnUI()
         {
@@ -682,11 +670,11 @@ namespace UltimateChanger
                         return subLine[1];
                     }
                 }
-                catch (Exception ee)
+                catch (Exception)
                 {
-
                     return "";
                 }
+               
             }
             else
             {
@@ -1383,7 +1371,7 @@ namespace UltimateChanger
                         MessageBox.Show(listofpossibleHI[rnd.Next(listofpossibleHI.Count)] + "\n" + listofpossibleHI[rnd.Next(listofpossibleHI.Count)]);
                     }
                 }
-                catch (ArgumentOutOfRangeException x)
+                catch (ArgumentOutOfRangeException)
                 {
                     MessageBox.Show("lack of adequate HI");
 
