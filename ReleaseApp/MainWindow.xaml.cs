@@ -1495,6 +1495,7 @@ namespace UltimateChanger
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
             txtMyItemsList.Text = "";
+            ListBoxHardware.SelectedIndex = -1;
         }
 
         private void btnCopy_Click(object sender, RoutedEventArgs e)
@@ -1523,12 +1524,24 @@ namespace UltimateChanger
 
         private void ListBoxHardware_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-          MyHardware tmp = myXMLReader.getHardware()[ListBoxHardware.SelectedIndex];
-            txtName.Text = tmp.Name;
-            txtManuf.Text = tmp.Manufacturer;
-            txtType.Text = tmp.Type;
-            txtId.Text = tmp.ID;
-            txtLocal.Text = tmp.Localization;
+            if (ListBoxHardware.SelectedIndex!= -1)
+            {
+                MyHardware tmp = myXMLReader.getHardware()[ListBoxHardware.SelectedIndex];
+                txtName.Text = tmp.Name;
+                txtManuf.Text = tmp.Manufacturer;
+                txtType.Text = tmp.Type;
+                txtId.Text = tmp.ID;
+                txtLocal.Text = tmp.Localization;
+            }
+            else
+            {
+                txtName.Text = "";
+                txtManuf.Text = "";
+                txtType.Text = "";
+                txtId.Text = "";
+                txtLocal.Text = "";
+            }
+
         }
 
         private void btnClearFields_Click(object sender, RoutedEventArgs e)
