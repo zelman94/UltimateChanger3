@@ -112,6 +112,43 @@ namespace UltimateChanger
             @"C:\Program Files (x86)\Strato"
         };
 
+        public void setAutostart(bool mode) // true - wlaczony autostar false - bez autostart
+        {
+            switch (mode.ToString().ToLower())
+            {
+                case ("true"):
+                    try
+                    {
+                        string tmp = @"%programdata%\Microsoft\Windows\Start Menu\Programs\Startup\"+ System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + ".exe";
+                        string dest = @"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\";
+
+
+                        string path = Path.GetTempPath() + System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + ".exe";
+                        string path2 = dest + System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + ".exe";
+                        File.Copy(Directory.GetCurrentDirectory() + "\\" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + ".exe", path2, true);
+
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Error" + "\n setAutostart(true)");
+                    }
+
+                    break;
+                case ("false"):
+                    try
+                    {
+                        File.Delete(@"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\"+ System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + ".exe");
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Error" + "\n setAutostart(false)");
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
         public List<string> getLogMode()
         {
             List<string> listalogmode = new List<string>();
