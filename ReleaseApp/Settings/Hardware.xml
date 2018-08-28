@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<Hardware>
+  <Element>
+    <Name>TMP</Name>
+    <Id>123456789</Id>
+    <Manufacturer>TMP</Manufacturer>
+    <Type>TMP</Type>
+    <Localization>SSC</Localization>
+  </Element>
+  <Element>
+    <Name>TMP2</Name>
+    <Id>123456789</Id>
+    <Manufacturer>TMP2</Manufacturer>
+    <Type>TMP2</Type>
+    <Localization>KBN</Localization>
+  </Element>
+</Hardware>

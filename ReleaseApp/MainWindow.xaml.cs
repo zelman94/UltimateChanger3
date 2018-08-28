@@ -85,6 +85,7 @@ namespace UltimateChanger
                 BindCombo.setMarketCmb();
                 BindCombo.bindlogmode();
                 bindMarketDictionary();
+                BindCombo.bindListBox();
                 setUIdefaults(XMLReader.getDefaultSettings("RadioButtons"), "RadioButtons");
                 setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
                 setUIdefaults(XMLReader.getDefaultSettings("ComboBox"), "ComboBox");
@@ -552,7 +553,7 @@ namespace UltimateChanger
             {
                 oticonRectangle,
                 bernafonRectangle,
-                sonicRectangle,  // dodac medical i cumulus
+                sonicRectangle,
                 oticonmedicalnRectangle,
                 startoRectangle
             };
@@ -593,81 +594,6 @@ namespace UltimateChanger
             //}
         }
 
-
-        void changeMarket(string source)
-        {
-            string[] oldFile;
-            int counter = 0;
-
-            try
-            {
-                oldFile = File.ReadAllLines(source);
-                using (StreamWriter sw = new StreamWriter(source))
-                {
-                    foreach (var line in oldFile)
-                    {
-                        if (counter == 3)
-                        {
-                            sw.WriteLine($"  <MarketName>{cmbMarket.SelectedValue}</MarketName>");
-                        }
-                        else
-                        {
-                            sw.WriteLine(line);
-                        }
-                        counter++;
-                    }
-                }
-            }
-            catch (FileNotFoundException ex)
-            {
-            }
-            catch (DirectoryNotFoundException ee)
-            {
-            }
-            catch (NullReferenceException e)
-            {
-            }
-        }
-        void UpdateLogModeOnUI()
-        {
-            List<string> mode = new List<string>() { "ALL", "DEBUG", "ERROR" };
-            int numberOfChecks = 0;
-            string[] selectedModes = new string[3];
-            bool AreEqual = true;
-
-            if (Oticon.IsChecked == true)
-            {
-                selectedModes[numberOfChecks] = GetLogMode(@"C:\Program Files (x86)\Oticon\Genie\Genie2\Configure.log4net");
-                numberOfChecks++;
-            }
-            if (Bernafon.IsChecked == true)
-            {
-                selectedModes[numberOfChecks] = GetLogMode(@"C:\Program Files (x86)\Bernafon\Oasis\Oasis2\Configure.log4net");
-                numberOfChecks++;
-            }
-            if (Sonic.IsChecked == true)
-            {
-                selectedModes[numberOfChecks] = GetLogMode(@"C:\Program Files (x86)\Sonic\ExpressFit\ExpressFit2\Configure.log4net");
-                numberOfChecks++;
-            }
-
-            for (int i = 0; i < numberOfChecks - 1; ++i)
-            {
-                if (selectedModes[i] != selectedModes[i + 1])
-                {
-                    AreEqual = false;
-                }
-            }
-
-            if (AreEqual)
-            {
-                cmbLogMode.SelectedIndex = mode.IndexOf(selectedModes[0]);
-            }
-            else
-            {
-                cmbLogMode.SelectedIndex = -1;
-            }
-        }
         string GetLogMode(string source)
         {
             string line = "";
@@ -1551,6 +1477,47 @@ namespace UltimateChanger
             bool tmp = rbnHI_2.IsChecked.Value;
             tmp = !tmp;
             XMLReader.setSetting("HI_1", "RadioButtons", Convert.ToString(tmp));
+        }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListBoxHardware.SelectedIndex != -1)
+            {
+                txtMyItemsList.Text =  txtMyItemsList.Text +"\n"+ (MyHardware.convertToString(MyHardware.findHardwareByID(ListBoxHardware.SelectedIndex)));
+            }
+            else
+            {
+                MessageBox.Show("select item");
+            }
+        }
+
+        private void btnClear_Click(object sender, RoutedEventArgs e)
+        {
+            txtMyItemsList.Text = "";
+        }
+
+        private void btnCopy_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(txtMyItemsList.Text);
+        }
+
+        private void btnAddNewHardware_Click(object sender, RoutedEventArgs e)
+        {
+            myXMLReader.SetNewHardware(txtName.Text, txtManuf.Text, txtType.Text, txtId.Text, txtLocal.Text);
+            BindCombo.bindListBox();
+        }
+
+        private void btnRemove_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListBoxHardware.SelectedIndex != -1)
+            {
+                myXMLReader.DeleteItem(ListBoxHardware.SelectedIndex);
+                BindCombo.bindListBox();
+            }
+            else
+            {
+                MessageBox.Show("select item");
+            }
         }
 
         private void btnAdvancelogs_Click(object sender, RoutedEventArgs e)

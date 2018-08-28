@@ -60,5 +60,84 @@ namespace UltimateChanger
             }
             doc.Save("Settings\\Defaults.xml");
         }      
+
+        public static List<MyHardware> getHardware()
+        {
+            List<MyHardware> lista = new List<MyHardware>();
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load("Settings\\Hardware.xml");
+
+            XmlNodeList NodesNames = doc.SelectNodes(string.Format($"/Hardware/Element/Name"));
+            XmlNodeList NodesId = doc.SelectNodes(string.Format($"/Hardware/Element/Id"));
+            XmlNodeList NodesManufacturer = doc.SelectNodes(string.Format($"/Hardware/Element/Manufacturer"));
+            XmlNodeList NodesType = doc.SelectNodes(string.Format($"/Hardware/Element/Type"));
+            XmlNodeList NodesLocalization = doc.SelectNodes(string.Format($"/Hardware/Element/Localization"));
+            for (int i = 0; i < NodesNames.Count; i++)
+            {
+                try
+                {
+                    lista.Add(new MyHardware(NodesNames[i].InnerText, NodesManufacturer[i].InnerText, NodesType[i].InnerText, NodesId[i].InnerText,   NodesLocalization[i].InnerText));
+                }
+
+                catch (Exception x)
+                {
+                }
+            } 
+
+            return lista;
+        }
+
+        public static void SetNewHardware(string name,string manu, string type, string id, string local)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load("Settings\\Hardware.xml");
+            XmlNode root = doc.DocumentElement;
+
+            //Create a new node.
+            XmlElement elem = doc.CreateElement("Element");         
+
+            //Add the node to the document.
+            root.AppendChild(elem);
+
+            XmlElement elem2 = doc.CreateElement("Name");
+            elem2.InnerText = name;
+            elem.AppendChild(elem2);
+
+            elem2 = doc.CreateElement("Id");
+            elem2.InnerText = id;
+            elem.AppendChild(elem2);
+
+            elem2 = doc.CreateElement("Manufacturer");
+            elem2.InnerText = manu;
+            elem.AppendChild(elem2);
+
+            elem2 = doc.CreateElement("Type");
+            elem2.InnerText = type;
+            elem.AppendChild(elem2);
+            
+            elem2 = doc.CreateElement("Localization");
+            elem2.InnerText = local;
+            elem.AppendChild(elem2);
+
+            Console.WriteLine("Display the modified XML...");
+            doc.Save(Console.Out);
+            doc.Save("Settings\\Hardware.xml");
+        }
+        public static void DeleteItem(int index)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load("Settings\\Hardware.xml");
+
+            XmlNodeList NodesId = doc.SelectNodes(string.Format($"/Hardware/Element/Id"));
+
+            XmlNode parent = NodesId[index].ParentNode;
+            parent.ParentNode.RemoveChild(parent);
+
+           // NodesId[index].ParentNode.RemoveAll();
+
+            doc.Save("Settings\\Hardware.xml");
+        }
+
     }
 }
