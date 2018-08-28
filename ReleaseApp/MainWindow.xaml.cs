@@ -292,6 +292,8 @@ namespace UltimateChanger
             StringToUI.Add("rbnHI_1", "HI_1");
             StringToUI.Add("rbnHI_2", "HI_2");
             StringToUI.Add("cmbRelease", "Release");
+            StringToUI.Add("rbnLight_skin", "Light_skin");
+            StringToUI.Add("rbnDark_skin", "Dark_skin");
         }
 
         public void checkbox(object sender, RoutedEventArgs e)
@@ -528,7 +530,9 @@ namespace UltimateChanger
                 rbnDefaultNormal,
                 rbnDefaultSilent,
                 rbnHI_1,
-                rbnHI_2
+                rbnHI_2,
+                rbnLight_skin,
+                rbnDark_skin
             };
             comboBoxList = new List<ComboBox>()
             {
@@ -1436,6 +1440,9 @@ namespace UltimateChanger
 
             ChangeSkin(c1, c1);
             //Zmiany na ciemny motyw (można zmienić kolor ramki itd.)
+            XMLReader.setSetting("Dark_skin", "RadioButtons", Convert.ToString(rbnDark_skin.IsChecked.Value).ToUpper());
+            bool tmp = !rbnLight_skin.IsChecked.Value;
+            XMLReader.setSetting("Light_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
         }
 
         private void Light_skin_Checked_1(object sender, RoutedEventArgs e)
@@ -1445,6 +1452,9 @@ namespace UltimateChanger
 
             ChangeSkin(c1, c2);
             //Zmiany na jasny motyw
+            XMLReader.setSetting("Light_skin", "RadioButtons",Convert.ToString(rbnLight_skin.IsChecked.Value).ToUpper());
+            bool tmp = !rbnLight_skin.IsChecked.Value;
+            XMLReader.setSetting("Dark_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
         }
 
 
