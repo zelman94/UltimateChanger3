@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="UpdateWindow" Height="300" Width="300">
     <Grid>
-        <Button Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="35,232,0,0" VerticalAlignment="Top" Width="75" Click="btnUpdate_Click"/>
-        <Button Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="169,232,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
-        <TextBox Name="txtInfoUpdate" HorizontalAlignment="Left" Height="180" Margin="24,31,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="241"/>
-
+        <Button Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="35,229,0,0" VerticalAlignment="Top" Width="94" Click="btnUpdate_Click"/>
+        <Button Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="150,229,0,0" VerticalAlignment="Top" Width="94" Click="btnCancel_Click"/>
+        <!--<TextBox Name="txtInfoUpdate" HorizontalAlignment="Left" Height="180" Margin="24,31,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="241" TextChanged="txtInfoUpdate_TextChanged"/>
+        !--><Image Source="Images/update.png" Margin="10,0,17,37"></Image>
     </Grid>
 </Window>

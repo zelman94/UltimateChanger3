@@ -1,0 +1,42 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style TargetType="TextBox">
+        <Setter Property="Padding" Value="2"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Grid>
+                        <Border Name="bd" BorderThickness="1" CornerRadius="4" BorderBrush="#66afe9" Opacity="0">
+                            <Border.Effect>
+                                <BlurEffect></BlurEffect>
+                                
+                            </Border.Effect>
+                        </Border>
+                        <Border Name="container" Padding="{TemplateBinding Padding}" Height="{TemplateBinding Height}" BorderThickness="1" BorderBrush="#cccccc" Background="#ffffff" CornerRadius="4" Margin="1">
+                            <ScrollViewer Padding="0" x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="container" Property="Background" Value="#eeeeee"/>
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsReadOnly" Value="True"></Condition>
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="container" Property="BorderThickness" Value="0"></Setter>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsFocused" Value="True"></Condition>
+                                <Condition Property="IsReadOnly" Value="False"></Condition>
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="container" Property="BorderBrush" Value="#66afe9"></Setter>
+                            <Setter TargetName="bd" Property="Opacity" Value="1"></Setter>
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

@@ -24,7 +24,7 @@ namespace UltimateChanger
         {
             PATHS = paths;            
             InitializeComponent();
-            txtInfoUpdate.Text = info;
+            //txtInfoUpdate.Text = info;
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
@@ -92,6 +92,11 @@ namespace UltimateChanger
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void txtInfoUpdate_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

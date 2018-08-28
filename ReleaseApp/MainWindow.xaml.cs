@@ -37,12 +37,12 @@ namespace UltimateChanger
         int Licznik_All_button = 0;
 
         TrashCleaner Cleaner;
-        Dictionary<string,string> FStoPath;
+        Dictionary<string, string> FStoPath;
         FileOperator fileOperator;
         DataBaseManager dataBaseManager;
         ClockManager clockManager;
-       // DataBaseManager dataBaseManager;
-        DispatcherTimer dispatcherTimer, progressBarTimer,RefUiTIMER,Rekurencja;
+        // DataBaseManager dataBaseManager;
+        DispatcherTimer dispatcherTimer, progressBarTimer, RefUiTIMER, Rekurencja;
         DispatcherTimer uninstallTimer;
         BindCombobox BindCombo;
         private List<pathAndDir> paths_Dirs = new List<pathAndDir>();
@@ -70,7 +70,7 @@ namespace UltimateChanger
                 if (exists) // jezeli wiecej niz 1 instancja to nie uruchomi sie
                 {
                     System.Environment.Exit(1);
-                }             
+                }
                 fileOperator = new FileOperator();
                 clockManager = new ClockManager();
                 InitializeComponent();
@@ -110,7 +110,7 @@ namespace UltimateChanger
             {
                 MessageBox.Show(x.ToString());
             }
-            sliderRelease.Maximum = cmbRelease.Items.Count-1 ; // max dla slidera -1 bo count nie uwzglednia zerowego indexu
+            sliderRelease.Maximum = cmbRelease.Items.Count - 1; // max dla slidera -1 bo count nie uwzglednia zerowego indexu
             sliderRelease.Value = cmbRelease.SelectedIndex; // ustalenie defaulta jako obecny release
             refreshUI(new object(), new EventArgs());
             dataBaseManager = new DataBaseManager(XMLReader.getDefaultSettings("DataBase").ElementAt(0).Value);
@@ -121,10 +121,10 @@ namespace UltimateChanger
 
 
 
-    }
-    //________________________________________________________________________________________________________________________________________________
+        }
+        //________________________________________________________________________________________________________________________________________________
 
-        public void setUIdefaults(SortedDictionary<string,string> settings, string mode) // mode to tryb ustawienia co zmieniasz radiobutton checkbox
+        public void setUIdefaults(SortedDictionary<string, string> settings, string mode) // mode to tryb ustawienia co zmieniasz radiobutton checkbox
         {
 
             switch (mode)
@@ -213,36 +213,36 @@ namespace UltimateChanger
 
         }
 
-    public void initiationForprograms()
-            {
+        public void initiationForprograms()
+        {
             lblVersion.Content = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             try
             {
-                
+
                 imgfake.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + $"\\Images\\Fake.png"));
                 imgprecon.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + $"\\Images\\Preconditioner.png"));
             }
-                catch (Exception x)
-                {
-                    MessageBox.Show(x.ToString());
-                }
-                try
-                {
+            catch (Exception x)
+            {
+                MessageBox.Show(x.ToString());
+            }
+            try
+            {
                 CredentialCache.DefaultNetworkCredentials.Domain = "EMEA";
 
                 CredentialCache.DefaultNetworkCredentials.UserName = "gl_ssc_swtest";
 
                 CredentialCache.DefaultNetworkCredentials.Password = "Start123";
                 string[] fileonServer = Directory.GetFiles(@"\\demant.com\data\KBN\RnD\FS_Programs\Support_Tools\REMedy\_currentVersion"); // pobieram nazwy plikow
-                
-                    if (fileOperator.checkInstanceFakeVerifit())
-                    {
-                        btnFakeV.IsEnabled = true;
-                        FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(@"C:\Program Files (x86)\REMedy\REMedy.Launcher.exe");                                       
-                        FileVersionInfo veronserver = FileVersionInfo.GetVersionInfo(fileonServer[0]);//pobieram info o pliku 
 
-                        if (myFileVersionInfo.FileVersion != veronserver.FileVersion)
-                        {
+                if (fileOperator.checkInstanceFakeVerifit())
+                {
+                    btnFakeV.IsEnabled = true;
+                    FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(@"C:\Program Files (x86)\REMedy\REMedy.Launcher.exe");
+                    FileVersionInfo veronserver = FileVersionInfo.GetVersionInfo(fileonServer[0]);//pobieram info o pliku 
+
+                    if (myFileVersionInfo.FileVersion != veronserver.FileVersion)
+                    {
                         try
                         {
                             string[] dd = Directory.GetFiles(@"C:\Program Files\DGS - PAZE & MIBW\Resources");
@@ -253,46 +253,47 @@ namespace UltimateChanger
                         {
                             MessageBox.Show("Dir Error :) kiedyś naprawie :)");
                         }
-                        }
-                        btnFakeV.ToolTip = myFileVersionInfo.FileVersion;
                     }
-                    else
+                    btnFakeV.ToolTip = myFileVersionInfo.FileVersion;
+                }
+                else
+                {
+                    btnFakeV.IsEnabled = false;
+                    if (!Directory.Exists(@"C:\Program Files\DGS - PAZE & MIBW\Resources"))
                     {
-                        btnFakeV.IsEnabled = false;
-                        if (!Directory.Exists(@"C:\Program Files\DGS - PAZE & MIBW\Resources"))
-                        {
-                            Directory.CreateDirectory(@"C:\Program Files\DGS - PAZE & MIBW\Resources");
-                        }
-                        FileInfo nazwa = new FileInfo(fileonServer[0]);
-                        try
-                        {
-                            File.Copy(fileonServer[0], @"C:\Program Files\DGS - PAZE & MIBW\Resources\" + nazwa.Name);
-                        }
-                        catch (Exception)
-                        {
-                        }
-                        Process.Start(fileonServer[0], "/silent /install ");
-                        // uruchomic silent installera 
+                        Directory.CreateDirectory(@"C:\Program Files\DGS - PAZE & MIBW\Resources");
                     }
-                } catch (Exception x)
+                    FileInfo nazwa = new FileInfo(fileonServer[0]);
+                    try
                     {
-                        MessageBox.Show(x.ToString());
+                        File.Copy(fileonServer[0], @"C:\Program Files\DGS - PAZE & MIBW\Resources\" + nazwa.Name);
                     }
-            
+                    catch (Exception)
+                    {
+                    }
+                    Process.Start(fileonServer[0], "/silent /install ");
+                    // uruchomic silent installera 
+                }
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.ToString());
+            }
+
             if (fileOperator.checkInstanceNewPreconditioner())
             {
                 btnNewPrecon.IsEnabled = true;
                 FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(@"C:\Program Files (x86)\NewPreconditioner\NewPreconditioner.exe");
                 btnNewPrecon.ToolTip = myFileVersionInfo.FileVersion;
             }
-                else
-                {
-                    btnNewPrecon.IsEnabled = false;
-                }
+            else
+            {
+                btnNewPrecon.IsEnabled = false;
+            }
 
 
-            StringToUI.Add("rbnStartwithWindows","StartWithWindows" );
-            StringToUI.Add("rbnholdlogs","HoldLogs");
+            StringToUI.Add("rbnStartwithWindows", "StartWithWindows");
+            StringToUI.Add("rbnholdlogs", "HoldLogs");
             StringToUI.Add("rbnNotStartwithWindows", "NotStartWithWindows");
             StringToUI.Add("rbnDeletelogs", "NotHoldLogs");
             StringToUI.Add("rbnDefaultNormal", "InstallModeNormal");
@@ -323,20 +324,20 @@ namespace UltimateChanger
             {
                 if (checkBoxList[i].IsChecked.Value)
                 {
-                    cmbLogMode.Text = logmod[i];              
+                    cmbLogMode.Text = logmod[i];
                     cmbMarket.SelectedIndex = BindCombobox.marketIndex.FindIndex(x => x == listlabelsinfoFS[i].Content.ToString());
                     ListofMarkets.Add(listlabelsinfoFS[i].Content.ToString());
-                }                
-            }
-            byte licznik = 0;
-            for (int i = 1; i < ListofMarkets.Count ; i++)
-            {
-                if (ListofMarkets[i] == ListofMarkets[i-1])
-                {
-                    licznik++; 
                 }
             }
-            if (licznik != ListofMarkets.Count -1 )
+            byte licznik = 0;
+            for (int i = 1; i < ListofMarkets.Count; i++)
+            {
+                if (ListofMarkets[i] == ListofMarkets[i - 1])
+                {
+                    licznik++;
+                }
+            }
+            if (licznik != ListofMarkets.Count - 1)
             {
                 cmbMarket.SelectedIndex = -1;
             }
@@ -352,7 +353,7 @@ namespace UltimateChanger
                     licznikk++;
                 }
             }
-            if (licznikk == 0 )
+            if (licznikk == 0)
             {
                 btnUpdate.IsEnabled = false;
                 btnDeletelogs.IsEnabled = false;
@@ -384,7 +385,7 @@ namespace UltimateChanger
                     }
                 }
                 byte licznik = 0;
-                for (int i = 1; i < ListofMarkets.Count ; i++)
+                for (int i = 1; i < ListofMarkets.Count; i++)
                 {
                     if (ListofMarkets[i] == ListofMarkets[i - 1])
                     {
@@ -414,21 +415,21 @@ namespace UltimateChanger
                     }
                     catch (Exception x)
                     {
-                        ListBuildsInfo.Add(new BuildInfo("","","","",""));
+                        ListBuildsInfo.Add(new BuildInfo("", "", "", "", ""));
                     }
                     licznik++;
                 }
                 for (int i = 0; i < ListBuildsInfo.Count; i++)
                 {
-                    ListRactanglesNames[i].ToolTip = ListBuildsInfo[i].Brand + "\n" + ListBuildsInfo[i].Version +"\n"+ logmodesFS[i];
+                    ListRactanglesNames[i].ToolTip = ListBuildsInfo[i].Brand + "\n" + ListBuildsInfo[i].Version + "\n" + logmodesFS[i];
                     foreach (var item in ListRactanglesNames)
                     {
                         if (item.Name.Contains(ListBuildsInfo[i].Brand.ToLower()))
                         {
-                          
+
                             foreach (var obrazki in ListImages)
                             {
-                                string tmppp = obrazki.Name.ToLower().Substring(3, obrazki.Name.Length -3);
+                                string tmppp = obrazki.Name.ToLower().Substring(3, obrazki.Name.Length - 3);
 
                                 if (item.Name.ToLower().Contains(tmppp))
                                 {
@@ -440,11 +441,11 @@ namespace UltimateChanger
                                     {
                                         Console.WriteLine("Problem with images");
                                     }
-                                    
+
                                 }
                             }
                         }
-                    }                    
+                    }
                 }
             }
             catch (Exception x)
@@ -453,7 +454,7 @@ namespace UltimateChanger
             }
             //for (int i = 0; i < checkBoxList.Count; i++)
             int licz = 0;
-           foreach (var item in checkBoxList)
+            foreach (var item in checkBoxList)
             {
                 try
                 {
@@ -465,10 +466,10 @@ namespace UltimateChanger
                     listlabelsinfoFS[licz].Foreground = new SolidColorBrush(Colors.Red);
                     listlabelsinfoFS[licz].Content = "FS not installed";
                 }
-                licz++;                
+                licz++;
             }
         }
-     
+
         void initializeTimers()
         {
             try
@@ -478,8 +479,8 @@ namespace UltimateChanger
                 dispatcherTimer.Start();
             }
             catch (Exception)
-            {               
-               
+            {
+
             }
 
             //progressBarTimer = new DispatcherTimer();
@@ -493,7 +494,7 @@ namespace UltimateChanger
             RefUiTIMER.Tick += refreshUI;
             RefUiTIMER.Interval = new TimeSpan(0, 0, 20);
             RefUiTIMER.Start();
-            
+
             try
             {
                 uninstallTimer.Tick += checkUninstallation_Tick;
@@ -502,7 +503,7 @@ namespace UltimateChanger
             catch (Exception)
             {
             }
-        }  
+        }
         void bindMarketDictionary()// czy to potrzebne ?
         {
 
@@ -584,11 +585,11 @@ namespace UltimateChanger
             //}
             //catch (Exception)
             //{
-                
+
             //}
         }
 
- 
+
         void changeMarket(string source)
         {
             string[] oldFile;
@@ -614,13 +615,13 @@ namespace UltimateChanger
                 }
             }
             catch (FileNotFoundException ex)
-            {               
+            {
             }
             catch (DirectoryNotFoundException ee)
-            {                
+            {
             }
             catch (NullReferenceException e)
-            {               
+            {
             }
         }
         void UpdateLogModeOnUI()
@@ -646,9 +647,9 @@ namespace UltimateChanger
                 numberOfChecks++;
             }
 
-            for (int i=0; i<numberOfChecks-1; ++i)
+            for (int i = 0; i < numberOfChecks - 1; ++i)
             {
-                if (selectedModes[i] != selectedModes[i+1])
+                if (selectedModes[i] != selectedModes[i + 1])
                 {
                     AreEqual = false;
                 }
@@ -683,7 +684,7 @@ namespace UltimateChanger
                 }
                 catch (Exception ee)
                 {
-                   
+
                     return "";
                 }
             }
@@ -694,12 +695,12 @@ namespace UltimateChanger
 
         }
 
-   
-        
+
+
         void verifyInstalledBrands()
         {
-           // if (!File.Exists(@"C:/Program Files (x86)/Oticon/Genie/Genie2/Genie.exe"))
-           if (!Directory.Exists(@"C:\ProgramData\Oticon"))
+            // if (!File.Exists(@"C:/Program Files (x86)/Oticon/Genie/Genie2/Genie.exe"))
+            if (!Directory.Exists(@"C:\ProgramData\Oticon"))
             {
                 Oticon.IsEnabled = false;
                 lblG.Foreground = new SolidColorBrush(Colors.Red);
@@ -826,13 +827,13 @@ namespace UltimateChanger
                     {
                         smieciarka.DeleteTrash(FileOperator.pathToTrash[i]);
                         smieciarka.DeleteTrash(FileOperator.pathToTrash[j]);
-                        refreshUI(new object(),new EventArgs());
-                        MessageBox.Show(item.Name  + " Deleted");
+                        refreshUI(new object(), new EventArgs());
+                        MessageBox.Show(item.Name + " Deleted");
                     }
                     else
                     {
                         MessageBox.Show("Close FS or uninstall");
-                    }                   
+                    }
                 }
                 i += 2;
                 j += 2;
@@ -845,10 +846,10 @@ namespace UltimateChanger
             {
                 Process.Start(@"C:\Program Files (x86)\NewPreconditioner\NewPreconditioner.exe");
             }
-            catch (Exception x )
+            catch (Exception x)
             {
                 MessageBox.Show(x.ToString());
-            }           
+            }
         }
         private void btnHattori_Click(object sender, RoutedEventArgs e)
         {
@@ -882,7 +883,7 @@ namespace UltimateChanger
                     checkboxname = item.Name;
                 }
             }
-            if (count>1)
+            if (count > 1)
             {
                 MessageBox.Show("Only one FS at a time can be uninstalled");
                 return;
@@ -908,27 +909,28 @@ namespace UltimateChanger
             uruchomienie procesu z path usunięcie informacji o path z pliku             
              
              */
-        }        
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-                foreach (CheckBox checkbox in checkBoxList)
+            foreach (CheckBox checkbox in checkBoxList)
+            {
+                int tmp = Licznik_All_button % 2;
+                if (tmp == 0)
                 {
-                    int tmp = Licznik_All_button % 2;
-                    if (tmp == 0) {
-                        if (checkbox.IsEnabled == true)
-                        {
-                            checkbox.IsChecked = true;
-                        }                        
-                    }
-                    else
+                    if (checkbox.IsEnabled == true)
                     {
-                        if (checkbox.IsEnabled == true)
-                        {
-                            checkbox.IsChecked = false;
-                        }
+                        checkbox.IsChecked = true;
                     }
-                }        
-            Licznik_All_button++;       
+                }
+                else
+                {
+                    if (checkbox.IsEnabled == true)
+                    {
+                        checkbox.IsChecked = false;
+                    }
+                }
+            }
+            Licznik_All_button++;
         }
         private void cmbMarket_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -947,7 +949,7 @@ namespace UltimateChanger
                     {
                         if (item.IsChecked.Value)
                         {
-                            fileOperator.setLogMode(cmbLogMode.Text, cmbLogSettings.SelectedIndex, licznik,true, txtsettlog1.Text, txtsettlog2.Text, txtsettlog3.Text);
+                            fileOperator.setLogMode(cmbLogMode.Text, cmbLogSettings.SelectedIndex, licznik, true, txtsettlog1.Text, txtsettlog2.Text, txtsettlog3.Text);
                             MessageBox.Show($"Updated [{item.Name}]");
                         }
                         licznik++;
@@ -968,11 +970,11 @@ namespace UltimateChanger
                     {
                         if (item.IsChecked.Value)
                         {
-                            fileOperator.setLogMode(cmbLogMode.Text, cmbLogSettings.SelectedIndex, licznik,false);
+                            fileOperator.setLogMode(cmbLogMode.Text, cmbLogSettings.SelectedIndex, licznik, false);
                             MessageBox.Show($"Updated [{item.Name}]");
-                        }                        
+                        }
                         licznik++;
-                    }                    
+                    }
                 }
                 else
                 {
@@ -997,7 +999,7 @@ namespace UltimateChanger
             catch (Exception x)
             {
                 MessageBox.Show(x.ToString());
-            }            
+            }
             refreshUI(new object(), new EventArgs());
         }
         private void btnDelete_logs(object sender, RoutedEventArgs e)
@@ -1015,7 +1017,7 @@ namespace UltimateChanger
                     catch (Exception x)
                     {
                         MessageBox.Show(x.ToString());
-                    } 
+                    }
                 }
                 licznik++;
             }
@@ -1035,7 +1037,7 @@ namespace UltimateChanger
         }
         private void btninstal_Click(object sender, RoutedEventArgs e)
         {
-            if ( cmbBuild.SelectedIndex > -1 )
+            if (cmbBuild.SelectedIndex > -1)
             {
                 FSInstaller installer = new FSInstaller();
                 //cmbOEM.Items.Refresh();
@@ -1052,7 +1054,7 @@ namespace UltimateChanger
             else
             {
                 MessageBox.Show("select build to install");
-            }               
+            }
         }
         private static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
         {
@@ -1088,7 +1090,7 @@ namespace UltimateChanger
                 }
             }
         }
-        
+
         private void cmbbrandstoinstall_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
@@ -1116,17 +1118,17 @@ namespace UltimateChanger
             else
             {
                 btninstal.IsEnabled = false;
-            }            
+            }
         }
         private void LoggingMouseEnter(object sender, MouseEventArgs e)
         {
             int border;
             Border elementLeft, elementRight, buf;
             buf = new Border();
-            for (int y=0; y<7; ++y)
+            for (int y = 0; y < 7; ++y)
             {
                 border = 11;
-                for (int x=0; x<6; ++x)
+                for (int x = 0; x < 6; ++x)
                 {
                     elementLeft = Mario.Children.Cast<Border>().FirstOrDefault(b => Grid.GetColumn(b) == x && Grid.GetRow(b) == y);
                     elementRight = Mario.Children.Cast<Border>().FirstOrDefault(b => Grid.GetColumn(b) == border && Grid.GetRow(b) == y);
@@ -1179,7 +1181,7 @@ namespace UltimateChanger
         private void btnResetDate_Click(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start("CMD.exe", "/C NET TIME /domain:EMEA /SET /Y");
-            lblTime.Content = clockManager.GetTime(); 
+            lblTime.Content = clockManager.GetTime();
         }
         private void btnLogToDB_Click(object sender, RoutedEventArgs e)
         {
@@ -1192,7 +1194,7 @@ namespace UltimateChanger
         private void textBox_TextChanged(object sender, RoutedEventArgs e)
         {
         }
-               
+
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
             //fileOperator.UpdateLabels();
@@ -1220,7 +1222,7 @@ namespace UltimateChanger
             {
                 return false; // process nie istnieje
             }
-        }        
+        }
         private void checkRekurencja(object sender, EventArgs e)
         {
             Process[] pname = Process.GetProcessesByName("Rekurencjon");
@@ -1230,11 +1232,11 @@ namespace UltimateChanger
                 progress.Value = 0;
             }
             if (pname.Length == 0)
-            {  
+            {
                 fileOperator.GetfilesSaveData();
                 Rekurencja.Stop();
                 cmbRelease.IsEnabled = true;
-                progress.Visibility = Visibility.Hidden;                
+                progress.Visibility = Visibility.Hidden;
             }
         }
 
@@ -1245,7 +1247,7 @@ namespace UltimateChanger
         }
 
         private void txtOEM_TextChanged(object sender, TextChangedEventArgs e)
-        {            
+        {
         }
 
         private void btnInfo_Click(object sender, RoutedEventArgs e)
@@ -1257,7 +1259,7 @@ namespace UltimateChanger
             catch (Exception x)
             {
                 Console.WriteLine(x.ToString());
-            }            
+            }
         }
 
         private void btnFakeV_Click(object sender, RoutedEventArgs e)
@@ -1270,7 +1272,7 @@ namespace UltimateChanger
             {
                 btnFakeV.IsEnabled = false;
             }
-           
+
         }
 
         private void cmbOEM_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1292,7 +1294,7 @@ namespace UltimateChanger
                     catch (Exception)
                     {
                         MessageBox.Show("Probably FS is not installed! \n Please delete Trashs");
-                    }                    
+                    }
                 }
                 licznik++;
             }
@@ -1311,11 +1313,11 @@ namespace UltimateChanger
             saveFileDialog1.FilterIndex = 2;
             saveFileDialog1.RestoreDirectory = true;
 
-            if ((bool)saveFileDialog1.ShowDialog() )
+            if ((bool)saveFileDialog1.ShowDialog())
             {
                 if ((myStream = saveFileDialog1.OpenFile()) != null)
                 {
-                  //MessageBox.Show(saveFileDialog1.FileName); // to daje path do pliku nowego
+                    //MessageBox.Show(saveFileDialog1.FileName); // to daje path do pliku nowego
                     byte licznik = 0;
                     foreach (var item in checkBoxList)
                     {
@@ -1323,7 +1325,7 @@ namespace UltimateChanger
                         {
                             try
                             {
-                                System.IO.Compression.ZipFile.CreateFromDirectory(fileOperator.pathToLogs[licznik], saveFileDialog1.FileName+"_"+item.Name+".zip"); // dziala 
+                                System.IO.Compression.ZipFile.CreateFromDirectory(fileOperator.pathToLogs[licznik], saveFileDialog1.FileName + "_" + item.Name + ".zip"); // dziala 
                             }
                             catch (Exception x)
                             {
@@ -1332,7 +1334,7 @@ namespace UltimateChanger
                         }
                         licznik++;
                     }
-                   myStream.Close();
+                    myStream.Close();
                 }
             }
         }
@@ -1349,7 +1351,7 @@ namespace UltimateChanger
             //    txtOdp.Text = "";
             //}
             //txtOdp.Text = "";
-           // btnAddKnowlage.IsEnabled = true;
+            // btnAddKnowlage.IsEnabled = true;
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
@@ -1381,20 +1383,20 @@ namespace UltimateChanger
                         MessageBox.Show(listofpossibleHI[rnd.Next(listofpossibleHI.Count)] + "\n" + listofpossibleHI[rnd.Next(listofpossibleHI.Count)]);
                     }
                 }
-                catch ( ArgumentOutOfRangeException x)
+                catch (ArgumentOutOfRangeException x)
                 {
                     MessageBox.Show("lack of adequate HI");
 
                 }
-              
-               
+
+
             }
         }
 
         private void sliderRelease_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        { 
-                lblRelease.Content = cmbRelease.Items[Convert.ToInt32(sliderRelease.Value)];
-                Random_HI.Release = lblRelease.Content.ToString();
+        {
+            lblRelease.Content = cmbRelease.Items[Convert.ToInt32(sliderRelease.Value)];
+            Random_HI.Release = lblRelease.Content.ToString();
         }
 
         private void chBt_coil_Checked(object sender, RoutedEventArgs e)
@@ -1545,7 +1547,7 @@ namespace UltimateChanger
                 lblSetlog3.Visibility = Visibility.Visible;
                 cmbLogSettings.SelectedIndex = -1;
                 cmbLogSettings.Visibility = Visibility.Hidden;
-            }        
+            }
 
         }
 
@@ -1558,7 +1560,7 @@ namespace UltimateChanger
                 if (!Rekurencja.IsEnabled)
                 {
                     progress.Visibility = Visibility.Visible;
-                    
+
 
                     try
                     {
@@ -1572,14 +1574,14 @@ namespace UltimateChanger
                     {
 
                     }
-                  
+
                 }
             }
             catch (Exception)
             {
 
             }
-          
+
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
@@ -1600,17 +1602,17 @@ namespace UltimateChanger
                         {
                             MessageBox.Show("Select Market to update");
                         }
-                        
+
                     }
                     else
                     {
                         MessageBox.Show($"close FS [{item.Name}]");
                     }
-                    
+
                 }
                 licz++;
             }
-            
+
             refreshUI(new object(), new EventArgs());
 
         }
