@@ -210,7 +210,13 @@ namespace UltimateChanger
             return lista;
         }
 
+        public void bindListBox()
+        {
+           List<MyHardware> listaHardware = myXMLReader.getHardware(); // dostaje liste instancji Hardware
+           
 
+            ((MainWindow)System.Windows.Application.Current.MainWindow).ListBoxHardware.ItemsSource = MyHardware.ToNameAndID(listaHardware);
+        }
 
 
     }
