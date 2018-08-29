@@ -32,6 +32,7 @@
          <BitmapImage UriSource="file:///C:/Users/Misiek/Documents/visual studio 2015/Projects/ReleaseApp/ReleaseApp/icon.jpg"/>
          </Window.Icon>-->
 
+<<<<<<< HEAD
     <TabControl x:Name="tabControl" BorderBrush="Gainsboro" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503" Background="#FF424242">
         <TabControl.Resources>
             <Style TargetType="TabItem">
@@ -58,6 +59,17 @@
                 </Setter>
             </Style>
         </TabControl.Resources>
+=======
+    <!--<dragablz:TabablzControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">
+        <dragablz:TabablzControl.InterTabController>
+                <dragablz:InterTabController />
+            </dragablz:TabablzControl.InterTabController>-->
+    <!-- NOT FANCY - SEMI WORKING: <TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503"> -->
+
+
+    <TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">
+        <!-- FANCY - SEMI WORKING: <dragablz:TabablzControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503"> -->
+>>>>>>> master
 
         <TabItem Header="Main">
             <TabItem.Background>
@@ -106,11 +118,11 @@
                     </Grid.RowDefinitions>
 
 
-                    <Border Grid.Row="1" Grid.ColumnSpan="3" BorderBrush="LightBlue" BorderThickness="0,0,0,1" Margin="10 0"/>
-                    <Border Grid.Row="2" Grid.ColumnSpan="3" BorderBrush="LightBlue" BorderThickness="0,0,0,1" Margin="10 0"/>
-                    <Border Grid.Row="3" Grid.ColumnSpan="3" BorderBrush="LightBlue" BorderThickness="0,0,0,1" Margin="10 0"/>
-                    <Border Grid.Row="4" Grid.ColumnSpan="3" BorderBrush="LightBlue" BorderThickness="0,0,0,1" Margin="10 0"/>
-                    <Border Grid.Row="5" Grid.ColumnSpan="3" BorderBrush="LightBlue" BorderThickness="0,0,0,1" Margin="10,0,10,3"/>
+                    <Border x:Name="Grid1" Grid.Row="1" Grid.ColumnSpan="3" BorderBrush="LightBlue" BorderThickness="0,0,0,1" Margin="10 0"/>
+                    <Border x:Name="Grid2" Grid.Row="2" Grid.ColumnSpan="3" BorderBrush="LightBlue" BorderThickness="0,0,0,1" Margin="10 0"/>
+                    <Border x:Name="Grid3" Grid.Row="3" Grid.ColumnSpan="3" BorderBrush="LightBlue" BorderThickness="0,0,0,1" Margin="10 0"/>
+                    <Border x:Name="Grid4" Grid.Row="4" Grid.ColumnSpan="3" BorderBrush="LightBlue" BorderThickness="0,0,0,1" Margin="10 0"/>
+                    <Border x:Name="Grid5" Grid.Row="5" Grid.ColumnSpan="3" BorderBrush="LightBlue" BorderThickness="0,0,0,1" Margin="10,0,10,3"/>
 
                     <Label x:Name="lblBrand" Grid.Column="0" Grid.Row="0" Content="Brand" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Height="36" Margin="65,12" Width="62" Foreground="White"/>
                     <Label x:Name="lblMarket" Grid.Column="2" Grid.Row="0" Content="Market" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Height="36" Margin="37,12,40,12" Width="72" Foreground="White"/>
@@ -676,7 +688,7 @@
                 <Border BorderBrush="LightBlue" BorderThickness="0,0,0,1"  Margin="0,10,10,0" Grid.Column="1"/>
 
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="3" Height="164" Margin="6,84,602,0" Width="180">
-                    <RadioButton Name="rbnStartwithWindows" Content="Start with Windows"  Margin="10,10,0,0" RenderTransformOrigin="0.52,0.47" HorizontalAlignment="Left" Width="143" GroupName="group1" Checked="rbnStartwithWindows_Checked"/>
+                    <RadioButton Name="rbnStartwithWindows" Content="Start with Windows"  Margin="10,10,0,0" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Width="143" GroupName="group1" Checked="rbnStartwithWindows_Checked"/>
                     <RadioButton Name="rbnNotStartwithWindows" Content="Do not Start with Windows"  Margin="10,0,0,0" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Width="171" GroupName="group1" Checked="rbnNotStartwithWindows_Checked"/>
                     <RadioButton Name="rbnDeletelogs" Content="Delete logs after run FS" Margin="10,10,0,0" HorizontalAlignment="Left" Width="145" Checked="rbnDeletelogs_Checked" GroupName="group2" />
                     <RadioButton Name="rbnholdlogs" Content="Hold logs" Margin="10,0,0,0" HorizontalAlignment="Left" Width="145" GroupName="group2" Checked="rbnholdlogs_Checked" />
@@ -685,9 +697,6 @@
                     <RadioButton Name="rbnDefaultSilent" Content="Silent" GroupName="group3" Checked="rbnDefaultSilent_Checked" Margin="10,0,-10,0"/>
 
                 </StackPanel>
-
-                <Border BorderBrush="LightBlue" BorderThickness="0,0,1,0"  Grid.RowSpan="3" Margin="0 5 0 5" Grid.ColumnSpan="2"/>
-                <Border BorderBrush="LightBlue" BorderThickness="0,0,0,1"  Margin="10 0 10 0" Grid.ColumnSpan="2"/>
 
 
                 <StackPanel Grid.Row="1" Margin="22,0,35,0" Grid.Column="1">
@@ -698,20 +707,10 @@
 
                 <CheckBox Content="CheckBox" Grid.Column="2" HorizontalAlignment="Left" Margin="317,-58,0,0" VerticalAlignment="Top" Height="15" Width="71"/>
                 <Label x:Name="Skin" Content="Skin:" Grid.Column="1" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" Height="26" Width="35"/>
-                <RadioButton x:Name="Light_skin" Content="Light" Grid.Column="1" HorizontalAlignment="Left" Margin="10,53,0,0" Grid.Row="2" VerticalAlignment="Top" Checked="Light_skin_Checked_1" Height="15" Width="85"/>
-                <RadioButton x:Name="Dark_skin" Content="Dark" Grid.Column="1" HorizontalAlignment="Left" Margin="10,73,0,0" Grid.Row="2" VerticalAlignment="Top" Height="15" Width="85" Checked="Dark_skin_Checked"/>
-
-                <CheckBox Content="CheckBox" Grid.Column="2" HorizontalAlignment="Left" Margin="317,-58,0,0" VerticalAlignment="Top"/>
-
-
-
-                <CheckBox Content="CheckBox" Grid.Column="2" HorizontalAlignment="Left" Margin="317,-58,0,0" VerticalAlignment="Top"/>
-
-
+                <RadioButton x:Name="rbnLight_skin" Content="Light" Grid.Column="1" HorizontalAlignment="Left" Margin="10,53,0,0" Grid.Row="2" VerticalAlignment="Top" Checked="Light_skin_Checked_1" Height="28" Width="85"/>
+                <RadioButton x:Name="rbnDark_skin" Content="Dark" Grid.Column="1" HorizontalAlignment="Left" Margin="10,86,0,0" Grid.Row="2" VerticalAlignment="Top" Height="16" Width="85" Checked="Dark_skin_Checked"/>
 
             </Grid>
-
-
         </TabItem>
 
         <TabItem Header="Random HI">
@@ -765,11 +764,40 @@
             </Grid>
         </TabItem>
 
+        <TabItem Header="My Hardware">
+            <Grid x:Name="Hardware">
+                <TextBox Name="txtMyItemsList" HorizontalAlignment="Left" Height="442" Margin="483,25,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="275" IsEnabled="False"/>
+                <Label Content="Add Hardware:" HorizontalAlignment="Left" Margin="41,335,0,0" VerticalAlignment="Top"/>
+                <Label Content="Select Hardware:" HorizontalAlignment="Left" Margin="41,25,0,0" VerticalAlignment="Top"/>
+                <ListBox Name="ListBoxHardware" HorizontalAlignment="Left" Height="100" Margin="41,71,0,0" VerticalAlignment="Top" Width="250" SelectionChanged="ListBoxHardware_SelectionChanged"/>
+                <Button Name="btnAdd" Content="Add" HorizontalAlignment="Left" Margin="43,204,0,0" VerticalAlignment="Top" Width="75" Click="btnAdd_Click"/>
+                <Button Name="btnClear" Content="Clear" HorizontalAlignment="Left" Margin="644,525,0,0" VerticalAlignment="Top" Width="75" Click="btnClear_Click"/>
+                <TextBox Name="txtName" HorizontalAlignment="Left" Height="23" Margin="41,396,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+                <TextBox Name="txtManuf" HorizontalAlignment="Left" Height="23" Margin="41,444,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+                <TextBox Name="txtType" HorizontalAlignment="Left" Height="23" Margin="41,495,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+                <TextBox Name="txtId" HorizontalAlignment="Left" Height="23" Margin="41,549,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+                <TextBox Name="txtLocal" HorizontalAlignment="Left" Height="23" Margin="43,598,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+                <Label Name="lblName" Content="Name" HorizontalAlignment="Left" Margin="196,393,0,0" VerticalAlignment="Top"/>
+                <Label Name="lblManuf" Content="Manufacturer" HorizontalAlignment="Left" Margin="196,441,0,0" VerticalAlignment="Top"/>
+                <Label Name="lblType" Content="Type" HorizontalAlignment="Left" Margin="196,492,0,0" VerticalAlignment="Top"/>
+                <Label Name="lblId" Content="ID" HorizontalAlignment="Left" Margin="196,546,0,0" VerticalAlignment="Top"/>
+                <Label Name="lblLocal" Content="Localization" HorizontalAlignment="Left" Margin="196,595,0,0" VerticalAlignment="Top"/>
+                <Button Name="btnAddNewHardware" Content="Add" HorizontalAlignment="Left" Margin="41,670,0,0" VerticalAlignment="Top" Width="75" Click="btnAddNewHardware_Click"/>
+                <Button Name="btnCopy" Content="Copy" HorizontalAlignment="Left" Margin="545,525,0,0" VerticalAlignment="Top" Width="75" Click="btnCopy_Click"/>
+                <Button Name="btnRemove" Content="Remove" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="143,204,0,0" Click="btnRemove_Click"/>
+                <Button Name="btnEdit" Content="Edit" HorizontalAlignment="Left" Margin="43,257,0,0" VerticalAlignment="Top" Width="75" Click="btnEdit_Click"/>
+                <Button Name="btnClearFields" Content="Clear" HorizontalAlignment="Left" Margin="143,670,0,0" VerticalAlignment="Top" Width="75" Click="btnClearFields_Click"/>
+            </Grid>
+        </TabItem>
+
         <TabItem Header="Help">
             <Grid x:Name="helpGrid">
                 <WebBrowser Name="przegladarka" HorizontalAlignment="Left" Height="723" Margin="10,10,0,0" VerticalAlignment="Top" Width="768"/>
             </Grid>
         </TabItem>
 
+
+
     </TabControl>
+    <!--</dragablz:TabablzControl>-->
 </Window>
