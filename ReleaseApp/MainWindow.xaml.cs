@@ -295,6 +295,9 @@ namespace UltimateChanger
             StringToUI.Add("cmbRelease", "Release");
             StringToUI.Add("rbnLight_skin", "Light_skin");
             StringToUI.Add("rbnDark_skin", "Dark_skin");
+            StringToUI.Add("rbn_Genie", "Genie_skin");
+            StringToUI.Add("rbn_Oasis", "Oasis_skin");
+            StringToUI.Add("rbn_ExpressFit", "ExpressFit_skin");
         }
 
         public void checkbox(object sender, RoutedEventArgs e)
@@ -533,7 +536,10 @@ namespace UltimateChanger
                 rbnHI_1,
                 rbnHI_2,
                 rbnLight_skin,
-                rbnDark_skin
+                rbnDark_skin,
+                rbn_Genie,
+                rbn_Oasis,
+                rbn_ExpressFit
             };
             comboBoxList = new List<ComboBox>()
             {
@@ -1444,8 +1450,11 @@ namespace UltimateChanger
             ChangeSkin(c1, c1);
             //Zmiany na ciemny motyw (można zmienić kolor ramki itd.)
             XMLReader.setSetting("Dark_skin", "RadioButtons", Convert.ToString(rbnDark_skin.IsChecked.Value).ToUpper());
-            bool tmp = !rbnLight_skin.IsChecked.Value;
+            bool tmp = !rbnDark_skin.IsChecked.Value;
             XMLReader.setSetting("Light_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("Genie_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("Oasis_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("ExpressFit_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
 
             imgBrandSkin.Visibility = Visibility.Hidden;
         }
@@ -1460,6 +1469,9 @@ namespace UltimateChanger
             XMLReader.setSetting("Light_skin", "RadioButtons",Convert.ToString(rbnLight_skin.IsChecked.Value).ToUpper());
             bool tmp = !rbnLight_skin.IsChecked.Value;
             XMLReader.setSetting("Dark_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("Genie_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("Oasis_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("ExpressFit_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
 
             imgBrandSkin.Visibility = Visibility.Hidden;
         }
@@ -1470,6 +1482,15 @@ namespace UltimateChanger
             Brush c2 = new SolidColorBrush(Colors.Black);
 
             ChangeSkin(c1, c2);
+
+
+            XMLReader.setSetting("Genie_skin", "RadioButtons", Convert.ToString(rbn_Genie.IsChecked.Value).ToUpper());
+            bool tmp = !rbn_Genie.IsChecked.Value;
+            XMLReader.setSetting("Dark_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("Light_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("Oasis_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("ExpressFit_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+
 
             imgBrandSkin.Visibility = Visibility.Visible;
 
@@ -1485,6 +1506,13 @@ namespace UltimateChanger
 
             ChangeSkin(c1, c2);
 
+            XMLReader.setSetting("Oasis_skin", "RadioButtons", Convert.ToString(rbn_Oasis.IsChecked.Value).ToUpper());
+            bool tmp = !rbn_Oasis.IsChecked.Value;
+            XMLReader.setSetting("Dark_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("Light_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("Genie_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("ExpressFit_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+
             imgBrandSkin.Visibility = Visibility.Visible;
 
             imgBrandSkin.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + $"\\Images\\bernafon.png"));
@@ -1494,6 +1522,14 @@ namespace UltimateChanger
         {
             Brush c1 = new SolidColorBrush(Color.FromRgb(72, 196, 249));
             Brush c2 = new SolidColorBrush(Colors.Black);
+
+
+            XMLReader.setSetting("ExpressFit_skin", "RadioButtons", Convert.ToString(rbn_ExpressFit.IsChecked.Value).ToUpper());
+            bool tmp = !rbn_ExpressFit.IsChecked.Value;
+            XMLReader.setSetting("Dark_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("Light_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("Genie_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("Oasis_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
 
             ChangeSkin(c1, c2);
 
