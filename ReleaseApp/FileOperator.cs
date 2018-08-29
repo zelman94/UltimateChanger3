@@ -24,7 +24,7 @@ namespace UltimateChanger
         private List<CheckBox> checkBoxList;
         private List<string> marketIndex;
         private DataBaseManager dataBase;
-        BackgroundWorker worker;
+        //BackgroundWorker worker;
         private Image imgOticon;
         private Image imgBernafon;
         private Image imgSonic;
@@ -635,7 +635,7 @@ namespace UltimateChanger
                     j += 2; ;
                     k += 2; ;
                 }
-                catch (Exception x)
+                catch (Exception)
                 {
                     MessageBox.Show("cannot write to file");
                 }
@@ -678,7 +678,7 @@ namespace UltimateChanger
                         }
                         dirsList.Add(logList);
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         Console.WriteLine("The file could not be read:");
                         return false;
@@ -698,7 +698,7 @@ namespace UltimateChanger
                         }
                         pathsList.Add(logList);
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         Console.WriteLine("The file could not be read:");
                         return false;
@@ -787,7 +787,7 @@ namespace UltimateChanger
                         }
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     Console.WriteLine("The file could not be read:");
                     return false;
@@ -832,7 +832,7 @@ namespace UltimateChanger
                         }
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     Console.WriteLine("The file could not be read:");
                     File.Create(@"C:\Program Files\DGS - PAZE & MIBW\Multi Changer\info2.txt");
@@ -873,15 +873,15 @@ namespace UltimateChanger
                         return $"{line[14]}{line[15]}";
                     }
                 }
-                catch (FileNotFoundException ex)
+                catch (FileNotFoundException)
                 {
                     return "";
                 }
-                catch (DirectoryNotFoundException ee)
+                catch (DirectoryNotFoundException)
                 {
                     return "";
                 }
-                catch (NullReferenceException eee)
+                catch (NullReferenceException)
                 {
                     return "";
                 }
