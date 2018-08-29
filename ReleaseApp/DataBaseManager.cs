@@ -304,12 +304,12 @@ namespace UltimateChanger
                         {
                             //MessageBox.Show($"Update available: {Kolumna[1]}");
 
-                            Window Update = new UpdateWindow(Kolumna[1], Kolumna[3]);
+                            /*Window Update = new UpdateWindow(Kolumna[1], Kolumna[3]);
                             Update.ShowDialog();
 
 
                             pathsToUpdate = Kolumna[1];
-                            message = true;
+                            message = true; HATORI NARAZIE PODZIEKUJEMY */
                         }
                     }
                     if (message)
