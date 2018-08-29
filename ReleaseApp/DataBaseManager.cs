@@ -17,10 +17,10 @@ namespace UltimateChanger
     public class DataBaseManager
     {
         public MySqlConnection SQLConnection;
-        private ClickCounter clickCounter;
+        //private ClickCounter clickCounter;
         public string pathsToUpdate = "";
         public bool DB_connection; //jezeli jest polaczenie z BD 
-        private Stopwatch time;
+        //private Stopwatch time;
         public string APPversion;
 
         public string GetActualVersion(string brand)
@@ -313,16 +313,9 @@ namespace UltimateChanger
                         }
                     }
                     if (message)
-                    {
-
                         return true;
-                    }
                     else
-                    {
-
                         return false;
-                    }
-
                 }
                 else
                 {
@@ -331,10 +324,8 @@ namespace UltimateChanger
                 }
             }
 
-            catch (Exception ee)
+            catch (Exception)
             {
-
-
                 //SQLConnection.Close();
                 return false;
             }
@@ -358,7 +349,7 @@ namespace UltimateChanger
 
                
             }
-            catch (Exception x)
+            catch (Exception)
             {
                 //SQLConnection.Close();
                 return null;
