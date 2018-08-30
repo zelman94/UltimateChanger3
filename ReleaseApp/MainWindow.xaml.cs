@@ -1794,14 +1794,32 @@ namespace UltimateChanger
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            // xmlreader nowa funkcjado usuwania rekordu w xml
-            //refresh listteammember
+            if (ListTeamPerson.SelectedIndex!=-1)
+            {
+                myXMLReader.deletePerdon(ListTeamPerson.SelectedValue.ToString());
+                BindCombo.bindListBox();
+            }
+            else
+            {
+                MessageBox.Show("Select Person");
+            }
+
         }
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
             // xmlreader nowa funkcja do zapisu nowej osoby w xml
             // refresh listteammember
+            if (txtnewTeamMember.Text.Length != 0)
+            {
+                myXMLReader.addPerdon(txtnewTeamMember.Text.ToUpper());
+                BindCombo.bindListBox();
+                txtnewTeamMember.Text = "";
+            }
+            else
+            {
+                MessageBox.Show("need: NAME");
+            }
         }
 
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)

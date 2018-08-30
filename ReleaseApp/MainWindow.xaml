@@ -770,17 +770,15 @@
                 <Label Content="Phisical" HorizontalAlignment="Left" Margin="41,68,0,0" VerticalAlignment="Top" Width="75" Height="26"/>
                 <Label Content="Type" HorizontalAlignment="Left" Margin="197,63,0,0" VerticalAlignment="Top" Width="100" Height="26"/>
                 <Label Content="Available since Release : " HorizontalAlignment="Left" Margin="351,68,0,0" VerticalAlignment="Top" Width="144" Height="26"/>
-                <TextBox Name="txtLeftHI" HorizontalAlignment="Left" Height="85" Margin="41,454,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256"/>
-                <TextBox Name="txtRightHI" HorizontalAlignment="Left" Height="94" Margin="41,578,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="256"/>
-                <Label Name="lblLeftHI" Content="Left HI: " HorizontalAlignment="Left" Margin="41,410,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.408,0.5" Visibility="Hidden"/>
-                <Label Name="lblRightHI" Content="Right HI" HorizontalAlignment="Left" Margin="41,552,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+                
                 <Label Name="lblComDevice" Content="Com Device" HorizontalAlignment="Left" Margin="422,513,0,0" VerticalAlignment="Top" Width="96"/>
                 <TextBox Name="txtComDevice" HorizontalAlignment="Left" Height="33" Margin="422,578,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="188"/>
                 <ListBox Name="ListTeamPerson" HorizontalAlignment="Left" Height="122" VerticalAlignment="Top" Width="148" Margin="602,63,0,0"/>
                 <Button Name="btnAddPersonToList" Content="Add" HorizontalAlignment="Left" Margin="650,224,0,0" VerticalAlignment="Top" Width="100" Click="btnAddPersonToList_Click"/>
                 <Button Name="btnClearListTeamPerson" Content="Clear" HorizontalAlignment="Left" Margin="650,262,0,0" VerticalAlignment="Top" Width="100" Click="btnClearListTeamPerson_Click"/>
-                <Button Content="Add New Team Member" HorizontalAlignment="Left" Margin="550,339,0,0" VerticalAlignment="Top" Width="200"/>
-                <Button Content="Remove" HorizontalAlignment="Left" Margin="650,301,0,0" VerticalAlignment="Top" Width="100"/>
+                <Button Name="btnAddNewPerson" Content="Add New Team Member" HorizontalAlignment="Left" Margin="550,339,0,0" VerticalAlignment="Top" Width="200" Click="Button_Click_4"/>
+                <Button Name="btnRemovePerson" Content="Remove" HorizontalAlignment="Left" Margin="650,301,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click_3"/>
+                <TextBox Name="txtnewTeamMember" HorizontalAlignment="Left" Height="23" Margin="550,301,0,0" MaxLength="4" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="95"/>
 
 
 
