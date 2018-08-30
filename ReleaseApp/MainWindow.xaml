@@ -95,7 +95,7 @@
             </Style>
         </TabControl.Resources>
 
-       
+
         <TabItem Header="Main" BorderBrush="#FF424242" Height="21" VerticalAlignment="Bottom" Foreground="White">
 
 
@@ -225,7 +225,7 @@
                     <Image x:Name="imgSonic" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center" Width="110" Source="Images/sonic.png">
                         <!--<Image.Source>C:/UltimateChanger/sonic2.png</Image.Source>-->
                     </Image>
-                    
+
                     <Image x:Name="imgStarto" Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center" Width="110" Source="Images/starto.PNG">
                         <!--<Image.Source>C:/UltimateChanger/sonic2.png</Image.Source>-->
                     </Image>
@@ -247,47 +247,41 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
-                        <RowDefinition Height="51*"/>
-                        <RowDefinition Height="51*"/>
-                        <RowDefinition Height="48"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1"/>
                     </Grid.RowDefinitions>
 
 
-                    <Label x:Name="lblSelectMarket" Content="Select market:" Foreground="White"/>
-                    <ComboBox x:Name="cmbMarket" MaxDropDownHeight="150" SelectedIndex="0" SelectionChanged="cmbMarket_SelectionChanged" IsEnabled="False" Foreground="White" BorderBrush="White"/>
-
-
-                    <!--HorizontalAlignment="Center" VerticalAlignment="Center" Width="120"  Height="22"-->
-                    <Button x:Name="btnUpdate" Grid.Row="0" Grid.Column="1" Margin="10,30,11,17" Content="Update market"  Click="btnUpdate_Click" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"/>
+                    <Label x:Name="lblSelectMarket" Content="Select market:" Foreground="White" HorizontalAlignment="Left"/>
+                    <ComboBox x:Name="cmbMarket" MaxDropDownHeight="150" SelectedIndex="0" SelectionChanged="cmbMarket_SelectionChanged" IsEnabled="False" Foreground="White" BorderBrush="White" Margin="5 0"/>
+                    <Button x:Name="btnUpdate" Grid.Row="0" Grid.Column="1" Content="Update market"  Click="btnUpdate_Click" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
 
                     <Label x:Name="lblSelectLogMode" Grid.Row="1" Grid.Column="0"  Content="Select log mode:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"/>
-                    <Label x:Name="lblSelectlogSettings" Grid.Row="1" Grid.Column="0"  Content="Select log settings:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="132" Margin="13,78,0,0" Height="27" Foreground="White"/>
-                    <Label x:Name="lblSetlog1" Grid.Row="4" Grid.Column="0"  Content="maximumFileSize :" HorizontalAlignment="Left" VerticalAlignment="Top" Width="132" Margin="19,10,0,0" Height="27" Visibility="Hidden"/>
-                    <Label x:Name="lblSetlog2" Grid.Row="5" Grid.Column="0"  Content="maxSizeRollBackups :" HorizontalAlignment="Left" VerticalAlignment="Top" Width="132" Margin="19,10,0,0" Height="27" Visibility="Hidden"/>
-                    <Label x:Name="lblSetlog3" Grid.Row="6" Grid.Column="0"  Content="appendToFile :" HorizontalAlignment="Left" VerticalAlignment="Top" Width="132" Margin="19,10,0,0" Height="27" Visibility="Hidden"/>
+                    <ComboBox x:Name="cmbLogMode" Grid.Row="1" Grid.Column="0" MaxDropDownHeight="150" SelectedIndex="0"  SelectionChanged="cmbLogMode_SelectionChanged" IsEnabled="False" Foreground="White" BorderBrush="White" Margin="5 0"/>
+                    
+                    <Label x:Name="lblSelectlogSettings" Grid.Row="1" Grid.Column="1"  Content="Select log settings:" Foreground="White"/>
+                    <ComboBox x:Name="cmbLogSettings" Grid.Row="1" Grid.Column="1" MaxDropDownHeight="150" SelectedIndex="0"  SelectionChanged="cmbLogMode_SelectionChanged" IsEnabled="False" Foreground="White" BorderBrush="White" Margin="5 0" />
+
+                    <Button x:Name="btnLogMode"     Content="Update mode"  Click="btnChange_mode_log" Grid.Row="2" IsEnabled="False" Grid.Column="0" VerticalAlignment="Top" BorderBrush="#FF424242" Background="#FF616161" Foreground="#E5FFFFFF" Margin="5 0"/>
+                    <Button x:Name="btnAdvancelogs" Content="Advance log settings"  Click="btnAdvancelogs_Click" IsEnabled="False" Grid.Row="2" Grid.Column="2" VerticalAlignment="Top" Background="#FF616161" BorderBrush="#FF424242" Margin="5 0"/>
+
+
+                    <Button x:Name="btnDeletelogs" Grid.Row="3" Grid.Column="2" VerticalAlignment="Top" Content="Delete log files" Click="btnDelete_logs" ToolTip="All log files of selected FS will be deleted" IsEnabled="False" Foreground="#E5FFFFFF" Background="#FF616161" BorderBrush="#FF424242" Margin="5 0"/>
+                    <Button x:Name="btnSavelogs" Grid.Row="3" Grid.Column="0" VerticalAlignment="Top" Content="Save Log" Click="btnSavelogs_Click" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"  Margin="5 0"/>
+
 
                     <TextBox x:Name="txtsettlog1" Grid.Row="4" Grid.Column="1" TextWrapping="Wrap" Text="" Margin="32,14,33,13" Visibility="Hidden"/>
                     <TextBox x:Name="txtsettlog2" Grid.Row="5" Grid.Column="1" TextWrapping="Wrap" Text="" Margin="32,14,33,14" Visibility="Hidden"/>
                     <TextBox x:Name="txtsettlog3" Grid.Row="6" Grid.Column="1" TextWrapping="Wrap" Text="" Margin="32,18,33,10" Visibility="Hidden"/>
 
-                    <ComboBox x:Name="cmbLogMode" Grid.Row="1" Grid.Column="0" MaxDropDownHeight="150" SelectedIndex="0"  SelectionChanged="cmbLogMode_SelectionChanged" IsEnabled="False" Foreground="White" BorderBrush="White"/>
-                    <ComboBox x:Name="cmbLogSettings" Margin="14,110,6,52" Grid.Row="1" Grid.Column="0" MaxDropDownHeight="150" SelectedIndex="0"  SelectionChanged="cmbLogMode_SelectionChanged" IsEnabled="False" Grid.RowSpan="2" Foreground="White" BorderBrush="White" />
+                    <Label x:Name="lblSetlog1" Grid.Row="4" Grid.Column="0"  Content="maximumFileSize :" HorizontalAlignment="Left" VerticalAlignment="Top" Width="132" Margin="19,10,0,0" Height="27" Visibility="Hidden"/>
+                    <Label x:Name="lblSetlog2" Grid.Row="5" Grid.Column="0"  Content="maxSizeRollBackups :" HorizontalAlignment="Left" VerticalAlignment="Top" Width="132" Margin="19,10,0,0" Height="27" Visibility="Hidden"/>
+                    <Label x:Name="lblSetlog3" Grid.Row="6" Grid.Column="0"  Content="appendToFile :" HorizontalAlignment="Left" VerticalAlignment="Top" Width="132" Margin="19,10,0,0" Height="27" Visibility="Hidden"/>
+                    
 
 
-
-                    <Grid  Grid.Row="2"  Grid.Column="1" Grid.RowSpan="4">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="8*"/>
-                            <RowDefinition Height="48*"/>
-                            <RowDefinition Height="41*"/>
-                            <RowDefinition Height="85*"/>
-                        </Grid.RowDefinitions>
-                        <Button x:Name="btnDeletelogs" Grid.Row="0" Margin="8,-82,12,62" Content="Delete log files" Click="btnDelete_logs" ToolTip="All log files of selected FS will be deleted" IsEnabled="False" Foreground="#E5FFFFFF" Background="#FF616161" BorderBrush="#FF424242"/>
-                        <Button x:Name="btnSavelogs" Grid.Row="0" Margin="8,-41,12,21" Content="Save Log" Click="btnSavelogs_Click" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" />
-
-                        <Button x:Name="btnLogMode"  Margin="-79,37,99,19"   Content="Update mode"  Click="btnChange_mode_log" Grid.Row="1" IsEnabled="False" Grid.RowSpan="2" BorderBrush="#FF424242" Background="#FF616161" Foreground="#E5FFFFFF"/>
-                        <Button x:Name="btnAdvancelogs" Content="Advance" Margin="8,0,12,30" Click="btnAdvancelogs_Click" IsEnabled="False" Grid.RowSpan="2" Height="26" VerticalAlignment="Bottom" Background="#FF616161" BorderBrush="#FF424242"/>
-                    </Grid>
+                    
                 </Grid>
 
 
@@ -834,5 +828,9 @@
 
 
     </TabControl>
+<<<<<<< HEAD
     <!--</dragablz:TabablzControl>-->
+=======
+
+>>>>>>> master
 </Window>
