@@ -28,6 +28,7 @@ using System.Text.RegularExpressions;
 using ICSharpCode.SharpZipLib;
 using ICSharpCode.SharpZipLib.Zip;
 using System.Net;
+using System.Data;
 
 [assembly: System.Reflection.AssemblyVersion("3.0.0.0")]
 namespace UltimateChanger
@@ -62,7 +63,7 @@ namespace UltimateChanger
         public List<List<string>> AllbuildsPerFS = new List<List<string>>();
         internal List<pathAndDir> Paths_Dirs { get => paths_Dirs; set => paths_Dirs = value; }
         string User_Power;
-
+        public List<string> RandomHardware;
 
         public MainWindow()
         {
@@ -210,6 +211,7 @@ namespace UltimateChanger
         {
             lblVersion.Content = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             User_Power = "USER";
+
             try
             {
 
@@ -1393,6 +1395,7 @@ namespace UltimateChanger
 
         private void btnRANDHI_Click(object sender, RoutedEventArgs e)
         {
+            RandomHardware = new List<string>();
             List<string> listofpossibleHI = dataBaseManager.getHI(Random_HI.T_Coil, Random_HI.Led, Random_HI.twoButtons, Random_HI.Wireless, Random_HI.Custom, Random_HI.S, Random_HI.Magneto, Random_HI.Release);
             if (listofpossibleHI == null)
             {
@@ -1422,8 +1425,20 @@ namespace UltimateChanger
                     }
                     else
                     {
+
+
                         // random HI to :
                         MessageBox.Show(listofpossibleHI[rnd.Next(listofpossibleHI.Count)] + "\n" + listofpossibleHI[rnd.Next(listofpossibleHI.Count)]);
+
+                        RandomHIandHardware tmp = new RandomHIandHardware();
+
+                        tmp.Name_Team_member = "PAZE";
+                        tmp.HIL_ = listofpossibleHI[rnd.Next(listofpossibleHI.Count)];
+                        tmp.HIR_ = listofpossibleHI[rnd.Next(listofpossibleHI.Count)];
+                        tmp.ComDev_ = "HI-PRO2";
+
+             
+                        GridDataRandomHardware.Items.Add(tmp);
 
                     }
 
@@ -1842,6 +1857,7 @@ namespace UltimateChanger
         }
 
 
+
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             cmbRelease.Items.Refresh();
@@ -1907,6 +1923,13 @@ namespace UltimateChanger
             refreshUI(new object(), new EventArgs());
 
         }
+    }
+    class RandomHIandHardware
+    {
+        public string Name_Team_member { get; set; }
+        public string HIL_ { get; set; }
+        public string HIR_ { get; set; }
+        public string ComDev_ { get; set; }
     }
 
 }

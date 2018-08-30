@@ -53,17 +53,16 @@
                 <dragablz:InterTabController />
             </dragablz:TabablzControl.InterTabController>-->
     <!-- NOT FANCY - SEMI WORKING: <TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503"> -->
-    <TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">
 
-<<<<<<< HEAD
-        <!--<TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">-->
-        <!-- FANCY - SEMI WORKING: <dragablz:TabablzControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503"> -->
 
-        <!--<dragablz:TabablzControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">
+    <!--<TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">-->
+    <!-- FANCY - SEMI WORKING: <dragablz:TabablzControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503"> -->
+
+    <!--<dragablz:TabablzControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">
         <dragablz:TabablzControl.InterTabController>
             <dragablz:InterTabController />
-        </dragablz:TabablzControl.InterTabController>--> 
-=======
+        </dragablz:TabablzControl.InterTabController>-->
+
 
     <!--<TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">-->
     <!-- FANCY - SEMI WORKING: <dragablz:TabablzControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503"> -->
@@ -105,7 +104,7 @@
         <TabItem Header="Main" BorderBrush="#FF424242" Height="21" VerticalAlignment="Bottom" Foreground="White">
 
 
->>>>>>> master
+
 
             <TabItem.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
@@ -776,7 +775,25 @@
                 <Button Name="btnClearListTeamPerson" Content="Clear" HorizontalAlignment="Left" Margin="650,262,0,0" VerticalAlignment="Top" Width="100" Click="btnClearListTeamPerson_Click"/>
                 <Button Name="btnAddNewPerson" Content="Add New Team Member" HorizontalAlignment="Left" Margin="550,339,0,0" VerticalAlignment="Top" Width="200" Click="Button_Click_4"/>
                 <Button Name="btnRemovePerson" Content="Remove" HorizontalAlignment="Left" Margin="650,301,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click_3"/>
-                <TextBox Name="txtnewTeamMember" HorizontalAlignment="Left" Height="23" Margin="550,301,0,0" MaxLength="4" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="95"/>
+                <TextBox Name="txtnewTeamMember" HorizontalAlignment="Left" Height="23" Margin="550,301,0,0" MaxLength="4" TextWrapping="Wrap" Text="" ToolTip="Name (XXXX)" VerticalAlignment="Top" Width="95"  />
+                <DataGrid Name="GridDataRandomHardware" AutoGenerateColumns="True"  HorizontalAlignment="Left" Height="310" Margin="25,406,0,0" VerticalAlignment="Top" Width="740">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name"  Binding="{Binding Name_Team_member}" Width="100"/>
+                        <DataGridTextColumn Header="HI L"  Binding="{Binding HIL_}" Width="250"/>
+                        <DataGridTextColumn Header="HI R"  Binding="{Binding HIR_}" Width="250"/>
+                        <DataGridTextColumn Header="Com Dev" Binding="{Binding ComDev_}" Width="*"/>
+                    </DataGrid.Columns>
+
+                    <DataGrid.Resources >
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="Background" Value="Red" />
+                            <Setter Property="FontWeight" Value="SemiBold" />
+                            <Setter Property="BorderThickness" Value="2,1,1,3" />
+                            <Setter Property="BorderBrush" Value="Black" />
+                        </Style>
+                       
+                    </DataGrid.Resources>
+                </DataGrid>
 
 
 
@@ -828,9 +845,5 @@
 
 
     </TabControl>
-<<<<<<< HEAD
-    <!--</dragablz:TabablzControl>-->
-=======
 
->>>>>>> master
 </Window>

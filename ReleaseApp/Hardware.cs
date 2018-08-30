@@ -9,7 +9,6 @@ namespace UltimateChanger
     class MyHardware
     {
         public string Name, Manufacturer, Type, ID, Localization;
-
         public MyHardware()
         {
             Name = "";
