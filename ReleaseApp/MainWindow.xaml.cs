@@ -28,6 +28,7 @@ using System.Text.RegularExpressions;
 using ICSharpCode.SharpZipLib;
 using ICSharpCode.SharpZipLib.Zip;
 using System.Net;
+using System.Data;
 
 [assembly: System.Reflection.AssemblyVersion("3.0.0.0")]
 namespace UltimateChanger
@@ -62,7 +63,7 @@ namespace UltimateChanger
         public List<List<string>> AllbuildsPerFS = new List<List<string>>();
         internal List<pathAndDir> Paths_Dirs { get => paths_Dirs; set => paths_Dirs = value; }
         string User_Power;
-
+        public List<string> RandomHardware;
 
         public MainWindow()
         {
@@ -88,9 +89,7 @@ namespace UltimateChanger
                 BindCombo.bindlogmode();
                 bindMarketDictionary();
                 BindCombo.bindListBox();
-                setUIdefaults(XMLReader.getDefaultSettings("RadioButtons"), "RadioButtons");
-                setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
-                setUIdefaults(XMLReader.getDefaultSettings("ComboBox"), "ComboBox");
+
 
                 fileOperator.getDataToBuildCombobox();
                 initializeTimers();
@@ -114,7 +113,9 @@ namespace UltimateChanger
                 MessageBox.Show(x.ToString());
             }
             sliderRelease.Maximum = cmbRelease.Items.Count - 1; // max dla slidera -1 bo count nie uwzglednia zerowego indexu
+            sliderPP.Maximum = BindCombobox.listPP.Count - 1;
             sliderRelease.Value = cmbRelease.SelectedIndex; // ustalenie defaulta jako obecny release
+            sliderPP.Value = 0;
             refreshUI(new object(), new EventArgs());
             dataBaseManager = new DataBaseManager(XMLReader.getDefaultSettings("DataBase").ElementAt(0).Value);
             if (dataBaseManager != null)
@@ -122,7 +123,9 @@ namespace UltimateChanger
                 dataBaseManager.getInformation_DB();
             }
 
-
+            setUIdefaults(XMLReader.getDefaultSettings("RadioButtons"), "RadioButtons");
+            setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
+            setUIdefaults(XMLReader.getDefaultSettings("ComboBox"), "ComboBox");
 
         }
         //________________________________________________________________________________________________________________________________________________
@@ -210,6 +213,7 @@ namespace UltimateChanger
         {
             lblVersion.Content = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             User_Power = "USER";
+
             try
             {
 
@@ -300,6 +304,8 @@ namespace UltimateChanger
             StringToUI.Add("rbn_Genie", "Genie_skin");
             StringToUI.Add("rbn_Oasis", "Oasis_skin");
             StringToUI.Add("rbn_ExpressFit", "ExpressFit_skin");
+            StringToUI.Add("rbnLogsAll_YES", "SetAll");
+            StringToUI.Add("rbnLogsAll_NO", "NotSetAll");
         }
 
         public void checkbox(object sender, RoutedEventArgs e)
@@ -549,7 +555,9 @@ namespace UltimateChanger
                 rbnDark_skin,
                 rbn_Genie,
                 rbn_Oasis,
-                rbn_ExpressFit
+                rbn_ExpressFit,
+                rbnLogsAll_YES,
+                rbnLogsAll_NO,
             };
             comboBoxList = new List<ComboBox>()
             {
@@ -1393,7 +1401,9 @@ namespace UltimateChanger
 
         private void btnRANDHI_Click(object sender, RoutedEventArgs e)
         {
+            RandomHardware = new List<string>();
             List<string> listofpossibleHI = dataBaseManager.getHI(Random_HI.T_Coil, Random_HI.Led, Random_HI.twoButtons, Random_HI.Wireless, Random_HI.Custom, Random_HI.S, Random_HI.Magneto, Random_HI.Release);
+            List<string> listofpossibleComDev = dataBaseManager.getComDevice(Random_HI.Wireless);
             if (listofpossibleHI == null)
             {
                 MessageBox.Show("lack of adequate HI");
@@ -1402,39 +1412,54 @@ namespace UltimateChanger
             else
             {
                 Random rnd = new Random();
-                try
-                {
-                    if (rbnHI_1.IsChecked.Value) // jezeli 1 HI wybrany to wyswietlic co zostalo wybrane do losowej strony i wpisac tam txtLeftHI lub txtRightHI co wybrane + zapisac w xml jaki wybór został dokonany 
+                foreach (var item in listOfTeammembers) // przechodze po osobach z  listy i losuje im wszystko co trzeba
+                {          
+                    try
                     {
-                        // random HI to :
+                        if (rbnHI_1.IsChecked.Value) // jezeli 1 HI wybrany to wyswietlic co zostalo wybrane do losowej strony i wpisac tam txtLeftHI lub txtRightHI co wybrane + zapisac w xml jaki wybór został dokonany 
+                        {
+                            // random HI to :
 
-                        if (rnd.Next(1) == 0) // jezeli 1 to lewa jezeli nie to prawa 
-                        {//lewa
+                            if (rnd.Next(1) == 0) // jezeli 1 to lewa jezeli nie to prawa 
+                            {//lewa
+
+                            }
+                            else
+                            {//prawa
+
+                            }
+
+                            // random comdev
 
                         }
                         else
-                        {//prawa
+                        {
+
+
+                            // random HI to :
+                            MessageBox.Show(listofpossibleHI[rnd.Next(listofpossibleHI.Count)] + "\n" + listofpossibleHI[rnd.Next(listofpossibleHI.Count)]);
+
+                            RandomHIandHardware tmp = new RandomHIandHardware();
+
+                            tmp.Name_Team_member = item;
+                            tmp.HIL_ = listofpossibleHI[rnd.Next(listofpossibleHI.Count)];
+                            tmp.HIR_ = listofpossibleHI[rnd.Next(listofpossibleHI.Count)];
+                            tmp.ComDev_ = listofpossibleComDev[rnd.Next(listofpossibleComDev.Count)];
+
+
+
+                            GridDataRandomHardware.Items.Add(tmp);
 
                         }
 
-                        // random comdev
 
                     }
-                    else
+                    catch (ArgumentOutOfRangeException)
                     {
-                        // random HI to :
-                        MessageBox.Show(listofpossibleHI[rnd.Next(listofpossibleHI.Count)] + "\n" + listofpossibleHI[rnd.Next(listofpossibleHI.Count)]);
+                        MessageBox.Show("lack of adequate HI");
 
                     }
-
-
                 }
-                catch (ArgumentOutOfRangeException)
-                {
-                    MessageBox.Show("lack of adequate HI");
-
-                }
-
 
             }
         }
@@ -1841,6 +1866,43 @@ namespace UltimateChanger
             }
         }
 
+        private void btnClearTable_Click(object sender, RoutedEventArgs e)
+        {
+            GridDataRandomHardware.Items.Clear();
+        }
+
+        private void sliderPP_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            lblPP.Content = BindCombobox.listPP[Convert.ToInt32(sliderPP.Value)];
+            Random_HI.PP = lblPP.Content.ToString();
+        }
+
+        private void rbnLogsAll_YES_Checked(object sender, RoutedEventArgs e)
+        {
+            XMLReader.setSetting("SetAll", "RadioButtons", Convert.ToString(rbnLogsAll_YES.IsChecked.Value));
+            bool tmp = rbnLogsAll_YES.IsChecked.Value;
+            tmp = !tmp;
+            XMLReader.setSetting("NotSetAll", "RadioButtons", Convert.ToString(tmp));
+
+            byte licznik = 0;
+            foreach (var item in checkBoxList)
+            {
+                if (item.IsEnabled)
+                {
+                    fileOperator.setLogMode("ALL", 0, licznik, false, txtsettlog1.Text, txtsettlog2.Text, txtsettlog3.Text);
+                }
+                
+                licznik++;
+            }
+        }
+
+        private void rbnLogsAll_NO_Checked(object sender, RoutedEventArgs e)
+        {
+            XMLReader.setSetting("NotSetAll", "RadioButtons", Convert.ToString(rbnLogsAll_NO.IsChecked.Value));
+            bool tmp = rbnLogsAll_NO.IsChecked.Value;
+            tmp = !tmp;
+            XMLReader.setSetting("SetAll", "RadioButtons", Convert.ToString(tmp));
+        }
 
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -1907,6 +1969,13 @@ namespace UltimateChanger
             refreshUI(new object(), new EventArgs());
 
         }
+    }
+    class RandomHIandHardware
+    {
+        public string Name_Team_member { get; set; }
+        public string HIL_ { get; set; }
+        public string HIR_ { get; set; }
+        public string ComDev_ { get; set; }
     }
 
 }

@@ -9,6 +9,10 @@
             <Value>FALSE</Value>
       <Name>NotHoldLogs</Name>  
             <Value>True</Value>
+      <Name>SetAll</Name>
+            <Value>True</Value>
+      <Name>NotSetAll</Name>
+            <Value>FALSE</Value>
       <Name>InstallModeNormal</Name>
             <Value>TRUE</Value>
       <Name>InstallModeSilent</Name>

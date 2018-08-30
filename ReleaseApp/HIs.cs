@@ -16,7 +16,7 @@ namespace UltimateChanger
         public bool S;
         public bool Magneto;
         public string Release;
-
+        public string PP;
         public HIs()
         {
             T_Coil = false;
@@ -27,8 +27,9 @@ namespace UltimateChanger
             S = false;
             Magneto = false;
             Release = "";
+            PP = "";
         }
-        public HIs(bool t_coil,bool led,bool twobuttons,bool wireless,bool custom,bool s, bool magneto, string release)
+        public HIs(bool t_coil,bool led,bool twobuttons,bool wireless,bool custom,bool s, bool magneto, string release, string pp = "")
         {
             T_Coil = t_coil;
             Led = led;
@@ -38,6 +39,7 @@ namespace UltimateChanger
             S = s;
             Magneto = magneto;
             Release = release;
+            PP = pp;
         }
 
 
