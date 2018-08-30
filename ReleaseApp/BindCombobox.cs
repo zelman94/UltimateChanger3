@@ -90,6 +90,15 @@ namespace UltimateChanger
                 { "Cumulus", "Cumulus"}
             };
 
+        static public List<string> listPP = new List<string>()
+        {
+            {"OPN 1"},
+            {"OPN 2"},
+            {"OPN 3"},
+            {"Siya 1"},
+            {"Siya 2"},
+        };
+
         public void bindlogmode()
         {
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbLogMode.ItemsSource = mode;
@@ -217,9 +226,9 @@ namespace UltimateChanger
             ((MainWindow)System.Windows.Application.Current.MainWindow).ListBoxHardware.ItemsSource = MyHardware.ToNameAndID(listaHardware);
 
             List<string> listPerson = myXMLReader.getTeamPerson(); // dostaje liste instancji Hardware    
-            ((MainWindow)System.Windows.Application.Current.MainWindow).ListTeamPerson.ItemsSource = listPerson;
-
+            ((MainWindow)System.Windows.Application.Current.MainWindow).ListTeamPerson.ItemsSource = listPerson;            
         }
+
 
 
     }
