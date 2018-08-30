@@ -14,8 +14,8 @@
         MinWidth="750"
         Localization.Attributes="Center"
         >
-    
-    
+
+
 
     <Window.Foreground>
         <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
@@ -29,6 +29,40 @@
             <GradientStop Color="#E2212121" Offset="1"/>
         </LinearGradientBrush>
     </Window.Background>
+
+
+    <!--<dragablz:TabablzControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">
+        -->
+    <!-- not fancy:  <TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">-->
+    <!--
+        <dragablz:TabablzControl.InterTabController>
+            <dragablz:InterTabController />
+        </dragablz:TabablzControl.InterTabController>-->
+
+
+
+    <!--<dragablz:TabablzControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">
+        not fancy:  <TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">
+        <dragablz:TabablzControl.InterTabController>
+            <dragablz:InterTabController />
+        </dragablz:TabablzControl.InterTabController>
+
+
+        <dragablz:TabablzControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">
+        <dragablz:TabablzControl.InterTabController>
+                <dragablz:InterTabController />
+            </dragablz:TabablzControl.InterTabController>-->
+    <!-- NOT FANCY - SEMI WORKING: <TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503"> -->
+
+
+    <!--<TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">-->
+    <!-- FANCY - SEMI WORKING: <dragablz:TabablzControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503"> -->
+
+    <!--<dragablz:TabablzControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">
+        <dragablz:TabablzControl.InterTabController>
+            <dragablz:InterTabController />
+        </dragablz:TabablzControl.InterTabController>-->
+
 
     <TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503" Background="#FF212121">
         <TabControl.Resources>
@@ -59,6 +93,7 @@
 
 
         <TabItem Header="Main" BorderBrush="#FF424242" Height="21" VerticalAlignment="Bottom" Foreground="White">
+
 
 
             <TabItem.Background>
@@ -220,7 +255,7 @@
 
                     <Label x:Name="lblSelectLogMode" Grid.Row="1" Grid.Column="0"  Content="Select log mode:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"/>
                     <ComboBox x:Name="cmbLogMode" Grid.Row="1" Grid.Column="0" MaxDropDownHeight="150" SelectedIndex="0"  SelectionChanged="cmbLogMode_SelectionChanged" IsEnabled="False" Foreground="White" BorderBrush="White" Margin="5 0"/>
-                    
+
                     <Label x:Name="lblSelectlogSettings" Grid.Row="1" Grid.Column="1"  Content="Select log settings:" Foreground="White"/>
                     <ComboBox x:Name="cmbLogSettings" Grid.Row="1" Grid.Column="1" MaxDropDownHeight="150" SelectedIndex="0"  SelectionChanged="cmbLogMode_SelectionChanged" IsEnabled="False" Foreground="White" BorderBrush="White" Margin="5 0" />
 
@@ -238,7 +273,6 @@
                     <TextBox x:Name="txtsettlog1" Grid.Row="4" Grid.Column="0" Text="" Foreground="White" BorderBrush="White" VerticalAlignment="Center"  Margin="5 5 0 5" Padding="2" Visibility="Hidden"/>
                     <TextBox x:Name="txtsettlog2" Grid.Row="5" Grid.Column="0" Text=""  Foreground="White" BorderBrush="White" VerticalAlignment="Center" Margin="5 5 0 5" Padding="2" Visibility="Hidden"/>
                     <TextBox x:Name="txtsettlog3" Grid.Row="6" Grid.Column="0" Text="" Foreground="White" BorderBrush="White" VerticalAlignment="Center"  Margin="5 5 0 5" Padding="2" Visibility="Hidden"/>
-
 
 
 
@@ -385,7 +419,7 @@
                 <StackPanel VerticalAlignment="Top" Margin="0 40">
                     <TextBox x:Name="textBox" Text="" Height="20"  TextWrapping="Wrap"  Width="120" Margin="0 10" MouseEnter="LoggingMouseEnter" MouseLeave="LoggingMouseEnter" TextChanged="textBox_TextChanged"/>
                     <PasswordBox x:Name="passwordBox" Height="20"   Width="120" Margin="124,10" MouseEnter="LoggingMouseEnter" MouseLeave="LoggingMouseEnter"/>
-                    <Button x:Name="btnLogToDB" Content="Log in" HorizontalAlignment="Center"  Width="120" MouseEnter="LoggingMouseEnter" MouseLeave="LoggingMouseEnter" Margin="0 10" Height="37" Click="btnLogToDB_Click"/>
+                    <Button x:Name="btnLogToDB" Content="Log in" HorizontalAlignment="Center"  Width="120" MouseEnter="LoggingMouseEnter" MouseLeave="LoggingMouseEnter" Margin="137,10" Height="37" Click="btnLogToDB_Click"/>
                 </StackPanel>
 
 
@@ -636,6 +670,7 @@
                     <Border Grid.Column="11" Grid.Row="15" Background="Brown"/>
 
                 </Grid>
+                <Button Name="btnNewUser" Content="Create New" HorizontalAlignment="Left" Margin="138,182,0,0" VerticalAlignment="Top" Width="120"/>
 
 
             </Grid>
@@ -698,12 +733,8 @@
 
             <Grid x:Name="GridRandom" Margin="0,0,0,-3">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="66*"/>
-                    <ColumnDefinition Width="0*"/>
-                    <ColumnDefinition Width="131*"/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Image x:Name="imgHIL" HorizontalAlignment="Left" Height="170" Margin="238,284,0,0" VerticalAlignment="Top" Width="200" Grid.ColumnSpan="3"/>
-                <Image x:Name="imgHIR" HorizontalAlignment="Left" Height="170" Margin="215,284,0,0" VerticalAlignment="Top" Width="200" Grid.Column="2"/>
 
                 <StackPanel HorizontalAlignment="Left" Height="117" Margin="41,94,0,0" VerticalAlignment="Top" Width="96">
                     <CheckBox Name="chBt_coil" Content="T-Coil" Margin="0,0,10,0" HorizontalAlignment="Right" Width="86" Checked="chBt_coil_Checked"/>
@@ -715,20 +746,26 @@
                     <RadioButton Name="rbnHI_1" Content="1 HI" Checked="rbnHI_1_Checked"/>
                     <RadioButton Name="rbnHI_2" Content="2 HI" Checked="rbnHI_2_Checked"/>
                 </StackPanel>
-                <StackPanel HorizontalAlignment="Left" Height="100" Margin="197,94,0,0" VerticalAlignment="Top" Width="100" Grid.ColumnSpan="3">
-                    <CheckBox Content="CheckBox"/>
+                <StackPanel HorizontalAlignment="Left" Height="100" Margin="197,94,0,0" VerticalAlignment="Top" Width="100">
+                    <CheckBox Content="Obelix"/>
                     <CheckBox Content="Custom" Margin="0,0,14,0" RenderTransformOrigin="2.163,0.733" Checked="CheckBox_Checked_1"/>
                     <CheckBox Content="&quot;S&quot;" Margin="0,0,4,0" Checked="CheckBox_Checked_2"/>
                     <CheckBox Content="Rechargeable" Checked="CheckBox_Checked" Margin="0,0,4,0"/>
                 </StackPanel>
-                <Button Name="btnRANDHI" Content="RANDOM" HorizontalAlignment="Left" Margin="41,307,0,0" VerticalAlignment="Top" Width="117" Click="btnRANDHI_Click"/>
-                <StackPanel HorizontalAlignment="Left" Height="100" Margin="65,94,0,0" VerticalAlignment="Top" Width="100" Grid.Column="2">
+                <Button Name="btnRANDHI" Content="RANDOM" HorizontalAlignment="Left" Margin="83,239,0,0" VerticalAlignment="Top" Width="117" Click="btnRANDHI_Click"/>
+                <StackPanel HorizontalAlignment="Left" Height="100" Margin="358,94,0,0" VerticalAlignment="Top" Width="100">
                     <Slider Name="sliderRelease" SmallChange="1" TickFrequency="0" ValueChanged="sliderRelease_ValueChanged" HorizontalAlignment="Right" Width="100"/>
                     <Label Name="lblRelease" Content="Label"/>
                 </StackPanel>
                 <Label Content="Phisical" HorizontalAlignment="Left" Margin="41,68,0,0" VerticalAlignment="Top" Width="75" Height="26"/>
-                <Label Content="Type" HorizontalAlignment="Left" Margin="197,63,0,0" VerticalAlignment="Top" Width="100" Grid.ColumnSpan="3" Height="26"/>
-                <Label Content="Available since Release : " HorizontalAlignment="Left" Margin="58,68,0,0" VerticalAlignment="Top" Width="144" Grid.Column="2" Height="26"/>
+                <Label Content="Type" HorizontalAlignment="Left" Margin="197,63,0,0" VerticalAlignment="Top" Width="100" Height="26"/>
+                <Label Content="Available since Release : " HorizontalAlignment="Left" Margin="351,68,0,0" VerticalAlignment="Top" Width="144" Height="26"/>
+                <ListBox Name="ListTeamPerson" HorizontalAlignment="Left" Height="122" VerticalAlignment="Top" Width="148" Margin="602,63,0,0"/>
+                <Button Name="btnAddPersonToList" Content="Add" HorizontalAlignment="Left" Margin="650,224,0,0" VerticalAlignment="Top" Width="100" Click="btnAddPersonToList_Click"/>
+                <Button Name="btnClearListTeamPerson" Content="Clear" HorizontalAlignment="Left" Margin="650,262,0,0" VerticalAlignment="Top" Width="100" Click="btnClearListTeamPerson_Click"/>
+                <Button Name="btnAddNewPerson" Content="Add New Team Member" HorizontalAlignment="Left" Margin="550,339,0,0" VerticalAlignment="Top" Width="200" Click="Button_Click_4"/>
+                <Button Name="btnRemovePerson" Content="Remove" HorizontalAlignment="Left" Margin="650,301,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click_3"/>
+                <TextBox Name="txtnewTeamMember" HorizontalAlignment="Left" Height="23" Margin="550,301,0,0" MaxLength="4" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="95"/>
 
 
 

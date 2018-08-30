@@ -52,6 +52,7 @@ namespace UltimateChanger
         List<Label> listlabelsinfoFS;
         List<CheckBox> checkBoxList = new List<CheckBox>();
         List<ComboBox> comboBoxList = new List<ComboBox>();
+        List<string> listOfTeammembers = new List<string>();
         List<RadioButton> RadioButtonsList = new List<RadioButton>();
         public SortedDictionary<string, string> StringToUI = new SortedDictionary<string, string>(); // slownik do zamiany stringow z xml do wartości UI 
         List<Rectangle> ListRactanglesNames;
@@ -60,7 +61,7 @@ namespace UltimateChanger
         myXMLReader XMLReader = new myXMLReader();
         public List<List<string>> AllbuildsPerFS = new List<List<string>>();
         internal List<pathAndDir> Paths_Dirs { get => paths_Dirs; set => paths_Dirs = value; }
-
+        string User_Power;
 
 
         public MainWindow()
@@ -208,6 +209,7 @@ namespace UltimateChanger
         public void initiationForprograms()
         {
             lblVersion.Content = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            User_Power = "USER";
             try
             {
 
@@ -1194,6 +1196,27 @@ namespace UltimateChanger
         }
         private void btnLogToDB_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                User_Power = dataBaseManager.logIn(txtNameUser.Text, passwordBox.Password.ToString());
+                MessageBox.Show("done");
+            }
+            catch (Exception x)
+            {
+
+            }
+
+        }
+        private void btnNewUser_Click(object sender, RoutedEventArgs e)
+        {
+            if (User_Power == "SUPERUSER")
+            {
+                dataBaseManager.CreateNew(txtNameUser.Text, passwordBox.Password.ToString());
+            }
+            else
+            {
+                MessageBox.Show("Only SUPERUSER can create new Accounts");
+            }
         }
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -1381,16 +1404,30 @@ namespace UltimateChanger
                 Random rnd = new Random();
                 try
                 {
-                    if (rbnHI_1.IsChecked.Value)
+                    if (rbnHI_1.IsChecked.Value) // jezeli 1 HI wybrany to wyswietlic co zostalo wybrane do losowej strony i wpisac tam txtLeftHI lub txtRightHI co wybrane + zapisac w xml jaki wybór został dokonany 
                     {
                         // random HI to :
-                        MessageBox.Show(listofpossibleHI[rnd.Next(listofpossibleHI.Count)]);
+
+                        if (rnd.Next(1) == 0) // jezeli 1 to lewa jezeli nie to prawa 
+                        {//lewa
+
+                        }
+                        else
+                        {//prawa
+
+                        }
+
+                        // random comdev
+
                     }
                     else
                     {
                         // random HI to :
                         MessageBox.Show(listofpossibleHI[rnd.Next(listofpossibleHI.Count)] + "\n" + listofpossibleHI[rnd.Next(listofpossibleHI.Count)]);
+
                     }
+
+
                 }
                 catch (ArgumentOutOfRangeException)
                 {
@@ -1745,6 +1782,65 @@ namespace UltimateChanger
             }
 
         }
+
+        private void btnAddPersonToList_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListTeamPerson.SelectedIndex == -1)
+            {
+                MessageBox.Show("Select Person");
+            }
+            else
+            {
+                List<string> tmp = new List<string>();
+                listOfTeammembers.Add(ListTeamPerson.SelectedValue.ToString());
+                foreach (var item in ListTeamPerson.Items)
+                {
+                    if (item.ToString() != ListTeamPerson.SelectedValue.ToString())
+                    {
+                        tmp.Add(item.ToString());
+                    }                    
+                }
+
+                ListTeamPerson.ItemsSource = tmp;
+            }
+        }
+
+        private void btnClearListTeamPerson_Click(object sender, RoutedEventArgs e)
+        {
+            BindCombo.bindListBox();
+            listOfTeammembers.Clear();
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            if (ListTeamPerson.SelectedIndex!=-1)
+            {
+                myXMLReader.deletePerdon(ListTeamPerson.SelectedValue.ToString());
+                BindCombo.bindListBox();
+            }
+            else
+            {
+                MessageBox.Show("Select Person");
+            }
+
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            // xmlreader nowa funkcja do zapisu nowej osoby w xml
+            // refresh listteammember
+            if (txtnewTeamMember.Text.Length != 0)
+            {
+                myXMLReader.addPerdon(txtnewTeamMember.Text.ToUpper());
+                BindCombo.bindListBox();
+                txtnewTeamMember.Text = "";
+            }
+            else
+            {
+                MessageBox.Show("need: NAME");
+            }
+        }
+
 
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
