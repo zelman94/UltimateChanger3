@@ -89,9 +89,7 @@ namespace UltimateChanger
                 BindCombo.bindlogmode();
                 bindMarketDictionary();
                 BindCombo.bindListBox();
-                setUIdefaults(XMLReader.getDefaultSettings("RadioButtons"), "RadioButtons");
-                setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
-                setUIdefaults(XMLReader.getDefaultSettings("ComboBox"), "ComboBox");
+
 
                 fileOperator.getDataToBuildCombobox();
                 initializeTimers();
@@ -125,7 +123,9 @@ namespace UltimateChanger
                 dataBaseManager.getInformation_DB();
             }
 
-
+            setUIdefaults(XMLReader.getDefaultSettings("RadioButtons"), "RadioButtons");
+            setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
+            setUIdefaults(XMLReader.getDefaultSettings("ComboBox"), "ComboBox");
 
         }
         //________________________________________________________________________________________________________________________________________________
@@ -304,6 +304,8 @@ namespace UltimateChanger
             StringToUI.Add("rbn_Genie", "Genie_skin");
             StringToUI.Add("rbn_Oasis", "Oasis_skin");
             StringToUI.Add("rbn_ExpressFit", "ExpressFit_skin");
+            StringToUI.Add("rbnLogsAll_YES", "SetAll");
+            StringToUI.Add("rbnLogsAll_NO", "NotSetAll");
         }
 
         public void checkbox(object sender, RoutedEventArgs e)
@@ -553,7 +555,9 @@ namespace UltimateChanger
                 rbnDark_skin,
                 rbn_Genie,
                 rbn_Oasis,
-                rbn_ExpressFit
+                rbn_ExpressFit,
+                rbnLogsAll_YES,
+                rbnLogsAll_NO,
             };
             comboBoxList = new List<ComboBox>()
             {
@@ -1871,6 +1875,33 @@ namespace UltimateChanger
         {
             lblPP.Content = BindCombobox.listPP[Convert.ToInt32(sliderPP.Value)];
             Random_HI.PP = lblPP.Content.ToString();
+        }
+
+        private void rbnLogsAll_YES_Checked(object sender, RoutedEventArgs e)
+        {
+            XMLReader.setSetting("SetAll", "RadioButtons", Convert.ToString(rbnLogsAll_YES.IsChecked.Value));
+            bool tmp = rbnLogsAll_YES.IsChecked.Value;
+            tmp = !tmp;
+            XMLReader.setSetting("NotSetAll", "RadioButtons", Convert.ToString(tmp));
+
+            byte licznik = 0;
+            foreach (var item in checkBoxList)
+            {
+                if (item.IsEnabled)
+                {
+                    fileOperator.setLogMode("ALL", 0, licznik, false, txtsettlog1.Text, txtsettlog2.Text, txtsettlog3.Text);
+                }
+                
+                licznik++;
+            }
+        }
+
+        private void rbnLogsAll_NO_Checked(object sender, RoutedEventArgs e)
+        {
+            XMLReader.setSetting("NotSetAll", "RadioButtons", Convert.ToString(rbnLogsAll_NO.IsChecked.Value));
+            bool tmp = rbnLogsAll_NO.IsChecked.Value;
+            tmp = !tmp;
+            XMLReader.setSetting("SetAll", "RadioButtons", Convert.ToString(tmp));
         }
 
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)
