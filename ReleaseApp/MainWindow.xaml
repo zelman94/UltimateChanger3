@@ -34,11 +34,7 @@
          </Window.Icon>-->
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-        
->>>>>>> c5e82aec7a6be08f48b96431b09fbca7c7cefccf
+
     <!--<dragablz:TabablzControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">
         -->
     <!-- not fancy:  <TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">-->
@@ -70,9 +66,8 @@
         <dragablz:TabablzControl.InterTabController>
             <dragablz:InterTabController />
         </dragablz:TabablzControl.InterTabController>-->
-    <TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">
-        <TabItem Header="Main">
-=======
+
+
     <TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503" Background="#FF212121">
         <TabControl.Resources>
             <Style TargetType="TabItem">
@@ -104,7 +99,7 @@
         <TabItem Header="Main" BorderBrush="#FF424242" Height="21" VerticalAlignment="Bottom" Foreground="White">
 
 
->>>>>>> master
+
             <TabItem.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FFF0F0F0"/>
