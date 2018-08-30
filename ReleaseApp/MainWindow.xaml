@@ -14,8 +14,8 @@
         MinWidth="750"
         Localization.Attributes="Center"
         >
-    
-    
+
+
 
     <Window.Foreground>
         <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
@@ -44,7 +44,7 @@
         </dragablz:TabablzControl.InterTabController>-->
 
 
-    
+
     <!--<dragablz:TabablzControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">
         not fancy:  <TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">
         <dragablz:TabablzControl.InterTabController>
@@ -259,7 +259,7 @@
 
                     <Label x:Name="lblSelectLogMode" Grid.Row="1" Grid.Column="0"  Content="Select log mode:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"/>
                     <ComboBox x:Name="cmbLogMode" Grid.Row="1" Grid.Column="0" MaxDropDownHeight="150" SelectedIndex="0"  SelectionChanged="cmbLogMode_SelectionChanged" IsEnabled="False" Foreground="White" BorderBrush="White" Margin="5 0"/>
-                    
+
                     <Label x:Name="lblSelectlogSettings" Grid.Row="1" Grid.Column="1"  Content="Select log settings:" Foreground="White"/>
                     <ComboBox x:Name="cmbLogSettings" Grid.Row="1" Grid.Column="1" MaxDropDownHeight="150" SelectedIndex="0"  SelectionChanged="cmbLogMode_SelectionChanged" IsEnabled="False" Foreground="White" BorderBrush="White" Margin="5 0" />
 
@@ -278,10 +278,10 @@
                     <Label x:Name="lblSetlog1" Grid.Row="4" Grid.Column="0"  Content="maximumFileSize :" HorizontalAlignment="Left" VerticalAlignment="Top" Width="132" Margin="19,10,0,0" Height="27" Visibility="Hidden"/>
                     <Label x:Name="lblSetlog2" Grid.Row="5" Grid.Column="0"  Content="maxSizeRollBackups :" HorizontalAlignment="Left" VerticalAlignment="Top" Width="132" Margin="19,10,0,0" Height="27" Visibility="Hidden"/>
                     <Label x:Name="lblSetlog3" Grid.Row="6" Grid.Column="0"  Content="appendToFile :" HorizontalAlignment="Left" VerticalAlignment="Top" Width="132" Margin="19,10,0,0" Height="27" Visibility="Hidden"/>
-                    
 
 
-                    
+
+
                 </Grid>
 
 
@@ -776,7 +776,11 @@
                 <Label Name="lblRightHI" Content="Right HI" HorizontalAlignment="Left" Margin="41,552,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
                 <Label Name="lblComDevice" Content="Com Device" HorizontalAlignment="Left" Margin="422,513,0,0" VerticalAlignment="Top" Width="96"/>
                 <TextBox Name="txtComDevice" HorizontalAlignment="Left" Height="33" Margin="422,578,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="188"/>
-                <ListBox HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="567,300,0,0"/>
+                <ListBox Name="ListTeamPerson" HorizontalAlignment="Left" Height="122" VerticalAlignment="Top" Width="148" Margin="602,63,0,0"/>
+                <Button Name="btnAddPersonToList" Content="Add" HorizontalAlignment="Left" Margin="650,224,0,0" VerticalAlignment="Top" Width="100" Click="btnAddPersonToList_Click"/>
+                <Button Name="btnClearListTeamPerson" Content="Clear" HorizontalAlignment="Left" Margin="650,262,0,0" VerticalAlignment="Top" Width="100" Click="btnClearListTeamPerson_Click"/>
+                <Button Content="Add New Team Member" HorizontalAlignment="Left" Margin="550,339,0,0" VerticalAlignment="Top" Width="200"/>
+                <Button Content="Remove" HorizontalAlignment="Left" Margin="650,301,0,0" VerticalAlignment="Top" Width="100"/>
 
 
 
@@ -828,9 +832,5 @@
 
 
     </TabControl>
-<<<<<<< HEAD
-    <!--</dragablz:TabablzControl>-->
-=======
 
->>>>>>> master
 </Window>

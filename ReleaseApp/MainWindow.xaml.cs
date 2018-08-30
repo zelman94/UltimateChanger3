@@ -52,6 +52,7 @@ namespace UltimateChanger
         List<Label> listlabelsinfoFS;
         List<CheckBox> checkBoxList = new List<CheckBox>();
         List<ComboBox> comboBoxList = new List<ComboBox>();
+        List<string> listOfTeammembers = new List<string>();
         List<RadioButton> RadioButtonsList = new List<RadioButton>();
         public SortedDictionary<string, string> StringToUI = new SortedDictionary<string, string>(); // slownik do zamiany stringow z xml do wartości UI 
         List<Rectangle> ListRactanglesNames;
@@ -1761,6 +1762,46 @@ namespace UltimateChanger
                 cmbLogSettings.Visibility = Visibility.Hidden;
             }
 
+        }
+
+        private void btnAddPersonToList_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListTeamPerson.SelectedIndex == -1)
+            {
+                MessageBox.Show("Select Person");
+            }
+            else
+            {
+                List<string> tmp = new List<string>();
+                listOfTeammembers.Add(ListTeamPerson.SelectedValue.ToString());
+                foreach (var item in ListTeamPerson.Items)
+                {
+                    if (item.ToString() != ListTeamPerson.SelectedValue.ToString())
+                    {
+                        tmp.Add(item.ToString());
+                    }                    
+                }
+
+                ListTeamPerson.ItemsSource = tmp;
+            }
+        }
+
+        private void btnClearListTeamPerson_Click(object sender, RoutedEventArgs e)
+        {
+            BindCombo.bindListBox();
+            listOfTeammembers.Clear();
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            // xmlreader nowa funkcjado usuwania rekordu w xml
+            //refresh listteammember
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            // xmlreader nowa funkcja do zapisu nowej osoby w xml
+            // refresh listteammember
         }
 
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -158,6 +158,29 @@ namespace UltimateChanger
                 }
             doc.Save("Settings\\Hardware.xml");
         }
+        public static List<string> getTeamPerson()
+        {
+            List<string> listPersons = new List<string>();
+            XmlDocument doc = new XmlDocument();
+            try
+            {
+                doc.Load("Settings\\myTeam.xml");
+            }
+            catch (Exception x)
+            {
+                 
+            }
+     
+
+
+            XmlNodeList NodesValues = doc.SelectNodes(string.Format($"/Person"));
+            for (int i = 0; i < NodesValues.Count; i++)
+            {
+                listPersons.Add(NodesValues[i].InnerText);
+            }
+
+            return listPersons;
+        }
 
     }
 }
