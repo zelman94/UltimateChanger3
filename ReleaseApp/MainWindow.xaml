@@ -29,10 +29,6 @@
             <GradientStop Color="#E2212121" Offset="1"/>
         </LinearGradientBrush>
     </Window.Background>
-    <!--<Window.Icon>
-         <BitmapImage UriSource="file:///C:/Users/Misiek/Documents/visual studio 2015/Projects/ReleaseApp/ReleaseApp/icon.jpg"/>
-         </Window.Icon>-->
-
 
 
     <!--<dragablz:TabablzControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">
@@ -230,7 +226,7 @@
                         <!--<Image.Source>C:/UltimateChanger/sonic2.png</Image.Source>-->
                     </Image>
 
-                    <Button  Content="All" Click="Button_Click" RenderTransformOrigin="0.549,1.4" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="6" BorderBrush="#FF424242" Background="#FF616161" Foreground="#E5FFFFFF"/>
+                    <Button  Content="All" Click="Button_Click" RenderTransformOrigin="0.549,1.4" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="6" BorderBrush="#FF424242" Background="#FF616161" Foreground="#E5FFFFFF" Margin="0 5 0 0"/>
 
 
                 </Grid>
@@ -270,15 +266,13 @@
                     <Button x:Name="btnDeletelogs" Grid.Row="3" Grid.Column="2" VerticalAlignment="Top" Content="Delete log files" Click="btnDelete_logs" ToolTip="All log files of selected FS will be deleted" IsEnabled="False" Foreground="#E5FFFFFF" Background="#FF616161" BorderBrush="#FF424242" Margin="5 0"/>
                     <Button x:Name="btnSavelogs" Grid.Row="3" Grid.Column="0" VerticalAlignment="Top" Content="Save Log" Click="btnSavelogs_Click" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"  Margin="5 0"/>
 
+                    <Label x:Name="lblSetlog1" Grid.Row="4" Grid.Column="0"  Content="Maximum file size:"  Foreground="White" VerticalAlignment="Top" Visibility="Hidden"/>
+                    <Label x:Name="lblSetlog2" Grid.Row="5" Grid.Column="0"  Content="Max size roll backups:"   Foreground="White" VerticalAlignment="Top" Visibility="Hidden"/>
+                    <Label x:Name="lblSetlog3" Grid.Row="6" Grid.Column="0"  Content="Append to file:"  Foreground="White" VerticalAlignment="Top" Visibility="Hidden"/>
 
-                    <TextBox x:Name="txtsettlog1" Grid.Row="4" Grid.Column="1" TextWrapping="Wrap" Text="" Margin="32,14,33,13" Visibility="Hidden"/>
-                    <TextBox x:Name="txtsettlog2" Grid.Row="5" Grid.Column="1" TextWrapping="Wrap" Text="" Margin="32,14,33,14" Visibility="Hidden"/>
-                    <TextBox x:Name="txtsettlog3" Grid.Row="6" Grid.Column="1" TextWrapping="Wrap" Text="" Margin="32,18,33,10" Visibility="Hidden"/>
-
-                    <Label x:Name="lblSetlog1" Grid.Row="4" Grid.Column="0"  Content="maximumFileSize :" HorizontalAlignment="Left" VerticalAlignment="Top" Width="132" Margin="19,10,0,0" Height="27" Visibility="Hidden"/>
-                    <Label x:Name="lblSetlog2" Grid.Row="5" Grid.Column="0"  Content="maxSizeRollBackups :" HorizontalAlignment="Left" VerticalAlignment="Top" Width="132" Margin="19,10,0,0" Height="27" Visibility="Hidden"/>
-                    <Label x:Name="lblSetlog3" Grid.Row="6" Grid.Column="0"  Content="appendToFile :" HorizontalAlignment="Left" VerticalAlignment="Top" Width="132" Margin="19,10,0,0" Height="27" Visibility="Hidden"/>
-
+                    <TextBox x:Name="txtsettlog1" Grid.Row="4" Grid.Column="0" Text="" Foreground="White" BorderBrush="White" VerticalAlignment="Center"  Margin="5 5 0 5" Padding="2" Visibility="Hidden"/>
+                    <TextBox x:Name="txtsettlog2" Grid.Row="5" Grid.Column="0" Text=""  Foreground="White" BorderBrush="White" VerticalAlignment="Center" Margin="5 5 0 5" Padding="2" Visibility="Hidden"/>
+                    <TextBox x:Name="txtsettlog3" Grid.Row="6" Grid.Column="0" Text="" Foreground="White" BorderBrush="White" VerticalAlignment="Center"  Margin="5 5 0 5" Padding="2" Visibility="Hidden"/>
 
 
 
@@ -327,43 +321,38 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
 
+                    <Label Content="Select mode un/install" Grid.Column="0" Grid.Row="0" Foreground="White"/>
+                    <RadioButton Name="RBsilet" Content="Silent" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBsilet_Checked" Foreground="White" Background="#FF616161" BorderBrush="#FF424242" Margin="20 10 0 0"/>
+                    <RadioButton Name="RBnormal" Content="Normal " Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" Checked="RBnormal_Checked" Foreground="White" Background="#FF616161" BorderBrush="#FF424242" Margin="0 10 20 0"/>
+
+                    <ProgressBar Name="progress" Grid.Column="1" Height="25" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="170" RenderTransformOrigin="0.5,0.5" BorderBrush="#FF424242" Background="#FF616161" Foreground="White">
+                        <ProgressBar.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-0.289"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ProgressBar.RenderTransform>
+                    </ProgressBar>
+
+                    <Label Content="Fitting Software:" Foreground="White" Grid.Column="0" Grid.Row="1" />
+                    <ComboBox x:Name="cmbBrandstoinstall" Grid.Row="1" Grid.Column="0" SelectionChanged="cmbbrandstoinstall_SelectionChanged" Foreground="White" BorderBrush="White" Margin="5 0" />
+
+                    <ComboBox x:Name="cmbOEM" Grid.Column="1" Grid.Row="1" ToolTip="OEM version" SelectionChanged="cmbOEM_SelectionChanged" BorderBrush="White" Foreground="White" HorizontalAlignment="Left" Margin="5 0" Width="100"/>
+                    <ComboBox x:Name="cmbRelease" Grid.Column="1" Grid.Row="1" ToolTip="Release of FS" SelectionChanged="cmbRelease_SelectionChanged" BorderBrush="White" Foreground="White" HorizontalAlignment="Right" Margin="5 0" Width="70"/>
 
 
-                    <Label Content="Fitting Software:" Margin="-4,69,25,29" Foreground="White" />
-                    <ComboBox x:Name="cmbBrandstoinstall" Margin="-4,92,29,0" Grid.Row="0" SelectionChanged="cmbbrandstoinstall_SelectionChanged" Foreground="White" BorderBrush="White" />
+                    <Label Content="Build:" Grid.Row="2" Grid.Column="0" Foreground="White"/>
+                    <ComboBox x:Name="cmbBuild" Grid.Row="2" Grid.Column="0" SelectionChanged="cmbbuild_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 0"/>
 
-                    <ComboBox x:Name="cmbOEM" Grid.Column="1" HorizontalAlignment="Left" Margin="98,92,0,0" Grid.Row="0" VerticalAlignment="Top" Width="90" Height="34" ToolTip="OEM version" SelectionChanged="cmbOEM_SelectionChanged" BorderBrush="White" Foreground="White"/>
-                    <ComboBox x:Name="cmbRelease" Grid.Column="1" HorizontalAlignment="Right" Margin="0,92,116,0" Grid.Row="0" VerticalAlignment="Top" Width="82" Height="34" ToolTip="Release of FS" SelectionChanged="cmbRelease_SelectionChanged" BorderBrush="White" Foreground="White"/>
-
-
-                    <Label Content="Build:" Margin="0,9,43,92" Grid.Row="1" Foreground="White"/>
-                    <ComboBox x:Name="cmbBuild" Margin="0,40,25,54" Grid.Row="1" SelectionChanged="cmbbuild_SelectionChanged" BorderBrush="White" Foreground="White"/>
-
-
-
-
-                    <Button x:Name="btninstal" Margin="19,42,0,50" Content="Install" Click="btninstal_Click" Grid.Row="1" HorizontalAlignment="Left" Width="159" Grid.Column="1" IsEnabled="True" Height="Auto" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"/>
-                    <Button x:Name="btnInfo" Content="Copy path to build" Grid.Column="1" HorizontalAlignment="Left" Margin="19,87,0,0" Grid.Row="1" VerticalAlignment="Top" Width="159" Click="btnInfo_Click" RenderTransformOrigin="0.255,-0.25" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" />
+                    <Button x:Name="btninstal" Content="Install" Click="btninstal_Click" Grid.Row="2" Grid.Column="1" IsEnabled="True"  Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Top" Margin="5 0"/>
+                    <Button x:Name="btnInfo" Content="Copy path to build" Grid.Row="2" Grid.Column="1" Click="btnInfo_Click" RenderTransformOrigin="0.255,-0.25" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Bottom" Margin="5 0 5 10"/>
 
                 </Grid>
-                <RadioButton Name="RBsilet" Content="Silent" Grid.Column="1" HorizontalAlignment="Left" Margin="10,45,0,0" Grid.Row="1" VerticalAlignment="Top" Height="18" Width="84" Checked="RBsilet_Checked" Foreground="White" Background="#FF616161" BorderBrush="#FF424242"/>
-                <RadioButton Name="RBnormal" Content="Normal " Grid.Column="1" HorizontalAlignment="Left" Margin="94,45,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="RBnormal_Checked" Foreground="White" Background="#FF616161" BorderBrush="#FF424242"/>
-                <Label Content="Select mode un/install" Grid.Column="1" HorizontalAlignment="Left" Margin="15,14,0,0" Grid.Row="1" VerticalAlignment="Top" Foreground="White"/>
-                <ProgressBar Name="progress" Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="202,45,0,0" Grid.Row="1" VerticalAlignment="Top" Width="160" RenderTransformOrigin="0.5,0.5" BorderBrush="#FF424242" Background="#FF616161" Foreground="White">
-                    <ProgressBar.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="-0.289"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </ProgressBar.RenderTransform>
-                </ProgressBar>
-
-
-
             </Grid>
         </TabItem>
 
@@ -428,7 +417,7 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel VerticalAlignment="Top" Margin="0 40">
-                    <TextBox x:Name="textBox" Text="" Height="20"  TextWrapping="Wrap"  Width="120" Margin="0 10" MouseEnter="LoggingMouseEnter" MouseLeave="LoggingMouseEnter" TextChanged="textBox_TextChanged"/>
+                    <TextBox x:Name="txtNameUser" Text="" Height="20"  TextWrapping="Wrap"  Width="120" Margin="0 10" MouseEnter="LoggingMouseEnter" MouseLeave="LoggingMouseEnter" TextChanged="textBox_TextChanged"/>
                     <PasswordBox x:Name="passwordBox" Height="20"   Width="120" Margin="124,10" MouseEnter="LoggingMouseEnter" MouseLeave="LoggingMouseEnter"/>
                     <Button x:Name="btnLogToDB" Content="Log in" HorizontalAlignment="Center"  Width="120" MouseEnter="LoggingMouseEnter" MouseLeave="LoggingMouseEnter" Margin="137,10" Height="37" Click="btnLogToDB_Click"/>
                 </StackPanel>
