@@ -54,15 +54,15 @@
                 <dragablz:InterTabController />
             </dragablz:TabablzControl.InterTabController>-->
     <!-- NOT FANCY - SEMI WORKING: <TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503"> -->
+    <TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">
 
-
-    <!--<TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">-->
+        <!--<TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">-->
         <!-- FANCY - SEMI WORKING: <dragablz:TabablzControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503"> -->
 
-        <dragablz:TabablzControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">
+        <!--<dragablz:TabablzControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">
         <dragablz:TabablzControl.InterTabController>
             <dragablz:InterTabController />
-        </dragablz:TabablzControl.InterTabController> 
+        </dragablz:TabablzControl.InterTabController>--> 
 
         <TabItem Header="Main">
             <TabItem.Background>
@@ -798,6 +798,6 @@
 
 
 
-    <!--</TabControl>-->
-    </dragablz:TabablzControl>
+    </TabControl>
+    <!--</dragablz:TabablzControl>-->
 </Window>
