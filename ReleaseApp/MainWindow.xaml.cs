@@ -1373,16 +1373,33 @@ namespace UltimateChanger
                 Random rnd = new Random();
                 try
                 {
-                    if (rbnHI_1.IsChecked.Value)
+                    if (rbnHI_1.IsChecked.Value) // jezeli 1 HI wybrany to wyswietlic co zostalo wybrane do losowej strony i wpisac tam txtLeftHI lub txtRightHI co wybrane + zapisac w xml jaki wybór został dokonany 
                     {
                         // random HI to :
-                        MessageBox.Show(listofpossibleHI[rnd.Next(listofpossibleHI.Count)]);
+
+                        if (rnd.Next(1) == 0) // jezeli 1 to lewa jezeli nie to prawa 
+                        {//lewa
+                            txtLeftHI.Text = HIs.randomHI(listofpossibleHI);
+                            lblLeftHI.Visibility = Visibility.Visible;
+                        }
+                        else
+                        {//prawa
+                            txtRightHI.Text = HIs.randomHI(listofpossibleHI);
+                            lblRightHI.Visibility = Visibility.Visible;
+                        }
+
+                        // random comdev
+                        txtComDevice.Text = HIs.randomCOMDEV(dataBaseManager.getComDevice(chBWireless.IsChecked.Value));
                     }
                     else
                     {
                         // random HI to :
                         MessageBox.Show(listofpossibleHI[rnd.Next(listofpossibleHI.Count)] + "\n" + listofpossibleHI[rnd.Next(listofpossibleHI.Count)]);
+                        lblRightHI.Visibility = Visibility.Visible;
+                        lblLeftHI.Visibility = Visibility.Visible;
                     }
+
+
                 }
                 catch (ArgumentOutOfRangeException)
                 {

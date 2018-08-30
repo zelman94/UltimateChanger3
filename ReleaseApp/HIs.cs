@@ -39,5 +39,24 @@ namespace UltimateChanger
             Magneto = magneto;
             Release = release;
         }
+
+
+        public static string randomHI(List<string> listHIs)
+        {
+            Random rnd = new Random();
+            string rand = "";
+            rand = listHIs[rnd.Next(listHIs.Count)];
+            return rand;
+        }
+
+        public static string randomCOMDEV(List<string> ListComDev)
+        {
+            Random rnd = new Random();
+            string rand = "";
+            rand = ListComDev[rnd.Next(ListComDev.Count)];
+            return rand;
+        }
+
+
     }
 }

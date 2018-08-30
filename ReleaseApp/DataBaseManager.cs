@@ -361,6 +361,30 @@ namespace UltimateChanger
             return HIs;
         }
 
+        public List<string> getComDevice(bool wireless)
+        {
+            List<string> listaComDev = new List<string>();
+            try
+            {
+                MySqlCommand myCommand = new MySqlCommand($"SELECT name FROM ComDev WHERE wireless = {wireless} ", SQLConnection);
+                MySqlDataReader myReader;
+                myReader = myCommand.ExecuteReader();
+
+                while (myReader.Read())
+                {
+                    listaComDev.Add(myReader.GetString(0));
+                    //HIs.Add(myReader.GetString(0));
+                }
+                myReader.Close();
+            }
+            catch (Exception x)
+            {
+                System.Windows.MessageBox.Show(x.ToString());
+            }
+
+            return listaComDev;
+        }
+
 
 
     }
