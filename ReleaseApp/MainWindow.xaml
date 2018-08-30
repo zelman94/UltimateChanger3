@@ -14,44 +14,45 @@
         MinWidth="750"
         Localization.Attributes="Center"
         >
-
+    
+    
 
     <Window.Foreground>
         <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
             <GradientStop Color="Black" Offset="0"/>
-            <GradientStop Color="#FFEAFFA0" Offset="1"/>
+            <GradientStop Color="Black"/>
         </LinearGradientBrush>
     </Window.Foreground>
     <Window.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
             <GradientStop Color="#FF424242" Offset="0"/>
-            <GradientStop Color="#FF424242" Offset="1"/>
+            <GradientStop Color="#E2212121" Offset="1"/>
         </LinearGradientBrush>
     </Window.Background>
     <!--<Window.Icon>
          <BitmapImage UriSource="file:///C:/Users/Misiek/Documents/visual studio 2015/Projects/ReleaseApp/ReleaseApp/icon.jpg"/>
          </Window.Icon>-->
 
-<<<<<<< HEAD
-    <TabControl x:Name="tabControl" BorderBrush="Gainsboro" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503" Background="#FF424242">
+
+    <TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503" Background="#FF212121">
         <TabControl.Resources>
             <Style TargetType="TabItem">
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="TabItem">
-                            <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" CornerRadius="3,3,0,0" Margin="2,0">
+                            <Border Name="Border" BorderThickness="0.5,0.5,0.5,0" BorderBrush="White" CornerRadius="2,2,0,0" Margin="2,0">
                                 <ContentPresenter x:Name="ContentSite"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        ContentSource="Header"
-                                        Margin="10,2"/>
+                                                  VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"
+                                                  ContentSource="Header"
+                                                  Margin="10,2"/>
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
-                                    <Setter TargetName="Border" Property="Background" Value="#9C27B0" />
+                                    <Setter TargetName="Border" Property="Background" Value="#FF616161" />
                                 </Trigger>
                                 <Trigger Property="IsSelected" Value="False">
-                                    <Setter TargetName="Border" Property="Background" Value="#E1BEE7" />
+                                    <Setter TargetName="Border" Property="Background" Value="#FF424242" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -59,23 +60,13 @@
                 </Setter>
             </Style>
         </TabControl.Resources>
-=======
-    <!--<dragablz:TabablzControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">
-        <dragablz:TabablzControl.InterTabController>
-                <dragablz:InterTabController />
-            </dragablz:TabablzControl.InterTabController>-->
-    <!-- NOT FANCY - SEMI WORKING: <TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503"> -->
 
-
-    <TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">
-        <!-- FANCY - SEMI WORKING: <dragablz:TabablzControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503"> -->
->>>>>>> master
-
-        <TabItem Header="Main">
+       
+        <TabItem Header="Main" BorderBrush="#FF424242" Height="21" VerticalAlignment="Bottom" Foreground="White">
             <TabItem.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                    <GradientStop Color="#FFF0F0F0" Offset="0"/>
-                    <GradientStop Color="#FFE5E5E5" Offset="0.457"/>
+                    <GradientStop Color="#FFF0F0F0"/>
+                    <GradientStop Color="#FF616161"/>
                 </LinearGradientBrush>
             </TabItem.Background>
 
@@ -83,7 +74,7 @@
                 <Grid.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF424242"/>
-                        <GradientStop Color="#E2212121"/>
+                        <GradientStop Color="#FF212121"/>
                     </LinearGradientBrush>
                 </Grid.Background>
                 <Grid.ColumnDefinitions>
@@ -93,8 +84,8 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="282*"/>
-                    <RowDefinition Height="149*"/>
+                    <RowDefinition Height="285*"/>
+                    <RowDefinition Height="150*"/>
                 </Grid.RowDefinitions>
 
 
@@ -102,109 +93,107 @@
                 <!-- #############################################################   BRAND SECTION    ###################################################### -->
                 <Grid x:Name="BrandSection" Margin="10,0,0,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="192*"/>
-                        <ColumnDefinition Width="43*"/>
-                        <ColumnDefinition Width="149*"/>
+                        <ColumnDefinition Width="200*"/>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="150*"/>
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="60*"/>
-                        <RowDefinition Height="74*"/>
+                        <RowDefinition Height="40*"/>
                         <RowDefinition Height="75*"/>
                         <RowDefinition Height="75*"/>
-                        <RowDefinition Height="76*"/>
-                        <RowDefinition Height="76*"/>
-                        <RowDefinition Height="44*"/>
+                        <RowDefinition Height="75*"/>
+                        <RowDefinition Height="75*"/>
+                        <RowDefinition Height="75*"/>
+                        <RowDefinition Height="40*"/>
                     </Grid.RowDefinitions>
 
 
-                    <Border x:Name="Grid1" Grid.Row="1" Grid.ColumnSpan="3" BorderBrush="LightBlue" BorderThickness="0,0,0,1" Margin="10 0"/>
-                    <Border x:Name="Grid2" Grid.Row="2" Grid.ColumnSpan="3" BorderBrush="LightBlue" BorderThickness="0,0,0,1" Margin="10 0"/>
-                    <Border x:Name="Grid3" Grid.Row="3" Grid.ColumnSpan="3" BorderBrush="LightBlue" BorderThickness="0,0,0,1" Margin="10 0"/>
-                    <Border x:Name="Grid4" Grid.Row="4" Grid.ColumnSpan="3" BorderBrush="LightBlue" BorderThickness="0,0,0,1" Margin="10 0"/>
-                    <Border x:Name="Grid5" Grid.Row="5" Grid.ColumnSpan="3" BorderBrush="LightBlue" BorderThickness="0,0,0,1" Margin="10,0,10,3"/>
+                    <Border x:Name="Grid1" Grid.Row="1" Grid.ColumnSpan="3" BorderBrush="#FF616161" BorderThickness="0,1,0,1" Margin="10 0"/>
+                    <Border x:Name="Grid2" Grid.Row="2" Grid.ColumnSpan="3" BorderBrush="#FF616161" BorderThickness="0,0,0,1" Margin="10 0"/>
+                    <Border x:Name="Grid3" Grid.Row="3" Grid.ColumnSpan="3" BorderBrush="#FF616161" BorderThickness="0,0,0,1" Margin="10 0"/>
+                    <Border x:Name="Grid4" Grid.Row="4" Grid.ColumnSpan="3" BorderBrush="#FF616161" BorderThickness="0,0,0,1" Margin="10 0"/>
+                    <Border x:Name="Grid5" Grid.Row="5" Grid.ColumnSpan="3" BorderBrush="#FF616161" BorderThickness="0,0,0,1" Margin="10,0"/>
 
-                    <Label x:Name="lblBrand" Grid.Column="0" Grid.Row="0" Content="Brand" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Height="36" Margin="65,12" Width="62" Foreground="White"/>
-                    <Label x:Name="lblMarket" Grid.Column="2" Grid.Row="0" Content="Market" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Height="36" Margin="37,12,40,12" Width="72" Foreground="White"/>
+                    <Label x:Name="lblBrand" Grid.Column="0" Grid.Row="0" Content="Brand" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                    <Label x:Name="lblMarket" Grid.Column="2" Grid.Row="0" Content="Market" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
 
                     <!--CHECKBOXES-->
-                    <CheckBox x:Name="Oticon"   Grid.Column="1" Grid.Row="1" Content="" HorizontalAlignment="Center"  VerticalAlignment="Center" Height="14" Margin="13,34,10,27" Width="20"  Checked="checkbox" Unchecked="uncheckbox" />
-                    <CheckBox x:Name="Bernafon" Grid.Column="1" Grid.Row="2" Content="" HorizontalAlignment="Center"  VerticalAlignment="Center" Height="14" Margin="13,34,10,27" Width="20" Checked="checkbox" Unchecked="uncheckbox" />
-                    <CheckBox x:Name="Sonic"    Grid.Column="1" Grid.Row="3" Content="" HorizontalAlignment="Center"  VerticalAlignment="Center" Height="14" Margin="13,34,10,27" Width="20" Checked="checkbox" Unchecked="uncheckbox"/>
-                    <CheckBox x:Name="Medical"  Grid.Column="1" Grid.Row="4" Content="" HorizontalAlignment="Center"  VerticalAlignment="Center" Height="14" Margin="13,34,10,27" Width="20" Checked="checkbox" Unchecked="uncheckbox"/>
-                    <CheckBox x:Name="Cumulus"  Grid.Column="1" Grid.Row="5" Content="" HorizontalAlignment="Center"  VerticalAlignment="Center" Height="14" Margin="13,34,10,27" Width="20" Checked="checkbox" Unchecked="uncheckbox"/>
+                    <CheckBox x:Name="Oticon"   Grid.Column="1" Grid.Row="1" Content="" HorizontalAlignment="Center"  VerticalAlignment="Center" Checked="checkbox" Unchecked="uncheckbox" Background="#FF616161" BorderBrush="#FF424242" />
+                    <CheckBox x:Name="Medical"  Grid.Column="1" Grid.Row="2" Content="" HorizontalAlignment="Center"  VerticalAlignment="Center" Checked="checkbox" Unchecked="uncheckbox" Background="#FF616161" BorderBrush="#FF424242"/>
+                    <CheckBox x:Name="Bernafon" Grid.Column="1" Grid.Row="3" Content="" HorizontalAlignment="Center"  VerticalAlignment="Center" Checked="checkbox" Unchecked="uncheckbox" Background="#FF616161" BorderBrush="#FF424242"/>
+                    <CheckBox x:Name="Sonic"    Grid.Column="1" Grid.Row="4" Content="" HorizontalAlignment="Center"  VerticalAlignment="Center" Checked="checkbox" Unchecked="uncheckbox" Background="#FF616161" BorderBrush="#FF424242"/>
+                    <CheckBox x:Name="Cumulus"  Grid.Column="1" Grid.Row="5" Content="" HorizontalAlignment="Center"  VerticalAlignment="Center" Checked="checkbox" Unchecked="uncheckbox" Background="#FF616161" BorderBrush="#FF424242"/>
                     <!--ZAINSTALOWANY MARKET-->
-                    <Label x:Name="lblG" Content="" FontSize="13" FontWeight="Bold" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Height="26" Margin="0,30,0,18" Width="149"/>
-                    <Label x:Name="lblO" Content="" FontSize="13" FontWeight="Bold" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Height="26" Margin="0,30,0,18" Width="149" />
-                    <Label x:Name="lblE" Content="" FontSize="13" FontWeight="Bold" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="3" VerticalAlignment="Center" Height="26" Margin="0,30,0,18" Width="149"/>
-                    <Label x:Name="lblM" Content="" FontSize="13" FontWeight="Bold" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="4" VerticalAlignment="Center" Height="26" Margin="0,30,0,18" Width="149"/>
-                    <Label x:Name="lblC" Content="" FontSize="13" FontWeight="Bold" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="5" VerticalAlignment="Center" Height="26" Margin="0,30,0,18" Width="149"/>
+                    <Label x:Name="lblG" Content="" FontSize="13" FontWeight="Bold" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Foreground="#E5FFFFFF"/>
+                    <Label x:Name="lblM" Content="" FontSize="13" FontWeight="Bold" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Foreground="#E5FFFFFF"/>
+                    <Label x:Name="lblO" Content="" FontSize="13" FontWeight="Bold" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="3" VerticalAlignment="Center" Foreground="#E5FFFFFF"/>
+                    <Label x:Name="lblE" Content="" FontSize="13" FontWeight="Bold" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="4" VerticalAlignment="Center" Foreground="#E5FFFFFF"/>
+                    <Label x:Name="lblC" Content="" FontSize="13" FontWeight="Bold" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="5" VerticalAlignment="Center" Foreground="#E5FFFFFF"/>
                     <!--TLO NA LOGO-->
                     <Rectangle
                         x:Name="oticonRectangle" 
                         Grid.Column="0"
                         Grid.Row="1"
                         Margin="10,10"
-                        Fill="Khaki"  RadiusY="27.4" RadiusX="27.4"
-                        Opacity="0.75">
-                    </Rectangle>
-
-                    <Rectangle
-                        x:Name="bernafonRectangle" 
-                        Grid.Column="0"
-                        Grid.Row="2"
-                        Margin="10,10"
-                        Fill="Red" 
-                        Opacity="0.75"
-                        RadiusY="27.4" RadiusX="27.4">
-                    </Rectangle>
-
-                    <Rectangle
-                        x:Name="sonicRectangle" 
-                        Margin="10,10"
-                        Grid.Column="0"
-                        Grid.Row="3"
-                        Fill="DeepSkyBlue"   
-                        Opacity="0.75"
-                        RadiusY="27.4" RadiusX="27.4">
-                    </Rectangle>
+                        Fill="#FAFAFA"  
+                        RadiusY="5" RadiusX="5"/>
 
                     <Rectangle
                         x:Name="oticonmedicalnRectangle" 
                         Margin="10,10"
                         Grid.Column="0"
+                        Grid.Row="2"
+                        Fill="#FFECB3"  
+                        Opacity="0.8"
+                        RadiusY="5" RadiusX="5"/>
+
+                    <Rectangle
+                        x:Name="bernafonRectangle" 
+                        Grid.Column="0"
+                        Grid.Row="3"
+                        Margin="10,10"
+                        Fill="#616161" 
+                        Opacity="0.90"
+                        RadiusY="5" RadiusX="5"/>
+
+                    <Rectangle
+                        x:Name="sonicRectangle" 
+                        Margin="10,10"
+                        Grid.Column="0"
                         Grid.Row="4"
-                        Fill="Orange"  Opacity="0.75"
-                        RadiusY="27.4" RadiusX="27.4">
-                    </Rectangle>
+                        Fill="#42A5F5"   
+                        RadiusY="5" RadiusX="5"
+                        Opacity="0.9"/>
 
                     <Rectangle
                         x:Name="startoRectangle" 
                         Margin="10,10,10,8"
                         Grid.Column="0"
                         Grid.Row="5"
-                        Opacity="0.75"
-                        Fill="Blue"   RadiusY="27.4" RadiusX="27.4"/>
+                        Fill="#0D47A1"
+                        Opacity="0.6"
+                        RadiusY="5" RadiusX="5"/>
 
                     <!--LOGO-->
-                    <Image x:Name="imgOticon" Grid.Column="0" Grid.Row="1" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" Width="118" Margin="31,17,43,21" Source="Images/oticon.png">
+                    <Image x:Name="imgOticon" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="110" Source="Images/oticon.png">
                         <!--<Image.Source>C:/UltimateChanger/oticon2.png</Image.Source>-->
                     </Image>
-                    <Image x:Name="imgBernafon" Grid.Column="0" Grid.Row="2" Height="34" VerticalAlignment="Center" HorizontalAlignment="Center" Width="118" Margin="41,22,33,19">
+                    <Image x:Name="imgOticonMedical" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="160" Source="Images/oticonmedical.png">
+                        <!--<Image.Source>C:/UltimateChanger/sonic2.png</Image.Source>-->
+                    </Image>
+                    <Image x:Name="imgBernafon" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Source="Images/bernafon.png">
                         <!--<Image.Source>C:/UltimateChanger/bernafon2.png</Image.Source>-->
                     </Image>
-                    <Image x:Name="imgSonic" Grid.Column="0" Grid.Row="3"  Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" Margin="36,19,56,20">
+                    <Image x:Name="imgSonic" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center" Width="110" Source="Images/sonic.png">
                         <!--<Image.Source>C:/UltimateChanger/sonic2.png</Image.Source>-->
                     </Image>
-                    <Image x:Name="imgOticonMedical" Grid.Column="0" Grid.Row="4"  Height="66" VerticalAlignment="Center" HorizontalAlignment="Center" Width="150" Margin="28,5,14,5">
-                        <!--<Image.Source>C:/UltimateChanger/sonic2.png</Image.Source>-->
-                    </Image>
-                    <Image x:Name="imgStarto" Grid.Column="0" Grid.Row="5" Height="66" VerticalAlignment="Center" HorizontalAlignment="Center" Width="150" Margin="24,7,18,3">
+                    
+                    <Image x:Name="imgStarto" Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center" Width="110" Source="Images/starto.PNG">
                         <!--<Image.Source>C:/UltimateChanger/sonic2.png</Image.Source>-->
                     </Image>
 
-
-                    <Button Grid.Row="6" Margin="0,2,5,0" Content="All" Click="Button_Click" RenderTransformOrigin="0.549,1.4" HorizontalAlignment="Right" Width="52" Height="32" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                    <Button  Content="All" Click="Button_Click" RenderTransformOrigin="0.549,1.4" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="6" BorderBrush="#FF424242" Background="#FF616161" Foreground="#E5FFFFFF"/>
 
 
                 </Grid>
@@ -216,35 +205,35 @@
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="74*"/>
-                        <RowDefinition Height="107*"/>
-                        <RowDefinition Height="72*"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
                         <RowDefinition Height="51*"/>
                         <RowDefinition Height="51*"/>
                         <RowDefinition Height="48"/>
                     </Grid.RowDefinitions>
 
 
-                    <Label x:Name="lblSelectMarket" Content="Select market:" Margin="14,4,62,46" Foreground="White"/>
-                    <ComboBox x:Name="cmbMarket"  Margin="13,30,6,20" MaxDropDownHeight="150" SelectedIndex="0" SelectionChanged="cmbMarket_SelectionChanged" IsEnabled="False" Foreground="White" BorderBrush="White"/>
+                    <Label x:Name="lblSelectMarket" Content="Select market:" Foreground="White"/>
+                    <ComboBox x:Name="cmbMarket" MaxDropDownHeight="150" SelectedIndex="0" SelectionChanged="cmbMarket_SelectionChanged" IsEnabled="False" Foreground="White" BorderBrush="White"/>
 
 
                     <!--HorizontalAlignment="Center" VerticalAlignment="Center" Width="120"  Height="22"-->
-                    <Button x:Name="btnUpdate" Grid.Row="0" Grid.Column="1" Margin="9,30,12,20" Content="Update market"  Click="btnUpdate_Click" IsEnabled="False"/>
+                    <Button x:Name="btnUpdate" Grid.Row="0" Grid.Column="1" Margin="10,30,11,17" Content="Update market"  Click="btnUpdate_Click" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"/>
 
-                    <Label x:Name="lblSelectLogMode" Grid.Row="1" Grid.Column="0"  Content="Select log mode:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="132" Margin="14,10,0,0" Height="27" Foreground="White"/>
+                    <Label x:Name="lblSelectLogMode" Grid.Row="1" Grid.Column="0"  Content="Select log mode:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"/>
                     <Label x:Name="lblSelectlogSettings" Grid.Row="1" Grid.Column="0"  Content="Select log settings:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="132" Margin="13,78,0,0" Height="27" Foreground="White"/>
                     <Label x:Name="lblSetlog1" Grid.Row="4" Grid.Column="0"  Content="maximumFileSize :" HorizontalAlignment="Left" VerticalAlignment="Top" Width="132" Margin="19,10,0,0" Height="27" Visibility="Hidden"/>
                     <Label x:Name="lblSetlog2" Grid.Row="5" Grid.Column="0"  Content="maxSizeRollBackups :" HorizontalAlignment="Left" VerticalAlignment="Top" Width="132" Margin="19,10,0,0" Height="27" Visibility="Hidden"/>
-                    <Label x:Name="lblSetlog3" Grid.Row="6" Grid.Column="0"  Content="appendToFile :" HorizontalAlignment="Left" VerticalAlignment="Top" Width="132" Margin="19,10,0,0" Height="27" Visibility="Hidden"></Label>
+                    <Label x:Name="lblSetlog3" Grid.Row="6" Grid.Column="0"  Content="appendToFile :" HorizontalAlignment="Left" VerticalAlignment="Top" Width="132" Margin="19,10,0,0" Height="27" Visibility="Hidden"/>
 
                     <TextBox x:Name="txtsettlog1" Grid.Row="4" Grid.Column="1" TextWrapping="Wrap" Text="" Margin="32,14,33,13" Visibility="Hidden"/>
                     <TextBox x:Name="txtsettlog2" Grid.Row="5" Grid.Column="1" TextWrapping="Wrap" Text="" Margin="32,14,33,14" Visibility="Hidden"/>
                     <TextBox x:Name="txtsettlog3" Grid.Row="6" Grid.Column="1" TextWrapping="Wrap" Text="" Margin="32,18,33,10" Visibility="Hidden"/>
 
-                    <ComboBox x:Name="cmbLogMode" Margin="13,42,6,43" Grid.Row="1" Grid.Column="0" MaxDropDownHeight="150" SelectedIndex="0"  SelectionChanged="cmbLogMode_SelectionChanged" IsEnabled="False" Foreground="White" BorderBrush="White"/>
+                    <ComboBox x:Name="cmbLogMode" Grid.Row="1" Grid.Column="0" MaxDropDownHeight="150" SelectedIndex="0"  SelectionChanged="cmbLogMode_SelectionChanged" IsEnabled="False" Foreground="White" BorderBrush="White"/>
                     <ComboBox x:Name="cmbLogSettings" Margin="14,110,6,52" Grid.Row="1" Grid.Column="0" MaxDropDownHeight="150" SelectedIndex="0"  SelectionChanged="cmbLogMode_SelectionChanged" IsEnabled="False" Grid.RowSpan="2" Foreground="White" BorderBrush="White" />
 
 
@@ -256,64 +245,63 @@
                             <RowDefinition Height="41*"/>
                             <RowDefinition Height="85*"/>
                         </Grid.RowDefinitions>
-                        <Button x:Name="btnDeletelogs" Grid.Row="0" Margin="8,-82,12,62" Content="Delete log files" Click="btnDelete_logs" ToolTip="All log files of selected FS will be deleted" IsEnabled="False" Foreground="#DDFFFFFF"/>
-                        <Button x:Name="btnSavelogs" Grid.Row="0" Margin="8,-41,12,21" Content="Save Log" Click="btnSavelogs_Click" IsEnabled="False" />
+                        <Button x:Name="btnDeletelogs" Grid.Row="0" Margin="8,-82,12,62" Content="Delete log files" Click="btnDelete_logs" ToolTip="All log files of selected FS will be deleted" IsEnabled="False" Foreground="#E5FFFFFF" Background="#FF616161" BorderBrush="#FF424242"/>
+                        <Button x:Name="btnSavelogs" Grid.Row="0" Margin="8,-41,12,21" Content="Save Log" Click="btnSavelogs_Click" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" />
 
-                        <Button x:Name="btnLogMode"  Margin="-79,37,99,19"   Content="Update mode"  Click="btnChange_mode_log" Grid.Row="1" IsEnabled="False" Grid.RowSpan="2"/>
-                        <Button x:Name="btnAdvancelogs" Content="Advance" Margin="8,0,12,30" Click="btnAdvancelogs_Click" IsEnabled="False" Grid.RowSpan="2" Height="26" VerticalAlignment="Bottom"/>
+                        <Button x:Name="btnLogMode"  Margin="-79,37,99,19"   Content="Update mode"  Click="btnChange_mode_log" Grid.Row="1" IsEnabled="False" Grid.RowSpan="2" BorderBrush="#FF424242" Background="#FF616161" Foreground="#E5FFFFFF"/>
+                        <Button x:Name="btnAdvancelogs" Content="Advance" Margin="8,0,12,30" Click="btnAdvancelogs_Click" IsEnabled="False" Grid.RowSpan="2" Height="26" VerticalAlignment="Bottom" Background="#FF616161" BorderBrush="#FF424242"/>
                     </Grid>
                 </Grid>
 
 
                 <Grid x:Name="FourButtons" Grid.Column="0" Grid.Row="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="98*"/>
-                        <ColumnDefinition Width="99*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="35*"/>
-                        <RowDefinition Height="52*"/>
-                        <RowDefinition Height="64*"/>
-                        <RowDefinition Height="54*"/>
-                        <RowDefinition Height="48*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
 
 
-                    <Button x:Name="btnDelete" Grid.Row="2" Margin="20,15,9,15" Content="Delete trash" Click="btnDelete_Click" ToolTip="All data files of selected FS will be deleted (also client sesion)" IsEnabled="False" Foreground="#E5FFFFFF" BorderBrush="#FF424242" Background="#FF616161"/>
-                    <Button x:Name="btnuninstal"  Grid.Row="2" Margin="11,15,20,15" Content="Uninstall FS" Click="btnuninstal_Click" Grid.Column="1" ToolTip="Selected FS will be uninstalled only if your installation process was started witch Ultimate Changer" IsEnabled="false" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"/>
-                    <Button x:Name="btnFS" Grid.Row="1" Grid.Column="1" Margin="11,10,20,11" Content="Start FS" Click="btnFSRun" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"/>
+                    <Button x:Name="btnDelete" Grid.Row="2" Content="Delete trash" Click="btnDelete_Click" ToolTip="All data files of selected FS will be deleted (also client sesion)" IsEnabled="False" Foreground="#E5FFFFFF" BorderBrush="#FF424242" Background="#FF616161" Margin="10 0"/>
+                    <Button x:Name="btnuninstal"  Grid.Row="2" Content="Uninstall FS" Click="btnuninstal_Click" Grid.Column="1" ToolTip="Selected FS will be uninstalled only if your installation process was started witch Ultimate Changer" IsEnabled="false" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
+                    <Button x:Name="btnFS" Grid.Row="1" Grid.Column="1" Content="Start FS" Click="btnFSRun" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
 
-                    <Button x:Name="btnHattori" Margin="20,10,9,11" Content="Start Hattori" Click="btnHattori_Click" Grid.Row="1" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"/>
-                    <Button x:Name="btnFakeV" Margin="20,10,9,0" Grid.Row="3"  VerticalAlignment="Top" Height="34" Click="btnFakeV_Click" Background="#FF616161" BorderBrush="#FF424242" Foreground="Black">
-                        <Image Name="imgfake"></Image>
+                    <Button x:Name="btnHattori" Content="Start Hattori" Click="btnHattori_Click" Grid.Row="1" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
+                    <Button x:Name="btnFakeV" Grid.Row="3" VerticalAlignment="Center" Click="btnFakeV_Click" Background="#FF616161" BorderBrush="#FF424242" Foreground="Black" Margin="10 0">
+                        <Image Name="imgfake" Source="Images/Fake.PNG"></Image>
                     </Button>
 
-                    <Button x:Name="btnNewPrecon" Grid.Row="3" Grid.Column="1" Margin="11,10,20,10"  Click="btnFS_Click" Background="#FF616161" BorderBrush="#FF424242" Foreground="Black" >
-                        <Image Name="imgprecon"></Image>
+                    <Button x:Name="btnNewPrecon" Grid.Row="3" Grid.Column="1" Click="btnFS_Click" Background="#FF616161" BorderBrush="#FF424242" Foreground="Black" Margin="10 0">
+                        <Image Name="imgprecon" Source="Images/Preconditioner.PNG"></Image>
                     </Button>
-                    <Button Content="Kill FS" Margin="20,10,9,0" Grid.Row="4" VerticalAlignment="Top" Click="Button_Click_2" ToolTip="All FS will be closed" Height="28" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"/>
-                    <Button Content="Downgrade HW" Grid.Column="1" Margin="11,10,20,0" Grid.Row="4" VerticalAlignment="Top" Click="Downgrade" Height="28" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"/>
+                    <Button Content="Kill FS" Grid.Row="4" VerticalAlignment="Center" Click="Button_Click_2" ToolTip="All FS will be closed" Height="28" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
+                    <Button Content="Downgrade HW" Grid.Column="1"  Grid.Row="4" VerticalAlignment="Center" Click="Downgrade" Height="28" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
                 </Grid>
 
 
 
                 <Grid x:Name="RightBottom" Grid.Column="1" Grid.Row="1" >
                     <Grid.ColumnDefinitions>
-
-                        <ColumnDefinition Width="196*"/>
-                        <ColumnDefinition Width="197*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
 
 
 
                     <Label Content="Fitting Software:" Margin="-4,69,25,29" Foreground="White" />
-                    <ComboBox x:Name="cmbBrandstoinstall" Margin="-4,92,29,0" Grid.Row="0" SelectionChanged="cmbbrandstoinstall_SelectionChanged" Foreground="White" BorderBrush="White"/>
+                    <ComboBox x:Name="cmbBrandstoinstall" Margin="-4,92,29,0" Grid.Row="0" SelectionChanged="cmbbrandstoinstall_SelectionChanged" Foreground="White" BorderBrush="White" />
 
                     <ComboBox x:Name="cmbOEM" Grid.Column="1" HorizontalAlignment="Left" Margin="98,92,0,0" Grid.Row="0" VerticalAlignment="Top" Width="90" Height="34" ToolTip="OEM version" SelectionChanged="cmbOEM_SelectionChanged" BorderBrush="White" Foreground="White"/>
                     <ComboBox x:Name="cmbRelease" Grid.Column="1" HorizontalAlignment="Right" Margin="0,92,116,0" Grid.Row="0" VerticalAlignment="Top" Width="82" Height="34" ToolTip="Release of FS" SelectionChanged="cmbRelease_SelectionChanged" BorderBrush="White" Foreground="White"/>
@@ -325,14 +313,14 @@
 
 
 
-                    <Button x:Name="btninstal" Margin="19,42,0,50" Content="Install" Click="btninstal_Click" Grid.Row="1" HorizontalAlignment="Left" Width="159" Grid.Column="1" IsEnabled="True" Height="Auto"/>
-                    <Button x:Name="btnInfo" Content="Copy path to build" Grid.Column="1" HorizontalAlignment="Left" Margin="19,87,0,0" Grid.Row="1" VerticalAlignment="Top" Width="159" Click="btnInfo_Click" RenderTransformOrigin="0.255,-0.25" />
+                    <Button x:Name="btninstal" Margin="19,42,0,50" Content="Install" Click="btninstal_Click" Grid.Row="1" HorizontalAlignment="Left" Width="159" Grid.Column="1" IsEnabled="True" Height="Auto" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"/>
+                    <Button x:Name="btnInfo" Content="Copy path to build" Grid.Column="1" HorizontalAlignment="Left" Margin="19,87,0,0" Grid.Row="1" VerticalAlignment="Top" Width="159" Click="btnInfo_Click" RenderTransformOrigin="0.255,-0.25" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" />
 
                 </Grid>
-                <RadioButton Name="RBsilet" Content="Silent" Grid.Column="1" HorizontalAlignment="Left" Margin="10,45,0,0" Grid.Row="1" VerticalAlignment="Top" Height="18" Width="84" Checked="RBsilet_Checked" Foreground="White"/>
-                <RadioButton Name="RBnormal" Content="Normal " Grid.Column="1" HorizontalAlignment="Left" Margin="94,45,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="RBnormal_Checked" Foreground="White"/>
+                <RadioButton Name="RBsilet" Content="Silent" Grid.Column="1" HorizontalAlignment="Left" Margin="10,45,0,0" Grid.Row="1" VerticalAlignment="Top" Height="18" Width="84" Checked="RBsilet_Checked" Foreground="White" Background="#FF616161" BorderBrush="#FF424242"/>
+                <RadioButton Name="RBnormal" Content="Normal " Grid.Column="1" HorizontalAlignment="Left" Margin="94,45,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="RBnormal_Checked" Foreground="White" Background="#FF616161" BorderBrush="#FF424242"/>
                 <Label Content="Select mode un/install" Grid.Column="1" HorizontalAlignment="Left" Margin="15,14,0,0" Grid.Row="1" VerticalAlignment="Top" Foreground="White"/>
-                <ProgressBar Name="progress" Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="202,45,0,0" Grid.Row="1" VerticalAlignment="Top" Width="160" RenderTransformOrigin="0.5,0.5">
+                <ProgressBar Name="progress" Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="202,45,0,0" Grid.Row="1" VerticalAlignment="Top" Width="160" RenderTransformOrigin="0.5,0.5" BorderBrush="#FF424242" Background="#FF616161" Foreground="White">
                     <ProgressBar.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -348,7 +336,7 @@
             </Grid>
         </TabItem>
 
-        <TabItem Header="Time">
+        <TabItem Header="Time" Foreground="White">
 
             <Grid x:Name="TimeGrid">
                 <Grid.ColumnDefinitions>
@@ -400,7 +388,7 @@
             </Grid>
         </TabItem>
 
-        <TabItem Header="Admin">
+        <TabItem Header="Admin" Foreground="White">
 
             <Grid x:Name="AdminPanel">
                 <Grid.ColumnDefinitions>
@@ -668,7 +656,7 @@
 
         </TabItem>
 
-        <TabItem Header="Settings">
+        <TabItem Header="Settings" Foreground="White">
 
             <Grid x:Name="aboutGrid">
 
@@ -713,7 +701,7 @@
             </Grid>
         </TabItem>
 
-        <TabItem Header="Random HI">
+        <TabItem Header="Random HI" Foreground="White">
 
             <Grid x:Name="GridRandom" Margin="0,0,0,-3">
                 <Grid.ColumnDefinitions>
@@ -758,13 +746,13 @@
 
         </TabItem>
 
-        <TabItem Header="Glossary">
+        <TabItem Header="Glossary" Foreground="White">
             <Grid x:Name="Glossary">
 
             </Grid>
         </TabItem>
 
-        <TabItem Header="My Hardware">
+        <TabItem Header="My Hardware" Foreground="White">
             <Grid x:Name="Hardware">
                 <TextBox Name="txtMyItemsList" HorizontalAlignment="Left" Height="442" Margin="483,25,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="275" IsEnabled="False"/>
                 <Label Content="Add Hardware:" HorizontalAlignment="Left" Margin="41,335,0,0" VerticalAlignment="Top"/>
@@ -790,7 +778,7 @@
             </Grid>
         </TabItem>
 
-        <TabItem Header="Help">
+        <TabItem Header="Help" Foreground="White">
             <Grid x:Name="helpGrid">
                 <WebBrowser Name="przegladarka" HorizontalAlignment="Left" Height="723" Margin="10,10,0,0" VerticalAlignment="Top" Width="768"/>
             </Grid>

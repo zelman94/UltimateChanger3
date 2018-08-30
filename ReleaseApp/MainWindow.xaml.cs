@@ -353,7 +353,15 @@ namespace UltimateChanger
             {
                 if (item.IsChecked.Value)
                 {
+                    //item.BorderBrush = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                   
                     licznikk++;
+                }
+                else
+                {
+                    //item. = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+                    //item.Background = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+                    
                 }
             }
             if (licznikk == 0)
@@ -461,7 +469,7 @@ namespace UltimateChanger
             {
                 try
                 {
-                    listlabelsinfoFS[licz].Foreground = new SolidColorBrush(Colors.Black);
+                    //listlabelsinfoFS[licz].Foreground = new SolidColorBrush(Colors.Black);
                     listlabelsinfoFS[licz].Content = fileOperator.getMarket(licz);
                 }
                 catch (Exception)
@@ -636,12 +644,12 @@ namespace UltimateChanger
                 lblG.Foreground = new SolidColorBrush(Colors.Red);
                 lblG.Content = "FS not installed";
                 Oticon.IsChecked = false;
-                oticonRectangle.Opacity = 0.3;
+                //oticonRectangle.Opacity = 0.3;
             }
             else
             {
                 Oticon.IsEnabled = true;
-                oticonRectangle.Opacity = 1.0;
+                //oticonRectangle.Opacity = 1.0;
             }
             // if (!File.Exists(@"C:/Program Files (x86)/Bernafon/Oasis/Oasis2/Oasis.exe"))
             if (!Directory.Exists(@"C:\ProgramData\Bernafon"))
@@ -650,12 +658,12 @@ namespace UltimateChanger
                 lblO.Foreground = new SolidColorBrush(Colors.Red);
                 lblO.Content = "FS not installed";
                 Bernafon.IsChecked = false;
-                bernafonRectangle.Opacity = 0.3;
+                //bernafonRectangle.Opacity = 0.3;
             }
             else
             {
                 Bernafon.IsEnabled = true;
-                bernafonRectangle.Opacity = 1.0;
+                //bernafonRectangle.Opacity = 1.0;
             }
             //if (!File.Exists(@"C:/Program Files (x86)/Sonic/ExpressFit/ExpressFit2/ExpressFit.exe"))
             if (!Directory.Exists(@"C:\ProgramData\Sonic"))
@@ -664,12 +672,12 @@ namespace UltimateChanger
                 lblE.Foreground = new SolidColorBrush(Colors.Red);
                 lblE.Content = "FS not installed";
                 Sonic.IsChecked = false;
-                sonicRectangle.Opacity = 0.3;
+                //sonicRectangle.Opacity = 0.3;
             }
             else
             {
                 Sonic.IsEnabled = true;
-                sonicRectangle.Opacity = 1.0;
+                //sonicRectangle.Opacity = 1.0;
             }
 
             if (!Directory.Exists(@"C:\ProgramData\OticonMedical")) // medical
@@ -678,12 +686,12 @@ namespace UltimateChanger
                 lblM.Foreground = new SolidColorBrush(Colors.Red);
                 lblM.Content = "FS not installed";
                 Medical.IsChecked = false;
-                oticonmedicalnRectangle.Opacity = 0.3;
+                //oticonmedicalnRectangle.Opacity = 0.3;
             }
             else
             {
                 Medical.IsEnabled = true;
-                oticonmedicalnRectangle.Opacity = 1.0;
+                //oticonmedicalnRectangle.Opacity = 1.0;
             }
 
             if (!Directory.Exists(@"C:\ProgramData\Strato")) // cumulus
@@ -692,12 +700,12 @@ namespace UltimateChanger
                 lblC.Foreground = new SolidColorBrush(Colors.Red);
                 lblC.Content = "FS not installed";
                 Cumulus.IsChecked = false;
-                startoRectangle.Opacity = 0.3;
+                //startoRectangle.Opacity = 0.3;
             }
             else
             {
                 Cumulus.IsEnabled = true;
-                startoRectangle.Opacity = 1.0;
+                //startoRectangle.Opacity = 1.0;
             }
         }
 
@@ -1363,7 +1371,8 @@ namespace UltimateChanger
 
         private void ChangeSkin(Brush c1, Brush c2)
         {
-            tabControl.Background = c1;
+            //tabControl.Background = c1;
+
 
             Grid1.BorderBrush = c2;
             Grid2.BorderBrush = c2;
