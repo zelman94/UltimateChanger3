@@ -385,6 +385,43 @@ namespace UltimateChanger
             return listaComDev;
         }
 
+        public string logIn(string name, string pass) // logowanie jako admin 
+        {
+            string power = "USER";
+            try
+            {
+                MySqlCommand myCommand = new MySqlCommand($"SELECT power FROM UltimateUsers WHERE name = {name} AND pass ={pass} ", SQLConnection);
+                MySqlDataReader myReader;
+                myReader = myCommand.ExecuteReader();
+
+                while (myReader.Read())
+                {
+                    power = myReader.GetString(0);
+                }
+                myReader.Close();
+            }
+            catch (Exception x)
+            {
+                System.Windows.MessageBox.Show(x.ToString());
+            }
+
+
+            return power;
+        }
+
+        public void CreateNew(string name, string pass)
+        {
+            try
+            {
+                MySqlCommand myCommand = new MySqlCommand($"INSERT INTO `UltimateUsers` (`name`, `pass`, `power`) VALUES ('{name}', '{pass}', '0')", SQLConnection);
+                MySqlDataReader myReader;
+                myReader = myCommand.ExecuteReader();               
+            }
+            catch (Exception x)
+            {
+                System.Windows.MessageBox.Show(x.ToString());
+            }
+        }
 
 
     }

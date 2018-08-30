@@ -61,7 +61,7 @@ namespace UltimateChanger
         myXMLReader XMLReader = new myXMLReader();
         public List<List<string>> AllbuildsPerFS = new List<List<string>>();
         internal List<pathAndDir> Paths_Dirs { get => paths_Dirs; set => paths_Dirs = value; }
-
+        string User_Power;
 
 
         public MainWindow()
@@ -209,6 +209,7 @@ namespace UltimateChanger
         public void initiationForprograms()
         {
             lblVersion.Content = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            User_Power = "USER";
             try
             {
 
@@ -1195,6 +1196,27 @@ namespace UltimateChanger
         }
         private void btnLogToDB_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                User_Power = dataBaseManager.logIn(txtNameUser.Text, passwordBox.Password.ToString());
+                MessageBox.Show("done");
+            }
+            catch (Exception x)
+            {
+
+            }
+
+        }
+        private void btnNewUser_Click(object sender, RoutedEventArgs e)
+        {
+            if (User_Power == "SUPERUSER")
+            {
+                dataBaseManager.CreateNew(txtNameUser.Text, passwordBox.Password.ToString());
+            }
+            else
+            {
+                MessageBox.Show("Only SUPERUSER can create new Accounts");
+            }
         }
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -1388,24 +1410,21 @@ namespace UltimateChanger
 
                         if (rnd.Next(1) == 0) // jezeli 1 to lewa jezeli nie to prawa 
                         {//lewa
-                            txtLeftHI.Text = HIs.randomHI(listofpossibleHI);
-                            lblLeftHI.Visibility = Visibility.Visible;
+
                         }
                         else
                         {//prawa
-                            txtRightHI.Text = HIs.randomHI(listofpossibleHI);
-                            lblRightHI.Visibility = Visibility.Visible;
+
                         }
 
                         // random comdev
-                        txtComDevice.Text = HIs.randomCOMDEV(dataBaseManager.getComDevice(chBWireless.IsChecked.Value));
+
                     }
                     else
                     {
                         // random HI to :
                         MessageBox.Show(listofpossibleHI[rnd.Next(listofpossibleHI.Count)] + "\n" + listofpossibleHI[rnd.Next(listofpossibleHI.Count)]);
-                        lblRightHI.Visibility = Visibility.Visible;
-                        lblLeftHI.Visibility = Visibility.Visible;
+
                     }
 
 
@@ -1821,6 +1840,7 @@ namespace UltimateChanger
                 MessageBox.Show("need: NAME");
             }
         }
+
 
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
