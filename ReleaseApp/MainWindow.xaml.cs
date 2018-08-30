@@ -115,7 +115,9 @@ namespace UltimateChanger
                 MessageBox.Show(x.ToString());
             }
             sliderRelease.Maximum = cmbRelease.Items.Count - 1; // max dla slidera -1 bo count nie uwzglednia zerowego indexu
+            sliderPP.Maximum = BindCombobox.listPP.Count - 1;
             sliderRelease.Value = cmbRelease.SelectedIndex; // ustalenie defaulta jako obecny release
+            sliderPP.Value = 0;
             refreshUI(new object(), new EventArgs());
             dataBaseManager = new DataBaseManager(XMLReader.getDefaultSettings("DataBase").ElementAt(0).Value);
             if (dataBaseManager != null)
@@ -1863,6 +1865,12 @@ namespace UltimateChanger
         private void btnClearTable_Click(object sender, RoutedEventArgs e)
         {
             GridDataRandomHardware.Items.Clear();
+        }
+
+        private void sliderPP_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            lblPP.Content = BindCombobox.listPP[Convert.ToInt32(sliderPP.Value)];
+            Random_HI.PP = lblPP.Content.ToString();
         }
 
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)

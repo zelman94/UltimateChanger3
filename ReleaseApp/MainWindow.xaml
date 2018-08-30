@@ -763,13 +763,16 @@
                     <CheckBox Content="Rechargeable" Checked="CheckBox_Checked" Margin="0,0,4,0"/>
                 </StackPanel>
                 <Button Name="btnRANDHI" Content="RANDOM" HorizontalAlignment="Left" Margin="83,239,0,0" VerticalAlignment="Top" Width="117" Click="btnRANDHI_Click"/>
-                <StackPanel HorizontalAlignment="Left" Height="100" Margin="358,94,0,0" VerticalAlignment="Top" Width="100">
-                    <Slider Name="sliderRelease" SmallChange="1" TickFrequency="0" ValueChanged="sliderRelease_ValueChanged" HorizontalAlignment="Right" Width="100"/>
-                    <Label Name="lblRelease" Content="Label"/>
+                <StackPanel HorizontalAlignment="Left" Height="148" Margin="347,63,0,0" VerticalAlignment="Top" Width="135">
+                    <Label Content="Available since Release : " HorizontalAlignment="Left" Margin="0,0,-25,0" VerticalAlignment="Top" Width="140" Height="26"/>
+                    <Slider x:Name="sliderRelease" SmallChange="1" TickFrequency="0" ValueChanged="sliderRelease_ValueChanged" HorizontalAlignment="Right" Width="135"/>
+                    <Label x:Name="lblRelease" Content="Label"/>
+                    <Label Content="PP:"/>
+                    <Slider Name="sliderPP" SmallChange="1" ValueChanged="sliderPP_ValueChanged"/>
+                    <Label Name="lblPP" Content="Label"/>
                 </StackPanel>
                 <Label Content="Phisical" HorizontalAlignment="Left" Margin="41,68,0,0" VerticalAlignment="Top" Width="75" Height="26"/>
                 <Label Content="Type" HorizontalAlignment="Left" Margin="197,63,0,0" VerticalAlignment="Top" Width="100" Height="26"/>
-                <Label Content="Available since Release : " HorizontalAlignment="Left" Margin="351,68,0,0" VerticalAlignment="Top" Width="144" Height="26"/>
                 <ListBox Name="ListTeamPerson" HorizontalAlignment="Left" Height="122" VerticalAlignment="Top" Width="148" Margin="602,63,0,0"/>
                 <Button Name="btnAddPersonToList" Content="Add" HorizontalAlignment="Left" Margin="650,224,0,0" VerticalAlignment="Top" Width="100" Click="btnAddPersonToList_Click"/>
                 <Button Name="btnClearListTeamPerson" Content="Clear" HorizontalAlignment="Left" Margin="650,262,0,0" VerticalAlignment="Top" Width="100" Click="btnClearListTeamPerson_Click"/>
@@ -791,7 +794,7 @@
                             <Setter Property="BorderThickness" Value="2,1,1,3" />
                             <Setter Property="BorderBrush" Value="Black" />
                         </Style>
-                       
+
                     </DataGrid.Resources>
                 </DataGrid>
                 <Button Name="btnExportData" Content="Export" HorizontalAlignment="Left" Margin="41,361,0,0" VerticalAlignment="Top" Width="75"/>
