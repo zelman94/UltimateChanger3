@@ -36,17 +36,18 @@ namespace UltimateChanger
     {
         int Licznik_All_button = 0;
 
-        TrashCleaner Cleaner;
+        //TrashCleaner Cleaner;
         Dictionary<string, string> FStoPath;
         FileOperator fileOperator;
         DataBaseManager dataBaseManager;
         ClockManager clockManager;
         // DataBaseManager dataBaseManager;
-        DispatcherTimer dispatcherTimer, progressBarTimer, RefUiTIMER, Rekurencja;
+        DispatcherTimer RefUiTIMER, Rekurencja;
+        DispatcherTimer dispatcherTimer, progressBarTimer;
         DispatcherTimer uninstallTimer;
         BindCombobox BindCombo;
         private List<pathAndDir> paths_Dirs = new List<pathAndDir>();
-        string OEMname = "";
+        //string OEMname = "";
         List<Image> ListImages;
         List<Label> listlabelsinfoFS;
         List<CheckBox> checkBoxList = new List<CheckBox>();
@@ -54,7 +55,7 @@ namespace UltimateChanger
         List<RadioButton> RadioButtonsList = new List<RadioButton>();
         public SortedDictionary<string, string> StringToUI = new SortedDictionary<string, string>(); // slownik do zamiany stringow z xml do wartości UI 
         List<Rectangle> ListRactanglesNames;
-        BackgroundWorker worker;
+        //BackgroundWorker worker;
         HIs Random_HI = new HIs();
         myXMLReader XMLReader = new myXMLReader();
         public List<List<string>> AllbuildsPerFS = new List<List<string>>();
@@ -145,12 +146,8 @@ namespace UltimateChanger
                                 }
                             }
                         }
-                        catch (Exception x)
-                        {
-
-                        }
-
-
+                        catch (Exception)
+                        {}
                     }
                     break;
 
@@ -169,10 +166,8 @@ namespace UltimateChanger
                                 }
                             }
                         }
-                        catch (Exception x)
-                        {
-
-                        }
+                        catch (Exception)
+                        { }
 
 
                     }
@@ -197,12 +192,8 @@ namespace UltimateChanger
                                 }
                             }
                         }
-                        catch (Exception x)
-                        {
-
-                        }
-
-
+                        catch (Exception)
+                        { }
                     }
 
 
@@ -304,6 +295,9 @@ namespace UltimateChanger
             StringToUI.Add("cmbRelease", "Release");
             StringToUI.Add("rbnLight_skin", "Light_skin");
             StringToUI.Add("rbnDark_skin", "Dark_skin");
+            StringToUI.Add("rbn_Genie", "Genie_skin");
+            StringToUI.Add("rbn_Oasis", "Oasis_skin");
+            StringToUI.Add("rbn_ExpressFit", "ExpressFit_skin");
         }
 
         public void checkbox(object sender, RoutedEventArgs e)
@@ -424,7 +418,7 @@ namespace UltimateChanger
                     {
                         ListBuildsInfo.Add(fileOperator.GetInfoAboutFs(item, BuildInfo.ListPathsToAboutInfo[licznik]));
                     }
-                    catch (Exception x)
+                    catch (Exception)
                     {
                         ListBuildsInfo.Add(new BuildInfo("", "", "", "", ""));
                     }
@@ -550,7 +544,10 @@ namespace UltimateChanger
                 rbnHI_1,
                 rbnHI_2,
                 rbnLight_skin,
-                rbnDark_skin
+                rbnDark_skin,
+                rbn_Genie,
+                rbn_Oasis,
+                rbn_ExpressFit
             };
             comboBoxList = new List<ComboBox>()
             {
@@ -602,6 +599,80 @@ namespace UltimateChanger
             //}
         }
 
+
+
+        void changeMarket(string source)
+        {
+            string[] oldFile;
+            int counter = 0;
+
+            try
+            {
+                oldFile = File.ReadAllLines(source);
+                using (StreamWriter sw = new StreamWriter(source))
+                {
+                    foreach (var line in oldFile)
+                    {
+                        if (counter == 3)
+                        {
+                            sw.WriteLine($"  <MarketName>{cmbMarket.SelectedValue}</MarketName>");
+                        }
+                        else
+                        {
+                            sw.WriteLine(line);
+                        }
+                        counter++;
+                    }
+                }
+            }
+            catch (FileNotFoundException)
+            { }
+            catch (DirectoryNotFoundException)
+            { }
+            catch (NullReferenceException)
+            { }
+        }
+        void UpdateLogModeOnUI()
+        {
+            List<string> mode = new List<string>() { "ALL", "DEBUG", "ERROR" };
+            int numberOfChecks = 0;
+            string[] selectedModes = new string[3];
+            bool AreEqual = true;
+
+            if (Oticon.IsChecked == true)
+            {
+                selectedModes[numberOfChecks] = GetLogMode(@"C:\Program Files (x86)\Oticon\Genie\Genie2\Configure.log4net");
+                numberOfChecks++;
+            }
+            if (Bernafon.IsChecked == true)
+            {
+                selectedModes[numberOfChecks] = GetLogMode(@"C:\Program Files (x86)\Bernafon\Oasis\Oasis2\Configure.log4net");
+                numberOfChecks++;
+            }
+            if (Sonic.IsChecked == true)
+            {
+                selectedModes[numberOfChecks] = GetLogMode(@"C:\Program Files (x86)\Sonic\ExpressFit\ExpressFit2\Configure.log4net");
+                numberOfChecks++;
+            }
+
+            for (int i = 0; i < numberOfChecks - 1; ++i)
+            {
+                if (selectedModes[i] != selectedModes[i + 1])
+                {
+                    AreEqual = false;
+                }
+            }
+
+            if (AreEqual)
+            {
+                cmbLogMode.SelectedIndex = mode.IndexOf(selectedModes[0]);
+            }
+            else
+            {
+                cmbLogMode.SelectedIndex = -1;
+            }
+        }
+
         string GetLogMode(string source)
         {
             string line = "";
@@ -620,11 +691,11 @@ namespace UltimateChanger
                         return subLine[1];
                     }
                 }
-                catch (Exception ee)
+                catch (Exception)
                 {
-
                     return "";
                 }
+               
             }
             else
             {
@@ -1321,7 +1392,7 @@ namespace UltimateChanger
                         MessageBox.Show(listofpossibleHI[rnd.Next(listofpossibleHI.Count)] + "\n" + listofpossibleHI[rnd.Next(listofpossibleHI.Count)]);
                     }
                 }
-                catch (ArgumentOutOfRangeException x)
+                catch (ArgumentOutOfRangeException)
                 {
                     MessageBox.Show("lack of adequate HI");
 
@@ -1388,8 +1459,13 @@ namespace UltimateChanger
             ChangeSkin(c1, c1);
             //Zmiany na ciemny motyw (można zmienić kolor ramki itd.)
             XMLReader.setSetting("Dark_skin", "RadioButtons", Convert.ToString(rbnDark_skin.IsChecked.Value).ToUpper());
-            bool tmp = !rbnLight_skin.IsChecked.Value;
+            bool tmp = !rbnDark_skin.IsChecked.Value;
             XMLReader.setSetting("Light_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("Genie_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("Oasis_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("ExpressFit_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+
+            imgBrandSkin.Visibility = Visibility.Hidden;
         }
 
         private void Light_skin_Checked_1(object sender, RoutedEventArgs e)
@@ -1402,7 +1478,75 @@ namespace UltimateChanger
             XMLReader.setSetting("Light_skin", "RadioButtons",Convert.ToString(rbnLight_skin.IsChecked.Value).ToUpper());
             bool tmp = !rbnLight_skin.IsChecked.Value;
             XMLReader.setSetting("Dark_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("Genie_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("Oasis_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("ExpressFit_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+
+            imgBrandSkin.Visibility = Visibility.Hidden;
         }
+
+        private void Radio_Genie_Checked(object sender, RoutedEventArgs e)
+        {
+            Brush c1 = new SolidColorBrush(Color.FromRgb(183, 18, 180));
+            Brush c2 = new SolidColorBrush(Colors.Black);
+
+            ChangeSkin(c1, c2);
+
+
+            XMLReader.setSetting("Genie_skin", "RadioButtons", Convert.ToString(rbn_Genie.IsChecked.Value).ToUpper());
+            bool tmp = !rbn_Genie.IsChecked.Value;
+            XMLReader.setSetting("Dark_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("Light_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("Oasis_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("ExpressFit_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+
+
+            imgBrandSkin.Visibility = Visibility.Visible;
+
+            imgBrandSkin.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + $"\\Images\\oticon.png"));
+
+        }
+
+
+        private void Radio_Oasis_Checked(object sender, RoutedEventArgs e)
+        {
+            Brush c1 = new SolidColorBrush(Color.FromRgb(183, 18, 18));
+            Brush c2 = new SolidColorBrush(Colors.Black);
+
+            ChangeSkin(c1, c2);
+
+            XMLReader.setSetting("Oasis_skin", "RadioButtons", Convert.ToString(rbn_Oasis.IsChecked.Value).ToUpper());
+            bool tmp = !rbn_Oasis.IsChecked.Value;
+            XMLReader.setSetting("Dark_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("Light_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("Genie_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("ExpressFit_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+
+            imgBrandSkin.Visibility = Visibility.Visible;
+
+            imgBrandSkin.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + $"\\Images\\bernafon.png"));
+        }
+
+        private void Radio_ExpressFit_Checked(object sender, RoutedEventArgs e)
+        {
+            Brush c1 = new SolidColorBrush(Color.FromRgb(72, 196, 249));
+            Brush c2 = new SolidColorBrush(Colors.Black);
+
+
+            XMLReader.setSetting("ExpressFit_skin", "RadioButtons", Convert.ToString(rbn_ExpressFit.IsChecked.Value).ToUpper());
+            bool tmp = !rbn_ExpressFit.IsChecked.Value;
+            XMLReader.setSetting("Dark_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("Light_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("Genie_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("Oasis_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+
+            ChangeSkin(c1, c2);
+
+            imgBrandSkin.Visibility = Visibility.Visible;
+
+            imgBrandSkin.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + $"\\Images\\sonic.png"));
+        }
+
 
 
         private void RBnormal_Checked(object sender, RoutedEventArgs e)
@@ -1504,6 +1648,7 @@ namespace UltimateChanger
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
             txtMyItemsList.Text = "";
+            ListBoxHardware.SelectedIndex = -1;
         }
 
         private void btnCopy_Click(object sender, RoutedEventArgs e)
@@ -1532,12 +1677,24 @@ namespace UltimateChanger
 
         private void ListBoxHardware_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-          MyHardware tmp = myXMLReader.getHardware()[ListBoxHardware.SelectedIndex];
-            txtName.Text = tmp.Name;
-            txtManuf.Text = tmp.Manufacturer;
-            txtType.Text = tmp.Type;
-            txtId.Text = tmp.ID;
-            txtLocal.Text = tmp.Localization;
+            if (ListBoxHardware.SelectedIndex!= -1)
+            {
+                MyHardware tmp = myXMLReader.getHardware()[ListBoxHardware.SelectedIndex];
+                txtName.Text = tmp.Name;
+                txtManuf.Text = tmp.Manufacturer;
+                txtType.Text = tmp.Type;
+                txtId.Text = tmp.ID;
+                txtLocal.Text = tmp.Localization;
+            }
+            else
+            {
+                txtName.Text = "";
+                txtManuf.Text = "";
+                txtType.Text = "";
+                txtId.Text = "";
+                txtLocal.Text = "";
+            }
+
         }
 
         private void btnClearFields_Click(object sender, RoutedEventArgs e)

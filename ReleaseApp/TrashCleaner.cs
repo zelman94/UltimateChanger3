@@ -47,11 +47,11 @@ namespace UltimateChanger
                         }
                     }
             }
-            catch (UnauthorizedAccessException ex)
+            catch (UnauthorizedAccessException)
             {
                 MessageBox.Show("Cos sie zepsulo");
             }
-            catch (DirectoryNotFoundException ee)
+            catch (DirectoryNotFoundException)
             {
                 MessageBox.Show("Cos sie mocno zepsulo");
             }

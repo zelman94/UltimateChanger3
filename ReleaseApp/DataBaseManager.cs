@@ -17,10 +17,10 @@ namespace UltimateChanger
     public class DataBaseManager
     {
         public MySqlConnection SQLConnection;
-        private ClickCounter clickCounter;
+        //private ClickCounter clickCounter;
         public string pathsToUpdate = "";
         public bool DB_connection; //jezeli jest polaczenie z BD 
-        private Stopwatch time;
+        //private Stopwatch time;
         public string APPversion;
 
         public string GetActualVersion(string brand)
@@ -304,25 +304,18 @@ namespace UltimateChanger
                         {
                             //MessageBox.Show($"Update available: {Kolumna[1]}");
 
-                            Window Update = new UpdateWindow(Kolumna[1], Kolumna[3]);
+                            /*Window Update = new UpdateWindow(Kolumna[1], Kolumna[3]);
                             Update.ShowDialog();
 
 
                             pathsToUpdate = Kolumna[1];
-                            message = true;
+                            message = true; HATORI NARAZIE PODZIEKUJEMY */
                         }
                     }
                     if (message)
-                    {
-
                         return true;
-                    }
                     else
-                    {
-
                         return false;
-                    }
-
                 }
                 else
                 {
@@ -331,10 +324,8 @@ namespace UltimateChanger
                 }
             }
 
-            catch (Exception ee)
+            catch (Exception)
             {
-
-
                 //SQLConnection.Close();
                 return false;
             }
@@ -358,7 +349,7 @@ namespace UltimateChanger
 
                
             }
-            catch (Exception x)
+            catch (Exception)
             {
                 //SQLConnection.Close();
                 return null;

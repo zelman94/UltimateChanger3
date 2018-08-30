@@ -23,7 +23,7 @@ namespace UltimateChanger
     public class ClockManager
     {
         private SYSTEMTIME systemTime;
-        private string time;
+        //private string time;
         private bool wasChanged;       
         public ClockManager()
         {
