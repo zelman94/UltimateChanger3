@@ -33,6 +33,10 @@
          </Window.Icon>-->
 
 
+<<<<<<< HEAD
+=======
+        
+>>>>>>> c5e82aec7a6be08f48b96431b09fbca7c7cefccf
     <!--<dragablz:TabablzControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">
         -->
     <!-- not fancy:  <TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">-->
@@ -42,7 +46,15 @@
         </dragablz:TabablzControl.InterTabController>-->
 
 
+    
     <!--<dragablz:TabablzControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">
+        not fancy:  <TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">
+        <dragablz:TabablzControl.InterTabController>
+            <dragablz:InterTabController />
+        </dragablz:TabablzControl.InterTabController>
+
+
+        <dragablz:TabablzControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" RenderTransformOrigin="0.619,0.503">
         <dragablz:TabablzControl.InterTabController>
                 <dragablz:InterTabController />
             </dragablz:TabablzControl.InterTabController>-->
