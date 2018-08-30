@@ -794,6 +794,8 @@
                        
                     </DataGrid.Resources>
                 </DataGrid>
+                <Button Name="btnExportData" Content="Export" HorizontalAlignment="Left" Margin="41,361,0,0" VerticalAlignment="Top" Width="75"/>
+                <Button Name="btnClearTable" Content="Clear" HorizontalAlignment="Left" Margin="139,361,0,0" VerticalAlignment="Top" Width="75" Click="btnClearTable_Click"/>
 
 
 

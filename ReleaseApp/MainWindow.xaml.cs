@@ -1397,6 +1397,7 @@ namespace UltimateChanger
         {
             RandomHardware = new List<string>();
             List<string> listofpossibleHI = dataBaseManager.getHI(Random_HI.T_Coil, Random_HI.Led, Random_HI.twoButtons, Random_HI.Wireless, Random_HI.Custom, Random_HI.S, Random_HI.Magneto, Random_HI.Release);
+            List<string> listofpossibleComDev = dataBaseManager.getComDevice(Random_HI.Wireless);
             if (listofpossibleHI == null)
             {
                 MessageBox.Show("lack of adequate HI");
@@ -1405,51 +1406,54 @@ namespace UltimateChanger
             else
             {
                 Random rnd = new Random();
-                try
-                {
-                    if (rbnHI_1.IsChecked.Value) // jezeli 1 HI wybrany to wyswietlic co zostalo wybrane do losowej strony i wpisac tam txtLeftHI lub txtRightHI co wybrane + zapisac w xml jaki wybór został dokonany 
+                foreach (var item in listOfTeammembers) // przechodze po osobach z  listy i losuje im wszystko co trzeba
+                {          
+                    try
                     {
-                        // random HI to :
+                        if (rbnHI_1.IsChecked.Value) // jezeli 1 HI wybrany to wyswietlic co zostalo wybrane do losowej strony i wpisac tam txtLeftHI lub txtRightHI co wybrane + zapisac w xml jaki wybór został dokonany 
+                        {
+                            // random HI to :
 
-                        if (rnd.Next(1) == 0) // jezeli 1 to lewa jezeli nie to prawa 
-                        {//lewa
+                            if (rnd.Next(1) == 0) // jezeli 1 to lewa jezeli nie to prawa 
+                            {//lewa
+
+                            }
+                            else
+                            {//prawa
+
+                            }
+
+                            // random comdev
 
                         }
                         else
-                        {//prawa
+                        {
+
+
+                            // random HI to :
+                            MessageBox.Show(listofpossibleHI[rnd.Next(listofpossibleHI.Count)] + "\n" + listofpossibleHI[rnd.Next(listofpossibleHI.Count)]);
+
+                            RandomHIandHardware tmp = new RandomHIandHardware();
+
+                            tmp.Name_Team_member = item;
+                            tmp.HIL_ = listofpossibleHI[rnd.Next(listofpossibleHI.Count)];
+                            tmp.HIR_ = listofpossibleHI[rnd.Next(listofpossibleHI.Count)];
+                            tmp.ComDev_ = listofpossibleComDev[rnd.Next(listofpossibleComDev.Count)];
+
+
+
+                            GridDataRandomHardware.Items.Add(tmp);
 
                         }
 
-                        // random comdev
 
                     }
-                    else
+                    catch (ArgumentOutOfRangeException)
                     {
-
-
-                        // random HI to :
-                        MessageBox.Show(listofpossibleHI[rnd.Next(listofpossibleHI.Count)] + "\n" + listofpossibleHI[rnd.Next(listofpossibleHI.Count)]);
-
-                        RandomHIandHardware tmp = new RandomHIandHardware();
-
-                        tmp.Name_Team_member = "PAZE";
-                        tmp.HIL_ = listofpossibleHI[rnd.Next(listofpossibleHI.Count)];
-                        tmp.HIR_ = listofpossibleHI[rnd.Next(listofpossibleHI.Count)];
-                        tmp.ComDev_ = "HI-PRO2";
-
-             
-                        GridDataRandomHardware.Items.Add(tmp);
+                        MessageBox.Show("lack of adequate HI");
 
                     }
-
-
                 }
-                catch (ArgumentOutOfRangeException)
-                {
-                    MessageBox.Show("lack of adequate HI");
-
-                }
-
 
             }
         }
@@ -1856,7 +1860,10 @@ namespace UltimateChanger
             }
         }
 
-
+        private void btnClearTable_Click(object sender, RoutedEventArgs e)
+        {
+            GridDataRandomHardware.Items.Clear();
+        }
 
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
