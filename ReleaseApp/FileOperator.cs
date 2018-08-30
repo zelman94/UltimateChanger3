@@ -912,63 +912,6 @@ namespace UltimateChanger
             return new BuildInfo(Brand[0].InnerText, MarketName[0].InnerText, OEM[0].InnerText, SelectedLanguage[0].InnerText, about);
         }
 
-        public void UpdateLabels()
-        {
-            lblGenie.Foreground = new SolidColorBrush(Colors.Black);
-            lblOasis.Foreground = new SolidColorBrush(Colors.Black);
-            lblExpressFit.Foreground = new SolidColorBrush(Colors.Black);
-            lblGenie.Content = GetData("C:/ProgramData/Oticon/Common/ManufacturerInfo.XML");
-            lblOasis.Content = GetData("C:/ProgramData/Bernafon/Common/ManufacturerInfo.XML");
-            lblExpressFit.Content = GetData("C:/ProgramData/Sonic/Common/ManufacturerInfo.XML");
-        }
-
-        public void HandleSelectedMarket()
-        {
-            int counter = 0;
-            bool show = false;
-            string[] markets = new string[3];
-            foreach (CheckBox checkbox in checkBoxList)
-            {
-                if ((bool)checkbox.IsChecked)
-                {
-                    markets[counter] = GetData($"C:/ProgramData/{checkbox.Name}/Common/ManufacturerInfo.XML");
-                    counter++;
-                }
-            }
-            foreach (CheckBox checkbox in checkBoxList)
-            {
-                if ((bool)checkbox.IsChecked && counter == 1)
-                {
-                    cmbMarket.SelectedIndex = marketIndex.IndexOf(GetData($"C:/ProgramData/{checkbox.Name}/Common/ManufacturerInfo.XML"));
-                }
-                else if (counter > 1)
-                {
-                    for (int i = 0; i < counter; ++i)
-                    {
-                        if (markets[i] == markets[counter - 1])
-                        {
-                            show = true;
-                        }
-                        else
-                        {
-                            show = false;
-                            break;
-                        }
-                    }
-                    if (show)
-                    {
-                        cmbMarket.SelectedIndex = marketIndex.IndexOf(GetData($"C:/ProgramData/{checkbox.Name}/Common/ManufacturerInfo.XML"));
-                    }
-                    else
-                    {
-                        cmbMarket.SelectedIndex = 0;
-                    }
-                }
-                else if (counter == 0)
-                {
-                    cmbMarket.SelectedIndex = 0;
-                }
-            }
-        }
+   
     }
 }

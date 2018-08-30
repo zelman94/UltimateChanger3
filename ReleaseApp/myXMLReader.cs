@@ -158,6 +158,60 @@ namespace UltimateChanger
                 }
             doc.Save("Settings\\Hardware.xml");
         }
+        public static List<string> getTeamPerson()
+        {
+            List<string> listPersons = new List<string>();
+            XmlDocument doc = new XmlDocument();
+            try
+            {
+                doc.Load("Settings\\myTeam.xml");
+            }
+            catch (Exception x)
+            {
+                 
+            }   
+
+            XmlNodeList NodesValues = doc.SelectNodes(string.Format($"/Person/Value"));
+            for (int i = 0; i < NodesValues.Count; i++)
+            {
+                listPersons.Add(NodesValues[i].InnerText);
+            }
+
+            return listPersons;
+        }
+
+        public static void deletePerdon(string name)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load("Settings\\myTeam.xml");
+            XmlNodeList NodesNames = doc.SelectNodes(string.Format($"/Person/Value"));
+
+            foreach (XmlNode item in NodesNames)
+            {
+                if (item.InnerText == name)
+                {
+                    item.ParentNode.RemoveChild(item);
+                }
+            }
+            doc.Save("Settings\\myTeam.xml");
+        }
+
+        public static void addPerdon(string name)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load("Settings\\myTeam.xml");
+
+            XmlNode root = doc.DocumentElement;
+            //Create a new node.
+            XmlElement elem = doc.CreateElement("Value");
+            elem.InnerText = name;
+            //Add the node to the document.
+            root.AppendChild(elem);
+
+
+            doc.Save("Settings\\myTeam.xml");
+        }
+
 
     }
 }
