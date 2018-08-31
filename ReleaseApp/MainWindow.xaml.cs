@@ -1443,7 +1443,7 @@ namespace UltimateChanger
 
 
                             // random HI to :
-                            MessageBox.Show(listofpossibleHI[rnd.Next(listofpossibleHI.Count)] + "\n" + listofpossibleHI[rnd.Next(listofpossibleHI.Count)]);
+                            //MessageBox.Show(listofpossibleHI[rnd.Next(listofpossibleHI.Count)] + "\n" + listofpossibleHI[rnd.Next(listofpossibleHI.Count)]);
 
                             RandomHIandHardware tmp = new RandomHIandHardware();
 
@@ -1908,6 +1908,24 @@ namespace UltimateChanger
             bool tmp = rbnLogsAll_NO.IsChecked.Value;
             tmp = !tmp;
             XMLReader.setSetting("SetAll", "RadioButtons", Convert.ToString(tmp));
+        }
+
+        private void btnExportData_Click(object sender, RoutedEventArgs e)
+        {
+
+
+           //MessageBox.Show(GridDataRandomHardware.SelectAllCells());
+        }
+
+        private void GridDataRandomHardware_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DataGrid gd = (DataGrid)sender;
+
+            //GridDataRandomHardware.SelectAllCells();
+            DataRowView roe_selected = gd.SelectedItem as DataRowView;
+
+            MessageBox.Show(gd.SelectedItem.ToString());
+            //MessageBox.Show(roe_selected["ComDev_"].ToString());
         }
 
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)

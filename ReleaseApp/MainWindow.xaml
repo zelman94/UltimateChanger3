@@ -780,7 +780,7 @@
                 <Button Name="btnAddNewPerson" Content="Add New Team Member" HorizontalAlignment="Left" Margin="550,339,0,0" VerticalAlignment="Top" Width="200" Click="Button_Click_4"/>
                 <Button Name="btnRemovePerson" Content="Remove" HorizontalAlignment="Left" Margin="650,301,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click_3"/>
                 <TextBox Name="txtnewTeamMember" HorizontalAlignment="Left" Height="23" Margin="550,301,0,0" MaxLength="4" TextWrapping="Wrap" Text="" ToolTip="Name (XXXX)" VerticalAlignment="Top" Width="95"  />
-                <DataGrid Name="GridDataRandomHardware" AutoGenerateColumns="True"  HorizontalAlignment="Left" Height="310" Margin="25,406,0,0" VerticalAlignment="Top" Width="740">
+                <DataGrid Name="GridDataRandomHardware" AutoGenerateColumns="True"  HorizontalAlignment="Left" Height="310" Margin="25,406,0,0" VerticalAlignment="Top" Width="740" SelectionChanged="GridDataRandomHardware_SelectionChanged">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Name"  Binding="{Binding Name_Team_member}" Width="100"/>
                         <DataGridTextColumn Header="HI L"  Binding="{Binding HIL_}" Width="250"/>
@@ -798,7 +798,7 @@
 
                     </DataGrid.Resources>
                 </DataGrid>
-                <Button Name="btnExportData" Content="Export" HorizontalAlignment="Left" Margin="41,361,0,0" VerticalAlignment="Top" Width="75"/>
+                <Button Name="btnExportData" Content="Export" HorizontalAlignment="Left" Margin="41,361,0,0" VerticalAlignment="Top" Width="75" Click="btnExportData_Click"/>
                 <Button Name="btnClearTable" Content="Clear" HorizontalAlignment="Left" Margin="139,361,0,0" VerticalAlignment="Top" Width="75" Click="btnClearTable_Click"/>
 
 
