@@ -1427,13 +1427,13 @@ namespace UltimateChanger
                         {
                             // random HI to :
 
-                            if (rnd.Next(1) == 0) // jezeli 1 to lewa jezeli nie to prawa 
+                            if (rnd.Next(2) == 0) // jezeli 1 to lewa jezeli nie to prawa 
                             {//lewa
                                 RandomHIandHardware tmp = new RandomHIandHardware();
 
                                 tmp.Name_Team_member = item;
                                 tmp.HIL_ = listofpossibleHI[rnd.Next(listofpossibleHI.Count)];
-                                tmp.HIR_ = "--------";
+                                tmp.HIR_ = "N/A";
                                 tmp.ComDev_ = listofpossibleComDev[rnd.Next(listofpossibleComDev.Count)];
                                 listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member + "," + tmp.HIL_ + "," + tmp.HIR_ + "," + tmp.ComDev_);
                                 GridDataRandomHardware.Items.Add(tmp);
@@ -1443,7 +1443,7 @@ namespace UltimateChanger
                                 RandomHIandHardware tmp = new RandomHIandHardware();
 
                                 tmp.Name_Team_member = item;
-                                tmp.HIL_ = "--------";
+                                tmp.HIL_ = "N/A";
                                 tmp.HIR_ = listofpossibleHI[rnd.Next(listofpossibleHI.Count)];
                                 tmp.ComDev_ = listofpossibleComDev[rnd.Next(listofpossibleComDev.Count)];
                                 listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member + "," + tmp.HIL_ + "," + tmp.HIR_ + "," + tmp.ComDev_);

@@ -103,9 +103,6 @@
 
         <TabItem Header="Main" BorderBrush="#FF424242" Height="21" VerticalAlignment="Bottom" Foreground="White">
 
-
-
-
             <TabItem.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FFF0F0F0"/>
@@ -130,8 +127,6 @@
                     <RowDefinition Height="285*"/>
                     <RowDefinition Height="150*"/>
                 </Grid.RowDefinitions>
-
-
 
                 <!-- #############################################################   BRAND SECTION    ###################################################### -->
                 <Grid x:Name="BrandSection" Margin="10,0,0,0">
@@ -693,8 +688,8 @@
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="13*"/>
-                    <ColumnDefinition Width="172*"/>
-                    <ColumnDefinition Width="603*" />
+                    <ColumnDefinition Width="183*"/>
+                    <ColumnDefinition Width="592*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="248*"></RowDefinition>
@@ -713,7 +708,7 @@
                     <Image x:Name="imgBrandSkin" HorizontalAlignment="Left" Height="43" VerticalAlignment="Top" Width="142" Margin="10,10,0,0"/>
                 </Border>
 
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="3" Height="234" Margin="6,84,602,178" Width="180">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" Height="234" Margin="8,84,8,178" Width="180">
                     <RadioButton Name="rbnStartwithWindows" Content="Start with Windows"  Margin="10,10,0,0" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Width="143" GroupName="group1" Checked="rbnStartwithWindows_Checked"/>
                     <RadioButton Name="rbnNotStartwithWindows" Content="Do not Start with Windows"  Margin="10,0,0,0" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Width="171" GroupName="group1" Checked="rbnNotStartwithWindows_Checked"/>
                     <RadioButton Name="rbnDeletelogs" Content="Delete logs after run FS" Margin="10,10,0,0" HorizontalAlignment="Left" Width="145" Checked="rbnDeletelogs_Checked" GroupName="group2" />
@@ -732,9 +727,9 @@
                 <RadioButton x:Name="rbnLight_skin" Content="Light" Grid.Column="1" HorizontalAlignment="Left" Margin="10,53,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="Light_skin_Checked_1" Height="28" Width="85"/>
 
                 <RadioButton x:Name="rbnDark_skin" Content="Dark" Grid.Column="1" HorizontalAlignment="Left" Margin="10,86,0,0" Grid.Row="1" VerticalAlignment="Top" Height="24" Width="85" Checked="Dark_skin_Checked"/>
-                <RadioButton x:Name="rbn_Genie" Content="Genie" Grid.Column="1" HorizontalAlignment="Left" Margin="10,115,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="Radio_Genie_Checked"/>
-                <RadioButton x:Name="rbn_Oasis" Content="Oasis" Grid.Column="1" HorizontalAlignment="Left" Margin="10,147,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="Radio_Oasis_Checked"/>
-                <RadioButton x:Name="rbn_ExpressFit" Content="ExpressFit" Grid.Column="1" HorizontalAlignment="Left" Margin="10,181,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="Radio_ExpressFit_Checked"/>
+                <RadioButton x:Name="rbn_Genie" Content="Genie" Grid.Column="1" HorizontalAlignment="Left" Margin="10,115,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="Radio_Genie_Checked" Height="18" Width="52"/>
+                <RadioButton x:Name="rbn_Oasis" Content="Oasis" Grid.Column="1" HorizontalAlignment="Left" Margin="10,147,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="Radio_Oasis_Checked" Height="18" Width="50"/>
+                <RadioButton x:Name="rbn_ExpressFit" Content="ExpressFit" Grid.Column="1" HorizontalAlignment="Left" Margin="10,181,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="Radio_ExpressFit_Checked" Height="18" Width="74"/>
 
 
             </Grid>
@@ -774,7 +769,7 @@
                 </StackPanel>
                 <Label Content="Phisical" HorizontalAlignment="Left" Margin="41,68,0,0" VerticalAlignment="Top" Width="75" Height="26"/>
                 <Label Content="Type" HorizontalAlignment="Left" Margin="197,63,0,0" VerticalAlignment="Top" Width="100" Height="26"/>
-                <ListBox Name="ListTeamPerson" HorizontalAlignment="Left" Height="122" VerticalAlignment="Top" Width="148" Margin="602,63,0,0" SelectionMode="Multiple"/>
+                <ListBox Name="ListTeamPerson" HorizontalAlignment="Left" Height="165" VerticalAlignment="Top" Width="148" Margin="602,20,0,0" SelectionMode="Multiple"/>
                 <Button Name="btnAddPersonToList" Content="Add" HorizontalAlignment="Left" Margin="650,224,0,0" VerticalAlignment="Top" Width="100" Click="btnAddPersonToList_Click"/>
                 <Button Name="btnClearListTeamPerson" Content="Clear" HorizontalAlignment="Left" Margin="650,262,0,0" VerticalAlignment="Top" Width="100" Click="btnClearListTeamPerson_Click"/>
                 <Button Name="btnAddNewPerson" Content="Add New Team Member" HorizontalAlignment="Left" Margin="550,339,0,0" VerticalAlignment="Top" Width="200" Click="Button_Click_4"/>
