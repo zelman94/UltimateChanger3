@@ -1367,10 +1367,16 @@ namespace UltimateChanger
                             {
                                 System.IO.Compression.ZipFile.CreateFromDirectory(fileOperator.pathToLogs[licznik], saveFileDialog1.FileName + "_" + item.Name + ".zip"); // dziala 
                             }
+                            catch (IOException xx)
+                            {
+                                File.Delete(saveFileDialog1.FileName + "_" + item.Name + ".zip");
+                                System.IO.Compression.ZipFile.CreateFromDirectory(fileOperator.pathToLogs[licznik], saveFileDialog1.FileName + "_" + item.Name + ".zip"); // dziala 
+                            }
                             catch (Exception x)
                             {
                                 MessageBox.Show(x.ToString());
                             }
+
                         }
                         licznik++;
                     }
