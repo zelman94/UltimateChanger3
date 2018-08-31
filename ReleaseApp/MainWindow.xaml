@@ -774,7 +774,7 @@
                 </StackPanel>
                 <Label Content="Phisical" HorizontalAlignment="Left" Margin="41,68,0,0" VerticalAlignment="Top" Width="75" Height="26"/>
                 <Label Content="Type" HorizontalAlignment="Left" Margin="197,63,0,0" VerticalAlignment="Top" Width="100" Height="26"/>
-                <ListBox Name="ListTeamPerson" HorizontalAlignment="Left" Height="122" VerticalAlignment="Top" Width="148" Margin="602,63,0,0"/>
+                <ListBox Name="ListTeamPerson" HorizontalAlignment="Left" Height="122" VerticalAlignment="Top" Width="148" Margin="602,63,0,0" SelectionMode="Multiple"/>
                 <Button Name="btnAddPersonToList" Content="Add" HorizontalAlignment="Left" Margin="650,224,0,0" VerticalAlignment="Top" Width="100" Click="btnAddPersonToList_Click"/>
                 <Button Name="btnClearListTeamPerson" Content="Clear" HorizontalAlignment="Left" Margin="650,262,0,0" VerticalAlignment="Top" Width="100" Click="btnClearListTeamPerson_Click"/>
                 <Button Name="btnAddNewPerson" Content="Add New Team Member" HorizontalAlignment="Left" Margin="550,339,0,0" VerticalAlignment="Top" Width="200" Click="Button_Click_4"/>
