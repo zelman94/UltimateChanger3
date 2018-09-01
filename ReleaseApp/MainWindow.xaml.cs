@@ -1434,8 +1434,9 @@ namespace UltimateChanger
                                 tmp.Name_Team_member = item;
                                 tmp.HIL_ = listofpossibleHI[rnd.Next(listofpossibleHI.Count)];
                                 tmp.HIR_ = "N/A";
+                                tmp.Ficzur_ = "COS tam";
                                 tmp.ComDev_ = listofpossibleComDev[rnd.Next(listofpossibleComDev.Count)];
-                                listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member + "," + tmp.HIL_ + "," + tmp.HIR_ + "," + tmp.ComDev_);
+                                listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member + "," + tmp.HIL_ + "," + tmp.HIR_ + "," + tmp.Ficzur_ + "," + tmp.ComDev_);
                                 GridDataRandomHardware.Items.Add(tmp);
                             }
                             else
@@ -1445,8 +1446,9 @@ namespace UltimateChanger
                                 tmp.Name_Team_member = item;
                                 tmp.HIL_ = "N/A";
                                 tmp.HIR_ = listofpossibleHI[rnd.Next(listofpossibleHI.Count)];
+                                tmp.Ficzur_ = "COS tam";
                                 tmp.ComDev_ = listofpossibleComDev[rnd.Next(listofpossibleComDev.Count)];
-                                listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member + "," + tmp.HIL_ + "," + tmp.HIR_ + "," + tmp.ComDev_);
+                                listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member + "," + tmp.HIL_ + "," + tmp.HIR_ + "," + tmp.Ficzur_ + "," + tmp.ComDev_);
                                 GridDataRandomHardware.Items.Add(tmp);
                             }
                         }
@@ -1457,8 +1459,9 @@ namespace UltimateChanger
                             tmp.Name_Team_member = item;
                             tmp.HIL_ = listofpossibleHI[rnd.Next(listofpossibleHI.Count)];
                             tmp.HIR_ = listofpossibleHI[rnd.Next(listofpossibleHI.Count)];
+                            tmp.Ficzur_ = "COS tam";
                             tmp.ComDev_ = listofpossibleComDev[rnd.Next(listofpossibleComDev.Count)];
-                            listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member+","+ tmp.HIL_+","+ tmp.HIR_+"," + tmp.ComDev_);
+                            listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member+","+ tmp.HIL_+","+ tmp.HIR_+ "," +tmp.Ficzur_+"," + tmp.ComDev_);
                             GridDataRandomHardware.Items.Add(tmp);
                         }
 
@@ -2083,6 +2086,7 @@ namespace UltimateChanger
         public string Name_Team_member { get; set; }
         public string HIL_ { get; set; }
         public string HIR_ { get; set; }
+        public string Ficzur_ { get; set; }
         public string ComDev_ { get; set; }
     }
 

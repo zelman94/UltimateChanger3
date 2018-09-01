@@ -743,10 +743,10 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel HorizontalAlignment="Left" Height="117" Margin="41,94,0,0" VerticalAlignment="Top" Width="96">
-                    <CheckBox Name="chBt_coil" Content="T-Coil" Margin="0,0,10,0" HorizontalAlignment="Right" Width="86" Checked="chBt_coil_Checked"/>
-                    <CheckBox Name="chBlED" Content="LED" Checked="chBlED_Checked"/>
-                    <CheckBox Name="chBbUTTONS" Content="2 buttons" Checked="chBbUTTONS_Checked"/>
-                    <CheckBox Name="chBWireless" Content="Wireless" Checked="chBWireless_Checked"/>
+                    <CheckBox Name="chBt_coil" Content="T-Coil" Margin="0,0,10,0" HorizontalAlignment="Right" Width="86" Checked="chBt_coil_Checked" Unchecked="chBt_coil_Checked"/>
+                    <CheckBox Name="chBlED" Content="LED" Checked="chBlED_Checked" Unchecked="chBlED_Checked"/>
+                    <CheckBox Name="chBbUTTONS" Content="2 buttons" Checked="chBbUTTONS_Checked" Unchecked="chBbUTTONS_Checked"/>
+                    <CheckBox Name="chBWireless" Content="Wireless" Checked="chBWireless_Checked" Unchecked="chBWireless_Checked"/>
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Left" Height="58" Margin="41,20,0,0" VerticalAlignment="Top" Width="159">
                     <RadioButton Name="rbnHI_1" Content="1 HI" Checked="rbnHI_1_Checked"/>
@@ -754,9 +754,9 @@
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Left" Height="100" Margin="197,94,0,0" VerticalAlignment="Top" Width="100">
                     <CheckBox Content="Obelix"/>
-                    <CheckBox Content="Custom" Margin="0,0,14,0" RenderTransformOrigin="2.163,0.733" Checked="CheckBox_Checked_1"/>
-                    <CheckBox Content="&quot;S&quot;" Margin="0,0,4,0" Checked="CheckBox_Checked_2"/>
-                    <CheckBox Content="Rechargeable" Checked="CheckBox_Checked" Margin="0,0,4,0"/>
+                    <CheckBox Content="Custom" Margin="0,0,14,0" RenderTransformOrigin="2.163,0.733" Checked="CheckBox_Checked_1" Unchecked="CheckBox_Checked_1"/>
+                    <CheckBox Content="&quot;S&quot;" Margin="0,0,4,0" Checked="CheckBox_Checked_2" Unchecked="CheckBox_Checked_2"/>
+                    <CheckBox Content="Rechargeable" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked" Margin="0,0,4,0"/>
                 </StackPanel>
                 <Button Name="btnRANDHI" Content="RANDOM" HorizontalAlignment="Left" Margin="83,239,0,0" VerticalAlignment="Top" Width="117" Click="btnRANDHI_Click"/>
                 <StackPanel HorizontalAlignment="Left" Height="148" Margin="347,63,0,0" VerticalAlignment="Top" Width="135">
@@ -778,8 +778,9 @@
                 <DataGrid Name="GridDataRandomHardware" AutoGenerateColumns="True"  HorizontalAlignment="Left" Height="310" Margin="25,406,0,0" VerticalAlignment="Top" Width="740" SelectionChanged="GridDataRandomHardware_SelectionChanged">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Name"  Binding="{Binding Name_Team_member}" Width="100"/>
-                        <DataGridTextColumn Header="HI L"  Binding="{Binding HIL_}" Width="250"/>
-                        <DataGridTextColumn Header="HI R"  Binding="{Binding HIR_}" Width="250"/>
+                        <DataGridTextColumn Header="HI L"  Binding="{Binding HIL_}" Width="120"/>
+                        <DataGridTextColumn Header="HI R"  Binding="{Binding HIR_}" Width="120"/>
+                        <DataGridTextColumn Header="Ficzur"  Binding="{Binding Ficzur_}" Width="200"/>
                         <DataGridTextColumn Header="Com Dev" Binding="{Binding ComDev_}" Width="*"/>
                     </DataGrid.Columns>
 
