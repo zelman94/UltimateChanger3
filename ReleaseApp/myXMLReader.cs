@@ -216,15 +216,15 @@ namespace UltimateChanger
         {
             if (release.Contains("."))
             {
-                release.Replace('.','_');
+                release = release.Replace('.','_');
             }
             List<string> Styles = new List<string>();
 
             XmlDocument doc = new XmlDocument();
             doc.Load("Settings\\HIs.xml");
 
-            XmlNodeList NodesNames = doc.SelectNodes(string.Format($"/Random_HI/Release{release}/Available_Style/"));
-
+            XmlNodeList NodesNames = doc.DocumentElement.SelectNodes(string.Format($"/Random_HI/Release{release}/Available_Style"));
+            XmlNodeList NodesNames2 = NodesNames[0].ChildNodes;
 
             return Styles;
         }
