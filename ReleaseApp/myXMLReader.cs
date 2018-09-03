@@ -240,7 +240,7 @@ namespace UltimateChanger
             return Styles;
         }
 
-        public static List<string> GetTypesInStyle(string release, string Style)
+        public static List<string> GetTypesInStyleString(string release, string Style)
         {
             if (release.Contains("."))
             {
@@ -267,6 +267,86 @@ namespace UltimateChanger
 
 
             return Styles;
+        }
+
+        public static List<HIs> GetTypesInStyle(string release, string Style)
+        {
+            if (release.Contains("."))
+            {
+                release = release.Replace('.', '_');
+            }
+            List<HIs> Styles = new List<HIs>();
+
+            try
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load("Settings\\HIs.xml");
+                XmlNodeList NodesNames = doc.DocumentElement.SelectNodes(string.Format($"/Random_HI/Release{release}/Available_Style/{Style}"));
+                XmlNodeList NodesNames2 = NodesNames[0].ChildNodes; // pobieram OPN itp później można odczytać z tego parametry
+                foreach (XmlNode item in NodesNames2)
+                {
+                    bool T_Coil;
+                    bool Led;
+                    bool twoButtons;
+                    bool Wireless;
+                    bool Custom;
+                    bool S;
+                    bool Magneto;
+                    string Release;
+                    string PP;
+
+                    XmlNodeList SettingsHI = doc.DocumentElement.SelectNodes(string.Format($"/Random_HI/Release{release}/Available_Style/{Style}/{item.Name}"));
+
+                    T_Coil = Convert.ToBoolean(SettingsHI[0].InnerText.ToString());
+                    Led = Convert.ToBoolean(SettingsHI[0].InnerText.ToString());
+                    twoButtons = Convert.ToBoolean(SettingsHI[0].InnerText.ToString());
+                    Wireless = Convert.ToBoolean(SettingsHI[0].InnerText.ToString());
+                    Custom = Convert.ToBoolean(SettingsHI[0].InnerText.ToString());
+                    S = Convert.ToBoolean(SettingsHI[0].InnerText.ToString());
+                    Magneto = Convert.ToBoolean(SettingsHI[0].InnerText.ToString());
+                    Release = SettingsHI[0].InnerText.ToString();
+                    PP = SettingsHI[0].InnerText.ToString();
+
+                    Styles.Add(new HIs(T_Coil,Led,twoButtons,Wireless,Custom,S,Magneto,Release,PP, item.Name));
+                }
+            }
+            catch (Exception x)
+            {
+                System.Windows.MessageBox.Show(x.ToString());
+            }
+
+
+
+            return Styles;
+        }
+
+        public static string GetComDEV(string wireless) // wireless true com dev z wirelessem 
+        {
+            
+            List<string> ComDEV = new List<string>();
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load("Settings\\HIs.xml");
+            try
+            {
+                XmlNodeList NodesNames = doc.DocumentElement.SelectNodes(string.Format($"/Random_HI/Hardware/Available_Style"));
+               
+                foreach (XmlNode item in NodesNames)
+                {
+                    if (item.FirstChild.InnerText == wireless)
+                    {
+                        ComDEV.Add(item.Name);
+                    }
+                   
+                }
+            }
+            catch (Exception x)
+            {
+                System.Windows.MessageBox.Show(x.ToString());
+            }
+
+
+            return ComDEV[MyRandomizer.Instance.Next(0, ComDEV.Count)]; // losowy COM DEV
         }
 
 

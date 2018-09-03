@@ -17,6 +17,7 @@ namespace UltimateChanger
         public bool Magneto;
         public string Release;
         public string PP;
+        public string Name;
         public HIs()
         {
             T_Coil = false;
@@ -29,7 +30,7 @@ namespace UltimateChanger
             Release = "";
             PP = "";
         }
-        public HIs(bool t_coil,bool led,bool twobuttons,bool wireless,bool custom,bool s, bool magneto, string release, string pp = "")
+        public HIs(bool t_coil,bool led,bool twobuttons,bool wireless,bool custom,bool s, bool magneto, string release, string pp = "",string name="")
         {
             T_Coil = t_coil;
             Led = led;
@@ -40,20 +41,18 @@ namespace UltimateChanger
             Magneto = magneto;
             Release = release;
             PP = pp;
+            Name = name;
         }
 
 
-        public static string randomHI( string release,string Style) // release 19.1 w funkcji jest zmienina na postac dla XML
+        public static HIs randomHI( string release,string Style) // release 19.1 w funkcji jest zmienina na postac dla XML
         {
             Random rnd = new Random();
 
-            List<string> listOfAvailableTypes = myXMLReader.GetTypesInStyle(release, Style);
+            List<HIs> listOfAvailableTypes = myXMLReader.GetTypesInStyle(release, Style); // lista instancji dostępnych HIs
 
-
-
-            string rand = "";
-            rand = listOfAvailableTypes[MyRandomizer.Instance.Next(0, listOfAvailableTypes.Count)];
-            return rand;
+     
+            return listOfAvailableTypes[MyRandomizer.Instance.Next(0, listOfAvailableTypes.Count)];
         }
 
         public static string randomCOMDEV(List<string> ListComDev)
