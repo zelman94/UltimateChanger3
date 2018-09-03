@@ -1524,14 +1524,22 @@ namespace UltimateChanger
 
                         string wireless = "FALSE";
 
-                        if (tmpHIL.Wireless || tmpHIR.Wireless)
+                        if (tmpHIL.Wireless && tmpHIR.Wireless) //jezeli oba maja wireless
                         {
                             wireless = "TRUE";
                         }
 
 
                         tmp.Ficzur_ = "COS tam";
-                        tmp.ComDev_ = myXMLReader.GetComDEV(wireless);
+                        try
+                        {
+                            tmp.ComDev_ = myXMLReader.GetComDEV(wireless);
+                        }
+                        catch (Exception)
+                        {
+                            tmp.ComDev_ = "ERROR";
+                        }
+                        
                         listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member+","+ tmp.HIL_+","+ tmp.HIR_+ "," +tmp.Ficzur_+"," + tmp.ComDev_);
                             GridDataRandomHardware.Items.Add(tmp);
                         }

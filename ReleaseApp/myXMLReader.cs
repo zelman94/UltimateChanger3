@@ -297,15 +297,17 @@ namespace UltimateChanger
 
                     XmlNodeList SettingsHI = doc.DocumentElement.SelectNodes(string.Format($"/Random_HI/Release{release}/Available_Style/{Style}/{item.Name}"));
 
-                    T_Coil = Convert.ToBoolean(SettingsHI[0].InnerText.ToString());
-                    Led = Convert.ToBoolean(SettingsHI[0].InnerText.ToString());
-                    twoButtons = Convert.ToBoolean(SettingsHI[0].InnerText.ToString());
-                    Wireless = Convert.ToBoolean(SettingsHI[0].InnerText.ToString());
-                    Custom = Convert.ToBoolean(SettingsHI[0].InnerText.ToString());
-                    S = Convert.ToBoolean(SettingsHI[0].InnerText.ToString());
-                    Magneto = Convert.ToBoolean(SettingsHI[0].InnerText.ToString());
-                    Release = SettingsHI[0].InnerText.ToString();
-                    PP = SettingsHI[0].InnerText.ToString();
+                    XmlNodeList SettingsHI_Childs = SettingsHI[0].ChildNodes;
+
+                    T_Coil = Convert.ToBoolean(SettingsHI_Childs[0].InnerText.ToString());
+                    Led = Convert.ToBoolean(SettingsHI_Childs[1].InnerText.ToString());
+                    twoButtons = Convert.ToBoolean(SettingsHI_Childs[2].InnerText.ToString());
+                    Wireless = Convert.ToBoolean(SettingsHI_Childs[3].InnerText.ToString());
+                    Custom = /*Convert.ToBoolean(SettingsHI_Childs[4].InnerText.ToString());*/false;
+                    S = /*Convert.ToBoolean(SettingsHI_Childs[5].InnerText.ToString());*/ false;
+                    Magneto = Convert.ToBoolean(SettingsHI_Childs[4].InnerText.ToString());
+                    Release = release.Replace('_','.');
+                    PP = /*SettingsHI_Childs[4].InnerText.ToString();*/ "";
 
                     Styles.Add(new HIs(T_Coil,Led,twoButtons,Wireless,Custom,S,Magneto,Release,PP, item.Name));
                 }
@@ -330,8 +332,10 @@ namespace UltimateChanger
             try
             {
                 XmlNodeList NodesNames = doc.DocumentElement.SelectNodes(string.Format($"/Random_HI/Hardware/Available_Style"));
-               
-                foreach (XmlNode item in NodesNames)
+
+                XmlNodeList ComDevs = NodesNames[0].ChildNodes;
+
+                foreach (XmlNode item in ComDevs)
                 {
                     if (item.FirstChild.InnerText == wireless)
                     {
