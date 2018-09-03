@@ -1473,16 +1473,8 @@ namespace UltimateChanger
 
         private void btnRANDHI_Click(object sender, RoutedEventArgs e)
         {
-            RandomHardware = new List<string>();
-            List<string> listofpossibleHI = dataBaseManager.getHI(Random_HI.T_Coil, Random_HI.Led, Random_HI.twoButtons, Random_HI.Wireless, Random_HI.Custom, Random_HI.S, Random_HI.Magneto, Random_HI.Release);
-            List<string> listofpossibleComDev = dataBaseManager.getComDevice(Random_HI.Wireless);
-            if (listofpossibleHI == null)
-            {
-                MessageBox.Show("lack of adequate HI");
-                return;
-            }
-            else
-            {
+            List<string> ListOfAvailableHIs = myXMLReader.GetTypesInStyle(lblRelease.Content.ToString(),ListBoxOfAvailableStyles.SelectedItem.ToString());
+
                 Random rnd = new Random();
                 foreach (var item in listOfTeammembers) // przechodze po osobach z  listy i losuje im wszystko co trzeba
                 {          
@@ -1494,38 +1486,40 @@ namespace UltimateChanger
 
                             if (rnd.Next(2) == 0) // jezeli 1 to lewa jezeli nie to prawa 
                             {//lewa
-                                RandomHIandHardware tmp = new RandomHIandHardware();
+                                //RandomHIandHardware tmp = new RandomHIandHardware();
 
-                                tmp.Name_Team_member = item;
-                                tmp.HIL_ = listofpossibleHI[rnd.Next(listofpossibleHI.Count)];
-                                tmp.HIR_ = "N/A";
-                                tmp.Ficzur_ = "COS tam";
-                                tmp.ComDev_ = listofpossibleComDev[rnd.Next(listofpossibleComDev.Count)];
-                                listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member + "," + tmp.HIL_ + "," + tmp.HIR_ + "," + tmp.Ficzur_ + "," + tmp.ComDev_);
-                                GridDataRandomHardware.Items.Add(tmp);
+                                //tmp.Name_Team_member = item;
+                                //tmp.HIL_ = listofpossibleHI[rnd.Next(listofpossibleHI.Count)];
+                                //tmp.HIR_ = "N/A";
+                                //tmp.Ficzur_ = "COS tam";
+                                //tmp.ComDev_ = listofpossibleComDev[rnd.Next(listofpossibleComDev.Count)];
+                                //listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member + "," + tmp.HIL_ + "," + tmp.HIR_ + "," + tmp.Ficzur_ + "," + tmp.ComDev_);
+                                //GridDataRandomHardware.Items.Add(tmp);
                             }
                             else
                             {//prawa
-                                RandomHIandHardware tmp = new RandomHIandHardware();
+                                //RandomHIandHardware tmp = new RandomHIandHardware();
 
-                                tmp.Name_Team_member = item;
-                                tmp.HIL_ = "N/A";
-                                tmp.HIR_ = listofpossibleHI[rnd.Next(listofpossibleHI.Count)];
-                                tmp.Ficzur_ = "COS tam";
-                                tmp.ComDev_ = listofpossibleComDev[rnd.Next(listofpossibleComDev.Count)];
-                                listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member + "," + tmp.HIL_ + "," + tmp.HIR_ + "," + tmp.Ficzur_ + "," + tmp.ComDev_);
-                                GridDataRandomHardware.Items.Add(tmp);
+                                //tmp.Name_Team_member = item;
+                                //tmp.HIL_ = "N/A";
+                                //tmp.HIR_ = listofpossibleHI[rnd.Next(listofpossibleHI.Count)];
+                                //tmp.Ficzur_ = "COS tam";
+                                //tmp.ComDev_ = listofpossibleComDev[rnd.Next(listofpossibleComDev.Count)];
+                                //listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member + "," + tmp.HIL_ + "," + tmp.HIR_ + "," + tmp.Ficzur_ + "," + tmp.ComDev_);
+                                //GridDataRandomHardware.Items.Add(tmp);
                             }
                         }
                         else
                         {
                             RandomHIandHardware tmp = new RandomHIandHardware();
 
+                       //string random_HI= HIs.randomHI(ListOfAvailableHIs,lblRelease.Content.ToString());
+
                             tmp.Name_Team_member = item;
-                            tmp.HIL_ = listofpossibleHI[rnd.Next(listofpossibleHI.Count)];
-                            tmp.HIR_ = listofpossibleHI[rnd.Next(listofpossibleHI.Count)];
-                            tmp.Ficzur_ = "COS tam";
-                            tmp.ComDev_ = listofpossibleComDev[rnd.Next(listofpossibleComDev.Count)];
+                            tmp.HIL_ = HIs.randomHI(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString());
+                        tmp.HIR_ = HIs.randomHI(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString());
+                        tmp.Ficzur_ = "COS tam";
+                        tmp.ComDev_ = "COŚ";
                             listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member+","+ tmp.HIL_+","+ tmp.HIR_+ "," +tmp.Ficzur_+"," + tmp.ComDev_);
                             GridDataRandomHardware.Items.Add(tmp);
                         }
@@ -1535,15 +1529,14 @@ namespace UltimateChanger
                     {
                         MessageBox.Show("lack of adequate HI");
                     }
-                }
-
-            }
+                }            
         }
 
         private void sliderRelease_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             lblRelease.Content = cmbRelease.Items[Convert.ToInt32(sliderRelease.Value)];
             Random_HI.Release = lblRelease.Content.ToString();
+            ListBoxOfAvailableStyles.ItemsSource = myXMLReader.GetStylesInRelease(lblRelease.Content.ToString());
         }
 
         private void chBt_coil_Checked(object sender, RoutedEventArgs e)
@@ -2086,6 +2079,19 @@ namespace UltimateChanger
 
             MessageBox.Show(gd.SelectedItem.ToString());
             //MessageBox.Show(roe_selected["ComDev_"].ToString());
+        }
+
+        private void ListBoxOfAvailableStyles_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                ListBoxOfAvailableTypes.ItemsSource = myXMLReader.GetTypesInStyle(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString());
+            }
+            catch (Exception) // zapobieganie crashowi gdy zmieniassz release a masz wybrany Styl i Typ HI
+            {
+                ListBoxOfAvailableTypes.ItemsSource = null;
+            }
+           
         }
 
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)

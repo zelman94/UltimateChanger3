@@ -393,7 +393,7 @@
                         <Label Grid.Column="0" Grid.Row="1"  Content="Password:" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
                         <PasswordBox Margin="0 0 50 20" Padding="2 3 2 0" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" x:Name="passwordBox" MouseEnter="LoggingMouseEnter" MouseLeave="LoggingMouseEnter" Foreground="White" BorderBrush="White"/>
                     </Grid>
-                    
+
                     <Button x:Name="btnLogToDB" Content="Log in" HorizontalAlignment="Center" MouseEnter="LoggingMouseEnter" MouseLeave="LoggingMouseEnter" Click="btnLogToDB_Click"  Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="100 0" Width="100"/>
                     <Button Name="btnNewUser" Content="Create New" HorizontalAlignment="Center"  Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="100 15" Width="100"/>
                 </StackPanel>
@@ -667,7 +667,7 @@
                 <Border x:Name="Grid6" Grid.Row="0" BorderBrush="#FF616161" BorderThickness="0,0,1,1"/>
                 <Border x:Name="Grid7" Grid.Row="1" BorderBrush="#FF616161" BorderThickness="0,0,1,1"/>
                 <Border x:Name="Grid8" Grid.Row="2" BorderBrush="#FF616161" BorderThickness="0,0,1,1"/>
-                
+
                 <Image x:Name="imgBrandSkin" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Source="Images/sonic.png" Margin="30 10 30 0"/>
 
 
@@ -709,18 +709,11 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-
-                <StackPanel HorizontalAlignment="Left" Height="117" Margin="41,94,0,0" VerticalAlignment="Top" Width="96">
-                    <CheckBox Name="chBt_coil" Content="T-Coil" Margin="0,0,10,0" HorizontalAlignment="Right" Width="86" Checked="chBt_coil_Checked" Unchecked="chBt_coil_Checked"/>
-                    <CheckBox Name="chBlED" Content="LED" Checked="chBlED_Checked" Unchecked="chBlED_Checked"/>
-                    <CheckBox Name="chBbUTTONS" Content="2 buttons" Checked="chBbUTTONS_Checked" Unchecked="chBbUTTONS_Checked"/>
-                    <CheckBox Name="chBWireless" Content="Wireless" Checked="chBWireless_Checked" Unchecked="chBWireless_Checked"/>
-                </StackPanel>
                 <StackPanel HorizontalAlignment="Left" Height="58" Margin="41,20,0,0" VerticalAlignment="Top" Width="159">
                     <RadioButton Name="rbnHI_1" Content="1 HI" Checked="rbnHI_1_Checked"/>
                     <RadioButton Name="rbnHI_2" Content="2 HI" Checked="rbnHI_2_Checked"/>
                 </StackPanel>
-                <Button Name="btnRANDHI" Content="RANDOM" HorizontalAlignment="Left" Margin="83,239,0,0" VerticalAlignment="Top" Width="117" Click="btnRANDHI_Click"/>
+                <Button Name="btnRANDHI" Content="RANDOM" HorizontalAlignment="Left" Margin="72,303,0,0" VerticalAlignment="Top" Width="117" Click="btnRANDHI_Click"/>
                 <StackPanel HorizontalAlignment="Left" Height="148" Margin="347,63,0,0" VerticalAlignment="Top" Width="135">
                     <Label Content="Available since Release : " HorizontalAlignment="Left" Margin="0,0,-25,0" VerticalAlignment="Top" Width="140" Height="26"/>
                     <Slider x:Name="sliderRelease" SmallChange="1" TickFrequency="0" ValueChanged="sliderRelease_ValueChanged" HorizontalAlignment="Right" Width="135"/>
@@ -729,7 +722,6 @@
                     <Slider Name="sliderPP" SmallChange="1" ValueChanged="sliderPP_ValueChanged"/>
                     <Label Name="lblPP" Content="Label"/>
                 </StackPanel>
-                <Label Content="Phisical" HorizontalAlignment="Left" Margin="41,68,0,0" VerticalAlignment="Top" Width="75" Height="26"/>
                 <ListBox Name="ListTeamPerson" HorizontalAlignment="Left" Height="165" VerticalAlignment="Top" Width="148" Margin="602,20,0,0" SelectionMode="Multiple"/>
                 <Button Name="btnAddPersonToList" Content="Add" HorizontalAlignment="Left" Margin="650,224,0,0" VerticalAlignment="Top" Width="100" Click="btnAddPersonToList_Click"/>
                 <Button Name="btnClearListTeamPerson" Content="Clear" HorizontalAlignment="Left" Margin="650,262,0,0" VerticalAlignment="Top" Width="100" Click="btnClearListTeamPerson_Click"/>
@@ -757,6 +749,8 @@
                 </DataGrid>
                 <Button Name="btnExportData" Content="Export" HorizontalAlignment="Left" Margin="41,361,0,0" VerticalAlignment="Top" Width="75" Click="btnExportData_Click"/>
                 <Button Name="btnClearTable" Content="Clear" HorizontalAlignment="Left" Margin="139,361,0,0" VerticalAlignment="Top" Width="75" Click="btnClearTable_Click"/>
+                <ListBox Name="ListBoxOfAvailableStyles" HorizontalAlignment="Left" Height="189" Margin="41,78,0,0" VerticalAlignment="Top" Width="124" SelectionChanged="ListBoxOfAvailableStyles_SelectionChanged"/>
+                <ListBox Name="ListBoxOfAvailableTypes" HorizontalAlignment="Left" Height="189" Margin="170,78,0,0" VerticalAlignment="Top" Width="120"/>
 
 
 

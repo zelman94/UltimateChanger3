@@ -122,6 +122,7 @@
     <Compile Include="FSInstaller.cs" />
     <Compile Include="Hardware.cs" />
     <Compile Include="HIs.cs" />
+    <Compile Include="MyRandomizer.cs" />
     <Compile Include="myXMLReader.cs" />
     <Compile Include="pathAndDir.cs" />
     <Compile Include="TrashCleaner.cs" />
