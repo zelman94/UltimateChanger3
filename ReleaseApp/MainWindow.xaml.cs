@@ -51,6 +51,8 @@ namespace UltimateChanger
         //string OEMname = "";
         List<Image> ListImages;
         List<Label> listlabelsinfoFS;
+        List<Label> ListLabelsonUI = new List<Label>();
+        List<ListBox> ListListBoxsonUI = new List<ListBox>();
         List<CheckBox> checkBoxList = new List<CheckBox>();
         List<ComboBox> comboBoxList = new List<ComboBox>();
         List<string> listOfTeammembers = new List<string>();
@@ -99,11 +101,34 @@ namespace UltimateChanger
                 {
                     Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", cmbRelease.Text);
                 }
+
+                try
+                {
+                    foreach (Label tb in FindLogicalChildren<Label>(this)) // dziala
+                    {
+                        ListLabelsonUI.Add(tb);
+                    }
+                    foreach (ListBox item in FindLogicalChildren<ListBox>(this))
+                    {
+                        ListListBoxsonUI.Add(item);
+                    }
+                }
+                catch (Exception xc)
+                {
+                    MessageBox.Show($"error {xc.ToString()}");
+                }
+
+
                 cmbRelease.IsEnabled = false;
                 Rekurencja = new DispatcherTimer();
                 Rekurencja.Tick += checkRekurencja;
                 Rekurencja.Interval = new TimeSpan(0, 0, 1);
                 Rekurencja.Start();
+
+
+
+
+
 
                 // napisac funkcje w fileoperation na pobieranie zapisanych danych z pliku i wpisanie do PathDir lista czy cos 
                 /*refreshUI(); */// funkcja  caly ui
@@ -128,6 +153,7 @@ namespace UltimateChanger
             setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
             setUIdefaults(XMLReader.getDefaultSettings("ComboBox"), "ComboBox");
 
+           
         }
         //________________________________________________________________________________________________________________________________________________
 
@@ -214,6 +240,8 @@ namespace UltimateChanger
         {
             lblVersion.Content = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             User_Power = "USER";
+
+           
 
             try
             {
@@ -413,8 +441,45 @@ namespace UltimateChanger
             }
         }
 
+
+        public static IEnumerable<T> FindLogicalChildren<T>(DependencyObject obj) where T : DependencyObject
+        {
+            if (obj != null)
+            {
+                if (obj is T)
+                    yield return obj as T;
+
+                foreach (DependencyObject child in LogicalTreeHelper.GetChildren(obj).OfType<DependencyObject>())
+                    foreach (T c in FindLogicalChildren<T>(child))
+                        yield return c;
+            }
+        }
+
+        public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject // funkcja wyszukujaca okreslony typ UI Label itp...
+        {
+            if (depObj != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+                {
+                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
+                    if (child != null && child is T)
+                    {
+                        yield return (T)child;
+                    }
+
+                    foreach (T childOfChild in FindVisualChildren<T>(child))
+                    {
+                        yield return childOfChild;
+                    }
+                }
+            }
+        }
         public void refreshUI(object sender, EventArgs e)
         {
+
+           
+
+
             verifyInstalledBrands();
             List<string> logmodesFS = fileOperator.getLogMode();
             try
@@ -1539,6 +1604,18 @@ namespace UltimateChanger
             XMLReader.setSetting("ExpressFit_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
 
             imgBrandSkin.Visibility = Visibility.Hidden;
+
+            foreach (var item in ListLabelsonUI)
+            {
+                item.Foreground = Brushes.White;
+            }
+            foreach (var item in ListListBoxsonUI)
+            {
+                item.Foreground = Brushes.White;
+            }
+
+
+
         }
 
         private void Light_skin_Checked_1(object sender, RoutedEventArgs e)
@@ -1556,6 +1633,16 @@ namespace UltimateChanger
             XMLReader.setSetting("ExpressFit_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
 
             imgBrandSkin.Visibility = Visibility.Hidden;
+
+            foreach (var item in ListLabelsonUI)
+            {
+                item.Foreground = Brushes.Yellow;
+            }
+            foreach (var item in ListListBoxsonUI)
+            {
+                item.Foreground = Brushes.Yellow;
+            }
+
         }
 
         private void Radio_Genie_Checked(object sender, RoutedEventArgs e)
@@ -1849,20 +1936,6 @@ namespace UltimateChanger
                         tmp.Add(persononTeam.ToString());
                     }
                 }
-
-               
-                //foreach (var item in ListTeamPerson.Items)
-                //{
-                //    bool flag = false;
-                //    foreach (var item2 in listOfTeammembers)
-                //    {
-                //        if (item.ToString() != item2.ToString() && !flag)
-                //        {
-                //            tmp.Add(item.ToString());
-                //            flag = !flag;
-                //        }
-                //    }                   
-                //}
 
                 ListTeamPerson.ItemsSource = tmp;
             }

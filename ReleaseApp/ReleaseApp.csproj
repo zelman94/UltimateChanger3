@@ -170,6 +170,7 @@
     <Content Include="Settings\Hardware.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Settings\HIs.xml" />
     <Content Include="Settings\myTeam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
