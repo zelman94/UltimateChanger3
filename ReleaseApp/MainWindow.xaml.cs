@@ -51,9 +51,12 @@ namespace UltimateChanger
         //string OEMname = "";
         List<Image> ListImages;
         List<Label> listlabelsinfoFS;
+        List<Label> ListLabelsonUI = new List<Label>();
+        List<ListBox> ListListBoxsonUI = new List<ListBox>();
         List<CheckBox> checkBoxList = new List<CheckBox>();
         List<ComboBox> comboBoxList = new List<ComboBox>();
         List<string> listOfTeammembers = new List<string>();
+        List<string> listOfRandomHardawre_perPerson = new List<string>();
         List<RadioButton> RadioButtonsList = new List<RadioButton>();
         public SortedDictionary<string, string> StringToUI = new SortedDictionary<string, string>(); // slownik do zamiany stringow z xml do wartości UI 
         List<Rectangle> ListRactanglesNames;
@@ -98,11 +101,34 @@ namespace UltimateChanger
                 {
                     Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", cmbRelease.Text);
                 }
+
+                try
+                {
+                    foreach (Label tb in FindLogicalChildren<Label>(this)) // dziala
+                    {
+                        ListLabelsonUI.Add(tb);
+                    }
+                    foreach (ListBox item in FindLogicalChildren<ListBox>(this))
+                    {
+                        ListListBoxsonUI.Add(item);
+                    }
+                }
+                catch (Exception xc)
+                {
+                    MessageBox.Show($"error {xc.ToString()}");
+                }
+
+
                 cmbRelease.IsEnabled = false;
                 Rekurencja = new DispatcherTimer();
                 Rekurencja.Tick += checkRekurencja;
                 Rekurencja.Interval = new TimeSpan(0, 0, 1);
                 Rekurencja.Start();
+
+
+
+
+
 
                 // napisac funkcje w fileoperation na pobieranie zapisanych danych z pliku i wpisanie do PathDir lista czy cos 
                 /*refreshUI(); */// funkcja  caly ui
@@ -127,6 +153,7 @@ namespace UltimateChanger
             setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
             setUIdefaults(XMLReader.getDefaultSettings("ComboBox"), "ComboBox");
 
+           
         }
         //________________________________________________________________________________________________________________________________________________
 
@@ -213,6 +240,8 @@ namespace UltimateChanger
         {
             lblVersion.Content = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             User_Power = "USER";
+
+           
 
             try
             {
@@ -412,8 +441,45 @@ namespace UltimateChanger
             }
         }
 
+
+        public static IEnumerable<T> FindLogicalChildren<T>(DependencyObject obj) where T : DependencyObject
+        {
+            if (obj != null)
+            {
+                if (obj is T)
+                    yield return obj as T;
+
+                foreach (DependencyObject child in LogicalTreeHelper.GetChildren(obj).OfType<DependencyObject>())
+                    foreach (T c in FindLogicalChildren<T>(child))
+                        yield return c;
+            }
+        }
+
+        public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject // funkcja wyszukujaca okreslony typ UI Label itp...
+        {
+            if (depObj != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+                {
+                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
+                    if (child != null && child is T)
+                    {
+                        yield return (T)child;
+                    }
+
+                    foreach (T childOfChild in FindVisualChildren<T>(child))
+                    {
+                        yield return childOfChild;
+                    }
+                }
+            }
+        }
         public void refreshUI(object sender, EventArgs e)
         {
+
+           
+
+
             verifyInstalledBrands();
             List<string> logmodesFS = fileOperator.getLogMode();
             try
@@ -1367,10 +1433,16 @@ namespace UltimateChanger
                             {
                                 System.IO.Compression.ZipFile.CreateFromDirectory(fileOperator.pathToLogs[licznik], saveFileDialog1.FileName + "_" + item.Name + ".zip"); // dziala 
                             }
+                            catch (IOException xx)
+                            {
+                                File.Delete(saveFileDialog1.FileName + "_" + item.Name + ".zip");
+                                System.IO.Compression.ZipFile.CreateFromDirectory(fileOperator.pathToLogs[licznik], saveFileDialog1.FileName + "_" + item.Name + ".zip"); // dziala 
+                            }
                             catch (Exception x)
                             {
                                 MessageBox.Show(x.ToString());
                             }
+
                         }
                         licznik++;
                     }
@@ -1420,44 +1492,48 @@ namespace UltimateChanger
                         {
                             // random HI to :
 
-                            if (rnd.Next(1) == 0) // jezeli 1 to lewa jezeli nie to prawa 
+                            if (rnd.Next(2) == 0) // jezeli 1 to lewa jezeli nie to prawa 
                             {//lewa
+                                RandomHIandHardware tmp = new RandomHIandHardware();
 
+                                tmp.Name_Team_member = item;
+                                tmp.HIL_ = listofpossibleHI[rnd.Next(listofpossibleHI.Count)];
+                                tmp.HIR_ = "N/A";
+                                tmp.Ficzur_ = "COS tam";
+                                tmp.ComDev_ = listofpossibleComDev[rnd.Next(listofpossibleComDev.Count)];
+                                listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member + "," + tmp.HIL_ + "," + tmp.HIR_ + "," + tmp.Ficzur_ + "," + tmp.ComDev_);
+                                GridDataRandomHardware.Items.Add(tmp);
                             }
                             else
                             {//prawa
+                                RandomHIandHardware tmp = new RandomHIandHardware();
 
+                                tmp.Name_Team_member = item;
+                                tmp.HIL_ = "N/A";
+                                tmp.HIR_ = listofpossibleHI[rnd.Next(listofpossibleHI.Count)];
+                                tmp.Ficzur_ = "COS tam";
+                                tmp.ComDev_ = listofpossibleComDev[rnd.Next(listofpossibleComDev.Count)];
+                                listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member + "," + tmp.HIL_ + "," + tmp.HIR_ + "," + tmp.Ficzur_ + "," + tmp.ComDev_);
+                                GridDataRandomHardware.Items.Add(tmp);
                             }
-
-                            // random comdev
-
                         }
                         else
                         {
-
-
-                            // random HI to :
-                            MessageBox.Show(listofpossibleHI[rnd.Next(listofpossibleHI.Count)] + "\n" + listofpossibleHI[rnd.Next(listofpossibleHI.Count)]);
-
                             RandomHIandHardware tmp = new RandomHIandHardware();
 
                             tmp.Name_Team_member = item;
                             tmp.HIL_ = listofpossibleHI[rnd.Next(listofpossibleHI.Count)];
                             tmp.HIR_ = listofpossibleHI[rnd.Next(listofpossibleHI.Count)];
+                            tmp.Ficzur_ = "COS tam";
                             tmp.ComDev_ = listofpossibleComDev[rnd.Next(listofpossibleComDev.Count)];
-
-
-
+                            listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member+","+ tmp.HIL_+","+ tmp.HIR_+ "," +tmp.Ficzur_+"," + tmp.ComDev_);
                             GridDataRandomHardware.Items.Add(tmp);
-
                         }
-
 
                     }
                     catch (ArgumentOutOfRangeException)
                     {
                         MessageBox.Show("lack of adequate HI");
-
                     }
                 }
 
@@ -1528,6 +1604,18 @@ namespace UltimateChanger
             XMLReader.setSetting("ExpressFit_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
 
             imgBrandSkin.Visibility = Visibility.Hidden;
+
+            foreach (var item in ListLabelsonUI)
+            {
+                item.Foreground = Brushes.White;
+            }
+            foreach (var item in ListListBoxsonUI)
+            {
+                item.Foreground = Brushes.White;
+            }
+
+
+
         }
 
         private void Light_skin_Checked_1(object sender, RoutedEventArgs e)
@@ -1545,6 +1633,16 @@ namespace UltimateChanger
             XMLReader.setSetting("ExpressFit_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
 
             imgBrandSkin.Visibility = Visibility.Hidden;
+
+            foreach (var item in ListLabelsonUI)
+            {
+                item.Foreground = Brushes.Yellow;
+            }
+            foreach (var item in ListListBoxsonUI)
+            {
+                item.Foreground = Brushes.Yellow;
+            }
+
         }
 
         private void Radio_Genie_Checked(object sender, RoutedEventArgs e)
@@ -1817,13 +1915,26 @@ namespace UltimateChanger
             else
             {
                 List<string> tmp = new List<string>();
-                listOfTeammembers.Add(ListTeamPerson.SelectedValue.ToString());
-                foreach (var item in ListTeamPerson.Items)
+
+                foreach (var item in ListTeamPerson.SelectedItems)
                 {
-                    if (item.ToString() != ListTeamPerson.SelectedValue.ToString())
+                    listOfTeammembers.Add(item.ToString());
+                }
+
+                foreach (var persononTeam in ListTeamPerson.Items)                    
+                {
+                    bool flag = false;
+                    foreach (var selectedPerson in listOfTeammembers)
                     {
-                        tmp.Add(item.ToString());
-                    }                    
+                        if (selectedPerson.ToString() == persononTeam.ToString())
+                        {
+                            flag = true;
+                        }
+                    }
+                    if (!flag)
+                    {
+                        tmp.Add(persononTeam.ToString());
+                    }
                 }
 
                 ListTeamPerson.ItemsSource = tmp;
@@ -1868,7 +1979,17 @@ namespace UltimateChanger
 
         private void btnClearTable_Click(object sender, RoutedEventArgs e)
         {
-            GridDataRandomHardware.Items.Clear();
+            try
+            {
+                GridDataRandomHardware.Items.Clear();
+                listOfRandomHardawre_perPerson.Clear();
+            }
+            catch (Exception)
+            {
+
+     
+            }
+
         }
 
         private void sliderPP_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -1902,6 +2023,69 @@ namespace UltimateChanger
             bool tmp = rbnLogsAll_NO.IsChecked.Value;
             tmp = !tmp;
             XMLReader.setSetting("SetAll", "RadioButtons", Convert.ToString(tmp));
+        }
+
+        private void btnExportData_Click(object sender, RoutedEventArgs e)
+        {
+            Stream myStream;
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "txt files (*.csv)|*.csv|All files (*.*)|*.*";
+            saveFileDialog1.FilterIndex = 2;
+            saveFileDialog1.RestoreDirectory = true;
+
+            if ((bool)saveFileDialog1.ShowDialog())
+            {
+                if ((myStream = saveFileDialog1.OpenFile()) != null)
+                {
+                    try
+                    {
+                        if (saveFileDialog1.FileName.Contains(".")) //jezeli zawiera "." to zakładam że już ma wpisane csv  jezeli nie ma to wiadomo
+                        {
+                            using (TextWriter tw = new StreamWriter(saveFileDialog1.FileName, true))
+                            {
+                                tw.WriteLine(DateTime.Now.ToString());
+
+                                foreach (var item in listOfRandomHardawre_perPerson)
+                                {
+                                    tw.WriteLine(item.ToString());
+                                }
+                                tw.Close();
+                            }
+                        }
+                        else
+                        {
+                            using (TextWriter tw = new StreamWriter(saveFileDialog1.FileName + ".csv", true))
+                            {
+                                tw.WriteLine(DateTime.Now.ToString());
+
+                                foreach (var item in listOfRandomHardawre_perPerson)
+                                {
+                                    tw.WriteLine(item.ToString());
+                                }
+                                tw.Close();
+                            }
+                        }                        
+                        
+                    }
+                    catch (Exception ex)  //Writing to log has failed, send message to trace in case anyone is listening.
+                    {
+                        System.Diagnostics.Trace.Write(ex.ToString());
+                    }
+                    
+                }
+            }
+
+        }
+
+        private void GridDataRandomHardware_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DataGrid gd = (DataGrid)sender;
+
+            //GridDataRandomHardware.SelectAllCells();
+            DataRowView roe_selected = gd.SelectedItem as DataRowView;
+
+            MessageBox.Show(gd.SelectedItem.ToString());
+            //MessageBox.Show(roe_selected["ComDev_"].ToString());
         }
 
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1975,6 +2159,7 @@ namespace UltimateChanger
         public string Name_Team_member { get; set; }
         public string HIL_ { get; set; }
         public string HIR_ { get; set; }
+        public string Ficzur_ { get; set; }
         public string ComDev_ { get; set; }
     }
 
