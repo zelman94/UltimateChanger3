@@ -1507,11 +1507,11 @@ namespace UltimateChanger
             //tabControl.Background = c1;
 
 
-            Grid1.BorderBrush = c2;
-            Grid2.BorderBrush = c2;
-            Grid3.BorderBrush = c2;
-            Grid4.BorderBrush = c2;
-            Grid5.BorderBrush = c2;
+            //Grid1.BorderBrush = c2;
+            //Grid2.BorderBrush = c2;
+            //Grid3.BorderBrush = c2;
+            //Grid4.BorderBrush = c2;
+            //Grid5.BorderBrush = c2;
         }
 
         private void Dark_skin_Checked(object sender, RoutedEventArgs e)
