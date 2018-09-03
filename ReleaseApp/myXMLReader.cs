@@ -212,6 +212,23 @@ namespace UltimateChanger
             doc.Save("Settings\\myTeam.xml");
         }
 
+        public static List<string> GetStylesInRelease(string release) // release "19_1" "18_2" =? "." = "_"
+        {
+            if (release.Contains("."))
+            {
+                release.Replace('.','_');
+            }
+            List<string> Styles = new List<string>();
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load("Settings\\HIs.xml");
+
+            XmlNodeList NodesNames = doc.SelectNodes(string.Format($"/Random_HI/Release{release}/Available_Style/"));
+
+
+            return Styles;
+        }
+
 
     }
 }
