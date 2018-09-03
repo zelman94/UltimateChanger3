@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0"?>
 <Random_HI>
-  <Release Value="19_1">
+  <Release19_1>
     <Available_Style>
       <OPN>
         <miniRITE>
@@ -78,9 +78,39 @@
           <Magneto>FALSE</Magneto>
         </BTE_SP>
       </OPN_S_Plus>
+      <Essensial>
+        <miniRITE>
+          <LED>FALSE</LED>
+          <TwoButtons>FALSE</TwoButtons>
+          <Wireless>TRUE</Wireless>
+          <T-Coil>FALSE</T-Coil>
+          <Magneto>FALSE</Magneto>
+        </miniRITE>
+        <miniRITE-T>
+          <LED>FALSE</LED>
+          <TwoButtons>TRUE</TwoButtons>
+          <Wireless>TRUE</Wireless>
+          <T-Coil>TRUE</T-Coil>
+          <Magneto>FALSE</Magneto>
+        </miniRITE-T>
+        <BTE>
+          <LED>TRUE</LED>
+          <TwoButtons>TRUE</TwoButtons>
+          <Wireless>TRUE</Wireless>
+          <T-Coil>TRUE</T-Coil>
+          <Magneto>FALSE</Magneto>
+        </BTE>
+        <Custom>
+          <LED>FALSE</LED>
+          <TwoButtons>FALSE</TwoButtons>
+          <Wireless>TRUE</Wireless>
+          <T-Coil>TRUE</T-Coil>
+          <Magneto>FALSE</Magneto>
+        </Custom>
+      </Essensial>
     </Available_Style>
-  </Release>
-  <Release Value=" 18_2">
+  </Release19_1>
+  <Release18_2>
     <Available_Style>
       <OPN>
         <miniRITE>
@@ -143,8 +173,8 @@
         </Custom>
       </Essensial>      
     </Available_Style>
-  </Release>
-  <Release Value="17_2">
+  </Release18_2>
+  <Release17_2>
     <Available_Style>
       <OPN>
         <miniRITE>
@@ -170,8 +200,8 @@
         </BTE>
       </OPN>
     </Available_Style>
-  </Release>
-  <Release Value="17_1">
+  </Release17_2>
+  <Release17_1>
     <Available_Style>
       <OPN>
         <miniRITE>
@@ -197,5 +227,7 @@
         </BTE>
       </OPN>
     </Available_Style>
-  </Release>
+  </Release17_1>
+
+
 </Random_HI>

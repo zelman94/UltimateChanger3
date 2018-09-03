@@ -212,6 +212,64 @@ namespace UltimateChanger
             doc.Save("Settings\\myTeam.xml");
         }
 
+        public static List<string> GetStylesInRelease(string release) // release "19_1" "18_2" =? "." = "_" // zwraca np OPN, OPN_S, Custom czyli childs of Available_Style
+        {
+            if (release.Contains("."))
+            {
+                release = release.Replace('.','_');
+            }
+            List<string> Styles = new List<string>();
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load("Settings\\HIs.xml");
+            try
+            {
+                XmlNodeList NodesNames = doc.DocumentElement.SelectNodes(string.Format($"/Random_HI/Release{release}/Available_Style"));
+                XmlNodeList NodesNames2 = NodesNames[0].ChildNodes; // pobieram OPN itp później można odczytać z tego parametry
+                foreach (XmlNode item in NodesNames2)
+                {
+                    Styles.Add(item.Name);
+                }
+            }
+            catch (Exception x)
+            {
+                System.Windows.MessageBox.Show(x.ToString());
+            }
+
+
+            return Styles;
+        }
+
+        public static List<string> GetTypesInStyle(string release, string Style)
+        {
+            if (release.Contains("."))
+            {
+                release = release.Replace('.', '_');
+            }
+            List<string> Styles = new List<string>();
+
+            try
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load("Settings\\HIs.xml");
+                XmlNodeList NodesNames = doc.DocumentElement.SelectNodes(string.Format($"/Random_HI/Release{release}/Available_Style/{Style}"));
+                XmlNodeList NodesNames2 = NodesNames[0].ChildNodes; // pobieram OPN itp później można odczytać z tego parametry
+                foreach (XmlNode item in NodesNames2)
+                {
+                    Styles.Add(item.Name);
+                }
+            }
+            catch (Exception x)
+            {
+                System.Windows.MessageBox.Show(x.ToString());
+            }
+
+
+
+            return Styles;
+        }
+
+
 
     }
 }

@@ -226,7 +226,12 @@ namespace UltimateChanger
             ((MainWindow)System.Windows.Application.Current.MainWindow).ListBoxHardware.ItemsSource = MyHardware.ToNameAndID(listaHardware);
 
             List<string> listPerson = myXMLReader.getTeamPerson(); // dostaje liste instancji Hardware    
-            ((MainWindow)System.Windows.Application.Current.MainWindow).ListTeamPerson.ItemsSource = listPerson;            
+            ((MainWindow)System.Windows.Application.Current.MainWindow).ListTeamPerson.ItemsSource = listPerson;
+
+
+
+
+            myXMLReader.GetStylesInRelease("19.1");
         }
 
 
