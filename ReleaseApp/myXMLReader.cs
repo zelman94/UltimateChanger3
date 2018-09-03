@@ -224,7 +224,7 @@ namespace UltimateChanger
             doc.Load("Settings\\HIs.xml");
 
             XmlNodeList NodesNames = doc.DocumentElement.SelectNodes(string.Format($"/Random_HI/Release{release}/Available_Style"));
-            XmlNodeList NodesNames2 = NodesNames[0].ChildNodes;
+            XmlNodeList NodesNames2 = NodesNames[0].ChildNodes; // pobieram OPN itp później można odczytać z tego parametry
 
             return Styles;
         }
