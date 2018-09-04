@@ -60,7 +60,7 @@ namespace UltimateChanger
                 {
                     try
                     {
-                        System.Diagnostics.Process.Start(lines[lines.Length - 5]); // szczecin
+                        System.Diagnostics.Process.Start(lines[lines.Length - 5]); // szczecin // do poprawy tu 
                     }
                     catch (Exception)
                     {
