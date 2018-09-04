@@ -2153,6 +2153,7 @@ namespace UltimateChanger
            
         }
 
+
         private void sliderWeightWireless_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             try
@@ -2163,6 +2164,9 @@ namespace UltimateChanger
             {
                 
             }
+
+        private void ListBoxOfAvailableTypes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
         }
 
