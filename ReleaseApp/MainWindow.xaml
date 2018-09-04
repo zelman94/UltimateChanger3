@@ -728,7 +728,7 @@
                     </Grid.RowDefinitions>
 
                     <StackPanel Grid.Row="0" Grid.Column="0">
-                        <ListBox Name="ListBoxOfAvailableFeautures" Height="140" Margin="0,0,10,0" SelectionChanged="ListBoxOfAvailableFeautures_SelectionChanged"/>
+                        <ListBox Name="ListBoxOfAvailableFeautures" Height="130" Margin="0,0,10,0" SelectionChanged="ListBoxOfAvailableFeautures_SelectionChanged"/>
                     </StackPanel>
 
                     <ListBox Name="ListBoxOfAvailableStyles" SelectionChanged="ListBoxOfAvailableStyles_SelectionChanged" Grid.Column="0" Grid.Row="1"/>
@@ -765,7 +765,7 @@
 
                     <Button Name="btnAddPersonToList" Content="Add" Click="btnAddPersonToList_Click" Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
                     <Button Name="btnRemovePerson" Content="Remove" Click="Button_Click_3" Grid.Column="0" Grid.Row="0" VerticalAlignment="Bottom" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
-                    <Button Name="btnClearListTeamPerson" Content="Clear" Click="btnClearListTeamPerson_Click" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10,25,10,24"/>
+                    <Button Name="btnClearListTeamPerson" Content="Clear" ToolTip="" Click="btnClearListTeamPerson_Click" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10,25,10,24"/>
                     <Button Name="btnAddNewPerson" Content="Add New Person" Click="Button_Click_4" Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
                     <Label Content="Name of the new person:" Foreground="White" Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom" Margin="10 0" Height="26"/>
                     <TextBox Name="txtnewTeamMember"  MaxLength="4" TextWrapping="Wrap" Text="" ToolTip="Name (XXXX)" Grid.Column="0" Grid.Row="3" VerticalAlignment="Top" Foreground="White" BorderBrush="White" Margin="15 0" Height="25" />
@@ -774,7 +774,7 @@
                     <RadioButton x:Name="rbnHI_2" Content="2 HI" Checked="rbnHI_2_Checked" Foreground="White" Background="#FF616161" BorderBrush="#FF424242" Grid.ColumnSpan="2" Margin="7,65,185,-2" Grid.Row="3"/>
                 </Grid>
 
-                <DataGrid Name="GridDataRandomHardware" AutoGenerateColumns="True" SelectionChanged="GridDataRandomHardware_SelectionChanged" Grid.ColumnSpan="2" Grid.Row="1">
+                <DataGrid Name="GridDataRandomHardware" AutoGenerateColumns="True"  Grid.ColumnSpan="2" Grid.Row="1" IsEnabled="False">
 
 
                     <DataGrid.Columns>
