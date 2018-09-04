@@ -302,14 +302,14 @@ namespace UltimateChanger
                     {
                         if (ver_apki[i] < ver[i] && message == false)
                         {
-                            //MessageBox.Show($"Update available: {Kolumna[1]}");
+                            //System.Windows.Forms.MessageBox.Show($"Update available: {Kolumna[1]}");
 
-                            /*Window Update = new UpdateWindow(Kolumna[1], Kolumna[3]);
+                            Window Update = new UpdateWindow(Kolumna[1], Kolumna[3]);
                             Update.ShowDialog();
 
 
                             pathsToUpdate = Kolumna[1];
-                            message = true; HATORI NARAZIE PODZIEKUJEMY */
+                            message = true; /*HATORI NARAZIE PODZIEKUJEMY*/
                         }
                     }
                     if (message)

@@ -43,50 +43,43 @@ namespace UltimateChanger
                 return;
             }
             //Initializing a new xml document object to begin reading the xml file returned
-            XmlDocument doc = new XmlDocument();
-            doc.Load("http://www.freegeoip.net/xml");
-            XmlNodeList nodeLstCity = doc.GetElementsByTagName("CountryCode");
-            IP = nodeLstCity[0].InnerText; // IP to tutaj kod państwa w któym jestem
+            //XmlDocument doc = new XmlDocument();
+            //try
+            //{
+            //    doc.Load("http://api.ipstack.com/check?access_key=b1f434893303697fffd4f9597a50e1f8&format=1"); // zrobione konto free na email paze 
+            //    XmlNodeList nodeLstCity = doc.GetElementsByTagName("country_code");
+            //    IP = nodeLstCity[0].InnerText; // IP to tutaj kod państwa w któym jestem
+            //}
+            //catch (Exception x )
+            //{
+            //    MessageBox.Show(x.ToString());
+            //}
+
             string[] lines = PATHS.Split(Environment.NewLine.ToCharArray());
-            try
-            {
-                if (IP == "PL")
+                try
                 {
                     try
                     {
-                        System.Diagnostics.Process.Start(lines[0]);
+                        System.Diagnostics.Process.Start(lines[lines.Length - 5]); // szczecin
                     }
                     catch (Exception)
                     {
                         try
                         {
-                            System.Diagnostics.Process.Start(lines[2]);
+                            System.Diagnostics.Process.Start(lines[lines.Length-1]);// dania
                         }
                         catch (Exception)
                         {
+                            MessageBox.Show("ERROR :C");
                         }
                     }                 
+
                 }
-                else if (IP == "DK")
+                catch (Exception x)
                 {
-                    try
-                    {
-                        System.Diagnostics.Process.Start(lines[4]);
-                    }
-                    catch (Exception)
-                    { }                   
+                    MessageBox.Show("Error \n" + x.ToString());
                 }
-                else
-                {
-                    MessageBox.Show("ERROR :C");
-                   
-                }
-            }
-            catch (Exception x)
-            {
-                MessageBox.Show("Error \n" + x.ToString());
-            }
-            this.Close();
+                this.Close();
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
