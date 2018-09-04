@@ -2175,18 +2175,6 @@ namespace UltimateChanger
             }
 
         }
-
-        private void GridDataRandomHardware_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            DataGrid gd = (DataGrid)sender;
-
-            //GridDataRandomHardware.SelectAllCells();
-            DataRowView roe_selected = gd.SelectedItem as DataRowView;
-
-            MessageBox.Show(gd.SelectedItem.ToString());
-            //MessageBox.Show(roe_selected["ComDev_"].ToString());
-        }
-
         private void ListBoxOfAvailableStyles_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
