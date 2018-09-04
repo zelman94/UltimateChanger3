@@ -268,8 +268,8 @@
                     <Button x:Name="btnNewPrecon" Grid.Row="3" Grid.Column="1" Click="btnFS_Click" Background="#FF616161" BorderBrush="#FF424242" Foreground="Black" Margin="10 0">
                         <Image Name="imgprecon" Source="Images/Preconditioner.PNG"></Image>
                     </Button>
-                    <Button Content="Kill FS" Grid.Row="4" VerticalAlignment="Center" Click="Button_Click_2" ToolTip="All FS will be closed" Height="28" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
-                    <Button Content="Downgrade HW" Grid.Column="1"  Grid.Row="4" VerticalAlignment="Center" Click="Downgrade" Height="28" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
+                    <Button Content="Kill FS" Grid.Row="4" VerticalAlignment="Center" Click="Button_Click_2" ToolTip="All FS will be closed" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
+                    <Button Content="Downgrade HW" Grid.Column="1"  Grid.Row="4" VerticalAlignment="Center" Click="Downgrade" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
                 </Grid>
 
 
@@ -311,7 +311,7 @@
                     <Label Content="Build:" Grid.Row="2" Grid.Column="0" Foreground="White"/>
                     <ComboBox x:Name="cmbBuild" Grid.Row="2" Grid.Column="0" SelectionChanged="cmbbuild_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 0"/>
 
-                    <Button x:Name="btninstal" Content="Install" Click="btninstal_Click" Grid.Row="2" Grid.Column="1" IsEnabled="True"  Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Top" Margin="5 0"/>
+                    <Button x:Name="btninstal" Content="Install" Click="btninstal_Click" Grid.Row="2" Grid.Column="1" IsEnabled="True" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Top" Margin="5 0"/>
                     <Button x:Name="btnInfo" Content="Copy path to build" Grid.Row="2" Grid.Column="1" Click="btnInfo_Click" RenderTransformOrigin="0.255,-0.25" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Bottom" Margin="5 0 5 10"/>
 
                 </Grid>
@@ -394,8 +394,8 @@
                         <PasswordBox Margin="0 0 50 20" Padding="2 3 2 0" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" x:Name="passwordBox" MouseEnter="LoggingMouseEnter" MouseLeave="LoggingMouseEnter" Foreground="White" BorderBrush="White"/>
                     </Grid>
                     
-                    <Button x:Name="btnLogToDB" Content="Log in" HorizontalAlignment="Center" MouseEnter="LoggingMouseEnter" MouseLeave="LoggingMouseEnter" Click="btnLogToDB_Click"  Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="100 0" Width="100"/>
-                    <Button Name="btnNewUser" Content="Create New" HorizontalAlignment="Center"  Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="100 15" Width="100"/>
+                    <Button x:Name="btnLogToDB" Content="Log in" HorizontalAlignment="Center" MouseEnter="LoggingMouseEnter" MouseLeave="LoggingMouseEnter" Click="btnLogToDB_Click"  Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="100 0" Width="110"/>
+                    <Button Name="btnNewUser" Content="Create New" HorizontalAlignment="Center"  Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="100 15" Width="110"/>
                 </StackPanel>
 
 
@@ -666,7 +666,7 @@
 
                 <Border x:Name="Grid6" Grid.Row="0" BorderBrush="#FF616161" BorderThickness="0,0,1,1"/>
                 <Border x:Name="Grid7" Grid.Row="1" BorderBrush="#FF616161" BorderThickness="0,0,1,1"/>
-                <Border x:Name="Grid8" Grid.Row="2" BorderBrush="#FF616161" BorderThickness="0,0,1,1"/>
+                <Border x:Name="Grid8" Grid.Row="2" BorderBrush="#FF616161" BorderThickness="0,0,1,0"/>
                 
                 <Image x:Name="imgBrandSkin" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Source="Images/sonic.png" Margin="30 10 30 0"/>
 
@@ -705,38 +705,62 @@
 
         <TabItem Header="Random HI" Foreground="White">
 
-            <Grid x:Name="GridRandom" Margin="0,0,0,-3">
+            <Grid x:Name="GridRandom">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition Height="9*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
 
-                <StackPanel HorizontalAlignment="Left" Height="117" Margin="41,94,0,0" VerticalAlignment="Top" Width="96">
-                    <CheckBox Name="chBt_coil" Content="T-Coil" Margin="0,0,10,0" HorizontalAlignment="Right" Width="86" Checked="chBt_coil_Checked" Unchecked="chBt_coil_Checked"/>
-                    <CheckBox Name="chBlED" Content="LED" Checked="chBlED_Checked" Unchecked="chBlED_Checked"/>
-                    <CheckBox Name="chBbUTTONS" Content="2 buttons" Checked="chBbUTTONS_Checked" Unchecked="chBbUTTONS_Checked"/>
-                    <CheckBox Name="chBWireless" Content="Wireless" Checked="chBWireless_Checked" Unchecked="chBWireless_Checked"/>
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="0" Grid.Column="0" Margin="10 0">
+                    <Label Content="Number of HIs" Foreground="White" Margin="0 5 0 0"/>
+                    <RadioButton Name="rbnHI_1" Content="1 HI" Checked="rbnHI_1_Checked" Foreground="White" Background="#FF616161" BorderBrush="#FF424242"/>
+                    <RadioButton Name="rbnHI_2" Content="2 HI" Checked="rbnHI_2_Checked" Foreground="White" Background="#FF616161" BorderBrush="#FF424242"/>
+                    <Label Content="Phisical" Foreground="White" Margin="0 5 0 0"/>
+                    <CheckBox Name="chBt_coil" Content="T-Coil" Checked="chBt_coil_Checked" Unchecked="chBt_coil_Checked" Foreground="White" Background="#FF616161" BorderBrush="#FF424242"/>
+                    <CheckBox Name="chBlED" Content="LED" Checked="chBlED_Checked" Unchecked="chBlED_Checked" Foreground="White" Background="#FF616161" BorderBrush="#FF424242"/>
+                    <CheckBox Name="chBbUTTONS" Content="2 buttons" Checked="chBbUTTONS_Checked" Unchecked="chBbUTTONS_Checked" Foreground="White" Background="#FF616161" BorderBrush="#FF424242"/>
+                    <CheckBox Name="chBWireless" Content="Wireless" Checked="chBWireless_Checked" Unchecked="chBWireless_Checked" Foreground="White" Background="#FF616161" BorderBrush="#FF424242"/>
+                    <Button Name="btnRANDHI" Content="Random" HorizontalAlignment="Center" Click="btnRANDHI_Click" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"  Margin="10"/>
                 </StackPanel>
-                <StackPanel HorizontalAlignment="Left" Height="58" Margin="41,20,0,0" VerticalAlignment="Top" Width="159">
-                    <RadioButton Name="rbnHI_1" Content="1 HI" Checked="rbnHI_1_Checked"/>
-                    <RadioButton Name="rbnHI_2" Content="2 HI" Checked="rbnHI_2_Checked"/>
+
+
+                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="0" Grid.Column="0" Margin="10 0">
+                    <Label Content="Available since Release: " Foreground="White"  Margin="0 5 0 0"/>
+                    <Slider x:Name="sliderRelease" SmallChange="1" TickFrequency="0" ValueChanged="sliderRelease_ValueChanged" BorderBrush="White" Foreground="White"/>
+                    <Label x:Name="lblRelease" Content="19.1" Foreground="White" Margin="0 5 0 0"/>
+                    <Label Content="PP:" Foreground="White" Margin="0 10 0 0"/>
+                    <Slider Name="sliderPP" SmallChange="1" ValueChanged="sliderPP_ValueChanged" BorderBrush="White" Foreground="White"/>
+                    <Label Name="lblPP" Content="OPN 1" Foreground="White" Margin="0 5 0 0"/>
                 </StackPanel>
-                <Button Name="btnRANDHI" Content="RANDOM" HorizontalAlignment="Left" Margin="83,239,0,0" VerticalAlignment="Top" Width="117" Click="btnRANDHI_Click"/>
-                <StackPanel HorizontalAlignment="Left" Height="148" Margin="347,63,0,0" VerticalAlignment="Top" Width="135">
-                    <Label Content="Available since Release : " HorizontalAlignment="Left" Margin="0,0,-25,0" VerticalAlignment="Top" Width="140" Height="26"/>
-                    <Slider x:Name="sliderRelease" SmallChange="1" TickFrequency="0" ValueChanged="sliderRelease_ValueChanged" HorizontalAlignment="Right" Width="135"/>
-                    <Label x:Name="lblRelease" Content="Label"/>
-                    <Label Content="PP:"/>
-                    <Slider Name="sliderPP" SmallChange="1" ValueChanged="sliderPP_ValueChanged"/>
-                    <Label Name="lblPP" Content="Label"/>
-                </StackPanel>
-                <Label Content="Phisical" HorizontalAlignment="Left" Margin="41,68,0,0" VerticalAlignment="Top" Width="75" Height="26"/>
-                <ListBox Name="ListTeamPerson" HorizontalAlignment="Left" Height="165" VerticalAlignment="Top" Width="148" Margin="602,20,0,0" SelectionMode="Multiple"/>
-                <Button Name="btnAddPersonToList" Content="Add" HorizontalAlignment="Left" Margin="650,224,0,0" VerticalAlignment="Top" Width="100" Click="btnAddPersonToList_Click"/>
-                <Button Name="btnClearListTeamPerson" Content="Clear" HorizontalAlignment="Left" Margin="650,262,0,0" VerticalAlignment="Top" Width="100" Click="btnClearListTeamPerson_Click"/>
-                <Button Name="btnAddNewPerson" Content="Add New Team Member" HorizontalAlignment="Left" Margin="550,339,0,0" VerticalAlignment="Top" Width="200" Click="Button_Click_4"/>
-                <Button Name="btnRemovePerson" Content="Remove" HorizontalAlignment="Left" Margin="650,301,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click_3"/>
-                <TextBox Name="txtnewTeamMember" HorizontalAlignment="Left" Height="23" Margin="550,301,0,0" MaxLength="4" TextWrapping="Wrap" Text="" ToolTip="Name (XXXX)" VerticalAlignment="Top" Width="95"  />
-                <DataGrid Name="GridDataRandomHardware" AutoGenerateColumns="True"  HorizontalAlignment="Left" Height="310" Margin="25,406,0,0" VerticalAlignment="Top" Width="740" SelectionChanged="GridDataRandomHardware_SelectionChanged">
+
+
+                <Grid Grid.Column="1" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <ListBox Name="ListTeamPerson" SelectionMode="Multiple" Grid.Column="1" Grid.RowSpan="4" />
+                    <Button Name="btnAddPersonToList" Content="Add" Click="btnAddPersonToList_Click" Grid.Column="0" Grid.Row="0" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" VerticalAlignment="Center"/>
+                    <Button Name="btnRemovePerson" Content="Remove" Click="Button_Click_3" Grid.Column="0" Grid.Row="1" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" VerticalAlignment="Top"/>
+                    <Button Name="btnClearListTeamPerson" Content="Clear" Click="btnClearListTeamPerson_Click" Grid.Column="0" Grid.Row="1" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" VerticalAlignment="Bottom"/>
+                    <Button Name="btnAddNewPerson" Content="Add New Person" Click="Button_Click_4" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" Grid.Column="0" Grid.Row="2"/>
+                    <TextBox Name="txtnewTeamMember" MaxLength="4" TextWrapping="Wrap" Text="" ToolTip="Name (XXXX)" Grid.Column="0" Grid.Row="3" Foreground="White" BorderBrush="White" VerticalAlignment="Top" Margin="10 0" Padding="2"/>
+                </Grid>
+                
+                
+                <DataGrid Name="GridDataRandomHardware" AutoGenerateColumns="True" Grid.Row="1" Grid.ColumnSpan="2"  SelectionChanged="GridDataRandomHardware_SelectionChanged" Margin="10 0">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Name"  Binding="{Binding Name_Team_member}" Width="100"/>
                         <DataGridTextColumn Header="HI L"  Binding="{Binding HIL_}" Width="120"/>
@@ -750,13 +774,13 @@
                             <Setter Property="Background" Value="Red" />
                             <Setter Property="FontWeight" Value="SemiBold" />
                             <Setter Property="BorderThickness" Value="0,1,0,3" />
-                            <Setter Property="BorderBrush" Value="Black" />
+                            <Setter Property="BorderBrush" Value="#FF424242" />
                         </Style>
 
                     </DataGrid.Resources>
                 </DataGrid>
-                <Button Name="btnExportData" Content="Export" HorizontalAlignment="Left" Margin="41,361,0,0" VerticalAlignment="Top" Width="75" Click="btnExportData_Click"/>
-                <Button Name="btnClearTable" Content="Clear" HorizontalAlignment="Left" Margin="139,361,0,0" VerticalAlignment="Top" Width="75" Click="btnClearTable_Click"/>
+                <Button Name="btnExportData" Content="Export" Click="btnExportData_Click" Grid.Row="2" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 5"/>
+                <Button Name="btnClearTable" Content="Clear" Click="btnClearTable_Click" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 5"/>
 
 
 
