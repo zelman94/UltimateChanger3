@@ -2114,6 +2114,11 @@ namespace UltimateChanger
            
         }
 
+        private void ListBoxOfAvailableTypes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             cmbRelease.Items.Refresh();
