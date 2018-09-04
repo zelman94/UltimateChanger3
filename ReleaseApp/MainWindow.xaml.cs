@@ -917,6 +917,9 @@ namespace UltimateChanger
             byte i = 0;
             byte j = 1;
             byte licznik = 0;
+            bool flag = false;
+            string message = "Deleted: \n";
+            string message2 = "Close FS or uninstall: \n";
             foreach (var item in checkBoxList)
             {
                 if (item.IsChecked.Value)
@@ -926,16 +929,21 @@ namespace UltimateChanger
                         smieciarka.DeleteTrash(FileOperator.pathToTrash[i]);
                         smieciarka.DeleteTrash(FileOperator.pathToTrash[j]);
                         refreshUI(new object(), new EventArgs());
-                        MessageBox.Show(item.Name + " Deleted");
+                        message = message + item.Name + "\n";
+                        flag = true;
                     }
                     else
                     {
-                        MessageBox.Show("Close FS or uninstall");
+                        message2 = message2 + item.Name;
                     }
                 }
                 i += 2;
                 j += 2;
                 licznik++;
+            }
+            if (flag)
+            {
+                MessageBox.Show(message + message2);
             }
         }
         private void btnFS_Click(object sender, RoutedEventArgs e)
@@ -1043,14 +1051,20 @@ namespace UltimateChanger
                 if (txtsettlog1.Text != "" || txtsettlog2.Text != "" || txtsettlog3.Text != "")
                 {
                     byte licznik = 0;
+                    bool flag = false;
+                    string message = "updated: \n";
                     foreach (var item in checkBoxList)
                     {
                         if (item.IsChecked.Value)
                         {
                             fileOperator.setLogMode(cmbLogMode.Text, cmbLogSettings.SelectedIndex, licznik, true, txtsettlog1.Text, txtsettlog2.Text, txtsettlog3.Text);
-                            MessageBox.Show($"Updated [{item.Name}]");
+                            message = message + item.Name + "\n";                            
                         }
                         licznik++;
+                    }
+                    if (flag)
+                    {
+                        MessageBox.Show(message);
                     }
                 }
                 else
@@ -1064,14 +1078,20 @@ namespace UltimateChanger
                 if (cmbLogMode.SelectedIndex != -1 && cmbLogSettings.SelectedIndex != -1)
                 {
                     byte licznik = 0;
+                    bool flag = false;
+                    string message = "updated: \n";
                     foreach (var item in checkBoxList)
                     {
                         if (item.IsChecked.Value)
                         {
                             fileOperator.setLogMode(cmbLogMode.Text, cmbLogSettings.SelectedIndex, licznik, false);
-                            MessageBox.Show($"Updated [{item.Name}]");
+                            message = message + item.Name + "\n";
                         }
                         licznik++;
+                    }
+                    if (flag)
+                    {
+                        MessageBox.Show(message);
                     }
                 }
                 else
@@ -1104,22 +1124,38 @@ namespace UltimateChanger
         {
             byte licznik = 0;
             TrashCleaner smieciarka = new TrashCleaner();
+            bool flag = false;
+            string message = "Deleted";
             foreach (var item in checkBoxList)
             {
-                if (item.IsChecked.Value && fileOperator.checkRunningProcess(item.Name))
+                if (item.IsChecked.Value)
                 {
-                    try
+                    if (fileOperator.checkRunningProcess(item.Name))
                     {
-                        smieciarka.DeleteTrash(fileOperator.pathToLogs[licznik]);
+                        try
+                        {
+                            smieciarka.DeleteTrash(fileOperator.pathToLogs[licznik]);
+                            message = message + item.Name + "\n";
+                            flag = true;
+                        }
+                        catch (Exception x)
+                        {
+                            MessageBox.Show(x.ToString());
+                        }
                     }
-                    catch (Exception x)
+                    else
                     {
-                        MessageBox.Show(x.ToString());
+                        MessageBox.Show("Close FS to Delete Logs");
                     }
+
                 }
                 licznik++;
             }
-            MessageBox.Show("Deleted");
+            if (flag)
+            {
+                MessageBox.Show(message);
+            }
+
         }
         private void cmbLogMode_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -2263,6 +2299,8 @@ namespace UltimateChanger
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
             int licz = 0;
+            string message = "updated: \n";
+            bool flag = false;
             foreach (var item in checkBoxList)
             {
                 if (item.IsChecked.Value)
@@ -2272,7 +2310,8 @@ namespace UltimateChanger
                         if (cmbMarket.SelectedIndex != -1)
                         {
                             fileOperator.setMarket(licz, BindCombobox.marketIndex[cmbMarket.SelectedIndex]);
-                            MessageBox.Show($"updated [{item.Name}]");
+                            message = message + item.Name + "\n";
+                            flag = true;
                         }
                         else
                         {
@@ -2288,6 +2327,11 @@ namespace UltimateChanger
                 }
                 licz++;
             }
+            if (flag)
+            {
+                MessageBox.Show(message);
+            }
+            
 
             refreshUI(new object(), new EventArgs());
 
