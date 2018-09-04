@@ -2164,10 +2164,16 @@ namespace UltimateChanger
             {
 
             }
+<<<<<<< HEAD
         }
         private void ListBoxOfAvailableTypes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+=======
+
+        private void ListBoxOfAvailableTypes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+>>>>>>> f81bf6e9c096d75d1f1f06f6c885daf5ed5f270f
 
         }
 
