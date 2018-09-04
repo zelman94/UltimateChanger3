@@ -704,34 +704,70 @@
 
         <TabItem Header="Random HI" Foreground="White">
 
-            <Grid x:Name="GridRandom">
+            <Grid x:Name="GridRandom" Margin="10 10 10 5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition Height="9*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
 
-                <StackPanel HorizontalAlignment="Left" Height="58" Margin="41,20,0,0" VerticalAlignment="Top" Width="159">
-                    <RadioButton Name="rbnHI_1" Content="1 HI" Checked="rbnHI_1_Checked"/>
-                    <RadioButton Name="rbnHI_2" Content="2 HI" Checked="rbnHI_2_Checked"/>
-                </StackPanel>
-                <Button Name="btnRANDHI" Content="RANDOM" HorizontalAlignment="Left" Margin="72,303,0,0" VerticalAlignment="Top" Width="117" Click="btnRANDHI_Click"/>
-                <StackPanel HorizontalAlignment="Left" Height="148" Margin="347,63,0,0" VerticalAlignment="Top" Width="135">
-                    <Label Content="Available since Release : " HorizontalAlignment="Left" Margin="0,0,-25,0" VerticalAlignment="Top" Width="140" Height="26"/>
-                    <Slider x:Name="sliderRelease" SmallChange="1" TickFrequency="0" ValueChanged="sliderRelease_ValueChanged" HorizontalAlignment="Right" Width="135"/>
-                    <Label x:Name="lblRelease" Content="Label"/>
-                    <Label Content="PP:"/>
-                    <Slider Name="sliderPP" SmallChange="1" ValueChanged="sliderPP_ValueChanged"/>
-                    <Label Name="lblPP" Content="Label"/>
-                </StackPanel>
-                <ListBox Name="ListTeamPerson" HorizontalAlignment="Left" Height="165" VerticalAlignment="Top" Width="148" Margin="602,20,0,0" SelectionMode="Multiple"/>
-                <Button Name="btnAddPersonToList" Content="Add" HorizontalAlignment="Left" Margin="650,224,0,0" VerticalAlignment="Top" Width="100" Click="btnAddPersonToList_Click"/>
-                <Button Name="btnClearListTeamPerson" Content="Clear" HorizontalAlignment="Left" Margin="650,262,0,0" VerticalAlignment="Top" Width="100" Click="btnClearListTeamPerson_Click"/>
-                <Button Name="btnAddNewPerson" Content="Add New Team Member" HorizontalAlignment="Left" Margin="550,339,0,0" VerticalAlignment="Top" Width="200" Click="Button_Click_4"/>
-                <Button Name="btnRemovePerson" Content="Remove" HorizontalAlignment="Left" Margin="650,301,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click_3"/>
-                <TextBox Name="txtnewTeamMember" HorizontalAlignment="Left" Height="23" Margin="550,301,0,0" MaxLength="4" TextWrapping="Wrap" Text="" ToolTip="Name (XXXX)" VerticalAlignment="Top" Width="95"  />
-                <DataGrid Name="GridDataRandomHardware" AutoGenerateColumns="True"  HorizontalAlignment="Left" Height="310" Margin="25,406,0,0" VerticalAlignment="Top" Width="740" SelectionChanged="GridDataRandomHardware_SelectionChanged">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
 
-                  
+                    <StackPanel Grid.Row="0" Grid.Column="0">
+                        <Label Content="Number of HIs:" Foreground="White"/>
+                        <RadioButton Name="rbnHI_1" Content="1 HI" Checked="rbnHI_1_Checked" Foreground="White" Background="#FF616161" BorderBrush="#FF424242"/>
+                        <RadioButton Name="rbnHI_2" Content="2 HI" Checked="rbnHI_2_Checked" Foreground="White" Background="#FF616161" BorderBrush="#FF424242"/>
+                    </StackPanel>
+                    
+                    <ListBox Name="ListBoxOfAvailableStyles" SelectionChanged="ListBoxOfAvailableStyles_SelectionChanged" Grid.Column="0" Grid.Row="1"/>
+                    <ListBox Name="ListBoxOfAvailableTypes" SelectionChanged="ListBoxOfAvailableTypes_SelectionChanged" Grid.Column="1" Grid.Row="1"/>
+                    <Button Name="btnRANDHI" Content="RANDOM" Click="btnRANDHI_Click" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Bottom" Margin="10 50"/>
+                
+                    <StackPanel Grid.Column="1" Grid.Row="0">
+                        <Label Content="Available since Release:" Foreground="White"/>
+                        <Slider x:Name="sliderRelease" SmallChange="1" TickFrequency="0" ValueChanged="sliderRelease_ValueChanged" Foreground="White" BorderBrush="White" Margin="5 0"/>
+                        <Label x:Name="lblRelease" Content="19.1" Foreground="White"/>
+                        <Label Content="Wireless weight:" Foreground="White" Margin="0 10 0 0"/>
+                        <Slider Name="sliderWeightWireless" SmallChange="0.1" ValueChanged="sliderWeightWireless_ValueChanged" LargeChange="0.1" Maximum="1" Value="0.5" Foreground="White" BorderBrush="White" Margin="5 0"/>
+                        <Label Name="lblWeightWireless" Content="Label" Foreground="White"/>
+                    </StackPanel>
+
+                </Grid>
+
+                <Grid Grid.Column="1" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+              
+                    <ListBox Name="ListTeamPerson" SelectionMode="Multiple" Grid.Column="1" Grid.RowSpan="4"/>
+                    <Button Name="btnAddPersonToList" Content="Add" Click="btnAddPersonToList_Click" Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
+                    <Button Name="btnRemovePerson" Content="Remove" Click="Button_Click_3" Grid.Column="0" Grid.Row="0" VerticalAlignment="Bottom" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
+                    <Button Name="btnClearListTeamPerson" Content="Clear" Click="btnClearListTeamPerson_Click" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
+                    <Button Name="btnAddNewPerson" Content="Add New Person" Click="Button_Click_4" Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
+                    <Label Content="Name of the new person:" Foreground="White" Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom" Margin="10 0"/>
+                    <TextBox Name="txtnewTeamMember"  MaxLength="4" TextWrapping="Wrap" Text="" ToolTip="Name (XXXX)" Grid.Column="0" Grid.Row="3" VerticalAlignment="Top" Foreground="White" BorderBrush="White" Margin="15 0" />
+                </Grid>
+
+                <DataGrid Name="GridDataRandomHardware" AutoGenerateColumns="True" SelectionChanged="GridDataRandomHardware_SelectionChanged" Grid.ColumnSpan="2" Grid.Row="1">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Name"  Binding="{Binding Name_Team_member}" Width="100"/>
                         <DataGridTextColumn Header="HI L"  Binding="{Binding HIL_}" Width="120"/>
@@ -742,23 +778,18 @@
 
                     <DataGrid.Resources >
                         <Style TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="Background" Value="Red" />
+                            <Setter Property="Background" Value="#FF616161" />
                             <Setter Property="FontWeight" Value="SemiBold" />
-                            <Setter Property="BorderThickness" Value="0,1,0,3" />
-                            <Setter Property="BorderBrush" Value="#FF424242" />
+                            <Setter Property="BorderThickness" Value="0,0,0,2" />
+                            <Setter Property="BorderBrush" Value="#FF424242"/>
+                            <Setter Property="Foreground" Value="White"/>
                         </Style>
-
                     </DataGrid.Resources>
                 </DataGrid>
 
-                <Button Name="btnExportData" Content="Export" HorizontalAlignment="Left" Margin="41,361,0,0" VerticalAlignment="Top" Width="75" Click="btnExportData_Click"/>
-                <Button Name="btnClearTable" Content="Clear" HorizontalAlignment="Left" Margin="139,361,0,0" VerticalAlignment="Top" Width="75" Click="btnClearTable_Click"/>
-                <ListBox Name="ListBoxOfAvailableStyles" HorizontalAlignment="Left" Height="189" Margin="41,78,0,0" VerticalAlignment="Top" Width="124" SelectionChanged="ListBoxOfAvailableStyles_SelectionChanged"/>
-                <ListBox Name="ListBoxOfAvailableTypes" HorizontalAlignment="Left" Height="189" Margin="170,78,0,0" VerticalAlignment="Top" Width="120"/>
+                <Button Name="btnExportData" Content="Export" Click="btnExportData_Click" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
+                <Button Name="btnClearTable" Content="Clear"  Click="btnClearTable_Click" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
             </Grid>
-
-
-
 
         </TabItem>
 
