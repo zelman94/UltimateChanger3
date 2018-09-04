@@ -139,9 +139,9 @@ namespace UltimateChanger
                 MessageBox.Show(x.ToString());
             }
             sliderRelease.Maximum = cmbRelease.Items.Count - 1; // max dla slidera -1 bo count nie uwzglednia zerowego indexu
-            sliderPP.Maximum = BindCombobox.listPP.Count - 1;
+            sliderWeightWireless.Maximum = 1;
             sliderRelease.Value = cmbRelease.SelectedIndex; // ustalenie defaulta jako obecny release
-            sliderPP.Value = 0;
+            sliderWeightWireless.Value = 0;
             refreshUI(new object(), new EventArgs());
             dataBaseManager = new DataBaseManager(XMLReader.getDefaultSettings("DataBase").ElementAt(0).Value);
             if (dataBaseManager != null)
@@ -1486,27 +1486,72 @@ namespace UltimateChanger
 
                             if (rnd.Next(2) == 0) // jezeli 1 to lewa jezeli nie to prawa 
                             {//lewa
-                                //RandomHIandHardware tmp = new RandomHIandHardware();
+                                RandomHIandHardware tmp = new RandomHIandHardware();
 
-                                //tmp.Name_Team_member = item;
-                                //tmp.HIL_ = listofpossibleHI[rnd.Next(listofpossibleHI.Count)];
-                                //tmp.HIR_ = "N/A";
-                                //tmp.Ficzur_ = "COS tam";
-                                //tmp.ComDev_ = listofpossibleComDev[rnd.Next(listofpossibleComDev.Count)];
-                                //listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member + "," + tmp.HIL_ + "," + tmp.HIR_ + "," + tmp.Ficzur_ + "," + tmp.ComDev_);
-                                //GridDataRandomHardware.Items.Add(tmp);
-                            }
-                            else
+                                //string random_HI= HIs.randomHI(ListOfAvailableHIs,lblRelease.Content.ToString());
+
+                                tmp.Name_Team_member = item;
+                                HIs tmpHIL = HIs.randomHI(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString());
+                                tmp.HIL_ = tmpHIL.Name;
+
+                                //HIs tmpHIR = HIs.randomHI(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString());
+                                tmp.HIR_ = "N/A";
+
+                                string wireless = "FALSE";
+
+                                if (tmpHIL.Wireless /*&& tmpHIR.Wireless*/) //jezeli oba maja wireless
+                                {
+                                    wireless = "TRUE";
+                                }
+
+
+                                tmp.Ficzur_ = "COS tam";
+                                try
+                                {
+                                    tmp.ComDev_ = myXMLReader.GetComDEV(wireless);
+                                }
+                                catch (Exception)
+                                {
+                                    tmp.ComDev_ = "ERROR";
+                                }
+
+                                listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member + "," + tmp.HIL_ + "," + tmp.HIR_ + "," + tmp.Ficzur_ + "," + tmp.ComDev_);
+                                GridDataRandomHardware.Items.Add(tmp);
+                        }
+                    
+                        else
                             {//prawa
-                                //RandomHIandHardware tmp = new RandomHIandHardware();
+                                RandomHIandHardware tmp = new RandomHIandHardware();
 
-                                //tmp.Name_Team_member = item;
-                                //tmp.HIL_ = "N/A";
-                                //tmp.HIR_ = listofpossibleHI[rnd.Next(listofpossibleHI.Count)];
-                                //tmp.Ficzur_ = "COS tam";
-                                //tmp.ComDev_ = listofpossibleComDev[rnd.Next(listofpossibleComDev.Count)];
-                                //listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member + "," + tmp.HIL_ + "," + tmp.HIR_ + "," + tmp.Ficzur_ + "," + tmp.ComDev_);
-                                //GridDataRandomHardware.Items.Add(tmp);
+                                //string random_HI= HIs.randomHI(ListOfAvailableHIs,lblRelease.Content.ToString());
+
+                                tmp.Name_Team_member = item;
+                                HIs tmpHIL = HIs.randomHI(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString());
+                                tmp.HIR_ = tmpHIL.Name;
+
+                                //HIs tmpHIR = HIs.randomHI(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString());
+                                tmp.HIL_ = "N/A";
+
+                                string wireless = "FALSE";
+
+                                if (tmpHIL.Wireless /*&& tmpHIR.Wireless*/) //jezeli oba maja wireless
+                                {
+                                    wireless = "TRUE";
+                                }
+
+
+                                tmp.Ficzur_ = "COS tam";
+                                try
+                                {
+                                    tmp.ComDev_ = myXMLReader.GetComDEV(wireless);
+                                }
+                                catch (Exception)
+                                {
+                                    tmp.ComDev_ = "ERROR";
+                                }
+
+                                listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member + "," + tmp.HIL_ + "," + tmp.HIR_ + "," + tmp.Ficzur_ + "," + tmp.ComDev_);
+                                GridDataRandomHardware.Items.Add(tmp);
                             }
                         }
                         else
@@ -2005,12 +2050,6 @@ namespace UltimateChanger
 
         }
 
-        private void sliderPP_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            lblPP.Content = BindCombobox.listPP[Convert.ToInt32(sliderPP.Value)];
-            Random_HI.PP = lblPP.Content.ToString();
-        }
-
         private void rbnLogsAll_YES_Checked(object sender, RoutedEventArgs e)
         {
             XMLReader.setSetting("SetAll", "RadioButtons", Convert.ToString(rbnLogsAll_YES.IsChecked.Value));
@@ -2112,6 +2151,19 @@ namespace UltimateChanger
                 ListBoxOfAvailableTypes.ItemsSource = null;
             }
            
+        }
+
+        private void sliderWeightWireless_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            try
+            {
+                lblWeightWireless.Content = sliderWeightWireless.Value;
+            }
+            catch (Exception)
+            {
+                
+            }
+
         }
 
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)

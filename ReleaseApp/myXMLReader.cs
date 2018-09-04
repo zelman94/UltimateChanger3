@@ -299,10 +299,10 @@ namespace UltimateChanger
 
                     XmlNodeList SettingsHI_Childs = SettingsHI[0].ChildNodes;
 
-                    T_Coil = Convert.ToBoolean(SettingsHI_Childs[0].InnerText.ToString());
-                    Led = Convert.ToBoolean(SettingsHI_Childs[1].InnerText.ToString());
-                    twoButtons = Convert.ToBoolean(SettingsHI_Childs[2].InnerText.ToString());
-                    Wireless = Convert.ToBoolean(SettingsHI_Childs[3].InnerText.ToString());
+                    T_Coil = Convert.ToBoolean(SettingsHI_Childs[3].InnerText.ToString());
+                    Led = Convert.ToBoolean(SettingsHI_Childs[0].InnerText.ToString());
+                    twoButtons = Convert.ToBoolean(SettingsHI_Childs[1].InnerText.ToString());
+                    Wireless = Convert.ToBoolean(SettingsHI_Childs[2].InnerText.ToString());
                     Custom = /*Convert.ToBoolean(SettingsHI_Childs[4].InnerText.ToString());*/false;
                     S = /*Convert.ToBoolean(SettingsHI_Childs[5].InnerText.ToString());*/ false;
                     Magneto = Convert.ToBoolean(SettingsHI_Childs[4].InnerText.ToString());
@@ -334,15 +334,25 @@ namespace UltimateChanger
                 XmlNodeList NodesNames = doc.DocumentElement.SelectNodes(string.Format($"/Random_HI/Hardware/Available_Style"));
 
                 XmlNodeList ComDevs = NodesNames[0].ChildNodes;
-
-                foreach (XmlNode item in ComDevs)
+                if (Convert.ToBoolean(wireless)) // jezeli HI ma wireless to wszystki ComDev mogą być
                 {
-                    if (item.FirstChild.InnerText == wireless)
-                    {
-                        ComDEV.Add(item.Name);
+                    foreach (XmlNode item in ComDevs)
+                    {                     
+                        ComDEV.Add(item.Name);                        
                     }
-                   
                 }
+                else
+                {
+                    foreach (XmlNode item in ComDevs)
+                    {
+                        if (item.FirstChild.InnerText == wireless)
+                        {
+                            ComDEV.Add(item.Name);
+                        }
+
+                    }
+                }
+
             }
             catch (Exception x)
             {

@@ -718,9 +718,9 @@
                     <Label Content="Available since Release : " HorizontalAlignment="Left" Margin="0,0,-25,0" VerticalAlignment="Top" Width="140" Height="26"/>
                     <Slider x:Name="sliderRelease" SmallChange="1" TickFrequency="0" ValueChanged="sliderRelease_ValueChanged" HorizontalAlignment="Right" Width="135"/>
                     <Label x:Name="lblRelease" Content="Label"/>
-                    <Label Content="PP:"/>
-                    <Slider Name="sliderPP" SmallChange="1" ValueChanged="sliderPP_ValueChanged"/>
-                    <Label Name="lblPP" Content="Label"/>
+                    <Label Content="wireless weight:"/>
+                    <Slider Name="sliderWeightWireless" SmallChange="0.1" ValueChanged="sliderWeightWireless_ValueChanged" LargeChange="0.1" Maximum="1" Value="0.5"/>
+                    <Label Name="lblWeightWireless" Content="Label"/>
                 </StackPanel>
                 <ListBox Name="ListTeamPerson" HorizontalAlignment="Left" Height="165" VerticalAlignment="Top" Width="148" Margin="602,20,0,0" SelectionMode="Multiple"/>
                 <Button Name="btnAddPersonToList" Content="Add" HorizontalAlignment="Left" Margin="650,224,0,0" VerticalAlignment="Top" Width="100" Click="btnAddPersonToList_Click"/>
