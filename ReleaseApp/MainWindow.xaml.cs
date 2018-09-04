@@ -1473,7 +1473,7 @@ namespace UltimateChanger
 
         private void btnRANDHI_Click(object sender, RoutedEventArgs e)
         {
-            List<string> ListOfAvailableHIs = myXMLReader.GetTypesInStyle(lblRelease.Content.ToString(),ListBoxOfAvailableStyles.SelectedItem.ToString());
+            //List<string> ListBoxOfAvailableComDev = myXMLReader.GetTypesInStyle(lblRelease.Content.ToString(),ListBoxOfAvailableStyles.SelectedItem.ToString());
 
                 Random rnd = new Random();
                 foreach (var item in listOfTeammembers) // przechodze po osobach z  listy i losuje im wszystko co trzeba
@@ -1516,11 +1516,31 @@ namespace UltimateChanger
                        //string random_HI= HIs.randomHI(ListOfAvailableHIs,lblRelease.Content.ToString());
 
                             tmp.Name_Team_member = item;
-                            tmp.HIL_ = HIs.randomHI(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString());
-                        tmp.HIR_ = HIs.randomHI(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString());
+                        HIs tmpHIL = HIs.randomHI(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString());
+                            tmp.HIL_ = tmpHIL.Name;
+
+                        HIs tmpHIR = HIs.randomHI(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString());
+                        tmp.HIR_ = tmpHIR.Name;
+
+                        string wireless = "FALSE";
+
+                        if (tmpHIL.Wireless && tmpHIR.Wireless) //jezeli oba maja wireless
+                        {
+                            wireless = "TRUE";
+                        }
+
+
                         tmp.Ficzur_ = "COS tam";
-                        tmp.ComDev_ = "COŚ";
-                            listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member+","+ tmp.HIL_+","+ tmp.HIR_+ "," +tmp.Ficzur_+"," + tmp.ComDev_);
+                        try
+                        {
+                            tmp.ComDev_ = myXMLReader.GetComDEV(wireless);
+                        }
+                        catch (Exception)
+                        {
+                            tmp.ComDev_ = "ERROR";
+                        }
+                        
+                        listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member+","+ tmp.HIL_+","+ tmp.HIR_+ "," +tmp.Ficzur_+"," + tmp.ComDev_);
                             GridDataRandomHardware.Items.Add(tmp);
                         }
 
@@ -2085,7 +2105,7 @@ namespace UltimateChanger
         {
             try
             {
-                ListBoxOfAvailableTypes.ItemsSource = myXMLReader.GetTypesInStyle(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString());
+                ListBoxOfAvailableTypes.ItemsSource = myXMLReader.GetTypesInStyleString(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString());
             }
             catch (Exception) // zapobieganie crashowi gdy zmieniassz release a masz wybrany Styl i Typ HI
             {

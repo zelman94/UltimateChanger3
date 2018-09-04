@@ -228,6 +228,26 @@
       </OPN>
     </Available_Style>
   </Release17_1>
-
-
+  <Hardware>
+    <Available_Style>
+      <HI-PRO_USB>
+        <Wireless>FALSE</Wireless>
+      </HI-PRO_USB>
+      <HI-PRO_2>
+        <Wireless>FALSE</Wireless>
+      </HI-PRO_2>
+      <HI-PRO_Classic>
+        <Wireless>FALSE</Wireless>
+      </HI-PRO_Classic>
+      <FittingLink>
+        <Wireless>TRUE</Wireless>
+      </FittingLink>
+      <NoahLink_Wireless>
+        <Wireless>TRUE</Wireless>
+      </NoahLink_Wireless>
+      <HI-PRO_USB>
+        <Wireless>FALSE</Wireless>
+      </HI-PRO_USB>
+    </Available_Style>
+  </Hardware>
 </Random_HI>
