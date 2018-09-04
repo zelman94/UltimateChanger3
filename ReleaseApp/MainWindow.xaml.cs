@@ -53,6 +53,7 @@ namespace UltimateChanger
         List<Label> listlabelsinfoFS;
         List<Label> ListLabelsonUI = new List<Label>();
         List<ListBox> ListListBoxsonUI = new List<ListBox>();
+        List<Button> ListButtonsonUI = new List<Button>();
         List<CheckBox> checkBoxList = new List<CheckBox>();
         List<ComboBox> comboBoxList = new List<ComboBox>();
         List<string> listOfTeammembers = new List<string>();
@@ -112,6 +113,10 @@ namespace UltimateChanger
                     foreach (ListBox item in FindLogicalChildren<ListBox>(this))
                     {
                         ListListBoxsonUI.Add(item);
+                    }
+                    foreach (Button item in FindLogicalChildren<Button>(this))
+                    {
+                        ListButtonsonUI.Add(item);
                     }
                 }
                 catch (Exception xc)
@@ -1695,7 +1700,13 @@ namespace UltimateChanger
             {
                 item.Foreground = Brushes.White;
             }
-
+            var converter = new System.Windows.Media.BrushConverter();
+            var brush = (Brush)converter.ConvertFromString("#FF616161");
+           
+            foreach (var item in ListButtonsonUI)
+            {
+                item.Background = brush;               
+            }
 
 
         }
@@ -1718,11 +1729,18 @@ namespace UltimateChanger
 
             foreach (var item in ListLabelsonUI)
             {
-                item.Foreground = Brushes.Yellow;
+                item.Foreground = Brushes.Turquoise;
             }
             foreach (var item in ListListBoxsonUI)
             {
-                item.Foreground = Brushes.Yellow;
+                item.Foreground = Brushes.Black;
+            }
+            var converter = new System.Windows.Media.BrushConverter();
+            var brush = (Brush)converter.ConvertFromString("#8A959B");
+
+            foreach (var item in ListButtonsonUI)
+            {
+                item.Background = brush;
             }
 
         }
@@ -1997,11 +2015,15 @@ namespace UltimateChanger
             else
             {
                 List<string> tmp = new List<string>();
-
+                string tooltip = btnClearListTeamPerson.ToolTip.ToString();
                 foreach (var item in ListTeamPerson.SelectedItems)
                 {
                     listOfTeammembers.Add(item.ToString());
+                    tooltip = tooltip + item.ToString();
+                    tooltip = tooltip + "\n";
                 }
+
+                btnClearListTeamPerson.ToolTip = tooltip;
 
                 foreach (var persononTeam in ListTeamPerson.Items)                    
                 {
@@ -2027,6 +2049,7 @@ namespace UltimateChanger
         {
             BindCombo.bindListBox();
             listOfTeammembers.Clear();
+            btnClearListTeamPerson.ToolTip = "";
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
@@ -2210,6 +2233,8 @@ namespace UltimateChanger
             }
             
         }
+
+
 
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

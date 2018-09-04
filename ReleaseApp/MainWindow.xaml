@@ -728,7 +728,7 @@
                     </Grid.RowDefinitions>
 
                     <StackPanel Grid.Row="0" Grid.Column="0">
-                        <ListBox Name="ListBoxOfAvailableFeautures" Height="140" Margin="0,0,10,0" SelectionChanged="ListBoxOfAvailableFeautures_SelectionChanged"/>
+                        <ListBox Name="ListBoxOfAvailableFeautures" Height="130" Margin="0,0,10,0" SelectionChanged="ListBoxOfAvailableFeautures_SelectionChanged"/>
                     </StackPanel>
 
                     <ListBox Name="ListBoxOfAvailableStyles" SelectionChanged="ListBoxOfAvailableStyles_SelectionChanged" Grid.Column="0" Grid.Row="1"/>
@@ -764,7 +764,7 @@
                     <ListBox Name="ListTeamPerson" SelectionMode="Multiple" Grid.Column="1" Grid.RowSpan="4" Margin="0 25 0 0"/>
 
                     <Button Name="btnAddPersonToList" Content="Add" Click="btnAddPersonToList_Click" Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
-                    <Button Name="btnRemovePerson" Content="Remove" Click="Button_Click_3" Grid.Column="0" Grid.Row="0" VerticalAlignment="Bottom" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
+                    <Button Name="btnRemovePerson" Content="Remove" ToolTip="" Click="Button_Click_3" Grid.Column="0" Grid.Row="0" VerticalAlignment="Bottom" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
                     <Button Name="btnClearListTeamPerson" Content="Clear" Click="btnClearListTeamPerson_Click" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10,25,10,24"/>
                     <Button Name="btnAddNewPerson" Content="Add New Person" Click="Button_Click_4" Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
                     <Label Content="Name of the new person:" Foreground="White" Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom" Margin="10 0" Height="26"/>
