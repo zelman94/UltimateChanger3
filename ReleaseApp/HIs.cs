@@ -45,14 +45,24 @@ namespace UltimateChanger
         }
 
 
-        public static HIs randomHI( string release,string Style) // release 19.1 w funkcji jest zmienina na postac dla XML
+        public static HIs randomHI( string release,string Style, List<string> SelectedTypes) // release 19.1 w funkcji jest zmienina na postac dla XML
         {
-            Random rnd = new Random();
+            List<HIs> TypesToRand = new List<HIs>();
 
             List<HIs> listOfAvailableTypes = myXMLReader.GetTypesInStyle(release, Style); // lista instancji dostępnych HIs
+            foreach (var item in listOfAvailableTypes)
+            {
+                foreach (var item2 in SelectedTypes)
+                {
+                    if (item2.Contains(item.Name))
+                    {
+                        TypesToRand.Add(item);
+                    }
+                }
 
+            }
      
-            return listOfAvailableTypes[MyRandomizer.Instance.Next(0, listOfAvailableTypes.Count)];
+            return TypesToRand[MyRandomizer.Instance.Next(0, TypesToRand.Count)];
         }
 
         public static string randomCOMDEV(List<string> ListComDev)

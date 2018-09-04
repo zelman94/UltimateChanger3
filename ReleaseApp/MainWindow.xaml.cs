@@ -56,6 +56,7 @@ namespace UltimateChanger
         List<CheckBox> checkBoxList = new List<CheckBox>();
         List<ComboBox> comboBoxList = new List<ComboBox>();
         List<string> listOfTeammembers = new List<string>();
+        List<string> listOfFiczursSelected = new List<string>();
         List<string> listOfRandomHardawre_perPerson = new List<string>();
         List<RadioButton> RadioButtonsList = new List<RadioButton>();
         public SortedDictionary<string, string> StringToUI = new SortedDictionary<string, string>(); // slownik do zamiany stringow z xml do wartości UI 
@@ -143,6 +144,12 @@ namespace UltimateChanger
             sliderRelease.Value = cmbRelease.SelectedIndex; // ustalenie defaulta jako obecny release
             sliderWeightWireless.Value = 0.5; // to oznacza ze nic nie zmieniam i wszystko jes po rowno w szansach 
             lblWeightWireless.Content = sliderWeightWireless.Value.ToString();
+
+            ListBoxOfAvailableFeautures.SelectionMode = SelectionMode.Multiple;
+
+            ListBoxOfAvailableStyles.SelectionMode = SelectionMode.Multiple;
+            ListBoxOfAvailableTypes.SelectionMode = SelectionMode.Multiple;
+
             refreshUI(new object(), new EventArgs());
             dataBaseManager = new DataBaseManager(XMLReader.getDefaultSettings("DataBase").ElementAt(0).Value);
             if (dataBaseManager != null)
@@ -1490,7 +1497,12 @@ namespace UltimateChanger
                                 //string random_HI= HIs.randomHI(ListOfAvailableHIs,lblRelease.Content.ToString());
 
                                 tmp.Name_Team_member = item;
-                                HIs tmpHIL = HIs.randomHI(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString());
+                                List<string> tmp_hi_Types_Name = new List<string>();
+                                foreach (var HI in ListBoxOfAvailableTypes.SelectedItems)
+                                {
+                                    tmp_hi_Types_Name.Add(HI.ToString());
+                                }
+                                HIs tmpHIL = HIs.randomHI(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString(), tmp_hi_Types_Name);
                                 tmp.HIL_ = tmpHIL.Name;
 
                                 //HIs tmpHIR = HIs.randomHI(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString());
@@ -1504,7 +1516,7 @@ namespace UltimateChanger
                                 }
 
                             List<string> tmpListFiczurs = myXMLReader.getFiczurs();
-                            tmp.Ficzur_ = tmpListFiczurs[MyRandomizer.Instance.Next(0, tmpListFiczurs.Count)];
+                            tmp.Ficzur_ = listOfFiczursSelected[MyRandomizer.Instance.Next(0, listOfFiczursSelected.Count)];
                             try
                                 {
                                 tmp.ComDev_ = myXMLReader.GetComDEV(wireless, Math.Round(sliderWeightWireless.Value));
@@ -1525,7 +1537,7 @@ namespace UltimateChanger
                                 //string random_HI= HIs.randomHI(ListOfAvailableHIs,lblRelease.Content.ToString());
 
                                 tmp.Name_Team_member = item;
-                                HIs tmpHIL = HIs.randomHI(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString());
+                                HIs tmpHIL = HIs.randomHI(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString(), (List<string>)ListBoxOfAvailableTypes.SelectedItems);
                                 tmp.HIR_ = tmpHIL.Name;
 
                                 //HIs tmpHIR = HIs.randomHI(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString());
@@ -1539,8 +1551,8 @@ namespace UltimateChanger
                                 }
 
                             List<string> tmpListFiczurs = myXMLReader.getFiczurs();
-                            tmp.Ficzur_ = tmpListFiczurs[MyRandomizer.Instance.Next(0,tmpListFiczurs.Count)];
-                                try
+                            tmp.Ficzur_ = listOfFiczursSelected[MyRandomizer.Instance.Next(0, listOfFiczursSelected.Count)];
+                            try
                                 {
                                 tmp.ComDev_ = myXMLReader.GetComDEV(wireless, Math.Round(sliderWeightWireless.Value));
                             }
@@ -1553,17 +1565,22 @@ namespace UltimateChanger
                                 GridDataRandomHardware.Items.Add(tmp);
                             }
                         }
-                        else
+                        else // na dwie strony
                         {
                             RandomHIandHardware tmp = new RandomHIandHardware();
 
                        //string random_HI= HIs.randomHI(ListOfAvailableHIs,lblRelease.Content.ToString());
 
                             tmp.Name_Team_member = item;
-                        HIs tmpHIL = HIs.randomHI(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString());
-                            tmp.HIL_ = tmpHIL.Name;
+                        List<string> tmp_hi_Types_Name = new List<string>();
+                        foreach (var HI in ListBoxOfAvailableTypes.SelectedItems)
+                        {
+                            tmp_hi_Types_Name.Add(HI.ToString());
+                        }
+                        HIs tmpHIL = HIs.randomHI(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString(), tmp_hi_Types_Name);
+                        tmp.HIL_ = tmpHIL.Name;
 
-                        HIs tmpHIR = HIs.randomHI(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString());
+                        HIs tmpHIR = HIs.randomHI(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString(), tmp_hi_Types_Name);
                         tmp.HIR_ = tmpHIR.Name;
 
                         string wireless = "FALSE";
@@ -1574,7 +1591,7 @@ namespace UltimateChanger
                         }
 
                         List<string> tmpListFiczurs = myXMLReader.getFiczurs();
-                        tmp.Ficzur_ = tmpListFiczurs[MyRandomizer.Instance.Next(0, tmpListFiczurs.Count)];
+                        tmp.Ficzur_ = listOfFiczursSelected[MyRandomizer.Instance.Next(0, listOfFiczursSelected.Count)];
                         try
                         {
                             string changed = lblWeightWireless.Content.ToString().Replace(',', '.');
@@ -2151,7 +2168,13 @@ namespace UltimateChanger
         {
             try
             {
-                ListBoxOfAvailableTypes.ItemsSource = myXMLReader.GetTypesInStyleString(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString());
+                List<string> listAllSelectedTypes = new List<string>();
+                foreach (var item in ListBoxOfAvailableStyles.SelectedItems)
+                {
+                    listAllSelectedTypes.AddRange(myXMLReader.GetTypesInStyleString(lblRelease.Content.ToString(), item.ToString()));
+                }
+
+                ListBoxOfAvailableTypes.ItemsSource = listAllSelectedTypes;
             }
             catch (Exception) // zapobieganie crashowi gdy zmieniassz release a masz wybrany Styl i Typ HI
             {
@@ -2176,6 +2199,16 @@ namespace UltimateChanger
         private void ListBoxOfAvailableTypes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void ListBoxOfAvailableFeautures_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            listOfFiczursSelected.Clear();
+            foreach (var item in ListBoxOfAvailableFeautures.SelectedItems)
+            {
+                listOfFiczursSelected.Add(item.ToString());
+            }
+            
         }
 
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -2210,6 +2243,9 @@ namespace UltimateChanger
             }
 
         }
+
+
+
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {

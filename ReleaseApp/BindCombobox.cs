@@ -228,7 +228,7 @@ namespace UltimateChanger
             List<string> listPerson = myXMLReader.getTeamPerson(); // dostaje liste instancji Hardware    
             ((MainWindow)System.Windows.Application.Current.MainWindow).ListTeamPerson.ItemsSource = listPerson;
 
-
+            ((MainWindow)System.Windows.Application.Current.MainWindow).ListBoxOfAvailableFeautures.ItemsSource = myXMLReader.getFiczurs();
 
 
             myXMLReader.GetStylesInRelease("19.1");
