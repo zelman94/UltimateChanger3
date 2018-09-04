@@ -2162,9 +2162,10 @@ namespace UltimateChanger
             }
             catch (Exception)
             {
-                
+
             }
 
+        }
         private void ListBoxOfAvailableTypes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
