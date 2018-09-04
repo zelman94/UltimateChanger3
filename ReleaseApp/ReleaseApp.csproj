@@ -168,6 +168,9 @@
     <SplashScreen Include="Images\splash.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </SplashScreen>
+    <Content Include="Settings\Ficzurs.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Settings\Hardware.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

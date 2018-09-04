@@ -141,7 +141,8 @@ namespace UltimateChanger
             sliderRelease.Maximum = cmbRelease.Items.Count - 1; // max dla slidera -1 bo count nie uwzglednia zerowego indexu
             sliderWeightWireless.Maximum = 1;
             sliderRelease.Value = cmbRelease.SelectedIndex; // ustalenie defaulta jako obecny release
-            sliderWeightWireless.Value = 0;
+            sliderWeightWireless.Value = 0.5; // to oznacza ze nic nie zmieniam i wszystko jes po rowno w szansach 
+            lblWeightWireless.Content = sliderWeightWireless.Value.ToString();
             refreshUI(new object(), new EventArgs());
             dataBaseManager = new DataBaseManager(XMLReader.getDefaultSettings("DataBase").ElementAt(0).Value);
             if (dataBaseManager != null)
@@ -1473,8 +1474,6 @@ namespace UltimateChanger
 
         private void btnRANDHI_Click(object sender, RoutedEventArgs e)
         {
-            //List<string> ListBoxOfAvailableComDev = myXMLReader.GetTypesInStyle(lblRelease.Content.ToString(),ListBoxOfAvailableStyles.SelectedItem.ToString());
-
                 Random rnd = new Random();
                 foreach (var item in listOfTeammembers) // przechodze po osobach z  listy i losuje im wszystko co trzeba
                 {          
@@ -1504,9 +1503,9 @@ namespace UltimateChanger
                                     wireless = "TRUE";
                                 }
 
-
-                                tmp.Ficzur_ = "COS tam";
-                                try
+                            List<string> tmpListFiczurs = myXMLReader.getFiczurs();
+                            tmp.Ficzur_ = tmpListFiczurs[MyRandomizer.Instance.Next(0, tmpListFiczurs.Count)];
+                            try
                                 {
                                 tmp.ComDev_ = myXMLReader.GetComDEV(wireless, Math.Round(sliderWeightWireless.Value));
                             }
@@ -1539,8 +1538,8 @@ namespace UltimateChanger
                                     wireless = "TRUE";
                                 }
 
-
-                                tmp.Ficzur_ = "COS tam";
+                            List<string> tmpListFiczurs = myXMLReader.getFiczurs();
+                            tmp.Ficzur_ = tmpListFiczurs[MyRandomizer.Instance.Next(0,tmpListFiczurs.Count)];
                                 try
                                 {
                                 tmp.ComDev_ = myXMLReader.GetComDEV(wireless, Math.Round(sliderWeightWireless.Value));
@@ -1574,8 +1573,8 @@ namespace UltimateChanger
                             wireless = "TRUE";
                         }
 
-
-                        tmp.Ficzur_ = "COS tam";
+                        List<string> tmpListFiczurs = myXMLReader.getFiczurs();
+                        tmp.Ficzur_ = tmpListFiczurs[MyRandomizer.Instance.Next(0, tmpListFiczurs.Count)];
                         try
                         {
                             string changed = lblWeightWireless.Content.ToString().Replace(',', '.');

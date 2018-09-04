@@ -338,7 +338,11 @@ namespace UltimateChanger
             }
             else
             {
-                if (diff > 0) // wieksza waga na wireless // warunek raczej zbedny 
+                if (diff == 0.5) // gdy waga == 1 
+                {
+                    weight_forComDev = diff * 60.0;
+                }
+                else if (diff > 0) // wieksza waga na wireless // warunek raczej zbedny 
                 {
                     weight_forComDev = diff * 20.0;
                 }
@@ -419,6 +423,27 @@ namespace UltimateChanger
 
 
             return ComDEV[MyRandomizer.Instance.Next(0, ComDEV.Count)]; // losowy COM DEV
+        }
+
+        public static List<string> getFiczurs()
+        {
+            List<string> listFicz = new List<string>();
+
+            int counter = 0;
+            string line;
+
+            // Read the file and display it line by line.  
+            System.IO.StreamReader file =
+                new System.IO.StreamReader("Settings\\Ficzurs.txt");
+            while ((line = file.ReadLine()) != null)
+            {
+                listFicz.Add(line);
+                counter++;
+            }
+
+            file.Close();
+
+            return listFicz;
         }
 
 
