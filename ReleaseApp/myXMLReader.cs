@@ -322,10 +322,33 @@ namespace UltimateChanger
             return Styles;
         }
 
-        public static string GetComDEV(string wireless) // wireless true com dev z wirelessem 
+        public static string GetComDEV(string wireless, double weight) // wireless true com dev z wirelessem //weight - 0,5 równe szanse 0,6 -> 10% więcej instancji dla wireless itd
         {
             
             List<string> ComDEV = new List<string>();
+            List<string> ComDEV_Wireless = new List<string>();
+            List<string> ComDEV_Wire = new List<string>();
+            //string weig = Convert.ToString(weight);
+
+            double diff = weight - 0.5;
+            double weight_forComDev;
+            if (diff == 0) // rowne szanse nic nie robimy
+            {
+                weight_forComDev = 1;
+            }
+            else
+            {
+                if (diff > 0) // wieksza waga na wireless // warunek raczej zbedny 
+                {
+                    weight_forComDev = diff * 20.0;
+                }
+                else // mniejsza waga na wireless
+                {
+                    weight_forComDev = diff * 20.0;
+                }
+            }
+
+
 
             XmlDocument doc = new XmlDocument();
             doc.Load("Settings\\HIs.xml");
@@ -334,24 +357,59 @@ namespace UltimateChanger
                 XmlNodeList NodesNames = doc.DocumentElement.SelectNodes(string.Format($"/Random_HI/Hardware/Available_Style"));
 
                 XmlNodeList ComDevs = NodesNames[0].ChildNodes;
-                if (Convert.ToBoolean(wireless)) // jezeli HI ma wireless to wszystki ComDev mogą być
+                if (Convert.ToBoolean(wireless)) // jezeli HI ma wireless to wszystkie ComDev mogą być
                 {
                     foreach (XmlNode item in ComDevs)
-                    {                     
-                        ComDEV.Add(item.Name);                        
+                    {
+                        if (item.FirstChild.InnerText == "TRUE") // jezeli jest z wirelessem to dodaje do listy com dev wireless
+                        {
+                            ComDEV_Wireless.Add(item.Name); // lista com dev z wirelessem
+                        }
+                        else
+                        {
+                            ComDEV_Wire.Add(item.Name); // lista com dev kablowych 
+                        }                           
                     }
+
+                    if (weight_forComDev > 0) // przewaga dla wireless
+                    {
+                        //weight_forComDev - to ile % ma być powielonych rekordow 
+                        // 
+                        int duplication =Convert.ToInt16( Math.Ceiling(ComDEV_Wireless.Count * weight_forComDev) / 10); // ile rekordów więcej
+
+                        for (int i = 0; i < duplication; i++)
+                        {
+                            string tmp = ComDEV_Wireless[MyRandomizer.Instance.Next(0, ComDEV_Wireless.Count)]; // jaki string bedzie dodany ponownie
+                            ComDEV_Wireless.Add(tmp);
+                        }                  
+
+                    }
+                    else if (weight_forComDev < 0) // przewaga dla kabli
+                    {
+                        int duplication = Convert.ToInt16(Math.Ceiling(ComDEV_Wire.Count * (weight_forComDev * (-1) )) / 10); // ile rekordów więcej  // *-1 bo wartosc ujemna 
+
+                        for (int i = 0; i < duplication; i++)
+                        {
+                            string tmp = ComDEV_Wire[MyRandomizer.Instance.Next(0, ComDEV_Wire.Count)]; // jaki string bedzie dodany ponownie
+                            ComDEV_Wire.Add(tmp);
+                        }
+                    }
+
+                    ComDEV = ComDEV_Wireless.Concat(ComDEV_Wire).ToList(); // zadziala ? // lista wszystkich 
                 }
                 else
                 {
                     foreach (XmlNode item in ComDevs)
                     {
-                        if (item.FirstChild.InnerText == wireless)
+                        if (item.FirstChild.InnerText == wireless) // tylko wireless
                         {
                             ComDEV.Add(item.Name);
+                            ComDEV_Wireless.Add(item.FirstChild.InnerText);
                         }
 
                     }
                 }
+                
 
             }
             catch (Exception x)

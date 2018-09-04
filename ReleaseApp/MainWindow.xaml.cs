@@ -1508,8 +1508,8 @@ namespace UltimateChanger
                                 tmp.Ficzur_ = "COS tam";
                                 try
                                 {
-                                    tmp.ComDev_ = myXMLReader.GetComDEV(wireless);
-                                }
+                                tmp.ComDev_ = myXMLReader.GetComDEV(wireless, Math.Round(sliderWeightWireless.Value));
+                            }
                                 catch (Exception)
                                 {
                                     tmp.ComDev_ = "ERROR";
@@ -1543,8 +1543,8 @@ namespace UltimateChanger
                                 tmp.Ficzur_ = "COS tam";
                                 try
                                 {
-                                    tmp.ComDev_ = myXMLReader.GetComDEV(wireless);
-                                }
+                                tmp.ComDev_ = myXMLReader.GetComDEV(wireless, Math.Round(sliderWeightWireless.Value));
+                            }
                                 catch (Exception)
                                 {
                                     tmp.ComDev_ = "ERROR";
@@ -1578,7 +1578,15 @@ namespace UltimateChanger
                         tmp.Ficzur_ = "COS tam";
                         try
                         {
-                            tmp.ComDev_ = myXMLReader.GetComDEV(wireless);
+                            string changed = lblWeightWireless.Content.ToString().Replace(',', '.');
+                           // double tmpp = Convert.ToDouble(changed);
+
+                            tmp.ComDev_ = myXMLReader.GetComDEV(wireless, Math.Round(sliderWeightWireless.Value));
+                        }
+                        catch (FormatException)
+                        {
+                           MessageBox.Show($"Unable to convert to a Double : " + lblWeightWireless.Content.ToString());
+                            tmp.ComDev_ = "ERROR";
                         }
                         catch (Exception)
                         {
@@ -2158,7 +2166,7 @@ namespace UltimateChanger
         {
             try
             {
-                lblWeightWireless.Content = sliderWeightWireless.Value;
+                lblWeightWireless.Content =  Math.Round(sliderWeightWireless.Value,1);
             }
             catch (Exception)
             {
