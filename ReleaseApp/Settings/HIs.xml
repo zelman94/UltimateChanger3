@@ -16,7 +16,7 @@
   </Release20_1>
   <Release19_2> <!--dodac Obelixy-->
     <Available_Style>
-      <OPN>
+      <HighestPP>
         <miniRITE>
           <LED>FALSE</LED>
           <TwoButtons>FALSE</TwoButtons>
@@ -45,7 +45,7 @@
           <T-Coil>TRUE</T-Coil>
           <Magneto>FALSE</Magneto>
         </Custom>
-      </OPN>
+      </HighestPP>
       <OPN_S>
         <miniRITE-S>
           <LED>FALSE</LED>
@@ -106,11 +106,12 @@
           <Magneto>FALSE</Magneto>
         </Custom>
       </Essensial>
-    </Available_Style>
+    
+  </Available_Style>
   </Release19_2>  
   <Release19_1>
     <Available_Style>
-      <OPN>
+      <HighestPP>
         <miniRITE>
           <LED>FALSE</LED>
           <TwoButtons>FALSE</TwoButtons>
@@ -139,7 +140,7 @@
           <T-Coil>TRUE</T-Coil>
           <Magneto>FALSE</Magneto>
         </Custom>
-      </OPN>
+      </HighestPP>
       <OPN_S>
         <miniRITE-S>
           <LED>FALSE</LED>
@@ -171,40 +172,42 @@
         </Magneto>
         </OPN_S>
       <Essensial>
-        <miniRITE>
+        <miniRITE-E>
           <LED>FALSE</LED>
           <TwoButtons>FALSE</TwoButtons>
           <Wireless>TRUE</Wireless>
           <T-Coil>FALSE</T-Coil>
           <Magneto>FALSE</Magneto>
-        </miniRITE>
-        <miniRITE-T>
+        </miniRITE-E>
+        <miniRITE-T-E>
           <LED>FALSE</LED>
           <TwoButtons>TRUE</TwoButtons>
           <Wireless>TRUE</Wireless>
           <T-Coil>TRUE</T-Coil>
           <Magneto>FALSE</Magneto>
-        </miniRITE-T>
-        <BTE>
+        </miniRITE-T-E>
+        <BTE-E>
           <LED>TRUE</LED>
           <TwoButtons>TRUE</TwoButtons>
           <Wireless>TRUE</Wireless>
           <T-Coil>TRUE</T-Coil>
           <Magneto>FALSE</Magneto>
-        </BTE>
-        <Custom>
+        </BTE-E>
+        <Custom-E>
           <LED>FALSE</LED>
           <TwoButtons>FALSE</TwoButtons>
           <Wireless>TRUE</Wireless>
           <T-Coil>TRUE</T-Coil>
           <Magneto>FALSE</Magneto>
-        </Custom>
-      </Essensial>
-    </Available_Style>
+        </Custom-E>
+      
+    </Essensial>
+    
+  </Available_Style>
   </Release19_1>
   <Release18_2>
     <Available_Style>
-      <OPN>
+      <HighestPP>
         <miniRITE>
           <LED>FALSE</LED>
           <TwoButtons>FALSE</TwoButtons>
@@ -233,42 +236,42 @@
           <T-Coil>TRUE</T-Coil>
           <Magneto>FALSE</Magneto>
         </Custom>
-      </OPN>
+      </HighestPP>
       <Essensial>
-        <miniRITE>
+        <miniRITE-E>
           <LED>FALSE</LED>
           <TwoButtons>FALSE</TwoButtons>
           <Wireless>TRUE</Wireless>
           <T-Coil>FALSE</T-Coil>
           <Magneto>FALSE</Magneto>
-        </miniRITE>
-        <miniRITE-T>
+        </miniRITE-E>
+        <miniRITE-T-E>
           <LED>FALSE</LED>
           <TwoButtons>TRUE</TwoButtons>
           <Wireless>TRUE</Wireless>
           <T-Coil>TRUE</T-Coil>
           <Magneto>FALSE</Magneto>
-        </miniRITE-T>
-        <BTE>
+        </miniRITE-T-E>
+        <BTE-E>
           <LED>TRUE</LED>
           <TwoButtons>TRUE</TwoButtons>
           <Wireless>TRUE</Wireless>
           <T-Coil>TRUE</T-Coil>
           <Magneto>FALSE</Magneto>
-        </BTE>
-        <Custom>
+        </BTE-E>
+        <Custom-E>
           <LED>FALSE</LED>
           <TwoButtons>FALSE</TwoButtons>
           <Wireless>TRUE</Wireless>
           <T-Coil>TRUE</T-Coil>
           <Magneto>FALSE</Magneto>
-        </Custom>
+        </Custom-E>
       </Essensial>      
     </Available_Style>
   </Release18_2>
   <Release17_2>
     <Available_Style>
-      <OPN>
+      <HighestPP>
         <miniRITE>
           <LED>FALSE</LED>
           <TwoButtons>FALSE</TwoButtons>
@@ -290,12 +293,12 @@
           <T-Coil>TRUE</T-Coil>
           <Magneto>FALSE</Magneto>
         </BTE>
-      </OPN>
+      </HighestPP>
     </Available_Style>
   </Release17_2>
   <Release17_1>
     <Available_Style>
-      <OPN>
+      <HighestPP>
         <miniRITE>
           <LED>FALSE</LED>
           <TwoButtons>FALSE</TwoButtons>
@@ -317,7 +320,7 @@
           <T-Coil>TRUE</T-Coil>
           <Magneto>FALSE</Magneto>
         </BTE>
-      </OPN>
+      </HighestPP>
     </Available_Style>
   </Release17_1>
   <Release16_2>

@@ -269,47 +269,54 @@ namespace UltimateChanger
             return Styles;
         }
 
-        public static List<HIs> GetTypesInStyle(string release, string Style)
+        public static List<HIs> GetTypesInStyle(string release, List<string> Styles)
         {
             if (release.Contains("."))
             {
                 release = release.Replace('.', '_');
             }
-            List<HIs> Styles = new List<HIs>();
+            List<HIs> Styles_ = new List<HIs>();
 
             try
             {
                 XmlDocument doc = new XmlDocument();
                 doc.Load("Settings\\HIs.xml");
-                XmlNodeList NodesNames = doc.DocumentElement.SelectNodes(string.Format($"/Random_HI/Release{release}/Available_Style/{Style}"));
-                XmlNodeList NodesNames2 = NodesNames[0].ChildNodes; // pobieram OPN itp później można odczytać z tego parametry
-                foreach (XmlNode item in NodesNames2)
+
+                foreach (var Style in Styles) // iteracja po 
                 {
-                    bool T_Coil;
-                    bool Led;
-                    bool twoButtons;
-                    bool Wireless;
-                    bool Custom;
-                    bool S;
-                    bool Magneto;
-                    string Release;
-                    string PP;
 
-                    XmlNodeList SettingsHI = doc.DocumentElement.SelectNodes(string.Format($"/Random_HI/Release{release}/Available_Style/{Style}/{item.Name}"));
+                    XmlNodeList NodesNames = doc.DocumentElement.SelectNodes(string.Format($"/Random_HI/Release{release}/Available_Style/{Style}"));
+                    XmlNodeList NodesNames2 = NodesNames[0].ChildNodes; // pobieram OPN itp później można odczytać z tego parametry
+                    foreach (XmlNode item in NodesNames2)
+                    {
+                        bool T_Coil;
+                        bool Led;
+                        bool twoButtons;
+                        bool Wireless;
+                        bool Custom;
+                        bool S;
+                        bool Magneto;
+                        string Release;
+                        string PP;
+                        string family;
 
-                    XmlNodeList SettingsHI_Childs = SettingsHI[0].ChildNodes;
+                        XmlNodeList SettingsHI = doc.DocumentElement.SelectNodes(string.Format($"/Random_HI/Release{release}/Available_Style/{Style}/{item.Name}"));
 
-                    T_Coil = Convert.ToBoolean(SettingsHI_Childs[3].InnerText.ToString());
-                    Led = Convert.ToBoolean(SettingsHI_Childs[0].InnerText.ToString());
-                    twoButtons = Convert.ToBoolean(SettingsHI_Childs[1].InnerText.ToString());
-                    Wireless = Convert.ToBoolean(SettingsHI_Childs[2].InnerText.ToString());
-                    Custom = /*Convert.ToBoolean(SettingsHI_Childs[4].InnerText.ToString());*/false;
-                    S = /*Convert.ToBoolean(SettingsHI_Childs[5].InnerText.ToString());*/ false;
-                    Magneto = Convert.ToBoolean(SettingsHI_Childs[4].InnerText.ToString());
-                    Release = release.Replace('_','.');
-                    PP = /*SettingsHI_Childs[4].InnerText.ToString();*/ "";
+                        XmlNodeList SettingsHI_Childs = SettingsHI[0].ChildNodes;
 
-                    Styles.Add(new HIs(T_Coil,Led,twoButtons,Wireless,Custom,S,Magneto,Release,PP, item.Name));
+                        T_Coil = Convert.ToBoolean(SettingsHI_Childs[3].InnerText.ToString());
+                        Led = Convert.ToBoolean(SettingsHI_Childs[0].InnerText.ToString());
+                        twoButtons = Convert.ToBoolean(SettingsHI_Childs[1].InnerText.ToString());
+                        Wireless = Convert.ToBoolean(SettingsHI_Childs[2].InnerText.ToString());
+                        Custom = /*Convert.ToBoolean(SettingsHI_Childs[4].InnerText.ToString());*/false;
+                        S = /*Convert.ToBoolean(SettingsHI_Childs[5].InnerText.ToString());*/ false;
+                        Magneto = Convert.ToBoolean(SettingsHI_Childs[4].InnerText.ToString());
+                        Release = release.Replace('_','.');
+                        PP = /*SettingsHI_Childs[4].InnerText.ToString();*/ "";
+                        family = SettingsHI[0].ParentNode.Name.ToString();
+
+                        Styles_.Add(new HIs(T_Coil,Led,twoButtons,Wireless,Custom,S,Magneto,Release,PP, item.Name, family));
+                    }
                 }
             }
             catch (Exception x)
@@ -319,10 +326,10 @@ namespace UltimateChanger
 
 
 
-            return Styles;
+            return Styles_;
         }
 
-        public static string GetComDEV(string wireless, double weight) // wireless true com dev z wirelessem //weight - 0,5 równe szanse 0,6 -> 10% więcej instancji dla wireless itd
+        public static string GetComDEV(string wireless, double weight ) // wireless true com dev z wirelessem //weight - 0,5 równe szanse 0,6 -> 10% więcej instancji dla wireless itd
         {
             
             List<string> ComDEV = new List<string>();

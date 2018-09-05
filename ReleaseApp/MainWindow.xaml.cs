@@ -1543,7 +1543,12 @@ namespace UltimateChanger
                             {
                                 tmp_hi_Types_Name.Add(HI.ToString());
                             }
-                            HIs tmpHIL = HIs.randomHI(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString(), tmp_hi_Types_Name);
+                            List<string> listofstyles = new List<string>();
+                            foreach (var itemm in ListBoxOfAvailableStyles.SelectedItems)
+                            {
+                                listofstyles.Add(item.ToString());
+                            }
+                            HIs tmpHIL = HIs.randomHI(lblRelease.Content.ToString(), listofstyles, tmp_hi_Types_Name);
                             tmp.HIL_ = tmpHIL.Name;
 
                            
@@ -1555,9 +1560,18 @@ namespace UltimateChanger
                             {
                                 wireless = "TRUE";
                             }
-
                             List<string> tmpListFiczurs = myXMLReader.getFiczurs();
-                            tmp.Ficzur_ = listOfFiczursSelected[MyRandomizer.Instance.Next(0, listOfFiczursSelected.Count)];
+
+                            if (listOfFiczursSelected.Count == 0)
+                            {
+                                tmp.Ficzur_ = tmpListFiczurs[MyRandomizer.Instance.Next(0, tmpListFiczurs.Count)]; //listOfFiczursSelected - wybrane ficzury
+                            }
+                            else
+                            {
+
+                                tmp.Ficzur_ = listOfFiczursSelected[MyRandomizer.Instance.Next(0, listOfFiczursSelected.Count)]; //listOfFiczursSelected - wybrane ficzury
+                            }
+
                             try
                             {
                                 string changed = lblWeightWireless.Content.ToString().Replace(',', '.');
@@ -1594,7 +1608,13 @@ namespace UltimateChanger
                            
                             tmp.HIL_ = "N/A";
 
-                            HIs tmpHIR = HIs.randomHI(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString(), tmp_hi_Types_Name);
+                            List<string> listofstyles = new List<string>();
+                            foreach (var itemm in ListBoxOfAvailableStyles.SelectedItems)
+                            {
+                                listofstyles.Add(item.ToString());
+                            }
+
+                            HIs tmpHIR = HIs.randomHI(lblRelease.Content.ToString(), listofstyles, tmp_hi_Types_Name);
                             tmp.HIR_ = tmpHIR.Name;
 
                             string wireless = "FALSE";
@@ -1605,7 +1625,17 @@ namespace UltimateChanger
                             }
 
                             List<string> tmpListFiczurs = myXMLReader.getFiczurs();
-                            tmp.Ficzur_ = listOfFiczursSelected[MyRandomizer.Instance.Next(0, listOfFiczursSelected.Count)];
+
+                            if (listOfFiczursSelected.Count == 0)
+                            {
+                                tmp.Ficzur_ = tmpListFiczurs[MyRandomizer.Instance.Next(0, tmpListFiczurs.Count)]; //listOfFiczursSelected - wybrane ficzury
+                            }
+                            else
+                            {
+
+                                tmp.Ficzur_ = listOfFiczursSelected[MyRandomizer.Instance.Next(0, listOfFiczursSelected.Count)]; //listOfFiczursSelected - wybrane ficzury
+                            }
+
                             try
                             {
                                 string changed = lblWeightWireless.Content.ToString().Replace(',', '.');
@@ -1634,15 +1664,24 @@ namespace UltimateChanger
                        //string random_HI= HIs.randomHI(ListOfAvailableHIs,lblRelease.Content.ToString());
 
                             tmp.Name_Team_member = item;
+                       
                         List<string> tmp_hi_Types_Name = new List<string>();
+
+                        
                         foreach (var HI in ListBoxOfAvailableTypes.SelectedItems)
                         {
                             tmp_hi_Types_Name.Add(HI.ToString());
                         }
-                        HIs tmpHIL = HIs.randomHI(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString(), tmp_hi_Types_Name);
-                        tmp.HIL_ = tmpHIL.Name;
+                        List<string> listofstyles = new List<string>();
+                        foreach (var itemm in ListBoxOfAvailableStyles.SelectedItems)
+                        {
+                            listofstyles.Add(itemm.ToString());
+                        }
 
-                        HIs tmpHIR = HIs.randomHI(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString(), tmp_hi_Types_Name);
+                        HIs tmpHIL = HIs.randomHI(lblRelease.Content.ToString(), listofstyles, tmp_hi_Types_Name);
+                        tmp.HIL_ = tmpHIL.Name;
+                        tmp.Family_Name = tmpHIL.Name_fammily;
+                        HIs tmpHIR = HIs.randomHI(lblRelease.Content.ToString(), listofstyles, tmp_hi_Types_Name);
                         tmp.HIR_ = tmpHIR.Name;
 
                         string wireless = "FALSE";
@@ -1653,13 +1692,26 @@ namespace UltimateChanger
                         }
 
                         List<string> tmpListFiczurs = myXMLReader.getFiczurs();
-                        tmp.Ficzur_ = listOfFiczursSelected[MyRandomizer.Instance.Next(0, listOfFiczursSelected.Count)];
+
+                        if (listOfFiczursSelected.Count == 0 )
+                        {
+                            tmp.Ficzur_ = tmpListFiczurs[MyRandomizer.Instance.Next(0, tmpListFiczurs.Count)]; //listOfFiczursSelected - wybrane ficzury
+                        }
+                        else
+                        {
+
+                            tmp.Ficzur_ = listOfFiczursSelected[MyRandomizer.Instance.Next(0, listOfFiczursSelected.Count)]; //listOfFiczursSelected - wybrane ficzury
+                        }
+
                         try
                         {
                             string changed = lblWeightWireless.Content.ToString().Replace(',', '.');
                            // double tmpp = Convert.ToDouble(changed);
 
-                            tmp.ComDev_ = myXMLReader.GetComDEV(wireless, Math.Round(sliderWeightWireless.Value));
+                            tmp.ComDev_ = myXMLReader.GetComDEV(wireless, Math.Round(sliderWeightWireless.Value)); 
+
+
+
                         }
                         catch (FormatException)
                         {
@@ -1671,7 +1723,7 @@ namespace UltimateChanger
                             tmp.ComDev_ = "ERROR";
                         }
                         
-                        listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member+","+ tmp.HIL_+","+ tmp.HIR_+ "," +tmp.Ficzur_+"," + tmp.ComDev_);
+                        listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member+","+tmp.Family_Name+"," + tmp.HIL_+","+ tmp.HIR_+ "," +tmp.Ficzur_+"," + tmp.ComDev_);
                             GridDataRandomHardware.Items.Add(tmp);
                         }
 
@@ -2276,7 +2328,10 @@ namespace UltimateChanger
             
         }
 
+        private void ListBoxOfAvailableTypes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
+        }
 
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -2358,6 +2413,7 @@ namespace UltimateChanger
     class RandomHIandHardware
     {
         public string Name_Team_member { get; set; }
+        public string Family_Name { get; set; }
         public string HIL_ { get; set; }
         public string HIR_ { get; set; }
         public string Ficzur_ { get; set; }

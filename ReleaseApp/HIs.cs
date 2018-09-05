@@ -18,6 +18,7 @@ namespace UltimateChanger
         public string Release;
         public string PP;
         public string Name;
+        public string Name_fammily;
         public HIs()
         {
             T_Coil = false;
@@ -29,8 +30,9 @@ namespace UltimateChanger
             Magneto = false;
             Release = "";
             PP = "";
+            Name_fammily = "";
         }
-        public HIs(bool t_coil,bool led,bool twobuttons,bool wireless,bool custom,bool s, bool magneto, string release, string pp = "",string name="")
+        public HIs(bool t_coil,bool led,bool twobuttons,bool wireless,bool custom,bool s, bool magneto, string release, string pp = "",string name="", string namefamilly="")
         {
             T_Coil = t_coil;
             Led = led;
@@ -42,14 +44,15 @@ namespace UltimateChanger
             Release = release;
             PP = pp;
             Name = name;
+            Name_fammily = namefamilly;
         }
 
 
-        public static HIs randomHI( string release,string Style, List<string> SelectedTypes) // release 19.1 w funkcji jest zmienina na postac dla XML
+        public static HIs randomHI( string release,List<string> Style, List<string> SelectedTypes) // release 19.1 w funkcji jest zmienina na postac dla XML
         {
             List<HIs> TypesToRand = new List<HIs>();
 
-            List<HIs> listOfAvailableTypes = myXMLReader.GetTypesInStyle(release, Style); // lista instancji dostępnych HIs
+            List<HIs> listOfAvailableTypes = myXMLReader.GetTypesInStyle(release, Style); // lista instancji dostępnych HIs // zmienic tutaj na liste styli 
             foreach (var item in listOfAvailableTypes)
             {
                 foreach (var item2 in SelectedTypes)
