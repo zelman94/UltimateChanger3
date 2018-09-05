@@ -1064,7 +1064,7 @@
                         <DataGridTextColumn Header="Family"  Binding="{Binding Family_Name}" Width="100"/>
                         <DataGridTextColumn Header="Left HI"  Binding="{Binding HIL_}" Width="100"/>
                         <DataGridTextColumn Header="Right HI"  Binding="{Binding HIR_}" Width="100"/>
-                        <DataGridTextColumn Header="Features"  Binding="{Binding Ficzur_}" Width="100"/>
+                        <DataGridTextColumn Header="Features"  Binding="{Binding Ficzur_}" Width="150"/>
                         <DataGridTextColumn Header="Communication device" Binding="{Binding ComDev_}" Width="*"/>
                     </DataGrid.Columns>
 
