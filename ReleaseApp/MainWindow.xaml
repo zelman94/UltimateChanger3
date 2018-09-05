@@ -957,18 +957,18 @@
                     <Label Content="Always set log to &quot;ALL&quot;" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
                     <RadioButton Name="rbnLogsAll_YES" Content="Yes" Checked="rbnLogsAll_YES_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
                     <RadioButton Name="rbnLogsAll_NO" Content="No" Checked="rbnLogsAll_NO_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
-                    <Label Content="Default Installation mode:" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
+                    <Label Content="Default Installation mode" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
                     <RadioButton x:Name="rbnDefaultNormal" Content="Normal" GroupName="group3" Checked="rbnDefaultNormal_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
                     <RadioButton x:Name="rbnDefaultSilent" Content="Silent" GroupName="group3" Checked="rbnDefaultSilent_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10 0 0 0">
-                    <Label Content="Version:" HorizontalAlignment="Left" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
+                    <Label Content="Version" HorizontalAlignment="Left" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
                     <Label x:Name="lblVersion" Content="" Height="35" HorizontalAlignment="Left" Foreground="White"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10 0 0 0">
-                    <Label x:Name="Skin" Content="Skin:" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
+                    <Label x:Name="Skin" Content="Skin" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
                     <RadioButton x:Name="rbnLight_skin" Content="Light" Checked="Light_skin_Checked_1" Foreground="White" Background="White" BorderBrush="#FF424242" />
                     <RadioButton x:Name="rbnDark_skin" Content="Dark" Checked="Dark_skin_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
                     <RadioButton x:Name="rbn_Genie" Content="Genie" Checked="Radio_Genie_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
@@ -1064,7 +1064,7 @@
                         <DataGridTextColumn Header="Family"  Binding="{Binding Family_Name}" Width="100"/>
                         <DataGridTextColumn Header="Left HI"  Binding="{Binding HIL_}" Width="100"/>
                         <DataGridTextColumn Header="Right HI"  Binding="{Binding HIR_}" Width="100"/>
-                        <DataGridTextColumn Header="Features"  Binding="{Binding Ficzur_}" Width="150"/>
+                        <DataGridTextColumn Header="Features"  Binding="{Binding Ficzur_}" Width="170"/>
                         <DataGridTextColumn Header="Communication device" Binding="{Binding ComDev_}" Width="*"/>
                     </DataGrid.Columns>
 

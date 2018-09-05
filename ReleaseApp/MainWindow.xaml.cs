@@ -101,7 +101,7 @@ namespace UltimateChanger
                 // zamiast watku napisac maly programik osobny ktory bedzie uruchamiany na timerze co 3 s i bedzie sprawdzac czy sie zakonczyl ! :D
                 if (!statusOfProcess("Rekurencjon"))
                 {
-                    Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", cmbRelease.Text);
+                    //Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", cmbRelease.Text); // wlaczyc gdy bedzie nowy exe gotowy
                 }
 
                 try
@@ -121,7 +121,7 @@ namespace UltimateChanger
                 }
                 catch (Exception xc)
                 {
-                    MessageBox.Show($"error {xc.ToString()}");
+                    MessageBox.Show($"error MainWindow \n {xc.ToString()}");
                 }
 
 
@@ -142,7 +142,7 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
-                MessageBox.Show(x.ToString());
+                MessageBox.Show("inicjalizacja \n" + x.ToString());
             }
             sliderRelease.Maximum = cmbRelease.Items.Count - 1; // max dla slidera -1 bo count nie uwzglednia zerowego indexu
             sliderWeightWireless.Maximum = 1;
@@ -254,18 +254,7 @@ namespace UltimateChanger
             lblVersion.Content = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             User_Power = "USER";
 
-           
 
-            try
-            {
-
-                imgfake.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + $"\\Images\\Fake.png"));
-                imgprecon.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + $"\\Images\\Preconditioner.png"));
-            }
-            catch (Exception x)
-            {
-                MessageBox.Show(x.ToString());
-            }
             try
             {
                 CredentialCache.DefaultNetworkCredentials.Domain = "EMEA";
@@ -1523,6 +1512,7 @@ namespace UltimateChanger
         private void btnRANDHI_Click(object sender, RoutedEventArgs e)
         {
                 Random rnd = new Random();
+            bool flag = false;
                 foreach (var item in listOfTeammembers) // przechodze po osobach z  listy i losuje im wszystko co trzeba
                 {          
                     try
@@ -1733,9 +1723,13 @@ namespace UltimateChanger
                     }
                     catch (ArgumentOutOfRangeException)
                     {
-                        MessageBox.Show("lack of adequate HI");
+                    flag = true;
                     }
-                }            
+                }
+            if (flag)
+            {
+                MessageBox.Show("lack of adequate HI");
+            }
         }
 
         private void sliderRelease_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -2351,7 +2345,7 @@ namespace UltimateChanger
                     {
                         if (!statusOfProcess("Rekurencjon"))
                         {
-                            Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", cmbRelease.Text);
+                            //Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", cmbRelease.Text); // właczyc gdy bedzie gotowa nowa wersja 
                         }
                         Rekurencja.Start();
                     }
