@@ -80,7 +80,7 @@ namespace UltimateChanger
             @"4Cumulus_PRE_dir.txt", // 0FS_dir.txt
             @"4Cumulus_PRE_path.txt"
         };
-        public List<string> pathToLogMode = new List<string>
+        public List<string> pathToLogMode = new List<string> // dodac do xml odczyt 
         {
              @"C:\Program Files (x86)\Oticon\Genie\Genie2\Configure.log4net",
              @"C:\Program Files (x86)\Bernafon\Oasis\Oasis2\Configure.log4net",
@@ -89,7 +89,7 @@ namespace UltimateChanger
              @"C:\Program Files (x86)\Strato\Cumulus\Cumulus2\Configure.log4net"
         };
 
-        public List<string> pathToLogs = new List<string>
+        public List<string> pathToLogs = new List<string>// dodac do xml odczyt 
         {
              @"C:\ProgramData\Oticon\Genie\Logfiles\",
              @"C:\ProgramData\Bernafon\Oasis\Logfiles\",
@@ -98,7 +98,7 @@ namespace UltimateChanger
              @"C:\ProgramData\Strato\Cumulus\Logfiles\"
         };
 
-        public static List<string> pathToTrash = new List<string>
+        public static List<string> pathToTrash = new List<string>// dodac do xml odczyt 
         {
             @"C:\ProgramData\Oticon",
             @"C:\Program Files (x86)\Oticon",
