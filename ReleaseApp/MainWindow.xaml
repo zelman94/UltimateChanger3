@@ -337,24 +337,10 @@
 
         <TabItem Header="Main" BorderBrush="#FF424242" Height="21" VerticalAlignment="Bottom" Foreground="White">
 
-            <TabItem.Background>
-                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                    <GradientStop Color="#FFF0F0F0"/>
-                    <GradientStop Color="#FF616161"/>
-                </LinearGradientBrush>
-            </TabItem.Background>
-
             <Grid x:Name="panel" Margin="0,10,0,0">
-                <Grid.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF424242"/>
-                        <GradientStop Color="#FF212121"/>
-                    </LinearGradientBrush>
-                </Grid.Background>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
-
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
@@ -949,17 +935,17 @@
 
                 <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="10 0 0 0">
                     <Label Content="Startup settings" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
-                    <RadioButton Name="rbnStartwithWindows" Content="Start with Windows" GroupName="group1" Checked="rbnStartwithWindows_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
-                    <RadioButton Name="rbnNotStartwithWindows" Content="Do not Start with Windows" GroupName="group1" Checked="rbnNotStartwithWindows_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
+                    <RadioButton Name="rbnStartwithWindows" Content="Start with Windows" GroupName="group1" Checked="rbnStartwithWindows_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
+                    <RadioButton Name="rbnNotStartwithWindows" Content="Do not Start with Windows" GroupName="group1" Checked="rbnNotStartwithWindows_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 1 0 0"/>
                     <Label Content="Logs settings" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
-                    <RadioButton Name="rbnDeletelogs" Content="Delete logs after run FS" Checked="rbnDeletelogs_Checked" GroupName="group2" Foreground="White" Background="White" BorderBrush="#FF424242"/>
-                    <RadioButton Name="rbnholdlogs" Content="Hold logs" GroupName="group2" Checked="rbnholdlogs_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
+                    <RadioButton Name="rbnDeletelogs" Content="Delete logs after run FS" Checked="rbnDeletelogs_Checked" GroupName="group2" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
+                    <RadioButton Name="rbnholdlogs" Content="Hold logs" GroupName="group2" Checked="rbnholdlogs_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 1 0 0"/>
                     <Label Content="Always set log to &quot;ALL&quot;" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
-                    <RadioButton Name="rbnLogsAll_YES" Content="Yes" Checked="rbnLogsAll_YES_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
-                    <RadioButton Name="rbnLogsAll_NO" Content="No" Checked="rbnLogsAll_NO_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
+                    <RadioButton Name="rbnLogsAll_YES" Content="Yes" Checked="rbnLogsAll_YES_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
+                    <RadioButton Name="rbnLogsAll_NO" Content="No" Checked="rbnLogsAll_NO_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 1 0 0"/>
                     <Label Content="Default Installation mode" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
-                    <RadioButton x:Name="rbnDefaultNormal" Content="Normal" GroupName="group3" Checked="rbnDefaultNormal_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
-                    <RadioButton x:Name="rbnDefaultSilent" Content="Silent" GroupName="group3" Checked="rbnDefaultSilent_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
+                    <RadioButton x:Name="rbnDefaultNormal" Content="Normal" GroupName="group3" Checked="rbnDefaultNormal_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
+                    <RadioButton x:Name="rbnDefaultSilent" Content="Silent" GroupName="group3" Checked="rbnDefaultSilent_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 1 0 0"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10 0 0 0">
@@ -969,10 +955,10 @@
 
                 <StackPanel Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10 0 0 0">
                     <Label x:Name="Skin" Content="Skin" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
-                    <RadioButton x:Name="rbnLight_skin" Content="Light" Checked="Light_skin_Checked_1" Foreground="White" Background="White" BorderBrush="#FF424242" />
-                    <RadioButton x:Name="rbnDark_skin" Content="Dark" Checked="Dark_skin_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
-                    <RadioButton x:Name="rbn_Genie" Content="Genie" Checked="Radio_Genie_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
-                    <RadioButton x:Name="rbn_Oasis" Content="Oasis" Checked="Radio_Oasis_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
+                    <RadioButton x:Name="rbnLight_skin" Content="Light" Checked="Light_skin_Checked_1" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
+                    <RadioButton x:Name="rbnDark_skin" Content="Dark" Checked="Dark_skin_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
+                    <RadioButton x:Name="rbn_Genie" Content="Genie" Checked="Radio_Genie_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
+                    <RadioButton x:Name="rbn_Oasis" Content="Oasis" Checked="Radio_Oasis_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
                     <RadioButton x:Name="rbn_ExpressFit" Content="ExpressFit" Checked="Radio_ExpressFit_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
                 </StackPanel>
 
