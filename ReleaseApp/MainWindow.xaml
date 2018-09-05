@@ -499,7 +499,7 @@
                     <ComboBox x:Name="cmbLogSettings" Grid.Row="1" Grid.Column="1" MaxDropDownHeight="150" SelectedIndex="0"  SelectionChanged="cmbLogMode_SelectionChanged" IsEnabled="False" Foreground="White" BorderBrush="White" Margin="5 10 5 0" />
 
                     <Button x:Name="btnLogMode"     Content="Update mode"  Click="btnChange_mode_log" Grid.Row="2" IsEnabled="False" Grid.Column="0" VerticalAlignment="Top" BorderBrush="#FF424242" Background="#FF616161" Foreground="#E5FFFFFF" Margin="5 0"/>
-                    <Button x:Name="btnAdvancelogs" Content="Advance log settings"  Click="btnAdvancelogs_Click" IsEnabled="False" Grid.Row="2" Grid.Column="2" VerticalAlignment="Top" Background="#FF616161" BorderBrush="#FF424242" Margin="5 0"/>
+                    <Button x:Name="btnAdvancelogs" Content="Advance log settings"  Click="btnAdvancelogs_Click" IsEnabled="False" Grid.Row="2" Grid.Column="2" VerticalAlignment="Top" Background="#FF616161" BorderBrush="#FF424242" Foreground="White" Margin="5 0"/>
 
 
                     <Button x:Name="btnDeletelogs" Grid.Row="3" Grid.Column="2" VerticalAlignment="Top" Content="Delete log files" Click="btnDelete_logs" ToolTip="All log files of selected FS will be deleted" IsEnabled="False" Foreground="#E5FFFFFF" Background="#FF616161" BorderBrush="#FF424242" Margin="5 0"/>
