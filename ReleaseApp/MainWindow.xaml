@@ -1010,6 +1010,7 @@
                     <Border x:Name="Grid10" Grid.Column="0" Grid.Row="4" BorderBrush="#FF616161" BorderThickness="0,1,0,0" Margin="0 0 10 0"/>
 
 
+
                     <ListBox Name="ListBoxOfAvailableFeautures" SelectionChanged="ListBoxOfAvailableFeautures_SelectionChanged" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Margin="0 0 10 5"/>
                     <ListBox Name="ListBoxOfAvailableStyles" SelectionChanged="ListBoxOfAvailableStyles_SelectionChanged" Grid.Column="0" Grid.Row="2" Grid.RowSpan="2" Margin="0 5 10 5"/>
                     <ListBox Name="ListBoxOfAvailableTypes" SelectionChanged="ListBoxOfAvailableTypes_SelectionChanged" Grid.Column="0" Grid.Row="4" Grid.RowSpan="2" Margin="0 5 10 5"/>
@@ -1060,9 +1061,10 @@
 
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Name"  Binding="{Binding Name_Team_member}" Width="100"/>
-                        <DataGridTextColumn Header="Left HI"  Binding="{Binding HIL_}" Width="120"/>
-                        <DataGridTextColumn Header="Right HI"  Binding="{Binding HIR_}" Width="120"/>
-                        <DataGridTextColumn Header="Features"  Binding="{Binding Ficzur_}" Width="200"/>
+                        <DataGridTextColumn Header="Family"  Binding="{Binding Family_Name}" Width="100"/>
+                        <DataGridTextColumn Header="Left HI"  Binding="{Binding HIL_}" Width="100"/>
+                        <DataGridTextColumn Header="Right HI"  Binding="{Binding HIR_}" Width="100"/>
+                        <DataGridTextColumn Header="Features"  Binding="{Binding Ficzur_}" Width="100"/>
                         <DataGridTextColumn Header="Communication device" Binding="{Binding ComDev_}" Width="*"/>
                     </DataGrid.Columns>
 
