@@ -1023,7 +1023,7 @@
                         <Slider x:Name="sliderRelease" SmallChange="1" TickFrequency="0" ValueChanged="sliderRelease_ValueChanged" Foreground="White" BorderBrush="White" Margin="5 0"/>
                         <Label x:Name="lblRelease" Content="19.1" Foreground="White"/>
                         <Label Content="Wireless weight:" Foreground="White" Margin="0 10 0 0" FontWeight="SemiBold" FontSize="12.5"/>
-                        <Slider Name="sliderWeightWireless" SmallChange="0.1" ValueChanged="sliderWeightWireless_ValueChanged" LargeChange="0.1" Maximum="1" Value="0.5" Foreground="White" BorderBrush="White" Margin="5 0"/>
+                        <Slider Name="sliderWeightWireless" SmallChange="0.1" ValueChanged="sliderWeightWireless_ValueChanged" LargeChange="0.1" Minimum="0.1" Maximum="1" Value="0.5" Foreground="White" BorderBrush="White" Margin="5 0"/>
                         <Label Name="lblWeightWireless" Content="Label" Foreground="White"/>
                     </StackPanel>
 

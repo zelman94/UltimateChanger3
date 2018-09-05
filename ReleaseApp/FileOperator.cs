@@ -80,37 +80,11 @@ namespace UltimateChanger
             @"4Cumulus_PRE_dir.txt", // 0FS_dir.txt
             @"4Cumulus_PRE_path.txt"
         };
-        public List<string> pathToLogMode = new List<string> // dodac do xml odczyt 
-        {
-             @"C:\Program Files (x86)\Oticon\Genie\Genie2\Configure.log4net",
-             @"C:\Program Files (x86)\Bernafon\Oasis\Oasis2\Configure.log4net",
-             @"C:\Program Files (x86)\Sonic\ExpressFit\EXPRESSfit2\Configure.log4net",
-             @"C:\Program Files (x86)\OticonMedical\GenieMedical\GenieMedical2\Configure.log4net",
-             @"C:\Program Files (x86)\Strato\Cumulus\Cumulus2\Configure.log4net"
-        };
+        public List<string> pathToLogMode = myXMLReader.getPaths("pathToLogMode");
 
-        public List<string> pathToLogs = new List<string>// dodac do xml odczyt 
-        {
-             @"C:\ProgramData\Oticon\Genie\Logfiles\",
-             @"C:\ProgramData\Bernafon\Oasis\Logfiles\",
-             @"C:\ProgramData\Sonic\ExpressFit\Logfiles\",
-             @"C:\ProgramData\OticonMedical\GenieMedical\Logfiles\",
-             @"C:\ProgramData\Strato\Cumulus\Logfiles\"
-        };
+        public List<string> pathToLogs = myXMLReader.getPaths("pathToLogs");
 
-        public static List<string> pathToTrash = new List<string>// dodac do xml odczyt 
-        {
-            @"C:\ProgramData\Oticon",
-            @"C:\Program Files (x86)\Oticon",
-            @"C:\ProgramData\Bernafon",
-            @"C:\Program Files (x86)\Bernafon",
-            @"C:\ProgramData\Sonic",
-            @"C:\Program Files (x86)\Sonic",
-            @"C:\ProgramData\OticonMedical",
-            @"C:\Program Files (x86)\OticonMedical",
-            @"C:\ProgramData\Strato",
-            @"C:\Program Files (x86)\Strato"
-        };
+        public static List<string> pathToTrash = myXMLReader.getPaths("pathToTrash");
 
         public void setAutostart(bool mode) // true - wlaczony autostar false - bez autostart
         {

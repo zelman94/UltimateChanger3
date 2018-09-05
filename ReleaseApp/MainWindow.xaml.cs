@@ -2237,29 +2237,60 @@ namespace UltimateChanger
             saveFileDialog1.Filter = "txt files (*.csv)|*.csv|All files (*.*)|*.*";
             saveFileDialog1.FilterIndex = 2;
             saveFileDialog1.RestoreDirectory = true;
-
+            bool flag = false;
             if ((bool)saveFileDialog1.ShowDialog())
             {
-                if ((myStream = saveFileDialog1.OpenFile()) != null)
-                {
+                //if ((myStream = saveFileDialog1.OpenFile()) != null)
+                //{
                     try
                     {
                         if (saveFileDialog1.FileName.Contains(".")) //jezeli zawiera "." to zakładam że już ma wpisane csv  jezeli nie ma to wiadomo
                         {
-                            using (TextWriter tw = new StreamWriter(saveFileDialog1.FileName, true))
-                            {
-                                tw.WriteLine(DateTime.Now.ToString());
 
-                                foreach (var item in listOfRandomHardawre_perPerson)
+                            if (File.Exists(saveFileDialog1.FileName))
+                            {
+                                List<string> allfile = File.ReadAllLines(saveFileDialog1.FileName).ToList<string>();
+                                File.Delete(saveFileDialog1.FileName);
+
+                                using (TextWriter tw = new StreamWriter(saveFileDialog1.FileName, true))
                                 {
-                                    tw.WriteLine(item.ToString());
+
+                                    foreach (var item in allfile)
+                                    {
+                                        tw.WriteLine(item);
+                                    }
+
+                                    tw.WriteLine(DateTime.Now.ToString());
+
+                                    foreach (var item in listOfRandomHardawre_perPerson)
+                                    {
+                                        tw.WriteLine(item.ToString());
+                                    }
+                                    tw.Close();
                                 }
-                                tw.Close();
+
                             }
+                            else
+                            {
+                                using (TextWriter tw = new StreamWriter(saveFileDialog1.FileName, true))
+                                {
+                                    tw.WriteLine(DateTime.Now.ToString());
+
+                                    foreach (var item in listOfRandomHardawre_perPerson)
+                                    {
+                                        tw.WriteLine(item.ToString());
+                                    }
+                                    tw.Close();
+                                }
+                            }
+
                         }
                         else
                         {
-                            using (TextWriter tw = new StreamWriter(saveFileDialog1.FileName + ".csv", true))
+                           
+                            string file = saveFileDialog1.FileName + ".csv";
+
+                            using (TextWriter tw = new StreamWriter(file, true))
                             {
                                 tw.WriteLine(DateTime.Now.ToString());
 
@@ -2268,8 +2299,11 @@ namespace UltimateChanger
                                     tw.WriteLine(item.ToString());
                                 }
                                 tw.Close();
+                                flag = true;
                             }
-                        }                        
+
+
+                        }                   
                         
                     }
                     catch (Exception ex)  //Writing to log has failed, send message to trace in case anyone is listening.
@@ -2277,7 +2311,20 @@ namespace UltimateChanger
                         System.Diagnostics.Trace.Write(ex.ToString());
                     }
                     
+                //}
+            }
+
+            try
+            {
+                if (flag) // jezeli robimy nowy plik czyli bez .csv
+                {
+                    File.Delete(saveFileDialog1.FileName);
                 }
+                
+            }
+            catch (Exception)
+            {
+
             }
 
         }
