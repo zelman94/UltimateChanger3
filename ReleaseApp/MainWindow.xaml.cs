@@ -544,7 +544,7 @@ namespace UltimateChanger
                 }
                 catch (Exception)
                 {
-                    listlabelsinfoFS[licz].Foreground = new SolidColorBrush(Colors.Red);
+                    listlabelsinfoFS[licz].Foreground = new SolidColorBrush(Colors.Gray);
                     listlabelsinfoFS[licz].Content = "FS not installed";
                 }
                 licz++;
