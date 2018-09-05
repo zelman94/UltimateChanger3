@@ -54,7 +54,7 @@ namespace UltimateChanger
             {
                 foreach (var item2 in SelectedTypes)
                 {
-                    if (item2.Contains(item.Name))
+                    if (item2 == item.Name)
                     {
                         TypesToRand.Add(item);
                     }

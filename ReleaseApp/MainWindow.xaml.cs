@@ -30,7 +30,7 @@ using ICSharpCode.SharpZipLib.Zip;
 using System.Net;
 using System.Data;
 
-[assembly: System.Reflection.AssemblyVersion("2.0.9.0")]
+[assembly: System.Reflection.AssemblyVersion("2.1.1.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window
@@ -1526,85 +1526,106 @@ namespace UltimateChanger
                 foreach (var item in listOfTeammembers) // przechodze po osobach z  listy i losuje im wszystko co trzeba
                 {          
                     try
-                    {
+                    { // można poprawić żeby było mniej kodu ale to kiedys 
                         if (rbnHI_1.IsChecked.Value) // jezeli 1 HI wybrany to wyswietlic co zostalo wybrane do losowej strony i wpisac tam txtLeftHI lub txtRightHI co wybrane + zapisac w xml jaki wybór został dokonany 
                         {
                             // random HI to :
 
                             if (rnd.Next(2) == 0) // jezeli 1 to lewa jezeli nie to prawa 
                             {//lewa
-                                RandomHIandHardware tmp = new RandomHIandHardware();
+                            RandomHIandHardware tmp = new RandomHIandHardware();
 
-                                //string random_HI= HIs.randomHI(ListOfAvailableHIs,lblRelease.Content.ToString());
+                            //string random_HI= HIs.randomHI(ListOfAvailableHIs,lblRelease.Content.ToString());
 
-                                tmp.Name_Team_member = item;
-                                List<string> tmp_hi_Types_Name = new List<string>();
-                                foreach (var HI in ListBoxOfAvailableTypes.SelectedItems)
-                                {
-                                    tmp_hi_Types_Name.Add(HI.ToString());
-                                }
-                                HIs tmpHIL = HIs.randomHI(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString(), tmp_hi_Types_Name);
-                                tmp.HIL_ = tmpHIL.Name;
+                            tmp.Name_Team_member = item;
+                            List<string> tmp_hi_Types_Name = new List<string>();
+                            foreach (var HI in ListBoxOfAvailableTypes.SelectedItems)
+                            {
+                                tmp_hi_Types_Name.Add(HI.ToString());
+                            }
+                            HIs tmpHIL = HIs.randomHI(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString(), tmp_hi_Types_Name);
+                            tmp.HIL_ = tmpHIL.Name;
 
-                                //HIs tmpHIR = HIs.randomHI(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString());
-                                tmp.HIR_ = "N/A";
+                           
+                            tmp.HIR_ ="N/A";
 
-                                string wireless = "FALSE";
+                            string wireless = "FALSE";
 
-                                if (tmpHIL.Wireless /*&& tmpHIR.Wireless*/) //jezeli oba maja wireless
-                                {
-                                    wireless = "TRUE";
-                                }
+                            if (tmpHIL.Wireless) //jezeli ma wireless
+                            {
+                                wireless = "TRUE";
+                            }
 
                             List<string> tmpListFiczurs = myXMLReader.getFiczurs();
                             tmp.Ficzur_ = listOfFiczursSelected[MyRandomizer.Instance.Next(0, listOfFiczursSelected.Count)];
                             try
-                                {
+                            {
+                                string changed = lblWeightWireless.Content.ToString().Replace(',', '.');
+                                // double tmpp = Convert.ToDouble(changed);
+
                                 tmp.ComDev_ = myXMLReader.GetComDEV(wireless, Math.Round(sliderWeightWireless.Value));
                             }
-                                catch (Exception)
-                                {
-                                    tmp.ComDev_ = "ERROR";
-                                }
+                            catch (FormatException)
+                            {
+                                MessageBox.Show($"Unable to convert to a Double : " + lblWeightWireless.Content.ToString());
+                                tmp.ComDev_ = "ERROR";
+                            }
+                            catch (Exception)
+                            {
+                                tmp.ComDev_ = "ERROR";
+                            }
 
-                                listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member + "," + tmp.HIL_ + "," + tmp.HIR_ + "," + tmp.Ficzur_ + "," + tmp.ComDev_);
-                                GridDataRandomHardware.Items.Add(tmp);
+                            listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member + "," + tmp.HIL_ + "," + tmp.HIR_ + "," + tmp.Ficzur_ + "," + tmp.ComDev_);
+                            GridDataRandomHardware.Items.Add(tmp);
                         }
                     
                         else
                             {//prawa
-                                RandomHIandHardware tmp = new RandomHIandHardware();
+                            RandomHIandHardware tmp = new RandomHIandHardware();
 
-                                //string random_HI= HIs.randomHI(ListOfAvailableHIs,lblRelease.Content.ToString());
+                            //string random_HI= HIs.randomHI(ListOfAvailableHIs,lblRelease.Content.ToString());
 
-                                tmp.Name_Team_member = item;
-                                HIs tmpHIL = HIs.randomHI(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString(), (List<string>)ListBoxOfAvailableTypes.SelectedItems);
-                                tmp.HIR_ = tmpHIL.Name;
+                            tmp.Name_Team_member = item;
+                            List<string> tmp_hi_Types_Name = new List<string>();
+                            foreach (var HI in ListBoxOfAvailableTypes.SelectedItems)
+                            {
+                                tmp_hi_Types_Name.Add(HI.ToString());
+                            }
+                           
+                            tmp.HIL_ = "N/A";
 
-                                //HIs tmpHIR = HIs.randomHI(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString());
-                                tmp.HIL_ = "N/A";
+                            HIs tmpHIR = HIs.randomHI(lblRelease.Content.ToString(), ListBoxOfAvailableStyles.SelectedItem.ToString(), tmp_hi_Types_Name);
+                            tmp.HIR_ = tmpHIR.Name;
 
-                                string wireless = "FALSE";
+                            string wireless = "FALSE";
 
-                                if (tmpHIL.Wireless /*&& tmpHIR.Wireless*/) //jezeli oba maja wireless
-                                {
-                                    wireless = "TRUE";
-                                }
+                            if ( tmpHIR.Wireless) //jezeli ma wireless
+                            {
+                                wireless = "TRUE";
+                            }
 
                             List<string> tmpListFiczurs = myXMLReader.getFiczurs();
                             tmp.Ficzur_ = listOfFiczursSelected[MyRandomizer.Instance.Next(0, listOfFiczursSelected.Count)];
                             try
-                                {
+                            {
+                                string changed = lblWeightWireless.Content.ToString().Replace(',', '.');
+                                // double tmpp = Convert.ToDouble(changed);
+
                                 tmp.ComDev_ = myXMLReader.GetComDEV(wireless, Math.Round(sliderWeightWireless.Value));
                             }
-                                catch (Exception)
-                                {
-                                    tmp.ComDev_ = "ERROR";
-                                }
-
-                                listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member + "," + tmp.HIL_ + "," + tmp.HIR_ + "," + tmp.Ficzur_ + "," + tmp.ComDev_);
-                                GridDataRandomHardware.Items.Add(tmp);
+                            catch (FormatException)
+                            {
+                                MessageBox.Show($"Unable to convert to a Double : " + lblWeightWireless.Content.ToString());
+                                tmp.ComDev_ = "ERROR";
                             }
+                            catch (Exception)
+                            {
+                                tmp.ComDev_ = "ERROR";
+                            }
+
+                            listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member + "," + tmp.HIL_ + "," + tmp.HIR_ + "," + tmp.Ficzur_ + "," + tmp.ComDev_);
+                            GridDataRandomHardware.Items.Add(tmp);
+                        }
                         }
                         else // na dwie strony
                         {
@@ -2243,10 +2264,7 @@ namespace UltimateChanger
             }
 
         }
-        private void ListBoxOfAvailableTypes_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
 
-        }
 
         private void ListBoxOfAvailableFeautures_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

@@ -68,30 +68,14 @@
           <T-Coil>FALSE</T-Coil>
           <Magneto>FALSE</Magneto>
         </BTE-S>
-      </OPN_S>
-      <OPN_S_Plus>
-        <miniRITE-SP>
-          <LED>FALSE</LED>
-          <TwoButtons>FALSE</TwoButtons>
-          <Wireless>TRUE</Wireless>
-          <T-Coil>FALSE</T-Coil>
-          <Magneto>FALSE</Magneto>
-        </miniRITE-SP>
-        <miniRITE-T-SP>
-          <LED>FALSE</LED>
-          <TwoButtons>TRUE</TwoButtons>
-          <Wireless>TRUE</Wireless>
-          <T-Coil>FALSE</T-Coil>
-          <Magneto>FALSE</Magneto>
-        </miniRITE-T-SP>
-        <BTE-SP>
+        <Magneto>
           <LED>TRUE</LED>
           <TwoButtons>TRUE</TwoButtons>
           <Wireless>TRUE</Wireless>
           <T-Coil>FALSE</T-Coil>
-          <Magneto>FALSE</Magneto>
-        </BTE-SP>
-      </OPN_S_Plus>
+          <Magneto>TRUE</Magneto>
+        </Magneto>
+      </OPN_S>
       <Essensial>
         <miniRITE>
           <LED>FALSE</LED>
@@ -178,30 +162,14 @@
             <T-Coil>FALSE</T-Coil>
             <Magneto>FALSE</Magneto>
           </BTE-S>
-        </OPN_S>
-      <OPN_S_Plus>
-        <miniRITE-SP>
-          <LED>FALSE</LED>
-          <TwoButtons>FALSE</TwoButtons>
-          <Wireless>TRUE</Wireless>
-          <T-Coil>FALSE</T-Coil>
-          <Magneto>FALSE</Magneto>
-        </miniRITE-SP>
-        <miniRITE-T-SP>
-          <LED>FALSE</LED>
-          <TwoButtons>TRUE</TwoButtons>
-          <Wireless>TRUE</Wireless>
-          <T-Coil>FALSE</T-Coil>
-          <Magneto>FALSE</Magneto>
-        </miniRITE-T-SP>
-        <BTE-SP>
+        <Magneto>
           <LED>TRUE</LED>
           <TwoButtons>TRUE</TwoButtons>
           <Wireless>TRUE</Wireless>
           <T-Coil>FALSE</T-Coil>
-          <Magneto>FALSE</Magneto>
-        </BTE-SP>
-      </OPN_S_Plus>
+          <Magneto>TRUE</Magneto>
+        </Magneto>
+        </OPN_S>
       <Essensial>
         <miniRITE>
           <LED>FALSE</LED>
