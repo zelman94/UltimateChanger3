@@ -325,7 +325,7 @@
   </Release17_1>
   <Release16_2>
     <Available_Style>
-      <OPN>
+      <HighestPP>
         <miniRITE>
           <LED>FALSE</LED>
           <TwoButtons>FALSE</TwoButtons>
@@ -347,12 +347,12 @@
           <T-Coil>TRUE</T-Coil>
           <Magneto>FALSE</Magneto>
         </BTE>
-      </OPN>
+      </HighestPP>
     </Available_Style>
   </Release16_2>
   <Release16_1>
     <Available_Style>
-      <OPN>
+      <HighestPP>
         <miniRITE>
           <LED>FALSE</LED>
           <TwoButtons>FALSE</TwoButtons>
@@ -360,7 +360,7 @@
           <T-Coil>FALSE</T-Coil>
           <Magneto>FALSE</Magneto>
         </miniRITE>
-      </OPN>
+      </HighestPP>
     </Available_Style>
   </Release16_1>
   <Hardware>

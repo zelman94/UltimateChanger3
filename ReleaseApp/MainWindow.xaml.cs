@@ -1494,15 +1494,6 @@ namespace UltimateChanger
             Window downgrade = new DowngradeWindow();
             downgrade.ShowDialog();
         }
-        private void txtOdp_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            //if (txtOdp.Text != "")
-            //{
-            //    txtOdp.Text = "";
-            //}
-            //txtOdp.Text = "";
-            // btnAddKnowlage.IsEnabled = true;
-        }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
@@ -1511,6 +1502,17 @@ namespace UltimateChanger
 
         private void btnRANDHI_Click(object sender, RoutedEventArgs e)
         {
+            if (ListBoxOfAvailableTypes.SelectedIndex == -1)
+            {
+                MessageBox.Show("Select Style to Rand");
+                return;
+            }
+            if (listOfTeammembers.Count == 0)
+            {
+                MessageBox.Show("Remember to Select some Person(s) and press Add button");
+                return;
+            }
+
                 Random rnd = new Random();
             bool flag = false;
                 foreach (var item in listOfTeammembers) // przechodze po osobach z  listy i losuje im wszystko co trzeba
