@@ -453,6 +453,26 @@ namespace UltimateChanger
             return listFicz;
         }
 
+        public static List<string> getPaths(string listName)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load("Settings\\Paths.xml");
+            List<string> listpaths = new List<string>();
+            try
+            {
+                XmlNodeList NodesNames = doc.DocumentElement.SelectNodes(string.Format($"/Paths/{listName}"));
+                XmlNodeList NodesNames2 = NodesNames[0].ChildNodes; // pobieram OPN itp później można odczytać z tego parametry
+                foreach (XmlNode item in NodesNames2)
+                {
+                    listpaths.Add(item.InnerText);
+                }
+            }
+            catch (Exception x)
+            {
+                System.Windows.MessageBox.Show(x.ToString());
+            }
+            return listpaths;
+        }
 
 
     }
