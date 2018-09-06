@@ -1138,8 +1138,8 @@
         </TabItem>
 
         <TabItem Header="Help" Foreground="White">
-            <Grid x:Name="helpGrid">
-                <WebBrowser Name="przegladarka" HorizontalAlignment="Left" Height="723" Margin="10,10,0,0" VerticalAlignment="Top" Width="768"/>
+            <Grid x:Name="helpGrid" Margin="10">
+                <WebBrowser Name="przegladarka"/>
             </Grid>
         </TabItem>
 
