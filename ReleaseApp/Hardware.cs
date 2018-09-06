@@ -58,6 +58,14 @@ namespace UltimateChanger
     {
         static public void ShowAllConnectedUSB()
         {
+
+            ManagementObjectSearcher theSearcher = new ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive WHERE InterfaceType='USB'");
+            foreach (ManagementObject currentObject in theSearcher.Get())
+            {
+                ManagementObject theSerialNumberObjectQuery = new ManagementObject("Win32_PhysicalMedia.Tag='" + currentObject["DeviceID"] + "'");
+                System.Windows.MessageBox.Show(theSerialNumberObjectQuery["SerialNumber"].ToString());
+            }
+
             var usbDevices = GetUSBDevices();
 
             foreach (var usbDevice in usbDevices)
@@ -77,7 +85,7 @@ namespace UltimateChanger
 
             foreach (var device in collection)
             {
-               
+                Console.WriteLine("USBHub device Friendly name:{0}", device["Name"].ToString());
                 devices.Add(new USBDeviceInfo(
                 (string)device.GetPropertyValue("DeviceID"),
                 (string)device.GetPropertyValue("PNPDeviceID"),
