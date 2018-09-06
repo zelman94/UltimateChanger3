@@ -1914,7 +1914,7 @@ namespace UltimateChanger
             passwordBox.Foreground = Brushes.Black;
             passwordBox.BorderBrush = Brushes.Black;
             oticonRectangle.Fill = Brushes.White;
-
+            //GridDataRandomHardware.Resources.
         }
 
         private void Radio_Genie_Checked(object sender, RoutedEventArgs e)
