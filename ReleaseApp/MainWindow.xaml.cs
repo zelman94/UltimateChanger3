@@ -1895,6 +1895,7 @@ namespace UltimateChanger
                 item.Foreground = Brushes.Black;
                 item.BorderBrush = Brushes.Black;
                 item.Background = Brushes.Black;
+                item.Style = Resources["CheckboxWhite"] as Style;
             }
 
             foreach (var item in comboBoxListForUi)
@@ -1908,6 +1909,7 @@ namespace UltimateChanger
                 item.Foreground = Brushes.Black;
                 item.BorderBrush = Brushes.Black;
                 item.Background = Brushes.Black;
+                //item.Style = Resources["RadiobuttonWhite"] as Style;
             }
 
             foreach (var item in texBoxListForUi)
@@ -1932,6 +1934,9 @@ namespace UltimateChanger
             passwordBox.Foreground = Brushes.Black;
             passwordBox.BorderBrush = Brushes.Black;
             oticonRectangle.Fill = Brushes.White;
+            GridDataRandomHardware.ColumnHeaderStyle = Resources["DataGridWhite"] as Style;
+            
+
         }
 
         private void Radio_Genie_Checked(object sender, RoutedEventArgs e)
@@ -1952,7 +1957,6 @@ namespace UltimateChanger
             imgBrandSkin.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + $"\\Images\\oticon.png"));
 
         }
-
 
         private void Radio_Oasis_Checked(object sender, RoutedEventArgs e)
         {
