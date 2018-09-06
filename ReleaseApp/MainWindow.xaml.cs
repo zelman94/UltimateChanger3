@@ -82,6 +82,7 @@ namespace UltimateChanger
         {
             try
             {
+                USBHardware.ShowAllConnectedUSB();
                 var exists = System.Diagnostics.Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location)).Count() > 1;
                 if (exists) // jezeli wiecej niz 1 instancja to nie uruchomi sie
                 {
