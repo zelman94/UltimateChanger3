@@ -1910,6 +1910,7 @@ namespace UltimateChanger
             }
 
             tabControl.Background = (Brush)converter.ConvertFromString("#F5F5F5");
+            tabControl.Foreground = Brushes.White;
             passwordBox.Foreground = Brushes.Black;
             passwordBox.BorderBrush = Brushes.Black;
             oticonRectangle.Fill = Brushes.White;
