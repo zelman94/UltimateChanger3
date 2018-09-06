@@ -1562,7 +1562,10 @@ namespace UltimateChanger
                             //string random_HI= HIs.randomHI(ListOfAvailableHIs,lblRelease.Content.ToString());
 
                             tmp.Name_Team_member = item;
+
                             List<string> tmp_hi_Types_Name = new List<string>();
+
+
                             foreach (var HI in ListBoxOfAvailableTypes.SelectedItems)
                             {
                                 tmp_hi_Types_Name.Add(HI.ToString());
@@ -1570,20 +1573,25 @@ namespace UltimateChanger
                             List<string> listofstyles = new List<string>();
                             foreach (var itemm in ListBoxOfAvailableStyles.SelectedItems)
                             {
-                                listofstyles.Add(item.ToString());
+                                listofstyles.Add(itemm.ToString());
                             }
+
                             HIs tmpHIL = HIs.randomHI(lblRelease.Content.ToString(), listofstyles, tmp_hi_Types_Name);
                             tmp.HIL_ = tmpHIL.Name;
 
-                           
-                            tmp.HIR_ ="N/A";
+                            tmp.Family_Name = tmpHIL.Name_fammily;
+
+                            List<string> listOfNames = new List<string>() { tmp.Family_Name };
+                            
+                            tmp.HIR_ = "N/A";
 
                             string wireless = "FALSE";
 
-                            if (tmpHIL.Wireless) //jezeli ma wireless
+                            if (tmpHIL.Wireless) //jezeli oba maja wireless
                             {
                                 wireless = "TRUE";
                             }
+
                             List<string> tmpListFiczurs = myXMLReader.getFiczurs();
 
                             if (listOfFiczursSelected.Count == 0)
@@ -1602,6 +1610,9 @@ namespace UltimateChanger
                                 // double tmpp = Convert.ToDouble(changed);
 
                                 tmp.ComDev_ = myXMLReader.GetComDEV(wireless, Math.Round(sliderWeightWireless.Value));
+
+
+
                             }
                             catch (FormatException)
                             {
@@ -1613,7 +1624,7 @@ namespace UltimateChanger
                                 tmp.ComDev_ = "ERROR";
                             }
 
-                            listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member + "," + tmp.HIL_ + "," + tmp.HIR_ + "," + tmp.Ficzur_ + "," + tmp.ComDev_);
+                            listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member + "," + tmp.Family_Name + "," + tmp.HIL_ + "," + tmp.HIR_ + "," + tmp.Ficzur_ + "," + tmp.ComDev_);
                             GridDataRandomHardware.Items.Add(tmp);
                         }
                     
@@ -1624,26 +1635,30 @@ namespace UltimateChanger
                             //string random_HI= HIs.randomHI(ListOfAvailableHIs,lblRelease.Content.ToString());
 
                             tmp.Name_Team_member = item;
+
                             List<string> tmp_hi_Types_Name = new List<string>();
+
+
                             foreach (var HI in ListBoxOfAvailableTypes.SelectedItems)
                             {
                                 tmp_hi_Types_Name.Add(HI.ToString());
                             }
-                           
-                            tmp.HIL_ = "N/A";
-
                             List<string> listofstyles = new List<string>();
                             foreach (var itemm in ListBoxOfAvailableStyles.SelectedItems)
                             {
-                                listofstyles.Add(item.ToString());
+                                listofstyles.Add(itemm.ToString());
                             }
+
+                           
+                            tmp.HIL_ = "N/A";
+
 
                             HIs tmpHIR = HIs.randomHI(lblRelease.Content.ToString(), listofstyles, tmp_hi_Types_Name);
                             tmp.HIR_ = tmpHIR.Name;
 
                             string wireless = "FALSE";
 
-                            if ( tmpHIR.Wireless) //jezeli ma wireless
+                            if ( tmpHIR.Wireless) //jezeli oba maja wireless
                             {
                                 wireless = "TRUE";
                             }
@@ -1666,6 +1681,9 @@ namespace UltimateChanger
                                 // double tmpp = Convert.ToDouble(changed);
 
                                 tmp.ComDev_ = myXMLReader.GetComDEV(wireless, Math.Round(sliderWeightWireless.Value));
+
+
+
                             }
                             catch (FormatException)
                             {
@@ -1677,7 +1695,7 @@ namespace UltimateChanger
                                 tmp.ComDev_ = "ERROR";
                             }
 
-                            listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member + "," + tmp.HIL_ + "," + tmp.HIR_ + "," + tmp.Ficzur_ + "," + tmp.ComDev_);
+                            listOfRandomHardawre_perPerson.Add(tmp.Name_Team_member + "," + tmp.Family_Name + "," + tmp.HIL_ + "," + tmp.HIR_ + "," + tmp.Ficzur_ + "," + tmp.ComDev_);
                             GridDataRandomHardware.Items.Add(tmp);
                         }
                         }
@@ -1965,6 +1983,11 @@ namespace UltimateChanger
             XMLReader.setSetting("Genie_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
             XMLReader.setSetting("Oasis_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
 
+<<<<<<< HEAD
+=======
+            
+
+>>>>>>> master
             imgBrandSkin.Visibility = Visibility.Visible;
 
             imgBrandSkin.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + $"\\Images\\sonic.png"));
