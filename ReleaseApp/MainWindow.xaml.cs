@@ -1773,23 +1773,10 @@ namespace UltimateChanger
             Random_HI.S = !Random_HI.S;
         }
 
-        private void ChangeSkin(Brush c1, Brush c2)
-        {
-            //tabControl.Background = c1;
-
-
-            //Grid1.BorderBrush = c2;
-            //Grid2.BorderBrush = c2;
-            //Grid3.BorderBrush = c2;
-            //Grid4.BorderBrush = c2;
-            //Grid5.BorderBrush = c2;
-        }
 
         private void Dark_skin_Checked(object sender, RoutedEventArgs e)
         {
-            Brush c1 = new SolidColorBrush(Color.FromRgb(70, 70, 70));
-
-            ChangeSkin(c1, c1);
+   
             //Zmiany na ciemny motyw (można zmienić kolor ramki itd.)
             XMLReader.setSetting("Dark_skin", "RadioButtons", Convert.ToString(rbnDark_skin.IsChecked.Value).ToUpper());
             bool tmp = !rbnDark_skin.IsChecked.Value;
@@ -1821,10 +1808,8 @@ namespace UltimateChanger
 
         private void Light_skin_Checked_1(object sender, RoutedEventArgs e)
         {
-            Brush c1 = new SolidColorBrush(Color.FromRgb(240, 240, 240));
-            Brush c2 = new SolidColorBrush(Colors.LightBlue);
-
-            ChangeSkin(c1, c2);
+       
+      
             //Zmiany na jasny motyw
             XMLReader.setSetting("Light_skin", "RadioButtons",Convert.ToString(rbnLight_skin.IsChecked.Value).ToUpper());
             bool tmp = !rbnLight_skin.IsChecked.Value;
@@ -1855,10 +1840,7 @@ namespace UltimateChanger
 
         private void Radio_Genie_Checked(object sender, RoutedEventArgs e)
         {
-            Brush c1 = new SolidColorBrush(Color.FromRgb(183, 18, 180));
-            Brush c2 = new SolidColorBrush(Colors.Black);
-
-            ChangeSkin(c1, c2);
+      
 
 
             XMLReader.setSetting("Genie_skin", "RadioButtons", Convert.ToString(rbn_Genie.IsChecked.Value).ToUpper());
@@ -1878,10 +1860,7 @@ namespace UltimateChanger
 
         private void Radio_Oasis_Checked(object sender, RoutedEventArgs e)
         {
-            Brush c1 = new SolidColorBrush(Color.FromRgb(183, 18, 18));
-            Brush c2 = new SolidColorBrush(Colors.Black);
-
-            ChangeSkin(c1, c2);
+   
 
             XMLReader.setSetting("Oasis_skin", "RadioButtons", Convert.ToString(rbn_Oasis.IsChecked.Value).ToUpper());
             bool tmp = !rbn_Oasis.IsChecked.Value;
