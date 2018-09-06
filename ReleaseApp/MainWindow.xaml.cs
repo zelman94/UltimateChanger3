@@ -1887,7 +1887,7 @@ namespace UltimateChanger
                 item.Background = Brushes.Black;
                 item.Foreground = Brushes.White;
                 item.BorderBrush = Brushes.Black;
-                item.Opacity = 0.75;
+                item.Opacity = 0.8;
             }
 
             foreach (var item in checkBoxListForUi)
@@ -1983,11 +1983,6 @@ namespace UltimateChanger
             XMLReader.setSetting("Genie_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
             XMLReader.setSetting("Oasis_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
 
-<<<<<<< HEAD
-=======
-            
-
->>>>>>> master
             imgBrandSkin.Visibility = Visibility.Visible;
 
             imgBrandSkin.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + $"\\Images\\sonic.png"));
