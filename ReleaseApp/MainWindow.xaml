@@ -15,6 +15,16 @@
         Localization.Attributes="Center"
         >
     <Window.Resources>
+        <Style TargetType="{x:Type DataGridColumnHeader}" x:Key="DataGridWhite">
+           
+  
+                    <Setter Property="FontWeight" Value="SemiBold" />
+                    <Setter Property="BorderThickness" Value="0,0,0,2" />
+                    <Setter Property="BorderBrush" Value="Red"/>
+                    <Setter Property="Foreground" Value="Red"/>
+  
+
+        </Style>
         <Style TargetType="{x:Type CheckBox}">
             <Setter Property="FocusVisualStyle">
                 <Setter.Value>
@@ -1046,11 +1056,11 @@
 
                     <DataGrid.Resources >
                         <Style TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="Background" Value="#FF616161" />
                             <Setter Property="FontWeight" Value="SemiBold" />
                             <Setter Property="BorderThickness" Value="0,0,0,2" />
                             <Setter Property="BorderBrush" Value="#FF424242"/>
                             <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="Background" Value="#FF616161" />
                         </Style>
                     </DataGrid.Resources>
                 </DataGrid>

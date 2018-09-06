@@ -1869,7 +1869,7 @@ namespace UltimateChanger
                 item.Background = Brushes.Black;
                 item.Foreground = Brushes.White;
                 item.BorderBrush = Brushes.Black;
-                item.Opacity = 0.9;
+                item.Opacity = 0.75;
             }
 
             foreach (var item in checkBoxListForUi)
@@ -1914,7 +1914,6 @@ namespace UltimateChanger
             passwordBox.Foreground = Brushes.Black;
             passwordBox.BorderBrush = Brushes.Black;
             oticonRectangle.Fill = Brushes.White;
-            //GridDataRandomHardware.Resources.
         }
 
         private void Radio_Genie_Checked(object sender, RoutedEventArgs e)
