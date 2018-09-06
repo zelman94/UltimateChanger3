@@ -1494,15 +1494,6 @@ namespace UltimateChanger
             Window downgrade = new DowngradeWindow();
             downgrade.ShowDialog();
         }
-        private void txtOdp_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            //if (txtOdp.Text != "")
-            //{
-            //    txtOdp.Text = "";
-            //}
-            //txtOdp.Text = "";
-            // btnAddKnowlage.IsEnabled = true;
-        }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
@@ -1511,6 +1502,17 @@ namespace UltimateChanger
 
         private void btnRANDHI_Click(object sender, RoutedEventArgs e)
         {
+            if (ListBoxOfAvailableTypes.SelectedIndex == -1)
+            {
+                MessageBox.Show("Select Style to Rand");
+                return;
+            }
+            if (listOfTeammembers.Count == 0)
+            {
+                MessageBox.Show("Remember to Select some Person(s) and press Add button");
+                return;
+            }
+
                 Random rnd = new Random();
             bool flag = false;
                 foreach (var item in listOfTeammembers) // przechodze po osobach z  listy i losuje im wszystko co trzeba
@@ -1771,23 +1773,10 @@ namespace UltimateChanger
             Random_HI.S = !Random_HI.S;
         }
 
-        private void ChangeSkin(Brush c1, Brush c2)
-        {
-            //tabControl.Background = c1;
-
-
-            //Grid1.BorderBrush = c2;
-            //Grid2.BorderBrush = c2;
-            //Grid3.BorderBrush = c2;
-            //Grid4.BorderBrush = c2;
-            //Grid5.BorderBrush = c2;
-        }
 
         private void Dark_skin_Checked(object sender, RoutedEventArgs e)
         {
-            Brush c1 = new SolidColorBrush(Color.FromRgb(70, 70, 70));
-
-            ChangeSkin(c1, c1);
+   
             //Zmiany na ciemny motyw (można zmienić kolor ramki itd.)
             XMLReader.setSetting("Dark_skin", "RadioButtons", Convert.ToString(rbnDark_skin.IsChecked.Value).ToUpper());
             bool tmp = !rbnDark_skin.IsChecked.Value;
@@ -1819,10 +1808,8 @@ namespace UltimateChanger
 
         private void Light_skin_Checked_1(object sender, RoutedEventArgs e)
         {
-            Brush c1 = new SolidColorBrush(Color.FromRgb(240, 240, 240));
-            Brush c2 = new SolidColorBrush(Colors.LightBlue);
-
-            ChangeSkin(c1, c2);
+       
+      
             //Zmiany na jasny motyw
             XMLReader.setSetting("Light_skin", "RadioButtons",Convert.ToString(rbnLight_skin.IsChecked.Value).ToUpper());
             bool tmp = !rbnLight_skin.IsChecked.Value;
@@ -1853,10 +1840,7 @@ namespace UltimateChanger
 
         private void Radio_Genie_Checked(object sender, RoutedEventArgs e)
         {
-            Brush c1 = new SolidColorBrush(Color.FromRgb(183, 18, 180));
-            Brush c2 = new SolidColorBrush(Colors.Black);
-
-            ChangeSkin(c1, c2);
+      
 
 
             XMLReader.setSetting("Genie_skin", "RadioButtons", Convert.ToString(rbn_Genie.IsChecked.Value).ToUpper());
@@ -1876,10 +1860,7 @@ namespace UltimateChanger
 
         private void Radio_Oasis_Checked(object sender, RoutedEventArgs e)
         {
-            Brush c1 = new SolidColorBrush(Color.FromRgb(183, 18, 18));
-            Brush c2 = new SolidColorBrush(Colors.Black);
-
-            ChangeSkin(c1, c2);
+   
 
             XMLReader.setSetting("Oasis_skin", "RadioButtons", Convert.ToString(rbn_Oasis.IsChecked.Value).ToUpper());
             bool tmp = !rbn_Oasis.IsChecked.Value;
@@ -2237,29 +2218,60 @@ namespace UltimateChanger
             saveFileDialog1.Filter = "txt files (*.csv)|*.csv|All files (*.*)|*.*";
             saveFileDialog1.FilterIndex = 2;
             saveFileDialog1.RestoreDirectory = true;
-
+            bool flag = false;
             if ((bool)saveFileDialog1.ShowDialog())
             {
-                if ((myStream = saveFileDialog1.OpenFile()) != null)
-                {
+                //if ((myStream = saveFileDialog1.OpenFile()) != null)
+                //{
                     try
                     {
                         if (saveFileDialog1.FileName.Contains(".")) //jezeli zawiera "." to zakładam że już ma wpisane csv  jezeli nie ma to wiadomo
                         {
-                            using (TextWriter tw = new StreamWriter(saveFileDialog1.FileName, true))
-                            {
-                                tw.WriteLine(DateTime.Now.ToString());
 
-                                foreach (var item in listOfRandomHardawre_perPerson)
+                            if (File.Exists(saveFileDialog1.FileName))
+                            {
+                                List<string> allfile = File.ReadAllLines(saveFileDialog1.FileName).ToList<string>();
+                                File.Delete(saveFileDialog1.FileName);
+
+                                using (TextWriter tw = new StreamWriter(saveFileDialog1.FileName, true))
                                 {
-                                    tw.WriteLine(item.ToString());
+
+                                    foreach (var item in allfile)
+                                    {
+                                        tw.WriteLine(item);
+                                    }
+
+                                    tw.WriteLine(DateTime.Now.ToString());
+
+                                    foreach (var item in listOfRandomHardawre_perPerson)
+                                    {
+                                        tw.WriteLine(item.ToString());
+                                    }
+                                    tw.Close();
                                 }
-                                tw.Close();
+
                             }
+                            else
+                            {
+                                using (TextWriter tw = new StreamWriter(saveFileDialog1.FileName, true))
+                                {
+                                    tw.WriteLine(DateTime.Now.ToString());
+
+                                    foreach (var item in listOfRandomHardawre_perPerson)
+                                    {
+                                        tw.WriteLine(item.ToString());
+                                    }
+                                    tw.Close();
+                                }
+                            }
+
                         }
                         else
                         {
-                            using (TextWriter tw = new StreamWriter(saveFileDialog1.FileName + ".csv", true))
+                           
+                            string file = saveFileDialog1.FileName + ".csv";
+
+                            using (TextWriter tw = new StreamWriter(file, true))
                             {
                                 tw.WriteLine(DateTime.Now.ToString());
 
@@ -2268,8 +2280,11 @@ namespace UltimateChanger
                                     tw.WriteLine(item.ToString());
                                 }
                                 tw.Close();
+                                flag = true;
                             }
-                        }                        
+
+
+                        }                   
                         
                     }
                     catch (Exception ex)  //Writing to log has failed, send message to trace in case anyone is listening.
@@ -2277,7 +2292,20 @@ namespace UltimateChanger
                         System.Diagnostics.Trace.Write(ex.ToString());
                     }
                     
+                //}
+            }
+
+            try
+            {
+                if (flag) // jezeli robimy nowy plik czyli bez .csv
+                {
+                    File.Delete(saveFileDialog1.FileName);
                 }
+                
+            }
+            catch (Exception)
+            {
+
             }
 
         }
