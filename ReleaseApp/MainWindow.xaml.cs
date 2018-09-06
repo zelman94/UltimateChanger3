@@ -50,12 +50,20 @@ namespace UltimateChanger
         private List<pathAndDir> paths_Dirs = new List<pathAndDir>();
         //string OEMname = "";
         List<Image> ListImages;
-        List<Label> listlabelsinfoFS;
-        List<Label> ListLabelsonUI = new List<Label>();
-        List<ListBox> ListListBoxsonUI = new List<ListBox>();
-        List<Button> ListButtonsonUI = new List<Button>();
+        List<Label> listlabelsinfoFS;  
         List<CheckBox> checkBoxList = new List<CheckBox>();
         List<ComboBox> comboBoxList = new List<ComboBox>();
+
+        List<Button> buttonListForUi = new List<Button>();
+        List<Label> lableListForUi = new List<Label>();
+        List<ListBox> listBoxForUi = new List<ListBox>();
+        List<CheckBox> checkBoxListForUi = new List<CheckBox>();
+        List<ComboBox> comboBoxListForUi = new List<ComboBox>();
+        List<RadioButton> radioButtonListForUi = new List<RadioButton>();
+        List<TextBox> texBoxListForUi = new List<TextBox>();
+        List<Border> borderListForUi = new List<Border>();
+        List<Slider> sliderListForUi = new List<Slider>();
+
         List<string> listOfTeammembers = new List<string>();
         List<string> listOfFiczursSelected = new List<string>();
         List<string> listOfRandomHardawre_perPerson = new List<string>();
@@ -108,15 +116,39 @@ namespace UltimateChanger
                 {
                     foreach (Label tb in FindLogicalChildren<Label>(this)) // dziala
                     {
-                        ListLabelsonUI.Add(tb);
+                        lableListForUi.Add(tb);
                     }
                     foreach (ListBox item in FindLogicalChildren<ListBox>(this))
                     {
-                        ListListBoxsonUI.Add(item);
+                        listBoxForUi.Add(item);
                     }
                     foreach (Button item in FindLogicalChildren<Button>(this))
                     {
-                        ListButtonsonUI.Add(item);
+                        buttonListForUi.Add(item);
+                    }
+                    foreach (CheckBox item in FindLogicalChildren<CheckBox>(this))
+                    {
+                        checkBoxListForUi.Add(item);
+                    }
+                    foreach (ComboBox item in FindLogicalChildren<ComboBox>(this))
+                    {
+                        comboBoxListForUi.Add(item);
+                    }
+                    foreach (RadioButton item in FindLogicalChildren<RadioButton>(this))
+                    {
+                        radioButtonListForUi.Add(item);
+                    }
+                    foreach (TextBox item in FindLogicalChildren<TextBox>(this))
+                    {
+                        texBoxListForUi.Add(item);
+                    }
+                    foreach (Slider item in FindLogicalChildren<Slider>(this))
+                    {
+                        sliderListForUi.Add(item);
+                    }
+                    foreach (Border item in FindLogicalChildren<Border>(this))
+                    {
+                        borderListForUi.Add(item);
                     }
                 }
                 catch (Exception xc)
@@ -1805,18 +1837,18 @@ namespace UltimateChanger
 
             imgBrandSkin.Visibility = Visibility.Hidden;
 
-            foreach (var item in ListLabelsonUI)
+            foreach (var item in lableListForUi)
             {
                 item.Foreground = Brushes.White;
             }
-            foreach (var item in ListListBoxsonUI)
+            foreach (var item in listBoxForUi)
             {
                 item.Foreground = Brushes.White;
             }
             var converter = new System.Windows.Media.BrushConverter();
             var brush = (Brush)converter.ConvertFromString("#FF616161");
            
-            foreach (var item in ListButtonsonUI)
+            foreach (var item in buttonListForUi)
             {
                 item.Background = brush;               
             }
@@ -1826,8 +1858,7 @@ namespace UltimateChanger
 
         private void Light_skin_Checked_1(object sender, RoutedEventArgs e)
         {
-       
-      
+
             //Zmiany na jasny motyw
             XMLReader.setSetting("Light_skin", "RadioButtons",Convert.ToString(rbnLight_skin.IsChecked.Value).ToUpper());
             bool tmp = !rbnLight_skin.IsChecked.Value;
@@ -1838,22 +1869,69 @@ namespace UltimateChanger
 
             imgBrandSkin.Visibility = Visibility.Hidden;
 
-            foreach (var item in ListLabelsonUI)
-            {
-                item.Foreground = Brushes.Turquoise;
-            }
-            foreach (var item in ListListBoxsonUI)
+            foreach (var item in lableListForUi)
             {
                 item.Foreground = Brushes.Black;
             }
-            var converter = new System.Windows.Media.BrushConverter();
-            var brush = (Brush)converter.ConvertFromString("#8A959B");
-
-            foreach (var item in ListButtonsonUI)
+            foreach (var item in listBoxForUi)
             {
-                item.Background = brush;
+                item.Foreground = Brushes.Black;
+                item.BorderBrush = Brushes.Black;
+                
+            }
+            var converter = new System.Windows.Media.BrushConverter();
+            //var brush = (Brush)converter.ConvertFromString("#8A959B");
+
+            foreach (var item in buttonListForUi)
+            {
+                item.Background = Brushes.Black;
+                item.Foreground = Brushes.White;
+                item.BorderBrush = Brushes.Black;
+                item.Opacity = 0.8;
             }
 
+            foreach (var item in checkBoxListForUi)
+            {
+                item.Foreground = Brushes.Black;
+                item.BorderBrush = Brushes.Black;
+                item.Background = Brushes.Black;
+            }
+
+            foreach (var item in comboBoxListForUi)
+            {
+                item.Foreground = Brushes.Black;
+                item.BorderBrush = Brushes.Black;
+            }
+
+            foreach (var item in radioButtonListForUi)
+            {
+                item.Foreground = Brushes.Black;
+                item.BorderBrush = Brushes.Black;
+                item.Background = Brushes.Black;
+            }
+
+            foreach (var item in texBoxListForUi)
+            {
+                item.Foreground = Brushes.Black;
+                item.BorderBrush = Brushes.Black;
+            }
+
+            foreach(var item in sliderListForUi)
+            {
+                item.Foreground = Brushes.Black;
+                item.BorderBrush = Brushes.Black;
+            }
+
+            foreach (var item in borderListForUi)
+            {
+                item.BorderBrush = Brushes.Black;
+            }
+
+            tabControl.Background = (Brush)converter.ConvertFromString("#F5F5F5");
+            tabControl.Foreground = Brushes.White;
+            passwordBox.Foreground = Brushes.Black;
+            passwordBox.BorderBrush = Brushes.Black;
+            oticonRectangle.Fill = Brushes.White;
         }
 
         private void Radio_Genie_Checked(object sender, RoutedEventArgs e)
@@ -1904,8 +1982,6 @@ namespace UltimateChanger
             XMLReader.setSetting("Light_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
             XMLReader.setSetting("Genie_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
             XMLReader.setSetting("Oasis_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
-
-            
 
             imgBrandSkin.Visibility = Visibility.Visible;
 

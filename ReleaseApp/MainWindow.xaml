@@ -15,6 +15,16 @@
         Localization.Attributes="Center"
         >
     <Window.Resources>
+        <Style TargetType="{x:Type DataGridColumnHeader}" x:Key="DataGridWhite">
+           
+  
+                    <Setter Property="FontWeight" Value="SemiBold" />
+                    <Setter Property="BorderThickness" Value="0,0,0,2" />
+                    <Setter Property="BorderBrush" Value="Red"/>
+                    <Setter Property="Foreground" Value="Red"/>
+  
+
+        </Style>
         <Style TargetType="{x:Type CheckBox}">
             <Setter Property="FocusVisualStyle">
                 <Setter.Value>
@@ -292,14 +302,6 @@
         </Style>
     </Window.Resources>
 
-
-
-    <Window.Foreground>
-        <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
-            <GradientStop Color="Black" Offset="0"/>
-            <GradientStop Color="Black"/>
-        </LinearGradientBrush>
-    </Window.Foreground>
     <Window.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
             <GradientStop Color="#FF424242" Offset="0"/>
@@ -322,10 +324,10 @@
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
-                                    <Setter TargetName="Border" Property="Background" Value="#FF616161" />
+                                    <Setter TargetName="Border" Property="Background" Value="#FF616161"/> 
                                 </Trigger>
                                 <Trigger Property="IsSelected" Value="False">
-                                    <Setter TargetName="Border" Property="Background" Value="#FF424242" />
+                                    <Setter TargetName="Border" Property="Background" Value="#FF424242"/> 
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -335,7 +337,7 @@
         </TabControl.Resources>
 
 
-        <TabItem Header="Main" BorderBrush="#FF424242" Height="21" VerticalAlignment="Bottom" Foreground="White">
+        <TabItem Header="Main" Foreground="White">
 
             <Grid x:Name="panel" Margin="0,10,0,0">
                 <Grid.ColumnDefinitions>
@@ -1043,8 +1045,6 @@
                 </Grid>
 
                 <DataGrid Name="GridDataRandomHardware" AutoGenerateColumns="True"  Grid.ColumnSpan="2" Grid.Row="1">
-
-
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Name"  Binding="{Binding Name_Team_member}" Width="100"/>
                         <DataGridTextColumn Header="Family"  Binding="{Binding Family_Name}" Width="100"/>
@@ -1056,11 +1056,11 @@
 
                     <DataGrid.Resources >
                         <Style TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="Background" Value="#FF616161" />
                             <Setter Property="FontWeight" Value="SemiBold" />
                             <Setter Property="BorderThickness" Value="0,0,0,2" />
                             <Setter Property="BorderBrush" Value="#FF424242"/>
                             <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="Background" Value="#FF616161" />
                         </Style>
                     </DataGrid.Resources>
                 </DataGrid>
@@ -1142,9 +1142,6 @@
                 <WebBrowser Name="przegladarka"/>
             </Grid>
         </TabItem>
-
-
-
     </TabControl>
 
 </Window>
