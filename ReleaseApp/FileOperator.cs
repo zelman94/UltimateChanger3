@@ -80,6 +80,20 @@ namespace UltimateChanger
             @"4Cumulus_PRE_dir.txt", // 0FS_dir.txt
             @"4Cumulus_PRE_path.txt"
         };
+
+        static public List<string> ListUSB_AvailableComDev_description = new List<string> // string from description
+        {
+            "SONIC innovations EXPRESSlink",
+            "HI-PRO", // == HI-PRO2 // HI-PRO Classic?
+            ""
+        };
+        static public List<string> ListUSB_AvailableComDev = new List<string> // string name of device 
+        {
+            "EXPRESSlink",
+            "HI-PRO", // == HI-PRO2 // HI-PRO Classic?
+            ""
+        };
+
         public List<string> pathToLogMode = myXMLReader.getPaths("pathToLogMode");
 
         public List<string> pathToLogs = myXMLReader.getPaths("pathToLogs");

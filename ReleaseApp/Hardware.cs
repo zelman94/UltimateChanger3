@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Management;
 using System.Text;
@@ -56,27 +57,75 @@ namespace UltimateChanger
 
     class USBHardware
     {
+        public string DeviceID { get; set; }
+        public string DeviceName { get; set; }
+
+        public USBHardware(string deviceID,string pnpDeviceID)
+        {
+            this.DeviceID = deviceID;
+            this.DeviceName = pnpDeviceID;
+        }
+
+       static public string getIDName(string DeviceName)
+        {
+            string name = "";
+
+            foreach (string item in FileOperator.ListUSB_AvailableComDev_description)
+            {
+                if (item.Contains(DeviceName))
+                {
+                    name = FileOperator.ListUSB_AvailableComDev[FileOperator.ListUSB_AvailableComDev_description.IndexOf(DeviceName)];
+                }
+            }
+
+            return name;
+        }
+
+        static public string getComDevID(string DeviceID)
+        {
+            string ID = "";
+
+           
+
+            return ID;
+        }
+
         static public void ShowAllConnectedUSB()
         {
 
-            ManagementObjectSearcher theSearcher = new ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive WHERE InterfaceType='USB'");
-            foreach (ManagementObject currentObject in theSearcher.Get())
+
+            try
             {
-                ManagementObject theSerialNumberObjectQuery = new ManagementObject("Win32_PhysicalMedia.Tag='" + currentObject["DeviceID"] + "'");
-                System.Windows.MessageBox.Show(theSerialNumberObjectQuery["SerialNumber"].ToString());
+                var usbDevices = GetUSBDevices();
+
+                foreach (var usbDevice in usbDevices)
+                {
+                    Console.WriteLine("Device ID: {0}, PNP Device ID: {1}, Description: {2}",
+                        usbDevice.DeviceID, usbDevice.PnpDeviceID, usbDevice.Description);
+                    getIDName(usbDevice.Description);
+                    getComDevID(usbDevice.SerialNumber);
+                }
+            }
+            catch (Exception)
+            {
+                
             }
 
-            var usbDevices = GetUSBDevices();
 
-            foreach (var usbDevice in usbDevices)
-            {
-                Console.WriteLine("Device ID: {0}, PNP Device ID: {1}, Description: {2}",
-                    usbDevice.DeviceID, usbDevice.PnpDeviceID, usbDevice.Description);
-            }
         }
 
         static List<USBDeviceInfo> GetUSBDevices()
         {
+
+
+            foreach (DriveInfo drive in DriveInfo.GetDrives())
+            {
+                if (drive.DriveType == DriveType.Removable)
+                {
+                    Console.WriteLine(string.Format("({0}) {1}", drive.Name.Replace("\\", ""), drive.VolumeLabel));
+                }
+            }
+
             List<USBDeviceInfo> devices = new List<USBDeviceInfo>();
 
             ManagementObjectCollection collection;
@@ -89,7 +138,8 @@ namespace UltimateChanger
                 devices.Add(new USBDeviceInfo(
                 (string)device.GetPropertyValue("DeviceID"),
                 (string)device.GetPropertyValue("PNPDeviceID"),
-                (string)device.GetPropertyValue("Description")
+                (string)device.GetPropertyValue("Description"),
+                ""
                 ));
             }
 
@@ -99,15 +149,17 @@ namespace UltimateChanger
 
         class USBDeviceInfo
         {
-            public USBDeviceInfo(string deviceID, string pnpDeviceID, string description)
+            public USBDeviceInfo(string deviceID, string pnpDeviceID, string description,string serialNumber)
             {
                 this.DeviceID = deviceID;
                 this.PnpDeviceID = pnpDeviceID;
                 this.Description = description;
+                this.SerialNumber = serialNumber;
             }
             public string DeviceID { get; private set; }
             public string PnpDeviceID { get; private set; }
             public string Description { get; private set; }
+            public string SerialNumber { get; private set; }
         }
 
     }
