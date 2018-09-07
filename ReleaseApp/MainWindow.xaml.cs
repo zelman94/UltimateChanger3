@@ -1892,6 +1892,7 @@ namespace UltimateChanger
             {
                 item.Foreground = Brushes.White;
                 item.BorderBrush = Brushes.White;
+               
             }
 
             foreach (var item in borderListForUi)
@@ -1911,9 +1912,17 @@ namespace UltimateChanger
             tabControl.ItemContainerStyle = Resources["TabItemDark"] as Style;
             tabControl.Background= (Brush)converter.ConvertFromString("#FF212121");
             this.Background = (Brush)converter.ConvertFromString("#E2212121");
+            oticonmedicalnRectangle.Fill= (Brush)converter.ConvertFromString("#FFECB3");
 
-            
+            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            {
+                Source = new Uri("pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml", UriKind.RelativeOrAbsolute)
+            });
 
+            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            {
+                Source = new Uri("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Grey.xaml", UriKind.RelativeOrAbsolute)
+            });
         }
 
         private void Light_skin_Checked(object sender, RoutedEventArgs e)
@@ -2003,6 +2012,17 @@ namespace UltimateChanger
             tabControl.ItemContainerStyle= Resources["TabItemLight"] as Style;
             tabControl.Background = (Brush)converter.ConvertFromString("#F5F5F5");
             this.Background= (Brush)converter.ConvertFromString("#F5F5F5");
+            oticonmedicalnRectangle.Fill = Brushes.Black;
+
+            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            {
+                Source = new Uri("pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml", UriKind.RelativeOrAbsolute)
+            });
+
+            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            {
+                Source = new Uri("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml", UriKind.RelativeOrAbsolute)
+            });
 
         }
 
