@@ -1121,6 +1121,7 @@
                 <Button Name="btnEdit" Content="Edit" Click="btnEdit_Click" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Left" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Width="150" Margin="20 0 0 0"/>
                 <Button Name="btnClearFields" Content="Clear" Click="btnClearFields_Click" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Right" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Width="150" Margin="0 0 20 0"/>
 
+                <Button Name="btnIdentify" Content="Identyfikuj" Grid.Column="0" Grid.Row="10" HorizontalAlignment="Left" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Width="150" Margin="20 0 0 0"/>
             </Grid>
         </TabItem>
 
