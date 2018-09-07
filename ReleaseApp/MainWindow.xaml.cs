@@ -1844,19 +1844,79 @@ namespace UltimateChanger
             foreach (var item in listBoxForUi)
             {
                 item.Foreground = Brushes.White;
+                item.BorderBrush = Brushes.White;
+
             }
             var converter = new System.Windows.Media.BrushConverter();
-            var brush = (Brush)converter.ConvertFromString("#FF616161");
-           
+            //var brush = (Brush)converter.ConvertFromString("#8A959B");
+
             foreach (var item in buttonListForUi)
             {
-                item.Background = brush;               
+                item.Background = (Brush)converter.ConvertFromString("#FF616161");
+                item.Foreground = (Brush)converter.ConvertFromString("#E5FFFFFF");
+                item.BorderBrush = (Brush)converter.ConvertFromString("#FF424242");
+                item.Opacity = 1;
             }
 
+            foreach (var item in checkBoxListForUi)
+            {
+                item.Foreground = Brushes.White;
+                item.BorderBrush = (Brush)converter.ConvertFromString("#FF424242");
+                item.Background = Brushes.White;
+                UpdateLayout();
+                item.Style = Resources["CheckboxDark"] as Style;
+            }
+
+            foreach (var item in comboBoxListForUi)
+            {
+                item.Foreground = Brushes.White;
+                item.BorderBrush = Brushes.White;
+            }
+
+            foreach (var item in radioButtonListForUi)
+            {
+                item.Foreground = Brushes.White;
+                item.BorderBrush = Brushes.White;
+                item.Background = Brushes.White;
+                UpdateLayout();
+                item.Style = Resources["RadiobuttonDark"] as Style;
+            }
+
+            foreach (var item in texBoxListForUi)
+            {
+                item.Foreground = Brushes.White;
+                item.BorderBrush = Brushes.White;
+            }
+
+            foreach (var item in sliderListForUi)
+            {
+                item.Foreground = Brushes.White;
+                item.BorderBrush = Brushes.White;
+            }
+
+            foreach (var item in borderListForUi)
+            {
+                item.BorderBrush = (Brush)converter.ConvertFromString("#FF616161"); 
+            }
+
+            tabControl.Background = (Brush)converter.ConvertFromString("#FF212121");
+            tabControl.Foreground = Brushes.White;
+            passwordBox.Foreground = Brushes.White;
+            passwordBox.BorderBrush = Brushes.White;
+            oticonRectangle.Fill = (Brush)converter.ConvertFromString("#FAFAFA");
+
+            UpdateLayout();
+            GridDataRandomHardware.ColumnHeaderStyle = Resources["DataGridDark"] as Style;
+            UpdateLayout();
+            tabControl.ItemContainerStyle = Resources["TabItemDark"] as Style;
+            tabControl.Background= (Brush)converter.ConvertFromString("#FF212121");
+            this.Background = (Brush)converter.ConvertFromString("#E2212121");
+
+            
 
         }
 
-        private void Light_skin_Checked_1(object sender, RoutedEventArgs e)
+        private void Light_skin_Checked(object sender, RoutedEventArgs e)
         {
 
             //Zmiany na jasny motyw
@@ -1895,7 +1955,8 @@ namespace UltimateChanger
                 item.Foreground = Brushes.Black;
                 item.BorderBrush = Brushes.Black;
                 item.Background = Brushes.Black;
-                item.Style = Resources["CheckboxWhite"] as Style;
+                UpdateLayout();
+                item.Style = Resources["CheckboxLight"] as Style;
             }
 
             foreach (var item in comboBoxListForUi)
@@ -1909,7 +1970,8 @@ namespace UltimateChanger
                 item.Foreground = Brushes.Black;
                 item.BorderBrush = Brushes.Black;
                 item.Background = Brushes.Black;
-                //item.Style = Resources["RadiobuttonWhite"] as Style;
+                UpdateLayout();
+                item.Style = Resources["RadiobuttonLight"] as Style;
             }
 
             foreach (var item in texBoxListForUi)
@@ -1934,8 +1996,13 @@ namespace UltimateChanger
             passwordBox.Foreground = Brushes.Black;
             passwordBox.BorderBrush = Brushes.Black;
             oticonRectangle.Fill = Brushes.White;
-            GridDataRandomHardware.ColumnHeaderStyle = Resources["DataGridWhite"] as Style;
-            
+
+            UpdateLayout();
+            GridDataRandomHardware.ColumnHeaderStyle = Resources["DataGridLight"] as Style;
+            UpdateLayout();
+            tabControl.ItemContainerStyle= Resources["TabItemLight"] as Style;
+            tabControl.Background = (Brush)converter.ConvertFromString("#F5F5F5");
+            this.Background= (Brush)converter.ConvertFromString("#F5F5F5");
 
         }
 

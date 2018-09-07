@@ -15,14 +15,75 @@
         Localization.Attributes="Center"
         >
     <Window.Resources>
-        <Style TargetType="{x:Type DataGridColumnHeader}" x:Key="DataGridWhite">
+        <Style TargetType="TabItem" x:Key="TabItemDark">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Border Name="Border" BorderThickness="0.5,0.5,0.5,0" BorderBrush="White" CornerRadius="2,2,0,0" Margin="2,0">
+                            <ContentPresenter x:Name="ContentSite"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"
+                                              ContentSource="Header"
+                                              Margin="10,2"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#FF616161"/>
+                                <Setter Property="TextElement.Foreground" TargetName="ContentSite" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter TargetName="Border" Property="Background" Value="#FF424242"/>
+                                <Setter Property="TextElement.Foreground" TargetName="ContentSite" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TabItem" x:Key="TabItemLight">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Border Name="Border" BorderThickness="0.5,0.5,0.5,0" BorderBrush="Black" CornerRadius="2,2,0,0" Margin="2,0">
+                            <ContentPresenter x:Name="ContentSite"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"
+                                              ContentSource="Header"
+                                              Margin="10,2"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="Black"/>
+                                <Setter Property="TextElement.Foreground" TargetName="ContentSite" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter TargetName="Border" Property="Background" Value="White"/>
+                                <Setter Property="TextElement.Foreground" TargetName="ContentSite" Value="Black"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <Style TargetType="{x:Type DataGridColumnHeader}" x:Key="DataGridDark">
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="BorderThickness" Value="0,0,0,2" />
+            <Setter Property="BorderBrush" Value="#FF424242"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#FF616161" />
+        </Style>
+        
+        <Style TargetType="{x:Type DataGridColumnHeader}" x:Key="DataGridLight">
             <Setter Property="FontWeight" Value="SemiBold" />
             <Setter Property="BorderThickness" Value="0,0,0,2" />
             <Setter Property="BorderBrush" Value="White"/>
-            <Setter Property="Foreground" Value="white"/>
+            <Setter Property="Foreground" Value="White"/>
             <Setter Property="Background" Value="Black"/>
         </Style>
-        <Style TargetType="{x:Type CheckBox}">
+        <Style x:Key="CheckboxDark" TargetType="{x:Type CheckBox}">
             <Setter Property="FocusVisualStyle">
                 <Setter.Value>
                     <Style>
@@ -160,7 +221,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style TargetType="{x:Type RadioButton}">
+        <Style x:Key="RadiobuttonDark" TargetType="{x:Type RadioButton}">
             <Setter Property="FocusVisualStyle">
                 <Setter.Value>
                     <Style>
@@ -297,7 +358,148 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="CheckboxWhite" TargetType="{x:Type CheckBox}">
+
+
+        <Style x:Key="RadiobuttonLight" TargetType="{x:Type RadioButton}" >
+            <Setter Property="FocusVisualStyle">
+                <Setter.Value>
+                    <Style>
+                        <Setter Property="Control.Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Rectangle Margin="2" SnapsToDevicePixels="True" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="{Binding (TextElement.Foreground), RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type FrameworkElement}}}"/>
+            <Setter Property="Background" Value="{DynamicResource PrimaryHueMidBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource PrimaryHueMidBrush}"/>
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <ControlTemplate.Resources>
+                            <Storyboard x:Key="Click">
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="InteractionEllipse">
+                                    <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="48"/>
+                                </DoubleAnimationUsingKeyFrames>
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="InteractionEllipse">
+                                    <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="48"/>
+                                </DoubleAnimationUsingKeyFrames>
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="InteractionEllipse">
+                                    <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-24"/>
+                                </DoubleAnimationUsingKeyFrames>
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="InteractionEllipse">
+                                    <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-24"/>
+                                </DoubleAnimationUsingKeyFrames>
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="InteractionEllipse">
+                                    <EasingDoubleKeyFrame KeyTime="0" Value="0.3"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </ControlTemplate.Resources>
+                        <Grid x:Name="templateRoot" Background="Transparent" SnapsToDevicePixels="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Viewbox Height="18" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Width="18">
+                                <Canvas Height="24" Width="24">
+                                    <Path x:Name="Graphic" Data="M12,20A8,8,0,0,1,4,12A8,8,0,0,1,12,4A8,8,0,0,1,20,12A8,8,0,0,1,12,20 M12,2A10,10,0,0,0,2,12A10,10,0,0,0,12,22A10,10,0,0,0,22,12A10,10,0,0,0,12,2z" Fill="Black"/>
+                                    <Ellipse x:Name="InteractionEllipse" Fill="{TemplateBinding Foreground}" Height="0" Canvas.Left="12" Opacity="0" RenderTransformOrigin="0.5,0.5" Canvas.Top="12" Width="0">
+                                        <Ellipse.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform/>
+                                                <SkewTransform/>
+                                                <RotateTransform/>
+                                                <TranslateTransform/>
+                                            </TransformGroup>
+                                        </Ellipse.RenderTransform>
+                                    </Ellipse>
+                                </Canvas>
+                            </Viewbox>
+                            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.Column="1" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <EventTrigger RoutedEvent="ButtonBase.Click">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="InteractionEllipse">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="48"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="InteractionEllipse">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="48"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="InteractionEllipse">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-24"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="InteractionEllipse">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-24"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="InteractionEllipse">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="0.3"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <Trigger Property="HasContent" Value="True">
+                                <Setter Property="FocusVisualStyle">
+                                    <Setter.Value>
+                                        <Style>
+                                            <Setter Property="Control.Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate>
+                                                        <Rectangle Margin="0" SnapsToDevicePixels="True" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Padding" Value="4,2,0,0"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Fill" TargetName="Graphic" Value="{DynamicResource MaterialDesignCheckBoxDisabled}"/>
+                                <Setter Property="Opacity" Value="0.26"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True"/>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Data" TargetName="Graphic" Value="M12,20A8,8,0,0,1,4,12A8,8,0,0,1,12,4A8,8,0,0,1,20,12A8,8,0,0,1,12,20 M12,2A10,10,0,0,0,2,12A10,10,0,0,0,12,22A10,10,0,0,0,22,12A10,10,0,0,0,12,2 M12,7A5,5,0,0,0,7,12A5,5,0,0,0,12,17A5,5,0,0,0,17,12A5,5,0,0,0,12,7z"/>
+                                <Setter Property="Fill" TargetName="Graphic" Value="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="{x:Null}">
+                                <Setter Property="Data" TargetName="Graphic" Value="M12,20A8,8,0,0,1,4,12A8,8,0,0,1,12,4A8,8,0,0,1,20,12A8,8,0,0,1,12,20 M12,2A10,10,0,0,0,2,12A10,10,0,0,0,12,22A10,10,0,0,0,22,12A10,10,0,0,0,12,2 M12,7A5,5,0,0,0,7,12A5,5,0,0,0,12,17A5,5,0,0,0,17,12A5,5,0,0,0,12,7z"/>
+                                <Setter Property="Opacity" TargetName="Graphic" Value="0.56"/>
+                            </Trigger>
+                            <Trigger Property="Validation.HasError" Value="True">
+                                <Setter Property="Fill" TargetName="Graphic" Value="{DynamicResource ValidationErrorBrush}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{DynamicResource ValidationErrorBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <Style x:Key="CheckboxLight" TargetType="{x:Type CheckBox}">
             <Setter Property="FocusVisualStyle">
                 <Setter.Value>
                     <Style>
@@ -770,8 +972,159 @@
             </Grid>
         </TabItem>
 
-        <TabItem Header="Admin" Foreground="White">
+        <TabItem Header="Random HI" Foreground="White">
 
+            <Grid x:Name="GridRandom" Margin="10 10 10 5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition Height="9*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border x:Name="Grid9" Grid.Column="0" Grid.Row="2" BorderBrush="#FF616161" BorderThickness="0,1,0,0" Margin="0 0 10 0"/>
+                    <Border x:Name="Grid10" Grid.Column="0" Grid.Row="4" BorderBrush="#FF616161" BorderThickness="0,1,0,0" Margin="0 0 10 0"/>
+
+                    <ListBox Name="ListBoxOfAvailableFeautures" SelectionChanged="ListBoxOfAvailableFeautures_SelectionChanged" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Margin="0 0 10 5"/>
+                    <ListBox Name="ListBoxOfAvailableStyles" SelectionChanged="ListBoxOfAvailableStyles_SelectionChanged" Grid.Column="0" Grid.Row="2" Grid.RowSpan="2" Margin="0 5 10 5"/>
+                    <ListBox Name="ListBoxOfAvailableTypes" SelectionChanged="ListBoxOfAvailableTypes_SelectionChanged" Grid.Column="0" Grid.Row="4" Grid.RowSpan="2" Margin="0 5 10 5"/>
+
+                    <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="5">
+                        <Label Content="Number of HIs:" Foreground="White" FontWeight="SemiBold" FontSize="12.5"/>
+                        <RadioButton x:Name="rbnHI_1" Content="1 HI" Checked="rbnHI_1_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
+                        <RadioButton x:Name="rbnHI_2" Content="2 HI" Checked="rbnHI_2_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
+                        <Label Content="Available since Release:" Foreground="White" Margin="0 10 0 0" FontWeight="SemiBold" FontSize="12.5"/>
+                        <Slider x:Name="sliderRelease" SmallChange="1" TickFrequency="0" ValueChanged="sliderRelease_ValueChanged" Foreground="White" BorderBrush="White" Margin="5 0"/>
+                        <Label x:Name="lblRelease" Content="19.1" Foreground="White"/>
+                        <Label Content="Wireless weight:" Foreground="White" Margin="0 10 0 0" FontWeight="SemiBold" FontSize="12.5"/>
+                        <Slider Name="sliderWeightWireless" SmallChange="0.1" ValueChanged="sliderWeightWireless_ValueChanged" LargeChange="0.1" Minimum="0.1" Maximum="1" Value="0.5" Foreground="White" BorderBrush="White" Margin="5 0"/>
+                        <Label Name="lblWeightWireless" Content="Label" Foreground="White"/>
+                    </StackPanel>
+
+                    <Button Name="btnRANDHI" Content="Random" Click="btnRANDHI_Click" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Center" Grid.Column="1" Grid.Row="5" Margin="10 0"/>
+
+                </Grid>
+
+                <Grid Grid.Column="1" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Content="List of people:" Foreground="White" Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0 -5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
+                    <ListBox Name="ListTeamPerson" SelectionMode="Multiple" Grid.Column="1" Grid.RowSpan="4" Margin="0 25 0 5"/>
+
+                    <Button Name="btnAddPersonToList" Content="Add" Click="btnAddPersonToList_Click" Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
+                    <Button Name="btnRemovePerson" Content="Remove" Click="Button_Click_3" Grid.Column="0" Grid.Row="0" VerticalAlignment="Bottom" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
+                    <Button Name="btnClearListTeamPerson" Content="Clear" ToolTip="" Click="btnClearListTeamPerson_Click" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
+                    <Button Name="btnAddNewPerson" Content="Add New Person" Click="Button_Click_4" Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
+                    <Label Content="Name of the new person:" Foreground="White" Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom" Margin="10 0"/>
+                    <TextBox Name="txtnewTeamMember"  MaxLength="4" TextWrapping="Wrap" Text="" ToolTip="Name (XXXX)" Grid.Column="0" Grid.Row="3" VerticalAlignment="Top" Foreground="White" BorderBrush="White" Margin="15 0" Height="25" />
+
+                </Grid>
+
+                <DataGrid Name="GridDataRandomHardware" AutoGenerateColumns="True"  Grid.ColumnSpan="2" Grid.Row="1">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name"  Binding="{Binding Name_Team_member}" Width="100"/>
+                        <DataGridTextColumn Header="Family"  Binding="{Binding Family_Name}" Width="100"/>
+                        <DataGridTextColumn Header="Left HI"  Binding="{Binding HIL_}" Width="100"/>
+                        <DataGridTextColumn Header="Right HI"  Binding="{Binding HIR_}" Width="100"/>
+                        <DataGridTextColumn Header="Features"  Binding="{Binding Ficzur_}" Width="170"/>
+                        <DataGridTextColumn Header="Communication device" Binding="{Binding ComDev_}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <Button Name="btnExportData" Content="Export" Click="btnExportData_Click" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
+                <Button Name="btnClearTable" Content="Clear"  Click="btnClearTable_Click" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
+            </Grid>
+
+        </TabItem>
+
+        <TabItem Header="Glossary" Foreground="White">
+            <Grid x:Name="Glossary">
+
+            </Grid>
+        </TabItem>
+
+        <TabItem Header="My Hardware" Foreground="White">
+            <Grid x:Name="Hardware" Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Column="1" Grid.RowSpan="6">
+                    <Label Name="lblSelectHardware" Content="Select Hardware:" Foreground="White" FontWeight="SemiBold" FontSize="12.5"/>
+                    <ListBox Name="ListBoxHardware" SelectionChanged="ListBoxHardware_SelectionChanged"/>
+                </StackPanel>
+                <Button Name="btnAdd" Content="Add" Click="btnAdd_Click" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Width="150" Margin="20 0 0 0"/>
+                <Button Name="btnClear" Content="Clear" Click="btnClear_Click" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Right" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Width="150" Margin="0 0 20 0"/>
+
+                <TextBox Name="txtMyItemsList" TextWrapping="Wrap" Text="" IsEnabled="False" Grid.Column="1" Grid.Row="7" Foreground="White" BorderBrush="White" Margin="20 0" Grid.RowSpan="3"/>
+                <Button Name="btnCopy" Content="Copy" Click="btnCopy_Click" Grid.Column="1" Grid.Row="10" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Width="150"/>
+                <Label Name="lblAddHardware" Content="Add Hardware:" Foreground="white" FontWeight="SemiBold" FontSize="12.5"/>
+
+                <Label Name="lblName" Content="Name" Grid.Column="0" Grid.Row="1" Foreground="White"/>
+                <TextBox Name="txtName" TextWrapping="Wrap" Text=""  Grid.Column="0" Grid.Row="1" Foreground="White" BorderBrush="White" Margin="5 0 20 10" Padding="1"/>
+
+                <Label Name="lblManuf" Content="Manufacturer" Grid.Column="0" Grid.Row="2" Foreground="White"/>
+                <TextBox Name="txtManuf" TextWrapping="Wrap" Text="" Grid.Column="0" Grid.Row="2" Foreground="White" BorderBrush="White" Margin="5 0 20 10" Padding="1"/>
+
+                <Label Name="lblType" Content="Type" Grid.Column="0" Grid.Row="3" Foreground="White"/>
+                <TextBox Name="txtType" TextWrapping="Wrap" Text="" Grid.Column="0" Grid.Row="3" Foreground="White" BorderBrush="White" Margin="5 0 20 10" Padding="1"/>
+
+                <Label Name="lblId" Content="ID" Grid.Column="0" Grid.Row="4" Foreground="White"/>
+                <TextBox Name="txtId" TextWrapping="Wrap" Text="" Grid.Column="0" Grid.Row="4" Foreground="White" BorderBrush="White" Margin="5 0 20 10" Padding="1"/>
+
+                <Label Name="lblLocal" Content="Localization" Grid.Column="0" Grid.Row="5" Foreground="White"/>
+                <TextBox Name="txtLocal" TextWrapping="Wrap" Text=""  Grid.Column="0" Grid.Row="5" Foreground="White" BorderBrush="White" Margin="5 0 20 10" Padding="1"/>
+
+                <Button Name="btnAddNewHardware" Content="Add" Click="btnAddNewHardware_Click" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Left" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Width="150" Margin="20 0 0 0"/>
+                <Button Name="btnRemove" Content="Remove" Click="btnRemove_Click" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Right" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Width="150" Margin="0 0 20 0"/>
+
+                <Button Name="btnEdit" Content="Edit" Click="btnEdit_Click" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Left" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Width="150" Margin="20 0 0 0"/>
+                <Button Name="btnClearFields" Content="Clear" Click="btnClearFields_Click" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Right" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Width="150" Margin="0 0 20 0"/>
+
+            </Grid>
+        </TabItem>
+
+        <TabItem Header="Admin" Foreground="White">
             <Grid x:Name="AdminPanel">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -796,9 +1149,6 @@
                     <Button x:Name="btnLogToDB" Content="Log in" HorizontalAlignment="Center" MouseEnter="LoggingMouseEnter" MouseLeave="LoggingMouseEnter" Click="btnLogToDB_Click"  Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="100 0" Width="110"/>
                     <Button Name="btnNewUser" Content="Create New" HorizontalAlignment="Center"  Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="100 15" Width="110"/>
                 </StackPanel>
-
-
-
 
                 <Grid x:Name="Mario" Width="300" Margin="0 20 30 20" HorizontalAlignment="Right" Grid.Column="1">
                     <Grid.ColumnDefinitions>
@@ -1046,7 +1396,6 @@
 
                 </Grid>
             </Grid>
-
         </TabItem>
 
         <TabItem Header="Settings" Foreground="White">
@@ -1092,186 +1441,15 @@
 
                 <StackPanel Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10 0 0 0">
                     <Label x:Name="Skin" Content="Skin" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
-                    <RadioButton x:Name="rbnLight_skin" Content="Light" Checked="Light_skin_Checked_1" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
-                    <RadioButton x:Name="rbnDark_skin" Content="Dark" Checked="Dark_skin_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
+                    <RadioButton x:Name="rbnLight_skin" Content="Crystal White" Checked="Light_skin_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
+                    <RadioButton x:Name="rbnDark_skin" Content="On the dark side" Checked="Dark_skin_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
                     <RadioButton x:Name="rbn_Genie" Content="Genie" Checked="Radio_Genie_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
                     <RadioButton x:Name="rbn_Oasis" Content="Oasis" Checked="Radio_Oasis_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
                     <RadioButton x:Name="rbn_ExpressFit" Content="ExpressFit" Checked="Radio_ExpressFit_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
                 </StackPanel>
-
             </Grid>
         </TabItem>
-
-        <TabItem Header="Random HI" Foreground="White">
-
-            <Grid x:Name="GridRandom" Margin="10 10 10 5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="8*"/>
-                    <RowDefinition Height="9*"/>
-                    <RowDefinition Height="1*"/>
-                </Grid.RowDefinitions>
-
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                    </Grid.RowDefinitions>
-
-                    <Border x:Name="Grid9" Grid.Column="0" Grid.Row="2" BorderBrush="#FF616161" BorderThickness="0,1,0,0" Margin="0 0 10 0"/>
-                    <Border x:Name="Grid10" Grid.Column="0" Grid.Row="4" BorderBrush="#FF616161" BorderThickness="0,1,0,0" Margin="0 0 10 0"/>
-
-
-
-                    <ListBox Name="ListBoxOfAvailableFeautures" SelectionChanged="ListBoxOfAvailableFeautures_SelectionChanged" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Margin="0 0 10 5"/>
-                    <ListBox Name="ListBoxOfAvailableStyles" SelectionChanged="ListBoxOfAvailableStyles_SelectionChanged" Grid.Column="0" Grid.Row="2" Grid.RowSpan="2" Margin="0 5 10 5"/>
-                    <ListBox Name="ListBoxOfAvailableTypes" SelectionChanged="ListBoxOfAvailableTypes_SelectionChanged" Grid.Column="0" Grid.Row="4" Grid.RowSpan="2" Margin="0 5 10 5"/>
-
-                    <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="5">
-                        <Label Content="Number of HIs:" Foreground="White" FontWeight="SemiBold" FontSize="12.5"/>
-                        <RadioButton x:Name="rbnHI_1" Content="1 HI" Checked="rbnHI_1_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
-                        <RadioButton x:Name="rbnHI_2" Content="2 HI" Checked="rbnHI_2_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
-                        <Label Content="Available since Release:" Foreground="White" Margin="0 10 0 0" FontWeight="SemiBold" FontSize="12.5"/>
-                        <Slider x:Name="sliderRelease" SmallChange="1" TickFrequency="0" ValueChanged="sliderRelease_ValueChanged" Foreground="White" BorderBrush="White" Margin="5 0"/>
-                        <Label x:Name="lblRelease" Content="19.1" Foreground="White"/>
-                        <Label Content="Wireless weight:" Foreground="White" Margin="0 10 0 0" FontWeight="SemiBold" FontSize="12.5"/>
-                        <Slider Name="sliderWeightWireless" SmallChange="0.1" ValueChanged="sliderWeightWireless_ValueChanged" LargeChange="0.1" Minimum="0.1" Maximum="1" Value="0.5" Foreground="White" BorderBrush="White" Margin="5 0"/>
-                        <Label Name="lblWeightWireless" Content="Label" Foreground="White"/>
-                    </StackPanel>
-
-                    <Button Name="btnRANDHI" Content="Random" Click="btnRANDHI_Click" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Center" Grid.Column="1" Grid.Row="5" Margin="10 0"/>
-
-                </Grid>
-
-                <Grid Grid.Column="1" Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                    </Grid.RowDefinitions>
-
-
-                    <Label Content="List of people:" Foreground="White" Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0 -5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
-                    <ListBox Name="ListTeamPerson" SelectionMode="Multiple" Grid.Column="1" Grid.RowSpan="4" Margin="0 25 0 5"/>
-
-                    <Button Name="btnAddPersonToList" Content="Add" Click="btnAddPersonToList_Click" Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
-                    <Button Name="btnRemovePerson" Content="Remove" Click="Button_Click_3" Grid.Column="0" Grid.Row="0" VerticalAlignment="Bottom" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
-                    <Button Name="btnClearListTeamPerson" Content="Clear" ToolTip="" Click="btnClearListTeamPerson_Click" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
-                    <Button Name="btnAddNewPerson" Content="Add New Person" Click="Button_Click_4" Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
-                    <Label Content="Name of the new person:" Foreground="White" Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom" Margin="10 0"/>
-                    <TextBox Name="txtnewTeamMember"  MaxLength="4" TextWrapping="Wrap" Text="" ToolTip="Name (XXXX)" Grid.Column="0" Grid.Row="3" VerticalAlignment="Top" Foreground="White" BorderBrush="White" Margin="15 0" Height="25" />
-
-                </Grid>
-
-                <DataGrid Name="GridDataRandomHardware" AutoGenerateColumns="True"  Grid.ColumnSpan="2" Grid.Row="1">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Name"  Binding="{Binding Name_Team_member}" Width="100"/>
-                        <DataGridTextColumn Header="Family"  Binding="{Binding Family_Name}" Width="100"/>
-                        <DataGridTextColumn Header="Left HI"  Binding="{Binding HIL_}" Width="100"/>
-                        <DataGridTextColumn Header="Right HI"  Binding="{Binding HIR_}" Width="100"/>
-                        <DataGridTextColumn Header="Features"  Binding="{Binding Ficzur_}" Width="170"/>
-                        <DataGridTextColumn Header="Communication device" Binding="{Binding ComDev_}" Width="*"/>
-                    </DataGrid.Columns>
-
-                    <DataGrid.Resources >
-                        <Style TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="FontWeight" Value="SemiBold" />
-                            <Setter Property="BorderThickness" Value="0,0,0,2" />
-                            <Setter Property="BorderBrush" Value="#FF424242"/>
-                            <Setter Property="Foreground" Value="White"/>
-                            <Setter Property="Background" Value="#FF616161" />
-                        </Style>
-                    </DataGrid.Resources>
-                </DataGrid>
-
-                <Button Name="btnExportData" Content="Export" Click="btnExportData_Click" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
-                <Button Name="btnClearTable" Content="Clear"  Click="btnClearTable_Click" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
-            </Grid>
-
-        </TabItem>
-
-        <TabItem Header="Glossary" Foreground="White">
-            <Grid x:Name="Glossary">
-
-            </Grid>
-        </TabItem>
-
-        <TabItem Header="My Hardware" Foreground="White">
-            <Grid x:Name="Hardware" Margin="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="0.5*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                </Grid.RowDefinitions>
-
-                <StackPanel Grid.Column="1" Grid.RowSpan="6">
-                    <Label Name="lblSelectHardware" Content="Select Hardware:" Foreground="White" FontWeight="SemiBold" FontSize="12.5"/>
-                    <ListBox Name="ListBoxHardware" SelectionChanged="ListBoxHardware_SelectionChanged"/>
-                </StackPanel>
-                <Button Name="btnAdd" Content="Add" Click="btnAdd_Click" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Width="150" Margin="20 0 0 0"/>
-                <Button Name="btnClear" Content="Clear" Click="btnClear_Click" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Right" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Width="150" Margin="0 0 20 0"/>
-
-                <TextBox Name="txtMyItemsList" TextWrapping="Wrap" Text="" IsEnabled="False" Grid.Column="1" Grid.Row="7" Foreground="White" BorderBrush="White" Margin="20 0" Grid.RowSpan="3"/>
-                <Button Name="btnCopy" Content="Copy" Click="btnCopy_Click" Grid.Column="1" Grid.Row="10" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Width="150"/>
-                <Label Name="lblAddHardware" Content="Add Hardware:" Foreground="white" FontWeight="SemiBold" FontSize="12.5"/>
-
-
-
-
-                <Label Name="lblName" Content="Name" Grid.Column="0" Grid.Row="1" Foreground="White"/>
-                <TextBox Name="txtName" TextWrapping="Wrap" Text=""  Grid.Column="0" Grid.Row="1" Foreground="White" BorderBrush="White" Margin="5 0 20 10" Padding="1"/>
-
-                <Label Name="lblManuf" Content="Manufacturer" Grid.Column="0" Grid.Row="2" Foreground="White"/>
-                <TextBox Name="txtManuf" TextWrapping="Wrap" Text="" Grid.Column="0" Grid.Row="2" Foreground="White" BorderBrush="White" Margin="5 0 20 10" Padding="1"/>
-
-                <Label Name="lblType" Content="Type" Grid.Column="0" Grid.Row="3" Foreground="White"/>
-                <TextBox Name="txtType" TextWrapping="Wrap" Text="" Grid.Column="0" Grid.Row="3" Foreground="White" BorderBrush="White" Margin="5 0 20 10" Padding="1"/>
-
-                <Label Name="lblId" Content="ID" Grid.Column="0" Grid.Row="4" Foreground="White"/>
-                <TextBox Name="txtId" TextWrapping="Wrap" Text="" Grid.Column="0" Grid.Row="4" Foreground="White" BorderBrush="White" Margin="5 0 20 10" Padding="1"/>
-
-                <Label Name="lblLocal" Content="Localization" Grid.Column="0" Grid.Row="5" Foreground="White"/>
-                <TextBox Name="txtLocal" TextWrapping="Wrap" Text=""  Grid.Column="0" Grid.Row="5" Foreground="White" BorderBrush="White" Margin="5 0 20 10" Padding="1"/>
-
-
-                <Button Name="btnAddNewHardware" Content="Add" Click="btnAddNewHardware_Click" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Left" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Width="150" Margin="20 0 0 0"/>
-                <Button Name="btnRemove" Content="Remove" Click="btnRemove_Click" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Right" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Width="150" Margin="0 0 20 0"/>
-
-
-                <Button Name="btnEdit" Content="Edit" Click="btnEdit_Click" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Left" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Width="150" Margin="20 0 0 0"/>
-                <Button Name="btnClearFields" Content="Clear" Click="btnClearFields_Click" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Right" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Width="150" Margin="0 0 20 0"/>
-
-            </Grid>
-        </TabItem>
-
+        
         <TabItem Header="Help" Foreground="White">
             <Grid x:Name="helpGrid" Margin="10">
                 <WebBrowser Name="przegladarka"/>
