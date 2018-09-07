@@ -199,7 +199,7 @@ namespace UltimateChanger
             setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
             setUIdefaults(XMLReader.getDefaultSettings("ComboBox"), "ComboBox");
 
-           
+            
         }
         //________________________________________________________________________________________________________________________________________________
 
@@ -2542,6 +2542,40 @@ namespace UltimateChanger
         private void ListBoxOfAvailableTypes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void btnCheckVerifit_Click(object sender, RoutedEventArgs e)
+        {
+            ListBoxAvailableVerifit.ItemsSource = dataBaseManager.GetAllAvailableVerifit();
+        }
+
+        private void btnTakeVerifit_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListBoxAvailableVerifit.SelectedIndex != -1)
+            {
+                string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+                dataBaseManager.setUserForDevice(ListBoxAvailableVerifit.SelectedItem.ToString(), userName);
+                ListboxOfMyVerifit.ItemsSource = ListBoxAvailableVerifit.SelectedItem.ToString();
+                ListBoxAvailableVerifit.ItemsSource = dataBaseManager.GetAllAvailableVerifit();
+
+            }
+            else
+            {
+                MessageBox.Show("Check and select Available Devices");
+            }
+        }
+
+        private void btbReturnVerifit_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListboxOfMyVerifit.SelectedIndex != -1)
+            {
+                string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+                dataBaseManager.returnVerifit(ListboxOfMyVerifit.SelectedItem.ToString());
+            }
+            else
+            {
+                MessageBox.Show("Check and select Available Devices");
+            }
         }
 
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -411,18 +411,87 @@ namespace UltimateChanger
 
         public void CreateNew(string name, string pass)
         {
+            MySqlDataReader myReader = null;
             try
             {
                 MySqlCommand myCommand = new MySqlCommand($"INSERT INTO `UltimateUsers` (`name`, `pass`, `power`) VALUES ('{name}', '{pass}', '0')", SQLConnection);
-                MySqlDataReader myReader;
-                myReader = myCommand.ExecuteReader();               
+                
+                myReader = myCommand.ExecuteReader();   
+                
             }
             catch (Exception x)
             {
                 System.Windows.MessageBox.Show(x.ToString());
             }
+            myReader.Close();
         }
 
+        public List<string> GetAllAvailableVerifit()
+        {
+            List<string> listVerifit = new List<string>();
+            MySqlDataReader myReader = null;
+            try
+            {
+                MySqlCommand myCommand = new MySqlCommand($"SELECT `name_verifit` FROM `VeriFit` WHERE `status` = '0'", SQLConnection);
+                myReader = myCommand.ExecuteReader();
+
+                while (myReader.Read())
+                {
+                    listVerifit.Add(myReader.GetString(0));
+                }
+            }
+            catch (Exception x)
+            {
+                System.Windows.MessageBox.Show(x.ToString());
+            }
+            myReader.Close();
+            return listVerifit;
+        }
+
+        public bool setUserForDevice(string device, string user)
+        {
+            List<string> listVerifit = GetAllAvailableVerifit();
+            MySqlDataReader myReader = null;
+            foreach (var item in listVerifit)
+            {
+                if (item == device)
+                {
+
+                    try
+                    {
+                        MySqlCommand myCommand = new MySqlCommand($"UPDATE `VeriFit` SET `user`='{user}',`status`='1' WHERE `name_verifit` = '{device}'", SQLConnection);
+                        myReader = myCommand.ExecuteReader();
+                        myReader.Close();
+                        return true;
+                    }
+                    catch (Exception)
+                    {
+                        myReader.Close();
+                        return false;
+                    }
+                }
+            }
+            myReader.Close();
+            return false;
+        }
+
+        public bool returnVerifit(string device)
+        {
+            MySqlDataReader myReader = null;
+            try
+            {
+                MySqlCommand myCommand = new MySqlCommand($"UPDATE `VeriFit` SET `user`='',`status`='0' WHERE `name_verifit` = '{device}'", SQLConnection);
+                myReader = myCommand.ExecuteReader();
+                myReader.Close();
+                return true;
+            }
+            catch (Exception)
+            {
+                myReader.Close();
+                return false;
+            }
+
+        }
 
     }
 }
