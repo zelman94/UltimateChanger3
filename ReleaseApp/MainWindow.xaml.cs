@@ -199,7 +199,11 @@ namespace UltimateChanger
             setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
             setUIdefaults(XMLReader.getDefaultSettings("ComboBox"), "ComboBox");
 
-            
+            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;           
+            ListboxOfMyVerifit.ItemsSource = dataBaseManager.GetMyVerifit(userName);
+
+
+
         }
         //________________________________________________________________________________________________________________________________________________
 
@@ -2555,7 +2559,7 @@ namespace UltimateChanger
             {
                 string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
                 dataBaseManager.setUserForDevice(ListBoxAvailableVerifit.SelectedItem.ToString(), userName);
-                ListboxOfMyVerifit.ItemsSource = ListBoxAvailableVerifit.SelectedItem.ToString();
+                ListboxOfMyVerifit.ItemsSource =dataBaseManager.GetMyVerifit(userName);
                 ListBoxAvailableVerifit.ItemsSource = dataBaseManager.GetAllAvailableVerifit();
 
             }
@@ -2576,6 +2580,11 @@ namespace UltimateChanger
             {
                 MessageBox.Show("Check and select Available Devices");
             }
+        }
+
+        private void btnFindVerifit_Click(object sender, RoutedEventArgs e)
+        {
+            ListBoxOfFindVerifit.ItemsSource = dataBaseManager.FindVerifits();
         }
 
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)

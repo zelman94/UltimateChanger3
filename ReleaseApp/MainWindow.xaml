@@ -1402,7 +1402,7 @@
 
         <TabItem Header="Settings" Foreground="White">
 
-            <Grid x:Name="aboutGrid">
+            <Grid x:Name="aboutGrid" Margin="0,-3,0,3">
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
@@ -1461,6 +1461,10 @@
                     <Label Name="lblFreeVerifit" Content="Return Verifit"/>
                     <ListBox Name="ListboxOfMyVerifit" Height="100"/>
                     <Button Name="btbReturnVerifit" Content="Return" d:LayoutOverrides="Height" Click="btbReturnVerifit_Click"/>
+                </StackPanel>
+                <StackPanel Grid.Column="2" HorizontalAlignment="Left" Height="126" Margin="47,294,0,0" VerticalAlignment="Top" Width="137">
+                    <Button Name="btnFindVerifit" Content="Find" d:LayoutOverrides="Height" Click="btnFindVerifit_Click"/>
+                    <ListBox Name="ListBoxOfFindVerifit" Height="100"/>
                 </StackPanel>
             </Grid>
         </TabItem>

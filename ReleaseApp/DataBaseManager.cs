@@ -448,6 +448,50 @@ namespace UltimateChanger
             return listVerifit;
         }
 
+        public List<string> GetMyVerifit(string user)
+        {
+            List<string> listVerifit = new List<string>();
+            MySqlDataReader myReader = null;
+            try
+            {
+                MySqlCommand myCommand = new MySqlCommand($"SELECT `name_verifit` FROM `VeriFit` WHERE `user` = '{user}'", SQLConnection);
+                myReader = myCommand.ExecuteReader();
+
+                while (myReader.Read())
+                {
+                    listVerifit.Add(myReader.GetString(0));
+                }
+            }
+            catch (Exception x)
+            {
+                System.Windows.MessageBox.Show(x.ToString());
+            }
+            myReader.Close();
+            return listVerifit;
+        }
+
+        public List<string> FindVerifits()
+        {
+            List<string> listVerifit = new List<string>();
+            MySqlDataReader myReader = null;
+            try
+            {
+                MySqlCommand myCommand = new MySqlCommand($"SELECT `name_verifit`,`user` FROM `VeriFit` WHERE `status` = '1'", SQLConnection);
+                myReader = myCommand.ExecuteReader();
+
+                while (myReader.Read())
+                {
+                    listVerifit.Add(myReader.GetString(0)+ " " + myReader.GetString(1));
+                }
+            }
+            catch (Exception x)
+            {
+                System.Windows.MessageBox.Show(x.ToString());
+            }
+            myReader.Close();
+            return listVerifit;
+        }
+
         public bool setUserForDevice(string device, string user)
         {
             List<string> listVerifit = GetAllAvailableVerifit();
@@ -490,7 +534,6 @@ namespace UltimateChanger
                 myReader.Close();
                 return false;
             }
-
         }
 
     }
