@@ -203,7 +203,6 @@ namespace UltimateChanger
             ListboxOfMyVerifit.ItemsSource = dataBaseManager.GetMyVerifit(userName);
 
 
-
         }
         //________________________________________________________________________________________________________________________________________________
 
@@ -374,6 +373,8 @@ namespace UltimateChanger
             StringToUI.Add("rbn_ExpressFit", "ExpressFit_skin");
             StringToUI.Add("rbnLogsAll_YES", "SetAll");
             StringToUI.Add("rbnLogsAll_NO", "NotSetAll");
+            StringToUI.Add("rbnTurnOnVerifit", "TurnOnVerifit");
+            StringToUI.Add("rbnTurnOffVerifit", "TurnOffVerifit");
         }
 
         public void checkbox(object sender, RoutedEventArgs e)
@@ -663,6 +664,8 @@ namespace UltimateChanger
                 rbn_ExpressFit,
                 rbnLogsAll_YES,
                 rbnLogsAll_NO,
+                rbnTurnOnVerifit,
+                rbnTurnOffVerifit,
             };
             comboBoxList = new List<ComboBox>()
             {
@@ -1274,10 +1277,12 @@ namespace UltimateChanger
             if (cmbBuild.SelectedIndex != -1)
             {
                 btninstal.IsEnabled = true;
+                btnInfo.IsEnabled = true;
             }
             else
             {
                 btninstal.IsEnabled = false;
+                btnInfo.IsEnabled = false;
             }
         }
         private void LoggingMouseEnter(object sender, MouseEventArgs e)
@@ -2585,6 +2590,31 @@ namespace UltimateChanger
         private void btnFindVerifit_Click(object sender, RoutedEventArgs e)
         {
             ListBoxOfFindVerifit.ItemsSource = dataBaseManager.FindVerifits();
+        }
+
+        private void rbnTurnOnVerifit_Checked(object sender, RoutedEventArgs e)
+        {
+            VerifitPanel.Visibility = Visibility.Visible;
+            panelReturnVerifit.Visibility = Visibility.Visible;
+            panelFindVerifit.Visibility = Visibility.Visible;
+
+            XMLReader.setSetting("TurnOnVerifit", "RadioButtons", Convert.ToString(rbnTurnOnVerifit.IsChecked.Value));
+            bool tmp = rbnTurnOnVerifit.IsChecked.Value;
+            tmp = !tmp;
+            XMLReader.setSetting("TurnOffVerifit", "RadioButtons", Convert.ToString(tmp));
+
+        }
+
+        private void rbnTurnOffVerifit_Checked(object sender, RoutedEventArgs e)
+        {
+            VerifitPanel.Visibility = Visibility.Hidden;
+            panelReturnVerifit.Visibility = Visibility.Hidden;
+            panelFindVerifit.Visibility = Visibility.Hidden;
+
+            XMLReader.setSetting("TurnOffVerifit", "RadioButtons", Convert.ToString(rbnTurnOffVerifit.IsChecked.Value));
+            bool tmp = rbnTurnOffVerifit.IsChecked.Value;
+            tmp = !tmp;
+            XMLReader.setSetting("TurnOnVerifit", "RadioButtons", Convert.ToString(tmp));
         }
 
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -913,8 +913,8 @@
                     <Label Content="Build:" Grid.Row="2" Grid.Column="0" Foreground="White" FontWeight="SemiBold" FontSize="12.5"/>
                     <ComboBox x:Name="cmbBuild" Grid.Row="2" Grid.Column="0" SelectionChanged="cmbbuild_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 0"/>
 
-                    <Button x:Name="btninstal" Content="Install" Click="btninstal_Click" Grid.Row="2" Grid.Column="1" IsEnabled="True" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Top" Margin="5 0"/>
-                    <Button x:Name="btnInfo" Content="Copy path to build" Grid.Row="2" Grid.Column="1" Click="btnInfo_Click" RenderTransformOrigin="0.255,-0.25" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Bottom" Margin="5 0 5 10"/>
+                    <Button x:Name="btninstal" Content="Install" Click="btninstal_Click" Grid.Row="2" Grid.Column="1" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Top" Margin="5 0"/>
+                    <Button x:Name="btnInfo" Content="Copy path to build" Grid.Row="2" Grid.Column="1" Click="btnInfo_Click" IsEnabled="False" RenderTransformOrigin="0.255,-0.25" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Bottom" Margin="5 0 5 10"/>
 
                 </Grid>
             </Grid>
@@ -1422,7 +1422,7 @@
                 <Image x:Name="imgBrandSkin" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Source="Images/sonic.png" Margin="30 10 30 0"/>
 
 
-                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="10 0 0 0">
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="10,82,0,10" Height="353">
                     <Label Content="Startup settings" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
                     <RadioButton Name="rbnStartwithWindows" Content="Start with Windows" GroupName="group1" Checked="rbnStartwithWindows_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
                     <RadioButton Name="rbnNotStartwithWindows" Content="Do not Start with Windows" GroupName="group1" Checked="rbnNotStartwithWindows_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 1 0 0"/>
@@ -1435,6 +1435,9 @@
                     <Label Content="Default Installation mode" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
                     <RadioButton x:Name="rbnDefaultNormal" Content="Normal" GroupName="group3" Checked="rbnDefaultNormal_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
                     <RadioButton x:Name="rbnDefaultSilent" Content="Silent" GroupName="group3" Checked="rbnDefaultSilent_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 1 0 0"/>
+                    <Label Content="Verifit mode"/>
+                    <RadioButton Name="rbnTurnOnVerifit" Content="On" GroupName="group4" Checked="rbnTurnOnVerifit_Checked"/>
+                    <RadioButton Name="rbnTurnOffVerifit" Content="Off" GroupName="group4" Checked="rbnTurnOffVerifit_Checked"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10 0 0 0">
@@ -1457,12 +1460,12 @@
                     <Label Name="lblVerifit" Content="Verifit Reservation"/>
                     <Button Name="btnTakeVerifit" Content="Take" d:LayoutOverrides="Height" Click="btnTakeVerifit_Click"/>
                 </StackPanel>
-                <StackPanel Grid.Column="2" HorizontalAlignment="Left" Height="158" Margin="47,30,0,0" VerticalAlignment="Top" Width="137">
+                <StackPanel Name="panelReturnVerifit" Grid.Column="2" HorizontalAlignment="Left" Height="158" Margin="47,30,0,0" VerticalAlignment="Top" Width="137">
                     <Label Name="lblFreeVerifit" Content="Return Verifit"/>
                     <ListBox Name="ListboxOfMyVerifit" Height="100"/>
                     <Button Name="btbReturnVerifit" Content="Return" d:LayoutOverrides="Height" Click="btbReturnVerifit_Click"/>
                 </StackPanel>
-                <StackPanel Grid.Column="2" HorizontalAlignment="Left" Height="126" Margin="47,294,0,0" VerticalAlignment="Top" Width="137">
+                <StackPanel Name="panelFindVerifit" Grid.Column="2" HorizontalAlignment="Left" Height="126" Margin="47,294,0,0" VerticalAlignment="Top" Width="137">
                     <Button Name="btnFindVerifit" Content="Find" d:LayoutOverrides="Height" Click="btnFindVerifit_Click"/>
                     <ListBox Name="ListBoxOfFindVerifit" Height="100"/>
                 </StackPanel>
