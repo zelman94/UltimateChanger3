@@ -17,6 +17,10 @@
             <Value>TRUE</Value>
       <Name>InstallModeSilent</Name>
             <Value>FALSE</Value>
+      <Name>TurnOnVerifit</Name>
+            <Value>False</Value>
+      <Name>TurnOffVerifit</Name>
+            <Value>True</Value>
       <Name>HI_1</Name>
             <Value>FALSE</Value>
       <Name>HI_2</Name>

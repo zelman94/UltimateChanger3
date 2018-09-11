@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Management;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -51,5 +53,114 @@ namespace UltimateChanger
             List<MyHardware> lista = myXMLReader.getHardware();
             return lista[id_item];
         }
+    }
+
+    class USBHardware
+    {
+        public string DeviceID { get; set; }
+        public string DeviceName { get; set; }
+
+        public USBHardware(string deviceID,string pnpDeviceID)
+        {
+            this.DeviceID = deviceID;
+            this.DeviceName = pnpDeviceID;
+        }
+
+       static public string getIDName(string DeviceName)
+        {
+            string name = "";
+
+            foreach (string item in FileOperator.ListUSB_AvailableComDev_description)
+            {
+                if (item.Contains(DeviceName))
+                {
+                    name = FileOperator.ListUSB_AvailableComDev[FileOperator.ListUSB_AvailableComDev_description.IndexOf(DeviceName)];
+                }
+            }
+
+            return name;
+        }
+
+        static public string getComDevID(string DeviceID)
+        {
+            string ID = "";
+
+           
+
+            return ID;
+        }
+
+        static public void ShowAllConnectedUSB()
+        {
+
+
+            try
+            {
+                var usbDevices = GetUSBDevices();
+
+                foreach (var usbDevice in usbDevices)
+                {
+                    Console.WriteLine("Device ID: {0}, PNP Device ID: {1}, Description: {2}",
+                        usbDevice.DeviceID, usbDevice.PnpDeviceID, usbDevice.Description);
+                    getIDName(usbDevice.Description);
+                    getComDevID(usbDevice.SerialNumber);
+                }
+            }
+            catch (Exception)
+            {
+                
+            }
+
+
+        }
+
+        static List<USBDeviceInfo> GetUSBDevices()
+        {
+
+
+            foreach (DriveInfo drive in DriveInfo.GetDrives())
+            {
+                if (drive.DriveType == DriveType.Removable)
+                {
+                    Console.WriteLine(string.Format("({0}) {1}", drive.Name.Replace("\\", ""), drive.VolumeLabel));
+                }
+            }
+
+            List<USBDeviceInfo> devices = new List<USBDeviceInfo>();
+
+            ManagementObjectCollection collection;
+            using (var searcher = new ManagementObjectSearcher(@"Select * From Win32_USBHub"))
+                collection = searcher.Get();
+
+            foreach (var device in collection)
+            {
+                Console.WriteLine("USBHub device Friendly name:{0}", device["Name"].ToString());
+                devices.Add(new USBDeviceInfo(
+                (string)device.GetPropertyValue("DeviceID"),
+                (string)device.GetPropertyValue("PNPDeviceID"),
+                (string)device.GetPropertyValue("Description"),
+                ""
+                ));
+            }
+
+            collection.Dispose();
+            return devices;
+        }
+
+        class USBDeviceInfo
+        {
+            public USBDeviceInfo(string deviceID, string pnpDeviceID, string description,string serialNumber)
+            {
+                this.DeviceID = deviceID;
+                this.PnpDeviceID = pnpDeviceID;
+                this.Description = description;
+                this.SerialNumber = serialNumber;
+            }
+            public string DeviceID { get; private set; }
+            public string PnpDeviceID { get; private set; }
+            public string Description { get; private set; }
+            public string SerialNumber { get; private set; }
+        }
+
     }
 }

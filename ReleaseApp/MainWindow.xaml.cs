@@ -82,6 +82,7 @@ namespace UltimateChanger
         {
             try
             {
+                USBHardware.ShowAllConnectedUSB();
                 var exists = System.Diagnostics.Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location)).Count() > 1;
                 if (exists) // jezeli wiecej niz 1 instancja to nie uruchomi sie
                 {
@@ -198,7 +199,10 @@ namespace UltimateChanger
             setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
             setUIdefaults(XMLReader.getDefaultSettings("ComboBox"), "ComboBox");
 
-           
+            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;           
+            ListboxOfMyVerifit.ItemsSource = dataBaseManager.GetMyVerifit(userName);
+
+
         }
         //________________________________________________________________________________________________________________________________________________
 
@@ -369,6 +373,8 @@ namespace UltimateChanger
             StringToUI.Add("rbn_ExpressFit", "ExpressFit_skin");
             StringToUI.Add("rbnLogsAll_YES", "SetAll");
             StringToUI.Add("rbnLogsAll_NO", "NotSetAll");
+            StringToUI.Add("rbnTurnOnVerifit", "TurnOnVerifit");
+            StringToUI.Add("rbnTurnOffVerifit", "TurnOffVerifit");
         }
 
         public void checkbox(object sender, RoutedEventArgs e)
@@ -658,6 +664,8 @@ namespace UltimateChanger
                 rbn_ExpressFit,
                 rbnLogsAll_YES,
                 rbnLogsAll_NO,
+                rbnTurnOnVerifit,
+                rbnTurnOffVerifit,
             };
             comboBoxList = new List<ComboBox>()
             {
@@ -1269,10 +1277,12 @@ namespace UltimateChanger
             if (cmbBuild.SelectedIndex != -1)
             {
                 btninstal.IsEnabled = true;
+                btnInfo.IsEnabled = true;
             }
             else
             {
                 btninstal.IsEnabled = false;
+                btnInfo.IsEnabled = false;
             }
         }
         private void LoggingMouseEnter(object sender, MouseEventArgs e)
@@ -2541,6 +2551,70 @@ namespace UltimateChanger
         private void ListBoxOfAvailableTypes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void btnCheckVerifit_Click(object sender, RoutedEventArgs e)
+        {
+            ListBoxAvailableVerifit.ItemsSource = dataBaseManager.GetAllAvailableVerifit();
+        }
+
+        private void btnTakeVerifit_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListBoxAvailableVerifit.SelectedIndex != -1)
+            {
+                string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+                dataBaseManager.setUserForDevice(ListBoxAvailableVerifit.SelectedItem.ToString(), userName);
+                ListboxOfMyVerifit.ItemsSource =dataBaseManager.GetMyVerifit(userName);
+                ListBoxAvailableVerifit.ItemsSource = dataBaseManager.GetAllAvailableVerifit();
+
+            }
+            else
+            {
+                MessageBox.Show("Check and select Available Devices");
+            }
+        }
+
+        private void btbReturnVerifit_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListboxOfMyVerifit.SelectedIndex != -1)
+            {
+                string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+                dataBaseManager.returnVerifit(ListboxOfMyVerifit.SelectedItem.ToString());
+            }
+            else
+            {
+                MessageBox.Show("Check and select Available Devices");
+            }
+        }
+
+        private void btnFindVerifit_Click(object sender, RoutedEventArgs e)
+        {
+            ListBoxOfFindVerifit.ItemsSource = dataBaseManager.FindVerifits();
+        }
+
+        private void rbnTurnOnVerifit_Checked(object sender, RoutedEventArgs e)
+        {
+            VerifitPanel.Visibility = Visibility.Visible;
+            panelReturnVerifit.Visibility = Visibility.Visible;
+            panelFindVerifit.Visibility = Visibility.Visible;
+
+            XMLReader.setSetting("TurnOnVerifit", "RadioButtons", Convert.ToString(rbnTurnOnVerifit.IsChecked.Value));
+            bool tmp = rbnTurnOnVerifit.IsChecked.Value;
+            tmp = !tmp;
+            XMLReader.setSetting("TurnOffVerifit", "RadioButtons", Convert.ToString(tmp));
+
+        }
+
+        private void rbnTurnOffVerifit_Checked(object sender, RoutedEventArgs e)
+        {
+            VerifitPanel.Visibility = Visibility.Hidden;
+            panelReturnVerifit.Visibility = Visibility.Hidden;
+            panelFindVerifit.Visibility = Visibility.Hidden;
+
+            XMLReader.setSetting("TurnOffVerifit", "RadioButtons", Convert.ToString(rbnTurnOffVerifit.IsChecked.Value));
+            bool tmp = rbnTurnOffVerifit.IsChecked.Value;
+            tmp = !tmp;
+            XMLReader.setSetting("TurnOnVerifit", "RadioButtons", Convert.ToString(tmp));
         }
 
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)
