@@ -2717,6 +2717,16 @@ namespace UltimateChanger
             });
         }
 
+        private void RBcomposition_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RBfullMedium_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             cmbRelease.Items.Refresh();
