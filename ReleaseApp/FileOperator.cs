@@ -363,49 +363,61 @@ namespace UltimateChanger
             }
         }
 
-        public void GetfilesSaveData() // pobieram pliki z dysku i zapisuje z nich dane do zmiennej potrzebnej do cmbbuilds
+        public void GetfilesSaveData(bool composition, int FS) // pobieram pliki z dysku i zapisuje z nich dane do zmiennej potrzebnej do cmbbuilds 
         {
-            List<string> dirs = new List<string>();
-            List<string> paths = new List<string>();
-            List<string> dirstmp = new List<string>();
-            List<string> pathstmp = new List<string>();
-            List<pathAndDir> tmpPathAdnDir = new List<pathAndDir>();
-            foreach (var item in listFilesName)
+            // compozycja true/false
+            List<string> ListaFS = new List<string>()
             {
-                if (item.Contains("dir"))
+                {"Oticon"},
+                {"Bernafon"},
+                {"Sonic"},
+                {"GenieMedical"},
+                {"Cumulus"}
+            };
+
+
+            if (composition)
+            {
+               List<string> allFiles = Directory.GetFiles(@"C:\Program Files\UltimateChanger\Data").ToList();
+                List<string> allCompositionsFiles = new List<string>();
+                List<string> textDirFile = new List<string>();
+                List<string> textPathFile = new List<string>();
+                List<pathAndDir> tmpPathAdnDir = new List<pathAndDir>();
+
+                foreach (var item in allFiles) // jade po plikach i biore te ktore mają Compositions w nazwie
                 {
-                    dirs.Add(item);
+                    if (item.Contains("Composition") )
+                    {
+                        allCompositionsFiles.Add(item); // dodaje do listy nazw 
+                    }
                 }
-                else
+
+                foreach (var item in allCompositionsFiles)
                 {
-                    paths.Add(item);
+                    if (item.Contains("dir")) // diry
+                    {
+                        textDirFile = File.ReadAllLines( item).ToList();
+                    }
+                    else // patchy
+                    {
+                        textPathFile = File.ReadAllLines( item).ToList();
+                    }
                 }
+
+                pathAndDir tmp = new pathAndDir();
+                tmp.dir = new List<string>(textDirFile);
+                tmp.path = new List<string>(textPathFile);
+                tmpPathAdnDir.Add(new pathAndDir(tmp));
+                ((MainWindow)System.Windows.Application.Current.MainWindow).Paths_Dirs = tmpPathAdnDir;
+
+
+            }
+            else
+            {
+
             }
 
-            try
-            {
-                int i = 0;
-                foreach (var item in dirs)
-                {
-                    var logFile = File.ReadAllLines(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + item);
-                    foreach (var s in logFile) dirstmp.Add(s);
-                    logFile = File.ReadAllLines(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + paths[i]);
-                    foreach (var s in logFile) pathstmp.Add(s);
 
-                    pathAndDir tmp = new pathAndDir();
-                    tmp.dir = new List<string>(dirstmp);
-                    tmp.path = new List<string>(pathstmp);
-                    tmpPathAdnDir.Add(new pathAndDir(tmp));
-                    dirstmp.Clear();
-                    pathstmp.Clear();
-                    i++;
-                }
-            }
-            catch (Exception x)
-            {
-                MessageBox.Show(x.ToString());
-            }
-             ((MainWindow)System.Windows.Application.Current.MainWindow).Paths_Dirs = tmpPathAdnDir;
         }
 
         public void setMarket(int licz, string market)
@@ -570,6 +582,27 @@ namespace UltimateChanger
         public FileOperator()
         {
             licznik_przejsc = 0;
+            try
+            {
+                if (!Directory.Exists($"C:\\Program Files\\UltimateChanger\\Data"))
+                {
+                    if (!Directory.Exists($"C:\\Program Files\\UltimateChanger"))
+                    {
+                        Directory.CreateDirectory($"C:\\Program Files\\UltimateChanger");
+                        Directory.CreateDirectory($"C:\\Program Files\\UltimateChanger\\Data");
+                    }
+                    else
+                    {
+                        Directory.CreateDirectory($"C:\\Program Files\\UltimateChanger\\Data");
+                    }
+                }
+            }
+            catch (Exception x)
+            {
+
+                MessageBox.Show("can not create new directory C:\\Program Files\\UltimateChanger\\Data");
+            }
+
         }
 
         public FileOperator(DataBaseManager dataBase, Label genie, Label oasis, Label expressFit, ComboBox cmbMarket, List<CheckBox> checkBoxList, List<string> marketIndex, Image imgOticon, Image imgBernafon, Image imgSonic)

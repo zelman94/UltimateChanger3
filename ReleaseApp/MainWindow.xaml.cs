@@ -82,7 +82,7 @@ namespace UltimateChanger
         {
             try
             {
-                USBHardware.ShowAllConnectedUSB();
+               
                 var exists = System.Diagnostics.Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location)).Count() > 1;
                 if (exists) // jezeli wiecej niz 1 instancja to nie uruchomi sie
                 {
@@ -90,13 +90,13 @@ namespace UltimateChanger
                 }
                 fileOperator = new FileOperator();
                 clockManager = new ClockManager();
+                BindCombo = new BindCombobox();
                 InitializeComponent();
                 // Localization.SetAttributes(this,"TOP"); 
 
                 przegladarka.Navigate("http://confluence.kitenet.com/display/SWSQA/Ultimate+Changer");
                 initializeElements();
                 initiationForprograms();
-                BindCombo = new BindCombobox();
                 BindCombo.setFScomboBox();
                 BindCombo.setReleaseComboBox();
                 BindCombo.setMarketCmb();
@@ -107,11 +107,6 @@ namespace UltimateChanger
 
                 fileOperator.getDataToBuildCombobox();
                 initializeTimers();
-                // zamiast watku napisac maly programik osobny ktory bedzie uruchamiany na timerze co 3 s i bedzie sprawdzac czy sie zakonczyl ! :D
-                if (!statusOfProcess("Rekurencjon"))
-                {
-                    //Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", cmbRelease.Text); // wlaczyc gdy bedzie nowy exe gotowy
-                }
 
                 try
                 {
@@ -201,6 +196,19 @@ namespace UltimateChanger
 
             string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;           
             ListboxOfMyVerifit.ItemsSource = dataBaseManager.GetMyVerifit(userName);
+            RBcomposition.IsChecked = true;
+
+
+            // zamiast watku napisac maly programik osobny ktory bedzie uruchamiany na timerze co 3 s i bedzie sprawdzac czy sie zakonczyl ! :D
+            if (!statusOfProcess("Rekurencjon"))
+            {
+                // args 0 - Full/Medium/Composition
+                // args 1 release
+                // args 2 pathFile - only file name
+                // args 3 dirFile - only file name "test.txt"
+                Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text} test_paths.txt test_dirs.txt"); // wlaczyc gdy bedzie nowy exe gotowy
+            }
+
 
 
         }
@@ -1256,21 +1264,30 @@ namespace UltimateChanger
 
         private void cmbbrandstoinstall_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            try
+
+            if (RBcomposition.IsChecked.Value)
             {
-                cmbBuild.ItemsSource = Paths_Dirs[cmbBrandstoinstall.SelectedIndex].dir;
-                cmbBrandstoinstall.Items.Refresh();
-                BindCombo.setOEMComboBox(cmbBrandstoinstall.Text);
-                cmbBuild.ItemsSource = Paths_Dirs[cmbBrandstoinstall.SelectedIndex].dir;
-                cmbBuild.Items.Refresh();
-                cmbBrandstoinstall.Items.Refresh();
-                cmbBrandstoinstall.ToolTip = FileOperator.listPathTobuilds[cmbBrandstoinstall.SelectedIndex];
-                //cmbBrandstoinstall.ToolTip = FileOperator.listPathTobuilds[cmbBrandstoinstall.SelectedIndex];
+                try
+                {
+                    cmbBuild.ItemsSource = Paths_Dirs[0].dir;
+                    cmbBrandstoinstall.Items.Refresh();
+                    BindCombo.setOEMComboBox(cmbBrandstoinstall.Text);
+                    cmbBuild.ItemsSource = Paths_Dirs[0].dir;
+                    cmbBuild.Items.Refresh();
+                    cmbBrandstoinstall.Items.Refresh();
+                   // cmbBrandstoinstall.ToolTip = FileOperator.listPathTobuilds[cmbBrandstoinstall.SelectedIndex];
+                    //cmbBrandstoinstall.ToolTip = FileOperator.listPathTobuilds[cmbBrandstoinstall.SelectedIndex];
+                }
+                catch (Exception x)
+                {
+                    MessageBox.Show("Error FS Combo \n" + x.ToString());
+                }
             }
-            catch (Exception x)
+            else // bla full/medium
             {
-                MessageBox.Show("Error FS Combo \n" + x.ToString());
+
             }
+            
         }
         private void cmbbuild_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -1419,7 +1436,7 @@ namespace UltimateChanger
             }
             if (pname.Length == 0)
             {
-                fileOperator.GetfilesSaveData();
+                fileOperator.GetfilesSaveData(RBcomposition.IsChecked.Value, cmbBrandstoinstall.SelectedIndex);
                 Rekurencja.Stop();
                 cmbRelease.IsEnabled = true;
                 progress.Visibility = Visibility.Hidden;
@@ -2719,12 +2736,12 @@ namespace UltimateChanger
 
         private void RBcomposition_Checked(object sender, RoutedEventArgs e)
         {
-
+            BindCombo.setFScomboBox_compositions(); // bindowanie do compozycjji 
         }
 
         private void RBfullMedium_Checked(object sender, RoutedEventArgs e)
         {
-
+            BindCombo.setFScomboBox(); // full medium
         }
 
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)

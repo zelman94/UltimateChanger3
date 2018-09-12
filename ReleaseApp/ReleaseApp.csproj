@@ -168,6 +168,9 @@
     <SplashScreen Include="Images\splash.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </SplashScreen>
+    <Content Include="reku\Rekurencjon.pdb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Settings\Ficzurs.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -198,7 +201,7 @@
     </None>
     <AppDesigner Include="Properties\" />
     <Content Include="reku\Rekurencjon.exe.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
@@ -259,7 +262,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="reku\Rekurencjon.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Settings\Defaults.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
