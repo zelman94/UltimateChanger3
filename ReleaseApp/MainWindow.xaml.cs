@@ -2617,6 +2617,106 @@ namespace UltimateChanger
             XMLReader.setSetting("TurnOnVerifit", "RadioButtons", Convert.ToString(tmp));
         }
 
+        private void Radio_Christmas_Checked(object sender, RoutedEventArgs e)
+        {
+            //Zmiany na ciemny motyw (można zmienić kolor ramki itd.)
+            XMLReader.setSetting("Dark_skin", "RadioButtons", Convert.ToString(rbnDark_skin.IsChecked.Value).ToUpper());
+            bool tmp = !rbnDark_skin.IsChecked.Value;
+            XMLReader.setSetting("Light_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("Genie_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("Oasis_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+            XMLReader.setSetting("ExpressFit_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
+
+            imgBrandSkin.Visibility = Visibility.Hidden;
+
+            foreach (var item in lableListForUi)
+            {
+                item.Foreground = Brushes.White;
+            }
+            foreach (var item in listBoxForUi)
+            {
+                item.Foreground = Brushes.White;
+                item.BorderBrush = Brushes.White;
+
+            }
+            var converter = new System.Windows.Media.BrushConverter();
+            //var brush = (Brush)converter.ConvertFromString("#8A959B");
+
+            foreach (var item in buttonListForUi)
+            {
+                item.Background = (Brush)converter.ConvertFromString("#FF616161");
+                item.Foreground = (Brush)converter.ConvertFromString("#E5FFFFFF");
+                item.BorderBrush = (Brush)converter.ConvertFromString("#FF424242");
+                item.Opacity = 1;
+            }
+
+            foreach (var item in checkBoxListForUi)
+            {
+                item.Foreground = Brushes.White;
+                item.BorderBrush = (Brush)converter.ConvertFromString("#FF424242");
+                item.Background = Brushes.White;
+                UpdateLayout();
+                item.Style = Resources["CheckboxDark"] as Style;
+            }
+
+            foreach (var item in comboBoxListForUi)
+            {
+                item.Foreground = Brushes.White;
+                item.BorderBrush = Brushes.White;
+            }
+
+            foreach (var item in radioButtonListForUi)
+            {
+                item.Foreground = Brushes.White;
+                item.BorderBrush = Brushes.White;
+                item.Background = Brushes.White;
+                UpdateLayout();
+                item.Style = Resources["RadiobuttonDark"] as Style;
+            }
+
+            foreach (var item in texBoxListForUi)
+            {
+                item.Foreground = Brushes.White;
+                item.BorderBrush = Brushes.White;
+            }
+
+            foreach (var item in sliderListForUi)
+            {
+                item.Foreground = Brushes.White;
+                item.BorderBrush = Brushes.White;
+
+            }
+
+            foreach (var item in borderListForUi)
+            {
+                item.BorderBrush = (Brush)converter.ConvertFromString("#FF616161");
+            }
+
+            tabControl.Background = (Brush)converter.ConvertFromString("#FF212121");
+            tabControl.Foreground = Brushes.White;
+            passwordBox.Foreground = Brushes.White;
+            passwordBox.BorderBrush = Brushes.White;
+            oticonRectangle.Fill = (Brush)converter.ConvertFromString("#FAFAFA");
+
+            UpdateLayout();
+            GridDataRandomHardware.ColumnHeaderStyle = Resources["DataGridDark"] as Style;
+            UpdateLayout();
+            tabControl.ItemContainerStyle = Resources["TabItemDark"] as Style;
+            tabControl.Background = (Brush)converter.ConvertFromString("#FF212121");
+            this.Background = (Brush)converter.ConvertFromString("#E2212121");
+            oticonmedicalnRectangle.Fill = (Brush)converter.ConvertFromString("#FFECB3");
+
+            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            {
+                Source = new Uri("pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml", UriKind.RelativeOrAbsolute)
+            });
+
+            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            {
+                Source = new Uri("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Grey.xaml", UriKind.RelativeOrAbsolute)
+            });
+        }
+
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             cmbRelease.Items.Refresh();
