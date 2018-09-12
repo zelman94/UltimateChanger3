@@ -1452,6 +1452,7 @@
                     <RadioButton x:Name="rbn_Genie" Content="Genie" Checked="Radio_Genie_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
                     <RadioButton x:Name="rbn_Oasis" Content="Oasis" Checked="Radio_Oasis_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
                     <RadioButton x:Name="rbn_ExpressFit" Content="ExpressFit" Checked="Radio_ExpressFit_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
+                    <RadioButton x:Name="rbn_Christmas" Content="Christmas" Checked="Radio_Christmas_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
                 </StackPanel>
                 <StackPanel Name="VerifitPanel" Grid.Column="1" Grid.RowSpan="3" HorizontalAlignment="Stretch" Margin="10">
                     <Label Content="Check Available Devices" FontWeight="SemiBold" FontSize="12.5" Foreground="White"/>
