@@ -1295,6 +1295,7 @@ namespace UltimateChanger
             {
                 btninstal.IsEnabled = true;
                 btnInfo.IsEnabled = true;
+                cmbBuild.ToolTip = Paths_Dirs[0].path[cmbBuild.SelectedIndex];
             }
             else
             {

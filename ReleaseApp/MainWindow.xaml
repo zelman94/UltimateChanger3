@@ -901,10 +901,14 @@
                         </Grid.RowDefinitions>
 
                         <Label Content="Installation settings" Grid.ColumnSpan="2" Grid.Row="0" Foreground="White" FontWeight="SemiBold" FontSize="12.5"/>
-                        <RadioButton Name="RBsilet" Content="Silent" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBsilet_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
-                        <RadioButton Name="RBnormal" Content="Normal " Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBnormal_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
-                        <RadioButton Name="RBfullMedium" Content="Full/Medium" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBfullMedium_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" IsEnabled="False"/>
-                        <RadioButton Name="RBcomposition" Content="Composition " Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBcomposition_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" />
+
+                        
+                        <RadioButton GroupName="RBsilentNormal" Name="RBsilet" Content="Silent" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBsilet_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
+                        <RadioButton GroupName="RBsilentNormal" Name="RBnormal" Content="Normal " Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBnormal_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
+
+                        <RadioButton  GroupName="RBfullMediumComposition" Name="RBfullMedium" Content="Full/Medium" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBfullMedium_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" IsEnabled="False"/>
+                        <RadioButton  GroupName="RBfullMediumComposition" Name="RBcomposition" Content="Composition " Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBcomposition_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
+
 
                     </Grid>
 
