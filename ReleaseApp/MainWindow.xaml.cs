@@ -206,7 +206,7 @@ namespace UltimateChanger
                 // args 1 release
                 // args 2 pathFile - only file name
                 // args 3 dirFile - only file name "test.txt"
-                Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text} test_paths.txt test_dirs.txt"); // wlaczyc gdy bedzie nowy exe gotowy
+                Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text}  path_Composition.txt dir_Composition.txt"); // wlaczyc gdy bedzie nowy exe gotowy
             }
 
 
@@ -1208,24 +1208,65 @@ namespace UltimateChanger
         }
         private void btninstal_Click(object sender, RoutedEventArgs e)
         {
+            List<string> listFScomposition = new List<string>()
+            {
+                {"GenieComposition"},
+                {"OasisComposition"},
+                {"EXPRESSfitComposition"},
+                {"MedicalComposition"},
+                {"HearSuiteComposition"},
+            };
+
             if (cmbBuild.SelectedIndex > -1)
             {
-                FSInstaller installer = new FSInstaller();
-                //cmbOEM.Items.Refresh();
-                foreach (var item in Paths_Dirs[cmbBrandstoinstall.SelectedIndex].path)
+                if (RBcomposition.IsChecked.Value) // kompozycje
                 {
-                    if (item.Contains(cmbBuild.Text) && item.Contains(cmbOEM.Text))
+                  FileInfo[] infoFile =  new DirectoryInfo(cmbBuild.ToolTip.ToString()+ $"\\DevResults-{cmbRelease.Text}").GetFiles();
+
+                    foreach (var item in infoFile)
                     {
-                        installer.InstallBrand(item, RBnormal.IsChecked.Value);
-                        fileOperator.SavePathToFsInstallator(item);
-                        //zapisanie patha do instalatora do  pozniejszej uninstalki bez sciagania do pliku
+                        if (item.Name.Contains(listFScomposition[cmbBrandstoinstall.SelectedIndex]))
+                        {
+                            // nowy maly programik do kopiowania kompozycji na dysk + timer na psrawdzanie czy sie skonczylo
+                            // args 0 Copy
+                            // args 1 from
+                            // args 2 to
+
+                            string from = System.IO.Path.Combine(cmbBuild.ToolTip.ToString() + $"\\DevResults-{cmbRelease.Text}", item.Name);
+                            string to = System.IO.Path.Combine("C:\\Program Files\\UltimateChanger", item.Name);
+
+                            //Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Copy {cmbRelease.Text} path_Composition.txt dir_Composition.txt");
+                            Process.Start(from);
+                          //  File.Copy(System.IO.Path.Combine(cmbBuild.ToolTip.ToString() + $"\\DevResults-{cmbRelease.Text}", item.Name), System.IO.Path.Combine("C:\\Program Files\\UltimateChanger", item.Name));
+
+
+                            return;
+                        }
                     }
+
+                }
+                else
+                {
+                    FSInstaller installer = new FSInstaller();
+                    //cmbOEM.Items.Refresh();
+                    foreach (var item in Paths_Dirs[cmbBrandstoinstall.SelectedIndex].path)
+                    {
+                        if (item.Contains(cmbBuild.Text) && item.Contains(cmbOEM.Text))
+                        {
+                            installer.InstallBrand(item, RBnormal.IsChecked.Value);
+                            fileOperator.SavePathToFsInstallator(item);
+                            //zapisanie patha do instalatora do  pozniejszej uninstalki bez sciagania do pliku
+                        }
+                    }                
                 }
             }
             else
             {
                 MessageBox.Show("select build to install");
             }
+
+
+
         }
         private static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
         {
@@ -2738,6 +2779,7 @@ namespace UltimateChanger
         private void RBcomposition_Checked(object sender, RoutedEventArgs e)
         {
             BindCombo.setFScomboBox_compositions(); // bindowanie do compozycjji 
+            btninstal.Content = "Run Extract";
         }
 
         private void RBfullMedium_Checked(object sender, RoutedEventArgs e)
@@ -2760,7 +2802,7 @@ namespace UltimateChanger
                     {
                         if (!statusOfProcess("Rekurencjon"))
                         {
-                            //Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", cmbRelease.Text); // właczyc gdy bedzie gotowa nowa wersja 
+                            Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text} path_Composition.txt dir_Composition.txt");
                         }
                         Rekurencja.Start();
                     }
