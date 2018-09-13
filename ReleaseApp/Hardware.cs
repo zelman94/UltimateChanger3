@@ -118,6 +118,14 @@ namespace UltimateChanger
         {
 
 
+            ManagementObjectSearcher theSearcher = new ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive WHERE InterfaceType='USB'");
+            foreach (ManagementObject currentObject in theSearcher.Get())
+            {
+                ManagementObject theSerialNumberObjectQuery = new ManagementObject("Win32_PhysicalMedia.Tag='" + currentObject["DeviceID"] + "'");
+                System.Windows.MessageBox.Show(theSerialNumberObjectQuery["SerialNumber"].ToString());
+            }
+
+
             foreach (DriveInfo drive in DriveInfo.GetDrives())
             {
                 if (drive.DriveType == DriveType.Removable)

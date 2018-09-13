@@ -118,11 +118,25 @@ namespace UltimateChanger
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbMarket.SelectedValuePath = "Value";
         }
 
-        public void setFScomboBox()
+        public void setFScomboBox() // full medium
         {
             List<string> bind = new List<string> { "Oticon", "Bernafon", "Sonic", "GenieMedical", "Cumulus", "Oticon_PRE", "Bernafon_PRE", "Sonic_PRE", "GenieMedical_PRE", "Cumulus_PRE" };
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbBrandstoinstall.ItemsSource = bind;
         }
+        public void setFScomboBox_compositions()
+        {
+            List<string> bind = new List<string> { "Oticon", "Bernafon", "Sonic", "GenieMedical", "Cumulus" };
+            try
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).cmbBrandstoinstall.ItemsSource = bind;
+            }
+            catch (Exception x)
+            {
+                System.Windows.MessageBox.Show(x.ToString());
+            }
+
+        }
+
         public void setReleaseComboBox()
         {
             List<string> bind;//= new List<string> { "16.1", "16.2", "17.1", "17.2", "18.2", "19.1", "19.2", "20.1" }; //zamienic na odczytanie z XML 
