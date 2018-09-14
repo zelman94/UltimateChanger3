@@ -891,7 +891,7 @@ namespace UltimateChanger
                 //oticonmedicalnRectangle.Opacity = 1.0;
             }
 
-            if (!Directory.Exists(@"C:\ProgramData\Strato")) // cumulus
+            if (!Directory.Exists(@"C:\ProgramData\Philips HearSuite")) // cumulus
             {
                 Cumulus.IsEnabled = false;
                 lblC.Foreground = new SolidColorBrush(Colors.Red);
@@ -1231,11 +1231,11 @@ namespace UltimateChanger
                             // args 0 Copy
                             // args 1 from
                             // args 2 to
-
                             string from = System.IO.Path.Combine(cmbBuild.ToolTip.ToString() + $"\\DevResults-{cmbRelease.Text}", item.Name);
                             string to = System.IO.Path.Combine("C:\\Program Files\\UltimateChanger", item.Name);
 
                             //Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Copy {cmbRelease.Text} path_Composition.txt dir_Composition.txt");
+
                             Process.Start(from);
                           //  File.Copy(System.IO.Path.Combine(cmbBuild.ToolTip.ToString() + $"\\DevResults-{cmbRelease.Text}", item.Name), System.IO.Path.Combine("C:\\Program Files\\UltimateChanger", item.Name));
 
@@ -1248,16 +1248,10 @@ namespace UltimateChanger
                 else
                 {
                     FSInstaller installer = new FSInstaller();
-                    //cmbOEM.Items.Refresh();
-                    foreach (var item in Paths_Dirs[cmbBrandstoinstall.SelectedIndex].path)
-                    {
-                        if (item.Contains(cmbBuild.Text) && item.Contains(cmbOEM.Text))
-                        {
-                            installer.InstallBrand(item, RBnormal.IsChecked.Value);
-                            fileOperator.SavePathToFsInstallator(item);
+                   // installer.InstallBrand(, RBnormal.IsChecked.Value);
+
                             //zapisanie patha do instalatora do  pozniejszej uninstalki bez sciagania do pliku
-                        }
-                    }                
+
                 }
             }
             else
