@@ -906,7 +906,7 @@
                         <RadioButton GroupName="RBsilentNormal" Name="RBsilet" Content="Silent" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBsilet_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
                         <RadioButton GroupName="RBsilentNormal" Name="RBnormal" Content="Normal " Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBnormal_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
 
-                        <RadioButton  GroupName="RBfullMediumComposition" Name="RBfullMedium" Content="Full/Medium" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBfullMedium_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" IsEnabled="False"/>
+                        <RadioButton  GroupName="RBfullMediumComposition" Name="RBfullMedium" Content="Full/Medium" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBfullMedium_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
                         <RadioButton  GroupName="RBfullMediumComposition" Name="RBcomposition" Content="Composition " Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBcomposition_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
 
 

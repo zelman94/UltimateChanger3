@@ -24,7 +24,6 @@ using System.Threading;
 using System.Windows.Threading;
 using System.Windows.Forms.Integration;
 using System.Text.RegularExpressions;
-//  poprawic pobieranie info o buildzie !!!!!!!!!!!!!!!!!!!!!!!!!! brac z pliku a nie z info o pliku...
 using ICSharpCode.SharpZipLib;
 using ICSharpCode.SharpZipLib.Zip;
 using System.Net;
@@ -93,8 +92,15 @@ namespace UltimateChanger
                 BindCombo = new BindCombobox();
                 InitializeComponent();
                 // Localization.SetAttributes(this,"TOP"); 
+                try
+                {
+                    przegladarka.Navigate("http://confluence.kitenet.com/display/SWSQA/Ultimate+Changer");
+                }
+                catch (Exception)
+                {
 
-                przegladarka.Navigate("http://confluence.kitenet.com/display/SWSQA/Ultimate+Changer");
+                }
+             
                 initializeElements();
                 initiationForprograms();
                 BindCombo.setFScomboBox();
@@ -306,6 +312,8 @@ namespace UltimateChanger
                 CredentialCache.DefaultNetworkCredentials.UserName = "gl_ssc_swtest";
 
                 CredentialCache.DefaultNetworkCredentials.Password = "Start123";
+
+
                 string[] fileonServer = Directory.GetFiles(@"\\demant.com\data\KBN\RnD\FS_Programs\Support_Tools\REMedy\_currentVersion"); // pobieram nazwy plikow
 
                 if (fileOperator.checkInstanceFakeVerifit())
@@ -348,8 +356,14 @@ namespace UltimateChanger
                     // uruchomic silent installera 
                 }
             }
+            catch (IOException y)
+            {
+                btnFakeV.IsEnabled = false;
+                MessageBox.Show(@"can not find \n \\demant.com\data\KBN\RnD\FS_Programs\Support_Tools\REMedy\_currentVersion");
+            }
             catch (Exception x)
             {
+                btnFakeV.IsEnabled = false;
                 MessageBox.Show(x.ToString());
             }
 
@@ -1469,12 +1483,20 @@ namespace UltimateChanger
             if (progress.Value == 100)
             {
                 progress.Value = 0;
+
             }
             if (pname.Length == 0)
             {
                 fileOperator.GetfilesSaveData(RBcomposition.IsChecked.Value, cmbBrandstoinstall.SelectedIndex);
                 Rekurencja.Stop();
                 cmbRelease.IsEnabled = true;
+                cmbBrandstoinstall.IsEnabled = true;
+                cmbBuild.IsEnabled = true;
+                if (RBfullMedium.IsChecked.Value)
+                {
+                    cmbOEM.IsEnabled = true;
+                }
+               
                 progress.Visibility = Visibility.Hidden;
             }
         }
@@ -2774,11 +2796,15 @@ namespace UltimateChanger
         {
             BindCombo.setFScomboBox_compositions(); // bindowanie do compozycjji 
             btninstal.Content = "Run Extract";
+            RBnormal.IsEnabled = false;
+            RBsilet.IsEnabled = false;
         }
 
         private void RBfullMedium_Checked(object sender, RoutedEventArgs e)
         {
             BindCombo.setFScomboBox(); // full medium
+            RBnormal.IsEnabled = true;
+            RBsilet.IsEnabled = true;
         }
 
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -2791,12 +2817,14 @@ namespace UltimateChanger
                 {
                     progress.Visibility = Visibility.Visible;
 
-
                     try
                     {
                         if (!statusOfProcess("Rekurencjon"))
                         {
                             Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text} path_Composition.txt dir_Composition.txt");
+                            cmbBrandstoinstall.IsEnabled = false;
+                            cmbBuild.IsEnabled = false;
+                            cmbOEM.IsEnabled = false;
                         }
                         Rekurencja.Start();
                     }
