@@ -35,7 +35,8 @@ namespace UltimateChanger
     public partial class MainWindow : Window
     {
         int Licznik_All_button = 0;
-
+        bool copystatus = false; // to know if copy composition is running in rekurencjon.exe
+        string pathToLocalComposition = ""; // do uruchamiania lokalnej wersji kompozycji 
         //TrashCleaner Cleaner;
         Dictionary<string, string> FStoPath;
         FileOperator fileOperator;
@@ -200,8 +201,16 @@ namespace UltimateChanger
             setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
             setUIdefaults(XMLReader.getDefaultSettings("ComboBox"), "ComboBox");
 
-            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;           
-            ListboxOfMyVerifit.ItemsSource = dataBaseManager.GetMyVerifit(userName);
+            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            try
+            {
+                ListboxOfMyVerifit.ItemsSource = dataBaseManager.GetMyVerifit(userName);
+            }
+            catch (Exception)
+            {
+
+            }
+
             RBcomposition.IsChecked = true;
 
 
@@ -1246,11 +1255,14 @@ namespace UltimateChanger
                             // args 1 from
                             // args 2 to
                             string from = System.IO.Path.Combine(cmbBuild.ToolTip.ToString() + $"\\DevResults-{cmbRelease.Text}", item.Name);
-                            string to = System.IO.Path.Combine("C:\\Program Files\\UltimateChanger", item.Name);
+                            string to = "C:\\Program Files\\UltimateChanger\\"+ item.Name;
+                            pathToLocalComposition = to;
+                            MessageBox.Show($"parameters to copy: {from} \n {to}");
+                            Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Copy {from} {pathToLocalComposition}");
+                            copystatus = true; // timer wie ze trwa kopiowanie
+                            Rekurencja.Start();
 
-                            //Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Copy {cmbRelease.Text} path_Composition.txt dir_Composition.txt");
-
-                            Process.Start(from);
+                           // Process.Start(from);
                           //  File.Copy(System.IO.Path.Combine(cmbBuild.ToolTip.ToString() + $"\\DevResults-{cmbRelease.Text}", item.Name), System.IO.Path.Combine("C:\\Program Files\\UltimateChanger", item.Name));
 
 
@@ -1479,26 +1491,53 @@ namespace UltimateChanger
         private void checkRekurencja(object sender, EventArgs e)
         {
             Process[] pname = Process.GetProcessesByName("Rekurencjon");
-            progress.Value += 10;
-            if (progress.Value == 100)
+            if (!copystatus) // jezeli trwa rekurencja zwyczajna
             {
-                progress.Value = 0;
-
-            }
-            if (pname.Length == 0)
-            {
-                fileOperator.GetfilesSaveData(RBcomposition.IsChecked.Value, cmbBrandstoinstall.SelectedIndex);
-                Rekurencja.Stop();
-                cmbRelease.IsEnabled = true;
-                cmbBrandstoinstall.IsEnabled = true;
-                cmbBuild.IsEnabled = true;
-                if (RBfullMedium.IsChecked.Value)
+                progress.Value += 10;
+                if (progress.Value == 100)
                 {
-                    cmbOEM.IsEnabled = true;
+                    progress.Value = 0;
+
                 }
-               
-                progress.Visibility = Visibility.Hidden;
+                if (pname.Length == 0)
+                {
+                    fileOperator.GetfilesSaveData(RBcomposition.IsChecked.Value, cmbBrandstoinstall.SelectedIndex);
+                    Rekurencja.Stop();
+                    cmbRelease.IsEnabled = true;
+                    cmbBrandstoinstall.IsEnabled = true;
+                    cmbBuild.IsEnabled = true;
+                    if (RBfullMedium.IsChecked.Value)
+                    {
+                        cmbOEM.IsEnabled = true;
+                    }
+
+                    progress.Visibility = Visibility.Hidden;
+                }
             }
+            else // jezeli trwa kopiowanie
+            {
+                if (pname.Length == 0) // jezeli koniec kopiowania
+                {
+                    Rekurencja.Stop();
+                    copystatus = false;
+                    try
+                    {
+                        Process.Start(pathToLocalComposition); // uruchomienie skopiowanego extraktora na dysku ze zmiennej globalnej uzupelnionej podczas uruchamiania procesu rekurencjon
+
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show($"path to composition doesnt exist :\n{pathToLocalComposition}");
+                    }
+                    
+                }
+                else
+                {
+
+                }
+            
+            }
+           
         }
 
 
