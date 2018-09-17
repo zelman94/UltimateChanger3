@@ -24,7 +24,6 @@ using System.Threading;
 using System.Windows.Threading;
 using System.Windows.Forms.Integration;
 using System.Text.RegularExpressions;
-//  poprawic pobieranie info o buildzie !!!!!!!!!!!!!!!!!!!!!!!!!! brac z pliku a nie z info o pliku...
 using ICSharpCode.SharpZipLib;
 using ICSharpCode.SharpZipLib.Zip;
 using System.Net;
@@ -36,7 +35,8 @@ namespace UltimateChanger
     public partial class MainWindow : Window
     {
         int Licznik_All_button = 0;
-
+        bool copystatus = false; // to know if copy composition is running in rekurencjon.exe
+        string pathToLocalComposition = ""; // do uruchamiania lokalnej wersji kompozycji 
         //TrashCleaner Cleaner;
         Dictionary<string, string> FStoPath;
         FileOperator fileOperator;
@@ -93,8 +93,15 @@ namespace UltimateChanger
                 BindCombo = new BindCombobox();
                 InitializeComponent();
                 // Localization.SetAttributes(this,"TOP"); 
+                try
+                {
+                    przegladarka.Navigate("http://confluence.kitenet.com/display/SWSQA/Ultimate+Changer");
+                }
+                catch (Exception)
+                {
 
-                przegladarka.Navigate("http://confluence.kitenet.com/display/SWSQA/Ultimate+Changer");
+                }
+             
                 initializeElements();
                 initiationForprograms();
                 BindCombo.setFScomboBox();
@@ -194,8 +201,16 @@ namespace UltimateChanger
             setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
             setUIdefaults(XMLReader.getDefaultSettings("ComboBox"), "ComboBox");
 
-            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;           
-            ListboxOfMyVerifit.ItemsSource = dataBaseManager.GetMyVerifit(userName);
+            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            try
+            {
+                ListboxOfMyVerifit.ItemsSource = dataBaseManager.GetMyVerifit(userName);
+            }
+            catch (Exception)
+            {
+
+            }
+
             RBcomposition.IsChecked = true;
 
 
@@ -306,6 +321,8 @@ namespace UltimateChanger
                 CredentialCache.DefaultNetworkCredentials.UserName = "gl_ssc_swtest";
 
                 CredentialCache.DefaultNetworkCredentials.Password = "Start123";
+
+
                 string[] fileonServer = Directory.GetFiles(@"\\demant.com\data\KBN\RnD\FS_Programs\Support_Tools\REMedy\_currentVersion"); // pobieram nazwy plikow
 
                 if (fileOperator.checkInstanceFakeVerifit())
@@ -348,8 +365,14 @@ namespace UltimateChanger
                     // uruchomic silent installera 
                 }
             }
+            catch (IOException y)
+            {
+                btnFakeV.IsEnabled = false;
+                MessageBox.Show(@"can not find \n \\demant.com\data\KBN\RnD\FS_Programs\Support_Tools\REMedy\_currentVersion");
+            }
             catch (Exception x)
             {
+                btnFakeV.IsEnabled = false;
                 MessageBox.Show(x.ToString());
             }
 
@@ -891,7 +914,7 @@ namespace UltimateChanger
                 //oticonmedicalnRectangle.Opacity = 1.0;
             }
 
-            if (!Directory.Exists(@"C:\ProgramData\Strato")) // cumulus
+            if (!Directory.Exists(@"C:\ProgramData\Philips HearSuite")) // cumulus
             {
                 Cumulus.IsEnabled = false;
                 lblC.Foreground = new SolidColorBrush(Colors.Red);
@@ -1231,12 +1254,18 @@ namespace UltimateChanger
                             // args 0 Copy
                             // args 1 from
                             // args 2 to
-
                             string from = System.IO.Path.Combine(cmbBuild.ToolTip.ToString() + $"\\DevResults-{cmbRelease.Text}", item.Name);
-                            string to = System.IO.Path.Combine("C:\\Program Files\\UltimateChanger", item.Name);
+                            string to = "C:\\Program Files\\UltimateChanger\\"+ item.Name;
+                            pathToLocalComposition = to;
+                            MessageBox.Show($"parameters to copy: {from} \n {to}");
+                            Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Copy {from} {pathToLocalComposition}");
+                            copystatus = true; // timer wie ze trwa kopiowanie
+                            cmbRelease.IsEnabled = false;
+                            cmbBrandstoinstall.IsEnabled = false;
+                            cmbBuild.IsEnabled = false;
+                            Rekurencja.Start();
 
-                            //Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Copy {cmbRelease.Text} path_Composition.txt dir_Composition.txt");
-                            Process.Start(from);
+                           // Process.Start(from);
                           //  File.Copy(System.IO.Path.Combine(cmbBuild.ToolTip.ToString() + $"\\DevResults-{cmbRelease.Text}", item.Name), System.IO.Path.Combine("C:\\Program Files\\UltimateChanger", item.Name));
 
 
@@ -1248,16 +1277,10 @@ namespace UltimateChanger
                 else
                 {
                     FSInstaller installer = new FSInstaller();
-                    //cmbOEM.Items.Refresh();
-                    foreach (var item in Paths_Dirs[cmbBrandstoinstall.SelectedIndex].path)
-                    {
-                        if (item.Contains(cmbBuild.Text) && item.Contains(cmbOEM.Text))
-                        {
-                            installer.InstallBrand(item, RBnormal.IsChecked.Value);
-                            fileOperator.SavePathToFsInstallator(item);
+                   // installer.InstallBrand(, RBnormal.IsChecked.Value);
+
                             //zapisanie patha do instalatora do  pozniejszej uninstalki bez sciagania do pliku
-                        }
-                    }                
+
                 }
             }
             else
@@ -1303,7 +1326,7 @@ namespace UltimateChanger
             }
         }
 
-        private void cmbbrandstoinstall_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public void ChangedBrandOfFittingSoftware()
         {
 
             if (RBcomposition.IsChecked.Value)
@@ -1316,7 +1339,7 @@ namespace UltimateChanger
                     cmbBuild.ItemsSource = Paths_Dirs[0].dir;
                     cmbBuild.Items.Refresh();
                     cmbBrandstoinstall.Items.Refresh();
-                   // cmbBrandstoinstall.ToolTip = FileOperator.listPathTobuilds[cmbBrandstoinstall.SelectedIndex];
+                    // cmbBrandstoinstall.ToolTip = FileOperator.listPathTobuilds[cmbBrandstoinstall.SelectedIndex];
                     //cmbBrandstoinstall.ToolTip = FileOperator.listPathTobuilds[cmbBrandstoinstall.SelectedIndex];
                 }
                 catch (Exception x)
@@ -1328,7 +1351,12 @@ namespace UltimateChanger
             {
 
             }
-            
+        }
+
+        private void cmbbrandstoinstall_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ChangedBrandOfFittingSoftware();
+
         }
         private void cmbbuild_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -1471,18 +1499,56 @@ namespace UltimateChanger
         private void checkRekurencja(object sender, EventArgs e)
         {
             Process[] pname = Process.GetProcessesByName("Rekurencjon");
-            progress.Value += 10;
-            if (progress.Value == 100)
+            if (!copystatus) // jezeli trwa rekurencja zwyczajna
             {
-                progress.Value = 0;
+                progress.Value += 10;
+                if (progress.Value == 100)
+                {
+                    progress.Value = 0;
+
+                }
+                if (pname.Length == 0)
+                {
+                    fileOperator.GetfilesSaveData(RBcomposition.IsChecked.Value, cmbBrandstoinstall.SelectedIndex);
+                    ChangedBrandOfFittingSoftware();
+                    Rekurencja.Stop();
+                    cmbRelease.IsEnabled = true;
+                    cmbBrandstoinstall.IsEnabled = true;
+                    cmbBuild.IsEnabled = true;
+                    if (RBfullMedium.IsChecked.Value)
+                    {
+                        cmbOEM.IsEnabled = true;
+                    }
+
+                    progress.Visibility = Visibility.Hidden;
+                }
             }
-            if (pname.Length == 0)
+            else // jezeli trwa kopiowanie
             {
-                fileOperator.GetfilesSaveData(RBcomposition.IsChecked.Value, cmbBrandstoinstall.SelectedIndex);
-                Rekurencja.Stop();
-                cmbRelease.IsEnabled = true;
-                progress.Visibility = Visibility.Hidden;
+                if (pname.Length == 0) // jezeli koniec kopiowania
+                {
+                    Rekurencja.Stop();
+                    copystatus = false;
+                    try
+                    {
+                        Process.Start(pathToLocalComposition); // uruchomienie skopiowanego extraktora na dysku ze zmiennej globalnej uzupelnionej podczas uruchamiania procesu rekurencjon
+                        cmbRelease.IsEnabled = true;
+                        cmbBrandstoinstall.IsEnabled = true;
+                        cmbBuild.IsEnabled = true;
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show($"path to composition doesnt exist :\n{pathToLocalComposition}");
+                    }
+                    
+                }
+                else
+                {
+
+                }
+            
             }
+           
         }
 
 
@@ -2779,12 +2845,29 @@ namespace UltimateChanger
         private void RBcomposition_Checked(object sender, RoutedEventArgs e)
         {
             BindCombo.setFScomboBox_compositions(); // bindowanie do compozycjji 
-            btninstal.Content = "Run Extract";
+            btninstal.Content = "Copy And Run";
+            
+            try
+            {
+                fileOperator.GetfilesSaveData(RBcomposition.IsChecked.Value, cmbBrandstoinstall.SelectedIndex);
+            }
+            catch (Exception)
+            {
+                cmbBuild.ItemsSource = null;
+            }
+            ChangedBrandOfFittingSoftware();
+            cmbBuild.Items.Refresh();
+
+            RBnormal.IsEnabled = false;
+            RBsilet.IsEnabled = false;
         }
 
         private void RBfullMedium_Checked(object sender, RoutedEventArgs e)
         {
             BindCombo.setFScomboBox(); // full medium
+            cmbBuild.ItemsSource = null;
+            RBnormal.IsEnabled = true;
+            RBsilet.IsEnabled = true;
         }
 
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -2797,12 +2880,14 @@ namespace UltimateChanger
                 {
                     progress.Visibility = Visibility.Visible;
 
-
                     try
                     {
                         if (!statusOfProcess("Rekurencjon"))
                         {
                             Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text} path_Composition.txt dir_Composition.txt");
+                            cmbBrandstoinstall.IsEnabled = false;
+                            cmbBuild.IsEnabled = false;
+                            cmbOEM.IsEnabled = false;
                         }
                         Rekurencja.Start();
                     }
