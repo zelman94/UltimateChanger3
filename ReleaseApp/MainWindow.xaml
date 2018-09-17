@@ -870,7 +870,7 @@
                     <Button x:Name="btnNewPrecon" Grid.Row="3" Grid.Column="1" Click="btnFS_Click" Background="#FF616161" BorderBrush="#FF424242" Foreground="Black" Margin="10 0">
                         <Image Name="imgprecon" Source="Images/Preconditioner.PNG"></Image>
                     </Button>
-                    <Button Content="Kill FS" Grid.Row="4" VerticalAlignment="Center" Click="Button_Click_2" ToolTip="All FS will be closed" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
+                    <Button Content="Kill All FS" Grid.Row="4" VerticalAlignment="Center" Click="Button_Click_2" ToolTip="All FS will be closed" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
                     <Button Content="Downgrade HW" Grid.Column="1"  Grid.Row="4" VerticalAlignment="Center" Click="Downgrade" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
                 </Grid>
 
