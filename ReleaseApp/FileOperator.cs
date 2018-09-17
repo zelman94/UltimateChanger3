@@ -30,6 +30,7 @@ namespace UltimateChanger
         private Image imgSonic;
         public List<pathAndDir> lista;
         public int licznik_przejsc;
+        public bool komunikat_trash = false;
         /// <summary>
         /// 
         /// </summary>
@@ -253,6 +254,18 @@ namespace UltimateChanger
             {
                 plik = File.ReadAllLines(pathToLogMode[number_checkbox]).ToList<string>();
             }
+            catch(DirectoryNotFoundException e)
+            {
+                // super :) 
+
+                if (komunikat_trash)
+                {
+                    MessageBox.Show("remove leavings \n press Delete Trash");
+                    komunikat_trash = true;
+                    return;
+                }
+                
+            }
             catch (Exception x)
             {
                 MessageBox.Show(x.ToString());
@@ -356,6 +369,10 @@ namespace UltimateChanger
                 foreach (String s in plik_edited)
                     tw.WriteLine(s);
                 tw.Close();
+            }
+            catch(DirectoryNotFoundException e)
+            {
+
             }
             catch (Exception x)
             {
