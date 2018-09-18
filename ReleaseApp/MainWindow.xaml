@@ -1448,9 +1448,9 @@
                     <Label Content="Startup settings" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
                     <RadioButton Name="rbnStartwithWindows" Content="Start with Windows" GroupName="group1" Checked="rbnStartwithWindows_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
                     <RadioButton Name="rbnNotStartwithWindows" Content="Do not Start with Windows" GroupName="group1" Checked="rbnNotStartwithWindows_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 1 0 0"/>
-                    <Label Content="Logs settings" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
-                    <RadioButton Name="rbnDeletelogs" Content="Delete logs after run FS" Checked="rbnDeletelogs_Checked" GroupName="group2" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
-                    <RadioButton Name="rbnholdlogs" Content="Hold logs" GroupName="group2" Checked="rbnholdlogs_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 1 0 0"/>
+                    <Label Content="Godzilla logging" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
+                    <RadioButton Name="rbnDeletelogs" Content="On" Checked="rbnDeletelogs_Checked" GroupName="group2" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
+                    <RadioButton Name="rbnholdlogs" Content="Off" GroupName="group2" Checked="rbnholdlogs_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 1 0 0"/>
                     <Label Content="Always set log to &quot;ALL&quot;" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
                     <RadioButton Name="rbnLogsAll_YES" Content="Yes" Checked="rbnLogsAll_YES_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
                     <RadioButton Name="rbnLogsAll_NO" Content="No" Checked="rbnLogsAll_NO_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 1 0 0"/>

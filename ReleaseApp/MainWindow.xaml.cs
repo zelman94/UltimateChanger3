@@ -2255,8 +2255,10 @@ namespace UltimateChanger
         }
 
         private void rbnDeletelogs_Checked(object sender, RoutedEventArgs e)
-
         {
+            // wlaczanie Godzilla logging dla wszystkich FS
+
+
             XMLReader.setSetting("NotHoldLogs", "RadioButtons", Convert.ToString(rbnDeletelogs.IsChecked.Value));
             bool tmp = rbnDeletelogs.IsChecked.Value;
             tmp = !tmp;
