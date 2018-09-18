@@ -439,10 +439,18 @@ namespace UltimateChanger
 
         public void setMarket(int licz, string market)
         {
-            XmlDocument doc = new XmlDocument();
-            doc.Load(BuildInfo.ListPathsToManInfo[licz]);
-            doc.SelectSingleNode("/ManufacturerInfo/MarketName").InnerText = market;
-            doc.Save(BuildInfo.ListPathsToManInfo[licz]);
+            try
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(BuildInfo.ListPathsToManInfo[licz]);
+                doc.SelectSingleNode("/ManufacturerInfo/MarketName").InnerText = market;
+                doc.Save(BuildInfo.ListPathsToManInfo[licz]);
+            }
+            catch (Exception)
+            {
+
+            }
+
         }
 
         public string getMarket(int licz)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -472,6 +473,72 @@ namespace UltimateChanger
                 System.Windows.MessageBox.Show(x.ToString());
             }
             return listpaths;
+        }
+
+        public static void setGodzilla()
+        {
+            List<string> listOfConfigFSExe = new List<string>()
+            {
+                {@"C:\Program Files(x86)\Oticon\Genie\Genie2\Genie.exe.config"},
+                {@"C:\Program Files(x86)\Bernafon\Oasis\Oasis2\Oasis.exe.config"},
+                {@"C:\Program Files(x86)\Sonic\ExpressFit\ExpressFit2\EXPRESSfit.exe.config"},
+                {@"C:\Program Files(x86)\Philips HearSuite\HearSuite\HearSuite2\HearSuite.exe.config"},
+                {@""} // medical
+            };
+           
+
+            foreach (var item in listOfConfigFSExe)
+            {
+                if (System.IO.File.Exists(item)) // jezeli plik istnieje
+                {
+
+
+                    var doc1 = XDocument.Load(item);
+
+                    var list1 = from appNode in doc1.Descendants("appSettings").Elements()
+                                where appNode.Attribute("key").Value == "Wdh.DataDriven.Analytics.Windows.Metadata.EndpointAuthorizationToken"
+                                select appNode;
+                    var list2 = from appNode in doc1.Descendants("appSettings").Elements()
+                                where appNode.Attribute("key").Value == "Wdh.DataDriven.Analytics.Windows.Metadata.Environment"
+                                select appNode;
+                    var list3 = from appNode in doc1.Descendants("appSettings").Elements()
+                                where appNode.Attribute("key").Value == "Wdh.DataDriven.Analytics.Windows.Metadata.Endpoint"
+                                select appNode;
+                    var list4 = from appNode in doc1.Descendants("appSettings").Elements()
+                                where appNode.Attribute("key").Value == "Wdh.DataDriven.Analytics.Windows.InstrumentationKey"
+                                select appNode;
+                    var list5 = from appNode in doc1.Descendants("appSettings").Elements()
+                                where appNode.Attribute("key").Value == "Wdh.DataDriven.Analytics.Windows.ApiToken"
+                                select appNode;
+                    var element1 = list1.FirstOrDefault();
+                    var element2 = list2.FirstOrDefault();
+                    var element3 = list3.FirstOrDefault();
+                    var element4 = list4.FirstOrDefault();
+                    var element5 = list5.FirstOrDefault();
+                    element1.Attribute("value").SetValue("QiIPdzVOjzCTfhKllRx8hv03svaahNmbmhGOpdsWOaoORSZNIJtofg==");
+                    element2.Attribute("value").SetValue("test");
+                    element3.Attribute("value").SetValue("https://oas-test-euw-functionapp.azurewebsites.net/api/v1/applicationdatalogging/1.0");
+                    element4.Attribute("value").SetValue("fb1e3d8e-8462-4a29-8df8-5ddb0f3745de");
+                    element5.Attribute("value").SetValue("b31b99bf-5257-41d3-86df-ad84b30aea8e");
+
+                    var tmp = from appNode in doc1.Descendants("appSettings").Elements()
+                              where appNode.Attribute("key").Value == "Wdh.DataDriven.Analytics.Windows.TestIdentifier"
+                              select appNode;
+
+                    if (tmp.Count() == 0)
+                    {
+                        XElement parent = element5.Parent;
+                        var element6 = new XElement(element5);
+                        element6.Attribute("key").SetValue("Wdh.DataDriven.Analytics.Windows.TestIdentifier");
+                        element6.Attribute("value").SetValue("tests");
+
+                        parent.Add(new XElement(element6));
+                    }
+
+
+                    doc1.Save(item);
+                }
+            }
         }
 
 
