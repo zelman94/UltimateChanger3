@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -472,6 +473,48 @@ namespace UltimateChanger
                 System.Windows.MessageBox.Show(x.ToString());
             }
             return listpaths;
+        }
+
+        public static void setGodzilla()
+        {
+
+
+           
+            ExeConfigurationFileMap configFileMap = new ExeConfigurationFileMap();
+            configFileMap.ExeConfigFilename = @"C:\Program Files (x86)\Oticon\Genie\Genie2\Genie.exe.config";
+            Configuration configuration = ConfigurationManager.OpenMappedExeConfiguration(configFileMap, ConfigurationUserLevel.None);
+            KeyValueConfigurationCollection settings = configuration.AppSettings.Settings;         
+
+
+
+            foreach (KeyValueConfigurationElement item in settings)
+            {
+                if (item.Key == "Wdh.DataDriven.Analytics.Windows.Metadata.EndpointAuthorizationToken")
+                {
+                    item.Value = "QiIPdzVOjzCTfhKllRx8hv03svaahNmbmhGOpdsWOaoORSZNIJtofg==";
+                }
+                if (item.Key == "Wdh.DataDriven.Analytics.Windows.Metadata.Environment")
+                {
+                    item.Value = "test";
+                }
+                if (item.Key == "Wdh.DataDriven.Analytics.Windows.Metadata.Endpoint")
+                {
+                    item.Value = "https://oas-test-euw-functionapp.azurewebsites.net/api/v1/applicationdatalogging/1.0";
+                }
+                if (item.Key == "Wdh.DataDriven.Analytics.Windows.InstrumentationKey")
+                {
+                    item.Value = "fb1e3d8e-8462-4a29-8df8-5ddb0f3745de";
+                }
+                if (item.Key == "Wdh.DataDriven.Analytics.Windows.ApiToken")
+                {
+                    item.Value = "b31b99bf-5257-41d3-86df-ad84b30aea8e";
+
+                }
+            }
+
+
+
+
         }
 
 
