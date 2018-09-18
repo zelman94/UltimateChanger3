@@ -536,5 +536,10 @@ namespace UltimateChanger
             }
         }
 
+        public void setLogs(ClickCounter CounterOfclicks)
+        { // dodac implementacje logowania do bazy SQL
+
+        }
+
     }
 }

@@ -8,14 +8,17 @@ namespace UltimateChanger
 {
     public enum Buttons
     {
-        All = 0,
         StartFittingSoftware,
         StartHAttori,
         InstallFittingSoftware,
         UpdateMarket,
         UpdateMode,
         DeleteLogs,
-        UninstallFittingSoftware
+        UninstallFittingSoftware,
+        Kill,
+        Downgrade,
+        RandomHI,
+        CopyMyHardware
     };
 
     public class ClickCounter
@@ -39,7 +42,7 @@ namespace UltimateChanger
 
         public ClickCounter(int numberOfButtons)
         {
-            clicks = new int[numberOfButtons];
+            clicks = new int[numberOfButtons+1];
             sumOfClicks = 0;
         }
 

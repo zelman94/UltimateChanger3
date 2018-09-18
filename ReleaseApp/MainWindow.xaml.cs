@@ -54,6 +54,10 @@ namespace UltimateChanger
         List<CheckBox> checkBoxList = new List<CheckBox>();
         List<ComboBox> comboBoxList = new List<ComboBox>();
 
+
+        ClickCounter CounterOfclicks = new ClickCounter(10);
+
+
         List<Button> buttonListForUi = new List<Button>();
         List<Label> lableListForUi = new List<Label>();
         List<ListBox> listBoxForUi = new List<ListBox>();
@@ -746,6 +750,8 @@ namespace UltimateChanger
             //{
 
             //}
+            dataBaseManager.setLogs(CounterOfclicks);
+
         }
 
 
@@ -1005,6 +1011,7 @@ namespace UltimateChanger
             {
                 MessageBox.Show(message + message2);
             }
+     
         }
         private void btnFS_Click(object sender, RoutedEventArgs e)
         {
@@ -1027,6 +1034,7 @@ namespace UltimateChanger
                     try
                     {
                         Process.Start(BuildInfo.ListPathsToHattori[licznik] + "FirmwareUpdater.exe");
+                        CounterOfclicks.AddClick((int)Buttons.StartHAttori);
                     }
                     catch (Exception x)
                     {
@@ -1066,7 +1074,7 @@ namespace UltimateChanger
                 return;
             }
             fileOperator.deleteinfoaboutinstallerpath(BindCombobox.BrandtoFS[checkboxname]); // dopisać funkcje
-
+            CounterOfclicks.AddClick((int)Buttons.UninstallFittingSoftware);
             /*
              1 FS na raz timer sprawdzający czy uninstall się skończył 
              gdy uninstallacja trwa uninstall i install button zablokowany
@@ -1106,6 +1114,7 @@ namespace UltimateChanger
         }
         private void btnChange_mode_log(object sender, RoutedEventArgs e)
         {
+            CounterOfclicks.AddClick((int)Buttons.UpdateMode);
             if (cmbLogSettings.Visibility == Visibility.Hidden)
             {
                 if (txtsettlog1.Text != "" || txtsettlog2.Text != "" || txtsettlog3.Text != "")
@@ -1183,6 +1192,7 @@ namespace UltimateChanger
         private void btnDelete_logs(object sender, RoutedEventArgs e)
         {
             byte licznik = 0;
+            CounterOfclicks.AddClick((int)Buttons.DeleteLogs);
             TrashCleaner smieciarka = new TrashCleaner();
             bool flag = false;
             string message = "Deleted";
@@ -1239,6 +1249,7 @@ namespace UltimateChanger
                 {"MedicalComposition"},
                 {"HearSuiteComposition"},
             };
+            CounterOfclicks.AddClick((int)Buttons.InstallFittingSoftware);
 
             if (cmbBuild.SelectedIndex > -1)
             {
@@ -1601,6 +1612,7 @@ namespace UltimateChanger
                     try
                     {
                         Process.Start(BuildInfo.ListPathsToSetup[licznik]);
+                        CounterOfclicks.AddClick((int)Buttons.StartFittingSoftware);
                     }
                     catch (Exception)
                     {
@@ -1614,6 +1626,7 @@ namespace UltimateChanger
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             fileOperator.KillFS();
+            CounterOfclicks.AddClick((int)Buttons.Kill);
         }
 
         private void btnSavelogs_Click(object sender, RoutedEventArgs e)
@@ -1660,6 +1673,7 @@ namespace UltimateChanger
         {
             Window downgrade = new DowngradeWindow();
             downgrade.ShowDialog();
+            CounterOfclicks.AddClick((int)Buttons.Downgrade);
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
@@ -1679,8 +1693,9 @@ namespace UltimateChanger
                 MessageBox.Show("Remember to Select some Person(s) and press Add button");
                 return;
             }
+            CounterOfclicks.AddClick((int)Buttons.RandomHI);
 
-                Random rnd = new Random();
+            Random rnd = new Random();
             bool flag = false;
                 foreach (var item in listOfTeammembers) // przechodze po osobach z  listy i losuje im wszystko co trzeba
                 {          
@@ -2323,6 +2338,7 @@ namespace UltimateChanger
         private void btnCopy_Click(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(txtMyItemsList.Text);
+            CounterOfclicks.AddClick((int)Buttons.CopyMyHardware);
         }
 
         private void btnAddNewHardware_Click(object sender, RoutedEventArgs e)
@@ -2915,6 +2931,7 @@ namespace UltimateChanger
             int licz = 0;
             string message = "updated: \n";
             bool flag = false;
+            CounterOfclicks.AddClick((int)Buttons.UpdateMarket);
             foreach (var item in checkBoxList)
             {
                 if (item.IsChecked.Value)
