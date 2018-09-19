@@ -464,7 +464,7 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
-                System.Windows.MessageBox.Show(x.ToString());
+                System.Windows.MessageBox.Show("Cannot connect to Database user: " + user);
             }
             myReader.Close();
             return listVerifit;
@@ -538,7 +538,28 @@ namespace UltimateChanger
 
         public void setLogs(ClickCounter CounterOfclicks)
         { // dodac implementacje logowania do bazy SQL
+            try
+            {
+        //user	ver	time	StartFittingSoftware	Start_Hattori	InstallFittingSoftware	Update_Market	UpdateMode	DeleteLogs	UninstallFittingSoftware	Kill_FS	Downgrade	RandomHI	CopyMyHardware
+        //StartFittingSoftware,
+        //StartHAttori,
+        //InstallFittingSoftware,
+        //UpdateMarket,
+        //UpdateMode,
+        //DeleteLogs,
+        //UninstallFittingSoftware,
+        //Kill,
+        //Downgrade,
+        //RandomHI,
+        //CopyMyHardware
 
+                MySqlCommand myCommand = new MySqlCommand($"INSERT INTO Advance_logs VALUES ('{Environment.UserName}','{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()}','SELECT convert(datetime,convert(int, GETDATE()))',{CounterOfclicks.Clicks[(int)Buttons.StartFittingSoftware]},{CounterOfclicks.Clicks[(int)Buttons.StartHAttori]},{CounterOfclicks.Clicks[(int)Buttons.InstallFittingSoftware]},{CounterOfclicks.Clicks[(int)Buttons.UpdateMarket]},{CounterOfclicks.Clicks[(int)Buttons.UpdateMode]},{CounterOfclicks.Clicks[(int)Buttons.DeleteLogs]},{CounterOfclicks.Clicks[(int)Buttons.UninstallFittingSoftware]},{CounterOfclicks.Clicks[(int)Buttons.Kill]},{CounterOfclicks.Clicks[(int)Buttons.Downgrade]},{CounterOfclicks.Clicks[(int)Buttons.RandomHI]},{CounterOfclicks.Clicks[(int)Buttons.CopyMyHardware]})", SQLConnection);
+                myCommand.ExecuteNonQuery();
+            }
+            catch (Exception x)
+            {
+                Console.WriteLine(x.ToString());
+            }
         }
 
     }

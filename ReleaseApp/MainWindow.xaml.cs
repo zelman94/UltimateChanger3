@@ -205,15 +205,7 @@ namespace UltimateChanger
             setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
             setUIdefaults(XMLReader.getDefaultSettings("ComboBox"), "ComboBox");
 
-            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-            try
-            {
-                ListboxOfMyVerifit.ItemsSource = dataBaseManager.GetMyVerifit(userName);
-            }
-            catch (Exception)
-            {
 
-            }
 
             RBcomposition.IsChecked = true;
 
@@ -2745,6 +2737,17 @@ namespace UltimateChanger
             bool tmp = rbnTurnOnVerifit.IsChecked.Value;
             tmp = !tmp;
             XMLReader.setSetting("TurnOffVerifit", "RadioButtons", Convert.ToString(tmp));
+
+            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            try
+            {
+                ListboxOfMyVerifit.ItemsSource = dataBaseManager.GetMyVerifit(userName);
+            }
+            catch (Exception)
+            {
+
+            }
+
 
         }
 
