@@ -10,6 +10,7 @@
         <Button Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="35,225,0,0" VerticalAlignment="Top" Width="94" Click="btnUpdate_Click"/>
         <Button Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="157,225,0,0" VerticalAlignment="Top" Width="94" Click="btnCancel_Click"/>
         <!--<TextBox Name="txtInfoUpdate" HorizontalAlignment="Left" Height="180" Margin="24,31,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="241" TextChanged="txtInfoUpdate_TextChanged"/>
-        !--><Image Source="Images/update.png" Margin="10,0,17,37"></Image>
+        !-->
+        <Image Source="Images/update.png" Margin="10,0,17,37"></Image>
     </Grid>
 </Window>
