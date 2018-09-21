@@ -29,7 +29,7 @@ using ICSharpCode.SharpZipLib.Zip;
 using System.Net;
 using System.Data;
 
-[assembly: System.Reflection.AssemblyVersion("2.1.1.0")]
+[assembly: System.Reflection.AssemblyVersion("3.0.0.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window
@@ -53,7 +53,7 @@ namespace UltimateChanger
         List<Label> listlabelsinfoFS;  
         List<CheckBox> checkBoxList = new List<CheckBox>();
         List<ComboBox> comboBoxList = new List<ComboBox>();
-
+        string skin_name;
 
         ClickCounter CounterOfclicks = new ClickCounter(10);
 
@@ -222,6 +222,17 @@ namespace UltimateChanger
 
 
 
+            //zablokowanie widocznosci elementow bez implementacji :
+
+            //tabGlossary.Visibility = Visibility.Hidden;
+            tabGlossary.IsEnabled = false;
+            RBfullMedium.IsEnabled = false;
+            rbn_Genie.Visibility = Visibility.Hidden;
+            rbn_Oasis.Visibility = Visibility.Hidden;
+            rbn_ExpressFit.Visibility = Visibility.Hidden;
+            rbn_Christmas.Visibility = Visibility.Hidden;
+
+                                 
         }
         //________________________________________________________________________________________________________________________________________________
 
@@ -742,7 +753,7 @@ namespace UltimateChanger
             //{
 
             //}
-            dataBaseManager.setLogs(CounterOfclicks);
+            dataBaseManager.setLogs(CounterOfclicks, skin_name);
 
         }
 
@@ -2065,6 +2076,7 @@ namespace UltimateChanger
             {
                 Source = new Uri("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Grey.xaml", UriKind.RelativeOrAbsolute)
             });
+            skin_name = "On the dark side"; // ustawiam nazwe do logowania do bazy danych
         }
 
         private void Light_skin_Checked(object sender, RoutedEventArgs e)
@@ -2165,6 +2177,11 @@ namespace UltimateChanger
             {
                 Source = new Uri("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml", UriKind.RelativeOrAbsolute)
             });
+
+
+
+            skin_name = "Crystal White"; // ustawiam nazwe do logowania do bazy danych
+
 
         }
 

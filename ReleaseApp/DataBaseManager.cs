@@ -536,7 +536,7 @@ namespace UltimateChanger
             }
         }
 
-        public void setLogs(ClickCounter CounterOfclicks)
+        public void setLogs(ClickCounter CounterOfclicks,string skin_name)
         { // dodac implementacje logowania do bazy SQL
             try
             {
@@ -553,7 +553,7 @@ namespace UltimateChanger
         //RandomHI,
         //CopyMyHardware
 
-                MySqlCommand myCommand = new MySqlCommand($"INSERT INTO Advance_logs VALUES ('{Environment.UserName}','{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()}','SELECT convert(datetime,convert(int, GETDATE()))',{CounterOfclicks.Clicks[(int)Buttons.StartFittingSoftware]},{CounterOfclicks.Clicks[(int)Buttons.StartHAttori]},{CounterOfclicks.Clicks[(int)Buttons.InstallFittingSoftware]},{CounterOfclicks.Clicks[(int)Buttons.UpdateMarket]},{CounterOfclicks.Clicks[(int)Buttons.UpdateMode]},{CounterOfclicks.Clicks[(int)Buttons.DeleteLogs]},{CounterOfclicks.Clicks[(int)Buttons.UninstallFittingSoftware]},{CounterOfclicks.Clicks[(int)Buttons.Kill]},{CounterOfclicks.Clicks[(int)Buttons.Downgrade]},{CounterOfclicks.Clicks[(int)Buttons.RandomHI]},{CounterOfclicks.Clicks[(int)Buttons.CopyMyHardware]})", SQLConnection);
+                MySqlCommand myCommand = new MySqlCommand($"INSERT INTO Advance_logs VALUES ('{Environment.UserName}','{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()}','','{skin_name}',{CounterOfclicks.Clicks[(int)Buttons.StartFittingSoftware]},{CounterOfclicks.Clicks[(int)Buttons.StartHAttori]},{CounterOfclicks.Clicks[(int)Buttons.InstallFittingSoftware]},{CounterOfclicks.Clicks[(int)Buttons.UpdateMarket]},{CounterOfclicks.Clicks[(int)Buttons.UpdateMode]},{CounterOfclicks.Clicks[(int)Buttons.DeleteLogs]},{CounterOfclicks.Clicks[(int)Buttons.UninstallFittingSoftware]},{CounterOfclicks.Clicks[(int)Buttons.Kill]},{CounterOfclicks.Clicks[(int)Buttons.Downgrade]},{CounterOfclicks.Clicks[(int)Buttons.RandomHI]},{CounterOfclicks.Clicks[(int)Buttons.CopyMyHardware]})", SQLConnection);
                 myCommand.ExecuteNonQuery();
             }
             catch (Exception x)

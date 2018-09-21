@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReleaseApp", "ReleaseApp\Re
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Multi Changer", "Multi Changer\Multi Changer.vdproj", "{1B69B9C4-B369-4EEA-8E65-F248DA64F673}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Installer", "Installer\Installer.vdproj", "{461A49C4-1EC2-4EF8-9E02-FA53436BD8B7}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,8 +19,6 @@ Global
 		{1574BF92-0CC7-4A9C-B04E-FD269AB5DE28}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1B69B9C4-B369-4EEA-8E65-F248DA64F673}.Debug|Any CPU.ActiveCfg = Debug
 		{1B69B9C4-B369-4EEA-8E65-F248DA64F673}.Release|Any CPU.ActiveCfg = Release
-		{461A49C4-1EC2-4EF8-9E02-FA53436BD8B7}.Debug|Any CPU.ActiveCfg = Debug
-		{461A49C4-1EC2-4EF8-9E02-FA53436BD8B7}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
