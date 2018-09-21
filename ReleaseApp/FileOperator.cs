@@ -101,6 +101,18 @@ namespace UltimateChanger
 
         public static List<string> pathToTrash = myXMLReader.getPaths("pathToTrash");
 
+
+        static public void DeleteOldDirs()
+        {
+            try
+            {
+                Directory.Delete(@"C:\Program Files\DGS - PAZE & MIBW", true);
+            }
+            catch (Exception)
+            {
+            }
+        }
+
         public void setAutostart(bool mode) // true - wlaczony autostar false - bez autostart
         {
             switch (mode.ToString().ToLower())

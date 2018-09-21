@@ -19,10 +19,11 @@ namespace UltimateChanger
 {
     public partial class UpdateWindow : Window
     {
-        string PATHS = "";
+        string PATHS = "",INFO="";
         public UpdateWindow(string paths, string info)
         {
-            PATHS = paths;            
+            PATHS = paths;
+            INFO = info;
             InitializeComponent();
             //txtInfoUpdate.Text = info;
         }
@@ -101,6 +102,11 @@ namespace UltimateChanger
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void btnInfoUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(INFO);
         }
 
         private void txtInfoUpdate_TextChanged(object sender, TextChangedEventArgs e)

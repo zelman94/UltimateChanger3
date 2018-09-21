@@ -117,6 +117,7 @@ namespace UltimateChanger
 
 
                 fileOperator.getDataToBuildCombobox();
+                FileOperator.DeleteOldDirs(); // usuwam stare lokalizacje po wersji 2.1.1.0
                 initializeTimers();
 
                 try
