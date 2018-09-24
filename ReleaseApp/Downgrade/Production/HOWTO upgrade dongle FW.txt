@@ -1,0 +1,68 @@
+HOWTO download firmware to the FittingLINK dongle
+-------------------------------------------------
+
+The wireless programmer dongle can be firmware upgraded via a tool shipped together with the release.
+
+There are 2 procedures, one for a dongle which is fresh from Sennheiser production and another one for a
+dongle which has already been upgraded with FittingLINK firmware.
+
+To determine which procedure to follow, make sure the dongle is inserted into a USB port and open
+Windows 'Devices and Printers'. Look in the 'unspecified' section and check if there is a device named
+'Sennheiser BTD 800 USB' or 'Sennheiser BTD 800 USB for Lync'. If there is, you have a 'fresh' device.
+In this case, follow the instructions in the section 'Upgrading a fresh BTD 800 USB device' below.
+Otherwise you have a dongle with FittingLINK FW, and you should follow the instructions in the section
+'Upgrading an existing FittingLINK' immediately hereafter.
+
+
+Upgrading an existing FittingLINK
+---------------------------------
+
+To upgrade a dongle which already has FittingLINK dongle FW, issue the following command in a command prompt:
+
+DongleUpgrade
+
+The tool will proceed and download the current release FW to the dongle.
+
+If you receive the message 'Check that the DFU driver is installed.',
+it means that a required driver is not installed. The upgrade script will detect this situation and
+automatically proceed to installing the required driver.
+When prompted if you will allow the program to make changes to your computer, click 'yes'.
+When you are warned that Windows can't verify the publisher of this driver software, click 'Install this driver software anyway'.
+This is a consequence of the driver not being signed.
+
+If you get an error message that says: "The application was unable to start correctly (0xc0150002). Click OK to close the application." and
+there is an error in the event log in windows under application with a time stamp that matches the time you tried to start the DongleUpgrade.cmd file with
+the following type of message contents: "Activation context generation failed for "<Leyline Release Package Directory>\Production\Dongle\DFUEngine.dll". Dependent Assembly Microsoft.VC80.CRT,processorArchitecture="x86",publicKeyToken="1fc8b3b9a1e18e3b",type="win32",version="8.0.50727.6195" could not be found. Please use sxstrace.exe for detailed diagnosis" then
+install the Microsoft Visual C++ 2005 Service Pack 1 Redistributable Package MFC Security Update. You can find it in the Production folder in the Leyline Release Package.
+
+Production\vcredist_x86.EXE (Downloaded from: http://www.microsoft.com/en-us/download/details.aspx?id=26347)
+
+and then try running the DongleUpgrade.cmd file again.
+
+After driver installation, the script will automatically retry the dongle FW upgrade. It should now proceed without errors.
+
+
+
+
+Upgrading a fresh BTD 800 USB device
+------------------------------------
+
+To upgrade a dongle which is fresh from Sennheiser production, issue the following command in a command prompt:
+
+DongleInitialize
+
+The tool will proceed and download the current release FW to the dongle.
+
+If you receive the message 'Check that the DFU driver is installed.',
+it means that a required driver is not installed. The upgrade script will detect this situation and
+automatically proceed to installing the required driver.
+When prompted if you will allow the program to make changes to your computer, click 'yes'.
+When you are warned that Windows can't verify the publisher of this driver software, click 'Install this driver software anyway'.
+This is a consequence of the driver not being signed.
+NOTE: Windows will also try to locate a driver by itself. This will happen in parallel with the driver installation performed 
+by the FW upgrade script.
+However, the driver is not available from Windows Update, so Windows will fail locating it. And thereafter, Windows will display an error
+message indicating that the driver could not be found. You can ignore this message as long as another dialog pops up and indicates that a driver
+from 'Cambridge Silicon Radio' has been successfully installed.
+
+After driver installation, the script will automatically retry the dongle FW upgrade. It should now proceed without errors.
