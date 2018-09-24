@@ -29,7 +29,7 @@ using ICSharpCode.SharpZipLib.Zip;
 using System.Net;
 using System.Data;
 
-[assembly: System.Reflection.AssemblyVersion("3.0.0.0")]
+[assembly: System.Reflection.AssemblyVersion("3.0.1.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window
@@ -608,7 +608,7 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
-                MessageBox.Show(x.ToString());
+               // MessageBox.Show(x.ToString());
             }
             //for (int i = 0; i < checkBoxList.Count; i++)
             int licz = 0;
