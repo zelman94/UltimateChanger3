@@ -49,7 +49,7 @@ namespace UltimateChanger
             {
                 try
                 {
-                    Process.Start(path);
+                    Process.Start(path, " /uninstall");
                     return true;
                 }
                 catch (Exception)

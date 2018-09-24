@@ -117,6 +117,7 @@ namespace UltimateChanger
 
 
                 fileOperator.getDataToBuildCombobox();
+                FileOperator.DeleteOldDirs(); // usuwam stare lokalizacje po wersji 2.1.1.0
                 initializeTimers();
 
                 try
@@ -1069,7 +1070,16 @@ namespace UltimateChanger
 
             try
             {
-                instal.UninstallBrand(fileOperator.ReadPathToFsInstallator(BindCombobox.BrandtoFS[checkboxname]), RBnormal.IsChecked.Value);
+                var allFiles = Directory.GetFiles(@"C:\ProgramData\Package Cache", "*.exe", SearchOption.AllDirectories);
+                foreach (var item in allFiles)
+                {
+                    if (item.Contains(checkboxname) || item.Contains("HearSuite")) // pewnie trzeba bedzie poprawić to 
+                    {
+                        instal.UninstallBrand(item, RBnormal.IsChecked.Value);
+                    }
+
+                }
+                
             }
             catch (Exception)
             {
