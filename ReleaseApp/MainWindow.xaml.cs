@@ -1058,7 +1058,7 @@ namespace UltimateChanger
                 if (item.IsChecked.Value)
                 {
                     count++;
-                    checkboxname = item.Name;
+
                 }
             }
             if (count > 1)
@@ -1067,26 +1067,90 @@ namespace UltimateChanger
                 return;
             }
             FSInstaller instal = new FSInstaller();
-
+            string path_to_Uninstall = "";
             try
             {
                 var allFiles = Directory.GetFiles(@"C:\ProgramData\Package Cache", "*.exe", SearchOption.AllDirectories);
                 foreach (var item in allFiles)
                 {
-                    if (item.Contains(checkboxname) || item.Contains("HearSuite")) // pewnie trzeba bedzie poprawić to 
+                    try
                     {
-                        instal.UninstallBrand(item, RBnormal.IsChecked.Value);
+                        FileVersionInfo myFileVersionInfo =
+  FileVersionInfo.GetVersionInfo(item);
+
+
+
+                        if (myFileVersionInfo.FileDescription.Contains("Genie 2"))
+                        {
+                            checkboxname = "Genie 2";
+                            path_to_Uninstall = item;
+                        }
+                            
+
+
+                        if (myFileVersionInfo.FileDescription.Contains("Genie Medical"))
+                        {
+                            checkboxname = "Genie Medical";
+                            path_to_Uninstall = item;
+                        }
+                       
+
+
+                        if (myFileVersionInfo.FileDescription.Contains("Oasis NXT"))
+                        {
+                            checkboxname = "Oasis NXT";
+                            path_to_Uninstall = item;
+                        }
+                        
+
+
+                        if (myFileVersionInfo.FileDescription.Contains("EXPRESSfit Pro"))
+                        {
+                            checkboxname = "EXPRESSfit Pro";
+                            path_to_Uninstall = item;
+                        }
+                        
+
+
+                        if (myFileVersionInfo.FileDescription.Contains("HearSuite"))
+                        {
+                            checkboxname = "HearSuite";
+                            path_to_Uninstall = item;
+                        }
+                        
+
+                    }
+                    catch (Exception)
+                    {
+
                     }
 
+
+                  
+
                 }
-                
+                try
+                {
+
+
+
+                    if (checkboxname != "") // pewnie trzeba bedzie poprawić to 
+                    {
+                        instal.UninstallBrand(path_to_Uninstall, RBnormal.IsChecked.Value);
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
+
             }
             catch (Exception)
             {
                 MessageBox.Show("Can not be uninstalled by Ultimate Changer");
                 return;
             }
-            fileOperator.deleteinfoaboutinstallerpath(BindCombobox.BrandtoFS[checkboxname]); // dopisać funkcje
+           
             CounterOfclicks.AddClick((int)Buttons.UninstallFittingSoftware);
             /*
              1 FS na raz timer sprawdzający czy uninstall się skończył 
