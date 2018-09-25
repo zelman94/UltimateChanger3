@@ -29,7 +29,7 @@ using ICSharpCode.SharpZipLib.Zip;
 using System.Net;
 using System.Data;
 
-[assembly: System.Reflection.AssemblyVersion("3.0.1.0")]
+[assembly: System.Reflection.AssemblyVersion("3.0.2.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window
@@ -754,6 +754,7 @@ namespace UltimateChanger
             //{
 
             //}
+            FileOperator.setNextCountUCRun();
             dataBaseManager.setLogs(CounterOfclicks, skin_name);
 
         }

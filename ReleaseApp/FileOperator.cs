@@ -899,6 +899,31 @@ namespace UltimateChanger
             return new BuildInfo(Brand[0].InnerText, MarketName[0].InnerText, OEM[0].InnerText, SelectedLanguage[0].InnerText, about);
         }
 
-   
+
+        static public string getCountUCRun()
+        {
+            string count = "";
+            using (StreamReader sr = new StreamReader(@"Settings\counter.txt"))
+            {
+                String line = sr.ReadLine();
+                count = line;
+                sr.Close();
+            }
+            return count;
+        }
+
+        static public void setNextCountUCRun()
+        {
+            string count = getCountUCRun();
+            using (StreamWriter sr = new StreamWriter(@"Settings\counter.txt"))
+            {
+                int tmp = Convert.ToInt16(count);
+                sr.WriteLine((tmp+1).ToString());               
+                sr.Close();
+            }
+           
+        }
+
+
     }
 }
