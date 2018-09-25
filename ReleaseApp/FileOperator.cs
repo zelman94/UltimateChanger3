@@ -902,6 +902,16 @@ namespace UltimateChanger
 
         static public string getCountUCRun()
         {
+            if (!File.Exists(@"Settings\counter.txt"))
+            {
+                using (StreamWriter sr = new StreamWriter(@"Settings\counter.txt"))
+                {
+                    sr.WriteLine("0");
+                    sr.Close();
+                }
+                return "0";
+            }
+
             string count = "";
             using (StreamReader sr = new StreamReader(@"Settings\counter.txt"))
             {
