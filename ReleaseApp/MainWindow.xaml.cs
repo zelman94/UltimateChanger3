@@ -364,7 +364,7 @@ namespace UltimateChanger
                     {
                         try
                         {
-                            string[] dd = Directory.GetFiles(@"C:\Program Files\DGS - PAZE & MIBW\Resources");
+                            string[] dd = Directory.GetFiles(@"C:\Program Files\UltimateChanger\Resources");
                             FileInfo nazwa = new FileInfo(dd[0]);
                             Process.Start(dd.Last(), "/uninstall /quiet ");
                         }
@@ -378,14 +378,14 @@ namespace UltimateChanger
                 else
                 {
                     btnFakeV.IsEnabled = false;
-                    if (!Directory.Exists(@"C:\Program Files\DGS - PAZE & MIBW\Resources"))
+                    if (!Directory.Exists(@"C:\Program Files\UltimateChanger\Resources"))
                     {
-                        Directory.CreateDirectory(@"C:\Program Files\DGS - PAZE & MIBW\Resources");
+                        Directory.CreateDirectory(@"C:\Program Files\UltimateChanger\Resources");
                     }
                     FileInfo nazwa = new FileInfo(fileonServer[0]);
                     try
                     {
-                        File.Copy(fileonServer[0], @"C:\Program Files\DGS - PAZE & MIBW\Resources\" + nazwa.Name);
+                        File.Copy(fileonServer[0], @"C:\Program Files\UltimateChanger\Resources\" + nazwa.Name);
                     }
                     catch (Exception)
                     {
