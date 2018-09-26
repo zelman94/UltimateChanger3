@@ -184,43 +184,64 @@ namespace UltimateChanger
             {
                 MessageBox.Show("inicjalizacja \n" + x.ToString());
             }
-            sliderRelease.Maximum = cmbRelease.Items.Count - 1; // max dla slidera -1 bo count nie uwzglednia zerowego indexu
-            sliderWeightWireless.Maximum = 1;
-            sliderRelease.Value = cmbRelease.SelectedIndex; // ustalenie defaulta jako obecny release
-            sliderWeightWireless.Value = 0.5; // to oznacza ze nic nie zmieniam i wszystko jes po rowno w szansach 
-            lblWeightWireless.Content = sliderWeightWireless.Value.ToString();
 
-            ListBoxOfAvailableFeautures.SelectionMode = SelectionMode.Multiple;
 
-            ListBoxOfAvailableStyles.SelectionMode = SelectionMode.Multiple;
-            ListBoxOfAvailableTypes.SelectionMode = SelectionMode.Multiple;
-
-            refreshUI(new object(), new EventArgs());
-            dataBaseManager = new DataBaseManager(XMLReader.getDefaultSettings("DataBase").ElementAt(0).Value);
-            if (dataBaseManager != null)
+            try
             {
-                dataBaseManager.getInformation_DB();
+                sliderRelease.Maximum = cmbRelease.Items.Count - 1; // max dla slidera -1 bo count nie uwzglednia zerowego indexu
+                sliderWeightWireless.Maximum = 1;
+                sliderRelease.Value = cmbRelease.SelectedIndex; // ustalenie defaulta jako obecny release
+                sliderWeightWireless.Value = 0.5; // to oznacza ze nic nie zmieniam i wszystko jes po rowno w szansach 
+                lblWeightWireless.Content = sliderWeightWireless.Value.ToString();
+
+                ListBoxOfAvailableFeautures.SelectionMode = SelectionMode.Multiple;
+
+                ListBoxOfAvailableStyles.SelectionMode = SelectionMode.Multiple;
+                ListBoxOfAvailableTypes.SelectionMode = SelectionMode.Multiple;
+
+                refreshUI(new object(), new EventArgs());
+                dataBaseManager = new DataBaseManager(XMLReader.getDefaultSettings("DataBase").ElementAt(0).Value);
+                if (dataBaseManager != null)
+                {
+                    dataBaseManager.getInformation_DB();
+                }
+
+                setUIdefaults(XMLReader.getDefaultSettings("RadioButtons"), "RadioButtons");
+                setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
+                setUIdefaults(XMLReader.getDefaultSettings("ComboBox"), "ComboBox");
+
+
+
+                RBcomposition.IsChecked = true;
+
+
+                // zamiast watku napisac maly programik osobny ktory bedzie uruchamiany na timerze co 3 s i bedzie sprawdzac czy sie zakonczyl ! :D
+                if (!statusOfProcess("Rekurencjon"))
+                {
+                    // args 0 - Full/Medium/Composition
+                    // args 1 release
+                    // args 2 pathFile - only file name
+                    // args 3 dirFile - only file name "test.txt"
+
+                    if (File.Exists(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe"))
+                    {
+                        Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text}  path_Composition.txt dir_Composition.txt"); // wlaczyc gdy bedzie nowy exe gotowy
+
+                    }
+                    else
+                    {
+                        Process.Start(@"C:\Program Files\UltimateChanger" + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text}  path_Composition.txt dir_Composition.txt"); // wlaczyc gdy bedzie nowy exe gotowy
+
+                    }
+
+                }
+
             }
-
-            setUIdefaults(XMLReader.getDefaultSettings("RadioButtons"), "RadioButtons");
-            setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
-            setUIdefaults(XMLReader.getDefaultSettings("ComboBox"), "ComboBox");
-
-
-
-            RBcomposition.IsChecked = true;
-
-
-            // zamiast watku napisac maly programik osobny ktory bedzie uruchamiany na timerze co 3 s i bedzie sprawdzac czy sie zakonczyl ! :D
-            if (!statusOfProcess("Rekurencjon"))
+            catch (Exception x)
             {
-                // args 0 - Full/Medium/Composition
-                // args 1 release
-                // args 2 pathFile - only file name
-                // args 3 dirFile - only file name "test.txt"
-                Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text}  path_Composition.txt dir_Composition.txt"); // wlaczyc gdy bedzie nowy exe gotowy
+                MessageBox.Show("inicjalizacja part 2 \n" + x.ToString());
             }
-
+            
 
 
             //zablokowanie widocznosci elementow bez implementacji :

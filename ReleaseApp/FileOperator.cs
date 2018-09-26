@@ -902,35 +902,90 @@ namespace UltimateChanger
 
         static public string getCountUCRun()
         {
-            if (!File.Exists(@"Settings\counter.txt"))
+            string count = "";
+            try
             {
-                using (StreamWriter sr = new StreamWriter(@"Settings\counter.txt"))
+                if (Environment.CurrentDirectory.Contains("Updater")) // jezeli odpalam po update 
                 {
-                    sr.WriteLine("0");
+                    if (!File.Exists(@"C:\Program Files\UltimateChanger\Settings\counter.txt"))
+                    {
+                        using (StreamWriter sr = new StreamWriter(@"C:\Program Files\UltimateChanger\Settings\counter.txt"))
+                        {
+                            sr.WriteLine("0");
+                            sr.Close();
+                        }
+                        return "0";
+                    }
+
+                    using (StreamReader sr = new StreamReader(@"C:\Program Files\UltimateChanger\Settings\counter.txt"))
+                    {
+                        String line = sr.ReadLine();
+                        count = line;
+                        sr.Close();
+                        return count;
+                    }
+                }// jezeli odpalam normalnie 
+
+
+
+                if (!File.Exists(@"Settings\counter.txt"))
+                {
+                    using (StreamWriter sr = new StreamWriter(@"Settings\counter.txt"))
+                    {
+                        sr.WriteLine("0");
+                        sr.Close();
+                    }
+                    return "0";
+                }
+
+
+                using (StreamReader sr = new StreamReader(@"Settings\counter.txt"))
+                {
+                    String line = sr.ReadLine();
+                    count = line;
                     sr.Close();
                 }
-                return "0";
+            }
+            catch (Exception)
+            {
+
             }
 
-            string count = "";
-            using (StreamReader sr = new StreamReader(@"Settings\counter.txt"))
-            {
-                String line = sr.ReadLine();
-                count = line;
-                sr.Close();
-            }
+
             return count;
         }
 
         static public void setNextCountUCRun()
         {
             string count = getCountUCRun();
-            using (StreamWriter sr = new StreamWriter(@"Settings\counter.txt"))
+
+            try
             {
-                int tmp = Convert.ToInt16(count);
-                sr.WriteLine((tmp+1).ToString());               
-                sr.Close();
+                if (Environment.CurrentDirectory.Contains("Updater")) // jezeli odpalam po update 
+                {
+                    using (StreamWriter sr = new StreamWriter(@"C:\Program Files\UltimateChanger\Settings\counter.txt"))
+                    {
+                        int tmp = Convert.ToInt16(count);
+                        sr.WriteLine((tmp + 1).ToString());
+                        sr.Close();
+                    }
+
+                }
+                else
+                {
+                    using (StreamWriter sr = new StreamWriter(@"Settings\counter.txt"))
+                    {
+                        int tmp = Convert.ToInt16(count);
+                        sr.WriteLine((tmp + 1).ToString());
+                        sr.Close();
+                    }
+                }
             }
+            catch (Exception)
+            {
+
+            }
+            
            
         }
 
