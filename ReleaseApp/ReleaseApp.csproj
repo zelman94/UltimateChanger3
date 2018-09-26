@@ -165,20 +165,88 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+
+    <Resource Include="Downgrade\NOAHlink WLP downgrade\howto.txt" />
+    <Content Include="Downgrade\NOAHlink WLP downgrade\NLWUpgrader_11063s.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Downgrade\Production\Bluetooth\BlueFlashCmd.exe" />
+    <Content Include="Downgrade\Production\Bluetooth\flash.dll" />
+    <Content Include="Downgrade\Production\Bluetooth\pscli.exe" />
+    <Content Include="Downgrade\Production\Bluetooth\pshelp.dll" />
+    <Content Include="Downgrade\Production\Bluetooth\pttransport.dll" />
+    <Content Include="Downgrade\Production\Bluetooth\usbspi.dll" />
+    <Content Include="Downgrade\Production\Controller\JFlashARM.exe" />
+    <Content Include="Downgrade\Production\Controller\JLink.exe" />
+    <Content Include="Downgrade\Production\Controller\JLinkARM.dll" />
+    <Content Include="Downgrade\Production\Controller\ToolBackdoor.exe" />
+    <Content Include="Downgrade\Production\Controller\ToolProgramController.exe" />
+    <Resource Include="Downgrade\Production\Dongle 2.0.2 Downgrade\README.txt" />
+    <Content Include="Downgrade\Production\Dongle\BTD800DFUmode.exe" />
+    <Content Include="Downgrade\Production\Dongle\CsrUpgrade.exe" />
+    <Content Include="Downgrade\Production\Dongle\DFUEngine.dll" />
+    <Content Include="Downgrade\Production\Dongle\DFUmode.exe" />
+    <Content Include="Downgrade\Production\Dongle\SecomParser.dll" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\CosmosBase.dll" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\CosmosBase.pdb" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\CosmosInterfaces.dll" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\CosmosInterfaces.pdb" />
+    <Resource Include="Downgrade\Production\Dongle\Upgrade\CosmosInterfaces.XML" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\CosmosModules.dll" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\CosmosModules.pdb" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\LeylineDevice.CosmosPlugin.dll" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\LeylineDevice.CosmosPlugin.pdb" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\LeylineFitting.CosmosPlugin.dll" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\LeylineFitting.CosmosPlugin.pdb" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\LeylineProxyDevice.CosmosPlugin.dll" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\LeylineProxyDevice.CosmosPlugin.pdb" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\LeylineProxyFirmwareUpgrade.CosmosPlugin.dll" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\LeylineProxyFirmwareUpgrade.CosmosPlugin.pdb" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\Nautilus.dll" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\Nautilus.pdb" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\Upgrade.exe" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\Upgrade.pdb" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\UsbHidTransport.dll" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\UsbHidTransport.pdb" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\WinUsbTransport.dll" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\WinUsbTransport.pdb" />
+    <Content Include="Downgrade\Production\EngineFrameworkCpp.dll" />
+    <Content Include="Downgrade\Production\FQCA.exe" />
+    <Resource Include="Downgrade\Production\HOWTO upgrade dongle FW.txt" />
+    <Content Include="Downgrade\Production\msvcp100.dll" />
+    <Content Include="Downgrade\Production\msvcp100d.dll" />
+    <Content Include="Downgrade\Production\msvcr100.dll" />
+    <Content Include="Downgrade\Production\msvcr100d.dll" />
+    <Content Include="Downgrade\Production\pttransport.dll" />
+    <Resource Include="Downgrade\Production\README_FQCA.txt" />
+    <Content Include="Downgrade\Production\spilpt.dll" />
+    <Content Include="Downgrade\Production\TestEngine.dll" />
+    <Content Include="Downgrade\Production\ToolCheckDongle.exe" />
+    <Content Include="Downgrade\Production\ToolOOBPairing.exe" />
+    <Content Include="Downgrade\Production\usbspi.dll" />
+    <Content Include="Downgrade\Production\vcredist_x86.EXE" />
+    <Content Include="Downgrade\Production\WLPInterface.dll" />
+    <Content Include="Downgrade\Production\WLPInterface.h" />
+    <Content Include="Downgrade\Production\ykush.exe" />
+
     <Content Include="Images\icon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+
     <Content Include="Images\update.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Settings\counter.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Updater\UltimateChangerUpdater.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Updater\UltimateChangerUpdater.pdb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Updater\UltimateChangerUpdater.exe.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <SplashScreen Include="Images\splash.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -209,6 +277,25 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.manifest" />
+    <Content Include="Downgrade\NOAHlink WLP downgrade\Noahlink Wireless Upgrader instructions.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Downgrade\Production\Controller\AT91SAM4S16C.jflash" />
+    <None Include="Downgrade\Production\Controller\ETC\JFlash\Flash.csv" />
+    <None Include="Downgrade\Production\Controller\ETC\JFlash\MCU.csv" />
+    <None Include="Downgrade\Production\Controller\ResetScript" />
+    <None Include="Downgrade\Production\CPLD\WLP_CPLD.pof" />
+    <None Include="Downgrade\Production\Dongle 2.0.2 Downgrade\Downgrade Dongle.cmd" />
+    <None Include="Downgrade\Production\Dongle 2.0.2 Downgrade\leyline_wireless_usb_dongle_202_full.dfu" />
+    <None Include="Downgrade\Production\DongleInitialize.cmd" />
+    <None Include="Downgrade\Production\DongleProduction.cmd" />
+    <None Include="Downgrade\Production\DongleUpgrade.cmd" />
+    <None Include="Downgrade\Production\Dongle\bdaddr.psq" />
+    <None Include="Downgrade\Production\Dongle\Upgrade\Upgrade.exe.config" />
+    <None Include="Downgrade\Production\Release_Test.bat" />
+    <None Include="Downgrade\Production\Release_Test_Light.bat" />
+    <None Include="Downgrade\Production\WirelessProgrammerFQCAComplete.cmd" />
+    <None Include="Downgrade\Production\WirelessProgrammerFQCASettingsOnly.cmd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -223,7 +310,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="icon.ico" />
+    <Content Include="icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
@@ -282,6 +371,17 @@
     <Content Include="Settings\Defaults.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="IWshRuntimeLibrary">
+      <Guid>{F935DC20-1CF0-11D0-ADB9-00C04FD58A0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

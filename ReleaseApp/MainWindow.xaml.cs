@@ -29,7 +29,7 @@ using ICSharpCode.SharpZipLib.Zip;
 using System.Net;
 using System.Data;
 
-[assembly: System.Reflection.AssemblyVersion("3.0.0.0")]
+[assembly: System.Reflection.AssemblyVersion("3.0.2.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window
@@ -184,43 +184,64 @@ namespace UltimateChanger
             {
                 MessageBox.Show("inicjalizacja \n" + x.ToString());
             }
-            sliderRelease.Maximum = cmbRelease.Items.Count - 1; // max dla slidera -1 bo count nie uwzglednia zerowego indexu
-            sliderWeightWireless.Maximum = 1;
-            sliderRelease.Value = cmbRelease.SelectedIndex; // ustalenie defaulta jako obecny release
-            sliderWeightWireless.Value = 0.5; // to oznacza ze nic nie zmieniam i wszystko jes po rowno w szansach 
-            lblWeightWireless.Content = sliderWeightWireless.Value.ToString();
 
-            ListBoxOfAvailableFeautures.SelectionMode = SelectionMode.Multiple;
 
-            ListBoxOfAvailableStyles.SelectionMode = SelectionMode.Multiple;
-            ListBoxOfAvailableTypes.SelectionMode = SelectionMode.Multiple;
-
-            refreshUI(new object(), new EventArgs());
-            dataBaseManager = new DataBaseManager(XMLReader.getDefaultSettings("DataBase").ElementAt(0).Value);
-            if (dataBaseManager != null)
+            try
             {
-                dataBaseManager.getInformation_DB();
+                sliderRelease.Maximum = cmbRelease.Items.Count - 1; // max dla slidera -1 bo count nie uwzglednia zerowego indexu
+                sliderWeightWireless.Maximum = 1;
+                sliderRelease.Value = cmbRelease.SelectedIndex; // ustalenie defaulta jako obecny release
+                sliderWeightWireless.Value = 0.5; // to oznacza ze nic nie zmieniam i wszystko jes po rowno w szansach 
+                lblWeightWireless.Content = sliderWeightWireless.Value.ToString();
+
+                ListBoxOfAvailableFeautures.SelectionMode = SelectionMode.Multiple;
+
+                ListBoxOfAvailableStyles.SelectionMode = SelectionMode.Multiple;
+                ListBoxOfAvailableTypes.SelectionMode = SelectionMode.Multiple;
+
+                refreshUI(new object(), new EventArgs());
+                dataBaseManager = new DataBaseManager(XMLReader.getDefaultSettings("DataBase").ElementAt(0).Value);
+                if (dataBaseManager != null)
+                {
+                    dataBaseManager.getInformation_DB();
+                }
+
+                setUIdefaults(XMLReader.getDefaultSettings("RadioButtons"), "RadioButtons");
+                setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
+                setUIdefaults(XMLReader.getDefaultSettings("ComboBox"), "ComboBox");
+
+
+
+                RBcomposition.IsChecked = true;
+
+
+                // zamiast watku napisac maly programik osobny ktory bedzie uruchamiany na timerze co 3 s i bedzie sprawdzac czy sie zakonczyl ! :D
+                if (!statusOfProcess("Rekurencjon"))
+                {
+                    // args 0 - Full/Medium/Composition
+                    // args 1 release
+                    // args 2 pathFile - only file name
+                    // args 3 dirFile - only file name "test.txt"
+
+                    if (File.Exists(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe"))
+                    {
+                        Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text}  path_Composition.txt dir_Composition.txt"); // wlaczyc gdy bedzie nowy exe gotowy
+
+                    }
+                    else
+                    {
+                        Process.Start(@"C:\Program Files\UltimateChanger" + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text}  path_Composition.txt dir_Composition.txt"); // wlaczyc gdy bedzie nowy exe gotowy
+
+                    }
+
+                }
+
             }
-
-            setUIdefaults(XMLReader.getDefaultSettings("RadioButtons"), "RadioButtons");
-            setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
-            setUIdefaults(XMLReader.getDefaultSettings("ComboBox"), "ComboBox");
-
-
-
-            RBcomposition.IsChecked = true;
-
-
-            // zamiast watku napisac maly programik osobny ktory bedzie uruchamiany na timerze co 3 s i bedzie sprawdzac czy sie zakonczyl ! :D
-            if (!statusOfProcess("Rekurencjon"))
+            catch (Exception x)
             {
-                // args 0 - Full/Medium/Composition
-                // args 1 release
-                // args 2 pathFile - only file name
-                // args 3 dirFile - only file name "test.txt"
-                Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text}  path_Composition.txt dir_Composition.txt"); // wlaczyc gdy bedzie nowy exe gotowy
+                MessageBox.Show("inicjalizacja part 2 \n" + x.ToString());
             }
-
+            
 
 
             //zablokowanie widocznosci elementow bez implementacji :
@@ -608,7 +629,7 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
-                MessageBox.Show(x.ToString());
+               // MessageBox.Show(x.ToString());
             }
             //for (int i = 0; i < checkBoxList.Count; i++)
             int licz = 0;
@@ -754,6 +775,7 @@ namespace UltimateChanger
             //{
 
             //}
+            FileOperator.setNextCountUCRun();
             dataBaseManager.setLogs(CounterOfclicks, skin_name);
 
         }
@@ -1058,7 +1080,7 @@ namespace UltimateChanger
                 if (item.IsChecked.Value)
                 {
                     count++;
-                    checkboxname = item.Name;
+
                 }
             }
             if (count > 1)
@@ -1067,26 +1089,90 @@ namespace UltimateChanger
                 return;
             }
             FSInstaller instal = new FSInstaller();
-
+            string path_to_Uninstall = "";
             try
             {
                 var allFiles = Directory.GetFiles(@"C:\ProgramData\Package Cache", "*.exe", SearchOption.AllDirectories);
                 foreach (var item in allFiles)
                 {
-                    if (item.Contains(checkboxname) || item.Contains("HearSuite")) // pewnie trzeba bedzie poprawić to 
+                    try
                     {
-                        instal.UninstallBrand(item, RBnormal.IsChecked.Value);
+                        FileVersionInfo myFileVersionInfo =
+  FileVersionInfo.GetVersionInfo(item);
+
+
+
+                        if (myFileVersionInfo.FileDescription.Contains("Genie 2"))
+                        {
+                            checkboxname = "Genie 2";
+                            path_to_Uninstall = item;
+                        }
+                            
+
+
+                        if (myFileVersionInfo.FileDescription.Contains("Genie Medical"))
+                        {
+                            checkboxname = "Genie Medical";
+                            path_to_Uninstall = item;
+                        }
+                       
+
+
+                        if (myFileVersionInfo.FileDescription.Contains("Oasis NXT"))
+                        {
+                            checkboxname = "Oasis NXT";
+                            path_to_Uninstall = item;
+                        }
+                        
+
+
+                        if (myFileVersionInfo.FileDescription.Contains("EXPRESSfit Pro"))
+                        {
+                            checkboxname = "EXPRESSfit Pro";
+                            path_to_Uninstall = item;
+                        }
+                        
+
+
+                        if (myFileVersionInfo.FileDescription.Contains("HearSuite"))
+                        {
+                            checkboxname = "HearSuite";
+                            path_to_Uninstall = item;
+                        }
+                        
+
+                    }
+                    catch (Exception)
+                    {
+
                     }
 
+
+                  
+
                 }
-                
+                try
+                {
+
+
+
+                    if (checkboxname != "") // pewnie trzeba bedzie poprawić to 
+                    {
+                        instal.UninstallBrand(path_to_Uninstall, RBnormal.IsChecked.Value);
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
+
             }
             catch (Exception)
             {
                 MessageBox.Show("Can not be uninstalled by Ultimate Changer");
                 return;
             }
-            fileOperator.deleteinfoaboutinstallerpath(BindCombobox.BrandtoFS[checkboxname]); // dopisać funkcje
+           
             CounterOfclicks.AddClick((int)Buttons.UninstallFittingSoftware);
             /*
              1 FS na raz timer sprawdzający czy uninstall się skończył 

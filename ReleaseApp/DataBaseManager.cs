@@ -292,11 +292,42 @@ namespace UltimateChanger
                     //-----------------------------------------
                     //wersja apki
                     int[] ver_apki = new int[3];
-
+                                                         
                     int.TryParse(version[0].ToString(), out ver_apki[0]);
                     int.TryParse(version[2].ToString(), out ver_apki[1]);
                     int.TryParse(version[4].ToString(), out ver_apki[2]);
                     APPversion = version.ToString();
+
+
+                    if (APPversion == "3.0.2.0" && FileOperator.getCountUCRun() == "0") // dodać "i pierwszy start aplikacji"
+                    {
+
+
+                        try // usuwan stary
+                        {
+                            System.IO.File.Delete(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Ultimate Changer.lnk"));
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+
+                        string shortcutLocation = System.IO.Path.Combine(@"C:\Program Files\UltimateChanger\", "shortcut Ultimate Changer" + ".lnk");
+                        IWshRuntimeLibrary.WshShell shell = new IWshRuntimeLibrary.WshShell();
+                        IWshRuntimeLibrary.IWshShortcut shortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(shortcutLocation);
+
+                        shortcut.Description = "Ultimate Changer";   // The description of the shortcut
+                        shortcut.IconLocation = @"C:\Program Files\UltimateChanger\icon.ico";           // The icon of the shortcut
+                        shortcut.TargetPath = @"C:\Program Files\UltimateChanger\Ultimate Changer.exe";   // The path of the file that will launch when the shortcut is run
+                        shortcut.WorkingDirectory = @"C:\Program Files\UltimateChanger";
+                        shortcut.Save();                                    // Save the shortcut
+
+                        System.IO.File.Move(shortcutLocation, System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Ultimate Changer.lnk"));
+
+
+                    }
+
+
                     bool message = false;
                     for (int i = 0; i < 3; i++)
                     {

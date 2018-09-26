@@ -16,7 +16,17 @@ namespace UltimateChanger
         {
             List<string> lista = new List<string>();
             XmlDocument doc = new XmlDocument();
-            doc.Load("Settings\\Releases.xml");
+
+            if (System.IO.File.Exists("Settings\\Releases.xml"))
+            {
+                doc.Load("Settings\\Releases.xml");
+            }
+            else
+            {
+                doc.Load("C:\\Program Files\\UltimateChanger\\Settings\\Releases.xml");
+            }
+
+            
 
 
             XmlNodeList NodesValues = doc.SelectNodes(string.Format($"/Release/Value"));
@@ -37,9 +47,22 @@ namespace UltimateChanger
 
             SortedDictionary<string, string> StringToUI = new SortedDictionary<string, string>();
             XmlDocument doc2 = new XmlDocument();
-            doc2.Load("Settings\\Defaults.xml");
-            XmlNodeList NodesNames = doc2.SelectNodes(string.Format($"/Settings/{type}/Name"));
-            XmlNodeList NodesValues = doc2.SelectNodes(string.Format($"/Settings/{type}/Value"));
+            XmlNodeList NodesNames, NodesValues;
+
+            if (System.IO.File.Exists("Settings\\Defaults.xml"))
+            {
+                doc2.Load("Settings\\Defaults.xml");
+
+            }
+            else
+            {
+                doc2.Load("C:\\Program Files\\UltimateChanger\\Settings\\Defaults.xml");
+            }
+
+            NodesNames = doc2.SelectNodes(string.Format($"/Settings/{type}/Name"));
+            NodesValues = doc2.SelectNodes(string.Format($"/Settings/{type}/Value"));
+
+
             for (int i = 0; i < NodesNames.Count; i++)
             {
                 StringToUI.Add(NodesNames[i].InnerText, NodesValues[i].InnerText);
@@ -66,13 +89,21 @@ namespace UltimateChanger
         {
             List<MyHardware> lista = new List<MyHardware>();
             XmlDocument doc = new XmlDocument();
-            doc.Load("Settings\\Hardware.xml");
+            XmlNodeList NodesNames, NodesId, NodesManufacturer, NodesType, NodesLocalization;
+            if (System.IO.File.Exists("Settings\\Hardware.xml"))
+            {
+                doc.Load("Settings\\Hardware.xml");
+            }
+            else
+            {
+                doc.Load("C:\\Program Files\\UltimateChanger\\Settings\\Hardware.xml");
+            }
+            NodesNames = doc.SelectNodes(string.Format($"/Hardware/Element/Name"));
+            NodesId = doc.SelectNodes(string.Format($"/Hardware/Element/Id"));
+            NodesManufacturer = doc.SelectNodes(string.Format($"/Hardware/Element/Manufacturer"));
+            NodesType = doc.SelectNodes(string.Format($"/Hardware/Element/Type"));
+            NodesLocalization = doc.SelectNodes(string.Format($"/Hardware/Element/Localization"));
 
-            XmlNodeList NodesNames = doc.SelectNodes(string.Format($"/Hardware/Element/Name"));
-            XmlNodeList NodesId = doc.SelectNodes(string.Format($"/Hardware/Element/Id"));
-            XmlNodeList NodesManufacturer = doc.SelectNodes(string.Format($"/Hardware/Element/Manufacturer"));
-            XmlNodeList NodesType = doc.SelectNodes(string.Format($"/Hardware/Element/Type"));
-            XmlNodeList NodesLocalization = doc.SelectNodes(string.Format($"/Hardware/Element/Localization"));
             for (int i = 0; i < NodesNames.Count; i++)
             {
                 try
@@ -169,7 +200,7 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
-                 
+                doc.Load("C:\\Program Files\\UltimateChanger\\Settings\\myTeam.xml");
             }   
 
             XmlNodeList NodesValues = doc.SelectNodes(string.Format($"/Person/Value"));
@@ -222,7 +253,17 @@ namespace UltimateChanger
             List<string> Styles = new List<string>();
 
             XmlDocument doc = new XmlDocument();
-            doc.Load("Settings\\HIs.xml");
+           
+            if (System.IO.File.Exists("Settings\\HIs.xml"))
+            {
+                doc.Load("Settings\\HIs.xml");
+            }
+            else
+            {
+                doc.Load("C:\\Program Files\\UltimateChanger\\Settings\\HIs.xml");
+            }
+
+
             try
             {
                 XmlNodeList NodesNames = doc.DocumentElement.SelectNodes(string.Format($"/Random_HI/Release{release}/Available_Style"));
@@ -252,7 +293,14 @@ namespace UltimateChanger
             try
             {
                 XmlDocument doc = new XmlDocument();
-                doc.Load("Settings\\HIs.xml");
+                if (System.IO.File.Exists("Settings\\HIs.xml"))
+                {
+                    doc.Load("Settings\\HIs.xml");
+                }
+                else
+                {
+                    doc.Load("C:\\Program Files\\UltimateChanger\\Settings\\HIs.xml");
+                }
                 XmlNodeList NodesNames = doc.DocumentElement.SelectNodes(string.Format($"/Random_HI/Release{release}/Available_Style/{Style}"));
                 XmlNodeList NodesNames2 = NodesNames[0].ChildNodes; // pobieram OPN itp później można odczytać z tego parametry
                 foreach (XmlNode item in NodesNames2)
@@ -281,8 +329,14 @@ namespace UltimateChanger
             try
             {
                 XmlDocument doc = new XmlDocument();
-                doc.Load("Settings\\HIs.xml");
-
+                if (System.IO.File.Exists("Settings\\HIs.xml"))
+                {
+                    doc.Load("Settings\\HIs.xml");
+                }
+                else
+                {
+                    doc.Load("C:\\Program Files\\UltimateChanger\\Settings\\HIs.xml");
+                }
                 foreach (var Style in Styles) // iteracja po 
                 {
 
@@ -363,7 +417,14 @@ namespace UltimateChanger
 
 
             XmlDocument doc = new XmlDocument();
-            doc.Load("Settings\\HIs.xml");
+            if (System.IO.File.Exists("Settings\\HIs.xml"))
+            {
+                doc.Load("Settings\\HIs.xml");
+            }
+            else
+            {
+                doc.Load("C:\\Program Files\\UltimateChanger\\Settings\\HIs.xml");
+            }
             try
             {
                 XmlNodeList NodesNames = doc.DocumentElement.SelectNodes(string.Format($"/Random_HI/Hardware/Available_Style"));
@@ -441,8 +502,17 @@ namespace UltimateChanger
             string line;
 
             // Read the file and display it line by line.  
-            System.IO.StreamReader file =
-                new System.IO.StreamReader("Settings\\Ficzurs.txt");
+            System.IO.StreamReader file;
+
+            if (System.IO.File.Exists("Settings\\Ficzurs.txt"))
+            {
+                file = new System.IO.StreamReader("Settings\\Ficzurs.txt");
+            }
+            else
+            {
+                file = new System.IO.StreamReader("C:\\Program Files\\UltimateChanger\\Settings\\Ficzurs.txt");
+            }
+
             while ((line = file.ReadLine()) != null)
             {
                 listFicz.Add(line);
@@ -457,7 +527,24 @@ namespace UltimateChanger
         public static List<string> getPaths(string listName)
         {
             XmlDocument doc = new XmlDocument();
-            doc.Load("Settings\\Paths.xml");
+            try
+            {
+                doc.Load("Settings\\Paths.xml");
+            }
+            catch (Exception)
+            {
+                try
+                {
+                    doc.Load("C:\\Program Files\\UltimateChanger\\Settings\\Paths.xml");
+                }
+                catch (Exception x)
+                {
+                    System.Windows.MessageBox.Show($"problem with getPaths({listName}) Settings\n" + x.ToString());
+                    return null;
+                }
+                
+            }
+
             List<string> listpaths = new List<string>();
             try
             {

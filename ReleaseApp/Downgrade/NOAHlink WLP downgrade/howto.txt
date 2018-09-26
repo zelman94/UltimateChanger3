@@ -1,0 +1,6 @@
+HOWTO:
+
+Open NLWUpgrader_11063s.exe
+Press Ctrl+Alt+Shift+D (downgrade button appears)
+Press Downgrade
+Follow instructions on the screen.

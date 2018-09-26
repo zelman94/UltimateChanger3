@@ -1,0 +1,3174 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CosmosInterfaces</name>
+    </assembly>
+    <members>
+        <member name="T:Wdh.Cosmos.BLEADParser">
+            <summary>
+            Utility class for parsing BLE advertising report data.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.BLEADParser.Parse(System.Byte[])">
+            <summary>
+            Parse advertising report data. Data are converted to a sequence of advertising data elements.
+            </summary>
+            <param name="data">Report data.</param>
+            <returns>List of advertising data information elements.</returns>
+        </member>
+        <member name="T:Wdh.Cosmos.BLEADParser.Result">
+            <summary>
+            Struct to represent a single information element of the BLE advertising data.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.BLEADParser.Result.Type">
+            <summary>
+            Identifier of the AD element type.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.BLEADParser.Result.TypeName">
+            <summary>
+            String name of AD element type.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.BLEADParser.Result.Data">
+            <summary>
+            AD information element data in raw format.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.BLEADParser.Result.DataReadable">
+            <summary>
+            AD information element data interpreted into human readable format.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.BLEADParser.Result.DataRaw">
+            <summary>
+            AD information element data in hexadecimal string format.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.EnumUtil`1">
+            <summary>
+            Enum utilities
+            </summary>
+            <typeparam name="T">Enumeration type</typeparam>
+        </member>
+        <member name="M:Wdh.Cosmos.EnumUtil`1.IsDefined(`0)">
+            <summary>
+            Query if a value is defined for an enumeration
+            </summary>
+            <param name="enumValue">Value</param>
+            <returns>True if the value is defined</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.EnumUtil`1.IsDefined(System.Object)">
+            <summary>
+            Query if a value is defined for an enumeration
+            </summary>
+            <param name="enumValue">Value</param>
+            <returns>True if the value is defined</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.EnumUtil`1.Description(`0)">
+            <summary>
+            Get a description string for an enumeration value
+            </summary>
+            <param name="value">Enumeration value</param>
+            <returns>Description string</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.EnumUtil`1.Description(System.Object)">
+            <summary>
+            Get a description string for an enumeration value
+            </summary>
+            <param name="value">Enumeration value</param>
+            <returns>Description string</returns>
+        </member>
+        <member name="T:Wdh.Cosmos.IAurora">
+            <summary>
+            Interface for Aurora-specific functionality
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.IAurora.GetAuroraPif2">
+            <summary>
+            Obtain reference to PIF2 programming interface.
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.IAurora.GetAuroraSpi">
+            <summary>
+            Obtain reference to RF3 SPI interface.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.IAuroraPif2">
+            <summary>
+            This interface provides developer access to Aurora via I2C and PIF2.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IAuroraPif2.Open">
+            <summary>
+            Open the interface. This makes the device ready for further communication and should be called before
+            any other method in this interface.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IAuroraPif2.Close">
+            <summary>
+            Close the interface.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IAuroraPif2.Reset">
+            <summary>
+            Reset Aurora. This loads code to be executed from NVRAM.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IAuroraPif2.RunFromRam">
+            <summary>
+            Restart MCU and jump to FW code which has previously been transferred to RAM.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IAuroraPif2.RunFromRom">
+            <summary>
+            Restart MCU and stay in ROM boot code. I.e. no FW is loaded from NVRAM.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IAuroraPif2.RunFromNvRam">
+            <summary>
+            Restart MCU and jump to application code loaded from NVRAM.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IAuroraPif2.GetId">
+            <summary>
+            Retrieve chip identification
+            </summary>
+            <returns>Identification data.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IAuroraPif2.GetStatus(System.Byte@,System.String@)">
+            <summary>
+            Retrive PIF2 programming interface status.
+            </summary>
+            <param name="pif2Status"></param>
+            <param name="description">A string describing the status</param>
+        </member>
+        <member name="M:Wdh.Cosmos.IAuroraPif2.WriteRam(System.Byte[],System.UInt16,System.Byte[],System.ComponentModel.BackgroundWorker)">
+            <summary>
+            Write a block of data to RAM
+            </summary>
+            <param name="route"></param>
+            <param name="offset"></param>
+            <param name="data"></param>
+            <param name="Worker">Progress indicator. Can be set to null if progress indications are not required.</param>
+        </member>
+        <member name="M:Wdh.Cosmos.IAuroraPif2.ReadRam(System.Byte[],System.UInt16,System.UInt16,System.ComponentModel.BackgroundWorker)">
+            <summary>
+            Read a block of data from RAM
+            </summary>
+            <param name="route"></param>
+            <param name="offset"></param>
+            <param name="length"></param>
+            <param name="Worker">Progress indicator. Can be set to null if progress indications are not required.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IAuroraPif2.WriteNvRam(System.Byte[],System.UInt32,System.ComponentModel.BackgroundWorker)">
+            <summary>
+            Write a Duplo image to the Aurora NVRAM.
+            <param name="buffer">The binary image</param>
+            <param name="address">Address at which to start write.</param>
+            <param name="Worker">Progress indicator. Can be set to null if progress indications are not required.</param>
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IAuroraPif2.ReadNvRam(System.UInt32,System.UInt32,System.ComponentModel.BackgroundWorker)">
+            <summary>
+            Read a block of data from NVRAM. Uses raw addressing.
+            </summary>
+            <param name="start"></param>
+            <param name="length"></param>
+            <param name="Worker">Progress indicator. Can be set to null if progress indications are not required.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IAuroraPif2.ReadNvRam(System.ComponentModel.BackgroundWorker)">
+            <summary>
+            Read the entire Aurora NVRAM content.
+            </summary>
+            <param name="Worker">Progress indicator. Can be set to null if progress indications are not required.</param>
+            <returns>The image as read.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IAuroraPif2.ClearOpQueue">
+            <summary>
+            Clears the PIF2.FW operation queue.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.IAuroraSpi">
+            <summary>
+            This interface provides developer access to Aurora via SPI.
+            - access to SPI communication protocol towards RF3
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IAuroraSpi.SpiGetId(System.Byte[]@)">
+            <summary>
+            Get chip ID via SPI
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IAuroraSpi.GetSpiStatus(System.UInt32@,System.UInt32@)">
+            <summary>
+            Retrieve SPI link status
+            </summary>
+            <param name="status0"></param>
+            <param name="status1"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IAuroraSpi.ReadSystemStatus(System.Byte@)">
+            <summary>
+            Retrieve status of system endpoint
+            </summary>
+            <param name="status"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IAuroraSpi.Start">
+            <summary>
+            Start SPI link
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IAuroraSpi.Stop">
+            <summary>
+            Stop SPI link
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.BdAddrType">
+            <summary>
+            BD address type: public or random.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.BdAddrType.Public">
+            <summary>
+            The BD address is public
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.BdAddrType.Random">
+            <summary>
+            The BD address is randomly generated
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.BdAddr">
+            <summary>
+            This class holds a BD address. It provides comparison methods to determine if two
+            different BdAddr instances refer to the same BT device.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.BdAddr.type">
+            <summary>
+            The BD address type
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.BdAddr.bdAddr">
+            <summary>
+            BD address (6 bytes)
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.BdAddr.#ctor(Wdh.Cosmos.BdAddrType,System.Byte[])">
+            <summary>
+            Create an instance of BdAddr
+            </summary>
+            <param name="type">The BD address type</param>
+            <param name="bdAddr">The BD address</param>
+        </member>
+        <member name="M:Wdh.Cosmos.BdAddr.Equals(System.Object)">
+            <summary>
+            Determines if two BD addresses are equal
+            </summary>
+            <param name="obj">The other BD address to compare with</param>
+            <returns>True if the two addresses are equal by value.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.BdAddr.op_Equality(Wdh.Cosmos.BdAddr,Wdh.Cosmos.BdAddr)">
+            <summary>
+            Determines if two BD addresses are equal
+            </summary>
+            <param name="a">One BD address to compare</param>
+            <param name="b">The other BD address to compare</param>
+            <returns>True if the two addresses are equal by value.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.BdAddr.op_Inequality(Wdh.Cosmos.BdAddr,Wdh.Cosmos.BdAddr)">
+            <summary>
+            Determines if two BD addresses are not equal
+            </summary>
+            <param name="a">One BD address to compare</param>
+            <param name="b">The other BD address to compare</param>
+            <returns>True if the two addresses are not equal by value.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.BdAddr.GetHashCode">
+            <summary>
+            Provide a hash value for a BD address
+            </summary>
+            <returns>The hash value, calculated from the 4 least significant bytes of the address.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.BdAddr.ToString">
+            <summary>
+            Build a string representation of the BD address.
+            </summary>
+            <returns>A string in format aa-bb-cc-dd-ee-ff</returns>
+        </member>
+        <member name="T:Wdh.Cosmos.BLEAdvertisingEventType">
+            <summary>
+            Definition of BLE advertising report types
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.BLEAdvertisingEventType.ConnectableUndirected">
+            <summary>
+            The device is connectable by any BLE master device.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.BLEAdvertisingEventType.ConnectableDirected">
+            <summary>
+            The device is connectable from a specific BLE master device
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.BLEAdvertisingEventType.Discoverable">
+            <summary>
+            The device is discoverable
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.BLEAdvertisingEventType.NonConnectable">
+            <summary>
+            The device is not connectable
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.BLEAdvertisingEventType.ScanResponse">
+            <summary>
+            This report is used by device which support active scanning. It is the SCAN_RSP
+            PDU which is sent as response to SCAN_REQ.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.BLELocalAddressType">
+            <summary>
+            Defines a type of BT address to use by the master device.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.BLELocalAddressType.WriteStatic">
+            <summary>
+            Use the specified static address
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.BLELocalAddressType.GenerateStatic">
+            <summary>
+            Generate a static address
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.BLELocalAddressType.GenerateNonresolvable">
+            <summary>
+            Generate non-resolvable address
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.BLELocalAddressType.GenerateResolvable">
+            <summary>
+            Generate a resolvable address
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.BLELocalAddress">
+            <summary>
+            Defines the BT address to use by the master device.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.BLELocalAddress.type">
+            <summary>
+            Specified the address type.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.BLELocalAddress.bdAddr">
+            <summary>
+            The static address to use if 'type' is equal to 'WriteStatic'. For other address types, this field can be left as null
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.ScanningParams">
+            <summary>
+            This struct contains scanning parameters to set up BLE scanning.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.ScanningParams.EnableActiveScanning">
+            <summary>
+            If TRUE SCAN_REQ packets may be sent towards a connectable undirected adviser.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.ScanningParams.OwnAddress">
+            <summary>
+            Own address type.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.ScanningParams.ScanInterval">
+            <summary>
+            Scan interval in steps of 0.625ms, range 0x0004 (2.5 ms) to 0x4000 (10.24 s).
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.ScanningParams.ScanWindow">
+            <summary>
+            Scan window in steps of 0.625ms, range 0x0004 (2.5ms) to 0x4000 (10.24 s).
+            Must be less than or equal to the scan_interval parameter value.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.AdvertiseEventArgs">
+            <summary>
+            Event arguments supplied with an advertisement packet.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.AdvertiseEventArgs.type">
+            <summary>
+            Type of advertising report
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.AdvertiseEventArgs.currentAddress">
+            <summary>
+            Device current address
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.AdvertiseEventArgs.permanentAddress">
+            <summary>
+            Device permanent address
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.AdvertiseEventArgs.rssi">
+            <summary>
+            Received signal strength measured in dBm.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.AdvertiseEventArgs.data">
+            <summary>
+            Advertise report data.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.AdvertiseEventArgs.isBonded">
+            <summary>
+            Bonded flag
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.IBLEMaster">
+            <summary>
+            Interface for working with a Bluetooth LE master device.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IBLEMaster.SetLocalAddressAsync(Wdh.Cosmos.BLELocalAddress)">
+            <summary>
+            Configures the local BD address to use.
+            </summary>
+            <param name="address">Specified the address.</param>
+            <returns>The generated address in case the address type is different from 'WriteStatic'.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IBLEMaster.StartScanningAsync(Wdh.Cosmos.ScanningParams)">
+            <summary>
+            Start scanning for advertising devices.
+            While scanning, the client application will be notified by events when
+            a device advertises itself.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IBLEMaster.StopScanningAsync">
+            <summary>
+            Stop scanning.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IBLEMaster.AddAdvReportFilterAsync(System.Byte,System.UInt16,System.Byte[])">
+            <summary>
+            Add a Advertising Report filter so that only Advertising Reports 
+            matching the defined criteria are delivered. 
+            Filtering is based only on the contents of advertising
+            data. Since directed connectable adverts do not contain advertising
+            data, and they are expressly intended for the receiving device,
+            they are always passed to the host and are unaffected by this
+            filter. The event type, Bluetooth device address of the sender and
+            other properties of the advertising reports are ignored by the
+            filter.
+            Adding a filter is an OR operation. If multiple filters are added then if 
+            any of those filters is satisfied, the advertising report will be delivered.
+            Filters should be set before calling StartScanning().
+            <remarks>
+            The number of filters which can be applied simultaneously is limited.
+            </remarks>
+            </summary>
+            <param name="adType">The data type in the report to filter on.
+            Data types are defined in BT Core specification supplement, part A, section 1.</param>
+            <param name="interval">The interval for repeated attempts to match the pattern in the
+            data portion of the AD structure. For example, if the interval is
+            4 then we attempt to match at offsets, 0, 4, 8, 12, etc in the data
+            portion of the AD structure. If interval is 0 then we only attempt
+            to match at offset 0. If interval is 0xffff, then an exact match is
+            required.</param>
+            <param name="pattern">The pattern to look for in the report.</param>
+            <returns>
+            TRUE if the filter was applied successfully.
+            FALSE if the filter could not be applied because there is already the
+            maximum number of filters applied or because there is no
+            more available memory.
+            </returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IBLEMaster.ClearAdvReportFilterAsync">
+            <summary>
+            Clear all advertising report filters
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IBLEMaster.GetConnection(Wdh.Cosmos.BdAddr)">
+            <summary>
+            Obtain an interface for a specific BLE slave device.
+            </summary>
+            <param name="bdAddr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IBLEMaster.GetConnections">
+            <summary>
+            Obtain an enumeration of all existing connections.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IBLEMaster.ResetAsync">
+            <summary>
+            Bring the device into a well-known state where no scanning is active and where no
+            connections are open. The function does not reset the device but stops any ongoing
+            scanning, clear advertisement filter and disconnects active connections.
+            </summary>
+            <exception cref="T:System.AggregateException">Collection of exceptions</exception>
+        </member>
+        <member name="P:Wdh.Cosmos.IBLEMaster.MaxConnections">
+            <summary>
+            Maximum number of simultaneous BLE connections.
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.IBLEMaster.CurrentConnections">
+            <summary>
+            Current number of simultaneous BLE connections.
+            </summary>
+        </member>
+        <member name="E:Wdh.Cosmos.IBLEMaster.AdvertiseInd">
+            <summary>
+            Clients will receive one event per advertisement PDU that matches the filter(s) configured.
+            </summary>
+        </member>
+        <member name="E:Wdh.Cosmos.IBLEMaster.LinkChanged">
+            <summary>
+            This event is fired whenever an existing BLE connection changes state.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.ConnectionParams">
+            <summary>
+            The set of parameters used to establish a connection to a connectable adviser.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.ConnectionParams.ScanInterval">
+            <summary>
+            Scan interval in steps of 0.625ms, range 0x0004 (2.5 ms) to 0x4000 (10.24 s).
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.ConnectionParams.ScanWindow">
+            <summary>
+            Scan window in steps of 0.625ms, range 0x0004 (2.5ms) to 0x4000 (10.24 s).
+            Must be less than or equal to the scan_interval parameter value.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.ConnectionParams.OwnAddress">
+            <summary>
+            Specifies the type of address being used in the connection request packets.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.ConnectionParams.ConnIntervalMin">
+            <summary>
+            The minimum allowed connection interval. Specified in units of 1.25ms. Range is 0x0006 to 0x0c80 (7.5ms to 4 seconds)
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.ConnectionParams.ConnIntervalMax">
+            <summary>
+            The maximum allowed connection interval. Specified in units of 1.25ms. Range is 0x0006 to 0x0c80 (7.5ms to 4 seconds)
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.ConnectionParams.ConnLatency">
+            <summary>
+            Slave latency for the connection in number of connection events. Range is 0x0000 to 0x01F3
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.ConnectionParams.SupervisionTimeout">
+            <summary>
+            Link supervision timeout. Specified in units of 10ms. Range is 0x000A to 0x0C80 (100ms to 32 seconds)
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.ConnectionParams.ConnLatencyMax">
+            <summary>
+            The maximum allowed slave latency that is accepted if slave requests connection parameter update once connected.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.ConnectionParams.SupervisionTimeoutMin">
+            <summary>
+            The minimum allowed supervision timeout that is accepted if slave requests connection parameter update once connected.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.ConnectionParams.SupervisionTimeoutMax">
+            <summary>
+            The maximum allowed supervision timeout that is accepted if slave requests connection parameter update once connected.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.ConnectionParams.ConnectionAttemptTimeout">
+            <summary>
+            Timeout when attempting to connect to a slave. This value is specified in units of 100ms.
+            Set to 0 to wait indefinitely.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.ConnectionParamsUpdate">
+            <summary>
+            The set of parameters used when updating the connection parameters of an existing connection.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.ConnectionParamsUpdate.ConnIntervalMin">
+            <summary>
+            The minimum allowed connection interval. Specified in units of 1.25ms. Range is 0x0006 to 0x0c80 (7.5ms to 4 seconds)
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.ConnectionParamsUpdate.ConnIntervalMax">
+            <summary>
+            The maximum allowed connection interval. Specified in units of 1.25ms. Range is 0x0006 to 0x0c80 (7.5ms to 4 seconds)
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.ConnectionParamsUpdate.ConnLatency">
+            <summary>
+            Slave latency for the connection in number of connection events. Range is 0x0000 to 0x01F3
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.ConnectionParamsUpdate.SupervisionTimeout">
+            <summary>
+            Link supervision timeout. Specified in units of 10ms. Range is 0x000A to 0x0C80 (100ms to 32 seconds)
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.ConnectionParamsUpdate.ConnEventMin">
+            <summary>
+            Information parameter about the minimum length of connection event needed for this LE connection, specified in units of 0.625ms.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.ConnectionParamsUpdate.ConnEventMax">
+            <summary>
+            Information parameter about the maximum length of connection event needed for this LE connection, specified in units of 0.625ms.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.ConnectionParamsUpdateEventArgs">
+            <summary>
+            Used to respond to a request for connection parameters update.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.ConnectionParamsUpdateEventArgs.connectionParams">
+            <summary>
+            The suggested connection parameters.
+            If the field 'accept' is set to true, the event handler may modify the suggested parameters.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.ConnectionParamsUpdateEventArgs.accept">
+            <summary>
+            If true, the request is accepted.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.LinkChangedEventArgs">
+            <summary>
+            Indication of link state change.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.LinkChangedEventArgs.connected">
+            <summary>
+            Indication of link state. True means connected.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.LinkChangedEventArgs.message">
+            <summary>
+            In case the link is down for some reason other than requested by the client, this
+            field will provide a description of why.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.PairingCompleteEventArgs">
+            <summary>
+            Indication of pairing complete event.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.PairingCompleteEventArgs.error">
+            <summary>
+            Pairing error if any
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.PairingCompleteEventArgs.flags">
+            <summary>
+            Pairing flags
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.PairingCompleteEventArgs.permanentAddress">
+            <summary>
+            Permanent address of paired device.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.SecurityType">
+            <summary>
+            Defines different types of pairing
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.SecurityType.Encrypted">
+            <summary>
+            Link is encrypted, but LTK is not distributed
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.SecurityType.EncryptedBonded">
+            <summary>
+            Link is encrypted and LTK is distributed
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.SecurityType.Authenticated">
+            <summary>
+            Link is encrypted and paired device is authenticated, but LTK is not distributed
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.SecurityType.AuthenticatedBonded">
+            <summary>
+            Link is encrypted and paired device is authenticated and LTK is distributed
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.SecurityType.RefreshEncryption">
+            <summary>
+            Link encryption is to be refreshed
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.IoCapability">
+            <summary>
+            Definition of I/O capabilities of a BT device.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.IoCapability.DisplayOnly">
+            <summary>
+            Device has display but no input
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.IoCapability.DisplayYesNo">
+            <summary>
+            Device has display and simple yes/no input capability
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.IoCapability.KeyboardOnly">
+            <summary>
+            Device has keyboard input but no display
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.IoCapability.NoIO">
+            <summary>
+            Device has neither input nor output capability
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.IoCapability.KeyboardDisplay">
+            <summary>
+            Device has keyboard input and display
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.IoCapability.Reject">
+            <summary>
+            Use this to reject the IO capability request
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.KeyDistribution">
+            <summary>
+            Definition of key distributions.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.KeyDistribution.None">
+            <summary>
+            No key distribution
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.KeyDistribution.ResponderEncCentral">
+            <summary>
+            Responder distributes LTK, EDIV and RAND to the Initiator.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.KeyDistribution.InitiatorEncCentral">
+            <summary>
+            Initiator distributes LTK, EDIV and RAND to the Responder.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.KeyDistribution.ResponderID">
+            <summary>
+            Responder distributes the IRK to the Initiator.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.KeyDistribution.InitiatorID">
+            <summary>
+            Initiator distributes the IRK to the Responder.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.MitmSetting">
+            <summary>
+            Man In The Middle (MITM) setting.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.MitmSetting.NotRequired">
+            <summary>
+            Do not use MITM.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.MitmSetting.Required">
+            <summary>
+            Use MITM, connection will fail if IO capability cannot support it.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.MitmSetting.Flexible">
+            <summary>
+            Use MITM, unless IO capability indicates it cannot be supported.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.OobDataSetting">
+            <summary>
+            Out Of Band (OOB) setting.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.OobDataSetting.None">
+            <summary>
+            No Out Of Band data.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.OobDataSetting.P192">
+            <summary>
+            P192 elliptic curve encryption Out Of Band Data - legacy pairing.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.OobDataSetting.P256">
+            <summary>
+            P256 elliptic curve encryption Out of Band Data
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.IoCapabilityResponseEventArgs">
+            <summary>
+            This class contains data to be returned by the event handler which receives an instance
+            hereof in an event handler
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.IoCapabilityResponseEventArgs.capability">
+            <summary>
+            This device's I/O capability
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.IoCapabilityResponseEventArgs.mitm">
+            <summary>
+            MITM protection?
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.IoCapabilityResponseEventArgs.bonding">
+            <summary>
+            Bonding?
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.IoCapabilityResponseEventArgs.keyDistribution">
+            <summary>
+            How key distribution is managed
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.IoCapabilityResponseEventArgs.oobData">
+            <summary>
+            OOB data setting
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.IoCapabilityResponseEventArgs.oobHashC">
+            <summary>
+            OOB data hash C
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.IoCapabilityResponseEventArgs.oobRandR">
+            <summary>
+            OOB data rand R
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.AuthRequirements">
+            <summary>
+            Definition of remote device authentication requirements.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.AuthRequirements.NoBondingNoMitm">
+            <summary>
+            No bonding will take place (i.e. link key not stored) no MITM protection 
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.AuthRequirements.NoBondingMitm">
+            <summary>
+            No bonding will take place (i.e. link key not stored) plus MITM protection
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.AuthRequirements.DedicatedBondingNoMitm">
+            <summary>
+            Dedicated bonding (i.e. bonding occurs and ACL is dropped) no MITM protection
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.AuthRequirements.DedicatedBondingMitm">
+            <summary>
+            Dedicated bonding (i.e. bonding occurs and ACL is dropped) plus MITM protection
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.AuthRequirements.GeneralBondingNoMitm">
+            <summary>
+            General bonding (i.e. connection established without dropping ACL after bonding) no MITM protection
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.AuthRequirements.GeneralBondingMitm">
+            <summary>
+            General bonding (i.e. connection established without dropping ACL after bonding) plus MITM protection.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.AuthRequirements.Unknown">
+            <summary>
+            Unrecognised authentication requirements received.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.IoCapabilityIndEventArgs">
+            <summary>
+            Indication of remote device I/O capabilities
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.IoCapabilityIndEventArgs.authenticationRequirements">
+            <summary>
+            Remote authentication requirements
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.IoCapabilityIndEventArgs.ioCapability">
+            <summary>
+            The IO capability of the remote device
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.IoCapabilityIndEventArgs.oobDataPresent">
+            <summary>
+            If there is any OOB data present on the remote device
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.SecurityException">
+            <summary>
+            Represents errors that occur during establishing BLE security.
+            </summary>
+            
+        </member>
+        <member name="M:Wdh.Cosmos.SecurityException.#ctor(System.String,Wdh.Cosmos.SecurityException.SecurityCause)">
+            <summary>
+            Initializes a new instance of the SecurityException class with a specified error message.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+            <param name="cause">The security problem cause.</param>
+        </member>
+        <member name="P:Wdh.Cosmos.SecurityException.Cause">
+            <summary>
+            The security problem cause.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.SecurityException.SecurityCause">
+            <summary>
+            Definition of possible security problem causes.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.SecurityException.SecurityCause.LinkKeyMissing">
+            <summary>
+            The peer does not have LTK.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.SecurityException.SecurityCause.Failed">
+            <summary>
+            Failed.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.SecurityException.SecurityCause.HiBondingStateUnknown">
+            <summary>
+            Bonding operation did not give the expected result.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.IBLEConnection">
+            <summary>
+            Interface for communicating with a BLE slave device.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IBLEConnection.ConnectAsync(Wdh.Cosmos.ConnectionParams,System.Boolean)">
+            <summary>
+            Establish a BLE connection to the slave device.
+            </summary>
+            <remarks>
+            If <see cref="P:Wdh.Cosmos.IBLEConnection.SlavePermanentAddress"/> is not null,
+            the API will perform scanning to automatically refresh the device's current random resolvable address.
+            Thus, the value of property <see cref="P:Wdh.Cosmos.IBLEConnection.SlaveAddress"/> could potentially change during a call to
+            this method.
+            </remarks>
+            <param name="connectionParams">BLE connection parameters</param>
+            <param name="wait">If true (default) and the BLE device already has the maximum number of active connections, block the caller until the BLE device can handle the connection request. Otherwise fail immediately.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IBLEConnection.DisconnectAsync">
+            <summary>
+            Disconnect from the slave device.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IBLEConnection.SecureAsync(Wdh.Cosmos.SecurityType)">
+            <summary>
+            Establish link security.
+            Depending on the argument 'security', this procedure may involve pairing and bonding (exchange of LTK/IRK).
+            </summary>
+            <param name="security"></param>
+            <returns></returns>
+            <exception cref="T:Wdh.Cosmos.SecurityException">If the requested security could not be established.</exception>
+        </member>
+        <member name="M:Wdh.Cosmos.IBLEConnection.ConnectionParametersUpdateAsync(Wdh.Cosmos.ConnectionParamsUpdate)">
+            <summary>
+            Update connection parameters.
+            </summary>
+            <param name="connectionParams">BLE connection parameters</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IBLEConnection.DeleteBonding">
+            <summary>
+            Delete bonding information for this slave.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IBLEConnection.ReadRssiAsync">
+            <summary>
+            Read RSSI.
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.IBLEConnection.SupervisionTimeout">
+            <summary>
+            Current link supervision timeout in units of ms.
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.IBLEConnection.SlaveAddress">
+            <summary>
+            Obtain the current BD address of the slave for this connection.
+            This can be either a random or a public address.
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.IBLEConnection.SlavePermanentAddress">
+            <summary>
+            Obtain the permanent BD address of the slave for this connection.
+            This property will only return a non-null value if SlaveAddress is a random resolvable address and
+            the slave is bonded and an Identity Resolving Key has been obtained.
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.IBLEConnection.Gatt">
+            <summary>
+            Obtain a GATT client interface towards the slave device.
+            Note: A connection must be established before calling any on the methods on this object.
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.IBLEConnection.IsConnected">
+            <summary>
+            Query current connection state.
+            </summary>
+        </member>
+        <member name="E:Wdh.Cosmos.IBLEConnection.PairingComplete">
+            <summary>
+            Indication of pairing complete with remote device.
+            </summary>
+        </member>
+        <member name="E:Wdh.Cosmos.IBLEConnection.LinkChanged">
+            <summary>
+            Indication of BLE link state change
+            </summary>
+        </member>
+        <member name="E:Wdh.Cosmos.IBLEConnection.ConnectionParamsUpdate">
+            <summary>
+            Indication of connection parameters update
+            </summary>
+        </member>
+        <member name="E:Wdh.Cosmos.IBLEConnection.IoCapabilityReq">
+            <summary>
+            Remote device request for I/O capabilities
+            </summary>
+        </member>
+        <member name="E:Wdh.Cosmos.IBLEConnection.IoCapabilityInd">
+            <summary>
+            Remote device indication of I/O capabilities
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.IBluetooth">
+            <summary>
+            Interface for bluetooth-specific functionality
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IBluetooth.ClearPairings">
+            <summary>
+            Clear BT pairings on the device.
+            </summary>
+            <returns>
+            True if the command to clear pairings was sent successfully.
+            Note: This method returns immediately after sending a clear pairing command to the device.
+            It does not wait for the command to complete.
+            </returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IBluetooth.Connect">
+            <summary>
+            Establish a BT connection.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IBluetooth.Disconnect">
+            <summary>
+            Disconnect an existing connection.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Wdh.Cosmos.IButtonControl">
+            <summary>
+            Control a button.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IButtonControl.Enable(System.Boolean)">
+            <summary>
+            Enable or disable the button.
+            </summary>
+            <param name="enable">If true will enable the button; otherwise disable.</param>
+            <exception cref="T:System.IO.IOException">Error</exception>
+        </member>
+        <member name="P:Wdh.Cosmos.IButtonControl.Name">
+            <summary>
+            Gets the name of the button.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.IButtonController">
+            <summary>
+            A collection of controllable buttons.
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.IButtonController.Buttons">
+            <summary>
+            Gets an array of buttons.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.EConnectionKickStatus">
+            <summary>
+            Nautilus status for command ConnectionKick
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.EConnectionKickStatus.Success">
+            <summary>
+            Success
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.EConnectionKickStatus.Disconnected">
+            <summary>
+            Cosmos device is disconnected
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.EConnectionKickStatus.NautilusCallFailed">
+            <summary>
+            Nautilus call failed
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.EConnectionKickStatus.BadStatusValue">
+            <summary>
+            Bad status value
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.IConnectionKickerClient">
+            <summary>
+            Interface for maintaining a connection.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IConnectionKickerClient.ConnectionKick(Wdh.Cosmos.EConnectionKickStatus@)">
+            <summary>
+            Send a connection 'kick'.
+            </summary>
+            <param name="Status">Status of connection kick command.</param>
+        </member>
+        <member name="T:Wdh.Cosmos.EDeviceMode">
+            <summary>
+            The device mode defines the mode that the connected device is in. 
+            It corresponds to what firmware image currently is running in the device
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.EDeviceMode.MODE_BOOTLOADER">
+            <summary>
+            Device running in bootloader mode
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.EDeviceMode.MODE_APPLICATION">
+            <summary>
+            Normal application image running
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.EDeviceMode.MODE_SERVICE">
+            <summary>
+            Service image running (== UPGRADER for Streamer1)
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.EDeviceMode.MODE_UNKNOWN">
+            <summary>
+            Undefined mode
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.ICosmosDevice">
+            <summary>
+            Top-level public interface to a Cosmos device.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.ICosmosDevice.GetFirmwareVersion(System.Version@)">
+            <summary>
+            Firmware version of the connected device. The firmware version corresponds
+            to the current image running in the device. If the device supports different
+            modes it may be possible that the firmware version would be different for
+            the other modes. E.g. the firmware version of the BOOTLOADER mode would
+            typically be the firmware version that the device was born with at the
+            factory, while the firmware version of the application is whatever the device
+            has been upgraded to.
+            </summary>
+            <param name="version"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.ICosmosDevice.GetDeviceMode(Wdh.Cosmos.EDeviceMode@)">
+            <summary>
+            Current firmware mode running in the device now.
+            </summary>
+            <param name="deviceMode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.ICosmosDevice.GetUniqueIdentifier(System.Byte[]@)">
+            <summary>
+            Unique identifier which can be used to distinguish between multiple
+            connected devices of the same type that has been connected to the host
+            PC.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.ICosmosDevice.GetDevicePath(System.String@)">
+            <summary>
+            Unique identifier for the port at which the device is connected to
+            host PC.
+            Can be used to detect if devices are connected through the same
+            physical host PC port.
+            </summary>
+            <param name="DevicePath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.ICosmosDevice.GetSerialNumber(System.Int32@)">
+            <summary>
+            Serial number of the device. This would typically correspond to the 
+            number also printed on a product label on the device itself.
+            </summary>
+            <param name="serial"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.ICosmosDevice.GetProduct(System.String@)">
+            <summary>
+            Product name of the connected device. This is a string that identifies
+            what kind of Oticon/Cosmos product has been connected.
+            e.g. Streamer, Orbis, Leapfrog, AmigoArc
+            </summary>
+            <param name="product"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.ICosmosDevice.GetVendor(System.String@)">
+            <summary>
+            Vendor name of the connected device. This is a string that identifies
+            the Vendor of the device. Would typically be Oticon
+            e.g. 
+            </summary>
+            <param name="vendor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.ICosmosDevice.GetOemId(System.Int32@)">
+            <summary>
+            The OEM customer of the connected device. This is a string that 
+            identifies the OEM customer of the device. Could be e.g. "OTICON",
+            "BERNAFON", "OTICON_MEDICAL" etc. The returned ID is by convention
+            returned as uppercase.
+            </summary>
+            <param name="oem"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.ICosmosDevice.GetBoard(System.String@)">
+            <summary>
+            Retrieve the Board identifier of the device
+            The board contains a string descriptor which can be used to 
+            verify if the operation or firmware is compatible with the physical
+            board version of the connected device.
+            </summary>
+            <param name="board"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.ICosmosDevice.GetProtocolVersion(System.Version@)">
+            <summary>
+            Retrieve the Protocol version of the Nautilus protocol in the  connected device
+            If the protocol versions in PC and device are not compatible then
+            its not allowed to continue using the device.
+            </summary>
+            <param name="version"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.ICosmosDevice.Getdll_to_deviceProtocolVersion(System.Version@)">
+            <summary>
+            Retrieve the Protocol version of the Nautilus protocol in this device
+            If the protocol versions in PC and device are not compatible then
+            its not allowed to continue using the device.
+            </summary>
+            <param name="version"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.ICosmosDevice.TestSetdll_to_deviceProtocolVersion(System.Version)">
+            <summary>
+            For testing purposes, force the Protocol version reported by this device
+            to illegal values: 0 or 255
+            If other than 0 or 255 are set, the original, correct value is used.
+            </summary>
+            <param name="version"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.ICosmosDevice.QueryInterface``1">
+            <summary>
+            Query for and return the presence of the interface of type T.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns>An instance of T, if found; otherwise, the default value for type T.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.ICosmosDevice.Open">
+            <summary>
+            Open the Cosmos device connection.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.ICosmosDevice.Close">
+            <summary>
+            Close the Cosmos device connection.
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.ICosmosDevice.FirmwareUpgrade">
+            <summary>
+            The IFirmwareUpgrade interface provides firmware upgrade functionality 
+            of a connected device.
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.ICosmosDevice.Settings">
+            <summary>
+            The ISettings interface provides functionality for writing and
+            reading individual settings in a connected device.
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.ICosmosDevice.NautilusTextual">
+            <summary>
+            The INautilusTextual interface provides nautilus textual command
+            line low level access to a connected device if the device supports
+            nautilus .XML protocols.
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.ICosmosDevice.Developer">
+            <summary>
+            The IDeveloper interface encapsulates a number of developer oriented
+            interfaces towards the connected cosmos device
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.ICosmosDevice.Bluetooth">
+            <summary>
+            The IBluetooth interface encapsulates functions related to the
+            bluetooth-interface
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.ICosmosDevice.BLEMaster">
+            <summary>
+            IBLEMaster encapsulates functions related to Bluetooth LE master devices
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.ICosmosDevice.Fitting">
+            <summary>
+            The IFittingDevice interface encapsulates functions related to fitting
+            devices
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.ICosmosDevice.Nearlink">
+            <summary>
+            The INearlink interface encapsulates functions related to nEARlink
+            communication
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.ICosmosDevice.Aurora">
+            <summary>
+            The IAurora interface encapsulates functions related to Aurora IC
+            communication
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.ICosmosDevice.IsOpen">
+            <summary>
+            Cosmos device connection status.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.EventArgs`1">
+            <summary>
+            Event argument class which carries an instance of ICosmosDevice.
+            </summary>
+            <typeparam name="ICosmosDevice"></typeparam>
+        </member>
+        <member name="M:Wdh.Cosmos.EventArgs`1.#ctor(`0)">
+            <summary>
+            Build an instance
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="P:Wdh.Cosmos.EventArgs`1.Item">
+            <summary>
+            Retrieve the ICosmosDevice item.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IDeveloperBoot.AutoPowerOffSet(System.Boolean)">
+            <summary>
+            Set auto power off to enabled (true) or disabled (false)
+            AutoPowerOff controls if the device should turn off when the USB connector is removed or stay powered (from battery).
+            This feature can be used by battery powered devices that charges from USB.
+            </summary>
+            <param name="Enabled"></param>
+            <returns>true if command succeeded</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IDeveloperBoot.AutoPowerOffGet(System.Boolean@)">
+            <summary>
+            Returns the current state of auto power off as enabled (true) or disabled (false)
+            </summary>
+            <param name="Enabled">enabled (true) or disabled (false)</param>
+            <returns>true if command succeeded</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IDeveloperBoot.AutoPowerOffSupported">
+            <summary>
+            Returns true if device in current image mode supports auto power off. 
+            (A device may support auto power off in one mode but not in another mode)
+            </summary>
+            <returns>supported (true) or not supported (false)</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IDiagnosticsTest.UserConfirm(System.Boolean)">
+            <summary>
+            Called from the UI thread when yes or no button (or corresponding shortcut key) has been pressed while the test was running.
+            </summary>
+            <param name="value">true corresponds to 'yes', false to 'no'</param>
+        </member>
+        <member name="M:Wdh.Cosmos.IDiagnosticsTest.Run(System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs,System.IO.TextWriter)">
+            <summary>
+            This is the main test function. It will be invoked in the context of a background
+            worker thread that is also passed as a parameter.
+            </summary>
+            <param name="context">
+            Via this parameter, the test is expected to report progress and completion.
+            If the test is long-running, it is recommended that it supports cancelling as well.
+            Cancelling is implemented by polling <code>context</code>'s
+            <see cref="P:System.ComponentModel.BackgroundWorker.CancellationPending"/> property. If this property
+            is true, the test should set <paramref name="eventArgs"/>'s <see cref="P:System.ComponentModel.CancelEventArgs.Cancel"/>
+            property to true and then return.
+            If the test fails, this method should throw an exception, including a message describing
+            the error.
+            </param>
+            <param name="eventArgs">Arguments passed to the test. This will be a reference to the diagnostic test instance itself.</param>
+            <param name="output">
+            The test can produce text output via this writer. The output will appear in a text
+            box on the 'Diagnostics' tab.
+            </param>
+        </member>
+        <member name="P:Wdh.Cosmos.IDiagnosticsTest.Name">
+            <summary>
+            Descriptive name for the test.
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.IDiagnosticsTest.RequiresUserConfirm">
+            <summary>
+            If the test requires user input in the form of yes/no confirmation, this property should
+            return true. If it does, the 'KeyPress' method will be invoked.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IDeveloperDebugLog.DebugLogCount(System.Byte@)">
+            <summary>
+            Return number of available Logs in device.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IDeveloperDebugLog.DebugLogInfo(System.Byte,System.Char[]@)">
+            <summary>
+            Return description of a specific log, Id must be a number between 0 and Count-1 (Count = number of logs in device).
+            </summary>
+            <param name="Id">Which log to get info from. Logs are numbered from 0 and upwards. If 3 logs are available, legal input is 0-2</param>
+            <param name="Descriptor">Log descriptor.</param>
+        </member>
+        <member name="M:Wdh.Cosmos.IDeveloperDebugLog.DebugLogSourceCount(System.Byte,System.Byte@)">
+            <summary>
+            Return number of logging sources for a specific log.
+            </summary>
+            <param name="Id">Which log to get source count from.</param>
+            <param name="SourceCount">The number of logging sources.</param>
+        </member>
+        <member name="M:Wdh.Cosmos.IDeveloperDebugLog.DebugLogSourceInfo(System.Byte,System.Byte,System.Char[]@)">
+            <summary>
+            Return description of a specific logging source, SourceId must be a number between 0 and SourceCount-1
+            </summary>
+            <param name="Id">Which log to get source descriptors from.</param>
+            <param name="SourceId">Which source to get source descriptor from. Sources are numbered frmo 0 and upwards. If 3 sources are available, legal input is 0-2</param>
+            <param name="Descriptor">Logging source descriptor.</param>
+        </member>
+        <member name="M:Wdh.Cosmos.IDeveloperDebugLog.DebugLogTimeResolution(System.Byte,System.UInt32@)">
+            <summary>
+            Return timeresolution of a log.
+            </summary>
+            <param name="Id">Which log to get time resolution for.</param>
+            <param name="TicksPerSecond">To convert log Time stamp data to seconds. Timstamp in seconds = RawTimeStamp/TickPerSecond</param>
+        </member>
+        <member name="M:Wdh.Cosmos.IDeveloperDebugLog.DebugLogReadEntries(System.Byte,System.Byte[]@,System.Byte@,Wdh.Cosmos.DeveloperDebugLogReadEntriesStatus@)">
+            <summary>
+            Read logging entries from the log.        
+            If number of entries is 0, but status is OK, the next entry is too big to fit in the nautilus command data size.
+            This can be resolved by calling DebugLogDeleteEntry.
+            </summary>
+            <param name="Id">Which log to read entries from.</param>
+            <param name="Data">Logging entries as raw byte array</param>
+            <param name="Entries">Number of entries in Data parameter.</param>
+            <param name="Status">Read entries status</param>
+        </member>
+        <member name="M:Wdh.Cosmos.IDeveloperDebugLog.DebugLogDeleteEntry(System.Byte,System.Byte@)">
+            <summary>
+            Delete next logging entry. Typically used if the next logging entry is too big to read.
+            </summary>
+            <param name="Id">Which log to delete next entry from.</param>
+            <param name="Status">0 = no entries to delete, 1 = first entry deleted</param>
+        </member>
+        <member name="M:Wdh.Cosmos.IDeveloperDebugLog.DebugLogTime(System.Byte,System.UInt32@)">
+            <summary>
+            Returns the current device time in the time stamp format used for the logging entries.
+            Can be used to get an idea of when logging entires occurred relative to current time.
+            </summary>
+            <param name="Id">Which log to get current time from. In a device with multiple logs, the logs can have different time resolution and time source.</param>
+            <param name="Time">The current time.</param>
+        </member>
+        <member name="T:Wdh.Cosmos.HciEvent">
+            <summary>
+            HCI event
+            </summary>
+            <param name="eventCode"></param>
+            <param name="parameters"></param>
+        </member>
+        <member name="T:Wdh.Cosmos.VmMessage">
+            <summary>
+            Message from VM application
+            </summary>
+            <param name="stream"></param>
+            <param name="data"></param>
+        </member>
+        <member name="T:Wdh.Cosmos.HqCommand">
+            <summary>
+            HQ command from BC
+            </summary>
+            <param name="varId"></param>
+            <param name="payload"></param>
+        </member>
+        <member name="T:Wdh.Cosmos.LinkStatus">
+            <summary>
+            
+            </summary>
+            <param name="linkUp"></param>
+        </member>
+        <member name="T:Wdh.Cosmos.IDeveloperBluetooth">
+            <summary>
+            Interface for working with Bluetooth controller
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IDeveloperBluetooth.Open">
+            <summary>
+            Open link to BT controller.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IDeveloperBluetooth.Close">
+            <summary>
+            Close link to BT controller.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IDeveloperBluetooth.ClearPairings">
+            <summary>
+            Clear BT pairings on the device.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IDeveloperBluetooth.DutMode">
+            <summary>
+            Put the BT radio into DUT mode.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IDeveloperBluetooth.Reset">
+            <summary>
+            Reset the Bluetooth radio.
+            This can be used to bring the device out of DUT mode.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IDeveloperBluetooth.BtOn">
+            <summary>
+            Turn on the Bluetooth radio and connect to paired devices.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IDeveloperBluetooth.BtOff">
+            <summary>
+            Disconnect from paired devices and switch off Bluetooth radio.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IDeveloperBluetooth.Pairing">
+            <summary>
+            Start pairing mode.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IDeveloperBluetooth.BccmdGet(System.UInt16,System.UInt16)">
+            <summary>
+            Implement a BCCMD GET operation.
+            This function should only be called if BccmdSupport returns true
+            </summary>
+            <param name="varId">The VarID to get</param>
+            <param name="length">The number of words to read from CSR.</param>
+            <returns>The value of the VarID requested. This array will have the length specified by parameter 'length'. Note that a minimum of 4 words will always be returned.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IDeveloperBluetooth.BccmdSet(System.UInt16,System.UInt16[])">
+            <summary>
+            Issue a BCCMD SET operation
+            This function should only be called if BccmdSupport returns true
+            </summary>
+            <param name="varId">The VarID to set</param>
+            <param name="payload">New value of the VarID</param>
+        </member>
+        <member name="M:Wdh.Cosmos.IDeveloperBluetooth.HciCmd(System.Byte,System.UInt16,System.Byte[])">
+            <summary>
+            Issue a HCI command
+            This function should only be called if HciSupport returns true
+            </summary>
+            <param name="ogf">HCI operation group in range 0-63</param>
+            <param name="ocf">HCI operation code in range 0-1023</param>
+            <param name="parameters">Command parameters. Must not exceed 255 bytes in length.</param>
+        </member>
+        <member name="M:Wdh.Cosmos.IDeveloperBluetooth.VmSendMsg(System.Byte,System.Byte[])">
+            <summary>
+            Send a message to the VM application.
+            This function should only be called if VmSupport returns true
+            </summary>
+            <param name="stream">Stream ID.</param>
+            <param name="message">The message to send.</param>
+        </member>
+        <member name="P:Wdh.Cosmos.IDeveloperBluetooth.BccmdSupport">
+            <summary>
+            Is BCCMD protocol (CSR-specific) supported on this device?
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.IDeveloperBluetooth.HciSupport">
+            <summary>
+            Is HCI command/event protocol supported on this device?
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.IDeveloperBluetooth.VmSupport">
+            <summary>
+            Are VM messages (CSR-specific) supported on this device?
+            </summary>
+        </member>
+        <member name="E:Wdh.Cosmos.IDeveloperBluetooth.HciEventReceived">
+            <summary>
+            This event is invoked whenever a HCI event is received.
+            </summary>
+        </member>
+        <member name="E:Wdh.Cosmos.IDeveloperBluetooth.VmMsgReceived">
+            <summary>
+            This event is invoked whenever a message is received from the VM application
+            </summary>
+        </member>
+        <member name="E:Wdh.Cosmos.IDeveloperBluetooth.HqCmdReceived">
+            <summary>
+            This event is invoked whenever a HQ SETREQ command is received from BC
+            </summary>
+        </member>
+        <member name="E:Wdh.Cosmos.IDeveloperBluetooth.LinkChanged">
+            <summary>
+            This event is invoked when a change occurs in the link towards BT controller.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.IDeveloperAurora">
+            <summary>
+            This interface provides developer access to Aurora chipset.
+            - access to SPI communication protocol towards RF3
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.FirmwareProgressEventArgs">
+            <summary>
+            Event arguments indicating firmware upgrade progress
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.FirmwareProgressEventArgs.Percentage">
+            <summary>
+            Completion percentage (0-100)
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.FirmwareProgressEventArgs.TimeRemaining">
+            <summary>
+            Estimated time remaining
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.FirmwareProgressEventArgs.CurrentSection">
+            <summary>
+            Index number of the current FW section
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.FirmwareProgressEventArgs.CurrentSectionPercentage">
+            <summary>
+            Completion percentage of current FW section
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.FirmwareProgressEventArgs.TotalSections">
+            <summary>
+            Total number of FW sections
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.FirmwareProgressEventArgs.CurrentDescription">
+            <summary>
+            Description string for current FW section
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.UpgradeFailedEventArgs">
+            <summary>
+            Event arguments indication FW upgrade failure
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.UpgradeFailedEventArgs.sErrorMessage">
+            <summary>
+            Error message
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.UpgradeFailedEventArgs.eException">
+            <summary>
+            Exception caught during FW upgrade
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.DeviceIntegrity">
+            <summary>
+            Device integrity enumeration
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.DeviceIntegrity.DEVICE_INTEGRITY_OK">
+            <summary>
+            Integrity OK
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.DeviceIntegrity.DEVICE_INTEGRITY_ERROR">
+            <summary>
+            Integrity check failed
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.IFirmwareUpgrade">
+            <summary>
+            Interface for performing Cosmos device FW upgrade
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IFirmwareUpgrade.ProgramFirmware(System.String)">
+            <summary>
+            Program the device with the firmware
+            </summary>
+            <param name="sPackagePath">Path to a valid FW package for this device.</param>
+            <returns>False if the package is not a valid firmware package</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IFirmwareUpgrade.ValidateFirmware(System.String)">
+            <summary>
+            Validate if a FW package is valid for this device
+            </summary>
+            <param name="sPackagePath">Path to FW package.</param>
+            <returns>True if the FW package is valid for this device</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IFirmwareUpgrade.QueryDeviceIntegrity">
+            <summary>
+            Start a query procedure if the device FW integrity is OK.
+            </summary>
+            <remarks>The response will be delivered by event handler <see cref="E:Wdh.Cosmos.IFirmwareUpgrade.ReportDeviceIntegrity"/></remarks>
+        </member>
+        <member name="M:Wdh.Cosmos.IFirmwareUpgrade.ErrorMessage">
+            <summary>
+            Get last error message
+            </summary>
+            <returns>Error message</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IFirmwareUpgrade.ReconnectNotification">
+            <summary>
+            Called when reconnecting
+            </summary>
+        </member>
+        <member name="E:Wdh.Cosmos.IFirmwareUpgrade.ProgressChanged">
+            <summary>
+            Event handler for progress events
+            </summary>
+        </member>
+        <member name="E:Wdh.Cosmos.IFirmwareUpgrade.UploadSucceeded">
+            <summary>
+            Event handler for successful FW upgrade
+            </summary>
+        </member>
+        <member name="E:Wdh.Cosmos.IFirmwareUpgrade.UploadFailed">
+            <summary>
+            Event handler for failed FW upgrade
+            </summary>
+        </member>
+        <member name="E:Wdh.Cosmos.IFirmwareUpgrade.ReportDeviceIntegrity">
+            <summary>
+            Event handler indicating device integrity
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.NearlinkCrc">
+            <summary>
+            Enumeration of nEARlink-supported CRC types.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.NearlinkCrc.NA">
+            <summary>
+            CRC not applicable
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.NearlinkCrc.CRC8">
+            <summary>
+            8-bit CRC
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.NearlinkCrc.CCITT">
+            <summary>
+            16-bit (CCITT) CRC
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.NearlinkCrc.CRC32">
+            <summary>
+            32-bit CRC
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.NearlinkProtocol">
+            <summary>
+            Enumeration of nEARlink application protocols
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.NearlinkProtocol.ACK">
+            <summary>
+            Link-layer acknowledge
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.NearlinkProtocol.AUDIO">
+            <summary>
+            Streaming audio
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.NearlinkProtocol.DATA">
+            <summary>
+            Fitting data
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.NearlinkProtocol.EXTENDED">
+            <summary>
+            Extended protocol
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.NLAddress">
+            <summary>
+            Class representing a nEARlink address.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.NLAddress.#ctor">
+            <summary>
+            Build a default NL address object
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.NLAddress.#ctor(System.Byte,System.UInt32)">
+            <summary>
+            Build a NL address object
+            </summary>
+            <param name="vendor">Vendor ID</param>
+            <param name="address">NL address</param>
+        </member>
+        <member name="M:Wdh.Cosmos.NLAddress.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Wdh.Cosmos.NLAddress.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:Wdh.Cosmos.NLAddress.op_Equality(Wdh.Cosmos.NLAddress,Wdh.Cosmos.NLAddress)">
+            <summary>
+            Comparison of 2 NL addresses.
+            </summary>
+            <param name="x">NL address 1</param>
+            <param name="y">NL address 2</param>
+            <returns>True if x and y are the same NL address, false otherwise.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.NLAddress.op_Inequality(Wdh.Cosmos.NLAddress,Wdh.Cosmos.NLAddress)">
+            <summary>
+            Comparison of 2 NL addresses.
+            </summary>
+            <param name="x">NL address 1</param>
+            <param name="y">NL address 2</param>
+            <returns>True if x and y are different NL addresses, false otherwise.</returns>
+        </member>
+        <member name="P:Wdh.Cosmos.NLAddress.Vendor">
+            <summary>
+            Vendor part of NL address
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.NLAddress.Address">
+            <summary>
+            Device address. When translating to/from a NL packet, the most significant byte appears first.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.NearlinkPacket">
+            <summary>
+            This class represents the contents of a NL packet.
+            The fields eCrc, eProtocol and ExpectAcknowledge correspond
+            to fields of the NL frame descriptor. It is not possible to specify
+            protocol version or addressing mode. Protocol version is always 0
+            and addressing mode is always long-long.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.NearlinkPacket.#ctor">
+            <summary>
+            Build a NearlinkPacket with default values
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.NearlinkPacket.#ctor(Wdh.Cosmos.NearlinkCrc,Wdh.Cosmos.NearlinkProtocol,System.Boolean,Wdh.Cosmos.NLAddress,Wdh.Cosmos.NLAddress,System.Byte[])">
+            <summary>
+            Build a NearlinkPacket
+            </summary>
+            <param name="crc">CRC type</param>
+            <param name="protocol">Protocol type</param>
+            <param name="expectAcknowledge">Should a NL acknowledge be expected?</param>
+            <param name="srcAddress">NL source address</param>
+            <param name="destAddress">NL destination address</param>
+            <param name="payload">NL message payload</param>
+        </member>
+        <member name="P:Wdh.Cosmos.NearlinkPacket.Crc">
+            <summary>
+            Which CRC type to apply.
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.NearlinkPacket.Protocol">
+            <summary>
+            Which NL protocol
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.NearlinkPacket.ExpectAcknowledge">
+            <summary>
+            If true, request NL acknowledge.
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.NearlinkPacket.SrcAddress">
+            <summary>
+             NL source address
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.NearlinkPacket.DestAddress">
+            <summary>
+            NL destination address
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.NearlinkPacket.Payload">
+            <summary>
+            Payload bytes following NL header
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.Side">
+            <summary>
+            Identifies on of the programmer's logical connections towards HIs.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.Side.Left">
+            <summary>
+            Left side
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.Side.Right">
+            <summary>
+            Right side
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.NearlinkTx">
+            <summary>
+            This class represents an outgoing NL message transmission.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.NearlinkTx.#ctor(Wdh.Cosmos.NearlinkPacket,System.Int32,System.Int32)">
+            <summary>
+            Build a NearlinkTx object
+            </summary>
+            <param name="packet">The NL packet to send</param>
+            <param name="txDelay">Holdoff time after previous packet, specified in ms.</param>
+            <param name="timeout">Retransmission timeout, specified in ms.</param>
+        </member>
+        <member name="M:Wdh.Cosmos.NearlinkTx.#ctor(Wdh.Cosmos.NearlinkPacket)">
+            <summary>
+            Build a NearlinkTx object with default values (0) for holdoff and retransmission timeouts.
+            </summary>
+            <param name="packet">The NL packet to send</param>
+        </member>
+        <member name="P:Wdh.Cosmos.NearlinkTx.Packet">
+            <summary>
+            The actual NL packet content
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.NearlinkTx.TxDelay">
+            <summary>
+            Number of milliseconds interval to insert between the last bit of this message and the first bit of the next NL message preamble
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.NearlinkTx.Timeout">
+            <summary>
+            Number of milliseconds to wait before retransmitting packet.
+            This is only applicable when the packet's ExpectAcknowledge
+            attribute is set.
+            Measured from the end of the last message bit until the last bit of a response is received.
+            TODO: Consider if this should also apply when calling SendReceive and there is no response...
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.NearlinkRx">
+            <summary>
+            This class represents an incoming NL message.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.NearlinkRx.#ctor(Wdh.Cosmos.NearlinkPacket,System.Double)">
+            <summary>
+            Build a NearlinkRx object
+            </summary>
+            <param name="packet">The NL packet received.</param>
+            <param name="snr">Receive Signal-to-noise ratio measured in dB.</param>
+        </member>
+        <member name="P:Wdh.Cosmos.NearlinkRx.Packet">
+            <summary>
+            The actual NL packet content
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.NearlinkRx.SNR">
+            <summary>
+            Signal-to-noise ratio measured in dB for the received message
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.ExtNearlinkRx">
+            <summary>
+            Represents a received NL packet with detailed information about signal levels
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.ExtNearlinkRx.RxMessage">
+            <summary>
+            The NL nessage
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.ExtNearlinkRx.CarrierLevel">
+            <summary>
+            Received carrier level, specified in ??
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.ExtNearlinkRx.NoiseLevel">
+            <summary>
+            Received noise level, specified in ??
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.INearlinkLego2">
+            <summary>
+            Interface for Lego2 commands via Nearlink
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.NearlinkStatus">
+            <summary>
+            Status of a nEARlink message
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.NearlinkStatus.Success">
+            <summary>
+            The message was transmitted/received successfully
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.NearlinkStatus.BadID">
+            <summary>
+            The message ID used was already in use. This indicates an internal error.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.NearlinkStatus.Busy">
+            <summary>
+            The NL channel is busy with other NL traffic, such as streaming audio.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.NearlinkStatus.Timeout">
+            <summary>
+            An expected response was not received within the specified timeout.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.NearlinkStatus.Noise">
+            <summary>
+            An expected response was not received within the specified timeout, and there is excessive
+            background noise detected on the NL channel.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.NearlinkStatus.PowerOff">
+            <summary>
+            The programmer device was switched off.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.ConnectHIStatus">
+            <summary>
+            Nautilus status for ConnectHI
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.ConnectHIStatus.Success">
+            <summary>
+            Success
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.ConnectHIStatus.PowerOff">
+            <summary>
+            The device is powered off
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.DisconnectHIStatus">
+            <summary>
+            Nautilus status for DisconnectHI
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.DisconnectHIStatus.Success">
+            <summary>
+            Success
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.DisconnectHIStatus.PowerOff">
+            <summary>
+            The device is powered off
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.SendReceiveAsyncStatus">
+            <summary>
+            Nautilus status for SendReceiveAsync
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.SendReceiveAsyncStatus.Success">
+            <summary>
+            Success
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.SendReceiveAsyncStatus.BadID">
+            <summary>
+            The supplied message ID is already in use.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.SendReceiveAsyncStatus.PowerOff">
+            <summary>
+            The device is powered off
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.INearlink">
+            <summary>
+            Interface for basic Nearlink functionality.
+            This interface is primarily intended for development/testing.
+            See <seealso cref="T:Wdh.Cosmos.IFittingNearlink"/> for an interface intended for fitting applications.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.INearlink.SetPreambleLength(System.Byte)">
+            <summary>
+            Set the number of NL preamble bits.
+            </summary>
+            <returns>Nautilus status.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.INearlink.SendRaw(System.Byte[],Wdh.Cosmos.NearlinkStatus@)">
+            <summary>
+            Sends the specified array of bytes as a complete NL packet. I.e. the length field, frame descriptor, source/destination address,
+            message payload and CRC must be embedded in the <paramref name="Payload"/> argument.
+            The preamble length is controlled by method <see cref="M:Wdh.Cosmos.INearlink.SetPreambleLength(System.Byte)"/>
+            </summary>
+            <param name="Payload">Complete message (excluding preamble)</param>
+            <param name="status">Message status.</param>
+            <returns>Nautilus status.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.INearlink.Send(Wdh.Cosmos.NearlinkTx,Wdh.Cosmos.NearlinkStatus@)">
+            <summary>
+            Send a NL message, no response is expected.
+            </summary>
+            <param name="txMessage">The message to send.</param>
+            <param name="status">Status of the transmission.</param>
+            <returns>Nautilus status.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.INearlink.SendReceive(Wdh.Cosmos.NearlinkTx,Wdh.Cosmos.NearlinkRx@,Wdh.Cosmos.NearlinkStatus@)">
+            <summary>
+            Send a NL message and retrieve a single response.
+            </summary>
+            <param name="txMessage">The message to send.</param>
+            <param name="rxMessage">The response message received.</param>
+            <param name="status">Status of message transmission/reception.</param>
+            <returns>Nautilus status.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.INearlink.GetNextReceived(Wdh.Cosmos.NearlinkRx@,Wdh.Cosmos.NearlinkStatus@)">
+            <summary>
+            When the NL receiver is active, this function returns the next successfully received message.
+            </summary>
+            <param name="rxMessage">The message received.</param>
+            <param name="status">Status of the message. If no messages are ready, status will indicate timeout.</param>
+            <returns>Nautilus status.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.INearlink.Receive(System.UInt16,Wdh.Cosmos.ExtNearlinkRx@,Wdh.Cosmos.NearlinkStatus@)">
+            <summary>
+            Retrieve a single received NL message.
+            </summary>
+            <param name="TimeOut">The time to wait for a message, specified in ms.</param>
+            <param name="ExtRXMessage">The message received.</param>
+            <param name="status">Status of the messag.</param>
+            <returns>Nautilus status.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.INearlink.ReceiveStart">
+            <summary>
+            Start Nearlink reception.
+            </summary>
+            <returns>Nautilus status.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.INearlink.ReceiveStop">
+            <summary>
+            Stop Nearlink reception.
+            </summary>
+            <returns>Nautilus status.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.INearlink.GetLego2">
+            <summary>
+            Get the fitting device's Lego2 command interface
+            </summary>
+            <returns>The Lego2 interface</returns>
+        </member>
+        <member name="P:Wdh.Cosmos.INearlink.RxSupported">
+            <summary>
+            If true, NL reception is supported. ReceiveStart(), ReceiveStop() and GetNextReceived() methods can be called.
+            If TxSupported is also true, SendReceive can be called.
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.INearlink.TxSupported">
+            <summary>
+            If true, NL transmission is supported. SendRaw() and Send() methods can be called.
+            If RxSupported is also true, SendReceive can be called.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.NeckloopStatus">
+            <summary>
+            Event argument specifying a change in neckloop status
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.NeckloopStatus.bConnected">
+            <summary>
+            If true, the neckloop is closed, otherwise it is open.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.NearLinkLinkStatus">
+            <summary>
+            Representation of Nearlink communication link status.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.NearLinkLinkStatus.side">
+            <summary>
+            Which side this status relates to.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.NearLinkLinkStatus.connected">
+            <summary>
+            If true, the link is 'up' - i.e. the HI is within range.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.NearLinkLinkStatus.linkQuality">
+            <summary>
+            Link quality in percentage of max.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.NearLinkConnectionChanged">
+            <summary>
+            Event handler for changes in NL link status.
+            </summary>
+            <param name="status">Link status.</param>
+        </member>
+        <member name="T:Wdh.Cosmos.IFittingNearlink">
+            <summary>
+            Interface for using a fitting device from a fitting application.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IFittingNearlink.SendReceiveAsync(System.Byte,Wdh.Cosmos.NearlinkTx,System.Byte,Wdh.Cosmos.SendReceiveAsyncStatus@)">
+            <summary>
+            Initiate a NL transaction asynchronously.
+            </summary>
+            <param name="id">ID of the transaction. Use the same ID when calling <see cref="M:Wdh.Cosmos.IFittingNearlink.SendReceiveComplete(System.Byte,Wdh.Cosmos.NearlinkRx@,Wdh.Cosmos.NearlinkStatus@)"/>.</param>
+            <param name="txMessage">Outgoing NL message.</param>
+            <param name="responses">Number of expected NL responses.</param>
+            <param name="Status">Status for the transaction.</param>
+            <returns>True if the NL transaction was started successfully. False if it failed.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IFittingNearlink.SendReceiveComplete(System.Byte,Wdh.Cosmos.NearlinkRx@,Wdh.Cosmos.NearlinkStatus@)">
+            <summary>
+            Wait for an asynchronous NL transaction to complete and retrieve its result.
+            </summary>
+            <param name="id">Asynchronous transaction ID. Must match that used in a previous call to <see cref="M:Wdh.Cosmos.IFittingNearlink.SendReceiveAsync(System.Byte,Wdh.Cosmos.NearlinkTx,System.Byte,Wdh.Cosmos.SendReceiveAsyncStatus@)"/>.</param>
+            <param name="rxMessage">Received message.</param>
+            <param name="status">Status for received message.</param>
+            <returns>True if the NL transaction was completed successfully. False if it failed.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IFittingNearlink.Flush">
+            <summary>
+            Flush any outstanding asynchronous requests and prepare for a new sequence of NL transactions
+            to fill up the pipeline.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IFittingNearlink.SetPreambleLength(System.Byte)">
+            <summary>
+            Set the number of NL preamble bits.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IFittingNearlink.ConnectHI(Wdh.Cosmos.Side,Wdh.Cosmos.NLAddress,Wdh.Cosmos.ConnectHIStatus@)">
+            <summary>
+            Establish and maintain a connection towards a HI.
+            When this method is called, the fitting device will send NL 'ping' messages
+            at regular intervals.
+            </summary>
+            <param name="side">Side for this HI.</param>
+            <param name="address">HI NL address</param>
+            <param name="Status"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IFittingNearlink.DisconnectHI(Wdh.Cosmos.Side,Wdh.Cosmos.DisconnectHIStatus@)">
+            <summary>
+            Stop maintaining a connection towards a HI.
+            </summary>
+            <param name="side">Side for this HI.</param>
+            <param name="Status"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IFittingNearlink.ReadLinkQuality(Wdh.Cosmos.Side,Wdh.Cosmos.NearLinkLinkStatus@)">
+            <summary>
+            Obtain NL link quality for a certain HI.
+            NOTE: It is only valid to call this method when an a link has been established to a HI.
+            by calling <see cref="M:Wdh.Cosmos.IFittingNearlink.ConnectHI(Wdh.Cosmos.Side,Wdh.Cosmos.NLAddress,Wdh.Cosmos.ConnectHIStatus@)"/>.
+            The information returned by this method represents downlink link quality.
+            </summary>
+            <param name="side">HI side.</param>
+            <param name="NLCS">Link quality between HI and fitting device.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IFittingNearlink.GetConnectedHIAddresses(Wdh.Cosmos.NLAddress[]@)">
+            <summary>
+            Returns an array of connected HI addresses from the WLP device.
+            [0] = Left Side
+            [1] = Right Side
+            
+            A null address means the side is not connected
+            </summary>
+            <param name="ConnectedHIAddresses"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Wdh.Cosmos.IFittingNearlink.NumberOfRetries">
+            <summary>
+            Configure the number of NL retries.
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.IFittingNearlink.QueueSize">
+            <summary>
+            Retrieve the maximum number of outstanding asynchronous requests.
+            </summary>
+        </member>
+        <member name="E:Wdh.Cosmos.IFittingNearlink.NearLinkConnectionChanged">
+            <summary>
+            Indication of a change in NL connection status
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.BatteryStatus">
+            <summary>
+            Event argument specifying a change in battery state.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.BatteryStatus.batteryState">
+            <summary>
+            Current battery state.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.BatteryStatus.batteryLevel">
+            <summary>
+            Battery level in percentage of max.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.BatteryStatus.batteryLevelAvailable">
+            <summary>
+            If true, the other fields of this class are valid, otherwise they are not valid.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.BatteryStatus.EBatteryState">
+            <summary>
+            State of battery.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.BatteryStatus.EBatteryState.OK">
+            <summary>
+            Not charging, level is corresponding to green power LED.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.BatteryStatus.EBatteryState.LOW">
+            <summary>
+            Not charging, level is corresponding to rew power LED.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.BatteryStatus.EBatteryState.VERYLOW">
+            <summary>
+            Not charging, level is corresponding to blinking red LED.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.BatteryStatus.EBatteryState.SHUTDOWN">
+            <summary>
+            Transitional state while shutting down due to low battery.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.BatteryStatus.EBatteryState.CHARGING">
+            <summary>
+            Battery is charging.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.BatteryStatus.EBatteryState.FULLYCHARGED">
+            <summary>
+            Battery is fully charged.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.DeviceConnection">
+            <summary>
+            Event argument specifying a change in the connection between PC and programmer device.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.DeviceConnection.linkQuality">
+            <summary>
+            Represents the link quality between PC and fitting device as a percentage.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.DeviceConnection.connected">
+            <summary>
+            If true, the connection is open.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.ConnectionChanged">
+            <summary>
+            Delegate for communicating change in connection status.
+            </summary>
+            <param name="status">New connection status</param>
+        </member>
+        <member name="T:Wdh.Cosmos.BatteryChanged">
+            <summary>
+            Delegate for communicating change in battery status.
+            </summary>
+            <param name="status">New battery status</param>
+        </member>
+        <member name="T:Wdh.Cosmos.NeckloopChanged">
+            <summary>
+            Delegate for communicating change in neckloop status.
+            </summary>
+            <param name="connected">New neckloop status</param>
+        </member>
+        <member name="T:Wdh.Cosmos.PowerChanged">
+            <summary>
+            Delegate for communicating change in power status.
+            </summary>
+            <param name="isOn">New power status</param>
+        </member>
+        <member name="T:Wdh.Cosmos.EConnectionType">
+            <summary>
+            Types of fitting device connection
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.EConnectionType.USB">
+            <summary>
+            USB connection
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.EConnectionType.BT">
+            <summary>
+            Bluetooth connection
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.EConnectStatus">
+            <summary>
+            Status for connection establishment
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.EConnectStatus.Success">
+            <summary>
+            Success
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.EConnectStatus.AlreadyConnected">
+            <summary>
+            The connection was already established
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.EConnectStatus.Failure">
+            <summary>
+            A connection could not be established
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.IFittingDevice">
+            <summary>
+            Interface for working with a fitting device.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IFittingDevice.GetStatus(System.String@)">
+            <summary>
+            Retrieve result of power-on self test.
+            </summary>
+            <param name="error">Error string if the device has an error. This argument is null if there is no error.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IFittingDevice.GetTransportName">
+            <summary>
+            Retrieve a logical name for the transport towards the fitting device.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IFittingDevice.ReadBatteryStatus(Wdh.Cosmos.BatteryStatus@)">
+            <summary>
+            Retrieve device battery status
+            </summary>
+            <param name="status"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IFittingDevice.ReadConnectionStatus(Wdh.Cosmos.DeviceConnection@)">
+            <summary>
+            Retrieve information for the connection between fitting device and PC.
+            </summary>
+            <param name="status"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IFittingDevice.ReadNeckloopStatus(System.Boolean@)">
+            <summary>
+            Retrieve neckloop connection status.
+            </summary>
+            <param name="connected"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IFittingDevice.GetSerialNumber(System.Int32@)">
+            <summary>
+            Obtain the serial number of the programming device itself, no matter via which transport we are connected.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IFittingDevice.Connect(Wdh.Cosmos.EConnectStatus@)">
+            <summary>
+            Connects to the fitting device. Must be done before working with the device.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IFittingDevice.Disconnect">
+            <summary>
+            Disconnects from the fitting device.
+            </summary>
+            <returns>Returns true if successful.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IFittingDevice.IsOn(System.Boolean@)">
+            <summary>
+            Query if the fitting device is powered on.
+            </summary>
+            <param name="isOn">If true, the device is powered on.</param>
+            <returns>Returns true if successful.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IFittingDevice.IsOff(System.Boolean@)">
+            <summary>
+            Query if the fitting device is powered off.
+            </summary>
+            <param name="isOff">If true, the device is powered off.</param>
+            <returns>Returns true if successful.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IFittingDevice.GetFitting">
+            <summary>
+            Get the device's Nearlink fitting interface
+            </summary>
+            <returns>Nearlink fitting interface.</returns>
+        </member>
+        <member name="E:Wdh.Cosmos.IFittingDevice.BatteryChanged">
+            <summary>
+            Event invoked when a change in battery state is detected.
+            </summary>
+        </member>
+        <member name="E:Wdh.Cosmos.IFittingDevice.NeckloopChanged">
+            <summary>
+            Event invoked when a change in neckloop state is detected.
+            </summary>
+        </member>
+        <member name="E:Wdh.Cosmos.IFittingDevice.PowerChanged">
+            <summary>
+            Event invoked when a change in power state is detected.
+            </summary>
+        </member>
+        <member name="E:Wdh.Cosmos.IFittingDevice.ConnectionChanged">
+            <summary>
+            Event invoked when a change in connection status is detected.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.GattCharacteristicProperties">
+            <summary>
+            Characteristic properties
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.GattCharacteristicProperties.Broadcast">
+            <summary>
+            The characteristic supports broadcast
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.GattCharacteristicProperties.Read">
+            <summary>
+            The characteristic can be read
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.GattCharacteristicProperties.WriteWithoutResponse">
+            <summary>
+            The characteristic can be written using Write Without Response procedure.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.GattCharacteristicProperties.Write">
+            <summary>
+            The characteristic can be written using normal Write procedure.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.GattCharacteristicProperties.Notify">
+            <summary>
+            The characteristic supports notification - i.e. it can generate notifications when its value changes.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.GattCharacteristicProperties.Indicate">
+            <summary>
+            The characteristic supports indication - i.e. it can generate indications when its value changes.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.GattCharacteristicProperties.AuthWrites">
+            <summary>
+            The characteristic supports authenticated write
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.GattCharacteristicProperties.Extended">
+            <summary>
+            Extended properties exist
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.GattClientConfiguration">
+            <summary>
+            Configuration properties.
+            Identifies what a characteristic should be configured for.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.GattClientConfiguration.Notification">
+            <summary>
+            Configure the characteristic for notification on value changed.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.GattClientConfiguration.Indication">
+            <summary>
+            Configure the characteristic for indication on value changed.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.IGattService">
+            <summary>
+            Representation of a GATT service.
+            It is a shorthand for an attribute entry where 'type' equals 0x2800/0x2801 (GATT primary/secondary service declaration)
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IGattService.FindIncludedServicesAsync">
+            <summary>
+            Retrieve the services included by this service.
+            </summary>
+            <returns>An list of the included services.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IGattService.GetCharacteristicsAsync">
+            <summary>
+            Retrieve the set of characteristics for this service.
+            </summary>
+            <returns>A list of the characteristics for this service.</returns>
+        </member>
+        <member name="P:Wdh.Cosmos.IGattService.Handle">
+            <summary>
+            Handle to primary service declaration
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.IGattService.LastHandle">
+            <summary>
+            Handle to last attribute within the service definition
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.IGattService.Uuid">
+            <summary>
+            Service UUID
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.IGattCharacteristic">
+            <summary>
+            Representation of a GATT characteristic.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IGattCharacteristic.GetDescriptorsAsync">
+            <summary>
+            Retrieve the set of descriptors for this characteristic.
+            </summary>
+            <returns>A list of characteristic descriptors.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IGattCharacteristic.ReadAsync">
+            <summary>
+            Read the value of a characteristic.
+            </summary>
+            <returns>
+            The characteristic's current value as raw uninterpreted data.
+            Only the first ATT_MTU-1 bytes of the attribute value is returned.
+            For attribute values longer than ATT_MTU-1 bytes, use ReadLong
+            It is up to the client application to interpret data according to the attribute's data format.
+            </returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IGattCharacteristic.ReadLongAsync(System.Boolean)">
+            <summary>
+            Read the value of a characteristic using long attribute read sub-procedure.
+            This can used to read attribute values which extend beyond ATT_MTU-1 bytes.
+            </summary>
+            <param name="pauseScanning">(Optional) Disables scanning while reading. Disables by default</param>
+            <returns>
+            The characteristic's current value as raw uninterpreted data.
+            It is up to the client application to interpret data according to the attribute's data format.
+            </returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IGattCharacteristic.WriteAsync(System.Byte[])">
+            <summary>
+            Change the value of a characteristic.
+            This method can be used to write the value of attributes of any length. If the supplied
+            argument 'value' is longer than ATT_MTU-3 bytes, this function will use 'Write Long' 
+            sub-procedure. Otherwise the normal 'Write' sub-procedure will be used.
+            </summary>
+            <param name="value">
+            New value of characteristic in the form of raw data.
+            It is up to the client application to format data according to the attribute's data format.
+            </param>
+        </member>
+        <member name="M:Wdh.Cosmos.IGattCharacteristic.WriteWithoutResponseAsync(System.Byte[])">
+            <summary>
+            Change the value of a characteristic using 'Write without Response' sub-procedure.
+            This method can only be used to write up to ATT_MTU-3 bytes of attribute data 
+            </summary>
+            <param name="value">
+            New value of characteristic in the form of raw data.
+            It is up to the client application to format data according to the attribute's data format.
+            </param>
+        </member>
+        <member name="M:Wdh.Cosmos.IGattCharacteristic.SubscribeAsync(Wdh.Cosmos.GattClientConfiguration)">
+            <summary>
+            Control if server should send indications or notifications when a specific characteristic value changes.
+            This method is a shortcut for retrieving a characteric's configuration descriptor and thereafter setting its value.
+            </summary>
+            <param name="configuration">Bit mask determining the type of subscription.
+            This method must only be called with a characteristic that supports notification or indication.
+            See the characteristic's properties to determine if it is supported.
+            Set to 0 to disable subscription.</param>
+        </member>
+        <member name="P:Wdh.Cosmos.IGattCharacteristic.Properties">
+            <summary>
+            The characteristic's properties.
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.IGattCharacteristic.Handle">
+            <summary>
+            Handle to characteristic declaration
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.IGattCharacteristic.ValueHandle">
+            <summary>
+            Handle to characteristic value
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.IGattCharacteristic.LastHandle">
+            <summary>
+            Handle to last attribute of characteristic.
+            This could be identical to valueHandle if the characteristic does not have any characteristic descriptors.
+            If not identical to valueHandle, the characteristic will have one or more characteristic descriptions with handles
+            in the range valueHandle+1 to lastHandle (inclusive)
+            Their type and handles can be obtained via GetCharacteristicDescriptors
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.IGattCharacteristic.Uuid">
+            <summary>
+            Characteristic UUID
+            </summary>
+        </member>
+        <member name="E:Wdh.Cosmos.IGattCharacteristic.Notification">
+            <summary>
+            Notification from server that this characteristic has changed its value.
+            </summary>
+        </member>
+        <member name="E:Wdh.Cosmos.IGattCharacteristic.Indication">
+            <summary>
+            Indication from server that this characteristic has changed its value.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.IGattDescriptor">
+            <summary>
+            Representation of a GATT characteristic descriptor.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IGattDescriptor.ReadAsync">
+            <summary>
+            Read the value of a characteristic descriptor.
+            </summary>
+            <returns>
+            The descriptor's current value as raw uninterpreted data.
+            Only the first ATT_MTU-1 bytes of the attribute value is returned.
+            For attribute values longer than ATT_MTU-1 bytes, use ReadLong
+            </returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IGattDescriptor.ReadLongAsync">
+            <summary>
+            Read the value of a a characteristic descriptor using long attribute read sub-procedure.
+            This can used to read values which extend beyond ATT_MTU-1 bytes.
+            </summary>
+            <returns>
+            The characteristic descriptor's current value as raw uninterpreted data.
+            </returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IGattDescriptor.WriteAsync(System.Byte[])">
+            <summary>
+            Change the value of a descriptor.
+            This method can be used to write the value of attributes of any length. If the supplied
+            argument 'value' is longer than ATT_MTU-3 bytes, this function will use 'Write Long' 
+            sub-procedure. Otherwise the normal 'Write' sub-procedure will be used.
+            </summary>
+            <param name="value">
+            New value of descriptor in the form of raw data.
+            </param>
+        </member>
+        <member name="P:Wdh.Cosmos.IGattDescriptor.Handle">
+            <summary>
+            Handle to characteristic descriptor
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.IGattDescriptor.Uuid">
+            <summary>
+            Characteristic descriptor type UUID
+            Bluetooth spec. vol. 3, part G, section 3.3.3 defines the following known descriptor type UUIDs:
+            0x2900 (Characteristic Extended Properties)
+            0x2901 (Characteristic User Description)
+            0x2902 (Client Characteristic Configuration)
+            0x2903 (Server Characteristic Configuration)
+            0x2904 (Characteristic Presentation Format)
+            0x2905 (Characteristic Aggregate Format)
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.GattCharacteristicValueChangedEventArgs">
+            <summary>
+            Event arguments identifying a changed characteristic value.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.GattCharacteristicValueChangedEventArgs.handle">
+            <summary>
+            The characteristic's handle
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.GattCharacteristicValueChangedEventArgs.value">
+            <summary>
+            New value of characteristic as raw uninterpreted data.
+            It is up to the client application to interpret data according to the characteristic's
+            data format.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.GattValueChangedEventArgs">
+            <summary>
+            Event arguments identifying a changed characteristic value.
+            </summary>
+        </member>
+        <member name="F:Wdh.Cosmos.GattValueChangedEventArgs.value">
+            <summary>
+            New value of characteristic as raw uninterpreted data.
+            It is up to the client application to interpret data according to the characteristic's
+            data format.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.IGattClient">
+            <summary>
+            Interface for accessing GATT client functionality
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IGattClient.ExchangeMtuAsync(System.UInt16)">
+            <summary>
+            Exchange new MTU size.
+            </summary>
+            <param name="mtu">The new suggested ATT_MTU size</param>
+            <returns>The new ATT_MTU size as negotiated with the GATT server. This may be lower than
+            the suggested value if the server does not support ATT_MTU of the requested size.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IGattClient.GetPrimaryServicesAsync">
+            <summary>
+            Retrieve a list of the primary services which this device exposes.
+            </summary>
+            <returns>An list of the primary services exposed by the device.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IGattClient.GetPrimaryServicesAsync(System.Guid)">
+            <summary>
+            Retrieve the primary services for a specific UUID.
+            </summary>
+            <param name="uuid">Service UUID.</param>
+            <returns>An list of the primary services with the specified UUID. Note that multiple instances of the same service UUID can coexist.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IGattClient.ReadAsync(System.Collections.Generic.IEnumerable{Wdh.Cosmos.IGattCharacteristic})">
+            <summary>
+            Read the value of multiple characteristics.
+            </summary>
+            <param name="characteristics">The set of characteristics to read.</param>
+            <returns>
+            Concatenation of characteristic values in the form of raw uninterpreted data.
+            The results are concatenated in the order that they were requested.
+            This function can only return up to a total of ATT_MTU-1 bytes of data.
+            If the concatenated attribute values are longer than ATT_MTU-1 bytes, the result will be truncated.
+            The characteristic values should be of fixed length except that the last characteristic in the list
+            is allowed to be of variable length.
+            It is up to the application to interpret data according to the characteristic's data format.
+            </returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IGattClient.ReadByUuidAsync(System.UInt16,System.UInt16,System.Guid)">
+            <summary>
+            Read the value of characteristics when only the characteristic UUID is known.
+            </summary>
+            <param name="startHandle">The attribute handle where to start searching.</param>
+            <param name="endHandle">The attribute handle where to stop searching.</param>
+            <param name="uuid">The UUID of characteristic(s) to read. Note that multiple instances of a characteristic with a given UUID can exist in the same service.</param>
+            <returns>
+            A list of Attribute Handle and Attribute Value tuples corresponding to the characteristics
+            contained in the handle range provided.
+            It is up to the application to interpret data according to the characteristic's data format.
+            </returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IGattClient.ReadLongAsync(System.UInt16,System.UInt16,System.Boolean)">
+            <summary>
+            Read the value of any attribute, identified by its handle.
+            </summary>
+            <param name="handle">The attribute handle.</param>
+            <param name="offset">(Optional) The offset where to start reading.</param>
+            <param name="pauseScanning">(Optional) Disables scanning while reading. Disables by default</param>
+            <returns>
+            This function uses ATT Read Blob request.
+            </returns>
+        </member>
+        <member name="P:Wdh.Cosmos.IGattClient.ServerAddress">
+            <summary>
+            Obtain the BD address of the GATT server for this connection
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.IGattClient.MTU">
+            <summary>
+            Current ATT_MTU value.
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.IGattClient.Timeout">
+            <summary>
+             Timeout for GATT procedures, measured in milliseconds.
+            </summary>
+        </member>
+        <member name="E:Wdh.Cosmos.IGattClient.Notification">
+            <summary>
+            A characteristic has changed its value.
+            This event is fired for all notifications received from this server.
+            </summary>
+        </member>
+        <member name="E:Wdh.Cosmos.IGattClient.Indication">
+            <summary>
+            A characteristic has changed its value.
+            This event is fired for all indications received from this server.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.IHardwareCryptography">
+            <summary>
+            Hardware Cryptography.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IHardwareCryptography.Generate(System.Byte,System.Byte[],System.Byte[])">
+            <summary>
+            Generate Cryptographic Response.
+            </summary>
+            <param name="clientChallenge">Client Challenge.</param>
+            <param name="serverChallenge">Server Challenge.</param>
+            <param name="keyIndex">Authentication key index.</param>
+            <returns>Return Cryptographic Response.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.IHardwareCryptography.Compare(System.Byte,System.Byte[],System.Byte[],System.Byte[])">
+            <summary>
+            Compare Cryptographic Response.
+            </summary>
+            <param name="clientChallenge">Client Challenge.</param>
+            <param name="serverChallenge">Server Challenge.</param>
+            <param name="serverResponse">Server Response.</param>
+            <param name="keyIndex">Authentication key index.</param>
+            <returns>Return true if the challenges matches the server response.</returns>
+        </member>
+        <member name="T:Wdh.Cosmos.ILedControl">
+            <summary>
+            Control a LED.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.ILedControl.Enable(System.Boolean)">
+            <summary>
+            Enable or disable the LED.
+            </summary>
+            <param name="enable">If true will enable the LED; otherwise disable.</param>
+            <exception cref="T:System.IO.IOException">Error</exception>
+        </member>
+        <member name="P:Wdh.Cosmos.ILedControl.Name">
+            <summary>
+            Gets the name of the LED.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.ILedController">
+            <summary>
+            A collection of controllable LEDs.
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.ILedController.Leds">
+            <summary>
+            Gets an array of LEDs.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.INautilusTextual">
+            <summary>
+            Interface for sending Nautilus commands in textual representation
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.INautilusTextual.OpenProtocol(System.String)">
+            <summary>
+            Open a Nautilus protocol definition file.
+            </summary>
+            <param name="sFilename">Path to the Nautilus protocol definition file.</param>
+            <returns>TODO</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.INautilusTextual.Send(System.String,System.String@)">
+            <summary>
+            Issue a Nautilus text-format command and wait for a response.
+            </summary>
+            <param name="sCommand">The command to send.</param>
+            <param name="sReceived">The response received.</param>
+            <returns>TODO</returns>
+        </member>
+        <member name="T:Wdh.Cosmos.IProxyDevice">
+            <summary>
+            IProxyDevice is an interface which can be implemented by a device as a supplement to ICosmosDevice
+            It should be implemented if the device is a proxy for another instance of ICosmosDevice.
+            When implemented, it is possible to get the 'proxied' device's representation in the form
+            of its ICosmosDevice interface.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IProxyDevice.GetProxiedDevice">
+            <summary>
+            Retrieve the proxied device.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Wdh.Cosmos.IPersistentStore">
+            <summary>
+            Interface to a device defined persistent store
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.IPersistentStore.Cleanup">
+            <summary>
+            Perform a Cleanup.
+            The underlaying implementation defines what a "cleanup" involves.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.ISettings">
+            <summary>
+            Interface for accessing device settings.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.ISettings.LoadDefinition(System.String)">
+            <summary>
+            Load the definition file for the settings system. This is required in order
+            to access the settings system.
+            </summary>
+            <param name="sPath">File path to the settings definition file. This is a .xml file which defines the available settings in the device.</param>
+            <returns>True if successful</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.ISettings.WriteSetting(System.String,System.String)">
+            <summary>
+            Write setting into device. Identify setting to write using key
+            and value to write using sValue
+            </summary>
+            <param name="sKey">Identifies the setting to write
+            The key must contain a valid textual index into the settings system
+            in the form of target.collection.setting
+            Example: "Mcu.Production.SerialNumber"</param>
+            <param name="sValue">Textual form of the setting to write. Must correspond
+                             to the allowed ranges and enums in the settings definition file
+                             Arrays must be space seperated
+            Example:         "123"
+                             "0x3A"
+                             "Enabled"
+                             "3 9 3 2"
+                             "Enabled Disabled Enabled Enabled"
+                             </param>
+            <returns>True if successful</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.ISettings.ReadSetting(System.String,System.String@)">
+            <summary>
+            Read a single individual setting from the devive using key to
+            identify the setting to read
+            </summary>
+            <param name="key">See description at <see cref="M:Wdh.Cosmos.ISettings.WriteSetting(System.String,System.String)"/></param>
+            <param name="sValue">See description at <see cref="M:Wdh.Cosmos.ISettings.WriteSetting(System.String,System.String)"/></param>
+            <returns>True if successful</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.ISettings.WriteSettingsFile(System.String)">
+            <summary>
+            Write a settings file into the device. The settings file must be
+            in the format of an .xml file using the format specified in
+            depot/projects/nebula/Documentation/Tools/Settings System/Settings and Upgrade System Design.docx
+            </summary>
+            <param name="sPath">Path to settings file.</param>
+            <returns>True if successful</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.ISettings.ReadSettingsFile(System.String)">
+            <summary>
+            Read all available settings from the device and save to a settings
+            file in the format of an .xml file using the format specified in
+            depot/projects/nebula/Documentation/Tools/Settings System/Settings and Upgrade System Design.docx
+            </summary>
+            <param name="sPath">Path to where settings file will be stored.</param>
+            <returns>True if successful</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.ISettings.RestoreFactorySettings">
+            <summary>
+            Revert the instrument to factory settings
+            </summary>
+            <returns>True if successful</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.ISettings.GetLastError">
+            <summary>
+            Get last error encountered in the SettingsInterface
+            </summary>
+            <returns>Error message</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.ISettings.ReconnectNotification">
+            <summary>
+            Called when reconnecting
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.ISettings.GetSettingsList">
+            <summary>
+            Get list of valid setting names
+            </summary>
+            <returns>list of setting names</returns>
+        </member>
+        <member name="T:Wdh.Cosmos.ITransport">
+            <summary>
+            Public interface for the communication transport used towards a Cosmos device.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.ITransport.Connect">
+            <summary>
+            Establish the physical connection.
+            </summary>
+            <returns>True if the connection ws successful, false otherwise.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.ITransport.Disconnect">
+            <summary>
+            Tear down the physical connection.
+            </summary>
+        </member>
+        <member name="P:Wdh.Cosmos.ITransport.IsConnected">
+            <summary>
+            Query connection status.
+            </summary>
+        </member>
+        <member name="T:Wdh.Cosmos.UuidUtils">
+            <summary>
+            Utility class for working with UUIDs.
+            </summary>
+        </member>
+        <member name="M:Wdh.Cosmos.UuidUtils.IsShortUuid(System.Guid)">
+            <summary>
+            Query if a UUID represents a short (16-bit) UUID.
+            </summary>
+            <param name="uuid">The UUID in question</param>
+            <returns>True if the UUID represents a 16-bit UUID</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.UuidUtils.GetShortUuid(System.Guid)">
+            <summary>
+            Get the short version of a UUID
+            </summary>
+            <remarks>The result of this function is only valid if the UUID is a representation
+            of a short (16-bit) UUID, i.e. if <see cref="M:Wdh.Cosmos.UuidUtils.IsShortUuid(System.Guid)"/> returns true for the same argument.
+            </remarks>
+            <param name="uuid">The UUID in question</param>
+            <returns>The short (16-bit) representation of the UUID.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.UuidUtils.ConvertShortIdToUuid(System.UInt16)">
+            <summary>
+            Convert a short (16-bit) UUID to a 128-bit UUID representation.
+            </summary>
+            <param name="shortId">The short UUID</param>
+            <returns>A 128-bit UUID representation of the short UUID.</returns>
+        </member>
+        <member name="M:Wdh.Cosmos.UuidUtils.UuidToBytes(System.Object)">
+            <summary>
+            Return the byte sequence that represents a UUID.
+            </summary>
+            <param name="uuid"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

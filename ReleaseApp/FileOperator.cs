@@ -186,77 +186,6 @@ namespace UltimateChanger
             }
             return listalogmode;
         }
-        public bool deleteinfoaboutinstallerpath(string FSname)
-        {
-            List<string> plik = new List<string>();
-            try
-            {
-                plik = File.ReadAllLines(@"C:\Program Files\DGS - PAZE & MIBW\InstallerPaths.txt").ToList<string>();
-            }
-            catch (Exception x)
-            {
-                MessageBox.Show(x.ToString());
-                return false;
-            }
-            foreach (var item in plik)
-            {
-                if (item.Contains(BindCombobox.BrandtoFS[FSname]))
-                {
-                    plik.Remove(item);
-                }
-            }
-            using (StreamWriter outputFile = new StreamWriter(@"C:\Program Files\DGS - PAZE & MIBW\InstallerPaths.txt"))
-            {
-                foreach (string line in plik)
-                    outputFile.WriteLine(line);
-
-                outputFile.Close();
-            }
-            return true;
-        }
-
-        public void SavePathToFsInstallator(string path) // zapisz path do instalatora instalowanego FS
-        {
-            List<string> plik = new List<string>();
-            try
-            {
-                plik = File.ReadAllLines(@"C:\Program Files\DGS - PAZE & MIBW\InstallerPaths.txt").ToList<string>();
-            }
-            catch (Exception x)
-            {
-                MessageBox.Show(x.ToString());
-                return;
-            }
-            plik.Add(path);
-            using (StreamWriter outputFile = new StreamWriter(@"C:\Program Files\DGS - PAZE & MIBW\InstallerPaths.txt"))
-            {
-                foreach (string line in plik)
-                    outputFile.WriteLine(line);
-                outputFile.Close();
-            }
-        }
-        public string ReadPathToFsInstallator(string FSname) // odczytanie path do instalatora zainstalowanego FS
-        {
-            List<string> plik = new List<string>();
-            try
-            {
-                plik = File.ReadAllLines(@"C:\Program Files\DGS - PAZE & MIBW\InstallerPaths.txt").ToList<string>();
-            }
-            catch (Exception x)
-            {
-                MessageBox.Show(x.ToString());
-                return null;
-            }
-
-            foreach (var item in plik)
-            {
-                if (item.Contains(FSname))
-                {
-                    return item;
-                }
-            }
-            return "";
-        }
 
         public void setLogMode(string mode, int setting_number, byte number_checkbox, bool advance, string sett1 = "", string sett2 = "", string sett3 = "") // advance true czyli zaawansowane ustawienia usera
         {
@@ -970,6 +899,96 @@ namespace UltimateChanger
             return new BuildInfo(Brand[0].InnerText, MarketName[0].InnerText, OEM[0].InnerText, SelectedLanguage[0].InnerText, about);
         }
 
-   
+
+        static public string getCountUCRun()
+        {
+            string count = "";
+            try
+            {
+                if (Environment.CurrentDirectory.Contains("Updater")) // jezeli odpalam po update 
+                {
+                    if (!File.Exists(@"C:\Program Files\UltimateChanger\Settings\counter.txt"))
+                    {
+                        using (StreamWriter sr = new StreamWriter(@"C:\Program Files\UltimateChanger\Settings\counter.txt"))
+                        {
+                            sr.WriteLine("0");
+                            sr.Close();
+                        }
+                        return "0";
+                    }
+
+                    using (StreamReader sr = new StreamReader(@"C:\Program Files\UltimateChanger\Settings\counter.txt"))
+                    {
+                        String line = sr.ReadLine();
+                        count = line;
+                        sr.Close();
+                        return count;
+                    }
+                }// jezeli odpalam normalnie 
+
+
+
+                if (!File.Exists(@"Settings\counter.txt"))
+                {
+                    using (StreamWriter sr = new StreamWriter(@"Settings\counter.txt"))
+                    {
+                        sr.WriteLine("0");
+                        sr.Close();
+                    }
+                    return "0";
+                }
+
+
+                using (StreamReader sr = new StreamReader(@"Settings\counter.txt"))
+                {
+                    String line = sr.ReadLine();
+                    count = line;
+                    sr.Close();
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+
+
+            return count;
+        }
+
+        static public void setNextCountUCRun()
+        {
+            string count = getCountUCRun();
+
+            try
+            {
+                if (Environment.CurrentDirectory.Contains("Updater")) // jezeli odpalam po update 
+                {
+                    using (StreamWriter sr = new StreamWriter(@"C:\Program Files\UltimateChanger\Settings\counter.txt"))
+                    {
+                        int tmp = Convert.ToInt16(count);
+                        sr.WriteLine((tmp + 1).ToString());
+                        sr.Close();
+                    }
+
+                }
+                else
+                {
+                    using (StreamWriter sr = new StreamWriter(@"Settings\counter.txt"))
+                    {
+                        int tmp = Convert.ToInt16(count);
+                        sr.WriteLine((tmp + 1).ToString());
+                        sr.Close();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            
+           
+        }
+
+
     }
 }
