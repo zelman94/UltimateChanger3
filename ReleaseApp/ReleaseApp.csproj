@@ -165,7 +165,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-
     <Resource Include="Downgrade\NOAHlink WLP downgrade\howto.txt" />
     <Content Include="Downgrade\NOAHlink WLP downgrade\NLWUpgrader_11063s.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -228,11 +227,12 @@
     <Content Include="Downgrade\Production\WLPInterface.dll" />
     <Content Include="Downgrade\Production\WLPInterface.h" />
     <Content Include="Downgrade\Production\ykush.exe" />
-
     <Content Include="Images\icon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-
+    <Content Include="Images\refresh.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\update.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

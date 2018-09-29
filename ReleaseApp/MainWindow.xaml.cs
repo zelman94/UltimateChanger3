@@ -165,11 +165,7 @@ namespace UltimateChanger
                 }
 
 
-                cmbRelease.IsEnabled = false;
-                Rekurencja = new DispatcherTimer();
-                Rekurencja.Tick += checkRekurencja;
-                Rekurencja.Interval = new TimeSpan(0, 0, 1);
-                Rekurencja.Start();
+               
 
 
 
@@ -215,35 +211,14 @@ namespace UltimateChanger
                 RBcomposition.IsChecked = true;
 
 
-                // zamiast watku napisac maly programik osobny ktory bedzie uruchamiany na timerze co 3 s i bedzie sprawdzac czy sie zakonczyl ! :D
-                if (!statusOfProcess("Rekurencjon"))
-                {
-                    // args 0 - Full/Medium/Composition
-                    // args 1 release
-                    // args 2 pathFile - only file name
-                    // args 3 dirFile - only file name "test.txt"
-
-                    if (File.Exists(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe"))
-                    {
-                        Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text}  path_Composition.txt dir_Composition.txt"); // wlaczyc gdy bedzie nowy exe gotowy
-
-                    }
-                    else
-                    {
-                        Process.Start(@"C:\Program Files\UltimateChanger" + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text}  path_Composition.txt dir_Composition.txt"); // wlaczyc gdy bedzie nowy exe gotowy
-
-                    }
-
-                }
-
             }
             catch (Exception x)
             {
                 MessageBox.Show("inicjalizacja part 2 \n" + x.ToString());
             }
-            
 
 
+            progress.Visibility = Visibility.Hidden; // ukryty bo startuje przez refresh albo zmiane release
             //zablokowanie widocznosci elementow bez implementacji :
 
             //tabGlossary.Visibility = Visibility.Hidden;
@@ -1631,6 +1606,7 @@ namespace UltimateChanger
                     }
 
                     progress.Visibility = Visibility.Hidden;
+                    btnRefresh.Visibility = Visibility.Visible;
                 }
             }
             else // jezeli trwa kopiowanie
@@ -2978,7 +2954,8 @@ namespace UltimateChanger
 
         private void RBcomposition_Checked(object sender, RoutedEventArgs e)
         {
-            BindCombo.setFScomboBox_compositions(); // bindowanie do compozycjji 
+            BindCombo.setFScomboBox_compositions(); // bindowanie do compozycjji     
+            cmbOEM.Visibility = Visibility.Hidden;
             btninstal.Content = "Copy And Run";
             
             try
@@ -2998,10 +2975,60 @@ namespace UltimateChanger
 
         private void RBfullMedium_Checked(object sender, RoutedEventArgs e)
         {
+            cmbOEM.Visibility = Visibility.Visible;
             BindCombo.setFScomboBox(); // full medium
             cmbBuild.ItemsSource = null;
             RBnormal.IsEnabled = true;
             RBsilet.IsEnabled = true;
+        }
+
+        private void btnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            // zamiast watku napisac maly programik osobny ktory bedzie uruchamiany na timerze co 3 s i bedzie sprawdzac czy sie zakonczyl ! :D
+            if (!statusOfProcess("Rekurencjon"))
+            {
+                // args 0 - Full/Medium/Composition
+                // args 1 release
+                // args 2 pathFile - only file name
+                // args 3 dirFile - only file name "test.txt"
+                btnRefresh.Visibility = Visibility.Hidden;
+
+                if (File.Exists(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe"))
+                {
+                    if (RBcomposition.IsChecked.Value)
+                    {
+                        Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text}  path_Composition.txt dir_Composition.txt"); // wlaczyc gdy bedzie nowy exe gotowy
+
+                    }
+                    else
+                    {
+                        Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Full {cmbRelease.Text}  path_Full.txt dir_Full.txt"); // wlaczyc gdy bedzie nowy exe gotowy
+
+                    }
+
+                }
+                else
+                {
+
+                    if (RBcomposition.IsChecked.Value)
+                    {
+                        Process.Start(@"C:\Program Files\UltimateChanger" + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text}  path_Composition.txt dir_Composition.txt"); // wlaczyc gdy bedzie nowy exe gotowy
+
+                    }
+                    else
+                    {
+                        Process.Start(@"C:\Program Files\UltimateChanger" + @"\reku" + @"\Rekurencjon.exe", $"Full {cmbRelease.Text}  path_Full.txt dir_Full.txt"); // wlaczyc gdy bedzie nowy exe gotowy
+
+                    }
+
+
+                }
+                cmbRelease.IsEnabled = false;
+                Rekurencja = new DispatcherTimer();
+                Rekurencja.Tick += checkRekurencja;
+                Rekurencja.Interval = new TimeSpan(0, 0, 1);
+                Rekurencja.Start();
+            }
         }
 
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)
