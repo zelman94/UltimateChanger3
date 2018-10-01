@@ -120,12 +120,12 @@ namespace UltimateChanger
 
         public void setFScomboBox() // full medium
         {
-            List<string> bind = new List<string> { "Oticon", "Bernafon", "Sonic", "GenieMedical", "Cumulus", "Oticon_PRE", "Bernafon_PRE", "Sonic_PRE", "GenieMedical_PRE", "Cumulus_PRE" };
+            List<string> bind = new List<string> { "Oticon", "Bernafon", "Sonic", "GenieMedical", "Philips"};
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbBrandstoinstall.ItemsSource = bind;
         }
         public void setFScomboBox_compositions()
         {
-            List<string> bind = new List<string> { "Oticon", "Bernafon", "Sonic", "GenieMedical", "Cumulus" };
+            List<string> bind = new List<string> { "Oticon", "Bernafon", "Sonic", "GenieMedical", "Philips" };
             try
             {
                 ((MainWindow)System.Windows.Application.Current.MainWindow).cmbBrandstoinstall.ItemsSource = bind;

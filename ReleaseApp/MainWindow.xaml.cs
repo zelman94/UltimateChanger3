@@ -206,7 +206,7 @@ namespace UltimateChanger
                 setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
                 setUIdefaults(XMLReader.getDefaultSettings("ComboBox"), "ComboBox");
 
-
+                fileOperator.GetfilesSaveData(false,1);
 
                 RBcomposition.IsChecked = true;
 
@@ -223,7 +223,7 @@ namespace UltimateChanger
 
             //tabGlossary.Visibility = Visibility.Hidden;
             tabGlossary.IsEnabled = false;
-            RBfullMedium.IsEnabled = false;
+
             rbn_Genie.Visibility = Visibility.Hidden;
             rbn_Oasis.Visibility = Visibility.Hidden;
             rbn_ExpressFit.Visibility = Visibility.Hidden;
@@ -1434,7 +1434,20 @@ namespace UltimateChanger
             }
             else // bla full/medium
             {
+                try
+                {
+                    cmbBuild.ItemsSource = Paths_Dirs[(cmbBrandstoinstall.SelectedIndex)].dir;
+                    cmbBrandstoinstall.Items.Refresh();
+                    BindCombo.setOEMComboBox(cmbBrandstoinstall.Text);
+                    
+                    cmbBuild.Items.Refresh();
+                    cmbBrandstoinstall.Items.Refresh();
 
+                }
+                catch (Exception x)
+                {
+                    MessageBox.Show("Error FS Combo \n" + x.ToString());
+                }
             }
         }
 
@@ -1449,7 +1462,7 @@ namespace UltimateChanger
             {
                 btninstal.IsEnabled = true;
                 btnInfo.IsEnabled = true;
-                cmbBuild.ToolTip = Paths_Dirs[0].path[cmbBuild.SelectedIndex];
+                cmbBuild.ToolTip = Paths_Dirs[cmbBrandstoinstall.SelectedIndex].path[cmbBuild.SelectedIndex];
             }
             else
             {
@@ -2980,6 +2993,8 @@ namespace UltimateChanger
             cmbBuild.ItemsSource = null;
             RBnormal.IsEnabled = true;
             RBsilet.IsEnabled = true;
+            fileOperator.GetfilesSaveData(false,1);
+            cmbBrandstoinstall.SelectedIndex = 0;
         }
 
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
@@ -2992,7 +3007,7 @@ namespace UltimateChanger
                 // args 2 pathFile - only file name
                 // args 3 dirFile - only file name "test.txt"
                 btnRefresh.Visibility = Visibility.Hidden;
-
+   
                 if (File.Exists(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe"))
                 {
                     if (RBcomposition.IsChecked.Value)
@@ -3002,7 +3017,7 @@ namespace UltimateChanger
                     }
                     else
                     {
-                        Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Full {cmbRelease.Text}  path_Full.txt dir_Full.txt"); // wlaczyc gdy bedzie nowy exe gotowy
+                        Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Full {cmbRelease.Text}"); // wlaczyc gdy bedzie nowy exe gotowy
 
                     }
 
@@ -3017,12 +3032,13 @@ namespace UltimateChanger
                     }
                     else
                     {
-                        Process.Start(@"C:\Program Files\UltimateChanger" + @"\reku" + @"\Rekurencjon.exe", $"Full {cmbRelease.Text}  path_Full.txt dir_Full.txt"); // wlaczyc gdy bedzie nowy exe gotowy
+                        Process.Start(@"C:\Program Files\UltimateChanger" + @"\reku" + @"\Rekurencjon.exe", $"Full {cmbRelease.Text}"); // wlaczyc gdy bedzie nowy exe gotowy
 
                     }
 
 
                 }
+                progress.Visibility = Visibility.Visible;
                 cmbRelease.IsEnabled = false;
                 Rekurencja = new DispatcherTimer();
                 Rekurencja.Tick += checkRekurencja;
@@ -3045,10 +3061,21 @@ namespace UltimateChanger
                     {
                         if (!statusOfProcess("Rekurencjon"))
                         {
-                            Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text} path_Composition.txt dir_Composition.txt");
-                            cmbBrandstoinstall.IsEnabled = false;
-                            cmbBuild.IsEnabled = false;
-                            cmbOEM.IsEnabled = false;
+                            if (RBcomposition.IsChecked.Value) // jezeli kompozycja
+                            {
+                                Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text} path_Composition.txt dir_Composition.txt");
+                                cmbBrandstoinstall.IsEnabled = false;
+                                cmbBuild.IsEnabled = false;
+                                cmbOEM.IsEnabled = false;
+                            }
+                            else // jezeli Full
+                            {
+                                Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Full {cmbRelease.Text}");
+                                cmbBrandstoinstall.IsEnabled = false;
+                                cmbBuild.IsEnabled = false;
+                                cmbOEM.IsEnabled = false;
+                            }
+                           
                         }
                         Rekurencja.Start();
                     }
