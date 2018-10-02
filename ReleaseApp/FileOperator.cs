@@ -330,13 +330,13 @@ namespace UltimateChanger
                 {"Bernafon"},
                 {"Sonic"},
                 {"GenieMedical"},
-                {"Cumulus"}
+                {"Philips"}
             };
 
 
             if (composition)
             {
-               List<string> allFiles = Directory.GetFiles(@"C:\Program Files\UltimateChanger\Data").ToList();
+                List<string> allFiles = Directory.GetFiles(@"C:\Program Files\UltimateChanger\Data").ToList();
                 List<string> allCompositionsFiles = new List<string>();
                 List<string> textDirFile = new List<string>();
                 List<string> textPathFile = new List<string>();
@@ -372,6 +372,104 @@ namespace UltimateChanger
             }
             else
             {
+
+                List<string> allFiles = Directory.GetFiles(@"C:\Program Files\UltimateChanger\Data").ToList();
+                List<string> allFullFiles = new List<string>(10);
+                for (int i = 0; i < 10; i++)
+                {
+                    allFullFiles.Add("");
+                }
+
+                List<string> textDirFile = new List<string>();
+                List<string> textPathFile = new List<string>();
+                List<pathAndDir> tmpPathAdnDir = new List<pathAndDir>();
+
+                foreach (var item in allFiles) // jade po plikach i biore te ktore mają Compositions w nazwie
+                {
+                    if (!item.Contains("Composition"))
+                    {
+                        if (item.Contains("Genie_"))
+                        {
+                            if (item.Contains("dir"))
+                            {
+                                allFullFiles[0] = item; // dodaje do listy nazw 
+                            }
+                            else
+                            {
+                                allFullFiles[1] = item; // dodaje do listy nazw 
+                            }
+                            
+                        }
+                        if (item.Contains("Oasis_"))
+                        {
+                            if (item.Contains("dir"))
+                            {
+                                allFullFiles[2] = item; // dodaje do listy nazw 
+                            }
+                            else
+                            {
+                                allFullFiles[3] = item; // dodaje do listy nazw 
+                            }
+                           
+                        }
+                        if (item.Contains("ExpressFit_"))
+                        {
+                            if (item.Contains("dir"))
+                            {
+                                allFullFiles[4] = item; // dodaje do listy nazw 
+                            }
+                            else
+                            {
+                                allFullFiles[5] = item; // dodaje do listy nazw 
+                            }
+                           
+                        }
+                        if (item.Contains("GenieMedical_"))
+                        {
+                            if (item.Contains("dir"))
+                            {
+                                allFullFiles[6] = item; // dodaje do listy nazw 
+                            }
+                            else
+                            {
+                                allFullFiles[7] = item; // dodaje do listy nazw 
+                            }
+                            
+                        }
+                        if (item.Contains("Philips_"))
+                        {
+                            if (item.Contains("dir"))
+                            {
+                                allFullFiles[8] = item; // dodaje do listy nazw 
+                            }
+                            else
+                            {
+                                allFullFiles[9] = item; // dodaje do listy nazw 
+                            }
+                          
+                        }
+                                                                      
+                    }
+                }
+
+                bool FlagDir = false, FlagPath = false;
+                pathAndDir tmp = new pathAndDir();
+
+                textDirFile = allFullFiles.FindAll((s => s.Contains("_dir")));
+                textPathFile = allFullFiles.FindAll((s => s.Contains("_path")));
+
+                for (int i = 0; i < textDirFile.Count; i++)
+                {
+                    tmp = new pathAndDir();
+                    tmp.dir = File.ReadAllLines(textDirFile[i]).ToList();
+                    tmp.path = File.ReadAllLines(textPathFile[i]).ToList();
+                    tmpPathAdnDir.Add(new pathAndDir(tmp));
+                }
+
+
+                 ((MainWindow)System.Windows.Application.Current.MainWindow).Paths_Dirs = tmpPathAdnDir;
+
+
 
             }
 
