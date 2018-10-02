@@ -2075,10 +2075,12 @@ namespace UltimateChanger
 
             imgBrandSkin.Visibility = Visibility.Hidden;
 
+            //USTAWIENIA LABELI
             foreach (var item in lableListForUi)
             {
                 item.Foreground = Brushes.White;
             }
+            //USTAWIENIA BOXÓW
             foreach (var item in listBoxForUi)
             {
                 item.Foreground = Brushes.White;
@@ -2086,16 +2088,18 @@ namespace UltimateChanger
 
             }
             var converter = new System.Windows.Media.BrushConverter();
-            //var brush = (Brush)converter.ConvertFromString("#8A959B");
 
+            //USTAWIENIA BUTTONÓW
             foreach (var item in buttonListForUi)
             {
                 item.Background = (Brush)converter.ConvertFromString("#FF616161");
                 item.Foreground = (Brush)converter.ConvertFromString("#E5FFFFFF");
                 item.BorderBrush = (Brush)converter.ConvertFromString("#FF424242");
                 item.Opacity = 1;
+                item.MaxWidth = 250;
             }
 
+            //USTAWIENIA CHECKBOXÓW
             foreach (var item in checkBoxListForUi)
             {
                 item.Foreground = Brushes.White;
@@ -2105,12 +2109,14 @@ namespace UltimateChanger
                 item.Style = Resources["CheckboxDark"] as Style;
             }
 
+            //USTAWIENIA COMBOBOXÓW
             foreach (var item in comboBoxListForUi)
             {
                 item.Foreground = Brushes.White;
                 item.BorderBrush = Brushes.White;
             }
 
+            //USTAWIENIA RADIOBUTTONÓW
             foreach (var item in radioButtonListForUi)
             {
                 item.Foreground = Brushes.White;
@@ -2120,12 +2126,14 @@ namespace UltimateChanger
                 item.Style = Resources["RadiobuttonDark"] as Style;
             }
 
+            //USTAWIENIA TEXTBOXÓW
             foreach (var item in texBoxListForUi)
             {
                 item.Foreground = Brushes.White;
                 item.BorderBrush = Brushes.White;
             }
 
+            //USTAWIENIA SLIDERÓW
             foreach (var item in sliderListForUi)
             {
                 item.Foreground = Brushes.White;
@@ -2133,25 +2141,37 @@ namespace UltimateChanger
                
             }
 
+            //USTAWIENIA RAMEK
             foreach (var item in borderListForUi)
             {
                 item.BorderBrush = (Brush)converter.ConvertFromString("#FF616161"); 
             }
 
-            tabControl.Background = (Brush)converter.ConvertFromString("#FF212121");
-            tabControl.Foreground = Brushes.White;
+            //USTAWIENIA PASSWORDBOXÓW
             passwordBox.Foreground = Brushes.White;
             passwordBox.BorderBrush = Brushes.White;
-            oticonRectangle.Fill = (Brush)converter.ConvertFromString("#FAFAFA");
 
+            //USTAWIENIA TABELI
             UpdateLayout();
             GridDataRandomHardware.ColumnHeaderStyle = Resources["DataGridDark"] as Style;
+
+            //USTAWIENIA ZAKŁADEK
             UpdateLayout();
             tabControl.ItemContainerStyle = Resources["TabItemDark"] as Style;
             tabControl.Background= (Brush)converter.ConvertFromString("#FF212121");
+            tabControl.Background = (Brush)converter.ConvertFromString("#FF212121");
+            tabControl.Foreground = Brushes.White;
+
+            //USTAWIENIA TŁA
             this.Background = (Brush)converter.ConvertFromString("#E2212121");
             oticonmedicalnRectangle.Fill= (Brush)converter.ConvertFromString("#FFECB3");
+            oticonRectangle.Fill = (Brush)converter.ConvertFromString("#FAFAFA");
 
+            progress.Background = (Brush)converter.ConvertFromString("#FF616161");
+            progress.BorderBrush = (Brush)converter.ConvertFromString("#FF424242");
+            progress.Foreground = Brushes.White;
+
+            //USTAWIENIA AKCENTÓW
             Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
             {
                 Source = new Uri("pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml", UriKind.RelativeOrAbsolute)
@@ -2161,6 +2181,7 @@ namespace UltimateChanger
             {
                 Source = new Uri("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Grey.xaml", UriKind.RelativeOrAbsolute)
             });
+
             skin_name = "On the dark side"; // ustawiam nazwe do logowania do bazy danych
         }
 
@@ -2177,10 +2198,13 @@ namespace UltimateChanger
 
             imgBrandSkin.Visibility = Visibility.Hidden;
 
+            //USTAWIENIA LABELI
             foreach (var item in lableListForUi)
             {
                 item.Foreground = Brushes.Black;
             }
+
+            //USTAWIENIA BOXÓW
             foreach (var item in listBoxForUi)
             {
                 item.Foreground = Brushes.Black;
@@ -2188,16 +2212,18 @@ namespace UltimateChanger
                 
             }
             var converter = new System.Windows.Media.BrushConverter();
-            //var brush = (Brush)converter.ConvertFromString("#8A959B");
 
+            //USTAWIENIA BUTTONÓW
             foreach (var item in buttonListForUi)
             {
                 item.Background = Brushes.Black;
                 item.Foreground = Brushes.White;
                 item.BorderBrush = Brushes.Black;
                 item.Opacity = 0.8;
+                item.MaxWidth = 250;
             }
 
+            //USTAWIENIA CHECBOXÓW
             foreach (var item in checkBoxListForUi)
             {
                 item.Foreground = Brushes.Black;
@@ -2207,12 +2233,14 @@ namespace UltimateChanger
                 item.Style = Resources["CheckboxLight"] as Style;
             }
 
+            //USTAWIENIA COMBOBOXÓW
             foreach (var item in comboBoxListForUi)
             {
                 item.Foreground = Brushes.Black;
                 item.BorderBrush = Brushes.Black;
             }
 
+            //USTAWIENIA RADIOBATTONÓW
             foreach (var item in radioButtonListForUi)
             {
                 item.Foreground = Brushes.Black;
@@ -2222,37 +2250,52 @@ namespace UltimateChanger
                 item.Style = Resources["RadiobuttonLight"] as Style;
             }
 
+            //USTAWIENIA TEXTBOXÓW
             foreach (var item in texBoxListForUi)
             {
                 item.Foreground = Brushes.Black;
                 item.BorderBrush = Brushes.Black;
             }
 
-            foreach(var item in sliderListForUi)
+            //USTAWIENIA SLIEDERÓW
+            foreach (var item in sliderListForUi)
             {
                 item.Foreground = Brushes.Black;
                 item.BorderBrush = Brushes.Black;
             }
 
+            //USTAWIENIA RAMEK
             foreach (var item in borderListForUi)
             {
                 item.BorderBrush = Brushes.Black;
             }
 
-            tabControl.Background = (Brush)converter.ConvertFromString("#F5F5F5");
-            tabControl.Foreground = Brushes.White;
+            //USTAWIENIA PASSWORDBOXÓW
             passwordBox.Foreground = Brushes.Black;
             passwordBox.BorderBrush = Brushes.Black;
-            oticonRectangle.Fill = Brushes.White;
 
+            //USTAWIENIA TABELI
             UpdateLayout();
             GridDataRandomHardware.ColumnHeaderStyle = Resources["DataGridLight"] as Style;
+
+            //USTAWIENIA ZAKŁADEK
             UpdateLayout();
             tabControl.ItemContainerStyle= Resources["TabItemLight"] as Style;
             tabControl.Background = (Brush)converter.ConvertFromString("#F5F5F5");
+            tabControl.Background = (Brush)converter.ConvertFromString("#F5F5F5");
+            tabControl.Foreground = Brushes.White;
+
+            //USTAWIENIA TŁA
             this.Background= (Brush)converter.ConvertFromString("#F5F5F5");
             oticonmedicalnRectangle.Fill = Brushes.Black;
+            oticonRectangle.Fill = Brushes.White;
 
+            //USTAWIENIA PROGESSBARÓW
+            progress.Background= (Brush)converter.ConvertFromString("#FF616161");
+            progress.BorderBrush = (Brush)converter.ConvertFromString("#FF424242");
+            progress.Foreground = Brushes.Black;
+
+            //USTAWIENIA AKCENTÓW
             Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
             {
                 Source = new Uri("pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml", UriKind.RelativeOrAbsolute)
@@ -2262,8 +2305,6 @@ namespace UltimateChanger
             {
                 Source = new Uri("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml", UriKind.RelativeOrAbsolute)
             });
-
-
 
             skin_name = "Crystal White"; // ustawiam nazwe do logowania do bazy danych
 

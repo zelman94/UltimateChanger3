@@ -863,13 +863,10 @@
                     <Button x:Name="btnFS" Grid.Row="1" Grid.Column="1" Content="Start FS" Click="btnFSRun" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
 
                     <Button x:Name="btnHattori" Content="Start Hattori" Click="btnHattori_Click" Grid.Row="1" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
-                    <Button x:Name="btnFakeV" Content="REMedy" Grid.Row="3" VerticalAlignment="Center" Click="btnFakeV_Click" Background="#FF616161" BorderBrush="#FF424242" Foreground="Black" Margin="10 0">
-                        <!--<Image Name="imgfake" Source="Images/Fake.PNG"></Image>-->
-                    </Button>
+                    <Button x:Name="btnFakeV" Content="REMedy" Grid.Row="3" VerticalAlignment="Center" Click="btnFakeV_Click" Background="#FF616161" BorderBrush="#FF424242" Foreground="White" Margin="10 0"/>
+                    <Button x:Name="btnNewPrecon" Content="NewPreconditioner" Grid.Row="3" Grid.Column="1" Click="btnFS_Click" Background="#FF616161" BorderBrush="#FF424242" Foreground="White" Margin="10 0"/>
 
-                    <Button x:Name="btnNewPrecon" Content="NewPreconditioner" Grid.Row="3" Grid.Column="1" Click="btnFS_Click" Background="#FF616161" BorderBrush="#FF424242" Foreground="Black" Margin="10 0">
-                        <!--<Image Name="imgprecon" Source="Images/Preconditioner.PNG"></Image>-->
-                    </Button>
+
                     <Button Content="Kill All FS" Grid.Row="4" VerticalAlignment="Center" Click="Button_Click_2" ToolTip="All FS will be closed" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
                     <Button Content="Downgrade HW" Grid.Column="1"  Grid.Row="4" VerticalAlignment="Center" Click="Downgrade" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
                 </Grid>
@@ -1463,7 +1460,7 @@
                     <Label Content="Default Installation mode" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
                     <RadioButton x:Name="rbnDefaultNormal" Content="Normal" GroupName="group3" Checked="rbnDefaultNormal_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
                     <RadioButton x:Name="rbnDefaultSilent" Content="Silent" GroupName="group3" Checked="rbnDefaultSilent_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 1 0 0"/>
-                    <Label Content="Verifit mode"/>
+                    <Label Content="Verifit mode" FontWeight="SemiBold" FontSize="12.5"/>
                     <RadioButton Name="rbnTurnOnVerifit" Content="On" GroupName="group4" Checked="rbnTurnOnVerifit_Checked"/>
                     <RadioButton Name="rbnTurnOffVerifit" Content="Off" GroupName="group4" Checked="rbnTurnOffVerifit_Checked"/>
                 </StackPanel>
