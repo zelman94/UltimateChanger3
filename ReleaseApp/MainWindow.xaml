@@ -831,10 +831,12 @@
                     <Button x:Name="btnDeletelogs" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" Content="Delete log files" Click="btnDelete_logs" ToolTip="All log files of selected FS will be deleted" IsEnabled="False" Foreground="#E5FFFFFF" Background="#FF616161" BorderBrush="#FF424242" Margin="10 0"/>
                     <Button x:Name="btnSavelogs" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Content="Save Log" Click="btnSavelogs_Click" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"  Margin="10 0"/>
 
+                    <!--DO WYWALENIA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! TO TEŻ-->
                     <Label x:Name="lblSetlog1" Grid.Row="4" Grid.Column="0"  Content="Maximum file size:"  Foreground="White" VerticalAlignment="Top" Visibility="Hidden"/>
                     <Label x:Name="lblSetlog2" Grid.Row="5" Grid.Column="0"  Content="Max size roll backups:"   Foreground="White" VerticalAlignment="Top" Visibility="Hidden"/>
                     <Label x:Name="lblSetlog3" Grid.Row="6" Grid.Column="0"  Content="Append to file:"  Foreground="White" VerticalAlignment="Top" Visibility="Hidden"/>
 
+                    <!--DO WYWALENIA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! WRAZ Z TYM-->
                     <TextBox x:Name="txtsettlog1" Grid.Row="4" Grid.Column="0" Text="" Foreground="White" BorderBrush="White" VerticalAlignment="Center"  Margin="5 5 0 5" Padding="2" Visibility="Hidden"/>
                     <TextBox x:Name="txtsettlog2" Grid.Row="5" Grid.Column="0" Text=""  Foreground="White" BorderBrush="White" VerticalAlignment="Center" Margin="5 5 0 5" Padding="2" Visibility="Hidden"/>
                     <TextBox x:Name="txtsettlog3" Grid.Row="6" Grid.Column="0" Text="" Foreground="White" BorderBrush="White" VerticalAlignment="Center"  Margin="5 5 0 5" Padding="2" Visibility="Hidden"/>
