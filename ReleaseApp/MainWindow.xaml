@@ -871,77 +871,113 @@
                     <Button Content="Downgrade HW" Grid.Column="1"  Grid.Row="4" VerticalAlignment="Center" Click="Downgrade" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
                 </Grid>
 
+                <TabControl x:Name="tabControl2" Background="#FF212121" Grid.Column="1" Grid.Row="1">
+                    <TabControl.Resources>
+                        <Style TargetType="TabItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="TabItem">
+                                        <Border Name="Border" BorderThickness="0.5,0.5,0.5,0" BorderBrush="White" CornerRadius="2,2,0,0" Margin="2,0">
+                                            <ContentPresenter x:Name="ContentSite"
+                                                  VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"
+                                                  ContentSource="Header"
+                                                  Margin="10,2"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="#FF616161"/>
+                                            </Trigger>
+                                            <Trigger Property="IsSelected" Value="False">
+                                                <Setter TargetName="Border" Property="Background" Value="#FF424242"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </TabControl.Resources>
 
 
-                <Grid x:Name="RightBottom" Grid.Column="1" Grid.Row="1" >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
+                    <TabItem Header="Full" Foreground="White">
+                        <Grid x:Name="RightBottom" Grid.Column="1" Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid Grid.Column="0" Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
-                        </Grid.RowDefinitions>
-
-                        <Label Content="Installation settings" Grid.ColumnSpan="2" Grid.Row="0" Foreground="White" FontWeight="SemiBold" FontSize="12.5"/>
-
-
-                        <RadioButton GroupName="RBsilentNormal" Name="RBsilet" Content="Silent" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBsilet_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
-                        <RadioButton GroupName="RBsilentNormal" Name="RBnormal" Content="Normal " Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBnormal_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
-
-                        <RadioButton  GroupName="RBfullMediumComposition" Name="RBfullMedium" Content="Full/Medium" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBfullMedium_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
-                        <RadioButton  GroupName="RBfullMediumComposition" Name="RBcomposition" Content="Composition " Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBcomposition_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
-
-
-                    </Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
 
 
 
-                    <ProgressBar Name="progress" Grid.Column="1" Height="26" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="149" RenderTransformOrigin="0.5,0.5" BorderBrush="#FF424242" Background="#FF616161" Foreground="White" Margin="41,32,7,26">
-                        <ProgressBar.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform/>
-                                <RotateTransform Angle="-0.289"/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </ProgressBar.RenderTransform>
-                    </ProgressBar>
+                            <Grid Grid.Column="0" Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
 
-                    <Label Content="Fitting Software:" Foreground="White" Grid.Column="0" Grid.Row="1" FontWeight="SemiBold" FontSize="12.5"/>
-                    <ComboBox x:Name="cmbBrandstoinstall" Grid.Row="1" Grid.Column="0" SelectionChanged="cmbbrandstoinstall_SelectionChanged" Foreground="White" BorderBrush="White" Margin="5 0" />
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="1*"/>
+                                </Grid.RowDefinitions>
 
-                    <ComboBox x:Name="cmbOEM" Grid.Column="1" Grid.Row="1" ToolTip="OEM version" SelectionChanged="cmbOEM_SelectionChanged" BorderBrush="White" Foreground="White" HorizontalAlignment="Left" Margin="5 0" Width="100"/>
-                    <ComboBox x:Name="cmbRelease" Grid.Column="1" Grid.Row="1" ToolTip="Release of FS" SelectionChanged="cmbRelease_SelectionChanged" BorderBrush="White" Foreground="White" HorizontalAlignment="Right" Margin="5 0" Width="70"/>
+                                <Label Content="Installation settings" Grid.ColumnSpan="2" Grid.Row="0" Foreground="White" FontWeight="SemiBold" FontSize="12.5"/>
 
 
-                    <Label Content="Build:" Grid.Row="2" Grid.Column="0" Foreground="White" FontWeight="SemiBold" FontSize="12.5"/>
-                    <ComboBox x:Name="cmbBuild" Grid.Row="2" Grid.Column="0" SelectionChanged="cmbbuild_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 0"/>
+                                <RadioButton GroupName="RBsilentNormal" Name="RBsilet" Content="Silent" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBsilet_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
+                                <RadioButton GroupName="RBsilentNormal" Name="RBnormal" Content="Normal " Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBnormal_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
 
-                    <Button x:Name="btninstal" Content="Install" Click="btninstal_Click" Grid.Row="2" Grid.Column="1" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Top" Margin="5 0"/>
-                    <Button x:Name="btnInfo" Content="Copy path to build" Grid.Row="2" Grid.Column="1" Click="btnInfo_Click" IsEnabled="False" RenderTransformOrigin="0.255,-0.25" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Bottom" Margin="5 0 5 10"/>
-                    <Button Name="btnRefresh" Grid.Column="1" HorizontalAlignment="Left" Margin="5,0,0,25" Width="59" Height="30" VerticalAlignment="Bottom" ToolTip="refresh paths" Click="btnRefresh_Click"  >
-                        <StackPanel Orientation="Horizontal">
-                            <Image Stretch="Fill" Source="Images/refresh.PNG" Height="22" Width="29" RenderTransformOrigin="0.268,0.5"/>
-                        </StackPanel>
-                        <!--<Image x:Name="imgRefresh" Source="Images/refresh.PNG" HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="35"/>-->
-                    </Button>
+                                <RadioButton  GroupName="RBfullMediumComposition" Name="RBfullMedium" Content="Full/Medium" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBfullMedium_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
+                                <RadioButton  GroupName="RBfullMediumComposition" Name="RBcomposition" Content="Composition " Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBcomposition_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
 
-                </Grid>
+
+                            </Grid>
+
+
+
+                            <ProgressBar Name="progress" Grid.Column="1" Height="26" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="149" RenderTransformOrigin="0.5,0.5" BorderBrush="#FF424242" Background="#FF616161" Foreground="White" Margin="41,32,7,26">
+                                <ProgressBar.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="-0.289"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </ProgressBar.RenderTransform>
+                            </ProgressBar>
+
+                            <Label Content="Fitting Software:" Foreground="White" Grid.Column="0" Grid.Row="1" FontWeight="SemiBold" FontSize="12.5"/>
+                            <ComboBox x:Name="cmbBrandstoinstall" Grid.Row="1" Grid.Column="0" SelectionChanged="cmbbrandstoinstall_SelectionChanged" Foreground="White" BorderBrush="White" Margin="5 0" />
+
+                            <ComboBox x:Name="cmbOEM" Grid.Column="1" Grid.Row="1" ToolTip="OEM version" SelectionChanged="cmbOEM_SelectionChanged" BorderBrush="White" Foreground="White" HorizontalAlignment="Left" Margin="5 0" Width="100"/>
+                            <ComboBox x:Name="cmbRelease" Grid.Column="1" Grid.Row="1" ToolTip="Release of FS" SelectionChanged="cmbRelease_SelectionChanged" BorderBrush="White" Foreground="White" HorizontalAlignment="Right" Margin="5 0" Width="70"/>
+
+
+                            <Label Content="Build:" Grid.Row="2" Grid.Column="0" Foreground="White" FontWeight="SemiBold" FontSize="12.5"/>
+                            <ComboBox x:Name="cmbBuild" Grid.Row="2" Grid.Column="0" SelectionChanged="cmbbuild_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 0"/>
+
+                            <Button x:Name="btninstal" Content="Install" Click="btninstal_Click" Grid.Row="2" Grid.Column="1" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Top" Margin="5 0"/>
+                            <Button x:Name="btnInfo" Content="Copy path to build" Grid.Row="2" Grid.Column="1" Click="btnInfo_Click" IsEnabled="False" RenderTransformOrigin="0.255,-0.25" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Bottom" Margin="5 0 5 10"/>
+                            <Button Name="btnRefresh" Grid.Column="1" HorizontalAlignment="Left" Margin="5,0,0,25" Width="59" Height="30" VerticalAlignment="Bottom" ToolTip="refresh paths" Click="btnRefresh_Click"  >
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Stretch="Fill" Source="Images/refresh.PNG" Height="22" Width="29" RenderTransformOrigin="0.268,0.5"/>
+                                </StackPanel>
+                                <!--<Image x:Name="imgRefresh" Source="Images/refresh.PNG" HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="35"/>-->
+                            </Button>
+
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Composition" Foreground="White">
+
+                    </TabItem>
+                </TabControl>
+
+                
             </Grid>
         </TabItem>
 
