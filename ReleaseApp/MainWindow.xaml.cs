@@ -2162,6 +2162,12 @@ namespace UltimateChanger
             tabControl.Background = (Brush)converter.ConvertFromString("#FF212121");
             tabControl.Foreground = Brushes.White;
 
+            UpdateLayout();
+            tabControl2.ItemContainerStyle = Resources["TabItemDark"] as Style;
+            tabControl2.Background = (Brush)converter.ConvertFromString("#FF212121");
+            tabControl2.Background = (Brush)converter.ConvertFromString("#FF212121");
+            tabControl2.Foreground = Brushes.White;
+
             //USTAWIENIA TŁA
             this.Background = (Brush)converter.ConvertFromString("#E2212121");
             oticonmedicalnRectangle.Fill= (Brush)converter.ConvertFromString("#FFECB3");
@@ -2284,6 +2290,12 @@ namespace UltimateChanger
             tabControl.Background = (Brush)converter.ConvertFromString("#F5F5F5");
             tabControl.Background = (Brush)converter.ConvertFromString("#F5F5F5");
             tabControl.Foreground = Brushes.White;
+
+            UpdateLayout();
+            tabControl2.ItemContainerStyle = Resources["TabItemLight"] as Style;
+            tabControl2.Background = (Brush)converter.ConvertFromString("#F5F5F5");
+            tabControl2.Background = (Brush)converter.ConvertFromString("#F5F5F5");
+            tabControl2.Foreground = Brushes.White;
 
             //USTAWIENIA TŁA
             this.Background= (Brush)converter.ConvertFromString("#F5F5F5");
