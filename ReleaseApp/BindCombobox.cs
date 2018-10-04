@@ -249,7 +249,21 @@ namespace UltimateChanger
             myXMLReader.GetStylesInRelease("19.1");
         }
 
-        
+        public List<string> getAllPathsOem(string OEM, int FSnr, List<pathAndDir> allPaths) 
+        {
+            List<string> PathsOem = new List<string>();
+
+            foreach (var item in allPaths[FSnr].path)
+            {
+                if (item.Contains(OEM))
+                {
+                    PathsOem.Add(item);
+                }
+            }
+
+
+            return PathsOem;
+        }
 
     }
 

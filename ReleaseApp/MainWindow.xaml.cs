@@ -82,8 +82,11 @@ namespace UltimateChanger
         string User_Power;
         public List<string> RandomHardware;
 
+        public string Advance_1 = "", Advance_2 = "", Advance_3 = "";
+
         public MainWindow()
         {
+            
             try
             {
                
@@ -208,7 +211,7 @@ namespace UltimateChanger
 
                 fileOperator.GetfilesSaveData(false,1);
 
-                RBcomposition.IsChecked = true;
+              
 
 
             }
@@ -1191,7 +1194,7 @@ namespace UltimateChanger
             CounterOfclicks.AddClick((int)Buttons.UpdateMode);
             if (cmbLogSettings.Visibility == Visibility.Hidden)
             {
-                if (txtsettlog1.Text != "" || txtsettlog2.Text != "" || txtsettlog3.Text != "")
+                if (Advance_1 != "" || Advance_2 != "" || Advance_3 != "")
                 {
                     byte licznik = 0;
                     bool flag = false;
@@ -1200,7 +1203,7 @@ namespace UltimateChanger
                     {
                         if (item.IsChecked.Value)
                         {
-                            fileOperator.setLogMode(cmbLogMode.Text, cmbLogSettings.SelectedIndex, licznik, true, txtsettlog1.Text, txtsettlog2.Text, txtsettlog3.Text);
+                            fileOperator.setLogMode(cmbLogMode.Text, cmbLogSettings.SelectedIndex, licznik, true, Advance_1, Advance_2, Advance_3);
                             message = message + item.Name + "\n";                            
                         }
                         licznik++;
@@ -1213,6 +1216,7 @@ namespace UltimateChanger
                 else
                 {
                     MessageBox.Show("please add some Advance settings next time :) \n No file update");
+                    cmbLogSettings.Visibility = Visibility.Visible;
                     return;
                 }
             }
@@ -1244,23 +1248,7 @@ namespace UltimateChanger
                 }
             }
 
-            try
-            {
-                txtsettlog1.Text = "";
-                txtsettlog2.Text = "";
-                txtsettlog3.Text = "";
-                cmbLogSettings.Visibility = Visibility.Visible;
-                txtsettlog1.Visibility = Visibility.Hidden;
-                txtsettlog2.Visibility = Visibility.Hidden;
-                txtsettlog3.Visibility = Visibility.Hidden;
-                lblSetlog1.Visibility = Visibility.Hidden;
-                lblSetlog2.Visibility = Visibility.Hidden;
-                lblSetlog3.Visibility = Visibility.Hidden;
-            }
-            catch (Exception x)
-            {
-                MessageBox.Show(x.ToString());
-            }
+
             refreshUI(new object(), new EventArgs());
         }
         private void btnDelete_logs(object sender, RoutedEventArgs e)
@@ -1327,7 +1315,7 @@ namespace UltimateChanger
 
             if (cmbBuild.SelectedIndex > -1)
             {
-                if (RBcomposition.IsChecked.Value) // kompozycje
+                if (TabCompo.IsSelected) // kompozycje
                 {
                   FileInfo[] infoFile =  new DirectoryInfo(cmbBuild.ToolTip.ToString()+ $"\\DevResults-{cmbRelease.Text}").GetFiles();
 
@@ -1414,7 +1402,7 @@ namespace UltimateChanger
         public void ChangedBrandOfFittingSoftware()
         {
 
-            if (RBcomposition.IsChecked.Value)
+            if (TabCompo.IsSelected)
             {
                 try
                 {
@@ -1446,7 +1434,8 @@ namespace UltimateChanger
                 }
                 catch (Exception x)
                 {
-                    MessageBox.Show("Error FS Combo \n" + x.ToString());
+                    // MessageBox.Show("Error FS Combo \n" + x.ToString());
+                    Console.WriteLine("Error FS Combo \n" + x.ToString());
                 }
             }
         }
@@ -1462,12 +1451,17 @@ namespace UltimateChanger
             {
                 btninstal.IsEnabled = true;
                 btnInfo.IsEnabled = true;
+
+                cmbBuild.Items.Refresh();
+                cmbBrandstoinstall.Items.Refresh();
                 cmbBuild.ToolTip = Paths_Dirs[cmbBrandstoinstall.SelectedIndex].path[cmbBuild.SelectedIndex];
             }
             else
             {
                 btninstal.IsEnabled = false;
                 btnInfo.IsEnabled = false;
+
+
             }
         }
         private void LoggingMouseEnter(object sender, MouseEventArgs e)
@@ -1607,19 +1601,21 @@ namespace UltimateChanger
                 }
                 if (pname.Length == 0)
                 {
-                    fileOperator.GetfilesSaveData(RBcomposition.IsChecked.Value, cmbBrandstoinstall.SelectedIndex);
+                    fileOperator.GetfilesSaveData(TabCompo.IsSelected, cmbBrandstoinstall.SelectedIndex);
                     ChangedBrandOfFittingSoftware();
                     Rekurencja.Stop();
                     cmbRelease.IsEnabled = true;
                     cmbBrandstoinstall.IsEnabled = true;
                     cmbBuild.IsEnabled = true;
-                    if (RBfullMedium.IsChecked.Value)
-                    {
-                        cmbOEM.IsEnabled = true;
-                    }
-
                     progress.Visibility = Visibility.Hidden;
                     btnRefresh.Visibility = Visibility.Visible;
+                    TabFull.IsEnabled = true;
+                    TabCompo.IsEnabled = true;
+                }
+                else
+                {
+                    TabFull.IsEnabled = false;
+                    TabCompo.IsEnabled = false;
                 }
             }
             else // jezeli trwa kopiowanie
@@ -1628,6 +1624,8 @@ namespace UltimateChanger
                 {
                     Rekurencja.Stop();
                     copystatus = false;
+                    TabFull.IsEnabled = true;
+                    TabCompo.IsEnabled = true;
                     try
                     {
                         Process.Start(pathToLocalComposition); // uruchomienie skopiowanego extraktora na dysku ze zmiennej globalnej uzupelnionej podczas uruchamiania procesu rekurencjon
@@ -1643,7 +1641,8 @@ namespace UltimateChanger
                 }
                 else
                 {
-
+                    TabFull.IsEnabled = false;
+                    TabCompo.IsEnabled = false;
                 }
             
             }
@@ -1688,6 +1687,7 @@ namespace UltimateChanger
         private void cmbOEM_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             cmbOEM.Items.Refresh();
+            cmbBuild.ItemsSource = BindCombo.getAllPathsOem(cmbOEM.Text, cmbBrandstoinstall.SelectedIndex, Paths_Dirs);
         }
 
         private void btnFSRun(object sender, RoutedEventArgs e)
@@ -2553,28 +2553,9 @@ namespace UltimateChanger
 
         private void btnAdvancelogs_Click(object sender, RoutedEventArgs e)
         {
-            if (txtsettlog1.Visibility == Visibility.Visible)
-            {
-                txtsettlog1.Visibility = Visibility.Hidden;
-                txtsettlog2.Visibility = Visibility.Hidden;
-                txtsettlog3.Visibility = Visibility.Hidden;
-                lblSetlog1.Visibility = Visibility.Hidden;
-                lblSetlog2.Visibility = Visibility.Hidden;
-                lblSetlog3.Visibility = Visibility.Hidden;
-                cmbLogSettings.SelectedIndex = -1;
-                cmbLogSettings.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                txtsettlog1.Visibility = Visibility.Visible;
-                txtsettlog2.Visibility = Visibility.Visible;
-                txtsettlog3.Visibility = Visibility.Visible;
-                lblSetlog1.Visibility = Visibility.Visible;
-                lblSetlog2.Visibility = Visibility.Visible;
-                lblSetlog3.Visibility = Visibility.Visible;
-                cmbLogSettings.SelectedIndex = -1;
-                cmbLogSettings.Visibility = Visibility.Hidden;
-            }
+            cmbLogSettings.Visibility = Visibility.Hidden;
+            AdvanseSettingsWindow advance = new AdvanseSettingsWindow();
+            advance.Show();
 
         }
 
@@ -3020,34 +3001,12 @@ namespace UltimateChanger
 
         private void RBcomposition_Checked(object sender, RoutedEventArgs e)
         {
-            BindCombo.setFScomboBox_compositions(); // bindowanie do compozycjji     
-            cmbOEM.Visibility = Visibility.Hidden;
-            btninstal.Content = "Copy And Run";
-            
-            try
-            {
-                fileOperator.GetfilesSaveData(RBcomposition.IsChecked.Value, cmbBrandstoinstall.SelectedIndex);
-            }
-            catch (Exception)
-            {
-                cmbBuild.ItemsSource = null;
-            }
-            ChangedBrandOfFittingSoftware();
-            cmbBuild.Items.Refresh();
-
-            RBnormal.IsEnabled = false;
-            RBsilet.IsEnabled = false;
+           
         }
 
         private void RBfullMedium_Checked(object sender, RoutedEventArgs e)
         {
-            cmbOEM.Visibility = Visibility.Visible;
-            BindCombo.setFScomboBox(); // full medium
-            cmbBuild.ItemsSource = null;
-            RBnormal.IsEnabled = true;
-            RBsilet.IsEnabled = true;
-            fileOperator.GetfilesSaveData(false,1);
-            cmbBrandstoinstall.SelectedIndex = 0;
+
         }
 
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
@@ -3063,7 +3022,7 @@ namespace UltimateChanger
    
                 if (File.Exists(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe"))
                 {
-                    if (RBcomposition.IsChecked.Value)
+                    if (TabCompo.IsSelected)
                     {
                         Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text}  path_Composition.txt dir_Composition.txt"); // wlaczyc gdy bedzie nowy exe gotowy
 
@@ -3078,7 +3037,7 @@ namespace UltimateChanger
                 else
                 {
 
-                    if (RBcomposition.IsChecked.Value)
+                    if (TabCompo.IsSelected)
                     {
                         Process.Start(@"C:\Program Files\UltimateChanger" + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text}  path_Composition.txt dir_Composition.txt"); // wlaczyc gdy bedzie nowy exe gotowy
 
@@ -3114,7 +3073,7 @@ namespace UltimateChanger
                     {
                         if (!statusOfProcess("Rekurencjon"))
                         {
-                            if (RBcomposition.IsChecked.Value) // jezeli kompozycja
+                            if (TabCompo.IsSelected) // jezeli kompozycja
                             {
                                 Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text} path_Composition.txt dir_Composition.txt");
                                 cmbBrandstoinstall.IsEnabled = false;
@@ -3190,6 +3149,44 @@ namespace UltimateChanger
             refreshUI(new object(), new EventArgs());
 
         }
+
+        private void tabControl2_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (TabFull != null && TabFull.IsSelected)
+            {
+                cmbOEM.Visibility = Visibility.Visible;
+                BindCombo.setFScomboBox(); // full medium
+
+                cmbBuild.ItemsSource = null;
+                RBnormal.IsEnabled = true;
+                RBsilet.IsEnabled = true;
+                fileOperator.GetfilesSaveData(false, 1);
+                cmbBrandstoinstall.SelectedIndex = 0;
+                BindCombo.setOEMComboBox(cmbBrandstoinstall.Text);
+
+            }
+            if (TabCompo != null && TabCompo.IsSelected)
+            {
+                BindCombo.setFScomboBox_compositions(); // bindowanie do compozycjji  
+
+                try
+                {
+                    fileOperator.GetfilesSaveData(TabCompo.IsSelected, cmbBrandstoinstall.SelectedIndex);
+                }
+                catch (Exception)
+                {
+                    cmbBuild.ItemsSource = null;
+                }
+                ChangedBrandOfFittingSoftware();
+                cmbBuild.Items.Refresh();
+
+                RBnormal.IsEnabled = false;
+                RBsilet.IsEnabled = false;
+            }
+
+
+        }
+
     }
     class RandomHIandHardware
     {
