@@ -1687,11 +1687,7 @@ namespace UltimateChanger
         private void cmbOEM_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             cmbOEM.Items.Refresh();
-           // BindCombo.getAllPathsOem(cmbOEM.Text, cmbBrandstoinstall.SelectedIndex, Paths_Dirs);
-
-
-
-
+            cmbBuild.ItemsSource = BindCombo.getAllPathsOem(cmbOEM.Text, cmbBrandstoinstall.SelectedIndex, Paths_Dirs);
         }
 
         private void btnFSRun(object sender, RoutedEventArgs e)
