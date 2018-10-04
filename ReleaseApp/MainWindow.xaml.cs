@@ -1462,12 +1462,17 @@ namespace UltimateChanger
             {
                 btninstal.IsEnabled = true;
                 btnInfo.IsEnabled = true;
+
+                cmbBuild.Items.Refresh();
+                cmbBrandstoinstall.Items.Refresh();
                 cmbBuild.ToolTip = Paths_Dirs[cmbBrandstoinstall.SelectedIndex].path[cmbBuild.SelectedIndex];
             }
             else
             {
                 btninstal.IsEnabled = false;
                 btnInfo.IsEnabled = false;
+
+
             }
         }
         private void LoggingMouseEnter(object sender, MouseEventArgs e)
@@ -1688,6 +1693,11 @@ namespace UltimateChanger
         private void cmbOEM_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             cmbOEM.Items.Refresh();
+            BindCombo.getAllPathsOem(cmbOEM.Text, cmbBrandstoinstall.SelectedIndex, Paths_Dirs);
+
+
+
+
         }
 
         private void btnFSRun(object sender, RoutedEventArgs e)
@@ -3043,11 +3053,13 @@ namespace UltimateChanger
         {
             cmbOEM.Visibility = Visibility.Visible;
             BindCombo.setFScomboBox(); // full medium
+
             cmbBuild.ItemsSource = null;
             RBnormal.IsEnabled = true;
             RBsilet.IsEnabled = true;
             fileOperator.GetfilesSaveData(false,1);
             cmbBrandstoinstall.SelectedIndex = 0;
+            BindCombo.setOEMComboBox(cmbBrandstoinstall.Text);
         }
 
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
