@@ -101,7 +101,6 @@ namespace UltimateChanger
                 clockManager = new ClockManager();
                 BindCombo = new BindCombobox();
                 InitializeComponent();
-                // Localization.SetAttributes(this,"TOP"); 
                 try
                 {
                     przegladarka.Navigate("http://confluence.kitenet.com/display/SWSQA/Ultimate+Changer");
@@ -120,8 +119,6 @@ namespace UltimateChanger
                 bindMarketDictionary();
                 BindCombo.bindListBox();
 
-
-                //fileOperator.getDataToBuildCombobox();
                 FileOperator.DeleteOldDirs(); // usuwam stare lokalizacje po wersji 2.1.1.0
                 initializeTimers();
 
@@ -169,14 +166,6 @@ namespace UltimateChanger
                     MessageBox.Show($"error MainWindow \n {xc.ToString()}");
                 }
 
-
-               
-
-
-
-
-
-
                 // napisac funkcje w fileoperation na pobieranie zapisanych danych z pliku i wpisanie do PathDir lista czy cos 
                 /*refreshUI(); */// funkcja  caly ui
                 //fileOperator.GetInfoAboutFs(@"C:\ProgramData\Bernafon\Common\ManufacturerInfo.xml"); // dziala 
@@ -192,6 +181,7 @@ namespace UltimateChanger
                 sliderRelease.Maximum = cmbRelease.Items.Count - 1; // max dla slidera -1 bo count nie uwzglednia zerowego indexu
                 sliderWeightWireless.Maximum = 1;
                 sliderRelease.Value = cmbRelease.SelectedIndex; // ustalenie defaulta jako obecny release
+                
                 sliderWeightWireless.Value = 0.5; // to oznacza ze nic nie zmieniam i wszystko jes po rowno w szansach 
                 lblWeightWireless.Content = sliderWeightWireless.Value.ToString();
 
@@ -218,7 +208,7 @@ namespace UltimateChanger
                 MessageBox.Show("inicjalizacja part 2 \n" + x.ToString());
             }
 
-
+            
             progress.Visibility = Visibility.Hidden; // ukryty bo startuje przez refresh albo zmiane release
             //zablokowanie widocznosci elementow bez implementacji :
 
@@ -229,8 +219,11 @@ namespace UltimateChanger
             rbn_Oasis.Visibility = Visibility.Hidden;
             rbn_ExpressFit.Visibility = Visibility.Hidden;
             rbn_Christmas.Visibility = Visibility.Hidden;
+            Rekurencja = new DispatcherTimer();
+            Rekurencja.Tick += checkRekurencja;
+            Rekurencja.Interval = new TimeSpan(0, 0, 1);
+            Rekurencja.Start();
 
-                                 
         }
         //________________________________________________________________________________________________________________________________________________
 
@@ -1384,29 +1377,29 @@ namespace UltimateChanger
             };
             CounterOfclicks.AddClick((int)Buttons.InstallFittingSoftware);
 
-            if (cmbBuild.SelectedIndex > -1)
+            if (cmbBuild.SelectedIndex > -1 || cmbBuild_Compo.SelectedIndex>-1)
             {
                 if (TabCompo.IsSelected) // kompozycje
                 {
-                  FileInfo[] infoFile =  new DirectoryInfo(cmbBuild.ToolTip.ToString()+ $"\\DevResults-{cmbRelease.Text}").GetFiles();
+                  FileInfo[] infoFile =  new DirectoryInfo(cmbBuild_Compo.ToolTip.ToString()+ $"\\DevResults-{cmbRelease_Compo.Text}").GetFiles();
 
                     foreach (var item in infoFile)
                     {
-                        if (item.Name.Contains(listFScomposition[cmbBrandstoinstall.SelectedIndex]))
+                        if (item.Name.Contains(listFScomposition[cmbBrandstoinstall_Compo.SelectedIndex]))
                         {
                             // nowy maly programik do kopiowania kompozycji na dysk + timer na psrawdzanie czy sie skonczylo
                             // args 0 Copy
                             // args 1 from
                             // args 2 to
-                            string from = System.IO.Path.Combine(cmbBuild.ToolTip.ToString() + $"\\DevResults-{cmbRelease.Text}", item.Name);
+                            string from = System.IO.Path.Combine(cmbBuild_Compo.ToolTip.ToString() + $"\\DevResults-{cmbRelease_Compo.Text}", item.Name);
                             string to = "C:\\Program Files\\UltimateChanger\\"+ item.Name;
                             pathToLocalComposition = to;
                             MessageBox.Show($"parameters to copy: {from} \n {to}");
                             Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Copy {from} {pathToLocalComposition}");
                             copystatus = true; // timer wie ze trwa kopiowanie
-                            cmbRelease.IsEnabled = false;
-                            cmbBrandstoinstall.IsEnabled = false;
-                            cmbBuild.IsEnabled = false;
+                            cmbRelease_Compo.IsEnabled = false;
+                            cmbBrandstoinstall_Compo.IsEnabled = false;
+                            cmbBuild_Compo.IsEnabled = false;
                             Rekurencja.Start();
 
                            // Process.Start(from);
@@ -1720,9 +1713,9 @@ namespace UltimateChanger
                     try
                     {
                         Process.Start(pathToLocalComposition); // uruchomienie skopiowanego extraktora na dysku ze zmiennej globalnej uzupelnionej podczas uruchamiania procesu rekurencjon
-                        cmbRelease.IsEnabled = true;
-                        cmbBrandstoinstall.IsEnabled = true;
-                        cmbBuild.IsEnabled = true;
+                        cmbRelease_Compo.IsEnabled = true;
+                        cmbBrandstoinstall_Compo.IsEnabled = true;
+                        cmbBuild_Compo.IsEnabled = true;
                     }
                     catch (Exception)
                     {
@@ -3191,14 +3184,14 @@ namespace UltimateChanger
                         {
                             if (TabCompo.IsSelected) // jezeli kompozycja
                             {
-                                Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text} path_Composition.txt dir_Composition.txt");
+                                //Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text} path_Composition.txt dir_Composition.txt");
                                 cmbBrandstoinstall.IsEnabled = false;
                                 cmbBuild.IsEnabled = false;
                                 cmbOEM.IsEnabled = false;
                             }
                             else // jezeli Full
                             {
-                                Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Full {cmbRelease.Text}");
+                                //Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Full {cmbRelease.Text}");
                                 cmbBrandstoinstall.IsEnabled = false;
                                 cmbBuild.IsEnabled = false;
                                 cmbOEM.IsEnabled = false;
@@ -3303,6 +3296,7 @@ namespace UltimateChanger
                 {
                     fileOperator.GetfilesSaveData(true,1);
                     BindCombo.setFScomboBox_compositions(); // bindowanie do compozycjji  
+                    cmbRelease_Compo.Text = cmbRelease.Text;
                     cmbBrandstoinstall_Compo.SelectedIndex = 0;
                     try
                     {
