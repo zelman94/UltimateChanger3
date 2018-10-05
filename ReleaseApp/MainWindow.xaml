@@ -1000,12 +1000,12 @@
                             <Label Content="Fitting Software:" Foreground="White" Grid.Column="0" Grid.Row="1" FontWeight="SemiBold" FontSize="12.5"/>
                             <ComboBox x:Name="cmbBrandstoinstall_Compo" Grid.Row="1" Grid.Column="0" SelectionChanged="cmbbrandstoinstall_SelectionChanged" Foreground="White" BorderBrush="White" Margin="5 0" />
 
-                            <ComboBox x:Name="cmbOEM_Compo" Grid.Column="1" Grid.Row="1" ToolTip="OEM version" SelectionChanged="cmbOEM_SelectionChanged" BorderBrush="White" Foreground="White" HorizontalAlignment="Left" Margin="5 0" Width="100"/>
+                            <ComboBox x:Name="cmbOEM_Compo" Grid.Column="1" Grid.Row="1" ToolTip="OEM version" SelectionChanged="cmbOEM_Compo_SelectionChanged" BorderBrush="White" Foreground="White" HorizontalAlignment="Left" Margin="5 0" Width="100"/>
                             <ComboBox x:Name="cmbRelease_Compo" Grid.Column="1" Grid.Row="1" ToolTip="Release of FS" SelectionChanged="cmbRelease_SelectionChanged" BorderBrush="White" Foreground="White" HorizontalAlignment="Right" Margin="5 0" Width="70"/>
 
 
                             <Label Content="Build:" Grid.Row="2" Grid.Column="0" Foreground="White" FontWeight="SemiBold" FontSize="12.5"/>
-                            <ComboBox x:Name="cmbBuild_Compo" Grid.Row="2" Grid.Column="0" SelectionChanged="cmbbuild_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 0"/>
+                            <ComboBox x:Name="cmbBuild_Compo" Grid.Row="2" Grid.Column="0" SelectionChanged="cmbBuild_Compo_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 0"/>
 
                             <Button x:Name="btninstal_Compo" Content="Copy And Run" Click="btninstal_Click" Grid.Row="2" Grid.Column="1" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Top" Margin="5 0"/>
                             <Button x:Name="btnInfo_Compo" Content="Copy path to build" Grid.Row="2" Grid.Column="1" Click="btnInfo_Click" IsEnabled="False" RenderTransformOrigin="0.255,-0.25" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Bottom" Margin="5 0 5 10"/>
