@@ -4,14 +4,14 @@
     <Value>C:\Program Files (x86)\Oticon\Genie\Genie2\Configure.log4net</Value>
     <Value>C:\Program Files (x86)\Bernafon\Oasis\Oasis2\Configure.log4net</Value>
     <Value>C:\Program Files (x86)\Sonic\ExpressFit\EXPRESSfit2\Configure.log4net</Value>
-    <Value>C:\Program Files (x86)\OticonMedical\GenieMedical\GenieMedical2\Configure.log4net</Value>
+    <Value>C:\Program Files (x86)\Oticon Medical\Genie Medical BAHS\GenieMedical2\Configure.log4net</Value>
     <Value>C:\Program Files (x86)\Philips HearSuite\HearSuite\HearSuite2\Configure.log4net</Value>
   </pathToLogMode>
   <pathToLogs> 
     <Value>C:\ProgramData\Oticon\Genie\Logfiles\</Value>
     <Value>C:\ProgramData\Bernafon\Oasis\Logfiles\</Value>
     <Value>C:\ProgramData\Sonic\ExpressFit\Logfiles\</Value>
-    <Value>C:\ProgramData\OticonMedical\GenieMedical\Logfiles\</Value>
+    <Value>C:\ProgramData\Oticon Medical\Genie Medical BAHS\Logfiles</Value>
     <Value>C:\ProgramData\Philips HearSuite\HearSuite\Logfiles\</Value>
   </pathToLogs>
   <pathToTrash> 

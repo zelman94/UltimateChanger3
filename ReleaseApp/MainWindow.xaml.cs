@@ -906,7 +906,7 @@ namespace UltimateChanger
                     //sonicRectangle.Opacity = 1.0;
                 }
 
-                if (!Directory.Exists(@"C:\ProgramData\OticonMedical")) // medical
+                if (!Directory.Exists(@"C:\ProgramData\Oticon Medical")) // medical
                 {
                     Medical.IsEnabled = false;
                     lblM.Foreground = new SolidColorBrush(Colors.Red);
