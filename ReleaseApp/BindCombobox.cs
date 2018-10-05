@@ -276,13 +276,27 @@ namespace UltimateChanger
             List<string> PathsOem = new List<string>();
             if (FSnr!=-1)
             {
-                foreach (var item in allPaths[FSnr].path)
+                try
                 {
-                    if (item.Contains(OEM))
+                    foreach (var item in allPaths[FSnr].path)
                     {
-                        PathsOem.Add(item);
+                        if (item.Contains(OEM))
+                        {
+                            PathsOem.Add(item);
+                        }
                     }
                 }
+                catch (Exception) // pewnie kompozycja
+                {
+                    foreach (var item in allPaths[0].path)
+                    {
+                        if (item.Contains(OEM))
+                        {
+                            PathsOem.Add(item);
+                        }
+                    }
+                }
+                
 
             }
 

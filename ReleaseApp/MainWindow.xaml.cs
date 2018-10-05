@@ -121,7 +121,7 @@ namespace UltimateChanger
                 BindCombo.bindListBox();
 
 
-                fileOperator.getDataToBuildCombobox();
+                //fileOperator.getDataToBuildCombobox();
                 FileOperator.DeleteOldDirs(); // usuwam stare lokalizacje po wersji 2.1.1.0
                 initializeTimers();
 
@@ -861,76 +861,153 @@ namespace UltimateChanger
 
         void verifyInstalledBrands()
         {
-            // if (!File.Exists(@"C:/Program Files (x86)/Oticon/Genie/Genie2/Genie.exe"))
-            if (!Directory.Exists(@"C:\ProgramData\Oticon"))
+            if (TabFull.IsSelected)
             {
-                Oticon.IsEnabled = false;
-                lblG.Foreground = new SolidColorBrush(Colors.Red);
-                lblG.Content = "FS not installed";
-                Oticon.IsChecked = false;
-                //oticonRectangle.Opacity = 0.3;
-            }
-            else
-            {
-                Oticon.IsEnabled = true;
-                //oticonRectangle.Opacity = 1.0;
-            }
-            // if (!File.Exists(@"C:/Program Files (x86)/Bernafon/Oasis/Oasis2/Oasis.exe"))
-            if (!Directory.Exists(@"C:\ProgramData\Bernafon"))
-            {
-                Bernafon.IsEnabled = false;
-                lblO.Foreground = new SolidColorBrush(Colors.Red);
-                lblO.Content = "FS not installed";
-                Bernafon.IsChecked = false;
-                //bernafonRectangle.Opacity = 0.3;
-            }
-            else
-            {
-                Bernafon.IsEnabled = true;
-                //bernafonRectangle.Opacity = 1.0;
-            }
-            //if (!File.Exists(@"C:/Program Files (x86)/Sonic/ExpressFit/ExpressFit2/ExpressFit.exe"))
-            if (!Directory.Exists(@"C:\ProgramData\Sonic"))
-            {
-                Sonic.IsEnabled = false;
-                lblE.Foreground = new SolidColorBrush(Colors.Red);
-                lblE.Content = "FS not installed";
-                Sonic.IsChecked = false;
-                //sonicRectangle.Opacity = 0.3;
-            }
-            else
-            {
-                Sonic.IsEnabled = true;
-                //sonicRectangle.Opacity = 1.0;
-            }
+                // if (!File.Exists(@"C:/Program Files (x86)/Oticon/Genie/Genie2/Genie.exe"))
+                if (!Directory.Exists(@"C:\ProgramData\Oticon"))
+                {
+                    Oticon.IsEnabled = false;
+                    lblG.Foreground = new SolidColorBrush(Colors.Red);
+                    lblG.Content = "FS not installed";
+                    Oticon.IsChecked = false;
+                    //oticonRectangle.Opacity = 0.3;
+                }
+                else
+                {
+                    Oticon.IsEnabled = true;
+                    //oticonRectangle.Opacity = 1.0;
+                }
+                // if (!File.Exists(@"C:/Program Files (x86)/Bernafon/Oasis/Oasis2/Oasis.exe"))
+                if (!Directory.Exists(@"C:\ProgramData\Bernafon"))
+                {
+                    Bernafon.IsEnabled = false;
+                    lblO.Foreground = new SolidColorBrush(Colors.Red);
+                    lblO.Content = "FS not installed";
+                    Bernafon.IsChecked = false;
+                    //bernafonRectangle.Opacity = 0.3;
+                }
+                else
+                {
+                    Bernafon.IsEnabled = true;
+                    //bernafonRectangle.Opacity = 1.0;
+                }
+                //if (!File.Exists(@"C:/Program Files (x86)/Sonic/ExpressFit/ExpressFit2/ExpressFit.exe"))
+                if (!Directory.Exists(@"C:\ProgramData\Sonic"))
+                {
+                    Sonic.IsEnabled = false;
+                    lblE.Foreground = new SolidColorBrush(Colors.Red);
+                    lblE.Content = "FS not installed";
+                    Sonic.IsChecked = false;
+                    //sonicRectangle.Opacity = 0.3;
+                }
+                else
+                {
+                    Sonic.IsEnabled = true;
+                    //sonicRectangle.Opacity = 1.0;
+                }
 
-            if (!Directory.Exists(@"C:\ProgramData\OticonMedical")) // medical
-            {
-                Medical.IsEnabled = false;
-                lblM.Foreground = new SolidColorBrush(Colors.Red);
-                lblM.Content = "FS not installed";
-                Medical.IsChecked = false;
-                //oticonmedicalnRectangle.Opacity = 0.3;
-            }
-            else
-            {
-                Medical.IsEnabled = true;
-                //oticonmedicalnRectangle.Opacity = 1.0;
-            }
+                if (!Directory.Exists(@"C:\ProgramData\Oticon Medical")) // medical
+                {
+                    Medical.IsEnabled = false;
+                    lblM.Foreground = new SolidColorBrush(Colors.Red);
+                    lblM.Content = "FS not installed";
+                    Medical.IsChecked = false;
+                    //oticonmedicalnRectangle.Opacity = 0.3;
+                }
+                else
+                {
+                    Medical.IsEnabled = true;
+                    //oticonmedicalnRectangle.Opacity = 1.0;
+                }
 
-            if (!Directory.Exists(@"C:\ProgramData\Philips HearSuite")) // cumulus
-            {
-                Cumulus.IsEnabled = false;
-                lblC.Foreground = new SolidColorBrush(Colors.Red);
-                lblC.Content = "FS not installed";
-                Cumulus.IsChecked = false;
-                //startoRectangle.Opacity = 0.3;
+                if (!Directory.Exists(@"C:\ProgramData\Philips HearSuite")) // cumulus
+                {
+                    Cumulus.IsEnabled = false;
+                    lblC.Foreground = new SolidColorBrush(Colors.Red);
+                    lblC.Content = "FS not installed";
+                    Cumulus.IsChecked = false;
+                    //startoRectangle.Opacity = 0.3;
+                }
+                else
+                {
+                    Cumulus.IsEnabled = true;
+                    //startoRectangle.Opacity = 1.0;
+                }
             }
-            else
+            else // sprawdzanie kompozycji
             {
-                Cumulus.IsEnabled = true;
-                //startoRectangle.Opacity = 1.0;
+                // if (!File.Exists(@"C:/Program Files (x86)/Oticon/Genie/Genie2/Genie.exe"))
+                if (!Directory.Exists(@"C:\ProgramData\Oticon"))
+                {
+                    Oticon.IsEnabled = false;
+                    lblG.Foreground = new SolidColorBrush(Colors.Red);
+                    lblG.Content = "FS not installed";
+                    Oticon.IsChecked = false;
+                    //oticonRectangle.Opacity = 0.3;
+                }
+                else
+                {
+                    Oticon.IsEnabled = true;
+                    //oticonRectangle.Opacity = 1.0;
+                }
+                // if (!File.Exists(@"C:/Program Files (x86)/Bernafon/Oasis/Oasis2/Oasis.exe"))
+                if (!Directory.Exists(@"C:\ProgramData\Bernafon"))
+                {
+                    Bernafon.IsEnabled = false;
+                    lblO.Foreground = new SolidColorBrush(Colors.Red);
+                    lblO.Content = "FS not installed";
+                    Bernafon.IsChecked = false;
+                    //bernafonRectangle.Opacity = 0.3;
+                }
+                else
+                {
+                    Bernafon.IsEnabled = true;
+                    //bernafonRectangle.Opacity = 1.0;
+                }
+                //if (!File.Exists(@"C:/Program Files (x86)/Sonic/ExpressFit/ExpressFit2/ExpressFit.exe"))
+                if (!Directory.Exists(@"C:\ProgramData\Sonic"))
+                {
+                    Sonic.IsEnabled = false;
+                    lblE.Foreground = new SolidColorBrush(Colors.Red);
+                    lblE.Content = "FS not installed";
+                    Sonic.IsChecked = false;
+                    //sonicRectangle.Opacity = 0.3;
+                }
+                else
+                {
+                    Sonic.IsEnabled = true;
+                    //sonicRectangle.Opacity = 1.0;
+                }
+
+                if (!Directory.Exists(@"C:\ProgramData\OticonMedical")) // medical
+                {
+                    Medical.IsEnabled = false;
+                    lblM.Foreground = new SolidColorBrush(Colors.Red);
+                    lblM.Content = "FS not installed";
+                    Medical.IsChecked = false;
+                    //oticonmedicalnRectangle.Opacity = 0.3;
+                }
+                else
+                {
+                    Medical.IsEnabled = true;
+                    //oticonmedicalnRectangle.Opacity = 1.0;
+                }
+
+                if (!Directory.Exists(@"C:\ProgramData\Philips HearSuite")) // cumulus
+                {
+                    Cumulus.IsEnabled = false;
+                    lblC.Foreground = new SolidColorBrush(Colors.Red);
+                    lblC.Content = "FS not installed";
+                    Cumulus.IsChecked = false;
+                    //startoRectangle.Opacity = 0.3;
+                }
+                else
+                {
+                    Cumulus.IsEnabled = true;
+                    //startoRectangle.Opacity = 1.0;
+                }
             }
+          
         }
 
         bool checkRunningProcess(string name)
@@ -1400,13 +1477,13 @@ namespace UltimateChanger
             {
                 try
                 {
-                   
-                    cmbBuild.ItemsSource = Paths_Dirs[0].dir;
-                    cmbBrandstoinstall.Items.Refresh();
-                    BindCombo.setOEMComboBox(cmbBrandstoinstall.Text);
-                    cmbBuild.ItemsSource = Paths_Dirs[0].dir;
-                    cmbBuild.Items.Refresh();
-                    cmbBrandstoinstall.Items.Refresh();
+
+                    cmbBuild_Compo.ItemsSource = Paths_Dirs[0].dir;
+                    cmbBrandstoinstall_Compo.Items.Refresh();
+                    BindCombo.setOEMComboBox(cmbBrandstoinstall_Compo.Text);
+                    cmbBuild_Compo.ItemsSource = Paths_Dirs[0].dir;
+                    cmbBuild_Compo.Items.Refresh();
+                    cmbBrandstoinstall_Compo.Items.Refresh();
                     // cmbBrandstoinstall.ToolTip = FileOperator.listPathTobuilds[cmbBrandstoinstall.SelectedIndex];
                     //cmbBrandstoinstall.ToolTip = FileOperator.listPathTobuilds[cmbBrandstoinstall.SelectedIndex];
                 }
@@ -1457,10 +1534,27 @@ namespace UltimateChanger
             {
                 btninstal.IsEnabled = false;
                 btnInfo.IsEnabled = false;
-
-
             }
         }
+
+        private void cmbBuild_Compo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmbBuild_Compo.SelectedIndex != -1)
+            {
+                btninstal_Compo.IsEnabled = true;
+                btnInfo_Compo.IsEnabled = true;
+
+                cmbBuild_Compo.Items.Refresh();
+                cmbBrandstoinstall_Compo.Items.Refresh();
+                cmbBuild_Compo.ToolTip = Paths_Dirs[0].path[cmbBuild_Compo.SelectedIndex];
+            }
+            else
+            {
+                btninstal_Compo.IsEnabled = false;
+                btnInfo_Compo.IsEnabled = false;
+            }
+        }
+
         private void LoggingMouseEnter(object sender, MouseEventArgs e)
         {
             int border;
@@ -1658,14 +1752,29 @@ namespace UltimateChanger
 
         private void btnInfo_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (TabFull.IsSelected)
             {
-                System.Windows.Forms.Clipboard.SetText(cmbBuild.ToolTip.ToString());
+                try
+                {
+                    System.Windows.Forms.Clipboard.SetText(cmbBuild.ToolTip.ToString());
+                }
+                catch (Exception x)
+                {
+                    Console.WriteLine(x.ToString());
+                }
             }
-            catch (Exception x)
+            else
             {
-                Console.WriteLine(x.ToString());
+                try
+                {
+                    System.Windows.Forms.Clipboard.SetText(cmbBuild_Compo.ToolTip.ToString());
+                }
+                catch (Exception x)
+                {
+                    Console.WriteLine(x.ToString());
+                }
             }
+           
         }
 
         private void btnFakeV_Click(object sender, RoutedEventArgs e)
@@ -1683,9 +1792,16 @@ namespace UltimateChanger
 
         private void cmbOEM_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            
                 cmbOEM.Items.Refresh();
                 AllOemPaths = BindCombo.getAllPathsOem(cmbOEM.Text, cmbBrandstoinstall.SelectedIndex, Paths_Dirs);
                 cmbBuild.ItemsSource = AllOemPaths;
+        }
+        private void cmbOEM_Compo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            
+            cmbBuild_Compo.ItemsSource = Paths_Dirs[0].dir;
         }
 
         private void btnFSRun(object sender, RoutedEventArgs e)
@@ -3007,6 +3123,8 @@ namespace UltimateChanger
 
         }
 
+
+
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
             // zamiast watku napisac maly programik osobny ktory bedzie uruchamiany na timerze co 3 s i bedzie sprawdzac czy sie zakonczyl ! :D
@@ -3157,15 +3275,16 @@ namespace UltimateChanger
                     try
                     {
 
-
+                        fileOperator.GetfilesSaveData(false, 1);
                         BindCombo.setFScomboBox(); // full medium
                         cmbBrandstoinstall.SelectedIndex = 0;
-                        cmbBuild.ItemsSource = null;
+                        cmbOEM_SelectionChanged(new object(),e);
                         RBnormal.IsEnabled = true;
                         RBsilet.IsEnabled = true;
-                        fileOperator.GetfilesSaveData(false, 1);
+                        
 
                         BindCombo.setOEMComboBox(cmbBrandstoinstall.Text);
+                        cmbOEM.Items.Refresh();
                         TabFull.IsEnabled = false;
                         TabCompo.IsEnabled = true;
                     }
@@ -3182,6 +3301,7 @@ namespace UltimateChanger
             {
                 if (TabCompo.IsEnabled)
                 {
+                    fileOperator.GetfilesSaveData(true,1);
                     BindCombo.setFScomboBox_compositions(); // bindowanie do compozycjji  
                     cmbBrandstoinstall_Compo.SelectedIndex = 0;
                     try
