@@ -883,7 +883,7 @@
                     </TabControl.Resources>
 
 
-                    <TabItem Name="TabFull" Header="Full" Foreground="White" Height="20" VerticalAlignment="Top">
+                    <TabItem Name="TabFull" Header="Full" Foreground="White" Height="20" VerticalAlignment="Top" IsSelected="True">
                         <Grid x:Name="RightBottom" Grid.Column="1" Grid.Row="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"/>

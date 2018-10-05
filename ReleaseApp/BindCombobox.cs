@@ -128,7 +128,7 @@ namespace UltimateChanger
             List<string> bind = new List<string> { "Oticon", "Bernafon", "Sonic", "GenieMedical", "Philips" };
             try
             {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).cmbBrandstoinstall.ItemsSource = bind;
+                ((MainWindow)System.Windows.Application.Current.MainWindow).cmbBrandstoinstall_Compo.ItemsSource = bind;
             }
             catch (Exception x)
             {
@@ -184,18 +184,40 @@ namespace UltimateChanger
                 List<string> bind = new List<string> { "Audigy", "Audika", "Audionova", "Avada", "Kind", "Oticon", "VA" };
                 ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM.ItemsSource = bind;
                 ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM.SelectedIndex = 5;
+                ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM_Compo.ItemsSource = bind;
+                ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM_Compo.SelectedIndex = 5;
             }
             else if (FS.Contains("Bernafon"))
             {
                 List<string> bind = new List<string> { "PrivateLable", "AccuQuest", "Audilab", "Bernafon", "Costco", "GPL", "HansAnders", "Horex", "Maico", "Meditrend", "ProAkustik" };
                 ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM.ItemsSource = bind;
                 ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM.SelectedIndex = 3;
+                ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM_Compo.ItemsSource = bind;
+                ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM_Compo.SelectedIndex = 3;
             }
-            else
+            else if(FS.Contains("Sonic"))
             {
                 List<string> bind = new List<string> { "Sonic" };
                 ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM.ItemsSource = bind;
                 ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM.SelectedIndex = 0;
+                ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM_Compo.ItemsSource = bind;
+                ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM_Compo.SelectedIndex = 0;
+            }
+            else if (FS.Contains("Philips"))
+            {
+                List<string> bind = new List<string> { "HearSuite" };
+                ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM.ItemsSource = bind;
+                ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM.SelectedIndex = 0;
+                ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM_Compo.ItemsSource = bind;
+                ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM_Compo.SelectedIndex = 0;
+            }
+            else if (FS.Contains("GenieMedical"))
+            {
+                List<string> bind = new List<string> { "GenieMedical" };
+                ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM.ItemsSource = bind;
+                ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM.SelectedIndex = 0;
+                ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM_Compo.ItemsSource = bind;
+                ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM_Compo.SelectedIndex = 0;
             }
 
 
@@ -252,13 +274,16 @@ namespace UltimateChanger
         public List<string> getAllPathsOem(string OEM, int FSnr, List<pathAndDir> allPaths) 
         {
             List<string> PathsOem = new List<string>();
-
-            foreach (var item in allPaths[FSnr].path)
+            if (FSnr!=-1)
             {
-                if (item.Contains(OEM))
+                foreach (var item in allPaths[FSnr].path)
                 {
-                    PathsOem.Add(item);
+                    if (item.Contains(OEM))
+                    {
+                        PathsOem.Add(item);
+                    }
                 }
+
             }
 
 

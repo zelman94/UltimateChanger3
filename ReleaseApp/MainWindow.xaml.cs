@@ -79,6 +79,8 @@ namespace UltimateChanger
         myXMLReader XMLReader = new myXMLReader();
         public List<List<string>> AllbuildsPerFS = new List<List<string>>();
         internal List<pathAndDir> Paths_Dirs { get => paths_Dirs; set => paths_Dirs = value; }
+        List<string> AllOemPaths = new List<string>();
+        
         string User_Power;
         public List<string> RandomHardware;
 
@@ -209,11 +211,7 @@ namespace UltimateChanger
                 setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
                 setUIdefaults(XMLReader.getDefaultSettings("ComboBox"), "ComboBox");
 
-                fileOperator.GetfilesSaveData(false,1);
-
-              
-
-
+               
             }
             catch (Exception x)
             {
@@ -554,10 +552,6 @@ namespace UltimateChanger
         }
         public void refreshUI(object sender, EventArgs e)
         {
-
-           
-
-
             verifyInstalledBrands();
             List<string> logmodesFS = fileOperator.getLogMode();
             try
@@ -1076,7 +1070,7 @@ namespace UltimateChanger
                     try
                     {
                         FileVersionInfo myFileVersionInfo =
-  FileVersionInfo.GetVersionInfo(item);
+                        FileVersionInfo.GetVersionInfo(item);
 
 
 
@@ -1350,7 +1344,7 @@ namespace UltimateChanger
                 else
                 {
                     FSInstaller installer = new FSInstaller();
-                   // installer.InstallBrand(, RBnormal.IsChecked.Value);
+                    installer.InstallBrand(cmbBuild.Text, RBnormal.IsChecked.Value);
 
                             //zapisanie patha do instalatora do  pozniejszej uninstalki bez sciagania do pliku
 
@@ -1406,6 +1400,7 @@ namespace UltimateChanger
             {
                 try
                 {
+                   
                     cmbBuild.ItemsSource = Paths_Dirs[0].dir;
                     cmbBrandstoinstall.Items.Refresh();
                     BindCombo.setOEMComboBox(cmbBrandstoinstall.Text);
@@ -1424,12 +1419,14 @@ namespace UltimateChanger
             {
                 try
                 {
-                    cmbBuild.ItemsSource = Paths_Dirs[(cmbBrandstoinstall.SelectedIndex)].dir;
+                    // cmbBuild.ItemsSource = Paths_Dirs[(cmbBrandstoinstall.SelectedIndex)].dir;
+                    fileOperator.GetfilesSaveData(false, 1);
+
                     cmbBrandstoinstall.Items.Refresh();
                     BindCombo.setOEMComboBox(cmbBrandstoinstall.Text);
                     
-                    cmbBuild.Items.Refresh();
-                    cmbBrandstoinstall.Items.Refresh();
+                    //cmbBuild.Items.Refresh();
+                  //  cmbBrandstoinstall.Items.Refresh();
 
                 }
                 catch (Exception x)
@@ -1454,7 +1451,7 @@ namespace UltimateChanger
 
                 cmbBuild.Items.Refresh();
                 cmbBrandstoinstall.Items.Refresh();
-                cmbBuild.ToolTip = Paths_Dirs[cmbBrandstoinstall.SelectedIndex].path[cmbBuild.SelectedIndex];
+                cmbBuild.ToolTip = AllOemPaths[cmbBuild.SelectedIndex];
             }
             else
             {
@@ -1553,7 +1550,7 @@ namespace UltimateChanger
         }
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string firstHalf = cmbBuild.Text.ToString().Split(new char[] { ' ' }, 2)[0];
+           
             //cmbBuild.ToolTip = Directory_toIntall + firstHalf;
         }
         private void textBox_TextChanged(object sender, RoutedEventArgs e)
@@ -1686,8 +1683,9 @@ namespace UltimateChanger
 
         private void cmbOEM_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            cmbOEM.Items.Refresh();
-            cmbBuild.ItemsSource = BindCombo.getAllPathsOem(cmbOEM.Text, cmbBrandstoinstall.SelectedIndex, Paths_Dirs);
+                cmbOEM.Items.Refresh();
+                AllOemPaths = BindCombo.getAllPathsOem(cmbOEM.Text, cmbBrandstoinstall.SelectedIndex, Paths_Dirs);
+                cmbBuild.ItemsSource = AllOemPaths;
         }
 
         private void btnFSRun(object sender, RoutedEventArgs e)
@@ -2662,7 +2660,7 @@ namespace UltimateChanger
             {
                 if (item.IsEnabled)
                 {
-                    fileOperator.setLogMode("ALL", 0, licznik, false, txtsettlog1.Text, txtsettlog2.Text, txtsettlog3.Text);
+                    fileOperator.setLogMode("ALL", 0, licznik, false, Advance_1, Advance_2, Advance_3);
                 }
                 
                 licznik++;
@@ -3154,34 +3152,56 @@ namespace UltimateChanger
         {
             if (TabFull != null && TabFull.IsSelected)
             {
-                cmbOEM.Visibility = Visibility.Visible;
-                BindCombo.setFScomboBox(); // full medium
+                if (TabFull.IsEnabled)
+                {
+                    try
+                    {
 
-                cmbBuild.ItemsSource = null;
-                RBnormal.IsEnabled = true;
-                RBsilet.IsEnabled = true;
-                fileOperator.GetfilesSaveData(false, 1);
-                cmbBrandstoinstall.SelectedIndex = 0;
-                BindCombo.setOEMComboBox(cmbBrandstoinstall.Text);
+
+                        BindCombo.setFScomboBox(); // full medium
+                        cmbBrandstoinstall.SelectedIndex = 0;
+                        cmbBuild.ItemsSource = null;
+                        RBnormal.IsEnabled = true;
+                        RBsilet.IsEnabled = true;
+                        fileOperator.GetfilesSaveData(false, 1);
+
+                        BindCombo.setOEMComboBox(cmbBrandstoinstall.Text);
+                        TabFull.IsEnabled = false;
+                        TabCompo.IsEnabled = true;
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+                   
+                }
+               
 
             }
             if (TabCompo != null && TabCompo.IsSelected)
             {
-                BindCombo.setFScomboBox_compositions(); // bindowanie do compozycjji  
-
-                try
+                if (TabCompo.IsEnabled)
                 {
-                    fileOperator.GetfilesSaveData(TabCompo.IsSelected, cmbBrandstoinstall.SelectedIndex);
-                }
-                catch (Exception)
-                {
-                    cmbBuild.ItemsSource = null;
-                }
-                ChangedBrandOfFittingSoftware();
-                cmbBuild.Items.Refresh();
+                    BindCombo.setFScomboBox_compositions(); // bindowanie do compozycjji  
+                    cmbBrandstoinstall_Compo.SelectedIndex = 0;
+                    try
+                    {
+                        fileOperator.GetfilesSaveData(TabCompo.IsSelected, cmbBrandstoinstall_Compo.SelectedIndex);
+                    }
+                    catch (Exception)
+                    {
+                        cmbBuild.ItemsSource = null;
+                    }
+                    ChangedBrandOfFittingSoftware();
+                    cmbBuild.Items.Refresh();
 
-                RBnormal.IsEnabled = false;
-                RBsilet.IsEnabled = false;
+                    RBnormal.IsEnabled = false;
+                    RBsilet.IsEnabled = false;
+                    TabCompo.IsEnabled = false;
+                    TabFull.IsEnabled = true;
+                    cmbBrandstoinstall.SelectedIndex = 0;
+                }
+               
             }
 
 
