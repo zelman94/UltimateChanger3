@@ -234,8 +234,7 @@ namespace UltimateChanger
                 }
                 else
                 {
-                    getPathToLogMode_Compo(); // mam wszystkie path dla kompozycji do pliku konfiguracyjnego 
-                    
+                    getPathToLogMode_Compo(); // mam wszystkie path dla kompozycji do pliku konfiguracyjnego                     
                     plik = File.ReadAllLines(FindSettingFileForComposition(number_checkbox)).ToList<string>();
                 }
             }
