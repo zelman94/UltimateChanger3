@@ -851,22 +851,7 @@
 
                     <Button x:Name="btnLogMode" Content="Update mode"  Click="btnChange_mode_log" Grid.Row="2" IsEnabled="False" Grid.Column="1" VerticalAlignment="Top" BorderBrush="#FF424242" Background="#FF616161" Foreground="#E5FFFFFF" Margin="10 0"/>
                     <Button  Content="Select all FS" Click="Button_Click" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2" BorderBrush="#FF424242" Background="#FF616161" Foreground="#E5FFFFFF" Margin="10 0"/>
-
-                    <Button x:Name="btnAdvancelogs" Content="Advance log settings"  Click="btnAdvancelogs_Click" IsEnabled="False" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" Background="#FF616161" BorderBrush="#FF424242" Foreground="White" Margin="10 0" Visibility="Visible"/>
-
-
-                    <Button x:Name="btnDeletelogs" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" Content="Delete log files" Click="btnDelete_logs" ToolTip="All log files of selected FS will be deleted" IsEnabled="False" Foreground="#E5FFFFFF" Background="#FF616161" BorderBrush="#FF424242" Margin="10 0"/>
-                    <Button x:Name="btnSavelogs" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Content="Save Log" Click="btnSavelogs_Click" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"  Margin="10 0"/>
-
-                    <!--DO WYWALENIA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! TO TEŻ-->
-                    <Label x:Name="lblSetlog1" Grid.Row="4" Grid.Column="0"  Content="Maximum file size:"  Foreground="White" VerticalAlignment="Top" Visibility="Hidden"/>
-                    <Label x:Name="lblSetlog2" Grid.Row="5" Grid.Column="0"  Content="Max size roll backups:"   Foreground="White" VerticalAlignment="Top" Visibility="Hidden"/>
-                    <Label x:Name="lblSetlog3" Grid.Row="6" Grid.Column="0"  Content="Append to file:"  Foreground="White" VerticalAlignment="Top" Visibility="Hidden"/>
-
-                    
-
-                    <Button x:Name="btnDelete" Grid.Row="5" Content="Delete trash" Click="btnDelete_Click" ToolTip="All data files of selected FS will be deleted (also client sesion)" IsEnabled="False" Foreground="#E5FFFFFF" BorderBrush="#FF424242" Background="#FF616161" Margin="10 0" VerticalAlignment="Center"/>
-                    <Button x:Name="btnuninstal"  Grid.Row="5" Content="Uninstall FS" Click="btnuninstal_Click" Grid.Column="1" ToolTip="Selected FS will be uninstalled only if your installation process was started witch Ultimate Changer" IsEnabled="false" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" VerticalAlignment="Center"/>
+                   
                     <Button x:Name="btnFS" Grid.Row="4" Grid.Column="1" Content="Start FS" Click="btnFSRun" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" VerticalAlignment="Center"/>
 
                     <Button x:Name="btnHattori" Content="Start Hattori" Click="btnHattori_Click" Grid.Row="4" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" VerticalAlignment="Center"/>
@@ -878,9 +863,6 @@
 
 
                 </Grid>
-
-
-
 
                 <TabControl x:Name="tabControl2" Background="#FF212121" Grid.ColumnSpan="2" Grid.Row="1" SelectionChanged="tabControl2_SelectionChanged">
                     <TabControl.Resources>
@@ -925,9 +907,8 @@
                                 <RowDefinition Height="1*"/>
                                 <RowDefinition Height="1*"/>
                                 <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
                             </Grid.RowDefinitions>
-
-
 
                             <Grid Grid.Column="0" Grid.Row="0">
                                 <Grid.ColumnDefinitions>
@@ -941,15 +922,9 @@
                                 </Grid.RowDefinitions>
 
                                 <Label Content="Installation settings" Grid.ColumnSpan="2" Grid.Row="0" Foreground="White" FontWeight="SemiBold" FontSize="12.5"/>
-
-
                                 <RadioButton GroupName="RBsilentNormal" Name="RBsilet" Content="Silent" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBsilet_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0,3,0,4"/>
                                 <RadioButton GroupName="RBsilentNormal" Name="RBnormal" Content="Normal " Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBnormal_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0,3,0,4"/>
-
-
                             </Grid>
-
-
 
                             <ProgressBar Name="progress" Grid.Column="1" Height="26" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="149" RenderTransformOrigin="0.5,0.5" BorderBrush="#FF424242" Background="#FF616161" Foreground="White" Margin="41,32,7,26">
                                 <ProgressBar.RenderTransform>
@@ -968,12 +943,17 @@
                             <ComboBox x:Name="cmbOEM" Grid.Column="1" Grid.Row="1" ToolTip="OEM version" SelectionChanged="cmbOEM_SelectionChanged" BorderBrush="White" Foreground="White" HorizontalAlignment="Left" Margin="5 0" Width="100"/>
                             <ComboBox x:Name="cmbRelease" Grid.Column="1" Grid.Row="1" ToolTip="Release of FS" SelectionChanged="cmbRelease_SelectionChanged" BorderBrush="White" Foreground="White" HorizontalAlignment="Right" Margin="5 0" Width="70"/>
 
-
                             <Label Content="Build:" Grid.Row="2" Grid.Column="0" Foreground="White" FontWeight="SemiBold" FontSize="12.5"/>
                             <ComboBox x:Name="cmbBuild" Grid.Row="2" Grid.Column="0" SelectionChanged="cmbbuild_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 0"/>
 
-                            <Button x:Name="btninstal" Content="Install" Click="btninstal_Click" Grid.Row="3" Grid.Column="0" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Top" Margin="10 0"/>
-                            <Button x:Name="btnInfo" Content="Copy path to build" Grid.Row="3" Grid.Column="1" Click="btnInfo_Click" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Top" Margin="10 0"/>
+                            <Button x:Name="btninstal" Content="Install" Click="btninstal_Click" Grid.Row="3" Grid.Column="0" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Center" Margin="10 0"/>
+                            <Button x:Name="btnInfo" Content="Copy path to build" Grid.Row="3" Grid.Column="1" Click="btnInfo_Click" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Center" Margin="10 0"/>
+                            <Button x:Name="btnDeletelogs" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" Content="Delete log files" Click="btnDelete_logs" ToolTip="All log files of selected FS will be deleted" IsEnabled="False" Foreground="#E5FFFFFF" Background="#FF616161" BorderBrush="#FF424242" Margin="10 0"/>
+                            <Button x:Name="btnSavelogs" Grid.Row="3" Grid.Column="3" VerticalAlignment="Center" Content="Save Log" Click="btnSavelogs_Click" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"  Margin="10 0"/>
+                            <Button x:Name="btnDelete" Grid.Row="4" Grid.Column="1" Content="Delete trash" Click="btnDelete_Click" ToolTip="All data files of selected FS will be deleted (also client sesion)" IsEnabled="False" Foreground="#E5FFFFFF" BorderBrush="#FF424242" Background="#FF616161" Margin="10 0" VerticalAlignment="Center"/>
+                            <Button x:Name="btnuninstal"  Grid.Row="4" Content="Uninstall FS" Click="btnuninstal_Click" Grid.Column="0" ToolTip="Selected FS will be uninstalled only if your installation process was started witch Ultimate Changer" IsEnabled="false" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" VerticalAlignment="Center"/>
+                            <Button x:Name="btnAdvancelogs" Content="Advance log settings"  Click="btnAdvancelogs_Click" IsEnabled="False" Grid.Row="1" Grid.Column="2" VerticalAlignment="Bottom" Background="#FF616161" BorderBrush="#FF424242" Foreground="White" Margin="10 0" Visibility="Visible"/>
+                            
                             <Button Name="btnRefresh" Grid.Column="1" HorizontalAlignment="Left" Margin="5,0,0,25" Width="59" Height="30" VerticalAlignment="Bottom" ToolTip="refresh paths" Click="btnRefresh_Click"  >
                                 <StackPanel Orientation="Horizontal">
                                     <Image Stretch="Fill" Source="Images/refresh.PNG" Height="22" Width="29" RenderTransformOrigin="0.268,0.5"/>
@@ -1009,12 +989,7 @@
                                     <RowDefinition Height="1*"/>
                                     <RowDefinition Height="1*"/>
                                 </Grid.RowDefinitions>
-
-                               
-
                             </Grid>
-
-
 
                             <ProgressBar Name="progress_Compo" Grid.Column="1" Height="26" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="149" RenderTransformOrigin="0.5,0.5" BorderBrush="#FF424242" Background="#FF616161" Foreground="White" Margin="41,32,7,26">
                                 <ProgressBar.RenderTransform>
