@@ -311,6 +311,17 @@ namespace UltimateChanger
             lblVersion.Content = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             User_Power = "USER";
 
+            try
+            {
+                if (!Directory.Exists("C:\\Program Files\\UltimateChanger\\compositions\\"))
+                {
+                    Directory.CreateDirectory("C:\\Program Files\\UltimateChanger\\compositions\\");
+                }
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.ToString());
+            }
 
             try
             {
@@ -358,6 +369,7 @@ namespace UltimateChanger
                     }
                     catch (Exception)
                     {
+                        Process.Start("Resources\\REMedy.Installer.Mini.1.0.3.0.exe", "/silent /install ");
                     }
                     Process.Start(fileonServer[0], "/silent /install ");
                     // uruchomic silent installera 
@@ -1267,7 +1279,7 @@ namespace UltimateChanger
                     {
                         if (item.IsChecked.Value)
                         {
-                            fileOperator.setLogMode(cmbLogMode.Text, cmbLogSettings.SelectedIndex, licznik, true, Advance_1, Advance_2, Advance_3);
+                            fileOperator.setLogMode(cmbLogMode.Text, cmbLogSettings.SelectedIndex, licznik,TabFull.IsSelected,true, Advance_1, Advance_2, Advance_3);
                             message = message + item.Name + "\n";                            
                         }
                         licznik++;
@@ -1295,7 +1307,7 @@ namespace UltimateChanger
                     {
                         if (item.IsChecked.Value)
                         {
-                            fileOperator.setLogMode(cmbLogMode.Text, cmbLogSettings.SelectedIndex, licznik, false);
+                            fileOperator.setLogMode(cmbLogMode.Text, cmbLogSettings.SelectedIndex, licznik, TabFull.IsSelected, false);
                             message = message + item.Name + "\n";
                         }
                         licznik++;
@@ -1337,6 +1349,21 @@ namespace UltimateChanger
                         catch (Exception x)
                         {
                             MessageBox.Show(x.ToString());
+                        }
+                    } else if (item.Name == "Cumulus")
+                    {
+                        if (fileOperator.checkRunningProcess("Philips HearSuite"))
+                        {
+                            try
+                            {
+                                smieciarka.DeleteTrash(fileOperator.pathToLogs[licznik]);
+                                message = message + item.Name + "\n";
+                                flag = true;
+                            }
+                            catch (Exception x)
+                            {
+                                MessageBox.Show(x.ToString());
+                            }
                         }
                     }
                     else
@@ -1392,7 +1419,7 @@ namespace UltimateChanger
                             // args 1 from
                             // args 2 to
                             string from = System.IO.Path.Combine(cmbBuild_Compo.ToolTip.ToString() + $"\\DevResults-{cmbRelease_Compo.Text}", item.Name);
-                            string to = "C:\\Program Files\\UltimateChanger\\"+ item.Name;
+                            string to = "C:\\Program Files\\UltimateChanger\\compositions\\"+ item.Name;
                             pathToLocalComposition = to;
                             MessageBox.Show($"parameters to copy: {from} \n {to}");
                             Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Copy {from} {pathToLocalComposition}");
@@ -2769,7 +2796,7 @@ namespace UltimateChanger
             {
                 if (item.IsEnabled)
                 {
-                    fileOperator.setLogMode("ALL", 0, licznik, false, Advance_1, Advance_2, Advance_3);
+                    fileOperator.setLogMode("ALL", 0, licznik,TabFull.IsSelected ,false, Advance_1, Advance_2, Advance_3);
                 }
                 
                 licznik++;

@@ -82,6 +82,18 @@ namespace UltimateChanger
             @"4Cumulus_PRE_path.txt"
         };
 
+
+        public List<string> listCompoNames = new List<string> { // nazwy plikow do kompozycji 
+
+            "GenieComposition",
+            "GenieMedicalComposition",
+            "OasisComposition",
+            "EXPRESSfitComposition",
+            "HearSuiteComposition"
+        };
+
+
+
         static public List<string> ListUSB_AvailableComDev_description = new List<string> // string from description
         {
             "SONIC innovations EXPRESSlink",
@@ -96,6 +108,28 @@ namespace UltimateChanger
         };
 
         public List<string> pathToLogMode = myXMLReader.getPaths("pathToLogMode");
+        public List<string> pathToLogMode_Compo = new List<string>();
+
+        public void getPathToLogMode_Compo() // zapisuje do listy pathToLogMode_Compo zebrane kompozycje pathy do ustawien logow
+        {
+          List<string> tmp = Directory.GetFiles(@"C:\Program Files\UltimateChanger\compositions\", "Configure.log4net",SearchOption.AllDirectories).ToList();
+        }
+
+        public string FindSettingFileForComposition(int numberOfCheckbox)
+        {
+            string path = "";
+
+            foreach (var item in pathToLogMode_Compo)
+            {
+                if (item.Contains(listCompoNames[numberOfCheckbox]))
+                {
+                    return path;
+                }
+            }
+
+            return path;
+        }
+
 
         public List<string> pathToLogs = myXMLReader.getPaths("pathToLogs");
 
@@ -187,13 +221,23 @@ namespace UltimateChanger
             return listalogmode;
         }
 
-        public void setLogMode(string mode, int setting_number, byte number_checkbox, bool advance, string sett1 = "", string sett2 = "", string sett3 = "") // advance true czyli zaawansowane ustawienia usera
+        public void setLogMode(string mode, int setting_number, byte number_checkbox,bool Full, bool advance, string sett1 = "", string sett2 = "", string sett3 = "") // advance true czyli zaawansowane ustawienia usera
         {
             List<string> plik = new List<string>();
             List<string> plik_edited = new List<string>();
             try
             {
-                plik = File.ReadAllLines(pathToLogMode[number_checkbox]).ToList<string>();
+                 // wczytywanie zaleznie od full lub compo - nowa lista z pathami do compo ? funkcja wyszukująca ?
+                if (Full) // jezeli pelny build to zainstalowane czy li bez zmian
+                {
+                    plik = File.ReadAllLines(pathToLogMode[number_checkbox]).ToList<string>();
+                }
+                else
+                {
+                    getPathToLogMode_Compo(); // mam wszystkie path dla kompozycji do pliku konfiguracyjnego 
+                    
+                    plik = File.ReadAllLines(FindSettingFileForComposition(number_checkbox)).ToList<string>();
+                }
             }
             catch(DirectoryNotFoundException e)
             {
@@ -306,10 +350,21 @@ namespace UltimateChanger
 
             try
             {
-                TextWriter tw = new StreamWriter(pathToLogMode[number_checkbox]);
-                foreach (String s in plik_edited)
-                    tw.WriteLine(s);
-                tw.Close();
+                if (Full)
+                {
+                    TextWriter tw = new StreamWriter(pathToLogMode[number_checkbox]);
+                    foreach (String s in plik_edited)
+                        tw.WriteLine(s);
+                    tw.Close();
+                }
+                else
+                {
+                    TextWriter tw = new StreamWriter(FindSettingFileForComposition(number_checkbox));
+                    foreach (String s in plik_edited)
+                        tw.WriteLine(s);
+                    tw.Close();
+                }
+               
             }
             catch(DirectoryNotFoundException e)
             {
