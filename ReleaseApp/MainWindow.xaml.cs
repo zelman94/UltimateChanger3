@@ -601,21 +601,41 @@ namespace UltimateChanger
             {
                 List<BuildInfo> ListBuildsInfo = new List<BuildInfo>();
                 int licznik = 0;
-                foreach (var item in BuildInfo.ListPathsToManInfo)
+                List<string> ListpathsToManInfo = new List<string>();
+                if (TabFull.IsSelected)
                 {
-                    try
-                    {
-                        ListBuildsInfo.Add(fileOperator.GetInfoAboutFs(item, BuildInfo.ListPathsToAboutInfo[licznik]));
-                    }
-                    catch (Exception)
-                    {
-                        ListBuildsInfo.Add(new BuildInfo("", "", "", "", ""));
-                    }
-                    licznik++;
+                    ListpathsToManInfo = BuildInfo.ListPathsToManInfo;
                 }
+                else
+                {
+                    fileOperator.getPathToManufacturerInfo_Compo();
+                    ListpathsToManInfo = fileOperator.pathToManufacturerInfo_Compo;
+                }
+                    foreach (var item in ListpathsToManInfo)
+                    {
+                        try
+                        {
+                            ListBuildsInfo.Add(fileOperator.GetInfoAboutFs(item, BuildInfo.ListPathsToAboutInfo[licznik]));
+                        }
+                        catch (Exception)
+                        {
+                            ListBuildsInfo.Add(new BuildInfo("", "", "", "", ""));
+                        }
+                        licznik++;
+                    }
+                
+
+                
+
+
+
                 for (int i = 0; i < ListBuildsInfo.Count; i++)
                 {
                     ListRactanglesNames[i].ToolTip = ListBuildsInfo[i].Brand + "\n" + ListBuildsInfo[i].Version + "\n" + logmodesFS[i];
+                    if (ListBuildsInfo[i].Brand =="" || ListBuildsInfo[i].Version=="")
+                    {
+                        ListRactanglesNames[i].ToolTip = null;
+                    }
                     foreach (var item in ListRactanglesNames)
                     {
                         if (item.Name.Contains(ListBuildsInfo[i].Brand.ToLower()))
