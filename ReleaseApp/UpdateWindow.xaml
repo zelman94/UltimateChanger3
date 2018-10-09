@@ -5,14 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UltimateChanger"
         mc:Ignorable="d"
-        Title="UpdateWindow" Height="300" Width="300">
+        Title="UpdateWindow" Height="350" Width="350" ResizeMode="NoResize">
+
     <Grid>
-        <Button Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="25,225,0,0" VerticalAlignment="Top" Width="84" Click="btnUpdate_Click"/>
-        <Button Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="177,225,0,0" VerticalAlignment="Top" Width="84" Click="btnCancel_Click"/>
-        <Button Name="btnInfoUpdate" Content="?" HorizontalAlignment="Left" Margin="123,225,0,0" VerticalAlignment="Top" Width="40" Click="btnInfoUpdate_Click"/>
-        <!--<TextBox Name="txtInfoUpdate" HorizontalAlignment="Left" Height="180" Margin="24,31,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="241" TextChanged="txtInfoUpdate_TextChanged"/>
-        !-->
-        <Image Source="Images/update.png" Margin="10,0,17,37"></Image>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Image Source="Images/update.png" Grid.ColumnSpan="3"/>
+        <Button Name="btnUpdate" Content="Update" Grid.Column="0" Grid.Row="1" Click="btnUpdate_Click" Margin="10" BorderBrush="Black" Background="Black" Foreground="White" Opacity="0.8"/>
+        <Button Name="btnCancel" Content="Cancel" Grid.Column="2" Grid.Row="1" Click="btnCancel_Click" Margin="10" BorderBrush="Black" Background="Black" Foreground="White" Opacity="0.8"/>
+        <Button Name="btnInfoUpdate" Content="?" Grid.Column="1" Grid.Row="1" Click="btnInfoUpdate_Click" Margin="10" BorderBrush="Black" Background="Black" Foreground="White" Opacity="0.8"/>
+        
        
     </Grid>
 </Window>
