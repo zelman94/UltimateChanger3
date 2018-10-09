@@ -41,7 +41,7 @@ namespace UltimateChanger
             @"C:\ProgramData\Oticon\Genie2\ApplicationVersion.xml",
             @"C:\ProgramData\Bernafon\Oasis2\ApplicationVersion.xml",
             @"C:\ProgramData\Sonic\EXPRESSfit2\ApplicationVersion.xml",
-            @"C:\ProgramData\OticonMedical\GenieMedical2\ApplicationVersion.xml",
+            @"C:\ProgramData\Oticon Medical\GenieMedical2\ApplicationVersion.xml",
              @"C:\ProgramData\Philips HearSuite\HearSuite2\ApplicationVersion.xml"
         };
         public BuildInfo(string brand, string market, string oem, string language, string ver)

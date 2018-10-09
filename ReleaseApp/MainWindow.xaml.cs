@@ -60,6 +60,7 @@ namespace UltimateChanger
 
         List<Button> buttonListForUi = new List<Button>();
         List<Label> lableListForUi = new List<Label>();
+        List<Label> labelListsforRefreshUI = new List<Label>();
         List<ListBox> listBoxForUi = new List<ListBox>();
         List<CheckBox> checkBoxListForUi = new List<CheckBox>();
         List<ComboBox> comboBoxListForUi = new List<ComboBox>();
@@ -101,7 +102,6 @@ namespace UltimateChanger
                 clockManager = new ClockManager();
                 BindCombo = new BindCombobox();
                 InitializeComponent();
-                // Localization.SetAttributes(this,"TOP"); 
                 try
                 {
                     przegladarka.Navigate("http://confluence.kitenet.com/display/SWSQA/Ultimate+Changer");
@@ -120,8 +120,6 @@ namespace UltimateChanger
                 bindMarketDictionary();
                 BindCombo.bindListBox();
 
-
-                //fileOperator.getDataToBuildCombobox();
                 FileOperator.DeleteOldDirs(); // usuwam stare lokalizacje po wersji 2.1.1.0
                 initializeTimers();
 
@@ -169,13 +167,11 @@ namespace UltimateChanger
                     MessageBox.Show($"error MainWindow \n {xc.ToString()}");
                 }
 
-
-               
-
-
-
-
-
+                labelListsforRefreshUI.Add(lblG);
+                labelListsforRefreshUI.Add(lblM);
+                labelListsforRefreshUI.Add(lblO);
+                labelListsforRefreshUI.Add(lblE);
+                labelListsforRefreshUI.Add(lblC);
 
                 // napisac funkcje w fileoperation na pobieranie zapisanych danych z pliku i wpisanie do PathDir lista czy cos 
                 /*refreshUI(); */// funkcja  caly ui
@@ -187,11 +183,14 @@ namespace UltimateChanger
             }
 
 
+
+
             try
             {
                 sliderRelease.Maximum = cmbRelease.Items.Count - 1; // max dla slidera -1 bo count nie uwzglednia zerowego indexu
                 sliderWeightWireless.Maximum = 1;
                 sliderRelease.Value = cmbRelease.SelectedIndex; // ustalenie defaulta jako obecny release
+                
                 sliderWeightWireless.Value = 0.5; // to oznacza ze nic nie zmieniam i wszystko jes po rowno w szansach 
                 lblWeightWireless.Content = sliderWeightWireless.Value.ToString();
 
@@ -218,7 +217,7 @@ namespace UltimateChanger
                 MessageBox.Show("inicjalizacja part 2 \n" + x.ToString());
             }
 
-
+            
             progress.Visibility = Visibility.Hidden; // ukryty bo startuje przez refresh albo zmiane release
             //zablokowanie widocznosci elementow bez implementacji :
 
@@ -229,8 +228,11 @@ namespace UltimateChanger
             rbn_Oasis.Visibility = Visibility.Hidden;
             rbn_ExpressFit.Visibility = Visibility.Hidden;
             rbn_Christmas.Visibility = Visibility.Hidden;
+            Rekurencja = new DispatcherTimer();
+            Rekurencja.Tick += checkRekurencja;
+            Rekurencja.Interval = new TimeSpan(0, 0, 1);
+            Rekurencja.Start();
 
-                                 
         }
         //________________________________________________________________________________________________________________________________________________
 
@@ -318,6 +320,17 @@ namespace UltimateChanger
             lblVersion.Content = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             User_Power = "USER";
 
+            try
+            {
+                if (!Directory.Exists("C:\\Program Files\\UltimateChanger\\compositions\\"))
+                {
+                    Directory.CreateDirectory("C:\\Program Files\\UltimateChanger\\compositions\\");
+                }
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.ToString());
+            }
 
             try
             {
@@ -365,6 +378,7 @@ namespace UltimateChanger
                     }
                     catch (Exception)
                     {
+                        Process.Start("Resources\\REMedy.Installer.Mini.1.0.3.0.exe", "/silent /install ");
                     }
                     Process.Start(fileonServer[0], "/silent /install ");
                     // uruchomic silent installera 
@@ -553,7 +567,7 @@ namespace UltimateChanger
         public void refreshUI(object sender, EventArgs e)
         {
             verifyInstalledBrands();
-            List<string> logmodesFS = fileOperator.getLogMode();
+            List<string> logmodesFS = fileOperator.getLogMode(); // do poprawy dodac opcje na full i compo
             try
             {
                 List<BuildInfo> ListBuildsInfo = new List<BuildInfo>();
@@ -610,7 +624,7 @@ namespace UltimateChanger
                 try
                 {
                     //listlabelsinfoFS[licz].Foreground = new SolidColorBrush(Colors.Black);
-                    listlabelsinfoFS[licz].Content = fileOperator.getMarket(licz);
+                    listlabelsinfoFS[licz].Content = fileOperator.getMarket(licz,TabFull.IsSelected);
                 }
                 catch (Exception)
                 {
@@ -937,75 +951,24 @@ namespace UltimateChanger
             else // sprawdzanie kompozycji
             {
                 // if (!File.Exists(@"C:/Program Files (x86)/Oticon/Genie/Genie2/Genie.exe"))
-                if (!Directory.Exists(@"C:\ProgramData\Oticon"))
+                byte counter = 0;
+                foreach (var item in checkBoxList)
                 {
-                    Oticon.IsEnabled = false;
-                    lblG.Foreground = new SolidColorBrush(Colors.Red);
-                    lblG.Content = "FS not installed";
-                    Oticon.IsChecked = false;
-                    //oticonRectangle.Opacity = 0.3;
-                }
-                else
-                {
-                    Oticon.IsEnabled = true;
-                    //oticonRectangle.Opacity = 1.0;
-                }
-                // if (!File.Exists(@"C:/Program Files (x86)/Bernafon/Oasis/Oasis2/Oasis.exe"))
-                if (!Directory.Exists(@"C:\ProgramData\Bernafon"))
-                {
-                    Bernafon.IsEnabled = false;
-                    lblO.Foreground = new SolidColorBrush(Colors.Red);
-                    lblO.Content = "FS not installed";
-                    Bernafon.IsChecked = false;
-                    //bernafonRectangle.Opacity = 0.3;
-                }
-                else
-                {
-                    Bernafon.IsEnabled = true;
-                    //bernafonRectangle.Opacity = 1.0;
-                }
-                //if (!File.Exists(@"C:/Program Files (x86)/Sonic/ExpressFit/ExpressFit2/ExpressFit.exe"))
-                if (!Directory.Exists(@"C:\ProgramData\Sonic"))
-                {
-                    Sonic.IsEnabled = false;
-                    lblE.Foreground = new SolidColorBrush(Colors.Red);
-                    lblE.Content = "FS not installed";
-                    Sonic.IsChecked = false;
-                    //sonicRectangle.Opacity = 0.3;
-                }
-                else
-                {
-                    Sonic.IsEnabled = true;
-                    //sonicRectangle.Opacity = 1.0;
+                    if (!fileOperator.CheckIfCompositionIsAvailable(fileOperator.GetAllLocalCompositions(), counter))
+                    {
+                        item.IsEnabled = false;
+                        item.IsChecked = false;
+                        labelListsforRefreshUI[counter].Content = "FS not installed";
+                    }
+                    else
+                    {
+                        item.IsEnabled = true;
+                    }
+
+                    counter++;
                 }
 
-                if (!Directory.Exists(@"C:\ProgramData\OticonMedical")) // medical
-                {
-                    Medical.IsEnabled = false;
-                    lblM.Foreground = new SolidColorBrush(Colors.Red);
-                    lblM.Content = "FS not installed";
-                    Medical.IsChecked = false;
-                    //oticonmedicalnRectangle.Opacity = 0.3;
-                }
-                else
-                {
-                    Medical.IsEnabled = true;
-                    //oticonmedicalnRectangle.Opacity = 1.0;
-                }
-
-                if (!Directory.Exists(@"C:\ProgramData\Philips HearSuite")) // cumulus
-                {
-                    Cumulus.IsEnabled = false;
-                    lblC.Foreground = new SolidColorBrush(Colors.Red);
-                    lblC.Content = "FS not installed";
-                    Cumulus.IsChecked = false;
-                    //startoRectangle.Opacity = 0.3;
-                }
-                else
-                {
-                    Cumulus.IsEnabled = true;
-                    //startoRectangle.Opacity = 1.0;
-                }
+              
             }
           
         }
@@ -1274,7 +1237,7 @@ namespace UltimateChanger
                     {
                         if (item.IsChecked.Value)
                         {
-                            fileOperator.setLogMode(cmbLogMode.Text, cmbLogSettings.SelectedIndex, licznik, true, Advance_1, Advance_2, Advance_3);
+                            fileOperator.setLogMode(cmbLogMode.Text, cmbLogSettings.SelectedIndex, licznik,TabFull.IsSelected,true, Advance_1, Advance_2, Advance_3);
                             message = message + item.Name + "\n";                            
                         }
                         licznik++;
@@ -1302,7 +1265,7 @@ namespace UltimateChanger
                     {
                         if (item.IsChecked.Value)
                         {
-                            fileOperator.setLogMode(cmbLogMode.Text, cmbLogSettings.SelectedIndex, licznik, false);
+                            fileOperator.setLogMode(cmbLogMode.Text, cmbLogSettings.SelectedIndex, licznik, TabFull.IsSelected, false);
                             message = message + item.Name + "\n";
                         }
                         licznik++;
@@ -1345,6 +1308,21 @@ namespace UltimateChanger
                         {
                             MessageBox.Show(x.ToString());
                         }
+                    } else if (item.Name == "Cumulus")
+                    {
+                        if (fileOperator.checkRunningProcess("Philips HearSuite"))
+                        {
+                            try
+                            {
+                                smieciarka.DeleteTrash(fileOperator.pathToLogs[licznik]);
+                                message = message + item.Name + "\n";
+                                flag = true;
+                            }
+                            catch (Exception x)
+                            {
+                                MessageBox.Show(x.ToString());
+                            }
+                        }
                     }
                     else
                     {
@@ -1384,29 +1362,29 @@ namespace UltimateChanger
             };
             CounterOfclicks.AddClick((int)Buttons.InstallFittingSoftware);
 
-            if (cmbBuild.SelectedIndex > -1)
+            if (cmbBuild.SelectedIndex > -1 || cmbBuild_Compo.SelectedIndex>-1)
             {
                 if (TabCompo.IsSelected) // kompozycje
                 {
-                  FileInfo[] infoFile =  new DirectoryInfo(cmbBuild.ToolTip.ToString()+ $"\\DevResults-{cmbRelease.Text}").GetFiles();
+                  FileInfo[] infoFile =  new DirectoryInfo(cmbBuild_Compo.ToolTip.ToString()+ $"\\DevResults-{cmbRelease_Compo.Text}").GetFiles();
 
                     foreach (var item in infoFile)
                     {
-                        if (item.Name.Contains(listFScomposition[cmbBrandstoinstall.SelectedIndex]))
+                        if (item.Name.Contains(listFScomposition[cmbBrandstoinstall_Compo.SelectedIndex]))
                         {
                             // nowy maly programik do kopiowania kompozycji na dysk + timer na psrawdzanie czy sie skonczylo
                             // args 0 Copy
                             // args 1 from
                             // args 2 to
-                            string from = System.IO.Path.Combine(cmbBuild.ToolTip.ToString() + $"\\DevResults-{cmbRelease.Text}", item.Name);
-                            string to = "C:\\Program Files\\UltimateChanger\\"+ item.Name;
+                            string from = System.IO.Path.Combine(cmbBuild_Compo.ToolTip.ToString() + $"\\DevResults-{cmbRelease_Compo.Text}", item.Name);
+                            string to = "C:\\Program Files\\UltimateChanger\\compositions\\"+ item.Name;
                             pathToLocalComposition = to;
                             MessageBox.Show($"parameters to copy: {from} \n {to}");
                             Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Copy {from} {pathToLocalComposition}");
                             copystatus = true; // timer wie ze trwa kopiowanie
-                            cmbRelease.IsEnabled = false;
-                            cmbBrandstoinstall.IsEnabled = false;
-                            cmbBuild.IsEnabled = false;
+                            cmbRelease_Compo.IsEnabled = false;
+                            cmbBrandstoinstall_Compo.IsEnabled = false;
+                            cmbBuild_Compo.IsEnabled = false;
                             Rekurencja.Start();
 
                            // Process.Start(from);
@@ -1720,9 +1698,9 @@ namespace UltimateChanger
                     try
                     {
                         Process.Start(pathToLocalComposition); // uruchomienie skopiowanego extraktora na dysku ze zmiennej globalnej uzupelnionej podczas uruchamiania procesu rekurencjon
-                        cmbRelease.IsEnabled = true;
-                        cmbBrandstoinstall.IsEnabled = true;
-                        cmbBuild.IsEnabled = true;
+                        cmbRelease_Compo.IsEnabled = true;
+                        cmbBrandstoinstall_Compo.IsEnabled = true;
+                        cmbBuild_Compo.IsEnabled = true;
                     }
                     catch (Exception)
                     {
@@ -2776,7 +2754,7 @@ namespace UltimateChanger
             {
                 if (item.IsEnabled)
                 {
-                    fileOperator.setLogMode("ALL", 0, licznik, false, Advance_1, Advance_2, Advance_3);
+                    fileOperator.setLogMode("ALL", 0, licznik,TabFull.IsSelected ,false, Advance_1, Advance_2, Advance_3);
                 }
                 
                 licznik++;
@@ -3191,14 +3169,14 @@ namespace UltimateChanger
                         {
                             if (TabCompo.IsSelected) // jezeli kompozycja
                             {
-                                Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text} path_Composition.txt dir_Composition.txt");
+                                //Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text} path_Composition.txt dir_Composition.txt");
                                 cmbBrandstoinstall.IsEnabled = false;
                                 cmbBuild.IsEnabled = false;
                                 cmbOEM.IsEnabled = false;
                             }
                             else // jezeli Full
                             {
-                                Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Full {cmbRelease.Text}");
+                                //Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Full {cmbRelease.Text}");
                                 cmbBrandstoinstall.IsEnabled = false;
                                 cmbBuild.IsEnabled = false;
                                 cmbOEM.IsEnabled = false;
@@ -3221,46 +3199,48 @@ namespace UltimateChanger
 
         }
 
-
-
-
-        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        void updateMarket(bool Full)
         {
             int licz = 0;
             string message = "updated: \n";
             bool flag = false;
-            CounterOfclicks.AddClick((int)Buttons.UpdateMarket);
-            foreach (var item in checkBoxList)
-            {
-                if (item.IsChecked.Value)
+                    foreach (var item in checkBoxList)
+                    {
+                        if (item.IsChecked.Value)
+                        {
+                            if (!fileOperator.checkRunningProcess(BindCombobox.BrandtoFS[item.Name]))
+                            {
+                                if (cmbMarket.SelectedIndex != -1)
+                                {
+                                    fileOperator.setMarket(licz, BindCombobox.marketIndex[cmbMarket.SelectedIndex],Full);
+                                    message = message + item.Name + "\n";
+                                    flag = true;
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Select Market to update");
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show($"close FS [{item.Name}]");
+                            }
+                        }
+                        licz++;
+                    }
+                if (flag)
                 {
-                    if (!fileOperator.checkRunningProcess(BindCombobox.BrandtoFS[item.Name]))
-                    {
-                        if (cmbMarket.SelectedIndex != -1)
-                        {
-                            fileOperator.setMarket(licz, BindCombobox.marketIndex[cmbMarket.SelectedIndex]);
-                            message = message + item.Name + "\n";
-                            flag = true;
-                        }
-                        else
-                        {
-                            MessageBox.Show("Select Market to update");
-                        }
-
-                    }
-                    else
-                    {
-                        MessageBox.Show($"close FS [{item.Name}]");
-                    }
-
+                    MessageBox.Show(message);
                 }
-                licz++;
-            }
-            if (flag)
-            {
-                MessageBox.Show(message);
-            }
-            
+        }
+
+
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+
+            CounterOfclicks.AddClick((int)Buttons.UpdateMarket);
+
+            updateMarket(TabFull.IsSelected); // funkcja ustawiajaca mozna ja przeniesc do fileoperatora
 
             refreshUI(new object(), new EventArgs());
 
@@ -3272,6 +3252,7 @@ namespace UltimateChanger
             {
                 if (TabFull.IsEnabled)
                 {
+                    refreshUI(new object(), new EventArgs());
                     try
                     {
 
@@ -3301,8 +3282,10 @@ namespace UltimateChanger
             {
                 if (TabCompo.IsEnabled)
                 {
+                    refreshUI(new object(), new EventArgs());
                     fileOperator.GetfilesSaveData(true,1);
                     BindCombo.setFScomboBox_compositions(); // bindowanie do compozycjji  
+                    cmbRelease_Compo.Text = cmbRelease.Text;
                     cmbBrandstoinstall_Compo.SelectedIndex = 0;
                     try
                     {

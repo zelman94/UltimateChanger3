@@ -143,6 +143,7 @@ namespace UltimateChanger
             bind = myXMLReader.getReleases();
             List<string> tmp = new List<string>();
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease.ItemsSource = bind;
+            ((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease_Compo.ItemsSource = bind;
 
             int rok = System.DateTime.Today.Year;
             int release = rok - 2000;
