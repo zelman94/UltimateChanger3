@@ -109,10 +109,16 @@ namespace UltimateChanger
 
         public List<string> pathToLogMode = myXMLReader.getPaths("pathToLogMode");
         public List<string> pathToLogMode_Compo = new List<string>();
+        public List<string> pathToManufacturerInfo_Compo = new List<string>();
 
         public void getPathToLogMode_Compo() // zapisuje do listy pathToLogMode_Compo zebrane kompozycje pathy do ustawien logow
         {
-          List<string> tmp = Directory.GetFiles(@"C:\Program Files\UltimateChanger\compositions\", "Configure.log4net",SearchOption.AllDirectories).ToList();
+            pathToLogMode_Compo = Directory.GetFiles(@"C:\Program Files\UltimateChanger\compositions\", "Configure.log4net",SearchOption.AllDirectories).ToList();
+        }
+
+        public void getPathToManufacturerInfo_Compo() // zapisuje do listy pathToLogMode_Compo zebrane kompozycje pathy do ustawien logow
+        {
+            pathToManufacturerInfo_Compo = Directory.GetFiles(@"C:\Program Files\UltimateChanger\compositions\", "ManufacturerInfo.xml", SearchOption.AllDirectories).ToList();
         }
 
         public string FindSettingFileForComposition(int numberOfCheckbox)
@@ -530,14 +536,25 @@ namespace UltimateChanger
 
         }
 
-        public void setMarket(int licz, string market)
+        public void setMarket(int licz, string market,bool FULL)
         {
             try
             {
                 XmlDocument doc = new XmlDocument();
-                doc.Load(BuildInfo.ListPathsToManInfo[licz]);
-                doc.SelectSingleNode("/ManufacturerInfo/MarketName").InnerText = market;
-                doc.Save(BuildInfo.ListPathsToManInfo[licz]);
+                if (FULL) // dla full nic nie zmieniam
+                {
+                    doc.Load(BuildInfo.ListPathsToManInfo[licz]);
+                    doc.SelectSingleNode("/ManufacturerInfo/MarketName").InnerText = market;
+                    doc.Save(BuildInfo.ListPathsToManInfo[licz]);
+                }
+                else // nowa funkcja na wyszukiwanie pliku dla kompozycji
+                {
+                    getPathToManufacturerInfo_Compo();
+                    
+                    doc.Load(FindSettingFileForComposition(licz));
+                    doc.SelectSingleNode("/ManufacturerInfo/MarketName").InnerText = market;
+                    doc.Save(FindSettingFileForComposition(licz));
+                }
             }
             catch (Exception)
             {

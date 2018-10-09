@@ -3241,46 +3241,48 @@ namespace UltimateChanger
 
         }
 
-
-
-
-        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        void updateMarket(bool Full)
         {
             int licz = 0;
             string message = "updated: \n";
             bool flag = false;
-            CounterOfclicks.AddClick((int)Buttons.UpdateMarket);
-            foreach (var item in checkBoxList)
-            {
-                if (item.IsChecked.Value)
+                    foreach (var item in checkBoxList)
+                    {
+                        if (item.IsChecked.Value)
+                        {
+                            if (!fileOperator.checkRunningProcess(BindCombobox.BrandtoFS[item.Name]))
+                            {
+                                if (cmbMarket.SelectedIndex != -1)
+                                {
+                                    fileOperator.setMarket(licz, BindCombobox.marketIndex[cmbMarket.SelectedIndex],Full);
+                                    message = message + item.Name + "\n";
+                                    flag = true;
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Select Market to update");
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show($"close FS [{item.Name}]");
+                            }
+                        }
+                        licz++;
+                    }
+                if (flag)
                 {
-                    if (!fileOperator.checkRunningProcess(BindCombobox.BrandtoFS[item.Name]))
-                    {
-                        if (cmbMarket.SelectedIndex != -1)
-                        {
-                            fileOperator.setMarket(licz, BindCombobox.marketIndex[cmbMarket.SelectedIndex]);
-                            message = message + item.Name + "\n";
-                            flag = true;
-                        }
-                        else
-                        {
-                            MessageBox.Show("Select Market to update");
-                        }
-
-                    }
-                    else
-                    {
-                        MessageBox.Show($"close FS [{item.Name}]");
-                    }
-
+                    MessageBox.Show(message);
                 }
-                licz++;
-            }
-            if (flag)
-            {
-                MessageBox.Show(message);
-            }
-            
+        }
+
+
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+
+            CounterOfclicks.AddClick((int)Buttons.UpdateMarket);
+
+            updateMarket(TabFull.IsSelected); // funkcja ustawiajaca mozna ja przeniesc do fileoperatora
 
             refreshUI(new object(), new EventArgs());
 
