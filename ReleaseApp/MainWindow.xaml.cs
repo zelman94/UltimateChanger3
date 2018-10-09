@@ -1337,27 +1337,27 @@ namespace UltimateChanger
                         {
                             MessageBox.Show(x.ToString());
                         }
-                    } else if (item.Name == "Cumulus")
-                    {
-                        if (fileOperator.checkRunningProcess("Philips HearSuite"))
+                    }
+                    else if (item.Name == "Cumulus")
                         {
-                            try
+                            if (fileOperator.checkRunningProcess("Philips HearSuite"))
                             {
-                                smieciarka.DeleteTrash(fileOperator.pathToLogs[licznik]);
-                                message = message + item.Name + "\n";
-                                flag = true;
-                            }
-                            catch (Exception x)
-                            {
-                                MessageBox.Show(x.ToString());
+                                try
+                                {
+                                    smieciarka.DeleteTrash(fileOperator.pathToLogs[licznik]);
+                                    message = message + item.Name + "\n";
+                                    flag = true;
+                                }
+                                catch (Exception x)
+                                {
+                                    MessageBox.Show(x.ToString());
+                                }
                             }
                         }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Close FS to Delete Logs");
-                    }
-
+                        else
+                        {
+                            MessageBox.Show("Close FS to Delete Logs");
+                        }
                 }
                 licznik++;
             }
@@ -1365,7 +1365,6 @@ namespace UltimateChanger
             {
                 MessageBox.Show(message);
             }
-
         }
         private void cmbLogMode_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
