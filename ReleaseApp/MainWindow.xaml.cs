@@ -60,6 +60,7 @@ namespace UltimateChanger
 
         List<Button> buttonListForUi = new List<Button>();
         List<Label> lableListForUi = new List<Label>();
+        List<Label> labelListsforRefreshUI = new List<Label>();
         List<ListBox> listBoxForUi = new List<ListBox>();
         List<CheckBox> checkBoxListForUi = new List<CheckBox>();
         List<ComboBox> comboBoxListForUi = new List<ComboBox>();
@@ -166,6 +167,12 @@ namespace UltimateChanger
                     MessageBox.Show($"error MainWindow \n {xc.ToString()}");
                 }
 
+                labelListsforRefreshUI.Add(lblG);
+                labelListsforRefreshUI.Add(lblM);
+                labelListsforRefreshUI.Add(lblO);
+                labelListsforRefreshUI.Add(lblE);
+                labelListsforRefreshUI.Add(lblC);
+
                 // napisac funkcje w fileoperation na pobieranie zapisanych danych z pliku i wpisanie do PathDir lista czy cos 
                 /*refreshUI(); */// funkcja  caly ui
                 //fileOperator.GetInfoAboutFs(@"C:\ProgramData\Bernafon\Common\ManufacturerInfo.xml"); // dziala 
@@ -174,6 +181,8 @@ namespace UltimateChanger
             {
                 MessageBox.Show("inicjalizacja \n" + x.ToString());
             }
+
+
 
 
             try
@@ -558,7 +567,7 @@ namespace UltimateChanger
         public void refreshUI(object sender, EventArgs e)
         {
             verifyInstalledBrands();
-            List<string> logmodesFS = fileOperator.getLogMode();
+            List<string> logmodesFS = fileOperator.getLogMode(); // do poprawy dodac opcje na full i compo
             try
             {
                 List<BuildInfo> ListBuildsInfo = new List<BuildInfo>();
@@ -615,7 +624,7 @@ namespace UltimateChanger
                 try
                 {
                     //listlabelsinfoFS[licz].Foreground = new SolidColorBrush(Colors.Black);
-                    listlabelsinfoFS[licz].Content = fileOperator.getMarket(licz);
+                    listlabelsinfoFS[licz].Content = fileOperator.getMarket(licz,TabFull.IsSelected);
                 }
                 catch (Exception)
                 {
@@ -942,75 +951,24 @@ namespace UltimateChanger
             else // sprawdzanie kompozycji
             {
                 // if (!File.Exists(@"C:/Program Files (x86)/Oticon/Genie/Genie2/Genie.exe"))
-                if (!Directory.Exists(@"C:\ProgramData\Oticon"))
+                byte counter = 0;
+                foreach (var item in checkBoxList)
                 {
-                    Oticon.IsEnabled = false;
-                    lblG.Foreground = new SolidColorBrush(Colors.Red);
-                    lblG.Content = "FS not installed";
-                    Oticon.IsChecked = false;
-                    //oticonRectangle.Opacity = 0.3;
-                }
-                else
-                {
-                    Oticon.IsEnabled = true;
-                    //oticonRectangle.Opacity = 1.0;
-                }
-                // if (!File.Exists(@"C:/Program Files (x86)/Bernafon/Oasis/Oasis2/Oasis.exe"))
-                if (!Directory.Exists(@"C:\ProgramData\Bernafon"))
-                {
-                    Bernafon.IsEnabled = false;
-                    lblO.Foreground = new SolidColorBrush(Colors.Red);
-                    lblO.Content = "FS not installed";
-                    Bernafon.IsChecked = false;
-                    //bernafonRectangle.Opacity = 0.3;
-                }
-                else
-                {
-                    Bernafon.IsEnabled = true;
-                    //bernafonRectangle.Opacity = 1.0;
-                }
-                //if (!File.Exists(@"C:/Program Files (x86)/Sonic/ExpressFit/ExpressFit2/ExpressFit.exe"))
-                if (!Directory.Exists(@"C:\ProgramData\Sonic"))
-                {
-                    Sonic.IsEnabled = false;
-                    lblE.Foreground = new SolidColorBrush(Colors.Red);
-                    lblE.Content = "FS not installed";
-                    Sonic.IsChecked = false;
-                    //sonicRectangle.Opacity = 0.3;
-                }
-                else
-                {
-                    Sonic.IsEnabled = true;
-                    //sonicRectangle.Opacity = 1.0;
+                    if (!fileOperator.CheckIfCompositionIsAvailable(fileOperator.GetAllLocalCompositions(), counter))
+                    {
+                        item.IsEnabled = false;
+                        item.IsChecked = false;
+                        labelListsforRefreshUI[counter].Content = "FS not installed";
+                    }
+                    else
+                    {
+                        item.IsEnabled = true;
+                    }
+
+                    counter++;
                 }
 
-                if (!Directory.Exists(@"C:\ProgramData\OticonMedical")) // medical
-                {
-                    Medical.IsEnabled = false;
-                    lblM.Foreground = new SolidColorBrush(Colors.Red);
-                    lblM.Content = "FS not installed";
-                    Medical.IsChecked = false;
-                    //oticonmedicalnRectangle.Opacity = 0.3;
-                }
-                else
-                {
-                    Medical.IsEnabled = true;
-                    //oticonmedicalnRectangle.Opacity = 1.0;
-                }
-
-                if (!Directory.Exists(@"C:\ProgramData\Philips HearSuite")) // cumulus
-                {
-                    Cumulus.IsEnabled = false;
-                    lblC.Foreground = new SolidColorBrush(Colors.Red);
-                    lblC.Content = "FS not installed";
-                    Cumulus.IsChecked = false;
-                    //startoRectangle.Opacity = 0.3;
-                }
-                else
-                {
-                    Cumulus.IsEnabled = true;
-                    //startoRectangle.Opacity = 1.0;
-                }
+              
             }
           
         }
@@ -3294,6 +3252,7 @@ namespace UltimateChanger
             {
                 if (TabFull.IsEnabled)
                 {
+                    refreshUI(new object(), new EventArgs());
                     try
                     {
 
@@ -3323,6 +3282,7 @@ namespace UltimateChanger
             {
                 if (TabCompo.IsEnabled)
                 {
+                    refreshUI(new object(), new EventArgs());
                     fileOperator.GetfilesSaveData(true,1);
                     BindCombo.setFScomboBox_compositions(); // bindowanie do compozycjji  
                     cmbRelease_Compo.Text = cmbRelease.Text;

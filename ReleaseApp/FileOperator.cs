@@ -125,15 +125,49 @@ namespace UltimateChanger
         {
             string path = "";
 
-            foreach (var item in pathToLogMode_Compo)
+            foreach (var item in pathToManufacturerInfo_Compo)
             {
                 if (item.Contains(listCompoNames[numberOfCheckbox]))
                 {
-                    return path;
+                    return item;
                 }
             }
 
             return path;
+        }
+        public List<string> GetAllLocalCompositions() // lista nazw katalogow z kompozycjami
+        {
+            List<string> LocalCompos = new List<string>();
+            try
+            {
+                LocalCompos = Directory.GetDirectories(@"C:\Program Files\UltimateChanger\compositions").ToList();
+            }
+            catch (Exception)
+            {
+
+            }
+            return LocalCompos;
+        }
+
+        public bool CheckIfCompositionIsAvailable(List<string> LocalCompos,int Brand)
+        {
+            
+            foreach (var item in LocalCompos)
+            {
+                if (item.Contains(listCompoNames[Brand]))
+                {
+                    return true;
+                }
+                else if(listCompoNames[Brand] == "CumulusC")
+                {
+                    if (item.Contains("HearSuite"))
+                    {
+                        return true;
+                    }
+                   
+                }
+            }
+            return false;
         }
 
 
@@ -563,10 +597,19 @@ namespace UltimateChanger
 
         }
 
-        public string getMarket(int licz)
+        public string getMarket(int licz,bool FULL)
         {
             XmlDocument doc = new XmlDocument();
-            doc.Load(BuildInfo.ListPathsToManInfo[licz]);
+            if (FULL)
+            {
+                doc.Load(BuildInfo.ListPathsToManInfo[licz]);
+            }
+            else // dla kompozyji
+            {
+                getPathToManufacturerInfo_Compo();
+                doc.Load(FindSettingFileForComposition(licz));
+            }
+           
             return doc.SelectSingleNode("/ManufacturerInfo/MarketName").InnerText;
         }
 
