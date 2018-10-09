@@ -1201,6 +1201,34 @@ namespace UltimateChanger
            
         }
 
+        public void StartGearbox()
+        {
+            string PathToGearbox = "C:\\toolsuites\\gearbox\\eclipseg\\";            
+            PathToGearbox += new DirectoryInfo("C:\\toolsuites\\gearbox\\eclipseg").GetDirectories()
+                                   .OrderByDescending(d => d.LastWriteTimeUtc).First().ToString();
+
+            try
+            {
+                Process.Start(PathToGearbox+ "\\eclipse.exe");
+            }
+            catch (Exception x) // nie ma gearboxa moze jest zainstalowany w innej lokalizacji ? albo dać możliwość do zainstalowania 
+            { // dopisać funkcjonalość na zapis katalogu do xml i mozliwosc edycji 
+                MessageBox.Show(x.ToString() + PathToGearbox + "\\eclipse.exe");
+            }
+        }
+
+        public void StartNoah()
+        {
+            try
+            {
+                Process.Start("C:\\Program Files (x86)\\HIMSA\\Noah 4\\Noah4.exe");
+            }
+            catch (Exception x )
+            {
+                MessageBox.Show("Noah Problem");
+            }
+        }
+
 
     }
 }

@@ -837,9 +837,9 @@
                     <Button  Content="Select all FS" Click="Button_Click" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" BorderBrush="#FF424242" Background="#FF616161" Foreground="#E5FFFFFF" Margin="10 0"/>
                     <Button Content="Kill All FS" Grid.Row="0" Grid.Column="1" Click="Button_Click_2" ToolTip="All FS will be closed" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" VerticalAlignment="Center"/>
                     <Button x:Name="btnNewPrecon" Content="NewPreconditioner" Grid.Row="1" Grid.Column="0" Click="btnFS_Click" Background="#FF616161" BorderBrush="#FF424242" Foreground="White" Margin="10 0" VerticalAlignment="Center"/>
-                    <Button x:Name="btnNoah" Content="Noah4" Grid.Row="1" Grid.Column="1" Click="btnFS_Click" Background="#FF616161" BorderBrush="#FF424242" Foreground="White" Margin="10 0" VerticalAlignment="Center"/>
+                    <Button x:Name="btnNoah" Content="Noah4" Grid.Row="1" Grid.Column="1" Click="Click_btnNoah" Background="#FF616161" BorderBrush="#FF424242" Foreground="White" Margin="10 0" VerticalAlignment="Center"/>
                     <Button x:Name="btnFakeV" Content="REMedy" Grid.Row="2" Click="btnFakeV_Click" Background="#FF616161" BorderBrush="#FF424242" Foreground="White" Margin="10 0" VerticalAlignment="Center"/>
-                    <Button x:Name="btnGearbox"  Content="Gearbox" Grid.Row="2" Grid.Column="1" Click="btnFS_Click" Background="#FF616161" BorderBrush="#FF424242" Foreground="White" Margin="10 0" VerticalAlignment="Center"/>
+                    <Button x:Name="btnGearbox"  Content="Gearbox" Grid.Row="2" Grid.Column="1" Click="btn_Gearbox" Background="#FF616161" BorderBrush="#FF424242" Foreground="White" Margin="10 0" VerticalAlignment="Center"/>
                     <Button Content="Downgrade HW" Grid.Column="0"  Grid.Row="3" Click="Downgrade" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" VerticalAlignment="Center"/>
                     
 

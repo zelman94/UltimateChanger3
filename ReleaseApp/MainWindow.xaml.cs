@@ -441,6 +441,16 @@ namespace UltimateChanger
             cmbLogSettings.IsEnabled = true;
             cmbMarket.IsEnabled = true;
             btnuninstal.IsEnabled = true;
+            // kompozycje:
+            cmbMarket_Compo.IsEnabled = true;
+            cmbLogMode_Compo.IsEnabled = true;
+            cmbLogSettings_Compo.IsEnabled = true;
+            btnAdvancelogs_Compo.IsEnabled = true;
+            btnLogMode_Compo.IsEnabled = true;
+            btnSavelogs_Compo.IsEnabled = true;
+            btnFS_Compo.IsEnabled = true;
+            btnHattori_Compo.IsEnabled = true;
+            btnDeletelogs_Compo.IsEnabled = true;
 
             List<string> logmod = fileOperator.getLogMode();
             List<string> ListofMarkets = new List<string>();
@@ -500,8 +510,23 @@ namespace UltimateChanger
                 cmbMarket.IsEnabled = false;
                 btnuninstal.IsEnabled = false;
 
+                // kompozycje:
+                cmbMarket_Compo.IsEnabled = false;
+                cmbLogMode_Compo.IsEnabled = false;
+                cmbLogSettings_Compo.IsEnabled = false;
+                btnAdvancelogs_Compo.IsEnabled = false;
+                btnLogMode_Compo.IsEnabled = false;
+                btnSavelogs_Compo.IsEnabled = false;
+                btnFS_Compo.IsEnabled = false;
+                btnHattori_Compo.IsEnabled = false;
+                btnDeletelogs_Compo.IsEnabled = false;
+
+
                 cmbMarket.SelectedIndex = -1;
                 cmbLogMode.SelectedIndex = -1;
+
+                cmbMarket_Compo.SelectedIndex = -1;
+                cmbLogMode_Compo.SelectedIndex = -1;
             }
             else
             {
@@ -3151,6 +3176,24 @@ namespace UltimateChanger
                 Rekurencja.Interval = new TimeSpan(0, 0, 1);
                 Rekurencja.Start();
             }
+        }
+
+        private void btn_Gearbox(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                fileOperator.StartGearbox();
+            }
+            catch (Exception)
+            {
+
+              
+            }
+        }
+
+        private void Click_btnNoah(object sender, RoutedEventArgs e)
+        {
+            fileOperator.StartNoah();
         }
 
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)
