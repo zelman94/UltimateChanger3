@@ -907,17 +907,30 @@
                                 <RadioButton GroupName="RBsilentNormal" Name="RBnormal" Content="Normal " Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBnormal_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0,3,0,4"/>
                             </Grid>
 
-                            <ProgressBar Name="progress" Grid.Column="1" Height="26" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="149" RenderTransformOrigin="0.5,0.5" BorderBrush="#FF424242" Background="#FF616161" Foreground="White" Margin="41,32,7,26">
-                                <ProgressBar.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform/>
-                                        <SkewTransform/>
-                                        <RotateTransform Angle="-0.289"/>
-                                        <TranslateTransform/>
-                                    </TransformGroup>
-                                </ProgressBar.RenderTransform>
-                            </ProgressBar>
+                            <Grid Grid.Column="1" Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
 
+                                <ProgressBar Name="progress" Grid.Column="0" Height="30" Grid.Row="0" BorderBrush="#FF424242" Background="#FF616161" Foreground="White" Margin="5">
+                                    <ProgressBar.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform/>
+                                            <SkewTransform/>
+                                            <RotateTransform Angle="-0.289"/>
+                                            <TranslateTransform/>
+                                        </TransformGroup>
+                                    </ProgressBar.RenderTransform>
+                                </ProgressBar>
+
+                                <Button Name="btnRefresh" Grid.Column="1"  VerticalAlignment="Center" ToolTip="refresh paths" Click="btnRefresh_Click" Margin="5" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"  >
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Stretch="Fill" Source="Images/refresh.PNG" Height="20" Width="20"/>
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
+ 
                             <Label Content="Fitting Software:" Foreground="White" Grid.Column="0" Grid.Row="1" FontWeight="SemiBold" FontSize="12.5" VerticalAlignment="Top"/>
                             <ComboBox x:Name="cmbBrandstoinstall" Grid.Row="1" Grid.Column="0" SelectionChanged="cmbbrandstoinstall_SelectionChanged" Foreground="White" BorderBrush="White" Margin="5 5" VerticalAlignment="Bottom"/>
                             <Grid Grid.Column="1" Grid.Row="1">
@@ -955,18 +968,14 @@
                             <Button x:Name="btnFS" Grid.Row="4" Grid.Column="2" Content="Start FS" Click="btnFSRun" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" VerticalAlignment="Center"/>
                             <Button x:Name="btnHattori" Content="Start Hattori" Click="btnHattori_Click" Grid.Row="4" Grid.Column="3" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" VerticalAlignment="Center"/>
                             
-                            <Button Name="btnRefresh" Grid.Column="1"  VerticalAlignment="Center" ToolTip="refresh paths" Click="btnRefresh_Click" Margin="10 0" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"  >
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Stretch="Fill" Source="Images/refresh.PNG" Height="25" Width="25"/>
-                                </StackPanel>
-                                <!--<Image x:Name="imgRefresh" Source="Images/refresh.PNG" HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="35"/>-->
-                            </Button>
-
+                            
                         </Grid>
                     </TabItem>
                     <TabItem Name="TabCompo" Header="Composition" Foreground="White">
                         <Grid x:Name="RightBottom_Compo" Grid.Column="1" Grid.Row="1">
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
                                 <ColumnDefinition Width="1*"/>
                                 <ColumnDefinition Width="1*"/>
                             </Grid.ColumnDefinitions>
@@ -975,53 +984,71 @@
                                 <RowDefinition Height="1*"/>
                                 <RowDefinition Height="1*"/>
                                 <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
                             </Grid.RowDefinitions>
 
-
-
-                            <Grid Grid.Column="0" Grid.Row="0">
+                            <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="1*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="1*"/>
-                                </Grid.RowDefinitions>
+                                <ProgressBar Name="progress_Compo" Grid.Column="0" Height="30" Grid.Row="0" BorderBrush="#FF424242" Background="#FF616161" Foreground="White" Margin="5">
+                                    <ProgressBar.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform/>
+                                            <SkewTransform/>
+                                            <RotateTransform Angle="-0.289"/>
+                                            <TranslateTransform/>
+                                        </TransformGroup>
+                                    </ProgressBar.RenderTransform>
+                                </ProgressBar>
+
+                                <Button Name="btnRefresh_Compo" Grid.Column="1"  VerticalAlignment="Center" ToolTip="refresh paths" Click="btnRefresh_Click" Margin="5" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"  >
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Stretch="Fill" Source="Images/refresh.PNG" Height="20" Width="20"/>
+                                    </StackPanel>
+                                </Button>
                             </Grid>
 
-                            <ProgressBar Name="progress_Compo" Grid.Column="1" Height="26" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="149" RenderTransformOrigin="0.5,0.5" BorderBrush="#FF424242" Background="#FF616161" Foreground="White" Margin="41,32,7,26">
-                                <ProgressBar.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform/>
-                                        <SkewTransform/>
-                                        <RotateTransform Angle="-0.289"/>
-                                        <TranslateTransform/>
-                                    </TransformGroup>
-                                </ProgressBar.RenderTransform>
-                            </ProgressBar>
-
-                            <Label Content="Fitting Software:" Foreground="White" Grid.Column="0" Grid.Row="1" FontWeight="SemiBold" FontSize="12.5"/>
-                            <ComboBox x:Name="cmbBrandstoinstall_Compo" Grid.Row="1" Grid.Column="0" SelectionChanged="cmbbrandstoinstall_SelectionChanged" Foreground="White" BorderBrush="White" Margin="5 0" />
-
-                            <ComboBox x:Name="cmbOEM_Compo" Grid.Column="1" Grid.Row="1" ToolTip="OEM version" SelectionChanged="cmbOEM_Compo_SelectionChanged" BorderBrush="White" Foreground="White" HorizontalAlignment="Left" Margin="5 0" Width="100"/>
-                            <ComboBox x:Name="cmbRelease_Compo" Grid.Column="1" Grid.Row="1" ToolTip="Release of FS" SelectionChanged="cmbRelease_SelectionChanged" BorderBrush="White" Foreground="White" HorizontalAlignment="Right" Margin="5 0" Width="70"/>
+                            <Label Content="Fitting Software:" Foreground="White" Grid.Column="0" Grid.Row="1" FontWeight="SemiBold" FontSize="12.5" VerticalAlignment="Top"/>
+                            <ComboBox x:Name="cmbBrandstoinstall_Compo" Grid.Row="1" Grid.Column="0" SelectionChanged="cmbbrandstoinstall_SelectionChanged" Foreground="White" BorderBrush="White" Margin="5 5" VerticalAlignment="Bottom"/>
+                            <Grid Grid.Column="1" Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox x:Name="cmbOEM_Compo" Grid.Column="0" ToolTip="OEM version" SelectionChanged="cmbOEM_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom"/>
+                                <ComboBox x:Name="cmbRelease_Compo" Grid.Column="1" ToolTip="Release of FS" SelectionChanged="cmbRelease_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom"/>
+                            </Grid>
 
 
-                            <Label Content="Build:" Grid.Row="2" Grid.Column="0" Foreground="White" FontWeight="SemiBold" FontSize="12.5"/>
-                            <ComboBox x:Name="cmbBuild_Compo" Grid.Row="2" Grid.Column="0" SelectionChanged="cmbBuild_Compo_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 0"/>
+                            <Label Content="Build:" Grid.Row="2" Grid.Column="0" Foreground="White" FontWeight="SemiBold" FontSize="12.5" VerticalAlignment="Top"/>
+                            <ComboBox x:Name="cmbBuild_Compo" Grid.Row="2" Grid.Column="0" SelectionChanged="cmbbuild_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom"/>
 
-                            <Button x:Name="btninstal_Compo" Content="Copy And Run" Click="btninstal_Click" Grid.Row="2" Grid.Column="1" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Top" Margin="5 0"/>
-                            <Button x:Name="btnInfo_Compo" Content="Copy path to build" Grid.Row="2" Grid.Column="1" Click="btnInfo_Click" IsEnabled="False" RenderTransformOrigin="0.255,-0.25" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Bottom" Margin="5 0 5 10"/>
-                            <Button Name="btnRefresh_Compo" Grid.Column="1" HorizontalAlignment="Left" Margin="5,0,0,25" Width="59" Height="30" VerticalAlignment="Bottom" ToolTip="refresh paths" Click="btnRefresh_Click"  >
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Stretch="Fill" Source="Images/refresh.PNG" Height="22" Width="29" RenderTransformOrigin="0.268,0.5"/>
-                                </StackPanel>
-                                <!--<Image x:Name="imgRefresh" Source="Images/refresh.PNG" HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="35"/>-->
-                            </Button>
+                            <Button x:Name="btninstal_Compo" Content="Install" Click="btninstal_Click" Grid.Row="3" Grid.Column="0" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Center" Margin="10 0"/>
+                            <Button x:Name="btnInfo_Compo" Content="Copy path to build" Grid.Row="3" Grid.Column="1" Click="btnInfo_Click" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Center" Margin="10 0"/>
+                            <Button x:Name="btnuninstal_Compo"  Grid.Row="4" Content="Uninstall FS" Click="btnuninstal_Click" Grid.Column="0" ToolTip="Selected FS will be uninstalled only if your installation process was started witch Ultimate Changer" IsEnabled="false" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" VerticalAlignment="Center"/>
+                            <Button x:Name="btnDelete_Compo" Grid.Row="4" Grid.Column="1" Content="Delete trash" Click="btnDelete_Click" ToolTip="All data files of selected FS will be deleted (also client sesion)" IsEnabled="False" Foreground="#E5FFFFFF" BorderBrush="#FF424242" Background="#FF616161" Margin="10 0" VerticalAlignment="Center" Visibility="Hidden"/>
 
+                            <Label x:Name="lblSelectMarket_Compo" Content="Select market:" Foreground="White" HorizontalAlignment="Left" FontWeight="SemiBold" FontSize="12.5" Grid.Column="2" Grid.Row="0" VerticalAlignment="Top"/>
+                            <ComboBox x:Name="cmbMarket_Compo" MaxDropDownHeight="150" SelectedIndex="0" SelectionChanged="cmbMarket_SelectionChanged" IsEnabled="False" Foreground="White" BorderBrush="White" Margin="5 5" Grid.Column="2" Grid.Row="0" VerticalAlignment="Bottom"/>
+                            <Button x:Name="btnUpdate_Compo" Grid.Row="0" Grid.Column="3" Content="Update market"  Click="btnUpdate_Click" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
+
+                            <Label x:Name="lblSelectLogMode_Compo" Grid.Row="1" Grid.Column="2"  Content="Select log mode:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontWeight="SemiBold" FontSize="12.5"/>
+                            <ComboBox x:Name="cmbLogMode_Compo" Grid.Row="1" Grid.Column="2" MaxDropDownHeight="150" SelectedIndex="0"  SelectionChanged="cmbLogMode_SelectionChanged" IsEnabled="False" Foreground="White" BorderBrush="White" Margin="5 5" VerticalAlignment="Bottom"/>
+
+                            <Label x:Name="lblSelectlogSettings_Compo" Grid.Row="1" Grid.Column="3"  Content="Select log settings:" Foreground="White" FontWeight="SemiBold" FontSize="12.5" VerticalAlignment="Top"/>
+                            <ComboBox x:Name="cmbLogSettings_Compo" Grid.Row="1" Grid.Column="3" MaxDropDownHeight="150" SelectedIndex="0"  SelectionChanged="cmbLogMode_SelectionChanged" IsEnabled="False" Foreground="White" BorderBrush="White" Margin="5 5" VerticalAlignment="Bottom"/>
+
+                            <Button x:Name="btnLogMode_Compo" Content="Update mode"  Click="btnChange_mode_log" Grid.Row="2" IsEnabled="False" Grid.Column="2" VerticalAlignment="Center" BorderBrush="#FF424242" Background="#FF616161" Foreground="#E5FFFFFF" Margin="10 0"/>
+                            <Button x:Name="btnAdvancelogs_Compo" Content="Advance log settings"  Click="btnAdvancelogs_Click" IsEnabled="False" Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" Background="#FF616161" BorderBrush="#FF424242" Foreground="White" Margin="10 0" Visibility="Visible"/>
+                            <Button x:Name="btnDeletelogs_Compo" Grid.Row="3" Grid.Column="3" VerticalAlignment="Center" Content="Delete log files" Click="btnDelete_logs" ToolTip="All log files of selected FS will be deleted" IsEnabled="False" Foreground="#E5FFFFFF" Background="#FF616161" BorderBrush="#FF424242" Margin="10 0"/>
+                            <Button x:Name="btnSavelogs_Compo" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" Content="Save Log" Click="btnSavelogs_Click" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"  Margin="10 0"/>
+                            <Button x:Name="btnFS_Compo" Grid.Row="4" Grid.Column="2" Content="Start FS" Click="btnFSRun" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" VerticalAlignment="Center"/>
+                            <Button x:Name="btnHattori_Compo" Content="Start Hattori" Click="btnHattori_Click" Grid.Row="4" Grid.Column="3" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" VerticalAlignment="Center"/>
                         </Grid>
                     </TabItem>
                 </TabControl>
