@@ -1038,10 +1038,10 @@
                             <Button x:Name="btnUpdate_Compo" Grid.Row="0" Grid.Column="3" Content="Update market"  Click="btnUpdate_Click" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
 
                             <Label x:Name="lblSelectLogMode_Compo" Grid.Row="1" Grid.Column="2"  Content="Select log mode:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontWeight="SemiBold" FontSize="12.5"/>
-                            <ComboBox x:Name="cmbLogMode_Compo" Grid.Row="1" Grid.Column="2" MaxDropDownHeight="150" SelectedIndex="0"  SelectionChanged="cmbLogMode_SelectionChanged" IsEnabled="False" Foreground="White" BorderBrush="White" Margin="5 5" VerticalAlignment="Bottom"/>
+                            <ComboBox x:Name="cmbLogMode_Compo" Grid.Row="1" Grid.Column="2" MaxDropDownHeight="150" SelectedIndex="0"  SelectionChanged="cmbLogMode_Compo_SelectionChanged" IsEnabled="False" Foreground="White" BorderBrush="White" Margin="5 5" VerticalAlignment="Bottom"/>
 
                             <Label x:Name="lblSelectlogSettings_Compo" Grid.Row="1" Grid.Column="3"  Content="Select log settings:" Foreground="White" FontWeight="SemiBold" FontSize="12.5" VerticalAlignment="Top"/>
-                            <ComboBox x:Name="cmbLogSettings_Compo" Grid.Row="1" Grid.Column="3" MaxDropDownHeight="150" SelectedIndex="0"  SelectionChanged="cmbLogMode_SelectionChanged" IsEnabled="False" Foreground="White" BorderBrush="White" Margin="5 5" VerticalAlignment="Bottom"/>
+                            <ComboBox x:Name="cmbLogSettings_Compo" Grid.Row="1" Grid.Column="3" MaxDropDownHeight="150" SelectedIndex="0"  SelectionChanged="cmbLogMode_Compo_SelectionChanged" IsEnabled="False" Foreground="White" BorderBrush="White" Margin="5 5" VerticalAlignment="Bottom"/>
 
                             <Button x:Name="btnLogMode_Compo" Content="Update mode"  Click="btnChange_mode_log" Grid.Row="2" IsEnabled="False" Grid.Column="2" VerticalAlignment="Center" BorderBrush="#FF424242" Background="#FF616161" Foreground="#E5FFFFFF" Margin="10 0"/>
                             <Button x:Name="btnAdvancelogs_Compo" Content="Advance log settings"  Click="btnAdvancelogs_Click" IsEnabled="False" Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" Background="#FF616161" BorderBrush="#FF424242" Foreground="White" Margin="10 0" Visibility="Visible"/>

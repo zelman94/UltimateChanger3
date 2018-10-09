@@ -451,6 +451,10 @@ namespace UltimateChanger
             btnFS_Compo.IsEnabled = true;
             btnHattori_Compo.IsEnabled = true;
             btnDeletelogs_Compo.IsEnabled = true;
+            btnUpdate_Compo.IsEnabled = true;
+
+            cmbMarket_Compo.SelectedIndex = 1;
+            cmbLogMode_Compo.SelectedIndex = 0;
 
             List<string> logmod = fileOperator.getLogMode();
             List<string> ListofMarkets = new List<string>();
@@ -520,7 +524,7 @@ namespace UltimateChanger
                 btnFS_Compo.IsEnabled = false;
                 btnHattori_Compo.IsEnabled = false;
                 btnDeletelogs_Compo.IsEnabled = false;
-
+                btnUpdate_Compo.IsEnabled = false;
 
                 cmbMarket.SelectedIndex = -1;
                 cmbLogMode.SelectedIndex = -1;
@@ -3196,6 +3200,18 @@ namespace UltimateChanger
             fileOperator.StartNoah();
         }
 
+        private void cmbLogMode_Compo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmbLogMode_Compo.SelectedIndex != -1)
+            {
+                cmbLogSettings_Compo.SelectedIndex = 0;
+            }
+            else
+            {
+                cmbLogSettings_Compo.SelectedIndex = -1;
+            }
+        }
+
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             cmbRelease.Items.Refresh();
@@ -3253,9 +3269,17 @@ namespace UltimateChanger
                         {
                             if (!fileOperator.checkRunningProcess(BindCombobox.BrandtoFS[item.Name]))
                             {
-                                if (cmbMarket.SelectedIndex != -1)
+                                if (cmbMarket.SelectedIndex != -1 || cmbMarket_Compo.SelectedIndex != -1)
                                 {
-                                    fileOperator.setMarket(licz, BindCombobox.marketIndex[cmbMarket.SelectedIndex],Full);
+                                    if (Full)
+                                    {
+                                        fileOperator.setMarket(licz, BindCombobox.marketIndex[cmbMarket.SelectedIndex], Full);
+                                    }
+                                    else
+                                    {
+                                        fileOperator.setMarket(licz, BindCombobox.marketIndex[cmbMarket_Compo.SelectedIndex], Full);
+                                    }
+                                    
                                     message = message + item.Name + "\n";
                                     flag = true;
                                 }
