@@ -1178,7 +1178,7 @@
                     <Button Name="btnRemovePerson" Content="Remove" Click="Button_Click_3" Grid.Column="0" Grid.Row="0" VerticalAlignment="Bottom" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
                     <Button Name="btnClearListTeamPerson" Content="Clear" ToolTip="" Click="btnClearListTeamPerson_Click" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
                     <Button Name="btnAddNewPerson" Content="Add New Person" Click="Button_Click_4" Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
-                    <Label Content="Name of the new person:" Foreground="White" Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom" Margin="10 0"/>
+                    <Label Content="Name of the new person:" Foreground="White" Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom" Margin="10 0" FontWeight="SemiBold" FontSize="12.5"/>
                     <TextBox Name="txtnewTeamMember"  MaxLength="4" TextWrapping="Wrap" Text="" ToolTip="Name (XXXX)" Grid.Column="0" Grid.Row="3" VerticalAlignment="Top" Foreground="White" BorderBrush="White" Margin="15 0" Height="25" />
 
                 </Grid>
