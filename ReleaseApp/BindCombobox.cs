@@ -109,13 +109,28 @@ namespace UltimateChanger
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbLogSettings.ItemsSource = Settings;
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbLogSettings.DisplayMemberPath = "Key";
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbLogSettings.SelectedValuePath = "Value";
+
+            /////////////kompozycje
+            ((MainWindow)System.Windows.Application.Current.MainWindow).cmbLogMode_Compo.ItemsSource = mode;
+            ((MainWindow)System.Windows.Application.Current.MainWindow).cmbLogMode_Compo.DisplayMemberPath = "Key";
+            ((MainWindow)System.Windows.Application.Current.MainWindow).cmbLogMode_Compo.SelectedValuePath = "Value";
+
+
+            ((MainWindow)System.Windows.Application.Current.MainWindow).cmbLogSettings_Compo.ItemsSource = Settings;
+            ((MainWindow)System.Windows.Application.Current.MainWindow).cmbLogSettings_Compo.DisplayMemberPath = "Key";
+            ((MainWindow)System.Windows.Application.Current.MainWindow).cmbLogSettings_Compo.SelectedValuePath = "Value";
+
         }
 
         public void setMarketCmb()
         {
-            ((MainWindow)System.Windows.Application.Current.MainWindow).cmbMarket.ItemsSource = market;
-            ((MainWindow)System.Windows.Application.Current.MainWindow).cmbMarket.DisplayMemberPath = "Key";
-            ((MainWindow)System.Windows.Application.Current.MainWindow).cmbMarket.SelectedValuePath = "Value";
+            ((MainWindow)System.Windows.Application.Current.MainWindow).cmbMarket_Compo.ItemsSource = market;
+            ((MainWindow)System.Windows.Application.Current.MainWindow).cmbMarket_Compo.DisplayMemberPath = "Key";
+            ((MainWindow)System.Windows.Application.Current.MainWindow).cmbMarket_Compo.SelectedValuePath = "Value";
+
+            ((MainWindow)System.Windows.Application.Current.MainWindow).cmbMarket_Compo.ItemsSource = market;
+            ((MainWindow)System.Windows.Application.Current.MainWindow).cmbMarket_Compo.DisplayMemberPath = "Key";
+            ((MainWindow)System.Windows.Application.Current.MainWindow).cmbMarket_Compo.SelectedValuePath = "Value";
         }
 
         public void setFScomboBox() // full medium

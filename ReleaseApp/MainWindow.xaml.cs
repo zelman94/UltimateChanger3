@@ -441,6 +441,20 @@ namespace UltimateChanger
             cmbLogSettings.IsEnabled = true;
             cmbMarket.IsEnabled = true;
             btnuninstal.IsEnabled = true;
+            // kompozycje:
+            cmbMarket_Compo.IsEnabled = true;
+            cmbLogMode_Compo.IsEnabled = true;
+            cmbLogSettings_Compo.IsEnabled = true;
+            btnAdvancelogs_Compo.IsEnabled = true;
+            btnLogMode_Compo.IsEnabled = true;
+            btnSavelogs_Compo.IsEnabled = true;
+            btnFS_Compo.IsEnabled = true;
+            btnHattori_Compo.IsEnabled = true;
+            btnDeletelogs_Compo.IsEnabled = true;
+            btnUpdate_Compo.IsEnabled = true;
+
+            cmbMarket_Compo.SelectedIndex = 1;
+            cmbLogMode_Compo.SelectedIndex = 0;
 
             List<string> logmod = fileOperator.getLogMode();
             List<string> ListofMarkets = new List<string>();
@@ -500,8 +514,23 @@ namespace UltimateChanger
                 cmbMarket.IsEnabled = false;
                 btnuninstal.IsEnabled = false;
 
+                // kompozycje:
+                cmbMarket_Compo.IsEnabled = false;
+                cmbLogMode_Compo.IsEnabled = false;
+                cmbLogSettings_Compo.IsEnabled = false;
+                btnAdvancelogs_Compo.IsEnabled = false;
+                btnLogMode_Compo.IsEnabled = false;
+                btnSavelogs_Compo.IsEnabled = false;
+                btnFS_Compo.IsEnabled = false;
+                btnHattori_Compo.IsEnabled = false;
+                btnDeletelogs_Compo.IsEnabled = false;
+                btnUpdate_Compo.IsEnabled = false;
+
                 cmbMarket.SelectedIndex = -1;
                 cmbLogMode.SelectedIndex = -1;
+
+                cmbMarket_Compo.SelectedIndex = -1;
+                cmbLogMode_Compo.SelectedIndex = -1;
             }
             else
             {
@@ -3153,6 +3182,36 @@ namespace UltimateChanger
             }
         }
 
+        private void btn_Gearbox(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                fileOperator.StartGearbox();
+            }
+            catch (Exception)
+            {
+
+              
+            }
+        }
+
+        private void Click_btnNoah(object sender, RoutedEventArgs e)
+        {
+            fileOperator.StartNoah();
+        }
+
+        private void cmbLogMode_Compo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmbLogMode_Compo.SelectedIndex != -1)
+            {
+                cmbLogSettings_Compo.SelectedIndex = 0;
+            }
+            else
+            {
+                cmbLogSettings_Compo.SelectedIndex = -1;
+            }
+        }
+
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             cmbRelease.Items.Refresh();
@@ -3210,9 +3269,17 @@ namespace UltimateChanger
                         {
                             if (!fileOperator.checkRunningProcess(BindCombobox.BrandtoFS[item.Name]))
                             {
-                                if (cmbMarket.SelectedIndex != -1)
+                                if (cmbMarket.SelectedIndex != -1 || cmbMarket_Compo.SelectedIndex != -1)
                                 {
-                                    fileOperator.setMarket(licz, BindCombobox.marketIndex[cmbMarket.SelectedIndex],Full);
+                                    if (Full)
+                                    {
+                                        fileOperator.setMarket(licz, BindCombobox.marketIndex[cmbMarket.SelectedIndex], Full);
+                                    }
+                                    else
+                                    {
+                                        fileOperator.setMarket(licz, BindCombobox.marketIndex[cmbMarket_Compo.SelectedIndex], Full);
+                                    }
+                                    
                                     message = message + item.Name + "\n";
                                     flag = true;
                                 }
