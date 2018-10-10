@@ -3220,6 +3220,7 @@ namespace UltimateChanger
         {
             TrashCleaner smieciarka = new TrashCleaner();
             int licznik = 0;
+            MessageBox.Show("In Progress ...");
             foreach (var item in checkBoxList)
             {
                 if (item.IsChecked.Value)

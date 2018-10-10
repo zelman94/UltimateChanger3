@@ -1026,9 +1026,9 @@
 
 
                             <Label Content="Build:" Grid.Row="2" Grid.Column="0" Foreground="White" FontWeight="SemiBold" FontSize="12.5" VerticalAlignment="Top"/>
-                            <ComboBox x:Name="cmbBuild_Compo" Grid.Row="2" Grid.Column="0" SelectionChanged="cmbbuild_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom"/>
+                            <ComboBox x:Name="cmbBuild_Compo" Grid.Row="2" Grid.Column="0" SelectionChanged="cmbBuild_Compo_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom"/>
 
-                            <Button x:Name="btninstal_Compo" Content="Install" Click="btninstal_Click" Grid.Row="3" Grid.Column="0" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Center" Margin="10 0"/>
+                            <Button x:Name="btninstal_Compo" Content="Copy And Run" Click="btninstal_Click" Grid.Row="3" Grid.Column="0" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Center" Margin="10 0"/>
                             <Button x:Name="btnInfo_Compo" Content="Copy path to build" Grid.Row="3" Grid.Column="1" Click="btnInfo_Click" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Center" Margin="10 0"/>
                             <Button x:Name="btnuninstal_Compo"  Grid.Row="4" Content="Delete FS" Click="btnDeleteC_Compo_Click" Grid.Column="0" ToolTip="Selected FS will be Deleted" IsEnabled="false" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" VerticalAlignment="Center"/>
                             <Button x:Name="btnDelete_Compo" Grid.Row="4" Grid.Column="1" Content="Delete trash" Click="btnDelete_Click" ToolTip="All data files of selected FS will be deleted (also client sesion)" IsEnabled="False" Foreground="#E5FFFFFF" BorderBrush="#FF424242" Background="#FF616161" Margin="10 0" VerticalAlignment="Center" Visibility="Hidden"/>
