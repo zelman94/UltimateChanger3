@@ -3237,7 +3237,6 @@ namespace UltimateChanger
                 }
                 licznik++;
             }
-
         }
 
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)
