@@ -298,8 +298,29 @@ namespace UltimateChanger
                     int.TryParse(version[4].ToString(), out ver_apki[2]);
                     APPversion = version.ToString();
 
+                    if (APPversion == "3.0.3.0" && System.IO.File.Exists(@"C:\Program Files\UltimateChanger\tmp.txt")) // w pozniejszej wersji do wywalenia
+                    {
+                        System.IO.File.Delete(@"C:\Program Files\UltimateChanger\tmp.txt");
+                        try
+                        {
+                            Process.Start(@"C:\Program Files\UltimateChanger\UpdaterCopy.exe", @"\\10.128.3.1\DFS_data_SSC_FS_Images-SSC\PAZE\change_market\Multi_Changer\v_3.0.3\portable" + " false");
+                        }
+                        catch (Exception)
+                        {
+                            try
+                            {
+                                Process.Start(@"C:\Program Files\UltimateChanger\UpdaterCopy.exe", @"\\demant.com\data\KBN\RnD\FS_Programs\Support_Tools\Ultimate_changer\v_3.0.3\portable" + " false");
+                            }
+                            catch (Exception)
+                            {
 
-                    if (APPversion == "3.0.2.0" && FileOperator.getCountUCRun() == "0") // dodać "i pierwszy start aplikacji"
+                                
+                            }
+                        }
+                      
+                    }
+
+                    if (APPversion == "3.0.2.0"  && FileOperator.getCountUCRun() == "0") // dodać "i pierwszy start aplikacji"
                     {
 
 
@@ -571,20 +592,23 @@ namespace UltimateChanger
         { // dodac implementacje logowania do bazy SQL
             try
             {
-        //user	ver	time	StartFittingSoftware	Start_Hattori	InstallFittingSoftware	Update_Market	UpdateMode	DeleteLogs	UninstallFittingSoftware	Kill_FS	Downgrade	RandomHI	CopyMyHardware
-        //StartFittingSoftware,
-        //StartHAttori,
-        //InstallFittingSoftware,
-        //UpdateMarket,
-        //UpdateMode,
-        //DeleteLogs,
-        //UninstallFittingSoftware,
-        //Kill,
-        //Downgrade,
-        //RandomHI,
-        //CopyMyHardware
+                //user	ver	time	StartFittingSoftware	Start_Hattori	InstallFittingSoftware	Update_Market	UpdateMode	DeleteLogs	UninstallFittingSoftware	Kill_FS	Downgrade	RandomHI	CopyMyHardware
+                //StartFittingSoftware,
+                //StartHAttori,
+                //InstallFittingSoftware,
+                //UpdateMarket,
+                //UpdateMode,
+                //DeleteLogs,
+                //UninstallFittingSoftware,
+                //Kill,
+                //Downgrade,
+                //RandomHI,
+                //CopyMyHardware
 
-                MySqlCommand myCommand = new MySqlCommand($"INSERT INTO Advance_logs VALUES ('{Environment.UserName}','{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()}','','{skin_name}',{CounterOfclicks.Clicks[(int)Buttons.StartFittingSoftware]},{CounterOfclicks.Clicks[(int)Buttons.StartHAttori]},{CounterOfclicks.Clicks[(int)Buttons.InstallFittingSoftware]},{CounterOfclicks.Clicks[(int)Buttons.UpdateMarket]},{CounterOfclicks.Clicks[(int)Buttons.UpdateMode]},{CounterOfclicks.Clicks[(int)Buttons.DeleteLogs]},{CounterOfclicks.Clicks[(int)Buttons.UninstallFittingSoftware]},{CounterOfclicks.Clicks[(int)Buttons.Kill]},{CounterOfclicks.Clicks[(int)Buttons.Downgrade]},{CounterOfclicks.Clicks[(int)Buttons.RandomHI]},{CounterOfclicks.Clicks[(int)Buttons.CopyMyHardware]})", SQLConnection);
+
+                string data = DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day + "/" + DateTime.Now.ToString("h:mm:ss tt");
+
+                MySqlCommand myCommand = new MySqlCommand($"INSERT INTO Advance_logs VALUES ('{Environment.UserName}','{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()}','{data}','{skin_name}',{CounterOfclicks.Clicks[(int)Buttons.StartFittingSoftware]},{CounterOfclicks.Clicks[(int)Buttons.StartHAttori]},{CounterOfclicks.Clicks[(int)Buttons.InstallFittingSoftware]},{CounterOfclicks.Clicks[(int)Buttons.UpdateMarket]},{CounterOfclicks.Clicks[(int)Buttons.UpdateMode]},{CounterOfclicks.Clicks[(int)Buttons.DeleteLogs]},{CounterOfclicks.Clicks[(int)Buttons.UninstallFittingSoftware]},{CounterOfclicks.Clicks[(int)Buttons.Kill]},{CounterOfclicks.Clicks[(int)Buttons.Downgrade]},{CounterOfclicks.Clicks[(int)Buttons.RandomHI]},{CounterOfclicks.Clicks[(int)Buttons.CopyMyHardware]})", SQLConnection);
                 myCommand.ExecuteNonQuery();
             }
             catch (Exception x)

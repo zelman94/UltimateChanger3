@@ -29,7 +29,7 @@ using ICSharpCode.SharpZipLib.Zip;
 using System.Net;
 using System.Data;
 
-[assembly: System.Reflection.AssemblyVersion("3.0.2.0")]
+[assembly: System.Reflection.AssemblyVersion("3.0.3.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window
@@ -601,21 +601,41 @@ namespace UltimateChanger
             {
                 List<BuildInfo> ListBuildsInfo = new List<BuildInfo>();
                 int licznik = 0;
-                foreach (var item in BuildInfo.ListPathsToManInfo)
+                List<string> ListpathsToManInfo = new List<string>();
+                if (TabFull.IsSelected)
                 {
-                    try
-                    {
-                        ListBuildsInfo.Add(fileOperator.GetInfoAboutFs(item, BuildInfo.ListPathsToAboutInfo[licznik]));
-                    }
-                    catch (Exception)
-                    {
-                        ListBuildsInfo.Add(new BuildInfo("", "", "", "", ""));
-                    }
-                    licznik++;
+                    ListpathsToManInfo = BuildInfo.ListPathsToManInfo;
                 }
+                else
+                {
+                    fileOperator.getPathToManufacturerInfo_Compo();
+                    ListpathsToManInfo = fileOperator.pathToManufacturerInfo_Compo;
+                }
+                    foreach (var item in ListpathsToManInfo)
+                    {
+                        try
+                        {
+                            ListBuildsInfo.Add(fileOperator.GetInfoAboutFs(item, BuildInfo.ListPathsToAboutInfo[licznik]));
+                        }
+                        catch (Exception)
+                        {
+                            ListBuildsInfo.Add(new BuildInfo("", "", "", "", ""));
+                        }
+                        licznik++;
+                    }
+                
+
+                
+
+
+
                 for (int i = 0; i < ListBuildsInfo.Count; i++)
                 {
                     ListRactanglesNames[i].ToolTip = ListBuildsInfo[i].Brand + "\n" + ListBuildsInfo[i].Version + "\n" + logmodesFS[i];
+                    if (ListBuildsInfo[i].Brand =="" || ListBuildsInfo[i].Version=="")
+                    {
+                        ListRactanglesNames[i].ToolTip = null;
+                    }
                     foreach (var item in ListRactanglesNames)
                     {
                         if (item.Name.Contains(ListBuildsInfo[i].Brand.ToLower()))
@@ -1337,27 +1357,27 @@ namespace UltimateChanger
                         {
                             MessageBox.Show(x.ToString());
                         }
-                    } else if (item.Name == "Cumulus")
-                    {
-                        if (fileOperator.checkRunningProcess("Philips HearSuite"))
+                    }
+                    else if (item.Name == "Cumulus")
                         {
-                            try
+                            if (fileOperator.checkRunningProcess("Philips HearSuite"))
                             {
-                                smieciarka.DeleteTrash(fileOperator.pathToLogs[licznik]);
-                                message = message + item.Name + "\n";
-                                flag = true;
-                            }
-                            catch (Exception x)
-                            {
-                                MessageBox.Show(x.ToString());
+                                try
+                                {
+                                    smieciarka.DeleteTrash(fileOperator.pathToLogs[licznik]);
+                                    message = message + item.Name + "\n";
+                                    flag = true;
+                                }
+                                catch (Exception x)
+                                {
+                                    MessageBox.Show(x.ToString());
+                                }
                             }
                         }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Close FS to Delete Logs");
-                    }
-
+                        else
+                        {
+                            MessageBox.Show("Close FS to Delete Logs");
+                        }
                 }
                 licznik++;
             }
@@ -1365,7 +1385,6 @@ namespace UltimateChanger
             {
                 MessageBox.Show(message);
             }
-
         }
         private void cmbLogMode_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

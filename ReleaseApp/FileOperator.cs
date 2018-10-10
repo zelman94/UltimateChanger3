@@ -91,6 +91,14 @@ namespace UltimateChanger
             "EXPRESSfitComposition",
             "HearSuiteComposition"
         };
+        public List<string> listExeNames = new List<string> { // nazwy plikow do kompozycji 
+
+            "Genie.exe",
+            "GenieMedical.exe",
+            "Oasis.exe",
+            "EXPRESSfit.exe",
+            "HearSuite.exe"
+        };
 
 
 
@@ -135,6 +143,15 @@ namespace UltimateChanger
 
             return path;
         }
+        public List<string> GetExeCompo(int nrFS) // pewnie trzeba bedzie poprawic bo z OEM bedzie inna nazwa ...
+        {
+            List<string> listofExes = new List<string>();
+
+            pathToManufacturerInfo_Compo = Directory.GetFiles(@"C:\Program Files\UltimateChanger\compositions\", listExeNames[nrFS], SearchOption.AllDirectories).ToList();
+
+            return listofExes;
+        }
+
         public List<string> GetAllLocalCompositions() // lista nazw katalogow z kompozycjami
         {
             List<string> LocalCompos = new List<string>();
@@ -1171,6 +1188,7 @@ namespace UltimateChanger
         {
             string count = getCountUCRun();
 
+
             try
             {
                 if (Environment.CurrentDirectory.Contains("Updater")) // jezeli odpalam po update 
@@ -1226,6 +1244,27 @@ namespace UltimateChanger
             catch (Exception x )
             {
                 MessageBox.Show("Noah Problem");
+            }
+        }
+
+        public void StartFS(Int16 licznik, bool Full)
+        {
+            if (Full)
+            {
+                try
+                {
+                    Process.Start(BuildInfo.ListPathsToSetup[licznik]);
+                }
+                catch (Exception)
+                {
+                    
+                }                
+            }
+            else
+            {
+                List<string> pathsToExeCompositions = GetExeCompo(licznik);
+                Process.Start(pathsToExeCompositions[0]);
+
             }
         }
 
