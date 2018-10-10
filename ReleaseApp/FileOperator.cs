@@ -1188,6 +1188,7 @@ namespace UltimateChanger
         {
             string count = getCountUCRun();
 
+
             try
             {
                 if (Environment.CurrentDirectory.Contains("Updater")) // jezeli odpalam po update 
