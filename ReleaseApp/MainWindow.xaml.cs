@@ -29,7 +29,7 @@ using ICSharpCode.SharpZipLib.Zip;
 using System.Net;
 using System.Data;
 
-[assembly: System.Reflection.AssemblyVersion("3.0.3.0")]
+[assembly: System.Reflection.AssemblyVersion("3.1.0.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window
@@ -452,6 +452,7 @@ namespace UltimateChanger
             btnHattori_Compo.IsEnabled = true;
             btnDeletelogs_Compo.IsEnabled = true;
             btnUpdate_Compo.IsEnabled = true;
+            btnuninstal_Compo.IsEnabled = true;
 
             cmbMarket_Compo.SelectedIndex = 1;
             cmbLogMode_Compo.SelectedIndex = 0;
@@ -514,6 +515,7 @@ namespace UltimateChanger
                 cmbMarket.IsEnabled = false;
                 btnuninstal.IsEnabled = false;
 
+
                 // kompozycje:
                 cmbMarket_Compo.IsEnabled = false;
                 cmbLogMode_Compo.IsEnabled = false;
@@ -525,6 +527,7 @@ namespace UltimateChanger
                 btnHattori_Compo.IsEnabled = false;
                 btnDeletelogs_Compo.IsEnabled = false;
                 btnUpdate_Compo.IsEnabled = false;
+                btnuninstal_Compo.IsEnabled = false;
 
                 cmbMarket.SelectedIndex = -1;
                 cmbLogMode.SelectedIndex = -1;
@@ -1347,31 +1350,13 @@ namespace UltimateChanger
                 {
                     if (fileOperator.checkRunningProcess(item.Name))
                     {
-                        try
-                        {
-                            smieciarka.DeleteTrash(fileOperator.pathToLogs[licznik]);
-                            message = message + item.Name + "\n";
-                            flag = true;
-                        }
-                        catch (Exception x)
-                        {
-                            MessageBox.Show(x.ToString());
-                        }
+                        smieciarka.DeleteLogs(licznik,TabFull.IsSelected);
                     }
                     else if (item.Name == "Cumulus")
                         {
                             if (fileOperator.checkRunningProcess("Philips HearSuite"))
                             {
-                                try
-                                {
-                                    smieciarka.DeleteTrash(fileOperator.pathToLogs[licznik]);
-                                    message = message + item.Name + "\n";
-                                    flag = true;
-                                }
-                                catch (Exception x)
-                                {
-                                    MessageBox.Show(x.ToString());
-                                }
+                            smieciarka.DeleteLogs(licznik, TabFull.IsSelected);
                             }
                         }
                         else
@@ -1839,7 +1824,7 @@ namespace UltimateChanger
                 {
                     try
                     {
-                        Process.Start(BuildInfo.ListPathsToSetup[licznik]);
+                        fileOperator.StartFS(licznik,TabFull.IsSelected);
                         CounterOfclicks.AddClick((int)Buttons.StartFittingSoftware);
                     }
                     catch (Exception)
@@ -3229,6 +3214,29 @@ namespace UltimateChanger
             {
                 cmbLogSettings_Compo.SelectedIndex = -1;
             }
+        }
+
+        private void btnDeleteC_Compo_Click(object sender, RoutedEventArgs e)
+        {
+            TrashCleaner smieciarka = new TrashCleaner();
+            int licznik = 0;
+            foreach (var item in checkBoxList)
+            {
+                if (item.IsChecked.Value)
+                {
+                    try
+                    {
+                        smieciarka.DeleteCompo(licznik);
+                        //CounterOfclicks.AddClick((int)Buttons.StartFittingSoftware);
+                    }
+                    catch (Exception)
+                    {
+                       
+                    }
+                }
+                licznik++;
+            }
+
         }
 
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)
