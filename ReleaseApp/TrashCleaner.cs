@@ -29,32 +29,45 @@ namespace UltimateChanger
             }
         }
 
-        public void DeleteLogs(string brand_name)
+        public void DeleteLogs(int nrFS,bool Full)
         {
-            string DirectoryName = $"C:/ProgramData/{brand_name}/{BrandtoSoft[brand_name]}/Logfiles/";
-            System.IO.DirectoryInfo di = new DirectoryInfo(DirectoryName);
-            try
+            List<string> pathToLogsFiles = new List<string>();
+            FileOperator fileoperator = new FileOperator();
+            if (Full)
             {
-                string tempName;
-                if (Directory.Exists(DirectoryName))
-                    foreach (FileInfo file in di.GetFiles())
-                    {
-                        tempName = $"{di.ToString()}/{file.Name.ToString()}";
-                        if (File.Exists(tempName))
-                        {
-                            File.SetAttributes(tempName, FileAttributes.Normal);
-                            File.Delete($"{di.ToString()}/{file.Name.ToString()}");
-                        }
-                    }
+                pathToLogsFiles = Directory.GetFiles(fileoperator.pathToLogs[nrFS], "Log.txt").ToList();
             }
-            catch (UnauthorizedAccessException)
+            else
+            {                
+                pathToLogsFiles = Directory.GetFiles(fileoperator.GetAllLocalCompositions()[nrFS],"Log.txt").ToList();
+            }
+
+            foreach (var item in pathToLogsFiles)
             {
-                MessageBox.Show("Cos sie zepsulo");
+                try
+                {
+                    File.Delete(item);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Error in DeleteLogs");
+                }
+               
             }
-            catch (DirectoryNotFoundException)
+
+
+        }
+        public void DeleteCompo(int nrFS) // powinno dzialac
+        {
+            FileOperator fileoperator = new FileOperator();
+           List <string> listAllCompoLocal = fileoperator.GetAllLocalCompositions();
+
+            if (fileoperator.CheckIfCompositionIsAvailable(listAllCompoLocal, nrFS)) // sprawdzam czy wybrany fs Compo istnieje jezeli tak to usuwam kompozycje
             {
-                MessageBox.Show("Cos sie mocno zepsulo");
+                Directory.Delete(listAllCompoLocal[nrFS],true); // usuwam wszystko 
             }
+
+
         }
     }
 }
