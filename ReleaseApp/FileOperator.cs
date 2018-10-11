@@ -1247,7 +1247,7 @@ namespace UltimateChanger
             }
         }
 
-        public void StartFS(Int16 licznik, bool Full)
+        public void StartFS(int licznik, bool Full)
         {
             if (Full)
             {
