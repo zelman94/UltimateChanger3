@@ -1433,7 +1433,7 @@ namespace UltimateChanger
                             string to = "C:\\Program Files\\UltimateChanger\\compositions\\"+ item.Name;
                             pathToLocalComposition = to;
                             MessageBox.Show($"parameters to copy: {from} \n {to}");
-                            Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Copy {from} {pathToLocalComposition}");
+                            Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Copy {from} {pathToLocalComposition} {cmbBuild2_Compo.Text}");
                             copystatus = true; // timer wie ze trwa kopiowanie
                             cmbRelease_Compo.IsEnabled = false;
                             cmbBrandstoinstall_Compo.IsEnabled = false;
@@ -3403,6 +3403,7 @@ namespace UltimateChanger
                 if (TabCompo.IsEnabled)
                 {
                     refreshUI(new object(), new EventArgs());
+                    cmbBuild2_Compo.SelectedIndex = 1;
                     fileOperator.GetfilesSaveData(true,1);
                     BindCombo.setFScomboBox_compositions(); // bindowanie do compozycjji  
                     cmbRelease_Compo.Text = cmbRelease.Text;
