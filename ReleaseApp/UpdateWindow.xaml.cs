@@ -19,11 +19,17 @@ namespace UltimateChanger
 {
     public partial class UpdateWindow : Window
     {
-        string PATHS = "",INFO="";
-        public UpdateWindow(string paths, string info)
+        string PATHS = "",INFO="", REKU = "", SETTINGS = "", UPDATER = "", RESOURCES = "", IMAGES = "";
+        public UpdateWindow(string paths, string info, string copyReku,string copySettings, string copyUpdater, string copyResources, string copyImages)
         {
             PATHS = paths;
             INFO = info;
+            REKU = copyReku;
+            SETTINGS = copySettings;
+            UPDATER = copyUpdater;
+            RESOURCES = copyResources;
+            IMAGES = copyImages;
+
             InitializeComponent();
             //txtInfoUpdate.Text = info;
         }
@@ -76,14 +82,14 @@ namespace UltimateChanger
                     {
                     //System.Diagnostics.Process.Start(lines[lines.Length - 5]); // szczecin // do poprawy tu 
                     string tmp = Environment.CurrentDirectory + @"\Updater" + $"\\UltimateChangerUpdater.exe ";
-                    System.Diagnostics.Process.Start(tmp, SSC);
+                    System.Diagnostics.Process.Start(tmp, $"{SSC} {REKU} {SETTINGS} {UPDATER} {RESOURCES} {IMAGES}");
                     }
                     catch (Exception x)
                     {
                         try
                         {
                         // System.Diagnostics.Process.Start(lines[lines.Length-1]);// dania
-                        System.Diagnostics.Process.Start(Environment.CurrentDirectory + @"\Updater" + $"\\UltimateChangerUpdater.exe",$" {KBN}");
+                        System.Diagnostics.Process.Start(Environment.CurrentDirectory + @"\Updater" + $"\\UltimateChangerUpdater.exe",$" {KBN} {REKU} {SETTINGS} {UPDATER} {RESOURCES} {IMAGES}");
                     }
                         catch (Exception)
                         {
