@@ -691,7 +691,7 @@ namespace UltimateChanger
                 }
                 catch (Exception)
                 {
-                    listlabelsinfoFS[licz].Foreground = new SolidColorBrush(Colors.Gray);
+                    //listlabelsinfoFS[licz].Foreground = new SolidColorBrush(Colors.Gray);
                     listlabelsinfoFS[licz].Content = "FS not installed";
                 }
                 licz++;
@@ -952,7 +952,7 @@ namespace UltimateChanger
                 if (!Directory.Exists(@"C:\ProgramData\Oticon"))
                 {
                     Oticon.IsEnabled = false;
-                    lblG.Foreground = new SolidColorBrush(Colors.Red);
+                    //lblG.Foreground = new SolidColorBrush(Colors.Red);
                     lblG.Content = "FS not installed";
                     Oticon.IsChecked = false;
                     //oticonRectangle.Opacity = 0.3;
@@ -966,7 +966,7 @@ namespace UltimateChanger
                 if (!Directory.Exists(@"C:\ProgramData\Bernafon"))
                 {
                     Bernafon.IsEnabled = false;
-                    lblO.Foreground = new SolidColorBrush(Colors.Red);
+                   /// lblO.Foreground = new SolidColorBrush(Colors.Red);
                     lblO.Content = "FS not installed";
                     Bernafon.IsChecked = false;
                     //bernafonRectangle.Opacity = 0.3;
@@ -980,7 +980,7 @@ namespace UltimateChanger
                 if (!Directory.Exists(@"C:\ProgramData\Sonic"))
                 {
                     Sonic.IsEnabled = false;
-                    lblE.Foreground = new SolidColorBrush(Colors.Red);
+                    //lblE.Foreground = new SolidColorBrush(Colors.Red);
                     lblE.Content = "FS not installed";
                     Sonic.IsChecked = false;
                     //sonicRectangle.Opacity = 0.3;
@@ -994,7 +994,7 @@ namespace UltimateChanger
                 if (!Directory.Exists(@"C:\ProgramData\Oticon Medical")) // medical
                 {
                     Medical.IsEnabled = false;
-                    lblM.Foreground = new SolidColorBrush(Colors.Red);
+                    //lblM.Foreground = new SolidColorBrush(Colors.Red);
                     lblM.Content = "FS not installed";
                     Medical.IsChecked = false;
                     //oticonmedicalnRectangle.Opacity = 0.3;
@@ -1008,7 +1008,7 @@ namespace UltimateChanger
                 if (!Directory.Exists(@"C:\ProgramData\Philips HearSuite")) // cumulus
                 {
                     Cumulus.IsEnabled = false;
-                    lblC.Foreground = new SolidColorBrush(Colors.Red);
+                    //lblC.Foreground = new SolidColorBrush(Colors.Red);
                     lblC.Content = "FS not installed";
                     Cumulus.IsChecked = false;
                     //startoRectangle.Opacity = 0.3;
