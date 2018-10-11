@@ -50,7 +50,7 @@ namespace UltimateChanger
         private List<pathAndDir> paths_Dirs = new List<pathAndDir>();
         //string OEMname = "";
         List<Image> ListImages;
-        List<Label> listlabelsinfoFS;  
+        List<Label> listlabelsinfoFS, listlabelsinfoFS_Version;  
         List<CheckBox> checkBoxList = new List<CheckBox>();
         List<ComboBox> comboBoxList = new List<ComboBox>();
         string skin_name;
@@ -603,22 +603,27 @@ namespace UltimateChanger
             try
             {
                 List<BuildInfo> ListBuildsInfo = new List<BuildInfo>();
+                List<string> ListPathsToAboutInfo = new List<string>();
                 int licznik = 0;
                 List<string> ListpathsToManInfo = new List<string>();
                 if (TabFull.IsSelected)
                 {
                     ListpathsToManInfo = BuildInfo.ListPathsToManInfo;
+                    ListPathsToAboutInfo = BuildInfo.ListPathsToAboutInfo;
                 }
                 else
                 {
-                    fileOperator.getPathToManufacturerInfo_Compo();
-                    ListpathsToManInfo = fileOperator.pathToManufacturerInfo_Compo;
+                    ListpathsToManInfo = BuildInfo.ListPathsToManInfo; // zakomentować gdy juz dopisze funkcje
+
+                    //fileOperator.getPathToManufacturerInfo_Compo(); // odkomentowac
+                    //ListpathsToManInfo = fileOperator.pathToManufacturerInfo_Compo;
+                    //ListPathsToAboutInfo // napisac funkcje do pobierania listy albo stringa z pathami do abouta
                 }
                     foreach (var item in ListpathsToManInfo)
                     {
                         try
                         {
-                            ListBuildsInfo.Add(fileOperator.GetInfoAboutFs(item, BuildInfo.ListPathsToAboutInfo[licznik]));
+                            ListBuildsInfo.Add(fileOperator.GetInfoAboutFs(item, ListPathsToAboutInfo[licznik]));
                         }
                         catch (Exception)
                         {
@@ -634,11 +639,17 @@ namespace UltimateChanger
 
                 for (int i = 0; i < ListBuildsInfo.Count; i++)
                 {
-                    ListRactanglesNames[i].ToolTip = ListBuildsInfo[i].Brand + "\n" + ListBuildsInfo[i].Version + "\n" + logmodesFS[i];
-                    if (ListBuildsInfo[i].Brand =="" || ListBuildsInfo[i].Version=="")
+                    ListRactanglesNames[i].ToolTip = ListBuildsInfo[i].Brand + "\n" + logmodesFS[i];
+                    if (ListBuildsInfo[i].Brand == "")
                     {
                         ListRactanglesNames[i].ToolTip = null;
                     }
+
+                    listlabelsinfoFS_Version[i].Content = ListBuildsInfo[i].Version;
+
+           
+
+
                     foreach (var item in ListRactanglesNames)
                     {
                         if (item.Name.Contains(ListBuildsInfo[i].Brand.ToLower()))
@@ -795,6 +806,14 @@ namespace UltimateChanger
                 lblE,
                 lblM,
                 lblC
+            };
+            listlabelsinfoFS_Version = new List<Label>()
+            {
+                lblGV,
+                lblOV,
+                lblEV,
+                lblMV,
+                lblCV
             };
         }
 
