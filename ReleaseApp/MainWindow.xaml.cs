@@ -50,7 +50,7 @@ namespace UltimateChanger
         private List<pathAndDir> paths_Dirs = new List<pathAndDir>();
         //string OEMname = "";
         List<Image> ListImages;
-        List<Label> listlabelsinfoFS;  
+        List<Label> listlabelsinfoFS, listlabelsinfoFS_Version;  
         List<CheckBox> checkBoxList = new List<CheckBox>();
         List<ComboBox> comboBoxList = new List<ComboBox>();
         string skin_name;
@@ -603,22 +603,27 @@ namespace UltimateChanger
             try
             {
                 List<BuildInfo> ListBuildsInfo = new List<BuildInfo>();
+                List<string> ListPathsToAboutInfo = new List<string>();
                 int licznik = 0;
                 List<string> ListpathsToManInfo = new List<string>();
                 if (TabFull.IsSelected)
                 {
                     ListpathsToManInfo = BuildInfo.ListPathsToManInfo;
+                    ListPathsToAboutInfo = BuildInfo.ListPathsToAboutInfo;
                 }
                 else
                 {
-                    fileOperator.getPathToManufacturerInfo_Compo();
-                    ListpathsToManInfo = fileOperator.pathToManufacturerInfo_Compo;
+                    ListpathsToManInfo = BuildInfo.ListPathsToManInfo; // zakomentować gdy juz dopisze funkcje
+
+                    //fileOperator.getPathToManufacturerInfo_Compo(); // odkomentowac
+                    //ListpathsToManInfo = fileOperator.pathToManufacturerInfo_Compo;
+                    //ListPathsToAboutInfo // napisac funkcje do pobierania listy albo stringa z pathami do abouta
                 }
                     foreach (var item in ListpathsToManInfo)
                     {
                         try
                         {
-                            ListBuildsInfo.Add(fileOperator.GetInfoAboutFs(item, BuildInfo.ListPathsToAboutInfo[licznik]));
+                            ListBuildsInfo.Add(fileOperator.GetInfoAboutFs(item, ListPathsToAboutInfo[licznik]));
                         }
                         catch (Exception)
                         {
@@ -634,11 +639,17 @@ namespace UltimateChanger
 
                 for (int i = 0; i < ListBuildsInfo.Count; i++)
                 {
-                    ListRactanglesNames[i].ToolTip = ListBuildsInfo[i].Brand + "\n" + ListBuildsInfo[i].Version + "\n" + logmodesFS[i];
-                    if (ListBuildsInfo[i].Brand =="" || ListBuildsInfo[i].Version=="")
+                    ListRactanglesNames[i].ToolTip = ListBuildsInfo[i].Brand + "\n" + logmodesFS[i];
+                    if (ListBuildsInfo[i].Brand == "")
                     {
                         ListRactanglesNames[i].ToolTip = null;
                     }
+
+                    listlabelsinfoFS_Version[i].Content = ListBuildsInfo[i].Version;
+
+           
+
+
                     foreach (var item in ListRactanglesNames)
                     {
                         if (item.Name.Contains(ListBuildsInfo[i].Brand.ToLower()))
@@ -680,7 +691,7 @@ namespace UltimateChanger
                 }
                 catch (Exception)
                 {
-                    listlabelsinfoFS[licz].Foreground = new SolidColorBrush(Colors.Gray);
+                    //listlabelsinfoFS[licz].Foreground = new SolidColorBrush(Colors.Gray);
                     listlabelsinfoFS[licz].Content = "FS not installed";
                 }
                 licz++;
@@ -795,6 +806,14 @@ namespace UltimateChanger
                 lblE,
                 lblM,
                 lblC
+            };
+            listlabelsinfoFS_Version = new List<Label>()
+            {
+                lblGV,
+                lblOV,
+                lblEV,
+                lblMV,
+                lblCV
             };
         }
 
@@ -933,7 +952,7 @@ namespace UltimateChanger
                 if (!Directory.Exists(@"C:\ProgramData\Oticon"))
                 {
                     Oticon.IsEnabled = false;
-                    lblG.Foreground = new SolidColorBrush(Colors.Red);
+                    //lblG.Foreground = new SolidColorBrush(Colors.Red);
                     lblG.Content = "FS not installed";
                     Oticon.IsChecked = false;
                     //oticonRectangle.Opacity = 0.3;
@@ -947,7 +966,7 @@ namespace UltimateChanger
                 if (!Directory.Exists(@"C:\ProgramData\Bernafon"))
                 {
                     Bernafon.IsEnabled = false;
-                    lblO.Foreground = new SolidColorBrush(Colors.Red);
+                   /// lblO.Foreground = new SolidColorBrush(Colors.Red);
                     lblO.Content = "FS not installed";
                     Bernafon.IsChecked = false;
                     //bernafonRectangle.Opacity = 0.3;
@@ -961,7 +980,7 @@ namespace UltimateChanger
                 if (!Directory.Exists(@"C:\ProgramData\Sonic"))
                 {
                     Sonic.IsEnabled = false;
-                    lblE.Foreground = new SolidColorBrush(Colors.Red);
+                    //lblE.Foreground = new SolidColorBrush(Colors.Red);
                     lblE.Content = "FS not installed";
                     Sonic.IsChecked = false;
                     //sonicRectangle.Opacity = 0.3;
@@ -975,7 +994,7 @@ namespace UltimateChanger
                 if (!Directory.Exists(@"C:\ProgramData\Oticon Medical")) // medical
                 {
                     Medical.IsEnabled = false;
-                    lblM.Foreground = new SolidColorBrush(Colors.Red);
+                    //lblM.Foreground = new SolidColorBrush(Colors.Red);
                     lblM.Content = "FS not installed";
                     Medical.IsChecked = false;
                     //oticonmedicalnRectangle.Opacity = 0.3;
@@ -989,7 +1008,7 @@ namespace UltimateChanger
                 if (!Directory.Exists(@"C:\ProgramData\Philips HearSuite")) // cumulus
                 {
                     Cumulus.IsEnabled = false;
-                    lblC.Foreground = new SolidColorBrush(Colors.Red);
+                    //lblC.Foreground = new SolidColorBrush(Colors.Red);
                     lblC.Content = "FS not installed";
                     Cumulus.IsChecked = false;
                     //startoRectangle.Opacity = 0.3;
@@ -1414,7 +1433,7 @@ namespace UltimateChanger
                             string to = "C:\\Program Files\\UltimateChanger\\compositions\\"+ item.Name;
                             pathToLocalComposition = to;
                             MessageBox.Show($"parameters to copy: {from} \n {to}");
-                            Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Copy {from} {pathToLocalComposition}");
+                            Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Copy {from} {pathToLocalComposition} {cmbBuild2_Compo.Text}");
                             copystatus = true; // timer wie ze trwa kopiowanie
                             cmbRelease_Compo.IsEnabled = false;
                             cmbBrandstoinstall_Compo.IsEnabled = false;
@@ -3384,6 +3403,7 @@ namespace UltimateChanger
                 if (TabCompo.IsEnabled)
                 {
                     refreshUI(new object(), new EventArgs());
+                    cmbBuild2_Compo.SelectedIndex = 1;
                     fileOperator.GetfilesSaveData(true,1);
                     BindCombo.setFScomboBox_compositions(); // bindowanie do compozycjji  
                     cmbRelease_Compo.Text = cmbRelease.Text;

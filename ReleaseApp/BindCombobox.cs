@@ -99,6 +99,13 @@ namespace UltimateChanger
             {"Siya 2"},
         };
 
+        static public List<string> listOfSerchingOption = new List<string>() // rc albo master dla kompozycji
+        {
+            {"RC"},
+            {"MASTER"},
+        };
+
+
         public void bindlogmode()
         {
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbLogMode.ItemsSource = mode;
@@ -159,6 +166,7 @@ namespace UltimateChanger
             List<string> tmp = new List<string>();
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease.ItemsSource = bind;
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease_Compo.ItemsSource = bind;
+            ((MainWindow)System.Windows.Application.Current.MainWindow).cmbBuild2_Compo.ItemsSource = listOfSerchingOption;
 
             int rok = System.DateTime.Today.Year;
             int release = rok - 2000;
