@@ -1513,9 +1513,9 @@ namespace UltimateChanger
 
                     cmbBrandstoinstall.Items.Refresh();
                     BindCombo.setOEMComboBox(cmbBrandstoinstall.Text);
-                    
+                    cmbOEM.IsEnabled = true;
                     //cmbBuild.Items.Refresh();
-                  //  cmbBrandstoinstall.Items.Refresh();
+                    //  cmbBrandstoinstall.Items.Refresh();
 
                 }
                 catch (Exception x)
