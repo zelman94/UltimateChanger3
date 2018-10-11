@@ -282,6 +282,13 @@ namespace UltimateChanger
                     Kolumna.Add(myReader.GetString(2)); // info 1 = true
                     Kolumna.Add(myReader.GetString(3)); // information string 
                     Kolumna.Add(myReader.GetString(4)); // information version update
+
+                    Kolumna.Add(myReader.GetString(5)); // copyRecu
+                    Kolumna.Add(myReader.GetString(6)); // pcopySettings
+                    Kolumna.Add(myReader.GetString(7)); // copyUpdater
+                    Kolumna.Add(myReader.GetString(8)); // copyResources
+                    Kolumna.Add(myReader.GetString(9)); // copyImages
+
                     myReader.Close();
                     string tmp = Kolumna[4];
                     //-----------------------------------
@@ -356,7 +363,7 @@ namespace UltimateChanger
                         {
                             //System.Windows.Forms.MessageBox.Show($"Update available: {Kolumna[1]}");
 
-                            Window Update = new UpdateWindow(Kolumna[1], Kolumna[3]);
+                            Window Update = new UpdateWindow(Kolumna[1], Kolumna[3], Kolumna[5], Kolumna[6], Kolumna[7], Kolumna[8], Kolumna[9]);
                             Update.ShowDialog();
 
 
