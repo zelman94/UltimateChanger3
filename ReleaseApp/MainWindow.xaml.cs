@@ -739,10 +739,10 @@ namespace UltimateChanger
             checkBoxList = new List<CheckBox>()
             {
                 Oticon,
-                Bernafon,
-                Sonic,
                 Medical,
-                Cumulus
+                Sonic,
+                Cumulus,
+                Bernafon   
             };
 
             RadioButtonsList = new List<RadioButton>()
@@ -1116,6 +1116,11 @@ namespace UltimateChanger
         }
         private void btnHattori_Click(object sender, RoutedEventArgs e)
         {
+            if (TabFull.IsSelected)
+            {
+                MessageBox.Show("in progress ... \n next update");
+                return;
+            }
             byte licznik = 0;
             foreach (var item in checkBoxList)
             {
@@ -1138,13 +1143,19 @@ namespace UltimateChanger
         private void btnuninstal_Click(object sender, RoutedEventArgs e)
         {
             byte count = 0;
+            bool flag = true;
+            int chechboxNr = 0;
             string checkboxname = "";
             foreach (var item in checkBoxList)
             {
                 if (item.IsChecked.Value)
                 {
                     count++;
-
+                    flag = false;
+                }
+                if (flag)
+                {
+                    chechboxNr++;
                 }
             }
             if (count > 1)
@@ -1153,7 +1164,12 @@ namespace UltimateChanger
                 return;
             }
             FSInstaller instal = new FSInstaller();
-            string path_to_Uninstall = "";
+            List<string> path_to_Uninstall = new List<string>();
+            for (int i = 0; i < 5; i++)
+            {
+                path_to_Uninstall.Add("");
+            }
+           
             try
             {
                 var allFiles = Directory.GetFiles(@"C:\ProgramData\Package Cache", "*.exe", SearchOption.AllDirectories);
@@ -1164,70 +1180,55 @@ namespace UltimateChanger
                         FileVersionInfo myFileVersionInfo =
                         FileVersionInfo.GetVersionInfo(item);
 
-
-
                         if (myFileVersionInfo.FileDescription.Contains("Genie 2"))
                         {
                             checkboxname = "Genie 2";
-                            path_to_Uninstall = item;
+                            path_to_Uninstall[0] = item;
                         }
-                            
 
 
                         if (myFileVersionInfo.FileDescription.Contains("Genie Medical"))
                         {
                             checkboxname = "Genie Medical";
-                            path_to_Uninstall = item;
+                            path_to_Uninstall[1] = item;
                         }
-                       
-
 
                         if (myFileVersionInfo.FileDescription.Contains("Oasis NXT"))
                         {
                             checkboxname = "Oasis NXT";
-                            path_to_Uninstall = item;
+                            path_to_Uninstall[4] = item;
                         }
                         
-
 
                         if (myFileVersionInfo.FileDescription.Contains("EXPRESSfit Pro"))
                         {
                             checkboxname = "EXPRESSfit Pro";
-                            path_to_Uninstall = item;
+                            path_to_Uninstall[2] = item;
                         }
                         
-
-
+                        
                         if (myFileVersionInfo.FileDescription.Contains("HearSuite"))
                         {
                             checkboxname = "HearSuite";
-                            path_to_Uninstall = item;
-                        }
-                        
+                            path_to_Uninstall[3] = item;
+                        }                        
 
                     }
                     catch (Exception)
                     {
 
                     }
-
-
-                  
-
                 }
                 try
                 {
-
-
-
                     if (checkboxname != "") // pewnie trzeba bedzie poprawić to 
                     {
-                        instal.UninstallBrand(path_to_Uninstall, RBnormal.IsChecked.Value);
+                        instal.UninstallBrand(path_to_Uninstall[chechboxNr], RBnormal.IsChecked.Value);
                     }
                 }
                 catch (Exception)
                 {
-
+                    instal.UninstallBrand(path_to_Uninstall[0], RBnormal.IsChecked.Value);
                 }
 
             }
@@ -1844,6 +1845,12 @@ namespace UltimateChanger
 
         private void btnSavelogs_Click(object sender, RoutedEventArgs e)
         {
+            if (TabFull.IsSelected)
+            {
+                MessageBox.Show("in progress ... \n next update");
+                return;
+            }
+
             Stream myStream;
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.Filter = "txt files (*.zip)|*.zip|All files (*.*)|*.*";
@@ -3220,6 +3227,7 @@ namespace UltimateChanger
         {
             TrashCleaner smieciarka = new TrashCleaner();
             int licznik = 0;
+            MessageBox.Show("In Progress ...");
             foreach (var item in checkBoxList)
             {
                 if (item.IsChecked.Value)
@@ -3231,12 +3239,11 @@ namespace UltimateChanger
                     }
                     catch (Exception)
                     {
-                       
+                        
                     }
                 }
                 licznik++;
             }
-
         }
 
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)

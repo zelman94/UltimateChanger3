@@ -65,6 +65,15 @@ namespace UltimateChanger
             if (fileoperator.CheckIfCompositionIsAvailable(listAllCompoLocal, nrFS)) // sprawdzam czy wybrany fs Compo istnieje jezeli tak to usuwam kompozycje
             {
                 Directory.Delete(listAllCompoLocal[nrFS],true); // usuwam wszystko 
+                try
+                {
+                    File.Delete(listAllCompoLocal[nrFS]+".exe");
+                }
+                catch (Exception)
+                {
+
+
+                }
             }
 
 
