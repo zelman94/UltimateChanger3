@@ -29,7 +29,7 @@ using ICSharpCode.SharpZipLib.Zip;
 using System.Net;
 using System.Data;
 
-[assembly: System.Reflection.AssemblyVersion("3.1.0.0")]
+[assembly: System.Reflection.AssemblyVersion("3.1.1.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window
@@ -1746,6 +1746,7 @@ namespace UltimateChanger
 
                     TabFull.IsEnabled = true;
                     TabCompo.IsEnabled = true;
+                    ChangedBrandOfFittingSoftware();
                 }
                 else
                 {
