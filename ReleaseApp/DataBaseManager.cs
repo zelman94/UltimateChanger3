@@ -306,8 +306,9 @@ namespace UltimateChanger
                     APPversion = version.ToString();
 
                     if (APPversion == "3.1.0.0" && System.IO.File.Exists(@"C:\Program Files\UltimateChanger\tmp.txt")) // w pozniejszej wersji do wywalenia
-                    {
-                        System.IO.File.Delete(@"C:\Program Files\UltimateChanger\tmp.txt");
+                    {                       
+                            System.IO.File.Delete(@"C:\Program Files\UltimateChanger\tmp.txt");                    
+                       
                         try
                         {
                             Process.Start(@"C:\Program Files\UltimateChanger\UpdaterCopy.exe", @"\\10.128.3.1\DFS_data_SSC_FS_Images-SSC\PAZE\change_market\Multi_Changer\v_3.1.0\portable" + " false");
