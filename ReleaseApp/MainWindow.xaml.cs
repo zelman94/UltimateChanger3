@@ -29,7 +29,7 @@ using ICSharpCode.SharpZipLib.Zip;
 using System.Net;
 using System.Data;
 
-[assembly: System.Reflection.AssemblyVersion("3.1.0.0")]
+[assembly: System.Reflection.AssemblyVersion("3.1.1.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window
@@ -1746,6 +1746,7 @@ namespace UltimateChanger
 
                     TabFull.IsEnabled = true;
                     TabCompo.IsEnabled = true;
+                    ChangedBrandOfFittingSoftware();
                 }
                 else
                 {
@@ -3304,46 +3305,7 @@ namespace UltimateChanger
         {
             cmbRelease.Items.Refresh();
             XMLReader.setSetting("Release", "ComboBox", cmbRelease.Text);
-            try
-            {
-                if (!Rekurencja.IsEnabled)
-                {
-                   // progress.Visibility = Visibility.Visible;
-
-                    try
-                    {
-                        if (!statusOfProcess("Rekurencjon"))
-                        {
-                            if (TabCompo.IsSelected) // jezeli kompozycja
-                            {
-                                //Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text} path_Composition.txt dir_Composition.txt");
-                                cmbBrandstoinstall.IsEnabled = false;
-                                cmbBuild.IsEnabled = false;
-                                cmbOEM.IsEnabled = false;
-                            }
-                            else // jezeli Full
-                            {
-                                //Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Full {cmbRelease.Text}");
-                                cmbBrandstoinstall.IsEnabled = false;
-                                cmbBuild.IsEnabled = false;
-                                cmbOEM.IsEnabled = false;
-                            }
-                           
-                        }
-                        //Rekurencja.Start();
-                    }
-                    catch (Exception)
-                    {
-
-                    }
-
-                }
-            }
-            catch (Exception)
-            {
-
-            }
-
+            
         }
 
         void updateMarket(bool Full)

@@ -305,19 +305,19 @@ namespace UltimateChanger
                     int.TryParse(version[4].ToString(), out ver_apki[2]);
                     APPversion = version.ToString();
 
-                    if (APPversion == "3.1.0.0" && System.IO.File.Exists(@"C:\Program Files\UltimateChanger\tmp.txt")) // w pozniejszej wersji do wywalenia
+                    if ((APPversion == "3.1.0.0" || APPversion == "3.1.1.0") && System.IO.File.Exists(@"C:\Program Files\UltimateChanger\tmp.txt")) // w pozniejszej wersji do wywalenia
                     {                       
                             System.IO.File.Delete(@"C:\Program Files\UltimateChanger\tmp.txt");                    
                        
                         try
                         {
-                            Process.Start(@"C:\Program Files\UltimateChanger\UpdaterCopy.exe", @"\\10.128.3.1\DFS_data_SSC_FS_Images-SSC\PAZE\change_market\Multi_Changer\v_3.1.0\portable" + " false");
+                            Process.Start(@"C:\Program Files\UltimateChanger\UpdaterCopy.exe", @"\\10.128.3.1\DFS_data_SSC_FS_Images-SSC\PAZE\change_market\Multi_Changer\v_3.1.1\portable" + " false");
                         }
                         catch (Exception)
                         {
                             try
                             {
-                                Process.Start(@"C:\Program Files\UltimateChanger\UpdaterCopy.exe", @"\\demant.com\data\KBN\RnD\FS_Programs\Support_Tools\Ultimate_changer\v_3.1.0\portable" + " false");
+                                Process.Start(@"C:\Program Files\UltimateChanger\UpdaterCopy.exe", @"\\demant.com\data\KBN\RnD\FS_Programs\Support_Tools\Ultimate_changer\v_3.1.1\portable" + " false");
                             }
                             catch (Exception)
                             {
