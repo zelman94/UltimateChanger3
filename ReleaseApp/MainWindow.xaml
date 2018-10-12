@@ -1032,7 +1032,7 @@
 
                                 <Button Name="btnRefresh_Compo" Grid.Column="1"  VerticalAlignment="Center" ToolTip="refresh paths" Click="btnRefresh_Click" Margin="5" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"  >
                                     <StackPanel Orientation="Horizontal">
-                                        <Image Stretch="Fill" Source="Images/refresh.PNG" Height="20" Width="20"/>
+                                        <Image Name="imageRefresh_Compo" Stretch="Fill" Source="Images/refresh.PNG" Height="20" Width="20"/>
                                     </StackPanel>
                                 </Button>
                             </Grid>
@@ -1041,8 +1041,8 @@
                             <ComboBox x:Name="cmbBrandstoinstall_Compo" Grid.Row="1" Grid.Column="0" SelectionChanged="cmbbrandstoinstall_SelectionChanged" Foreground="White" BorderBrush="White" Margin="5 5" VerticalAlignment="Bottom"/>
                             <Grid Grid.Column="1" Grid.Row="1">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"/>
-                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="65"/>
                                 </Grid.ColumnDefinitions>
                                 <ComboBox x:Name="cmbOEM_Compo" Grid.Column="0" ToolTip="OEM version" SelectionChanged="cmbOEM_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom"/>
                                 <ComboBox x:Name="cmbRelease_Compo" Grid.Column="1" ToolTip="Release of FS" SelectionChanged="cmbRelease_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom"/>
