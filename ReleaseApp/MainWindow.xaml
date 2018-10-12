@@ -1019,7 +1019,7 @@
                                     <ColumnDefinition Width="1*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <ProgressBar Name="progress_Compo" Grid.Column="0" Height="30" Grid.Row="0" BorderBrush="#FF424242" Background="#FF616161" Foreground="White" Margin="5">
+                                <ProgressBar Name="progress_Compo" Grid.Column="0" Height="30" Grid.Row="0" BorderBrush="#FF424242" Background="#FF616161" Foreground="White" Margin="5" Visibility="Hidden" >
                                     <ProgressBar.RenderTransform>
                                         <TransformGroup>
                                             <ScaleTransform/>

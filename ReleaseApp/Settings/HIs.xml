@@ -365,6 +365,9 @@
   </Release16_1>
   <Hardware>
     <Available_Style>
+	  <EXPRESSlink>
+        <Wireless>FALSE</Wireless>
+      </EXPRESSlink>
       <HI-PRO_USB>
         <Wireless>FALSE</Wireless>
       </HI-PRO_USB>
@@ -377,6 +380,9 @@
       <FittingLink>
         <Wireless>TRUE</Wireless>
       </FittingLink>
+	  <NoahLink>
+        <Wireless>TRUE</Wireless>
+      </NoahLink>
       <NoahLink_Wireless>
         <Wireless>TRUE</Wireless>
       </NoahLink_Wireless>

@@ -1547,6 +1547,7 @@ namespace UltimateChanger
 
         private void cmbbrandstoinstall_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            cmbBrandstoinstall.Items.Refresh();
             ChangedBrandOfFittingSoftware();
 
         }
