@@ -1717,9 +1717,11 @@ namespace UltimateChanger
             if (!copystatus) // jezeli trwa rekurencja zwyczajna
             {
                 progress.Value += 10;
-                if (progress.Value == 100)
+                progress_Compo.Value += 10;
+                if (progress.Value == 100 || progress_Compo.Value == 100)
                 {
                     progress.Value = 0;
+                    progress_Compo.Value = 0;
 
                 }
                 if (pname.Length == 0)
@@ -1730,13 +1732,32 @@ namespace UltimateChanger
                     cmbRelease.IsEnabled = true;
                     cmbBrandstoinstall.IsEnabled = true;
                     cmbBuild.IsEnabled = true;
+                    cmbOEM.IsEnabled = true;
                     progress.Visibility = Visibility.Hidden;
                     btnRefresh.Visibility = Visibility.Visible;
+
+                    progress_Compo.Visibility = Visibility.Hidden;
+                    btnRefresh_Compo.Visibility = Visibility.Visible;
+                    cmbBuild2_Compo.IsEnabled = true;
+                    cmbBuild_Compo.IsEnabled = true;
+                    cmbBrandstoinstall_Compo.IsEnabled = true;
+                    cmbOEM_Compo.IsEnabled = true;
+                    cmbRelease_Compo.IsEnabled = true;
+
                     TabFull.IsEnabled = true;
                     TabCompo.IsEnabled = true;
                 }
                 else
                 {
+                    cmbBuild2_Compo.IsEnabled = false;
+                    cmbBuild_Compo.IsEnabled = false;
+                    cmbBrandstoinstall_Compo.IsEnabled = false;
+                    cmbOEM_Compo.IsEnabled = false;
+                    cmbRelease_Compo.IsEnabled = false;
+
+                    cmbOEM.IsEnabled = false;
+                    cmbBrandstoinstall.IsEnabled = false;
+
                     TabFull.IsEnabled = false;
                     TabCompo.IsEnabled = false;
                 }
@@ -2218,6 +2239,7 @@ namespace UltimateChanger
         {
             //zmiana image refresh
             imgRefresh.Source = new BitmapImage(new Uri("/Images/refreshDark.png", UriKind.Relative));
+            imageRefresh_Compo.Source = new BitmapImage(new Uri("/Images/refreshDark.png", UriKind.Relative));
 
             //Zmiany na ciemny motyw (można zmienić kolor ramki itd.)
             XMLReader.setSetting("Dark_skin", "RadioButtons", Convert.ToString(rbnDark_skin.IsChecked.Value).ToUpper());
@@ -2350,6 +2372,7 @@ namespace UltimateChanger
 
             // zmiana img dla buttona refresh
             imgRefresh.Source = new BitmapImage(new Uri("/Images/refreshWhite.png", UriKind.Relative));
+            imageRefresh_Compo.Source = new BitmapImage(new Uri("/Images/refreshWhite.png", UriKind.Relative));
 
             //Zmiany na jasny motyw
             XMLReader.setSetting("Light_skin", "RadioButtons",Convert.ToString(rbnLight_skin.IsChecked.Value).ToUpper());
@@ -3178,16 +3201,22 @@ namespace UltimateChanger
                 // args 2 pathFile - only file name
                 // args 3 dirFile - only file name "test.txt"
                 btnRefresh.Visibility = Visibility.Hidden;
-   
+                btnRefresh_Compo.Visibility = Visibility.Hidden;
+                progress_Compo.Visibility = Visibility.Visible;
+                progress.Visibility = Visibility.Visible;
+
+
                 if (File.Exists(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe"))
                 {
                     if (TabCompo.IsSelected)
                     {
-                        Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text}  path_Composition.txt dir_Composition.txt"); // wlaczyc gdy bedzie nowy exe gotowy
+                                                Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text}  path_Composition.txt dir_Composition.txt {cmbBuild2_Compo.Text}"); // wlaczyc gdy bedzie nowy exe gotowy
 
                     }
                     else
                     {
+                        string tmp = Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe" + $"Full {cmbRelease.Text}";
+
                         Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Full {cmbRelease.Text}"); // wlaczyc gdy bedzie nowy exe gotowy
 
                     }
@@ -3279,7 +3308,7 @@ namespace UltimateChanger
             {
                 if (!Rekurencja.IsEnabled)
                 {
-                    progress.Visibility = Visibility.Visible;
+                   // progress.Visibility = Visibility.Visible;
 
                     try
                     {
@@ -3301,7 +3330,7 @@ namespace UltimateChanger
                             }
                            
                         }
-                        Rekurencja.Start();
+                        //Rekurencja.Start();
                     }
                     catch (Exception)
                     {
