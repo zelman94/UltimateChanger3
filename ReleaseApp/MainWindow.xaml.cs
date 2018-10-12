@@ -2216,7 +2216,9 @@ namespace UltimateChanger
 
         private void Dark_skin_Checked(object sender, RoutedEventArgs e)
         {
-   
+            //zmiana image refresh
+            imgRefresh.Source = new BitmapImage(new Uri("/Images/refreshDark.png", UriKind.Relative));
+
             //Zmiany na ciemny motyw (można zmienić kolor ramki itd.)
             XMLReader.setSetting("Dark_skin", "RadioButtons", Convert.ToString(rbnDark_skin.IsChecked.Value).ToUpper());
             bool tmp = !rbnDark_skin.IsChecked.Value;
@@ -2345,6 +2347,9 @@ namespace UltimateChanger
 
         private void Light_skin_Checked(object sender, RoutedEventArgs e)
         {
+
+            // zmiana img dla buttona refresh
+            imgRefresh.Source = new BitmapImage(new Uri("/Images/refreshWhite.png", UriKind.Relative));
 
             //Zmiany na jasny motyw
             XMLReader.setSetting("Light_skin", "RadioButtons",Convert.ToString(rbnLight_skin.IsChecked.Value).ToUpper());
