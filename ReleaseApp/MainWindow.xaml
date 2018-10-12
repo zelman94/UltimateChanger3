@@ -950,7 +950,7 @@
 
                                 <Button Name="btnRefresh" Grid.Column="1"  VerticalAlignment="Center" ToolTip="refresh paths" Click="btnRefresh_Click" Margin="5" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"  >
                                     <StackPanel Orientation="Horizontal">
-                                        <Image Stretch="Fill" Source="Images/refresh.PNG" Height="20" Width="20"/>
+                                        <Image Stretch="Fill" Source="Images/refreshDark.PNG" Height="20" Width="20" />
                                     </StackPanel>
                                 </Button>
                             </Grid>
