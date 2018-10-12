@@ -5,10 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UltimateChanger"
         mc:Ignorable="d"
-        Title="DowngradeWindow" Height="300" Width="300">
+        Title="DowngradeWindow" Height="250" Width="250" ResizeMode="NoResize">
     <Grid>
-        <Button Name="btnFitting" Content="FittingLink"  Margin="93,100,90,143" Click="btnFitting_Click"/>
-        <Button Name="btnNoah" Content="NoahLink"  Margin="93,155,90,82" Click="btnNoah_Click"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Button Name="btnFitting" Content="FittingLink" Click="btnFitting_Click" Grid.Row="1" Grid.Column="1" Margin="10" BorderBrush="Black" Background="Black" Foreground="White" Opacity="0.8"/>
+        <Button Name="btnNoah" Content="NoahLink" Click="btnNoah_Click"  Grid.Row="2" Grid.Column="1" Margin="10" BorderBrush="Black" Background="Black" Foreground="White" Opacity="0.8"/>
 
     </Grid>
 </Window>
