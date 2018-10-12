@@ -36,7 +36,7 @@ namespace UltimateChanger
             { "Singapore (SG)", "SG"},
             { "PRC China (CN)", "CN"},
             { "South Africa (ZA)", "ZA"},
-            { "", "NA"}
+            { "NA", "NA"}
         };
 
         static public List<string> marketIndex = new List<string>()
@@ -131,9 +131,9 @@ namespace UltimateChanger
 
         public void setMarketCmb()
         {
-            ((MainWindow)System.Windows.Application.Current.MainWindow).cmbMarket_Compo.ItemsSource = market;
-            ((MainWindow)System.Windows.Application.Current.MainWindow).cmbMarket_Compo.DisplayMemberPath = "Key";
-            ((MainWindow)System.Windows.Application.Current.MainWindow).cmbMarket_Compo.SelectedValuePath = "Value";
+            ((MainWindow)System.Windows.Application.Current.MainWindow).cmbMarket.ItemsSource = market;
+            ((MainWindow)System.Windows.Application.Current.MainWindow).cmbMarket.DisplayMemberPath = "Key";
+            ((MainWindow)System.Windows.Application.Current.MainWindow).cmbMarket.SelectedValuePath = "Value";
 
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbMarket_Compo.ItemsSource = market;
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbMarket_Compo.DisplayMemberPath = "Key";
