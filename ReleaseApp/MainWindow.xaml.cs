@@ -1732,6 +1732,7 @@ namespace UltimateChanger
                     cmbRelease.IsEnabled = true;
                     cmbBrandstoinstall.IsEnabled = true;
                     cmbBuild.IsEnabled = true;
+                    cmbOEM.IsEnabled = true;
                     progress.Visibility = Visibility.Hidden;
                     btnRefresh.Visibility = Visibility.Visible;
 
@@ -1754,6 +1755,8 @@ namespace UltimateChanger
                     cmbOEM_Compo.IsEnabled = false;
                     cmbRelease_Compo.IsEnabled = false;
 
+                    cmbOEM.IsEnabled = false;
+                    cmbBrandstoinstall.IsEnabled = false;
 
                     TabFull.IsEnabled = false;
                     TabCompo.IsEnabled = false;
@@ -3207,11 +3210,13 @@ namespace UltimateChanger
                 {
                     if (TabCompo.IsSelected)
                     {
-                        Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text}  path_Composition.txt dir_Composition.txt {cmbBuild2_Compo.Text}"); // wlaczyc gdy bedzie nowy exe gotowy
+                                                Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text}  path_Composition.txt dir_Composition.txt {cmbBuild2_Compo.Text}"); // wlaczyc gdy bedzie nowy exe gotowy
 
                     }
                     else
                     {
+                        string tmp = Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe" + $"Full {cmbRelease.Text}";
+
                         Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Full {cmbRelease.Text}"); // wlaczyc gdy bedzie nowy exe gotowy
 
                     }
@@ -3303,7 +3308,7 @@ namespace UltimateChanger
             {
                 if (!Rekurencja.IsEnabled)
                 {
-                    progress.Visibility = Visibility.Visible;
+                   // progress.Visibility = Visibility.Visible;
 
                     try
                     {
@@ -3325,7 +3330,7 @@ namespace UltimateChanger
                             }
                            
                         }
-                        Rekurencja.Start();
+                        //Rekurencja.Start();
                     }
                     catch (Exception)
                     {
