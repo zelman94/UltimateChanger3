@@ -223,6 +223,7 @@ namespace UltimateChanger
 
             //tabGlossary.Visibility = Visibility.Hidden;
             tabGlossary.IsEnabled = false;
+            btnIdentify.Visibility = Visibility.Hidden;
 
             rbn_Genie.Visibility = Visibility.Hidden;
             rbn_Oasis.Visibility = Visibility.Hidden;
