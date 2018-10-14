@@ -18,8 +18,8 @@
             <RowDefinition Height="2*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Button Name="btnFitting" Content="FittingLink" Click="btnFitting_Click" Grid.Row="1" Grid.Column="1" Margin="10" BorderBrush="Black" Background="Black" Foreground="White" Opacity="0.8"/>
-        <Button Name="btnNoah" Content="NoahLink" Click="btnNoah_Click"  Grid.Row="2" Grid.Column="1" Margin="10" BorderBrush="Black" Background="Black" Foreground="White" Opacity="0.8"/>
+        <Button Name="btnFitting" Content="FittingLink" Click="btnFitting_Click" Grid.Row="1" Grid.Column="1" Margin="5" BorderBrush="Black" Background="Black" Foreground="White" Opacity="0.8"/>
+        <Button Name="btnNoah" Content="NoahLink" Click="btnNoah_Click"  Grid.Row="2" Grid.Column="1" Margin="5" BorderBrush="Black" Background="Black" Foreground="White" Opacity="0.8"/>
 
     </Grid>
 </Window>

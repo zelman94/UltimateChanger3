@@ -587,7 +587,7 @@ namespace UltimateChanger
 
         }
 
-        public void setMarket(int licz, string market,bool FULL)
+        public bool setMarket(int licz, string market,bool FULL)
         {
             try
             {
@@ -606,10 +606,11 @@ namespace UltimateChanger
                     doc.SelectSingleNode("/ManufacturerInfo/MarketName").InnerText = market;
                     doc.Save(FindSettingFileForComposition(licz));
                 }
+                return true;
             }
             catch (Exception)
             {
-
+                return false;
             }
 
         }
