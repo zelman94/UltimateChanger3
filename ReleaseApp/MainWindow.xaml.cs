@@ -3380,7 +3380,13 @@ namespace UltimateChanger
                         cmbOEM_SelectionChanged(new object(),e);
                         RBnormal.IsEnabled = true;
                         RBsilet.IsEnabled = true;
-                        
+
+
+                        // ustawiam na -1 bo inaczej jest crush jak nie masz zaznaczonego marketu a chcesz zrobic update
+                        cmbMarket_Compo.SelectedIndex = -1;
+                        cmbLogMode_Compo.SelectedIndex = -1;
+                        cmbLogSettings_Compo.SelectedIndex = -1;
+
 
                         BindCombo.setOEMComboBox(cmbBrandstoinstall.Text);
                         cmbOEM.Items.Refresh();
@@ -3416,6 +3422,13 @@ namespace UltimateChanger
                     }
                     ChangedBrandOfFittingSoftware();
                     cmbBuild.Items.Refresh();
+
+
+                    // ustawiam na -1 bo inaczej jest crush jak nie masz zaznaczonego marketu a chcesz zrobic update
+                    cmbMarket.SelectedIndex = -1;
+                    cmbLogMode.SelectedIndex = -1;
+                    //cmbLogSettings.SelectedIndex = -1;
+
 
                     RBnormal.IsEnabled = false;
                     RBsilet.IsEnabled = false;
