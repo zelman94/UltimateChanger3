@@ -29,7 +29,7 @@ using ICSharpCode.SharpZipLib.Zip;
 using System.Net;
 using System.Data;
 
-[assembly: System.Reflection.AssemblyVersion("3.1.1.0")]
+[assembly: System.Reflection.AssemblyVersion("3.1.2.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window
