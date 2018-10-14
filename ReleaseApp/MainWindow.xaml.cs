@@ -785,36 +785,36 @@ namespace UltimateChanger
             ListRactanglesNames = new List<Rectangle>()
             {
                 oticonRectangle,
-                bernafonRectangle,
-                sonicRectangle,
                 oticonmedicalnRectangle,
-                startoRectangle
+                sonicRectangle,
+                startoRectangle,
+                bernafonRectangle
             };
 
             ListImages = new List<Image>()
             {
                 imgOticon,
-                imgBernafon,
-                imgSonic,
                 imgOticonMedical,
-                imgStarto
+                imgSonic,
+                imgStarto,
+                imgBernafon
             };
 
             listlabelsinfoFS = new List<Label>()
             {
                 lblG,
-                lblO,
-                lblE,
                 lblM,
-                lblC
+                lblE,
+                lblC,
+                lblO
             };
             listlabelsinfoFS_Version = new List<Label>()
             {
                 lblGV,
-                lblOV,
-                lblEV,
                 lblMV,
-                lblCV
+                lblEV,
+                lblCV,
+                lblOV
             };
         }
 
@@ -3324,11 +3324,19 @@ namespace UltimateChanger
                                 {
                                     if (Full)
                                     {
-                                        fileOperator.setMarket(licz, BindCombobox.marketIndex[cmbMarket.SelectedIndex], Full);
+                                        if (!fileOperator.setMarket(licz, BindCombobox.marketIndex[cmbMarket.SelectedIndex], Full)) // jezeli sie nie udalo to zmieniam message
+                                        {
+                                            message = "error: ";
+                                        }
+                                       
                                     }
                                     else
                                     {
-                                        fileOperator.setMarket(licz, BindCombobox.marketIndex[cmbMarket_Compo.SelectedIndex], Full);
+                                        if (fileOperator.setMarket(licz, BindCombobox.marketIndex[cmbMarket_Compo.SelectedIndex], Full))
+                                        {
+                                            message = "error: ";
+                                        }
+                                        
                                     }
                                     
                                     message = message + item.Name + "\n";
