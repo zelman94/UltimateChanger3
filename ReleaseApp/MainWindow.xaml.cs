@@ -29,7 +29,7 @@ using ICSharpCode.SharpZipLib.Zip;
 using System.Net;
 using System.Data;
 
-[assembly: System.Reflection.AssemblyVersion("3.1.0.0")]
+[assembly: System.Reflection.AssemblyVersion("3.1.2.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window
@@ -223,6 +223,7 @@ namespace UltimateChanger
 
             //tabGlossary.Visibility = Visibility.Hidden;
             tabGlossary.IsEnabled = false;
+            btnIdentify.Visibility = Visibility.Hidden;
 
             rbn_Genie.Visibility = Visibility.Hidden;
             rbn_Oasis.Visibility = Visibility.Hidden;
@@ -784,36 +785,36 @@ namespace UltimateChanger
             ListRactanglesNames = new List<Rectangle>()
             {
                 oticonRectangle,
-                bernafonRectangle,
-                sonicRectangle,
                 oticonmedicalnRectangle,
-                startoRectangle
+                sonicRectangle,
+                startoRectangle,
+                bernafonRectangle
             };
 
             ListImages = new List<Image>()
             {
                 imgOticon,
-                imgBernafon,
-                imgSonic,
                 imgOticonMedical,
-                imgStarto
+                imgSonic,
+                imgStarto,
+                imgBernafon
             };
 
             listlabelsinfoFS = new List<Label>()
             {
                 lblG,
-                lblO,
-                lblE,
                 lblM,
-                lblC
+                lblE,
+                lblC,
+                lblO
             };
             listlabelsinfoFS_Version = new List<Label>()
             {
                 lblGV,
-                lblOV,
-                lblEV,
                 lblMV,
-                lblCV
+                lblEV,
+                lblCV,
+                lblOV
             };
         }
 
@@ -1746,6 +1747,7 @@ namespace UltimateChanger
 
                     TabFull.IsEnabled = true;
                     TabCompo.IsEnabled = true;
+                    ChangedBrandOfFittingSoftware();
                 }
                 else
                 {
@@ -3304,46 +3306,7 @@ namespace UltimateChanger
         {
             cmbRelease.Items.Refresh();
             XMLReader.setSetting("Release", "ComboBox", cmbRelease.Text);
-            try
-            {
-                if (!Rekurencja.IsEnabled)
-                {
-                   // progress.Visibility = Visibility.Visible;
-
-                    try
-                    {
-                        if (!statusOfProcess("Rekurencjon"))
-                        {
-                            if (TabCompo.IsSelected) // jezeli kompozycja
-                            {
-                                //Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text} path_Composition.txt dir_Composition.txt");
-                                cmbBrandstoinstall.IsEnabled = false;
-                                cmbBuild.IsEnabled = false;
-                                cmbOEM.IsEnabled = false;
-                            }
-                            else // jezeli Full
-                            {
-                                //Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Full {cmbRelease.Text}");
-                                cmbBrandstoinstall.IsEnabled = false;
-                                cmbBuild.IsEnabled = false;
-                                cmbOEM.IsEnabled = false;
-                            }
-                           
-                        }
-                        //Rekurencja.Start();
-                    }
-                    catch (Exception)
-                    {
-
-                    }
-
-                }
-            }
-            catch (Exception)
-            {
-
-            }
-
+            
         }
 
         void updateMarket(bool Full)
@@ -3361,11 +3324,19 @@ namespace UltimateChanger
                                 {
                                     if (Full)
                                     {
-                                        fileOperator.setMarket(licz, BindCombobox.marketIndex[cmbMarket.SelectedIndex], Full);
+                                        if (!fileOperator.setMarket(licz, BindCombobox.marketIndex[cmbMarket.SelectedIndex], Full)) // jezeli sie nie udalo to zmieniam message
+                                        {
+                                            message = "error: ";
+                                        }
+                                       
                                     }
                                     else
                                     {
-                                        fileOperator.setMarket(licz, BindCombobox.marketIndex[cmbMarket_Compo.SelectedIndex], Full);
+                                        if (fileOperator.setMarket(licz, BindCombobox.marketIndex[cmbMarket_Compo.SelectedIndex], Full))
+                                        {
+                                            message = "error: ";
+                                        }
+                                        
                                     }
                                     
                                     message = message + item.Name + "\n";
@@ -3417,7 +3388,13 @@ namespace UltimateChanger
                         cmbOEM_SelectionChanged(new object(),e);
                         RBnormal.IsEnabled = true;
                         RBsilet.IsEnabled = true;
-                        
+
+
+                        // ustawiam na -1 bo inaczej jest crush jak nie masz zaznaczonego marketu a chcesz zrobic update
+                        cmbMarket_Compo.SelectedIndex = -1;
+                        cmbLogMode_Compo.SelectedIndex = -1;
+                        cmbLogSettings_Compo.SelectedIndex = -1;
+
 
                         BindCombo.setOEMComboBox(cmbBrandstoinstall.Text);
                         cmbOEM.Items.Refresh();
@@ -3453,6 +3430,13 @@ namespace UltimateChanger
                     }
                     ChangedBrandOfFittingSoftware();
                     cmbBuild.Items.Refresh();
+
+
+                    // ustawiam na -1 bo inaczej jest crush jak nie masz zaznaczonego marketu a chcesz zrobic update
+                    cmbMarket.SelectedIndex = -1;
+                    cmbLogMode.SelectedIndex = -1;
+                    //cmbLogSettings.SelectedIndex = -1;
+
 
                     RBnormal.IsEnabled = false;
                     RBsilet.IsEnabled = false;

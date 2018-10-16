@@ -562,7 +562,7 @@ namespace UltimateChanger
             return listpaths;
         }
 
-        public static void setGodzilla()
+        public static void setGodzilla() // dodac implementacje dla kompozycji 
         {
             List<string> listOfConfigFSExe = new List<string>()
             {
