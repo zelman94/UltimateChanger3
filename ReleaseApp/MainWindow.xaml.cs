@@ -1748,6 +1748,10 @@ namespace UltimateChanger
                     TabFull.IsEnabled = true;
                     TabCompo.IsEnabled = true;
                     ChangedBrandOfFittingSoftware();
+                    RBsilet.IsEnabled = true;
+                    RBnormal.IsEnabled = true;
+
+
                 }
                 else
                 {
@@ -2068,6 +2072,7 @@ namespace UltimateChanger
 
                             HIs tmpHIR = HIs.randomHI(lblRelease.Content.ToString(), listofstyles, tmp_hi_Types_Name);
                             tmp.HIR_ = tmpHIR.Name;
+                            tmp.Family_Name = tmpHIR.Name_fammily;
 
                             string wireless = "FALSE";
 
@@ -3212,7 +3217,7 @@ namespace UltimateChanger
                 {
                     if (TabCompo.IsSelected)
                     {
-                                                Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text}  path_Composition.txt dir_Composition.txt {cmbBuild2_Compo.Text}"); // wlaczyc gdy bedzie nowy exe gotowy
+                        Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease_Compo.Text}  path_Composition.txt dir_Composition.txt {cmbBuild2_Compo.Text}"); // wlaczyc gdy bedzie nowy exe gotowy
 
                     }
                     else
@@ -3229,7 +3234,7 @@ namespace UltimateChanger
 
                     if (TabCompo.IsSelected)
                     {
-                        Process.Start(@"C:\Program Files\UltimateChanger" + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease.Text}  path_Composition.txt dir_Composition.txt"); // wlaczyc gdy bedzie nowy exe gotowy
+                        Process.Start(@"C:\Program Files\UltimateChanger" + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease_Compo.Text}  path_Composition.txt dir_Composition.txt"); // wlaczyc gdy bedzie nowy exe gotowy
 
                     }
                     else
@@ -3277,6 +3282,12 @@ namespace UltimateChanger
             {
                 cmbLogSettings_Compo.SelectedIndex = -1;
             }
+        }
+
+        private void cmbRelease_SelectionChanged_Compo(object sender, SelectionChangedEventArgs e)
+        {
+            cmbRelease_Compo.Items.Refresh();
+            XMLReader.setSetting("Release", "ComboBox", cmbRelease_Compo.Text);
         }
 
         private void btnDeleteC_Compo_Click(object sender, RoutedEventArgs e)

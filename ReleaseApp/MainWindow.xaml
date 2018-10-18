@@ -1045,7 +1045,7 @@
                                     <ColumnDefinition Width="65"/>
                                 </Grid.ColumnDefinitions>
                                 <ComboBox x:Name="cmbOEM_Compo" Grid.Column="0" ToolTip="OEM version" SelectionChanged="cmbOEM_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom"/>
-                                <ComboBox x:Name="cmbRelease_Compo" Grid.Column="1" ToolTip="Release of FS" SelectionChanged="cmbRelease_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom"/>
+                                <ComboBox x:Name="cmbRelease_Compo" Grid.Column="1" ToolTip="Release of FS" SelectionChanged="cmbRelease_SelectionChanged_Compo" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom"/>
                             </Grid>
 
 
