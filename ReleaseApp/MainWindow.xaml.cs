@@ -2068,6 +2068,7 @@ namespace UltimateChanger
 
                             HIs tmpHIR = HIs.randomHI(lblRelease.Content.ToString(), listofstyles, tmp_hi_Types_Name);
                             tmp.HIR_ = tmpHIR.Name;
+                            tmp.Family_Name = tmpHIR.Name_fammily;
 
                             string wireless = "FALSE";
 
