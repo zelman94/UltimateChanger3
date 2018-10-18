@@ -1748,6 +1748,10 @@ namespace UltimateChanger
                     TabFull.IsEnabled = true;
                     TabCompo.IsEnabled = true;
                     ChangedBrandOfFittingSoftware();
+                    RBsilet.IsEnabled = true;
+                    RBnormal.IsEnabled = true;
+
+
                 }
                 else
                 {
