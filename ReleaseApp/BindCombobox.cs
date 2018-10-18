@@ -312,13 +312,21 @@ namespace UltimateChanger
                 }
                 catch (Exception) // pewnie kompozycja
                 {
-                    foreach (var item in allPaths[0].path)
+                    try
                     {
-                        if (item.Contains(OEM))
+                        foreach (var item in allPaths[0].path)
                         {
-                            PathsOem.Add(item);
+                            if (item.Contains(OEM))
+                            {
+                                PathsOem.Add(item);
+                            }
                         }
                     }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+                   
                 }
                 
 
