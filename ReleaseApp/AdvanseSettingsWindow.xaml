@@ -21,11 +21,11 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <Label Content="Option 1" FontWeight="SemiBold" FontSize="12.5" Foreground="Black" Grid.Column="1" Grid.Row="0"/>
+        <Label Content="maximumFileSize" FontWeight="SemiBold" FontSize="12.5" Foreground="Black" Grid.Column="1" Grid.Row="0"/>
         <TextBox x:Name="txtsettlog1"  Text="" Foreground="Black" BorderBrush="Black" VerticalAlignment="Bottom"  Margin="5" Padding="2"  Grid.Column="1" Grid.Row="0"/>
-        <Label Content="Option 2" FontWeight="SemiBold" FontSize="12.5" Foreground="Black" Grid.Column="1" Grid.Row="1"/>
+        <Label Content="appendToFile" FontWeight="SemiBold" FontSize="12.5" Foreground="Black" Grid.Column="1" Grid.Row="1"/>
         <TextBox x:Name="txtsettlog2"  Text=""  Foreground="Black" BorderBrush="Black" VerticalAlignment="Bottom" Margin="5" Padding="2" Grid.Column="1" Grid.Row="1"/>
-        <Label Content="Option 3" FontWeight="SemiBold" FontSize="12.5" Foreground="Black" Grid.Column="1" Grid.Row="2"/>
+        <Label Content="maxSizeRollBackups" FontWeight="SemiBold" FontSize="12.5" Foreground="Black" Grid.Column="1" Grid.Row="2"/>
         <TextBox x:Name="txtsettlog3"  Text="" Foreground="Black" BorderBrush="Black" VerticalAlignment="Bottom"  Margin="5" Padding="2" Grid.Column="1" Grid.Row="2"/>
         <Button x:Name="btnOK" Content="Apply settings" Click="btnOK_Click" Margin="10" BorderBrush="Black" Background="Black" Foreground="White" Opacity="0.8" Grid.Column="1" Grid.Row="4"/>
     </Grid>

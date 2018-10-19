@@ -972,7 +972,7 @@
 
                             <Button x:Name="btninstal" Content="Install" Click="btninstal_Click" Grid.Row="3" Grid.Column="0" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Center" Margin="10 0"/>
                             <Button x:Name="btnInfo" Content="Copy path to build" Grid.Row="3" Grid.Column="1" Click="btnInfo_Click" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Center" Margin="10 0"/>
-                            <Button x:Name="btnuninstal"  Grid.Row="5" Content="Uninstall FS" Click="btnuninstal_Click" Grid.Column="2" ToolTip="Selected FS will be uninstalled only if your installation process was started witch Ultimate Changer" IsEnabled="false" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" VerticalAlignment="Center"/>
+                            <Button x:Name="btnuninstal"  Grid.Row="5" Content="Uninstall FS" Click="btnuninstal_Click" Grid.Column="2" ToolTip="Selected FS will be uninstalled only if your installation process was started which Ultimate Changer" IsEnabled="false" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" VerticalAlignment="Center"/>
                             <Button x:Name="btnDelete" Grid.Row="5" Grid.Column="3" Content="Delete trash" Click="btnDelete_Click" ToolTip="All data files of selected FS will be deleted (also client sesion)" IsEnabled="False" Foreground="#E5FFFFFF" BorderBrush="#FF424242" Background="#FF616161" Margin="10 0" VerticalAlignment="Center"/>
 
                             <Label x:Name="lblSelectMarket" Content="Select market:" Foreground="White" HorizontalAlignment="Left" FontWeight="SemiBold" FontSize="12.5" Grid.Column="2" Grid.Row="0" VerticalAlignment="Top"/>
@@ -1045,7 +1045,7 @@
                                     <ColumnDefinition Width="65"/>
                                 </Grid.ColumnDefinitions>
                                 <ComboBox x:Name="cmbOEM_Compo" Grid.Column="0" ToolTip="OEM version" SelectionChanged="cmbOEM_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom"/>
-                                <ComboBox x:Name="cmbRelease_Compo" Grid.Column="1" ToolTip="Release of FS" SelectionChanged="cmbRelease_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom"/>
+                                <ComboBox x:Name="cmbRelease_Compo" Grid.Column="1" ToolTip="Release of FS" SelectionChanged="cmbRelease_SelectionChanged_Compo" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom"/>
                             </Grid>
 
 

@@ -596,6 +596,22 @@ namespace UltimateChanger
             }
         }
 
+
+        public void setLogs_Begin()
+        {
+            try
+            {
+                string data = DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day + "/" + DateTime.Now.ToString("h:mm:ss tt");
+                MySqlCommand myCommand = new MySqlCommand($"INSERT INTO Logs VALUES ('{Environment.UserName}','{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()}','{data}')", SQLConnection);
+                myCommand.ExecuteNonQuery();
+            }
+            catch (Exception x)
+            {
+                Console.WriteLine(x.ToString());
+            }
+        }
+
+
         public void setLogs(ClickCounter CounterOfclicks,string skin_name)
         { // dodac implementacje logowania do bazy SQL
             try
