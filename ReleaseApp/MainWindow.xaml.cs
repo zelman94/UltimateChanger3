@@ -203,6 +203,7 @@ namespace UltimateChanger
                 dataBaseManager = new DataBaseManager(XMLReader.getDefaultSettings("DataBase").ElementAt(0).Value);
                 if (dataBaseManager != null)
                 {
+                    dataBaseManager.setLogs_Begin(); // logowanie wlaczenia UC3
                     dataBaseManager.getInformation_DB();
                 }
 
