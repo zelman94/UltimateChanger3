@@ -200,12 +200,8 @@ namespace UltimateChanger
                 ListBoxOfAvailableTypes.SelectionMode = SelectionMode.Multiple;
 
                 refreshUI(new object(), new EventArgs());
-                dataBaseManager = new DataBaseManager(XMLReader.getDefaultSettings("DataBase").ElementAt(0).Value);
-                if (dataBaseManager != null)
-                {
-                    dataBaseManager.setLogs_Begin(); // logowanie wlaczenia UC3
-                    dataBaseManager.getInformation_DB();
-                }
+                dataBaseManager = new DataBaseManager(XMLReader.getDefaultSettings("DataBase").ElementAt(0).Value); // tam jest wątek
+
 
                 setUIdefaults(XMLReader.getDefaultSettings("RadioButtons"), "RadioButtons");
                 setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
@@ -322,80 +318,87 @@ namespace UltimateChanger
             lblVersion.Content = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             User_Power = "USER";
 
-            try
-            {
-                if (!Directory.Exists("C:\\Program Files\\UltimateChanger\\compositions\\"))
+            var t = Task.Run(() => { // watek 
+                try
                 {
-                    Directory.CreateDirectory("C:\\Program Files\\UltimateChanger\\compositions\\");
-                }
-            }
-            catch (Exception x)
-            {
-                MessageBox.Show(x.ToString());
-            }
-
-            try
-            {
-                CredentialCache.DefaultNetworkCredentials.Domain = "EMEA";
-
-                CredentialCache.DefaultNetworkCredentials.UserName = "gl_ssc_swtest";
-
-                CredentialCache.DefaultNetworkCredentials.Password = "Start123";
-
-
-                string[] fileonServer = Directory.GetFiles(@"\\demant.com\data\KBN\RnD\FS_Programs\Support_Tools\REMedy\_currentVersion"); // pobieram nazwy plikow
-
-                if (fileOperator.checkInstanceFakeVerifit())
-                {
-                    btnFakeV.IsEnabled = true;
-                    FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(@"C:\Program Files (x86)\REMedy\REMedy.Launcher.exe");
-                    FileVersionInfo veronserver = FileVersionInfo.GetVersionInfo(fileonServer[0]);//pobieram info o pliku 
-
-                    if (myFileVersionInfo.FileVersion != veronserver.FileVersion)
+                    if (!Directory.Exists("C:\\Program Files\\UltimateChanger\\compositions\\"))
                     {
+                        Directory.CreateDirectory("C:\\Program Files\\UltimateChanger\\compositions\\");
+                    }
+                }
+                catch (Exception x)
+                {
+                    MessageBox.Show(x.ToString());
+                }
+            });
+
+            var t2 = Task.Run(() => {
+                try
+                {
+                    CredentialCache.DefaultNetworkCredentials.Domain = "EMEA";
+
+                    CredentialCache.DefaultNetworkCredentials.UserName = "gl_ssc_swtest";
+
+                    CredentialCache.DefaultNetworkCredentials.Password = "Start123";
+
+
+                    string[] fileonServer = Directory.GetFiles(@"\\demant.com\data\KBN\RnD\FS_Programs\Support_Tools\REMedy\_currentVersion"); // pobieram nazwy plikow
+
+                    if (fileOperator.checkInstanceFakeVerifit())
+                    {
+                        btnFakeV.IsEnabled = true;
+                        FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(@"C:\Program Files (x86)\REMedy\REMedy.Launcher.exe");
+                        FileVersionInfo veronserver = FileVersionInfo.GetVersionInfo(fileonServer[0]);//pobieram info o pliku 
+
+                        if (myFileVersionInfo.FileVersion != veronserver.FileVersion)
+                        {
+                            try
+                            {
+                                string[] dd = Directory.GetFiles(@"C:\Program Files\UltimateChanger\Resources");
+                                FileInfo nazwa = new FileInfo(dd[0]);
+                                Process.Start(dd.Last(), "/uninstall /quiet ");
+                            }
+                            catch (Exception)
+                            {
+                                MessageBox.Show("Dir Error :) kiedyś naprawie :)");
+                            }
+                        }
+                        btnFakeV.ToolTip = myFileVersionInfo.FileVersion;
+                    }
+                    else
+                    {
+                        btnFakeV.IsEnabled = false;
+                        if (!Directory.Exists(@"C:\Program Files\UltimateChanger\Resources"))
+                        {
+                            Directory.CreateDirectory(@"C:\Program Files\UltimateChanger\Resources");
+                        }
+                        FileInfo nazwa = new FileInfo(fileonServer[0]);
                         try
                         {
-                            string[] dd = Directory.GetFiles(@"C:\Program Files\UltimateChanger\Resources");
-                            FileInfo nazwa = new FileInfo(dd[0]);
-                            Process.Start(dd.Last(), "/uninstall /quiet ");
+                            File.Copy(fileonServer[0], @"C:\Program Files\UltimateChanger\Resources\" + nazwa.Name);
                         }
                         catch (Exception)
                         {
-                            MessageBox.Show("Dir Error :) kiedyś naprawie :)");
+                            Process.Start("Resources\\REMedy.Installer.Mini.1.0.3.0.exe", "/silent /install ");
                         }
+                        Process.Start(fileonServer[0], "/silent /install ");
+                        // uruchomic silent installera 
                     }
-                    btnFakeV.ToolTip = myFileVersionInfo.FileVersion;
                 }
-                else
+                catch (IOException y)
                 {
                     btnFakeV.IsEnabled = false;
-                    if (!Directory.Exists(@"C:\Program Files\UltimateChanger\Resources"))
-                    {
-                        Directory.CreateDirectory(@"C:\Program Files\UltimateChanger\Resources");
-                    }
-                    FileInfo nazwa = new FileInfo(fileonServer[0]);
-                    try
-                    {
-                        File.Copy(fileonServer[0], @"C:\Program Files\UltimateChanger\Resources\" + nazwa.Name);
-                    }
-                    catch (Exception)
-                    {
-                        Process.Start("Resources\\REMedy.Installer.Mini.1.0.3.0.exe", "/silent /install ");
-                    }
-                    Process.Start(fileonServer[0], "/silent /install ");
-                    // uruchomic silent installera 
+                    MessageBox.Show(@"can not find \n \\demant.com\data\KBN\RnD\FS_Programs\Support_Tools\REMedy\_currentVersion");
                 }
-            }
-            catch (IOException y)
-            {
-                btnFakeV.IsEnabled = false;
-                MessageBox.Show(@"can not find \n \\demant.com\data\KBN\RnD\FS_Programs\Support_Tools\REMedy\_currentVersion");
-            }
-            catch (Exception x)
-            {
-                btnFakeV.IsEnabled = false;
-                MessageBox.Show(x.ToString());
-            }
+                catch (Exception x)
+                {
+                    btnFakeV.IsEnabled = false;
+                    MessageBox.Show(x.ToString());
+                }
+            });
+
+
+           
 
             if (fileOperator.checkInstanceNewPreconditioner())
             {
