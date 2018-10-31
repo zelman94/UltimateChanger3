@@ -12,30 +12,17 @@ namespace UltimateChanger
 
     class Install_
     {
-        public void Start_Installation(object path)
+        public void Start_InstallationAsync(string path)
         {
-            try
-            {
-                Process.Start(path.ToString());
-            }
-            catch (Exception)
-            {
-
-            }
-           
+            Task.Run(() => Process.Start(path.ToString())); // watek asynchroniczny
         }
-        public void Start_Silent_Installation(object path)
+
+        public void Start_Silent_InstallationAsync(string path)
         {
-            try
-            {
-                Process.Start(path.ToString(), " /uninstall /quiet");
-            }
-            catch (Exception)
-            {
-
-            }
-
+            Task.Run(() => Process.Start(path.ToString(), " /uninstall /quiet")); // watek asynchroniczny
         }
+
+
     }
     public class FSInstaller
     {
@@ -46,10 +33,8 @@ namespace UltimateChanger
                 try
                 { // dodać wątek 
                     Install_ THInstall = new Install_();
-                    Thread oThread = new Thread(new ParameterizedThreadStart(
-                    THInstall.Start_Installation));
-                    oThread.Start(path);
-                    oThread.Join();
+                    THInstall.Start_InstallationAsync(path);
+
 
                     //Process.Start(path);
                     return true;
@@ -66,13 +51,10 @@ namespace UltimateChanger
                     // dodać wątek 
                     //string tmp2 = @"\\10.128.3.1\DFS_Data_SSC_FS_GenieBuilds\Phoenix\ExpressFit\ExpressFit_4.0.784.161\Full\Sonic\Setup.exe /quiet";
                     Install_ THInstall = new Install_();
-                    Thread oThread = new Thread(new ParameterizedThreadStart(
-                    THInstall.Start_Silent_Installation));
-                    oThread.Start(path);
-                    oThread.Join();
+                    THInstall.Start_Silent_InstallationAsync(path);
 
 
-                   // Process.Start(path, " /uninstall /quiet");
+                    // Process.Start(path, " /uninstall /quiet");
                     return true;
                 }
                 catch (Exception)
