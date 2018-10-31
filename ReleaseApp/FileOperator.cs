@@ -204,6 +204,33 @@ namespace UltimateChanger
             }
         }
 
+        public static void CreateShortcut(string shortcutName, string shortcutPath, string targetFileLocation)
+        {
+
+            try // usuwan stary
+            {
+                File.Delete(System.IO.Path.Combine(@"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\", "Ultimate Changer.lnk"));
+            }
+            catch (Exception)
+            {
+
+            }
+
+            string shortcutLocation = System.IO.Path.Combine(shortcutPath, shortcutName + ".lnk");
+            IWshRuntimeLibrary.WshShell shell = new IWshRuntimeLibrary.WshShell();
+            IWshRuntimeLibrary.IWshShortcut shortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(shortcutLocation);
+
+            shortcut.Description = "Ultimate Changer";   // The description of the shortcut
+            shortcut.IconLocation = @"C:\Program Files\UltimateChanger\icon.ico";           // The icon of the shortcut
+            shortcut.TargetPath = targetFileLocation;                 // The path of the file that will launch when the shortcut is run
+            shortcut.WorkingDirectory = @"C:\Program Files\UltimateChanger";
+            shortcut.Save();                                    // Save the shortcut
+
+            File.Move(shortcutLocation, System.IO.Path.Combine(shortcutPath, "Ultimate Changer.lnk"));
+
+        }
+
+
         public void setAutostart(bool mode) // true - wlaczony autostar false - bez autostart
         {
             switch (mode.ToString().ToLower())
@@ -214,10 +241,9 @@ namespace UltimateChanger
                         string tmp = @"%programdata%\Microsoft\Windows\Start Menu\Programs\Startup\"+ System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + ".exe";
                         string dest = @"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\";
 
+                       // File.Copy(Directory.GetCurrentDirectory() + "\\" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + ".exe", path2, true); // nowy skrot do exe 
 
-                        string path = Path.GetTempPath() + System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + ".exe";
-                        string path2 = dest + System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + ".exe";
-                        File.Copy(Directory.GetCurrentDirectory() + "\\" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + ".exe", path2, true);
+                        CreateShortcut("shortcut Ultimate Changer", dest, @"C:\Program Files\UltimateChanger\Ultimate Changer.exe");
 
                     }
                     catch (Exception)
@@ -229,7 +255,7 @@ namespace UltimateChanger
                 case ("false"):
                     try
                     {
-                        File.Delete(@"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\"+ System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + ".exe");
+                        File.Delete(@"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\Ultimate Changer.lnk");
                     }
                     catch (Exception)
                     {

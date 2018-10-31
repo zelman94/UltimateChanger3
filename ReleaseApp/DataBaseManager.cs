@@ -8,6 +8,7 @@ using MySql;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.Windows;
+using System.Threading;
 
 namespace UltimateChanger
 {
@@ -197,24 +198,30 @@ namespace UltimateChanger
         public DataBaseManager(string switch_)
         {
 
-            SQLConnection = ConnectToDB(switch_);
-            try
-            {
-                SQLConnection.Open();
-                // SQLConnection.Close();
-                DB_connection = true;
+            var t = Task.Run(() => {
+                SQLConnection = ConnectToDB(switch_);
+                try
+                {
+                    if (SQLConnection == null)
+                    {
+                        SQLConnection.Open();
+                    }
+                   
+                    // SQLConnection.Close();
+                    DB_connection = true;
 
+                    setLogs_Begin(); // logowanie wlaczenia UC3
+                    getInformation_DB();
 
+                }
+                catch (Exception x)
+                {
+                    // DB_connection = false;
+                    //MessageBox.Show("no acess to DB");
 
-            }
-            catch (Exception)
-            {
-                // DB_connection = false;
-                //MessageBox.Show("no acess to DB");
-
-            }
-
-
+                }
+            });
+            //t.Wait();
 
         }
 
@@ -255,7 +262,7 @@ namespace UltimateChanger
             catch (Exception e)
             {
                 Console.WriteLine("Wystąpił nieoczekiwany błąd!");
-                System.Windows.MessageBox.Show(e.Message + " switch: " + switch_);
+                System.Windows.MessageBox.Show(e.ToString() + " switch: " + switch_);
                 return null;
             }
         }
