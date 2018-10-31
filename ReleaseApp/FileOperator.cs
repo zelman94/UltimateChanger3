@@ -209,7 +209,7 @@ namespace UltimateChanger
 
             try // usuwan stary
             {
-                File.Delete(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Ultimate Changer.lnk"));
+                File.Delete(System.IO.Path.Combine(@"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\", "Ultimate Changer.lnk"));
             }
             catch (Exception)
             {
