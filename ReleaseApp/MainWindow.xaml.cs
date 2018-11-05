@@ -29,7 +29,7 @@ using ICSharpCode.SharpZipLib.Zip;
 using System.Net;
 using System.Data;
 
-[assembly: System.Reflection.AssemblyVersion("3.1.2.0")]
+[assembly: System.Reflection.AssemblyVersion("3.1.3.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window
@@ -44,7 +44,7 @@ namespace UltimateChanger
         ClockManager clockManager;
         // DataBaseManager dataBaseManager;
         DispatcherTimer RefUiTIMER, Rekurencja;
-        DispatcherTimer dispatcherTimer, progressBarTimer;
+        DispatcherTimer ConnectionToDBTimer, progressBarTimer;
         DispatcherTimer uninstallTimer;
         BindCombobox BindCombo;
         private List<pathAndDir> paths_Dirs = new List<pathAndDir>();
@@ -226,6 +226,11 @@ namespace UltimateChanger
             rbn_Oasis.Visibility = Visibility.Hidden;
             rbn_ExpressFit.Visibility = Visibility.Hidden;
             rbn_Christmas.Visibility = Visibility.Hidden;
+
+            rbnTurnOnVerifit.Visibility = Visibility.Hidden;
+            rbnTurnOffVerifit.Visibility = Visibility.Hidden;
+            lblVerifitModes.Visibility = Visibility.Hidden;
+
             Rekurencja = new DispatcherTimer();
             Rekurencja.Tick += checkRekurencja;
             Rekurencja.Interval = new TimeSpan(0, 0, 1);
@@ -703,13 +708,32 @@ namespace UltimateChanger
             }
         }
 
+        public void updateConnectionStatusUI(object sender, EventArgs e)
+        {
+            if (dataBaseManager.getConnectionstatus())
+            {
+                if (dataBaseManager.DB_connection)
+                {
+                    lblConnectionToDB.Content = "Connected to DB";
+                }
+                else
+                {
+                    lblConnectionToDB.Content = "Connection failed";
+                }
+
+                ConnectionToDBTimer.Stop();
+            }
+
+        }
+
         void initializeTimers()
         {
             try
             {
-                dispatcherTimer.Tick += dispatcherTimer_Tick;
-                dispatcherTimer.Interval = new TimeSpan(0, 0, 15);
-                dispatcherTimer.Start();
+                ConnectionToDBTimer = new DispatcherTimer();
+                ConnectionToDBTimer.Tick += updateConnectionStatusUI;
+                ConnectionToDBTimer.Interval = new TimeSpan(0, 0, 2);
+                ConnectionToDBTimer.Start();
             }
             catch (Exception)
             {
@@ -1688,19 +1712,7 @@ namespace UltimateChanger
         {
         }
 
-        private void dispatcherTimer_Tick(object sender, EventArgs e)
-        {
-            //fileOperator.UpdateLabels();
-            ////this.updateLabels();
-            //this.verifyInstalledBrands();
-            //this.startAnimation();
-            //this.checkInstallationStatus();
-            //this.TemporaryToolTipMethod();
-            //set_mode_run_app();
-            //CheckFileinfo2();
-            //clockManager.UpdateTime();
-            //lblTime.Content = clockManager.GetTime();
-        }
+
         private void checkUninstallation_Tick(object sender, EventArgs e)
         {
         }
@@ -2656,9 +2668,14 @@ namespace UltimateChanger
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            if (ListBoxHardware.SelectedIndex != -1)
+            if (ListBoxHardware.SelectedIndex != -1 && rbnSystemView.IsChecked.Value)
             {
-                txtMyItemsList.Text =  txtMyItemsList.Text +"\n"+ (MyHardware.convertToString(MyHardware.findHardwareByID(ListBoxHardware.SelectedIndex)));
+                txtMyItemsList.Text =  txtMyItemsList.Text +"\n"+ (MyHardware.convertToString_System(MyHardware.findHardwareByID(ListBoxHardware.SelectedIndex)));
+                BindCombo.bindListBox();
+            }
+            else if(ListBoxHardware.SelectedIndex != -1 && !rbnSystemView.IsChecked.Value)
+            {
+                txtMyItemsList.Text = txtMyItemsList.Text  + (MyHardware.convertToString_Platform(MyHardware.findHardwareByID(ListBoxHardware.SelectedIndex)));
                 BindCombo.bindListBox();
             }
             else

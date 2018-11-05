@@ -39,11 +39,19 @@ namespace UltimateChanger
             return listaStringow;
         }
 
-        public static string convertToString(MyHardware item)
+        public static string convertToString_System(MyHardware item)
         {
             string value = "";
 
             value = "Name: " + item.Name + "\n" + "id: " + item.ID + "\n" + "Type: " + item.Type + "\n" + "Manufacturer: " + item.Manufacturer + "\n" + "Localization: " + item.Localization + "\n";
+
+            return value;
+        }
+        public static string convertToString_Platform(MyHardware item)
+        {
+            string value = "";
+
+            value = item.Name + " "  + item.ID + ", ";
 
             return value;
         }
