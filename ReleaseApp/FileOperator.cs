@@ -239,11 +239,12 @@ namespace UltimateChanger
                     try
                     {
                         string tmp = @"%programdata%\Microsoft\Windows\Start Menu\Programs\Startup\"+ System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + ".exe";
-                        string dest = @"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\";
+                        string dest = $"C:\\Users\\{Environment.UserName}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup";
+                            //@"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\";
 
                        // File.Copy(Directory.GetCurrentDirectory() + "\\" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + ".exe", path2, true); // nowy skrot do exe 
 
-                        CreateShortcut("shortcut Ultimate Changer", dest, @"C:\Program Files\UltimateChanger\Ultimate Changer.exe");
+                        CreateShortcut("Ultimate Changer", dest, @"C:\Program Files\UltimateChanger\Ultimate Changer.exe");
 
                     }
                     catch (Exception)
@@ -589,7 +590,6 @@ namespace UltimateChanger
                     }
                 }
 
-                bool FlagDir = false, FlagPath = false;
                 pathAndDir tmp = new pathAndDir();
 
                 textDirFile = allFullFiles.FindAll((s => s.Contains("_dir")));

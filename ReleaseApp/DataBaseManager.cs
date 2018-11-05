@@ -198,7 +198,7 @@ namespace UltimateChanger
         public DataBaseManager(string switch_)
         {
 
-            var t = Task.Run(() => {
+            Task t = Task.Run(() => {
                 SQLConnection = ConnectToDB(switch_);
                 try
                 {
@@ -223,7 +223,9 @@ namespace UltimateChanger
             });
             //t.Wait();
 
+
         }
+
 
         private MySqlConnection ConnectToDB(string switch_)
         {
