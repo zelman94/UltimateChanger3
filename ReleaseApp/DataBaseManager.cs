@@ -23,6 +23,19 @@ namespace UltimateChanger
         public bool DB_connection; //jezeli jest polaczenie z BD 
         //private Stopwatch time;
         public string APPversion;
+        public Task TaskConnectToDB = null;
+
+        public bool getConnectionstatus() // true - skonczyl sie watek / false - watek trwa
+        {
+            if (TaskConnectToDB.IsCompleted)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         public string GetActualVersion(string brand)
         {
@@ -198,7 +211,7 @@ namespace UltimateChanger
         public DataBaseManager(string switch_)
         {
 
-            Task t = Task.Run(() => {
+            TaskConnectToDB = Task.Run(() => {
                 SQLConnection = ConnectToDB(switch_);
                 try
                 {
