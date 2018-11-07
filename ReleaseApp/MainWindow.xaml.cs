@@ -1164,7 +1164,7 @@ namespace UltimateChanger
         }
         private void btnHattori_Click(object sender, RoutedEventArgs e)
         {
-            if (TabFull.IsSelected)
+            if (!TabFull.IsSelected)
             {
                 MessageBox.Show("in progress ... \n next update");
                 return;
@@ -1176,6 +1176,7 @@ namespace UltimateChanger
                 {
                     try
                     {
+
                         Process.Start(BuildInfo.ListPathsToHattori[licznik] + "FirmwareUpdater.exe");
                         CounterOfclicks.AddClick((int)Buttons.StartHAttori);
                     }
@@ -1186,7 +1187,7 @@ namespace UltimateChanger
                 }
                 licznik++;
             }
-            refreshUI(new object(), new EventArgs());
+            //refreshUI(new object(), new EventArgs());
         }
         private void btnuninstal_Click(object sender, RoutedEventArgs e)
         {
@@ -1464,7 +1465,7 @@ namespace UltimateChanger
                             string from = System.IO.Path.Combine(cmbBuild_Compo.ToolTip.ToString() + $"\\DevResults-{cmbRelease_Compo.Text}", item.Name);
                             string to = "C:\\Program Files\\UltimateChanger\\compositions\\"+ item.Name;
                             pathToLocalComposition = to;
-                            MessageBox.Show($"parameters to copy: {from} \n {to}");
+                            //MessageBox.Show($"parameters to copy: {from} \n {to}");
                             Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Copy {from} {pathToLocalComposition} {cmbBuild2_Compo.Text}");
                             copystatus = true; // timer wie ze trwa kopiowanie
                             cmbRelease_Compo.IsEnabled = false;
@@ -1960,8 +1961,12 @@ namespace UltimateChanger
 
         private void Downgrade(object sender, RoutedEventArgs e)
         {
+            
             Window downgrade = new DowngradeWindow();
-            downgrade.ShowDialog();
+            //downgrade.ShowDialog();
+            downgrade.Show();
+
+
             CounterOfclicks.AddClick((int)Buttons.Downgrade);
         }
 
