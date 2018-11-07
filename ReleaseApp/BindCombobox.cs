@@ -36,15 +36,16 @@ namespace UltimateChanger
             { "Singapore (SG)", "SG"},
             { "PRC China (CN)", "CN"},
             { "South Africa (ZA)", "ZA"},
-            { "NA", "NA"}
+            { "Default", "Default"}
         };
 
         static public List<string> marketIndex = new List<string>()
         {
-            {"NA"},
+
             {"AU"},
             {"BR"},
             {"CA"},
+            {"Default"},
             {"DK"},
             {"FI"},
             {"FR"},

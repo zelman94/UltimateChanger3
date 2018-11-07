@@ -9,7 +9,7 @@
         xmlns:local="clr-namespace:UltimateChanger"
         xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
         mc:Ignorable="d"
-        Title="Ultimate Changer 3.1.3" Height="800" Width="800" ResizeMode="CanResize" Closing="Window_Closing_1"
+        Title="Ultimate Changer 3.1.4" Height="800" Width="800" ResizeMode="CanResize" Closing="Window_Closing_1"
         MinHeight="800"
         MinWidth="800"
         Localization.Attributes="Center"
@@ -1226,11 +1226,11 @@
 
         </TabItem>
 
-        <TabItem Name="tabGlossary" Header="Glossary" Foreground="White">
+        <!--<TabItem Name="tabGlossary" Header="Glossary" Foreground="White">
             <Grid x:Name="Glossary">
 
             </Grid>
-        </TabItem>
+        </TabItem>-->
 
         <TabItem Header="My Hardware" Foreground="White">
             <Grid x:Name="Hardware" Margin="10">

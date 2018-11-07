@@ -224,7 +224,7 @@ namespace UltimateChanger
                     DB_connection = true;
 
                     setLogs_Begin(); // logowanie wlaczenia UC3
-                    getInformation_DB();
+                  
 
                 }
                 catch (Exception x)
@@ -391,7 +391,10 @@ namespace UltimateChanger
 
 
                             pathsToUpdate = Kolumna[1];
-                            message = true; /*HATORI NARAZIE PODZIEKUJEMY*/
+
+                            return true;
+
+                           /// message = true; /*HATORI NARAZIE PODZIEKUJEMY*/
                         }
                     }
                     if (message)
@@ -406,8 +409,9 @@ namespace UltimateChanger
                 }
             }
 
-            catch (Exception)
+            catch (Exception x)
             {
+                System.Windows.MessageBox.Show(x.ToString());
                 //SQLConnection.Close();
                 return false;
             }

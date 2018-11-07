@@ -74,7 +74,11 @@ namespace UltimateChanger
             {
                 try
                 {
-                    Process.Start(path, " /uninstall");
+                
+                        Process.Start(path, " /uninstall");
+                   
+
+                   
                     return true;
                 }
                 catch (Exception)
@@ -87,7 +91,10 @@ namespace UltimateChanger
                 try
                 {
                     //string tmp2 = @"\\10.128.3.1\DFS_Data_SSC_FS_GenieBuilds\Phoenix\ExpressFit\ExpressFit_4.0.784.161\Full\Sonic\Setup.exe /quiet";
-                    Process.Start(path, " /uninstall /quiet");
+                  
+                        Process.Start(path, " /uninstall /quiet");
+                    
+
                     return true;
                 }
                 catch (Exception)

@@ -28,13 +28,16 @@ using ICSharpCode.SharpZipLib;
 using ICSharpCode.SharpZipLib.Zip;
 using System.Net;
 using System.Data;
+using Rekurencjon; // logi
 
-[assembly: System.Reflection.AssemblyVersion("3.1.3.0")]
+
+[assembly: System.Reflection.AssemblyVersion("3.1.4.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window
     {
         int Licznik_All_button = 0;
+        Log logging = new Log("UltimateChanger");
         bool copystatus = false; // to know if copy composition is running in rekurencjon.exe
         string pathToLocalComposition = ""; // do uruchamiania lokalnej wersji kompozycji 
         //TrashCleaner Cleaner;
@@ -193,6 +196,7 @@ namespace UltimateChanger
                 
                 sliderWeightWireless.Value = 0.5; // to oznacza ze nic nie zmieniam i wszystko jes po rowno w szansach 
                 lblWeightWireless.Content = sliderWeightWireless.Value.ToString();
+                cmbLogSettings_Compo.SelectedIndex = 0;
 
                 ListBoxOfAvailableFeautures.SelectionMode = SelectionMode.Multiple;
 
@@ -219,7 +223,7 @@ namespace UltimateChanger
             //zablokowanie widocznosci elementow bez implementacji :
 
             //tabGlossary.Visibility = Visibility.Hidden;
-            tabGlossary.IsEnabled = false;
+            //tabGlossary.IsEnabled = false;
             btnIdentify.Visibility = Visibility.Hidden;
 
             rbn_Genie.Visibility = Visibility.Hidden;
@@ -259,8 +263,10 @@ namespace UltimateChanger
                                 }
                             }
                         }
-                        catch (Exception)
-                        {}
+                        catch (Exception x)
+                        {
+                            logging.AddLog(x.ToString());
+                        }
                     }
                     break;
 
@@ -279,8 +285,10 @@ namespace UltimateChanger
                                 }
                             }
                         }
-                        catch (Exception)
-                        { }
+                        catch (Exception x)
+                        {
+                            logging.AddLog(x.ToString());
+                        }
 
 
                     }
@@ -305,8 +313,10 @@ namespace UltimateChanger
                                 }
                             }
                         }
-                        catch (Exception)
-                        { }
+                        catch (Exception x)
+                        {
+                            logging.AddLog(x.ToString());
+                        }
                     }
 
 
@@ -382,8 +392,9 @@ namespace UltimateChanger
                         {
                             File.Copy(fileonServer[0], @"C:\Program Files\UltimateChanger\Resources\" + nazwa.Name);
                         }
-                        catch (Exception)
+                        catch (Exception x)
                         {
+                            logging.AddLog(x.ToString());
                             Process.Start("Resources\\REMedy.Installer.Mini.1.0.3.0.exe", "/silent /install ");
                         }
                         Process.Start(fileonServer[0], "/silent /install ");
@@ -675,8 +686,9 @@ namespace UltimateChanger
                                     {
                                         obrazki.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + $"\\Images\\" + tmppp + ".png"));
                                     }
-                                    catch (Exception)
+                                    catch (Exception x)
                                     {
+                                        logging.AddLog(x.ToString());
                                         Console.WriteLine("Problem with images");
                                     }
 
@@ -688,7 +700,8 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
-               // MessageBox.Show(x.ToString());
+                logging.AddLog(x.ToString());
+                // MessageBox.Show(x.ToString());
             }
             //for (int i = 0; i < checkBoxList.Count; i++)
             int licz = 0;
@@ -699,8 +712,9 @@ namespace UltimateChanger
                     //listlabelsinfoFS[licz].Foreground = new SolidColorBrush(Colors.Black);
                     listlabelsinfoFS[licz].Content = fileOperator.getMarket(licz,TabFull.IsSelected);
                 }
-                catch (Exception)
+                catch (Exception x)
                 {
+                    logging.AddLog(x.ToString());
                     //listlabelsinfoFS[licz].Foreground = new SolidColorBrush(Colors.Gray);
                     listlabelsinfoFS[licz].Content = "FS not installed";
                 }
@@ -715,6 +729,11 @@ namespace UltimateChanger
                 if (dataBaseManager.DB_connection)
                 {
                     lblConnectionToDB.Content = "Connected to DB";
+
+                    // sprawdzenie czy update istenieje
+
+                dataBaseManager.getInformation_DB();
+
                 }
                 else
                 {
@@ -735,9 +754,9 @@ namespace UltimateChanger
                 ConnectionToDBTimer.Interval = new TimeSpan(0, 0, 2);
                 ConnectionToDBTimer.Start();
             }
-            catch (Exception)
+            catch (Exception x)
             {
-
+                logging.AddLog(x.ToString());
             }
 
             //progressBarTimer = new DispatcherTimer();
@@ -757,8 +776,9 @@ namespace UltimateChanger
                 uninstallTimer.Tick += checkUninstallation_Tick;
                 uninstallTimer.Interval = new TimeSpan(0, 0, 5);
             }
-            catch (Exception)
+            catch (Exception x)
             {
+                logging.AddLog(x.ToString());
             }
         }
         void bindMarketDictionary()// czy to potrzebne ?
@@ -1164,7 +1184,7 @@ namespace UltimateChanger
         }
         private void btnHattori_Click(object sender, RoutedEventArgs e)
         {
-            if (TabFull.IsSelected)
+            if (!TabFull.IsSelected)
             {
                 MessageBox.Show("in progress ... \n next update");
                 return;
@@ -1176,6 +1196,7 @@ namespace UltimateChanger
                 {
                     try
                     {
+
                         Process.Start(BuildInfo.ListPathsToHattori[licznik] + "FirmwareUpdater.exe");
                         CounterOfclicks.AddClick((int)Buttons.StartHAttori);
                     }
@@ -1186,11 +1207,14 @@ namespace UltimateChanger
                 }
                 licznik++;
             }
-            refreshUI(new object(), new EventArgs());
+            //refreshUI(new object(), new EventArgs());
         }
         private void btnuninstal_Click(object sender, RoutedEventArgs e)
         {
-            byte count = 0;
+
+
+            bool mode_uninstall = RBnormal.IsChecked.Value;
+                byte count = 0;
             bool flag = true;
             int chechboxNr = 0;
             string checkboxname = "";
@@ -1217,75 +1241,75 @@ namespace UltimateChanger
             {
                 path_to_Uninstall.Add("");
             }
-           
-            try
-            {
-                var allFiles = Directory.GetFiles(@"C:\ProgramData\Package Cache", "*.exe", SearchOption.AllDirectories);
-                foreach (var item in allFiles)
-                {
-                    try
-                    {
-                        FileVersionInfo myFileVersionInfo =
-                        FileVersionInfo.GetVersionInfo(item);
-
-                        if (myFileVersionInfo.FileDescription.Contains("Genie 2"))
-                        {
-                            checkboxname = "Genie 2";
-                            path_to_Uninstall[0] = item;
-                        }
-
-
-                        if (myFileVersionInfo.FileDescription.Contains("Genie Medical"))
-                        {
-                            checkboxname = "Genie Medical";
-                            path_to_Uninstall[1] = item;
-                        }
-
-                        if (myFileVersionInfo.FileDescription.Contains("Oasis NXT"))
-                        {
-                            checkboxname = "Oasis NXT";
-                            path_to_Uninstall[4] = item;
-                        }
-                        
-
-                        if (myFileVersionInfo.FileDescription.Contains("EXPRESSfit Pro"))
-                        {
-                            checkboxname = "EXPRESSfit Pro";
-                            path_to_Uninstall[2] = item;
-                        }
-                        
-                        
-                        if (myFileVersionInfo.FileDescription.Contains("HearSuite"))
-                        {
-                            checkboxname = "HearSuite";
-                            path_to_Uninstall[3] = item;
-                        }                        
-
-                    }
-                    catch (Exception)
-                    {
-
-                    }
-                }
+            var tmp = Task.Run(() => {
                 try
                 {
-                    if (checkboxname != "") // pewnie trzeba bedzie poprawić to 
-                    {
-                        instal.UninstallBrand(path_to_Uninstall[chechboxNr], RBnormal.IsChecked.Value);
+                    var allFiles = Directory.GetFiles(@"C:\ProgramData\Package Cache", "*.exe", SearchOption.AllDirectories);
+                foreach (var item in allFiles)
+                {
+                        try
+                        {
+                            FileVersionInfo myFileVersionInfo =
+                            FileVersionInfo.GetVersionInfo(item);
+
+                            if (myFileVersionInfo.FileDescription.Contains("Genie 2"))
+                            {
+                                checkboxname = "Genie 2";
+                                path_to_Uninstall[0] = item;
+                            }
+
+
+                            if (myFileVersionInfo.FileDescription.Contains("Genie Medical"))
+                            {
+                                checkboxname = "Genie Medical";
+                                path_to_Uninstall[1] = item;
+                            }
+
+                            if (myFileVersionInfo.FileDescription.Contains("Oasis NXT"))
+                            {
+                                checkboxname = "Oasis NXT";
+                                path_to_Uninstall[4] = item;
+                            }
+                        
+
+                            if (myFileVersionInfo.FileDescription.Contains("EXPRESSfit Pro"))
+                            {
+                                checkboxname = "EXPRESSfit Pro";
+                                path_to_Uninstall[2] = item;
+                            }
+                        
+                        
+                            if (myFileVersionInfo.FileDescription.Contains("HearSuite"))
+                            {
+                                checkboxname = "HearSuite";
+                                path_to_Uninstall[3] = item;
+                            }                        
+
+                        }
+                        catch (Exception x )
+                        {
+                            logging.AddLog(x.ToString());
+                        }
                     }
+                    try
+                    {
+                        if (checkboxname != "") // pewnie trzeba bedzie poprawić to 
+                        {
+                            instal.UninstallBrand(path_to_Uninstall[chechboxNr], mode_uninstall);
+                        }
+                    }
+                    catch (Exception x)
+                    {
+                        instal.UninstallBrand(path_to_Uninstall[0], mode_uninstall);
+                    }
+
                 }
                 catch (Exception)
                 {
-                    instal.UninstallBrand(path_to_Uninstall[0], RBnormal.IsChecked.Value);
+                    MessageBox.Show("Can not be uninstalled by Ultimate Changer");
+                    return;
                 }
-
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Can not be uninstalled by Ultimate Changer");
-                return;
-            }
-           
+            });
             CounterOfclicks.AddClick((int)Buttons.UninstallFittingSoftware);
             /*
              1 FS na raz timer sprawdzający czy uninstall się skończył 
@@ -1448,7 +1472,17 @@ namespace UltimateChanger
             {
                 if (TabCompo.IsSelected) // kompozycje
                 {
-                  FileInfo[] infoFile =  new DirectoryInfo(cmbBuild_Compo.ToolTip.ToString()+ $"\\DevResults-{cmbRelease_Compo.Text}").GetFiles();
+                    FileInfo[] infoFile;
+                    try
+                    {
+                         infoFile = new DirectoryInfo(cmbBuild_Compo.ToolTip.ToString() + $"\\DevResults-{cmbRelease_Compo.Text}").GetFiles();
+                    }
+                    catch (Exception x)
+                    {
+                        MessageBox.Show("check release and try again");
+                            return;
+                    }
+                  
 
                     foreach (var item in infoFile)
                     {
@@ -1461,13 +1495,17 @@ namespace UltimateChanger
                             string from = System.IO.Path.Combine(cmbBuild_Compo.ToolTip.ToString() + $"\\DevResults-{cmbRelease_Compo.Text}", item.Name);
                             string to = "C:\\Program Files\\UltimateChanger\\compositions\\"+ item.Name;
                             pathToLocalComposition = to;
-                            MessageBox.Show($"parameters to copy: {from} \n {to}");
-                            Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Copy {from} {pathToLocalComposition} {cmbBuild2_Compo.Text}");
+                            //MessageBox.Show($"parameters to copy: {from} \n {to}");
+                            Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Copy {from} {pathToLocalComposition} ");
                             copystatus = true; // timer wie ze trwa kopiowanie
                             cmbRelease_Compo.IsEnabled = false;
                             cmbBrandstoinstall_Compo.IsEnabled = false;
-                            cmbBuild_Compo.IsEnabled = false;
+                           
+                            cmbBuild2_Compo.IsEnabled = false;
+                            cmbOEM_Compo.IsEnabled = false;
+                            btnRefresh_Compo.IsEnabled = false;
                             Rekurencja.Start();
+                            progress_Compo.Visibility = Visibility.Visible;
 
                            // Process.Start(from);
                           //  File.Copy(System.IO.Path.Combine(cmbBuild.ToolTip.ToString() + $"\\DevResults-{cmbRelease.Text}", item.Name), System.IO.Path.Combine("C:\\Program Files\\UltimateChanger", item.Name));
@@ -1481,9 +1519,12 @@ namespace UltimateChanger
                 else
                 {
                     FSInstaller installer = new FSInstaller();
+
+
                     installer.InstallBrand(cmbBuild.Text, RBnormal.IsChecked.Value);
 
-                            //zapisanie patha do instalatora do  pozniejszej uninstalki bez sciagania do pliku
+
+                    //zapisanie patha do instalatora do  pozniejszej uninstalki bez sciagania do pliku
 
                 }
             }
@@ -1569,6 +1610,7 @@ namespace UltimateChanger
                 catch (Exception x)
                 {
                     // MessageBox.Show("Error FS Combo \n" + x.ToString());
+                    logging.AddLog(x.ToString());
                     Console.WriteLine("Error FS Combo \n" + x.ToString());
                 }
             }
@@ -1688,7 +1730,7 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
-
+                logging.AddLog(x.ToString());
             }
 
         }
@@ -1786,12 +1828,26 @@ namespace UltimateChanger
             }
             else // jezeli trwa kopiowanie
             {
+
+                progress.Value += 10;
+                progress_Compo.Value += 10;
+                if (progress.Value == 100 || progress_Compo.Value == 100)
+                {
+                    progress.Value = 0;
+                    progress_Compo.Value = 0;
+
+                }
+
                 if (pname.Length == 0) // jezeli koniec kopiowania
                 {
                     Rekurencja.Stop();
                     copystatus = false;
                     TabFull.IsEnabled = true;
                     TabCompo.IsEnabled = true;
+                    cmbBuild2_Compo.IsEnabled = true;
+                    cmbOEM_Compo.IsEnabled = true;
+                    btnRefresh_Compo.IsEnabled = true;
+                    progress_Compo.Visibility = Visibility.Hidden;
                     try
                     {
                         Process.Start(pathToLocalComposition); // uruchomienie skopiowanego extraktora na dysku ze zmiennej globalnej uzupelnionej podczas uruchamiania procesu rekurencjon
@@ -1835,6 +1891,7 @@ namespace UltimateChanger
                 }
                 catch (Exception x)
                 {
+                    logging.AddLog(x.ToString());
                     Console.WriteLine(x.ToString());
                 }
             }
@@ -1846,6 +1903,7 @@ namespace UltimateChanger
                 }
                 catch (Exception x)
                 {
+                    logging.AddLog(x.ToString());
                     Console.WriteLine(x.ToString());
                 }
             }
@@ -1954,15 +2012,15 @@ namespace UltimateChanger
 
         private void Downgrade(object sender, RoutedEventArgs e)
         {
+            
             Window downgrade = new DowngradeWindow();
-            downgrade.ShowDialog();
+            //downgrade.ShowDialog();
+            downgrade.Show();
+
+
             CounterOfclicks.AddClick((int)Buttons.Downgrade);
         }
 
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            Random_HI.Magneto = !Random_HI.Magneto;
-        }
 
         private void btnRANDHI_Click(object sender, RoutedEventArgs e)
         {
@@ -2850,10 +2908,10 @@ namespace UltimateChanger
                 GridDataRandomHardware.Items.Clear();
                 listOfRandomHardawre_perPerson.Clear();
             }
-            catch (Exception)
+            catch (Exception x)
             {
 
-     
+                logging.AddLog(x.ToString());
             }
 
         }
@@ -2964,7 +3022,8 @@ namespace UltimateChanger
                     catch (Exception ex)  //Writing to log has failed, send message to trace in case anyone is listening.
                     {
                         System.Diagnostics.Trace.Write(ex.ToString());
-                    }
+                        logging.AddLog(ex.ToString());
+                }
                     
                 //}
             }
@@ -2977,9 +3036,9 @@ namespace UltimateChanger
                 }
                 
             }
-            catch (Exception)
+            catch (Exception x)
             {
-
+                logging.AddLog(x.ToString());
             }
 
         }
@@ -3009,9 +3068,9 @@ namespace UltimateChanger
             {
                 lblWeightWireless.Content =  Math.Round(sliderWeightWireless.Value,1);
             }
-            catch (Exception)
+            catch (Exception x)
             {
-
+                logging.AddLog(x.ToString());
             }
 
         }
@@ -3087,9 +3146,9 @@ namespace UltimateChanger
             {
                 ListboxOfMyVerifit.ItemsSource = dataBaseManager.GetMyVerifit(userName);
             }
-            catch (Exception)
+            catch (Exception x)
             {
-
+                logging.AddLog(x.ToString());
             }
 
 
@@ -3281,10 +3340,10 @@ namespace UltimateChanger
             {
                 fileOperator.StartGearbox();
             }
-            catch (Exception)
+            catch (Exception x)
             {
 
-              
+                logging.AddLog(x.ToString());
             }
         }
 
@@ -3325,9 +3384,9 @@ namespace UltimateChanger
                         smieciarka.DeleteCompo(licznik);
                         //CounterOfclicks.AddClick((int)Buttons.StartFittingSoftware);
                     }
-                    catch (Exception)
+                    catch (Exception x)
                     {
-                        
+                        logging.AddLog(x.ToString());
                     }
                 }
                 licznik++;
@@ -3433,9 +3492,9 @@ namespace UltimateChanger
                         TabFull.IsEnabled = false;
                         TabCompo.IsEnabled = true;
                     }
-                    catch (Exception)
+                    catch (Exception x)
                     {
-
+                        logging.AddLog(x.ToString());
                     }
                    
                 }
