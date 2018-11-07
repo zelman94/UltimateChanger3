@@ -1190,7 +1190,10 @@ namespace UltimateChanger
         }
         private void btnuninstal_Click(object sender, RoutedEventArgs e)
         {
-            byte count = 0;
+
+
+            bool mode_uninstall = RBnormal.IsChecked.Value;
+                byte count = 0;
             bool flag = true;
             int chechboxNr = 0;
             string checkboxname = "";
@@ -1217,75 +1220,75 @@ namespace UltimateChanger
             {
                 path_to_Uninstall.Add("");
             }
-           
-            try
-            {
-                var allFiles = Directory.GetFiles(@"C:\ProgramData\Package Cache", "*.exe", SearchOption.AllDirectories);
-                foreach (var item in allFiles)
-                {
-                    try
-                    {
-                        FileVersionInfo myFileVersionInfo =
-                        FileVersionInfo.GetVersionInfo(item);
-
-                        if (myFileVersionInfo.FileDescription.Contains("Genie 2"))
-                        {
-                            checkboxname = "Genie 2";
-                            path_to_Uninstall[0] = item;
-                        }
-
-
-                        if (myFileVersionInfo.FileDescription.Contains("Genie Medical"))
-                        {
-                            checkboxname = "Genie Medical";
-                            path_to_Uninstall[1] = item;
-                        }
-
-                        if (myFileVersionInfo.FileDescription.Contains("Oasis NXT"))
-                        {
-                            checkboxname = "Oasis NXT";
-                            path_to_Uninstall[4] = item;
-                        }
-                        
-
-                        if (myFileVersionInfo.FileDescription.Contains("EXPRESSfit Pro"))
-                        {
-                            checkboxname = "EXPRESSfit Pro";
-                            path_to_Uninstall[2] = item;
-                        }
-                        
-                        
-                        if (myFileVersionInfo.FileDescription.Contains("HearSuite"))
-                        {
-                            checkboxname = "HearSuite";
-                            path_to_Uninstall[3] = item;
-                        }                        
-
-                    }
-                    catch (Exception)
-                    {
-
-                    }
-                }
+            var tmp = Task.Run(() => {
                 try
                 {
-                    if (checkboxname != "") // pewnie trzeba bedzie poprawić to 
-                    {
-                        instal.UninstallBrand(path_to_Uninstall[chechboxNr], RBnormal.IsChecked.Value);
+                    var allFiles = Directory.GetFiles(@"C:\ProgramData\Package Cache", "*.exe", SearchOption.AllDirectories);
+                foreach (var item in allFiles)
+                {
+                        try
+                        {
+                            FileVersionInfo myFileVersionInfo =
+                            FileVersionInfo.GetVersionInfo(item);
+
+                            if (myFileVersionInfo.FileDescription.Contains("Genie 2"))
+                            {
+                                checkboxname = "Genie 2";
+                                path_to_Uninstall[0] = item;
+                            }
+
+
+                            if (myFileVersionInfo.FileDescription.Contains("Genie Medical"))
+                            {
+                                checkboxname = "Genie Medical";
+                                path_to_Uninstall[1] = item;
+                            }
+
+                            if (myFileVersionInfo.FileDescription.Contains("Oasis NXT"))
+                            {
+                                checkboxname = "Oasis NXT";
+                                path_to_Uninstall[4] = item;
+                            }
+                        
+
+                            if (myFileVersionInfo.FileDescription.Contains("EXPRESSfit Pro"))
+                            {
+                                checkboxname = "EXPRESSfit Pro";
+                                path_to_Uninstall[2] = item;
+                            }
+                        
+                        
+                            if (myFileVersionInfo.FileDescription.Contains("HearSuite"))
+                            {
+                                checkboxname = "HearSuite";
+                                path_to_Uninstall[3] = item;
+                            }                        
+
+                        }
+                        catch (Exception)
+                        {
+
+                        }
                     }
+                    try
+                    {
+                        if (checkboxname != "") // pewnie trzeba bedzie poprawić to 
+                        {
+                            instal.UninstallBrand(path_to_Uninstall[chechboxNr], mode_uninstall);
+                        }
+                    }
+                    catch (Exception x)
+                    {
+                        instal.UninstallBrand(path_to_Uninstall[0], mode_uninstall);
+                    }
+
                 }
                 catch (Exception)
                 {
-                    instal.UninstallBrand(path_to_Uninstall[0], RBnormal.IsChecked.Value);
+                    MessageBox.Show("Can not be uninstalled by Ultimate Changer");
+                    return;
                 }
-
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Can not be uninstalled by Ultimate Changer");
-                return;
-            }
-           
+            });
             CounterOfclicks.AddClick((int)Buttons.UninstallFittingSoftware);
             /*
              1 FS na raz timer sprawdzający czy uninstall się skończył 
@@ -1481,9 +1484,12 @@ namespace UltimateChanger
                 else
                 {
                     FSInstaller installer = new FSInstaller();
+
+
                     installer.InstallBrand(cmbBuild.Text, RBnormal.IsChecked.Value);
 
-                            //zapisanie patha do instalatora do  pozniejszej uninstalki bez sciagania do pliku
+
+                    //zapisanie patha do instalatora do  pozniejszej uninstalki bez sciagania do pliku
 
                 }
             }
