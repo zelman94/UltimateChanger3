@@ -87,17 +87,17 @@ namespace UltimateChanger
 
             "GenieComposition",
             "GenieMedicalComposition",
-            "OasisComposition",
             "EXPRESSfitComposition",
-            "HearSuiteComposition"
+            "HearSuiteComposition",
+            "OasisComposition"
         };
         public List<string> listExeNames = new List<string> { // nazwy plikow do kompozycji 
 
             "Genie.exe",
-            "GenieMedical.exe",
-            "Oasis.exe",
+            "GenieMedical.exe",            
             "EXPRESSfit.exe",
-            "HearSuite.exe"
+            "HearSuite.exe",
+            "Oasis.exe",
         };
 
 
@@ -147,7 +147,7 @@ namespace UltimateChanger
         {
             List<string> listofExes = new List<string>();
 
-            pathToManufacturerInfo_Compo = Directory.GetFiles(@"C:\Program Files\UltimateChanger\compositions\", listExeNames[nrFS], SearchOption.AllDirectories).ToList();
+            listofExes = Directory.GetFiles(@"C:\Program Files\UltimateChanger\compositions\", listExeNames[nrFS], SearchOption.AllDirectories).ToList();
 
             return listofExes;
         }
@@ -1293,6 +1293,68 @@ namespace UltimateChanger
                 Process.Start(pathsToExeCompositions[0]);
 
             }
+        }
+
+
+        public void checkVersion()
+        {
+            string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            //-----------------------------------
+            int[] ver = new int[3]; // wersja z srvera
+            FileVersionInfo versionInfo ;
+            string path;
+            try
+            {
+                versionInfo = FileVersionInfo.GetVersionInfo(@"\\10.128.3.1\DFS_data_SSC_FS_Images-SSC\PAZE\change_market\Multi_Changer\currentVersion\update\Ultimate Changer.exe"); // SSC
+                path = @"\\10.128.3.1\DFS_data_SSC_FS_Images-SSC\PAZE\change_market\Multi_Changer\currentVersion\update\";
+            }
+            catch (Exception x)
+            {
+                try
+                {
+                    versionInfo = FileVersionInfo.GetVersionInfo(""); //other
+                    path = "";
+                }
+                catch (Exception)
+                {
+                    return;  
+                }
+              
+            }
+
+
+            int.TryParse(versionInfo.FileVersion[0].ToString(), out ver[0]);
+            int.TryParse(versionInfo.FileVersion[2].ToString(), out ver[1]);
+            int.TryParse(versionInfo.FileVersion[4].ToString(), out ver[2]);
+            //-----------------------------------------
+            //wersja apki
+            int[] ver_apki = new int[3];
+
+            int.TryParse(version[0].ToString(), out ver_apki[0]);
+            int.TryParse(version[2].ToString(), out ver_apki[1]);
+            int.TryParse(version[4].ToString(), out ver_apki[2]);
+
+            bool message = false;
+            for (int i = 0; i < 3; i++)
+            {
+                if (ver_apki[i] < ver[i] && message == false)
+                {
+                    //System.Windows.Forms.MessageBox.Show($"Update available: {Kolumna[1]}");
+
+                    Window Update = new UpdateWindow(path, "", "true", "true", "true", "true", "true");
+                    Update.ShowDialog();
+
+
+                    //pathsToUpdate = Kolumna[1];
+
+                    //return true;
+
+                     message = true; /*HATORI NARAZIE PODZIEKUJEMY*/
+                }
+            }
+
+
+
         }
 
 

@@ -46,6 +46,6 @@
   </ComboBox>
   <DataBase>
 	  <Name>connectionString</Name>
-	  <Value>0</Value>
+	  <Value>4</Value>
   </DataBase>
 </Settings>

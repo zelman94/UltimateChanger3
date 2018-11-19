@@ -738,6 +738,7 @@ namespace UltimateChanger
                 else
                 {
                     lblConnectionToDB.Content = "Connection failed";
+                    fileOperator.checkVersion(); // sprawdzam czy jest nowsza wersja UCH3 na serverze gdy nie ma polaczenia z BD
                 }
 
                 ConnectionToDBTimer.Stop();

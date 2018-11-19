@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using System.Windows;
 using System.Threading;
+using Rekurencjon; // logi
 
 namespace UltimateChanger
 {
@@ -24,7 +25,7 @@ namespace UltimateChanger
         //private Stopwatch time;
         public string APPversion;
         public Task TaskConnectToDB = null;
-
+        Log logging = new Log("DataBaseManager");
         public bool getConnectionstatus() // true - skonczyl sie watek / false - watek trwa
         {
             if (TaskConnectToDB.IsCompleted)
@@ -277,7 +278,8 @@ namespace UltimateChanger
             catch (Exception e)
             {
                 Console.WriteLine("Wystąpił nieoczekiwany błąd!");
-                System.Windows.MessageBox.Show(e.ToString() + " switch: " + switch_);
+                logging.AddLog(e.ToString() + " switch: " + switch_);
+                //System.Windows.MessageBox.Show(e.ToString() + " switch: " + switch_);
                 return null;
             }
         }
