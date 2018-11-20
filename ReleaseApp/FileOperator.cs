@@ -1312,8 +1312,8 @@ namespace UltimateChanger
             {
                 try
                 {
-                    versionInfo = FileVersionInfo.GetVersionInfo(""); //other
-                    path = "";
+                    versionInfo = FileVersionInfo.GetVersionInfo(@"\\demant.com\data\KBN\RnD\FS_Programs\Support_Tools\Ultimate_changer\currentVersion\update\Ultimate Changer.exe"); //other
+                    path = @"\\demant.com\data\KBN\RnD\FS_Programs\Support_Tools\Ultimate_changer\currentVersion\update\";
                 }
                 catch (Exception)
                 {
