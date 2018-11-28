@@ -31,7 +31,7 @@ using System.Data;
 using Rekurencjon; // logi
 
 
-[assembly: System.Reflection.AssemblyVersion("3.1.4.0")]
+[assembly: System.Reflection.AssemblyVersion("3.2.1.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window
@@ -64,7 +64,10 @@ namespace UltimateChanger
         List<Button> buttonListForUi = new List<Button>();
         List<Label> lableListForUi = new List<Label>();
         List<Label> labelListsforRefreshUI = new List<Label>();
+        List<Label> labelListsforUninstall = new List<Label>() ; // lista zaznaczonych do usuniecia FS
         List<ListBox> listBoxForUi = new List<ListBox>();
+       
+
         List<CheckBox> checkBoxListForUi = new List<CheckBox>();
         List<ComboBox> comboBoxListForUi = new List<ComboBox>();
         List<RadioButton> radioButtonListForUi = new List<RadioButton>();
@@ -73,6 +76,7 @@ namespace UltimateChanger
         List<Slider> sliderListForUi = new List<Slider>();
 
         List<string> listOfTeammembers = new List<string>();
+        public List<string> listGlobalPathsToUninstall = new List<string>();
         List<string> listOfFiczursSelected = new List<string>();
         List<string> listOfRandomHardawre_perPerson = new List<string>();
         List<RadioButton> RadioButtonsList = new List<RadioButton>();
@@ -230,10 +234,8 @@ namespace UltimateChanger
             rbn_Oasis.Visibility = Visibility.Hidden;
             rbn_ExpressFit.Visibility = Visibility.Hidden;
             rbn_Christmas.Visibility = Visibility.Hidden;
+            rbnTurnOffDevMode.IsChecked = true;
 
-            rbnTurnOnVerifit.Visibility = Visibility.Hidden;
-            rbnTurnOffVerifit.Visibility = Visibility.Hidden;
-            lblVerifitModes.Visibility = Visibility.Hidden;
 
             Rekurencja = new DispatcherTimer();
             Rekurencja.Tick += checkRekurencja;
@@ -408,8 +410,16 @@ namespace UltimateChanger
                 }
                 catch (Exception x)
                 {
-                    btnFakeV.IsEnabled = false;
-                    MessageBox.Show(x.ToString());
+                    try
+                    {
+                        btnFakeV.IsEnabled = false;
+                        MessageBox.Show(x.ToString());
+                    }
+                    catch (Exception)
+                    {
+                       
+                    }
+                   
                 }
             });
 
@@ -665,8 +675,11 @@ namespace UltimateChanger
                     {
                         ListRactanglesNames[i].ToolTip = null;
                     }
-
-                    listlabelsinfoFS_Version[i].Content = ListBuildsInfo[i].Version;
+                    if (!uninstallTimer.IsEnabled)
+                    {
+                        listlabelsinfoFS_Version[i].Content = ListBuildsInfo[i].Version;
+                    }
+                    
 
            
 
@@ -738,6 +751,7 @@ namespace UltimateChanger
                 else
                 {
                     lblConnectionToDB.Content = "Connection failed";
+                    fileOperator.checkVersion(); // sprawdzam czy jest nowsza wersja UCH3 na serverze gdy nie ma polaczenia z BD
                 }
 
                 ConnectionToDBTimer.Stop();
@@ -773,8 +787,10 @@ namespace UltimateChanger
 
             try
             {
+                uninstallTimer = new DispatcherTimer();
                 uninstallTimer.Tick += checkUninstallation_Tick;
                 uninstallTimer.Interval = new TimeSpan(0, 0, 5);
+                //uninstallTimer.Start();
             }
             catch (Exception x)
             {
@@ -822,8 +838,8 @@ namespace UltimateChanger
                 rbn_ExpressFit,
                 rbnLogsAll_YES,
                 rbnLogsAll_NO,
-                rbnTurnOnVerifit,
-                rbnTurnOffVerifit,
+                rbnTurnOnDevMode,
+                rbnTurnOffDevMode,
             };
             comboBoxList = new List<ComboBox>()
             {
@@ -1214,7 +1230,7 @@ namespace UltimateChanger
 
 
             bool mode_uninstall = RBnormal.IsChecked.Value;
-                byte count = 0;
+                byte count = 0,countFS =0;
             bool flag = true;
             int chechboxNr = 0;
             string checkboxname = "";
@@ -1224,24 +1240,27 @@ namespace UltimateChanger
                 {
                     count++;
                     flag = false;
+                    labelListsforUninstall.Add(listlabelsinfoFS_Version[countFS]);
                 }
                 if (flag)
                 {
                     chechboxNr++;
                 }
+                countFS++;
             }
-            if (count > 1)
+            if (count > 1 && RBnormal.IsChecked.Value)
             {
-                MessageBox.Show("Only one FS at a time can be uninstalled");
+                MessageBox.Show("Only one FS at a time can be uninstalled \nturn on silent mode to uninstall more than one FS");
                 return;
             }
+
             FSInstaller instal = new FSInstaller();
             List<string> path_to_Uninstall = new List<string>();
             for (int i = 0; i < 5; i++)
             {
                 path_to_Uninstall.Add("");
             }
-            var tmp = Task.Run(() => {
+
                 try
                 {
                     var allFiles = Directory.GetFiles(@"C:\ProgramData\Package Cache", "*.exe", SearchOption.AllDirectories);
@@ -1249,41 +1268,56 @@ namespace UltimateChanger
                 {
                         try
                         {
-                            FileVersionInfo myFileVersionInfo =
-                            FileVersionInfo.GetVersionInfo(item);
+                            FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(item);
 
                             if (myFileVersionInfo.FileDescription.Contains("Genie 2"))
                             {
                                 checkboxname = "Genie 2";
-                                path_to_Uninstall[0] = item;
+                                if (checkBoxList[0].IsChecked.Value)
+                                {
+                                    path_to_Uninstall[0] = item;
+                                }
+                                
                             }
 
 
                             if (myFileVersionInfo.FileDescription.Contains("Genie Medical"))
                             {
                                 checkboxname = "Genie Medical";
-                                path_to_Uninstall[1] = item;
-                            }
+                                if (checkBoxList[1].IsChecked.Value)
+                                {
+                                    path_to_Uninstall[1] = item;
+                                }
+                        }
 
                             if (myFileVersionInfo.FileDescription.Contains("Oasis NXT"))
                             {
                                 checkboxname = "Oasis NXT";
-                                path_to_Uninstall[4] = item;
-                            }
+                                if (checkBoxList[4].IsChecked.Value)
+                                {
+                                    path_to_Uninstall[4] = item;
+                                }
+                        }
                         
 
                             if (myFileVersionInfo.FileDescription.Contains("EXPRESSfit Pro"))
                             {
                                 checkboxname = "EXPRESSfit Pro";
-                                path_to_Uninstall[2] = item;
-                            }
+                                if (checkBoxList[2].IsChecked.Value)
+                                {
+                                    path_to_Uninstall[2] = item;
+                                }
+                        }
                         
                         
                             if (myFileVersionInfo.FileDescription.Contains("HearSuite"))
                             {
                                 checkboxname = "HearSuite";
-                                path_to_Uninstall[3] = item;
-                            }                        
+                                if (checkBoxList[3].IsChecked.Value)
+                                {
+                                    path_to_Uninstall[3] = item;
+                                }
+                        }                        
 
                         }
                         catch (Exception x )
@@ -1295,21 +1329,21 @@ namespace UltimateChanger
                     {
                         if (checkboxname != "") // pewnie trzeba bedzie poprawić to 
                         {
-                            instal.UninstallBrand(path_to_Uninstall[chechboxNr], mode_uninstall);
+                            instal.UninstallBrand(path_to_Uninstall, mode_uninstall);
                         }
                     }
                     catch (Exception x)
                     {
-                        instal.UninstallBrand(path_to_Uninstall[0], mode_uninstall);
+                        instal.UninstallBrand(path_to_Uninstall, mode_uninstall);
                     }
-
+                    uninstallTimer.Start();
                 }
                 catch (Exception)
                 {
                     MessageBox.Show("Can not be uninstalled by Ultimate Changer");
                     return;
                 }
-            });
+
             CounterOfclicks.AddClick((int)Buttons.UninstallFittingSoftware);
             /*
              1 FS na raz timer sprawdzający czy uninstall się skończył 
@@ -1757,6 +1791,46 @@ namespace UltimateChanger
 
         private void checkUninstallation_Tick(object sender, EventArgs e)
         {
+
+            if (!fileOperator.checkRunningProcess(fileOperator.listUninstallProcessNames))
+            {
+                if (listGlobalPathsToUninstall.Count != 0)
+                {
+                    //uninstallTimer.Stop(); // chce skanowac zawsze czy inaczej ?
+                    try
+                    {
+                        Process.Start(listGlobalPathsToUninstall[0], " /uninstall /quiet");
+                        listGlobalPathsToUninstall.RemoveAt(0);
+                        labelListsforUninstall[0].Content = "Uninstall in progress";
+                        labelListsforUninstall.RemoveAt(0);
+
+
+                    }
+                    catch (Exception x)
+                    {
+                        logging.AddLog(x.ToString());
+                        uninstallTimer.Stop();
+                        lbluninstallinfo.Content = "Error";
+                        return;
+                    }
+                    lbluninstallinfo.Content = "Started";
+                    btnuninstal.IsEnabled = false;
+                    btninstal.IsEnabled = false;
+                    btnDelete.IsEnabled = false;
+                }
+                else
+                {
+                    uninstallTimer.Stop();
+                    btnuninstal.IsEnabled = true;
+                    btninstal.IsEnabled = true;
+                    btnDelete.IsEnabled = true;
+                    lbluninstallinfo.Content = "Stoped";
+                }
+            }
+            else
+            {
+                lbluninstallinfo.Content = "in progess";
+            }
         }
         public bool statusOfProcess(string name)
         {
@@ -2641,12 +2715,16 @@ namespace UltimateChanger
 
         private void RBnormal_Checked(object sender, RoutedEventArgs e)
         {
-
+            uninstallTimer.Stop();
+            lbluninstallinfo.Content = "Stoped";
         }
 
         private void RBsilet_Checked(object sender, RoutedEventArgs e)
         {
-
+            if (!uninstallTimer.IsEnabled)
+            {
+                uninstallTimer.Start();
+            }
         }
 
         private void rbnStartwithWindows_Checked(object sender, RoutedEventArgs e)
@@ -3130,42 +3208,7 @@ namespace UltimateChanger
             ListBoxOfFindVerifit.ItemsSource = dataBaseManager.FindVerifits();
         }
 
-        private void rbnTurnOnVerifit_Checked(object sender, RoutedEventArgs e)
-        {
-            VerifitPanel.Visibility = Visibility.Visible;
-            panelReturnVerifit.Visibility = Visibility.Visible;
-            panelFindVerifit.Visibility = Visibility.Visible;
-
-            XMLReader.setSetting("TurnOnVerifit", "RadioButtons", Convert.ToString(rbnTurnOnVerifit.IsChecked.Value));
-            bool tmp = rbnTurnOnVerifit.IsChecked.Value;
-            tmp = !tmp;
-            XMLReader.setSetting("TurnOffVerifit", "RadioButtons", Convert.ToString(tmp));
-
-            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-            try
-            {
-                ListboxOfMyVerifit.ItemsSource = dataBaseManager.GetMyVerifit(userName);
-            }
-            catch (Exception x)
-            {
-                logging.AddLog(x.ToString());
-            }
-
-
-        }
-
-        private void rbnTurnOffVerifit_Checked(object sender, RoutedEventArgs e)
-        {
-            VerifitPanel.Visibility = Visibility.Hidden;
-            panelReturnVerifit.Visibility = Visibility.Hidden;
-            panelFindVerifit.Visibility = Visibility.Hidden;
-
-            XMLReader.setSetting("TurnOffVerifit", "RadioButtons", Convert.ToString(rbnTurnOffVerifit.IsChecked.Value));
-            bool tmp = rbnTurnOffVerifit.IsChecked.Value;
-            tmp = !tmp;
-            XMLReader.setSetting("TurnOnVerifit", "RadioButtons", Convert.ToString(tmp));
-        }
-
+    
         private void Radio_Christmas_Checked(object sender, RoutedEventArgs e)
         {
             //Zmiany na ciemny motyw (można zmienić kolor ramki itd.)
@@ -3368,6 +3411,16 @@ namespace UltimateChanger
         {
             cmbRelease_Compo.Items.Refresh();
             XMLReader.setSetting("Release", "ComboBox", cmbRelease_Compo.Text);
+        }
+
+        private void rbnTurnOnDevMode_Checked(object sender, RoutedEventArgs e)
+        {
+            lbluninstallinfo.Visibility = Visibility.Visible;
+        }
+
+        private void rbnTurnOffDevMode_Checked(object sender, RoutedEventArgs e)
+        {
+            lbluninstallinfo.Visibility = Visibility.Hidden;
         }
 
         private void btnDeleteC_Compo_Click(object sender, RoutedEventArgs e)

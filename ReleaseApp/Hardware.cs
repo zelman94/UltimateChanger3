@@ -74,20 +74,6 @@ namespace UltimateChanger
             this.DeviceName = pnpDeviceID;
         }
 
-       static public string getIDName(string DeviceName)
-        {
-            string name = "";
-
-            foreach (string item in FileOperator.ListUSB_AvailableComDev_description)
-            {
-                if (item.Contains(DeviceName))
-                {
-                    name = FileOperator.ListUSB_AvailableComDev[FileOperator.ListUSB_AvailableComDev_description.IndexOf(DeviceName)];
-                }
-            }
-
-            return name;
-        }
 
         static public string getComDevID(string DeviceID)
         {
@@ -98,29 +84,7 @@ namespace UltimateChanger
             return ID;
         }
 
-        static public void ShowAllConnectedUSB()
-        {
-
-
-            try
-            {
-                var usbDevices = GetUSBDevices();
-
-                foreach (var usbDevice in usbDevices)
-                {
-                    Console.WriteLine("Device ID: {0}, PNP Device ID: {1}, Description: {2}",
-                        usbDevice.DeviceID, usbDevice.PnpDeviceID, usbDevice.Description);
-                    getIDName(usbDevice.Description);
-                    getComDevID(usbDevice.SerialNumber);
-                }
-            }
-            catch (Exception)
-            {
-                
-            }
-
-
-        }
+       
 
         static List<USBDeviceInfo> GetUSBDevices()
         {

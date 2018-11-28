@@ -68,17 +68,31 @@ namespace UltimateChanger
             }
         }
 
-        public bool UninstallBrand(string path, bool mode_normal)
+        public bool UninstallBrand(List<string> path, bool mode)
         {
-            if (File.Exists(path) && mode_normal)
+            List<string> paths = new List<string>();
+            foreach (var item in path)
+            {
+                if (!File.Exists(item) && item !="")
+                {                    
+                    return false; // jakiś plik nie istnieje
+                }
+                else
+                {
+                    if (item != "")
+                    {
+                        paths.Add(item); // dodaje do listy path do istniejacych instllerow bez ""
+                    }
+                   
+                }
+                
+            }
+
+            if (mode)
             {
                 try
                 {
-                
-                        Process.Start(path, " /uninstall");
-                   
-
-                   
+                    Process.Start(paths[0], " /uninstall"); // normal mode tylko pierwszy element mozliwy
                     return true;
                 }
                 catch (Exception)
@@ -86,21 +100,19 @@ namespace UltimateChanger
                     return false;
                 }
             }
-            if (File.Exists(path) && !mode_normal) //silent installation
+            if (!mode) //silent installation
             {
-                try
-                {
-                    //string tmp2 = @"\\10.128.3.1\DFS_Data_SSC_FS_GenieBuilds\Phoenix\ExpressFit\ExpressFit_4.0.784.161\Full\Sonic\Setup.exe /quiet";
-                  
-                        Process.Start(path, " /uninstall /quiet");
-                    
-
-                    return true;
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
+                ((MainWindow)System.Windows.Application.Current.MainWindow).listGlobalPathsToUninstall = paths; // przekazanie listy do glownego okna dalsze operacje tam
+                //try
+                //{
+                //    Process.Start(path, " /uninstall /quiet");
+                //    return true;
+                //}
+                //catch (Exception)
+                //{
+                //    return false;
+                //}
+                return true;
             }
             else
             {
