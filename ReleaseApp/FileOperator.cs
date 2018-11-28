@@ -101,19 +101,13 @@ namespace UltimateChanger
         };
 
 
+        public List<string> listUninstallProcessNames = new List<string> { // nazwy plikow do kompozycji 
 
-        static public List<string> ListUSB_AvailableComDev_description = new List<string> // string from description
-        {
-            "SONIC innovations EXPRESSlink",
-            "HI-PRO", // == HI-PRO2 // HI-PRO Classic?
-            ""
+
+            "Install"
         };
-        static public List<string> ListUSB_AvailableComDev = new List<string> // string name of device 
-        {
-            "EXPRESSlink",
-            "HI-PRO", // == HI-PRO2 // HI-PRO Classic?
-            ""
-        };
+
+
 
         public List<string> pathToLogMode = myXMLReader.getPaths("pathToLogMode");
         public List<string> pathToLogMode_Compo = new List<string>();
@@ -336,7 +330,7 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
-                MessageBox.Show(x.ToString());
+                // brak pliku nic nie robie 
                 return;
             }
             // mode linia : 15 "      <level value="ERROR"/>"
@@ -691,7 +685,7 @@ namespace UltimateChanger
         string[] marki = { "Genie", "Oasis", "EXPRESSfit", "Philips HearSuite", "Philips HearSuite (development mode)", "Genie Medical BAHS", "HearSuite" };
         bool killRunningProcess(string name)
         {
-            Process[] proc = Process.GetProcessesByName(name);
+            //Process[] proc = Process.GetProcessesByName(name);
             Process[] localAll = Process.GetProcesses();
             foreach (Process item in localAll)
             {
@@ -705,10 +699,33 @@ namespace UltimateChanger
             return false;
         }
 
+        public bool checkRunningProcess(List <string> name)
+        {
+            Process[] localAll = Process.GetProcesses();
+            foreach (var item_name in name)
+            {
+                //Process[] proc = Process.GetProcessesByName(item_name);               
+
+                foreach (Process item in localAll)
+                {
+                    string tmop = item.ProcessName;
+                    if (tmop.Contains(item_name))
+                    {
+                        if (!tmop.Contains("Updater"))
+                        {
+                            return true;
+                        }
+                        
+                    }
+                }
+            }
+           
+            return false;
+        }
         public bool checkRunningProcess(string name)
         {
-            Process[] proc = Process.GetProcessesByName(name);
-            Process[] localAll = Process.GetProcesses();
+            Process[] localAll = Process.GetProcesses();            
+            //Process[] proc = Process.GetProcessesByName(item_name);               
 
             foreach (Process item in localAll)
             {

@@ -9,7 +9,7 @@
         xmlns:local="clr-namespace:UltimateChanger"
         xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
         mc:Ignorable="d"
-        Title="Ultimate Changer 3.1.4" Height="800" Width="800" ResizeMode="CanResize" Closing="Window_Closing_1"
+        Title="Ultimate Changer 3.2.1" Height="800" Width="800" ResizeMode="CanResize" Closing="Window_Closing_1"
         MinHeight="800"
         MinWidth="800"
         Localization.Attributes="Center"
@@ -865,6 +865,7 @@
                     <Button x:Name="btnFakeV" Content="REMedy" Grid.Row="2" Click="btnFakeV_Click" Background="#FF616161" BorderBrush="#FF424242" Foreground="White" Margin="10 0" VerticalAlignment="Center"/>
                     <Button x:Name="btnGearbox"  Content="Gearbox" Grid.Row="2" Grid.Column="1" Click="btn_Gearbox" Background="#FF616161" BorderBrush="#FF424242" Foreground="White" Margin="10 0" VerticalAlignment="Center"/>
                     <Button Content="Downgrade HW" Grid.Column="0"  Grid.Row="3" Click="Downgrade" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" VerticalAlignment="Center"/>
+                    <Label Name="lbluninstallinfo" Content="Label" HorizontalAlignment="Left" Margin="46,26,0,0" Grid.Row="5" VerticalAlignment="Top"/>
 
 
                 </Grid>
@@ -972,7 +973,7 @@
 
                             <Button x:Name="btninstal" Content="Install" Click="btninstal_Click" Grid.Row="3" Grid.Column="0" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Center" Margin="10 0"/>
                             <Button x:Name="btnInfo" Content="Copy path to build" Grid.Row="3" Grid.Column="1" Click="btnInfo_Click" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Center" Margin="10 0"/>
-                            <Button x:Name="btnuninstal"  Grid.Row="5" Content="Uninstall FS" Click="btnuninstal_Click" Grid.Column="2" ToolTip="Selected FS will be uninstalled only if your installation process was started which Ultimate Changer" IsEnabled="false" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" VerticalAlignment="Center"/>
+                            <Button x:Name="btnuninstal"  Grid.Row="5" Content="Uninstall FS(s)" Click="btnuninstal_Click" Grid.Column="2" IsEnabled="false" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" VerticalAlignment="Center"/>
                             <Button x:Name="btnDelete" Grid.Row="5" Grid.Column="3" Content="Delete trash" Click="btnDelete_Click" ToolTip="All data files of selected FS will be deleted (also client sesion)" IsEnabled="False" Foreground="#E5FFFFFF" BorderBrush="#FF424242" Background="#FF616161" Margin="10 0" VerticalAlignment="Center"/>
 
                             <Label x:Name="lblSelectMarket" Content="Select market:" Foreground="White" HorizontalAlignment="Left" FontWeight="SemiBold" FontSize="12.5" Grid.Column="2" Grid.Row="0" VerticalAlignment="Top"/>
@@ -1602,9 +1603,9 @@
                     <Label Content="Default Installation mode" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
                     <RadioButton x:Name="rbnDefaultNormal" Content="Normal" GroupName="group3" Checked="rbnDefaultNormal_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
                     <RadioButton x:Name="rbnDefaultSilent" Content="Silent" GroupName="group3" Checked="rbnDefaultSilent_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 1 0 0"/>
-                    <Label Name="lblVerifitModes" Content="Verifit mode" FontWeight="SemiBold" FontSize="12.5"/>
-                    <RadioButton Name="rbnTurnOnVerifit" Content="On" GroupName="group4" Checked="rbnTurnOnVerifit_Checked"/>
-                    <RadioButton Name="rbnTurnOffVerifit" Content="Off" GroupName="group4" Checked="rbnTurnOffVerifit_Checked"/>
+                    <Label Name="lblDevMode" Content="Dev mode" FontWeight="SemiBold" FontSize="12.5"/>
+                    <RadioButton Name="rbnTurnOnDevMode" Content="On" GroupName="group4" Checked="rbnTurnOnDevMode_Checked"/>
+                    <RadioButton Name="rbnTurnOffDevMode" Content="Off" GroupName="group4" Checked="rbnTurnOffDevMode_Checked"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10 0 0 0" Width="120">
