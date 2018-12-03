@@ -103,7 +103,10 @@ namespace UltimateChanger
 
         public List<string> listUninstallProcessNames = new List<string> { // nazwy plikow do kompozycji 
 
-
+            "OasisBernafon",
+            "ExpressFitSonic",
+            "GenieOticon",
+            "GenieOticonMedical",
             "Install"
         };
 

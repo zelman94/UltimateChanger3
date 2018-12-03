@@ -31,7 +31,7 @@ using System.Data;
 using Rekurencjon; // logi
 
 
-[assembly: System.Reflection.AssemblyVersion("3.2.1.0")]
+[assembly: System.Reflection.AssemblyVersion("3.2.3.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window
@@ -48,7 +48,7 @@ namespace UltimateChanger
         // DataBaseManager dataBaseManager;
         DispatcherTimer RefUiTIMER, Rekurencja;
         DispatcherTimer ConnectionToDBTimer, progressBarTimer;
-        DispatcherTimer uninstallTimer;
+        DispatcherTimer uninstallTimer, checkUpdate;
         BindCombobox BindCombo;
         private List<pathAndDir> paths_Dirs = new List<pathAndDir>();
         //string OEMname = "";
@@ -236,6 +236,7 @@ namespace UltimateChanger
             rbn_Christmas.Visibility = Visibility.Hidden;
             rbnTurnOffDevMode.IsChecked = true;
 
+            uninstallTimer.Start();
 
             Rekurencja = new DispatcherTimer();
             Rekurencja.Tick += checkRekurencja;
@@ -759,6 +760,11 @@ namespace UltimateChanger
 
         }
 
+        public void chechUpdateOnServer(object sender, EventArgs e)
+        {
+            fileOperator.checkVersion();
+        }
+
         void initializeTimers()
         {
             try
@@ -785,12 +791,17 @@ namespace UltimateChanger
             RefUiTIMER.Interval = new TimeSpan(0, 0, 20);
             RefUiTIMER.Start();
 
+            checkUpdate = new DispatcherTimer();
+            checkUpdate.Tick += chechUpdateOnServer;
+            checkUpdate.Interval = new TimeSpan(1, 0, 0);
+            checkUpdate.Start();
+
             try
             {
                 uninstallTimer = new DispatcherTimer();
                 uninstallTimer.Tick += checkUninstallation_Tick;
                 uninstallTimer.Interval = new TimeSpan(0, 0, 5);
-                //uninstallTimer.Start();
+               
             }
             catch (Exception x)
             {
@@ -1760,6 +1771,11 @@ namespace UltimateChanger
             try
             {
                 User_Power = dataBaseManager.logIn(txtNameUser.Text, passwordBox.Password.ToString());
+                if (User_Power == "")
+                {
+                    MessageBox.Show("failed");
+                    return;
+                }                
                 MessageBox.Show("done");
             }
             catch (Exception x)
@@ -1776,7 +1792,7 @@ namespace UltimateChanger
             }
             else
             {
-                MessageBox.Show("Only SUPERUSER can create new Accounts");
+                MessageBox.Show("Only SUPER_USER can create new Accounts");
             }
         }
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1826,6 +1842,7 @@ namespace UltimateChanger
                     btnDelete.IsEnabled = true;
                     lbluninstallinfo.Content = "Stoped";
                 }
+
             }
             else
             {
