@@ -242,6 +242,7 @@ namespace UltimateChanger
             Rekurencja.Tick += checkRekurencja;
             Rekurencja.Interval = new TimeSpan(0, 0, 1);
             Rekurencja.Start();
+            
 
         }
         //________________________________________________________________________________________________________________________________________________
@@ -656,7 +657,8 @@ namespace UltimateChanger
                         try
                         {
                             ListBuildsInfo.Add(fileOperator.GetInfoAboutFs(item, ListPathsToAboutInfo[licznik]));
-                        }
+                            
+                    }
                         catch (Exception)
                         {
                             ListBuildsInfo.Add(new BuildInfo("", "", "", "", ""));
@@ -671,7 +673,7 @@ namespace UltimateChanger
 
                 for (int i = 0; i < ListBuildsInfo.Count; i++)
                 {
-                    ListRactanglesNames[i].ToolTip = ListBuildsInfo[i].Brand + "\n" + logmodesFS[i];
+                    ListRactanglesNames[i].ToolTip = ListBuildsInfo[i].Brand+", "+ ListBuildsInfo[i].OEM + "\n" + logmodesFS[i];
                     if (ListBuildsInfo[i].Brand == "")
                     {
                         ListRactanglesNames[i].ToolTip = null;
@@ -1281,15 +1283,15 @@ namespace UltimateChanger
                         {
                             FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(item);
 
-                            if (myFileVersionInfo.FileDescription.Contains("Genie 2"))
+                            if (fileOperator.checkIfGenieOem(myFileVersionInfo.FileDescription))
                             {
                                 checkboxname = "Genie 2";
                                 if (checkBoxList[0].IsChecked.Value)
                                 {
                                     path_to_Uninstall[0] = item;
                                 }
-                                
                             }
+                                
 
 
                             if (myFileVersionInfo.FileDescription.Contains("Genie Medical"))
@@ -1299,7 +1301,7 @@ namespace UltimateChanger
                                 {
                                     path_to_Uninstall[1] = item;
                                 }
-                        }
+                            }
 
                             if (myFileVersionInfo.FileDescription.Contains("Oasis NXT"))
                             {
@@ -1308,7 +1310,7 @@ namespace UltimateChanger
                                 {
                                     path_to_Uninstall[4] = item;
                                 }
-                        }
+                            }
                         
 
                             if (myFileVersionInfo.FileDescription.Contains("EXPRESSfit Pro"))
@@ -1318,7 +1320,7 @@ namespace UltimateChanger
                                 {
                                     path_to_Uninstall[2] = item;
                                 }
-                        }
+                            }
                         
                         
                             if (myFileVersionInfo.FileDescription.Contains("HearSuite"))
@@ -1328,7 +1330,7 @@ namespace UltimateChanger
                                 {
                                     path_to_Uninstall[3] = item;
                                 }
-                        }                        
+                            }                        
 
                         }
                         catch (Exception x )
@@ -3186,44 +3188,7 @@ namespace UltimateChanger
 
         }
 
-        private void btnCheckVerifit_Click(object sender, RoutedEventArgs e)
-        {
-            ListBoxAvailableVerifit.ItemsSource = dataBaseManager.GetAllAvailableVerifit();
-        }
-
-        private void btnTakeVerifit_Click(object sender, RoutedEventArgs e)
-        {
-            if (ListBoxAvailableVerifit.SelectedIndex != -1)
-            {
-                string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-                dataBaseManager.setUserForDevice(ListBoxAvailableVerifit.SelectedItem.ToString(), userName);
-                ListboxOfMyVerifit.ItemsSource =dataBaseManager.GetMyVerifit(userName);
-                ListBoxAvailableVerifit.ItemsSource = dataBaseManager.GetAllAvailableVerifit();
-
-            }
-            else
-            {
-                MessageBox.Show("Check and select Available Devices");
-            }
-        }
-
-        private void btbReturnVerifit_Click(object sender, RoutedEventArgs e)
-        {
-            if (ListboxOfMyVerifit.SelectedIndex != -1)
-            {
-                string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-                dataBaseManager.returnVerifit(ListboxOfMyVerifit.SelectedItem.ToString());
-            }
-            else
-            {
-                MessageBox.Show("Check and select Available Devices");
-            }
-        }
-
-        private void btnFindVerifit_Click(object sender, RoutedEventArgs e)
-        {
-            ListBoxOfFindVerifit.ItemsSource = dataBaseManager.FindVerifits();
-        }
+    
 
     
         private void Radio_Christmas_Checked(object sender, RoutedEventArgs e)

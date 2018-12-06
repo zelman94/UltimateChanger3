@@ -523,6 +523,42 @@ namespace UltimateChanger
 
             return listFicz;
         }
+        public static List<string> getOemNames(string Brand)
+        {
+            XmlDocument doc = new XmlDocument();
+            try
+            {
+                doc.Load("Settings\\OemNames.xml");
+            }
+            catch (Exception)
+            {
+                try
+                {
+                    doc.Load("C:\\Program Files\\UltimateChanger\\Settings\\OemNames.xml");
+                }
+                catch (Exception x)
+                {
+                    System.Windows.MessageBox.Show($"problem with getPaths({Brand}) Settings\n" + x.ToString());
+                    return null;
+                }
+            }
+            List<string> listOEMs= new List<string>();
+            try
+            {
+                XmlNodeList NodesNames = doc.DocumentElement.SelectNodes(string.Format($"/Brand/{Brand}"));
+                XmlNodeList NodesNames2 = NodesNames[0].ChildNodes; 
+                foreach (XmlNode item in NodesNames2)
+                {
+                    listOEMs.Add(item.InnerText);
+                }
+            }
+            catch (Exception x)
+            {
+                System.Windows.MessageBox.Show(x.ToString());
+            }
+            return listOEMs;
+        }
+
 
         public static List<string> getPaths(string listName)
         {

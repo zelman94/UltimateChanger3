@@ -58,6 +58,7 @@ namespace UltimateChanger
             @"EXPRESSfitMini.exe"// po kolei 
         };
 
+
         public List<string> listFilesName = new List<string> {
 
             @"0Oticon_dir.txt", // 0FS_dir.txt
@@ -115,6 +116,7 @@ namespace UltimateChanger
         public List<string> pathToLogMode = myXMLReader.getPaths("pathToLogMode");
         public List<string> pathToLogMode_Compo = new List<string>();
         public List<string> pathToManufacturerInfo_Compo = new List<string>();
+        public List<string> listGenieOems = myXMLReader.getOemNames("Oticon"); // lista oemow oticon z pliku kolejne listy kolejne brandy
 
         public void getPathToLogMode_Compo() // zapisuje do listy pathToLogMode_Compo zebrane kompozycje pathy do ustawien logow
         {
@@ -712,13 +714,16 @@ namespace UltimateChanger
                 foreach (Process item in localAll)
                 {
                     string tmop = item.ProcessName;
-                    if (tmop.Contains(item_name))
+                    if (!tmop.Contains("Updater"))
                     {
-                        if (!tmop.Contains("Updater"))
+                        if (tmop == item_name )
                         {
                             return true;
                         }
-                        
+                        if (tmop.Contains(item_name) && item_name != "install")
+                        {                         
+                            return true; 
+                        }
                     }
                 }
             }
@@ -1313,6 +1318,19 @@ namespace UltimateChanger
                 Process.Start(pathsToExeCompositions[0]);
 
             }
+        }
+
+        public bool checkIfGenieOem(string OemName) // sprawdzam czy sting zawiera nazwe któregoś z oemów
+        {
+           
+            foreach (string item in listGenieOems)
+            {
+                if (OemName.Contains(item))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
 
