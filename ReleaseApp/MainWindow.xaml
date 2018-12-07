@@ -9,7 +9,7 @@
         xmlns:local="clr-namespace:UltimateChanger"
         xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
         mc:Ignorable="d"
-        Title="Ultimate Changer 3.2.1" Height="800" Width="800" ResizeMode="CanResize" Closing="Window_Closing_1"
+        Title="Ultimate Changer 3.2.3" Height="800" Width="800" ResizeMode="CanResize" Closing="Window_Closing_1"
         MinHeight="800"
         MinWidth="800"
         Localization.Attributes="Center"
@@ -927,7 +927,7 @@
                                     <RowDefinition Height="1*"/>
                                 </Grid.RowDefinitions>
 
-                                <Label Content="Installation settings" Grid.ColumnSpan="2" Grid.Row="0" Foreground="White" FontWeight="SemiBold" FontSize="12.5"/>
+                                <Label Content="(Un)Installation settings" Grid.ColumnSpan="2" Grid.Row="0" Foreground="White" FontWeight="SemiBold" FontSize="12.5"/>
                                 <RadioButton GroupName="RBsilentNormal" Name="RBsilet" Content="Silent" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBsilet_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0,3,0,4"/>
                                 <RadioButton GroupName="RBsilentNormal" Name="RBnormal" Content="Normal " Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBnormal_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0,3,0,4"/>
                             </Grid>
@@ -1033,7 +1033,7 @@
 
                                 <Button Name="btnRefresh_Compo" Grid.Column="1"  VerticalAlignment="Center" ToolTip="refresh paths" Click="btnRefresh_Click" Margin="5" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"  >
                                     <StackPanel Orientation="Horizontal">
-                                        <Image Name="imageRefresh_Compo" Stretch="Fill" Source="Images/refresh.PNG" Height="20" Width="20"/>
+                                        <Image Name="imageRefresh_Compo" Stretch="Fill" Source="Images/refreshWhite.PNG" Height="20" Width="20"/>
                                     </StackPanel>
                                 </Button>
                             </Grid>
@@ -1570,7 +1570,7 @@
 
         <TabItem Header="Settings" Foreground="White">
 
-            <Grid x:Name="aboutGrid" Margin="0,-3,0,3">
+            <Grid x:Name="aboutGrid" Margin="0,2,0,-2">
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
@@ -1622,26 +1622,6 @@
                     <RadioButton x:Name="rbn_Oasis" Content="Oasis" Checked="Radio_Oasis_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
                     <RadioButton x:Name="rbn_ExpressFit" Content="ExpressFit" Checked="Radio_ExpressFit_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
                     <RadioButton x:Name="rbn_Christmas" Content="Christmas" Checked="Radio_Christmas_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
-                </StackPanel>
-                <StackPanel Name="VerifitPanel" Grid.Column="1" Grid.RowSpan="3" HorizontalAlignment="Stretch" Margin="10">
-                    <Label Content="Check Available Devices" FontWeight="SemiBold" FontSize="12.5" Foreground="White"/>
-                    <Button Name="btnCheckVerifit" Content="Check" d:LayoutOverrides="Height" Click="btnCheckVerifit_Click" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Width="150" Margin="0 0 0 5"/>
-                    <ListBox Name="ListBoxAvailableVerifit" Height="300"/>
-                    <Label Name="lblVerifit" Content="Verifit Reservation" Foreground="White" FontWeight="SemiBold" FontSize="12.5"/>
-                    <Button Name="btnTakeVerifit" Content="Take" d:LayoutOverrides="Height" Click="btnTakeVerifit_Click" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Width="150" Margin="0 0 0 5"/>
-                </StackPanel>
-
-                <StackPanel Grid.Column="2" Grid.RowSpan="3" Margin="10">
-                    <StackPanel Name="panelReturnVerifit" HorizontalAlignment="Stretch">
-                        <Label Name="lblFreeVerifit" Content="Return Verifit" Foreground="White" FontWeight="SemiBold" FontSize="12.5"/>
-                        <Button Name="btbReturnVerifit" Content="Return" d:LayoutOverrides="Height" Click="btbReturnVerifit_Click" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Width="150" Margin="0 0 0 5"/>
-                        <ListBox Name="ListboxOfMyVerifit" Height="300"/>
-                    </StackPanel>
-                    <StackPanel Name="panelFindVerifit" HorizontalAlignment="Stretch" >
-                        <Label Name="lblFindVerifit" Content="Find Verifit" Foreground="White" FontWeight="SemiBold" FontSize="12.5"/>
-                        <Button Name="btnFindVerifit" Content="Find" d:LayoutOverrides="Height" Click="btnFindVerifit_Click" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Width="150" Margin="0 0 0 5"/>
-                        <ListBox Name="ListBoxOfFindVerifit" Height="300"/>
-                    </StackPanel>
                 </StackPanel>
 
             </Grid>

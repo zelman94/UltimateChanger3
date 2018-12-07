@@ -31,7 +31,7 @@ using System.Data;
 using Rekurencjon; // logi
 
 
-[assembly: System.Reflection.AssemblyVersion("3.2.1.0")]
+[assembly: System.Reflection.AssemblyVersion("3.2.3.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window
@@ -48,7 +48,7 @@ namespace UltimateChanger
         // DataBaseManager dataBaseManager;
         DispatcherTimer RefUiTIMER, Rekurencja;
         DispatcherTimer ConnectionToDBTimer, progressBarTimer;
-        DispatcherTimer uninstallTimer;
+        DispatcherTimer uninstallTimer, checkUpdate;
         BindCombobox BindCombo;
         private List<pathAndDir> paths_Dirs = new List<pathAndDir>();
         //string OEMname = "";
@@ -189,9 +189,6 @@ namespace UltimateChanger
                 MessageBox.Show("inicjalizacja \n" + x.ToString());
             }
 
-
-
-
             try
             {
                 sliderRelease.Maximum = cmbRelease.Items.Count - 1; // max dla slidera -1 bo count nie uwzglednia zerowego indexu
@@ -215,19 +212,14 @@ namespace UltimateChanger
                 setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
                 setUIdefaults(XMLReader.getDefaultSettings("ComboBox"), "ComboBox");
 
-               
             }
             catch (Exception x)
             {
                 MessageBox.Show("inicjalizacja part 2 \n" + x.ToString());
             }
 
-            
             progress.Visibility = Visibility.Hidden; // ukryty bo startuje przez refresh albo zmiane release
-            //zablokowanie widocznosci elementow bez implementacji :
 
-            //tabGlossary.Visibility = Visibility.Hidden;
-            //tabGlossary.IsEnabled = false;
             btnIdentify.Visibility = Visibility.Hidden;
 
             rbn_Genie.Visibility = Visibility.Hidden;
@@ -236,12 +228,19 @@ namespace UltimateChanger
             rbn_Christmas.Visibility = Visibility.Hidden;
             rbnTurnOffDevMode.IsChecked = true;
 
+            uninstallTimer.Start();
 
             Rekurencja = new DispatcherTimer();
             Rekurencja.Tick += checkRekurencja;
             Rekurencja.Interval = new TimeSpan(0, 0, 1);
             Rekurencja.Start();
 
+            if (FileOperator.getCountUCRun() == "0")
+            {
+                Window ChangeLogWindow = new ChangeLog();
+                ChangeLogWindow.ShowDialog();
+            }
+            
         }
         //________________________________________________________________________________________________________________________________________________
 
@@ -655,7 +654,8 @@ namespace UltimateChanger
                         try
                         {
                             ListBuildsInfo.Add(fileOperator.GetInfoAboutFs(item, ListPathsToAboutInfo[licznik]));
-                        }
+                            
+                    }
                         catch (Exception)
                         {
                             ListBuildsInfo.Add(new BuildInfo("", "", "", "", ""));
@@ -670,7 +670,7 @@ namespace UltimateChanger
 
                 for (int i = 0; i < ListBuildsInfo.Count; i++)
                 {
-                    ListRactanglesNames[i].ToolTip = ListBuildsInfo[i].Brand + "\n" + logmodesFS[i];
+                    ListRactanglesNames[i].ToolTip = ListBuildsInfo[i].Brand+", "+ ListBuildsInfo[i].OEM + "\n" + logmodesFS[i];
                     if (ListBuildsInfo[i].Brand == "")
                     {
                         ListRactanglesNames[i].ToolTip = null;
@@ -759,6 +759,11 @@ namespace UltimateChanger
 
         }
 
+        public void chechUpdateOnServer(object sender, EventArgs e)
+        {
+            fileOperator.checkVersion();
+        }
+
         void initializeTimers()
         {
             try
@@ -785,12 +790,17 @@ namespace UltimateChanger
             RefUiTIMER.Interval = new TimeSpan(0, 0, 20);
             RefUiTIMER.Start();
 
+            checkUpdate = new DispatcherTimer();
+            checkUpdate.Tick += chechUpdateOnServer;
+            checkUpdate.Interval = new TimeSpan(1, 0, 0);
+            checkUpdate.Start();
+
             try
             {
                 uninstallTimer = new DispatcherTimer();
                 uninstallTimer.Tick += checkUninstallation_Tick;
                 uninstallTimer.Interval = new TimeSpan(0, 0, 5);
-                //uninstallTimer.Start();
+               
             }
             catch (Exception x)
             {
@@ -1270,15 +1280,15 @@ namespace UltimateChanger
                         {
                             FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(item);
 
-                            if (myFileVersionInfo.FileDescription.Contains("Genie 2"))
+                            if (fileOperator.checkIfGenieOem(myFileVersionInfo.FileDescription,false))
                             {
                                 checkboxname = "Genie 2";
                                 if (checkBoxList[0].IsChecked.Value)
                                 {
                                     path_to_Uninstall[0] = item;
                                 }
-                                
                             }
+                                
 
 
                             if (myFileVersionInfo.FileDescription.Contains("Genie Medical"))
@@ -1288,16 +1298,16 @@ namespace UltimateChanger
                                 {
                                     path_to_Uninstall[1] = item;
                                 }
-                        }
+                            }
 
-                            if (myFileVersionInfo.FileDescription.Contains("Oasis NXT"))
-                            {
+                            if (fileOperator.checkIfGenieOem(myFileVersionInfo.FileDescription, true))
+                        {
                                 checkboxname = "Oasis NXT";
                                 if (checkBoxList[4].IsChecked.Value)
                                 {
                                     path_to_Uninstall[4] = item;
                                 }
-                        }
+                            }
                         
 
                             if (myFileVersionInfo.FileDescription.Contains("EXPRESSfit Pro"))
@@ -1307,7 +1317,7 @@ namespace UltimateChanger
                                 {
                                     path_to_Uninstall[2] = item;
                                 }
-                        }
+                            }
                         
                         
                             if (myFileVersionInfo.FileDescription.Contains("HearSuite"))
@@ -1317,7 +1327,7 @@ namespace UltimateChanger
                                 {
                                     path_to_Uninstall[3] = item;
                                 }
-                        }                        
+                            }                        
 
                         }
                         catch (Exception x )
@@ -1760,6 +1770,11 @@ namespace UltimateChanger
             try
             {
                 User_Power = dataBaseManager.logIn(txtNameUser.Text, passwordBox.Password.ToString());
+                if (User_Power == "")
+                {
+                    MessageBox.Show("failed");
+                    return;
+                }                
                 MessageBox.Show("done");
             }
             catch (Exception x)
@@ -1776,7 +1791,7 @@ namespace UltimateChanger
             }
             else
             {
-                MessageBox.Show("Only SUPERUSER can create new Accounts");
+                MessageBox.Show("Only SUPER_USER can create new Accounts");
             }
         }
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1826,6 +1841,7 @@ namespace UltimateChanger
                     btnDelete.IsEnabled = true;
                     lbluninstallinfo.Content = "Stoped";
                 }
+
             }
             else
             {
@@ -3169,44 +3185,7 @@ namespace UltimateChanger
 
         }
 
-        private void btnCheckVerifit_Click(object sender, RoutedEventArgs e)
-        {
-            ListBoxAvailableVerifit.ItemsSource = dataBaseManager.GetAllAvailableVerifit();
-        }
-
-        private void btnTakeVerifit_Click(object sender, RoutedEventArgs e)
-        {
-            if (ListBoxAvailableVerifit.SelectedIndex != -1)
-            {
-                string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-                dataBaseManager.setUserForDevice(ListBoxAvailableVerifit.SelectedItem.ToString(), userName);
-                ListboxOfMyVerifit.ItemsSource =dataBaseManager.GetMyVerifit(userName);
-                ListBoxAvailableVerifit.ItemsSource = dataBaseManager.GetAllAvailableVerifit();
-
-            }
-            else
-            {
-                MessageBox.Show("Check and select Available Devices");
-            }
-        }
-
-        private void btbReturnVerifit_Click(object sender, RoutedEventArgs e)
-        {
-            if (ListboxOfMyVerifit.SelectedIndex != -1)
-            {
-                string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-                dataBaseManager.returnVerifit(ListboxOfMyVerifit.SelectedItem.ToString());
-            }
-            else
-            {
-                MessageBox.Show("Check and select Available Devices");
-            }
-        }
-
-        private void btnFindVerifit_Click(object sender, RoutedEventArgs e)
-        {
-            ListBoxOfFindVerifit.ItemsSource = dataBaseManager.FindVerifits();
-        }
+    
 
     
         private void Radio_Christmas_Checked(object sender, RoutedEventArgs e)

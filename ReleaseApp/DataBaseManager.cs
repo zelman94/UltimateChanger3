@@ -488,9 +488,13 @@ namespace UltimateChanger
                 }
                 myReader.Close();
             }
+   
+
             catch (Exception x)
             {
-                System.Windows.MessageBox.Show(x.ToString());
+                logging.AddLog(x.ToString());
+                //System.Windows.MessageBox.Show(x.ToString());
+                return "";
             }
 
 
