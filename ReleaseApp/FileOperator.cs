@@ -1163,36 +1163,19 @@ namespace UltimateChanger
         static public void setNextCountUCRun()
         {
             string count = getCountUCRun();
-
-
             try
             {
-                if (Environment.CurrentDirectory.Contains("Updater")) // jezeli odpalam po update 
+                using (StreamWriter sr = new StreamWriter(@"C:\Program Files\UltimateChanger\Settings\counter.txt"))
                 {
-                    using (StreamWriter sr = new StreamWriter(@"C:\Program Files\UltimateChanger\Settings\counter.txt"))
-                    {
-                        int tmp = Convert.ToInt16(count);
-                        sr.WriteLine((tmp + 1).ToString());
-                        sr.Close();
-                    }
-
-                }
-                else
-                {
-                    using (StreamWriter sr = new StreamWriter(@"Settings\counter.txt"))
-                    {
-                        int tmp = Convert.ToInt16(count);
-                        sr.WriteLine((tmp + 1).ToString());
-                        sr.Close();
-                    }
-                }
+                    int tmp = Convert.ToInt16(count);
+                    sr.WriteLine((tmp + 1).ToString());
+                    sr.Close();
+                }                
             }
-            catch (Exception)
+            catch (Exception x)
             {
-
-            }
-            
-           
+                MessageBox.Show(x.ToString());
+            }  
         }
 
         public void StartGearbox()
