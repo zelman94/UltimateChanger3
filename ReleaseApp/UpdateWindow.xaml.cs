@@ -112,6 +112,7 @@ namespace UltimateChanger
 
         private void btnInfoUpdate_Click(object sender, RoutedEventArgs e)
         {
+          
             MessageBox.Show(INFO);
         }
 

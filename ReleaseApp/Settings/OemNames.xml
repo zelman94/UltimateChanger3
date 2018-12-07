@@ -5,8 +5,18 @@
     <OEM>Prescriptives 2</OEM>
     <OEM>KINDgenie 2</OEM>
     <OEM>Audika Genie 2</OEM>
+    <OEM>AudigyFit 2</OEM>    
   </Oticon>
   <Bernafon>
-    
+    <OEM>Oasis NXT</OEM>
+    <OEM>Oasis AccuQuest</OEM>
+    <OEM>Oasis Audilab</OEM>
+    <OEM>Oasis Costco</OEM>
+    <OEM>Oasis GPL</OEM>
+    <OEM>Oasis HansAnders</OEM>
+    <OEM>Oasis Horex</OEM>
+    <OEM>Oasis Maico</OEM>
+    <OEM>Oasis Meditrend</OEM>
+    <OEM>Oasis ProAkustik</OEM>
   </Bernafon>
 </Brand>

@@ -117,7 +117,7 @@ namespace UltimateChanger
         public List<string> pathToLogMode_Compo = new List<string>();
         public List<string> pathToManufacturerInfo_Compo = new List<string>();
         public List<string> listGenieOems = myXMLReader.getOemNames("Oticon"); // lista oemow oticon z pliku kolejne listy kolejne brandy
-
+        public List<string> listOasisOems = myXMLReader.getOemNames("Bernafon");
         public void getPathToLogMode_Compo() // zapisuje do listy pathToLogMode_Compo zebrane kompozycje pathy do ustawien logow
         {
             pathToLogMode_Compo = Directory.GetFiles(@"C:\Program Files\UltimateChanger\compositions\", "Configure.log4net",SearchOption.AllDirectories).ToList();
@@ -1079,86 +1079,9 @@ namespace UltimateChanger
             }
         }
 
-        public bool Get_delete_logs_file() // czytanie z pliku czy chcemy zeby byly usuwane log mody
-        {
-            if (File.Exists(@"C:\Program Files\DGS - PAZE & MIBW\Multi Changer\info2.txt"))
-            {
-                try
-                {
-                    using (StreamReader sr = new StreamReader(@"C:\Program Files\DGS - PAZE & MIBW\Multi Changer\info2.txt"))
-                    {
-                        String line = sr.ReadToEnd();
-                        if (line == "1")
-                        {
-                            sr.Close();
-                            return true; // jezeli jest 1 to chceymy zeby usuwaly pliki
-                        }
-                        else
-                        {
-                            sr.Close();
-                            return false;
-                        }
-                    }
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("The file could not be read:");
-                    File.Create(@"C:\Program Files\DGS - PAZE & MIBW\Multi Changer\info2.txt");
-                    return false;
-                }
-            }
-            else
-            {
-                File.Create(@"C:\Program Files\DGS - PAZE & MIBW\Multi Changer\info2.txt");
-                return false;
-            }
-        }
+     
 
-        public static long GetDirectorySize(string parentDirectory) //zwraca rozmiar directory w bajtach
-        {
-            return new DirectoryInfo(parentDirectory).GetFiles("*.*", SearchOption.AllDirectories).Sum(file => file.Length);
-        }
-
-        private String GetData(string name)
-        {
-            String line = String.Empty;
-            int counter = 0;
-            if (File.Exists(name))
-            {
-                try
-                {
-                    using (StreamReader sr = new StreamReader(name))
-                    {
-                        while (counter != 4)
-                        {
-                            line = sr.ReadLine();
-                            counter++;
-                        }
-                        if (line[15] == 'e')
-                        {
-                            return "Defukt";
-                        }
-                        return $"{line[14]}{line[15]}";
-                    }
-                }
-                catch (FileNotFoundException)
-                {
-                    return "";
-                }
-                catch (DirectoryNotFoundException)
-                {
-                    return "";
-                }
-                catch (NullReferenceException)
-                {
-                    return "";
-                }
-            }
-            else
-            {
-                return "File is missing";
-            }
-        }
+       
 
         public BuildInfo GetInfoAboutFs(string path, string path2)
         {
@@ -1198,13 +1121,14 @@ namespace UltimateChanger
                         return "0";
                     }
 
-                    using (StreamReader sr = new StreamReader(@"C:\Program Files\UltimateChanger\Settings\counter.txt"))
-                    {
-                        String line = sr.ReadLine();
-                        count = line;
-                        sr.Close();
-                        return count;
-                    }
+                    //using (StreamReader sr = new StreamReader(@"C:\Program Files\UltimateChanger\Settings\counter.txt"))
+                    //{
+                    //    String line = sr.ReadLine();
+                    //    count = line;
+                    //    sr.Close();
+                    //    //return count;
+                    //}
+                    return "0";
                 }// jezeli odpalam normalnie 
 
 
@@ -1320,19 +1244,44 @@ namespace UltimateChanger
             }
         }
 
-        public bool checkIfGenieOem(string OemName) // sprawdzam czy sting zawiera nazwe któregoś z oemów
+        public bool checkIfGenieOem(string OemName, bool Brand) // sprawdzam czy sting zawiera nazwe któregoś z oemów wybrannego Brandu 0- Oticon 1 - Bernafon
         {
-           
-            foreach (string item in listGenieOems)
+            if (!Brand)
             {
-                if (OemName.Contains(item))
+                foreach (string item in listGenieOems)
                 {
-                    return true;
+                    if (OemName.Contains(item))
+                    {
+                        return true;
+                    }
                 }
             }
+            else
+            {
+                foreach (string item in listOasisOems)
+                {
+                    if (OemName.Contains(item))
+                    {
+                        return true;
+                    }
+                }
+            }
+
             return false;
         }
 
+        public string getChangeLog()
+        {
+            string[] readText = File.ReadAllLines(@"C:\Program Files\UltimateChanger\ChangeLogUC3.txt");
+            string text = "";
+            foreach (var item in readText)
+            {
+                text += item + "\n";
+            }
+           
+            return text;
+           
+        }
 
         public void checkVersion()
         {
@@ -1379,7 +1328,7 @@ namespace UltimateChanger
                 {
                     //System.Windows.Forms.MessageBox.Show($"Update available: {Kolumna[1]}");
 
-                    Window Update = new UpdateWindow(path, "", "true", "true", "true", "true", "true");
+                    Window Update = new UpdateWindow(path, getChangeLog(), "true", "true", "true", "true", "true");
                     Update.ShowDialog();
 
 

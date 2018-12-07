@@ -189,9 +189,6 @@ namespace UltimateChanger
                 MessageBox.Show("inicjalizacja \n" + x.ToString());
             }
 
-
-
-
             try
             {
                 sliderRelease.Maximum = cmbRelease.Items.Count - 1; // max dla slidera -1 bo count nie uwzglednia zerowego indexu
@@ -215,19 +212,14 @@ namespace UltimateChanger
                 setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
                 setUIdefaults(XMLReader.getDefaultSettings("ComboBox"), "ComboBox");
 
-               
             }
             catch (Exception x)
             {
                 MessageBox.Show("inicjalizacja part 2 \n" + x.ToString());
             }
 
-            
             progress.Visibility = Visibility.Hidden; // ukryty bo startuje przez refresh albo zmiane release
-            //zablokowanie widocznosci elementow bez implementacji :
 
-            //tabGlossary.Visibility = Visibility.Hidden;
-            //tabGlossary.IsEnabled = false;
             btnIdentify.Visibility = Visibility.Hidden;
 
             rbn_Genie.Visibility = Visibility.Hidden;
@@ -242,8 +234,13 @@ namespace UltimateChanger
             Rekurencja.Tick += checkRekurencja;
             Rekurencja.Interval = new TimeSpan(0, 0, 1);
             Rekurencja.Start();
-            
 
+            if (FileOperator.getCountUCRun() == "0")
+            {
+                Window ChangeLogWindow = new ChangeLog();
+                ChangeLogWindow.ShowDialog();
+            }
+            
         }
         //________________________________________________________________________________________________________________________________________________
 
@@ -1283,7 +1280,7 @@ namespace UltimateChanger
                         {
                             FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(item);
 
-                            if (fileOperator.checkIfGenieOem(myFileVersionInfo.FileDescription))
+                            if (fileOperator.checkIfGenieOem(myFileVersionInfo.FileDescription,false))
                             {
                                 checkboxname = "Genie 2";
                                 if (checkBoxList[0].IsChecked.Value)
@@ -1303,8 +1300,8 @@ namespace UltimateChanger
                                 }
                             }
 
-                            if (myFileVersionInfo.FileDescription.Contains("Oasis NXT"))
-                            {
+                            if (fileOperator.checkIfGenieOem(myFileVersionInfo.FileDescription, true))
+                        {
                                 checkboxname = "Oasis NXT";
                                 if (checkBoxList[4].IsChecked.Value)
                                 {

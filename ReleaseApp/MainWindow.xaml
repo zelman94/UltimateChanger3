@@ -1033,7 +1033,7 @@
 
                                 <Button Name="btnRefresh_Compo" Grid.Column="1"  VerticalAlignment="Center" ToolTip="refresh paths" Click="btnRefresh_Click" Margin="5" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"  >
                                     <StackPanel Orientation="Horizontal">
-                                        <Image Name="imageRefresh_Compo" Stretch="Fill" Source="Images/refresh.PNG" Height="20" Width="20"/>
+                                        <Image Name="imageRefresh_Compo" Stretch="Fill" Source="Images/refreshWhite.PNG" Height="20" Width="20"/>
                                     </StackPanel>
                                 </Button>
                             </Grid>
