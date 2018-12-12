@@ -228,6 +228,8 @@ namespace UltimateChanger
             rbn_Christmas.Visibility = Visibility.Hidden;
             rbnTurnOffDevMode.IsChecked = true;
 
+            rbnNormalSize.IsChecked = true;
+
             uninstallTimer.Start();
 
             Rekurencja = new DispatcherTimer();
@@ -3395,6 +3397,22 @@ namespace UltimateChanger
         private void rbnTurnOnDevMode_Checked(object sender, RoutedEventArgs e)
         {
             lbluninstallinfo.Visibility = Visibility.Visible;
+        }
+
+        private void rbnNormalSize_Checked(object sender, RoutedEventArgs e)
+        {
+            foreach (var item in lableListForUi)
+            {
+                item.FontSize = 12;
+            }
+        }
+
+        private void rbnBiggerSize_Checked(object sender, RoutedEventArgs e)
+        {
+            foreach (var item in lableListForUi)
+            {
+                item.FontSize = 17;
+            }
         }
 
         private void rbnTurnOffDevMode_Checked(object sender, RoutedEventArgs e)
