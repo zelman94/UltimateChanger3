@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.Xml;
 using System.Diagnostics;
 using System.IO.Compression;
+using System.Management;
 
 namespace UltimateChanger
 {
@@ -102,7 +103,7 @@ namespace UltimateChanger
         };
 
 
-        public List<string> listUninstallProcessNames = new List<string> { // nazwy plikow do kompozycji 
+        public List<string> listUninstallProcessNames = new List<string> { 
 
             "OasisBernafon",
             "ExpressFitSonic",
@@ -111,6 +112,15 @@ namespace UltimateChanger
             "Install"
         };
 
+        public List<string> listInstallProcessNames = new List<string> {
+
+            "Oasis NXT",
+            "EXPRESSfit Pro",
+            "Genie 2",
+            "Genie Medical BAHS",
+            "Philips HearSuite",
+            "setup"
+        };
 
 
         public List<string> pathToLogMode = myXMLReader.getPaths("pathToLogMode");
@@ -706,6 +716,7 @@ namespace UltimateChanger
 
         public bool checkRunningProcess(List <string> name)
         {
+            
             Process[] localAll = Process.GetProcesses();
             foreach (var item_name in name)
             {
@@ -720,7 +731,7 @@ namespace UltimateChanger
                         {
                             return true;
                         }
-                        if (tmop.Contains(item_name) && item_name != "install")
+                        if (tmop.Contains(item_name) && item_name != "Install")
                         {                         
                             return true; 
                         }
@@ -1326,7 +1337,41 @@ namespace UltimateChanger
 
 
         }
+        public static List<string> FindAllProcessesSpawnedBy(UInt32 parentProcessId)
+        {
 
+            List<string> listChildProcess = new List<string>();
+            // NOTE: Process Ids are reused!
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher(
+                "SELECT * " +
+                "FROM Win32_Process " +
+                "WHERE ParentProcessId=" + parentProcessId);
+            ManagementObjectCollection collection = searcher.Get();
+            if (collection.Count > 0)
+            {
+
+                foreach (var item in collection)
+                {
+                    UInt32 childProcessId = (UInt32)item["ProcessId"];
+                    if ((int)childProcessId != Process.GetCurrentProcess().Id)
+                    {
+                        FindAllProcessesSpawnedBy(childProcessId);
+                        try
+                        {
+                            Process childProcess = Process.GetProcessById((int)childProcessId);
+                            listChildProcess.Add(childProcess.ProcessName);
+                        }
+                        catch (Exception)
+                        {
+
+                          
+                        }
+                        
+                    }
+                }
+            }
+            return listChildProcess;
+        }
 
     }
 }

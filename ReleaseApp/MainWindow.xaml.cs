@@ -31,7 +31,7 @@ using System.Data;
 using Rekurencjon; // logi
 
 
-[assembly: System.Reflection.AssemblyVersion("3.2.3.0")]
+[assembly: System.Reflection.AssemblyVersion("3.3.0.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window
@@ -48,7 +48,7 @@ namespace UltimateChanger
         // DataBaseManager dataBaseManager;
         DispatcherTimer RefUiTIMER, Rekurencja;
         DispatcherTimer ConnectionToDBTimer, progressBarTimer;
-        DispatcherTimer uninstallTimer, checkUpdate;
+       public DispatcherTimer uninstallTimer, checkUpdate, InstallTimer;
         BindCombobox BindCombo;
         private List<pathAndDir> paths_Dirs = new List<pathAndDir>();
         //string OEMname = "";
@@ -66,7 +66,7 @@ namespace UltimateChanger
         List<Label> labelListsforRefreshUI = new List<Label>();
         List<Label> labelListsforUninstall = new List<Label>() ; // lista zaznaczonych do usuniecia FS
         List<ListBox> listBoxForUi = new List<ListBox>();
-       
+        public List<string> listOfPathsToInstall = new List<string>(); // lista do zapisania pathów do instalatorow sillent install !
 
         List<CheckBox> checkBoxListForUi = new List<CheckBox>();
         List<ComboBox> comboBoxListForUi = new List<ComboBox>();
@@ -230,7 +230,7 @@ namespace UltimateChanger
 
             rbnNormalSize.IsChecked = true;
 
-            uninstallTimer.Start();
+           // uninstallTimer.Start();
 
             Rekurencja = new DispatcherTimer();
             Rekurencja.Tick += checkRekurencja;
@@ -796,6 +796,11 @@ namespace UltimateChanger
             checkUpdate.Tick += chechUpdateOnServer;
             checkUpdate.Interval = new TimeSpan(1, 0, 0);
             checkUpdate.Start();
+
+
+            InstallTimer = new DispatcherTimer();
+            InstallTimer.Tick += checkInstallTimer_Tick;
+            InstallTimer.Interval = new TimeSpan(0, 0, 20);
 
             try
             {
@@ -1806,6 +1811,36 @@ namespace UltimateChanger
         }
 
 
+        private void checkInstallTimer_Tick(object sender, EventArgs e)
+        {
+            Process currentProcess = Process.GetCurrentProcess();
+            //string pid = currentProcess.Id.ToString();
+
+           List<string> childs = FileOperator.FindAllProcessesSpawnedBy(Convert.ToUInt32(currentProcess.Id));
+
+            if (childs.Count == 0 ) // chyba nazywaja sie tam samo...
+            {
+                if (listOfPathsToInstall.Count != 0)
+                {
+                    try
+                    {
+                        Process.Start(listOfPathsToInstall[0], " /quiet");
+                        listOfPathsToInstall.RemoveAt(0);                        
+                    }
+                    catch (Exception x)
+                    {
+                        logging.AddLog(x.ToString());
+                        InstallTimer.Stop();
+                        MessageBox.Show("Error installation");
+                        return;
+                    }
+                }
+                else
+                {
+                    InstallTimer.Stop();
+                }
+            }
+        }
         private void checkUninstallation_Tick(object sender, EventArgs e)
         {
 
@@ -3355,6 +3390,9 @@ namespace UltimateChanger
                 Rekurencja.Tick += checkRekurencja;
                 Rekurencja.Interval = new TimeSpan(0, 0, 1);
                 Rekurencja.Start();
+
+                
+
             }
         }
 
@@ -3413,6 +3451,17 @@ namespace UltimateChanger
             {
                 item.FontSize = 17;
             }
+        }
+
+        private void btnAdvanceInstall_Click(object sender, RoutedEventArgs e)
+        {
+            Window AdvanceInstall = new AdvanceWindowInstalla();
+            AdvanceInstall.ShowDialog();
+        }
+
+        private void ListTeamPerson_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
 
         private void rbnTurnOffDevMode_Checked(object sender, RoutedEventArgs e)
