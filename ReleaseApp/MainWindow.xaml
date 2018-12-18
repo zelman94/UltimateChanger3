@@ -9,7 +9,7 @@
         xmlns:local="clr-namespace:UltimateChanger"
         xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
         mc:Ignorable="d"
-        Title="Ultimate Changer 3.2.3" Height="800" Width="800" ResizeMode="CanResize" Closing="Window_Closing_1"
+        Title="Ultimate Changer 3.3.0" Height="800" Width="800" ResizeMode="CanResize" Closing="Window_Closing_1"
         MinHeight="800"
         MinWidth="800"
         Localization.Attributes="Center"
@@ -713,8 +713,8 @@
                             <RowDefinition Height="1*"/>
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
-                        <Label x:Name="lblG" Content="Loading information" Grid.Column="0" Grid.Row="0" Foreground="#E5FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="1"/>
-                        <Label x:Name="lblGV" Content="Version" Grid.Column="0" Grid.Row="1" Foreground="#E5FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="1"/>
+                        <Label x:Name="lblG" Content="Loading information" Grid.Column="0" Grid.Row="0" Foreground="#E5FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0"/>
+                        <Label x:Name="lblGV" Content="Version" Grid.Column="0" Grid.Row="1" Foreground="#E5FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0"/>
                         <CheckBox x:Name="Oticon" Grid.Column="1" Grid.RowSpan="2" Content="" HorizontalAlignment="Center"  VerticalAlignment="Center" Checked="checkbox" Unchecked="uncheckbox" Background="White" BorderBrush="#FF424242"/>
                     </Grid>
 
@@ -728,8 +728,8 @@
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
                         <CheckBox x:Name="Medical" Grid.Column="1" Grid.RowSpan="2" Content="" HorizontalAlignment="Center"  VerticalAlignment="Center" Checked="checkbox" Unchecked="uncheckbox" Background="White" BorderBrush="#FF424242"/>
-                        <Label x:Name="lblM" Content="Loading information" Grid.Column="0" Foreground="#E5FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="1"/>
-                        <Label x:Name="lblMV" Content="Version" Grid.Column="0" Grid.Row="1" Foreground="#E5FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="1"/>
+                        <Label x:Name="lblM" Content="Loading information" Grid.Column="0" Foreground="#E5FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0"/>
+                        <Label x:Name="lblMV" Content="Version" Grid.Column="0" Grid.Row="1" Foreground="#E5FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0"/>
                     </Grid>
 
                     <Grid Grid.Row="3" Grid.Column="0" Margin="10 0">
@@ -742,8 +742,8 @@
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
                         <CheckBox x:Name="Sonic" Grid.Column="1" Grid.RowSpan="2" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="checkbox" Unchecked="uncheckbox" Background="White" BorderBrush="#FF424242"/>
-                        <Label x:Name="lblE" Content="Loading information" Grid.Column="0" Foreground="#E5FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="1"/>
-                        <Label x:Name="lblEV" Content="Version" Grid.Column="0" Grid.Row="1" Foreground="#E5FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="1"/>
+                        <Label x:Name="lblE" Content="Loading information" Grid.Column="0" Foreground="#E5FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0"/>
+                        <Label x:Name="lblEV" Content="Version" Grid.Column="0" Grid.Row="1" Foreground="#E5FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0"/>
                     </Grid>
 
                     <Grid Grid.Row="3" Grid.Column="1" Margin="10 0">
@@ -756,8 +756,8 @@
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
                         <CheckBox x:Name="Cumulus"  Grid.Column="1" Grid.RowSpan="2" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="checkbox" Unchecked="uncheckbox" Background="White" BorderBrush="#FF424242"/>
-                        <Label x:Name="lblC" Content="Loading information" Grid.Column="0" Foreground="#E5FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="1"/>
-                        <Label x:Name="lblCV" Content="Version" Grid.Column="0" Grid.Row="1" Foreground="#E5FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="1"/>
+                        <Label x:Name="lblC" Content="Loading information" Grid.Column="0" Foreground="#E5FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0"/>
+                        <Label x:Name="lblCV" Content="Version" Grid.Column="0" Grid.Row="1" Foreground="#E5FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0" />
                     </Grid>
 
                     <Grid Grid.Row="5" Grid.Column="0" Margin="10 0">
@@ -770,13 +770,13 @@
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
                         <CheckBox x:Name="Bernafon" Grid.Column="1" Grid.RowSpan="2" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="checkbox" Unchecked="uncheckbox" Background="White" BorderBrush="#FF424242"/>
-                        <Label x:Name="lblO" Content="Loading information" Foreground="#E5FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="1"/>
-                        <Label x:Name="lblOV" Content="Version" Grid.Column="0" Grid.Row="1" Foreground="#E5FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="1"/>
+                        <Label x:Name="lblO" Content="Loading information" Foreground="#E5FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0" />
+                        <Label x:Name="lblOV" Content="Version" Grid.Column="0" Grid.Row="1" Foreground="#E5FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0"/>
                     </Grid>
 
-                    <Border x:Name="Grid1" Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="#FF616161" BorderThickness="0,0,0,1" Margin="10 -2"/>
-                    <Border x:Name="Grid3" Grid.Row="3" Grid.ColumnSpan="3" BorderBrush="#FF616161" BorderThickness="0,0,0,1" Margin="10 -2"/>
-                    <Border x:Name="Grid5" Grid.Row="5" Grid.ColumnSpan="3" BorderBrush="#FF616161" BorderThickness="0,0,0,1" Margin="10,-2"/>
+                    <Border x:Name="Grid1" Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="#FF616161" BorderThickness="0,0,0,1" Margin="10,-2"/>
+                    <Border x:Name="Grid3" Grid.Row="2" Grid.ColumnSpan="2" BorderBrush="#FF616161" BorderThickness="0,0,0,1" Margin="10,-2"/>
+                    <Border x:Name="Grid5" Grid.Row="4" Grid.ColumnSpan="2" BorderBrush="#FF616161" BorderThickness="0,0,0,1" Margin="10,-2"/>
 
                     <!--TLO NA LOGO-->
                     <Rectangle
@@ -927,9 +927,9 @@
                                     <RowDefinition Height="1*"/>
                                 </Grid.RowDefinitions>
 
-                                <Label Content="(Un)Installation settings" Grid.ColumnSpan="2" Grid.Row="0" Foreground="White" FontWeight="SemiBold" FontSize="12.5"/>
-                                <RadioButton GroupName="RBsilentNormal" Name="RBsilet" Content="Silent" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBsilet_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0,3,0,4"/>
-                                <RadioButton GroupName="RBsilentNormal" Name="RBnormal" Content="Normal " Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBnormal_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0,3,0,4"/>
+                                <Label Content="(Un)Installation settings" Grid.ColumnSpan="2" Grid.Row="0" Foreground="White" FontWeight="SemiBold" FontSize="12.5" Margin="0,-2,0,0"/>
+                                <RadioButton GroupName="RBsilentNormal" Name="RBsilet" Content="Silent" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBsilet_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="10,8,0,2"/>
+                                <RadioButton GroupName="RBsilentNormal" Name="RBnormal" Content="Normal " Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBnormal_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="10,8,0,2"/>
                             </Grid>
 
                             <Grid Grid.Column="1" Grid.Row="0">
@@ -992,7 +992,7 @@
                             <Button x:Name="btnSavelogs" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" Content="Save Log" Click="btnSavelogs_Click" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"  Margin="10 0"/>
                             <Button x:Name="btnFS" Grid.Row="4" Grid.Column="2" Content="Start FS" Click="btnFSRun" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" VerticalAlignment="Center"/>
                             <Button x:Name="btnHattori" Content="Start Hattori" Click="btnHattori_Click" Grid.Row="4" Grid.Column="3" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" VerticalAlignment="Center"/>
-
+                            <Button x:Name="btnAdvanceInstall" Content="Advance" HorizontalAlignment="Left"  Grid.Row="4" VerticalAlignment="Center" Margin="10,12,0,12" Width="175" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Click="btnAdvanceInstall_Click"/>
 
                         </Grid>
                     </TabItem>
@@ -1192,20 +1192,20 @@
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="81*"/>
+                        <RowDefinition Height="81*"/>
+                        <RowDefinition Height="80*"/>
+                        <RowDefinition Height="81"/>
                     </Grid.RowDefinitions>
 
                     <Label Content="List of people:" Foreground="White" Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0 -5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
-                    <ListBox Name="ListTeamPerson" SelectionMode="Multiple" Grid.Column="1" Grid.RowSpan="4" Margin="0 25 0 5"/>
+                    <ListBox Name="ListTeamPerson" SelectionMode="Multiple" Grid.Column="1" Grid.RowSpan="4" Margin="0 25 0 5" SelectionChanged="ListTeamPerson_SelectionChanged"/>
 
                     <Button Name="btnAddPersonToList" Content="Add" Click="btnAddPersonToList_Click" Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
                     <Button Name="btnRemovePerson" Content="Remove" Click="Button_Click_3" Grid.Column="0" Grid.Row="0" VerticalAlignment="Bottom" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
                     <Button Name="btnClearListTeamPerson" Content="Clear" ToolTip="" Click="btnClearListTeamPerson_Click" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
                     <Button Name="btnAddNewPerson" Content="Add New Person" Click="Button_Click_4" Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0"/>
-                    <Label Content="Name of the new person:" Foreground="White" Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom" Margin="10 0" FontWeight="SemiBold" FontSize="12.5"/>
+                    <Label Content="Name of new person:" Foreground="White" Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom" Margin="10 0" FontWeight="SemiBold" FontSize="12.5"/>
                     <TextBox Name="txtnewTeamMember"  MaxLength="4" TextWrapping="Wrap" Text="" ToolTip="Name (XXXX)" Grid.Column="0" Grid.Row="3" VerticalAlignment="Top" Foreground="White" BorderBrush="White" Margin="15 0" Height="25" />
 
                 </Grid>
@@ -1573,9 +1573,9 @@
             <Grid x:Name="aboutGrid" Margin="0,2,0,-2">
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="201*"/>
+                    <ColumnDefinition Width="61*"/>
+                    <ColumnDefinition Width="131*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3*"/>
@@ -1587,10 +1587,20 @@
                 <Border x:Name="Grid7" Grid.Row="1" BorderBrush="#FF616161" BorderThickness="0,0,1,1"/>
                 <Border x:Name="Grid8" Grid.Row="2" BorderBrush="#FF616161" BorderThickness="0,0,1,0"/>
 
-                <Image x:Name="imgBrandSkin" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Source="Images/sonic.png" Margin="30 10 30 0"/>
+                <Image x:Name="imgBrandSkin" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Source="Images/sonic.png" Margin="96,10,100,0" Height="74" Width="206"/>
+
+                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="0,82,0,10" Height="353" Width="192">
+                    <Label Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5" Content="Labels size"/>
+                    <RadioButton Name="rbnNormalSize" GroupName="labelsSize" Content="Normal" Checked="rbnNormalSize_Checked"/>
+                    <RadioButton Name="rbnBiggerSize" GroupName="labelsSize" Content="Bigger" Checked="rbnBiggerSize_Checked"/>
+                    <Label x:Name="lblDevMode" Content="Dev mode" FontWeight="SemiBold" FontSize="12.5" Margin="0,0,28,0"/>
+                    <RadioButton x:Name="rbnTurnOnDevMode" Content="On" GroupName="group4" Checked="rbnTurnOnDevMode_Checked" Margin="0,0,28,0"/>
+                    <RadioButton x:Name="rbnTurnOffDevMode" Content="Off" GroupName="group4" Checked="rbnTurnOffDevMode_Checked" Margin="0,0,28,0"/>
+
+                </StackPanel>
 
 
-                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="10,82,0,10" Height="353">
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="10,82,0,10" Height="353" Width="195">
                     <Label Content="Startup settings" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
                     <RadioButton Name="rbnStartwithWindows" Content="Start with Windows" GroupName="group1" Checked="rbnStartwithWindows_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
                     <RadioButton Name="rbnNotStartwithWindows" Content="Do not Start with Windows" GroupName="group1" Checked="rbnNotStartwithWindows_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 1 0 0"/>
@@ -1600,21 +1610,18 @@
                     <Label Content="Always set log to &quot;ALL&quot;" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
                     <RadioButton Name="rbnLogsAll_YES" Content="Yes" Checked="rbnLogsAll_YES_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
                     <RadioButton Name="rbnLogsAll_NO" Content="No" Checked="rbnLogsAll_NO_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 1 0 0"/>
-                    <Label Content="Default Installation mode" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
+                    <Label Content="Default Installation &#xD;&#xA;mode" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
                     <RadioButton x:Name="rbnDefaultNormal" Content="Normal" GroupName="group3" Checked="rbnDefaultNormal_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
                     <RadioButton x:Name="rbnDefaultSilent" Content="Silent" GroupName="group3" Checked="rbnDefaultSilent_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 1 0 0"/>
-                    <Label Name="lblDevMode" Content="Dev mode" FontWeight="SemiBold" FontSize="12.5"/>
-                    <RadioButton Name="rbnTurnOnDevMode" Content="On" GroupName="group4" Checked="rbnTurnOnDevMode_Checked"/>
-                    <RadioButton Name="rbnTurnOffDevMode" Content="Off" GroupName="group4" Checked="rbnTurnOffDevMode_Checked"/>
                 </StackPanel>
 
-                <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10 0 0 0" Width="120">
+                <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10 0 0 0" Width="162" Height="102">
                     <Label Content="Version" HorizontalAlignment="Left" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
                     <Label x:Name="lblVersion" Content="" Height="35" HorizontalAlignment="Left" Foreground="White"/>
-                    <Label x:Name="lblConnectionToDB"  Content="Trying to Connect" Height="35" HorizontalAlignment="Left" Foreground="White" />
+                    <Label x:Name="lblConnectionToDB"  Content="Trying to Connect" Height="35" HorizontalAlignment="Left" Foreground="White" Width="162" />
                 </StackPanel>
 
-                <StackPanel Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10 0 0 0">
+                <StackPanel Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10 0 0 0" Height="144" Width="109">
                     <Label x:Name="Skin" Content="Skin" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
                     <RadioButton x:Name="rbnLight_skin" Content="Crystal White" Checked="Light_skin_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
                     <RadioButton x:Name="rbnDark_skin" Content="On the dark side" Checked="Dark_skin_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>

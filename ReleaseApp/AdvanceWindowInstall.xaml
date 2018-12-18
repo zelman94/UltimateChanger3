@@ -1,0 +1,41 @@
+﻿<Window x:Class="UltimateChanger.AdvanceWindowInstalla"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UltimateChanger"
+        mc:Ignorable="d"
+        Title="Advance Install Of FS" Height="500" Width="800">
+
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="600"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1*"/>
+
+        </Grid.RowDefinitions>
+
+        <ListBox Name="ListBoxBuilds" SelectionChanged="ListBoxBuilds_SelectionChanged" Grid.Column="0" Grid.Row="1" SelectionMode="Multiple" />
+        <TextBox Name="txtpathToBuilds" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Right" Height="40" Margin="0,29,20,29" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="400" ToolTip="add root path to build if more than one please separate by ;"  />
+        <Button Name="btnFindPaths" Content="Find " Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="75" Click="BtnFindPaths"/>
+        <Button Name="btnInstallFSs" Content="Install" Grid.Column="1" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Width="75" Click="btnInstallFSs_Click"/>
+        <Button Name="btnCancelAdvance" Content="Cancel" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Width="75" Click="btnCancelAdvance_Click"/>
+        <Label Content="Root Path" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,60,0,32" Width="100"/>
+
+
+
+
+
+
+
+
+    </Grid>
+</Window>
