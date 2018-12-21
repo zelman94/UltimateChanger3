@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="ChangeLog" Height="400" Width="400">
     <Grid>
-        <Label Name="txtChangeLog" Content="Label" HorizontalAlignment="Left" Margin="30,66,0,0" VerticalAlignment="Top" Height="203" Width="322"/>
+        <Label Name="txtChangeLog" Content="Label" HorizontalAlignment="Left" Margin="30,66,0,0" VerticalAlignment="Top" Height="203" Width="322" Foreground="Black"/>
         <Button Name="btnOk" Content="Ok" HorizontalAlignment="Left" Margin="145,313,0,0" VerticalAlignment="Top" Width="75" Click="btnOk_Click"/>
 
     </Grid>
