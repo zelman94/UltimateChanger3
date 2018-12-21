@@ -52,7 +52,6 @@ namespace UltimateChanger
         BindCombobox BindCombo;
         private List<pathAndDir> paths_Dirs = new List<pathAndDir>();
         //string OEMname = "";
-        List<Image> ListImages;
         List<Label> listlabelsinfoFS, listlabelsinfoFS_Version;  
         List<CheckBox> checkBoxList = new List<CheckBox>();
         List<ComboBox> comboBoxList = new List<ComboBox>();
@@ -62,6 +61,8 @@ namespace UltimateChanger
 
 
         List<Button> buttonListForUi = new List<Button>();
+        List<Button> ListFSButtons = new List<Button>();
+
         List<Label> lableListForUi = new List<Label>();
         List<Label> labelListsforRefreshUI = new List<Label>();
         List<Label> labelListsforUninstall = new List<Label>() ; // lista zaznaczonych do usuniecia FS
@@ -81,7 +82,6 @@ namespace UltimateChanger
         List<string> listOfRandomHardawre_perPerson = new List<string>();
         List<RadioButton> RadioButtonsList = new List<RadioButton>();
         public SortedDictionary<string, string> StringToUI = new SortedDictionary<string, string>(); // slownik do zamiany stringow z xml do wartości UI 
-        List<Rectangle> ListRactanglesNames;
         //BackgroundWorker worker;
         HIs Random_HI = new HIs();
         myXMLReader XMLReader = new myXMLReader();
@@ -145,6 +145,10 @@ namespace UltimateChanger
                         if (!item.Name.Contains("Image")) // jezeli nie jest bo button od FS 
                         {
                             buttonListForUi.Add(item);
+                        }
+                        else
+                        {
+                            ListFSButtons.Add(item);
                         }
                         
                     }
@@ -676,10 +680,10 @@ namespace UltimateChanger
 
                 for (int i = 0; i < ListBuildsInfo.Count; i++)
                 {
-                    ListRactanglesNames[i].ToolTip = ListBuildsInfo[i].Brand+", "+ ListBuildsInfo[i].OEM + "\n" + logmodesFS[i];
+                    ListFSButtons[i].ToolTip = ListBuildsInfo[i].Brand+", "+ ListBuildsInfo[i].OEM + "\n" + logmodesFS[i];
                     if (ListBuildsInfo[i].Brand == "")
                     {
-                        ListRactanglesNames[i].ToolTip = null;
+                        ListFSButtons[i].ToolTip = null;
                     }
                     if (!uninstallTimer.IsEnabled)
                     {
@@ -690,31 +694,7 @@ namespace UltimateChanger
            
 
 
-                    foreach (var item in ListRactanglesNames)
-                    {
-                        if (item.Name.Contains(ListBuildsInfo[i].Brand.ToLower()))
-                        {
-
-                            foreach (var obrazki in ListImages)
-                            {
-                                string tmppp = obrazki.Name.ToLower().Substring(3, obrazki.Name.Length - 3);
-
-                                if (item.Name.ToLower().Contains(tmppp))
-                                {
-                                    try
-                                    {
-                                        obrazki.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + $"\\Images\\" + tmppp + ".png"));
-                                    }
-                                    catch (Exception x)
-                                    {
-                                        logging.AddLog(x.ToString());
-                                        Console.WriteLine("Problem with images");
-                                    }
-
-                                }
-                            }
-                        }
-                    }
+                   
                 }
             }
             catch (Exception x)
@@ -867,23 +847,8 @@ namespace UltimateChanger
                 cmbRelease
             };
 
-            ListRactanglesNames = new List<Rectangle>()
-            {
-                //oticonRectangle,
-                //oticonmedicalnRectangle,
-                //sonicRectangle,
-                //startoRectangle,
-                //bernafonRectangle
-            };
 
-            ListImages = new List<Image>()
-            {
-                //imgOticon,
-                //imgOticonMedical,
-                //imgSonic,
-                //imgStarto,
-                //imgBernafon
-            };
+
 
             listlabelsinfoFS = new List<Label>()
             {
