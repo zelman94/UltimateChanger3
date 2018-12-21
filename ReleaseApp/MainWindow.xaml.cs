@@ -3431,6 +3431,36 @@ namespace UltimateChanger
             AdvanceInstall.ShowDialog();
         }
 
+        private void btnGenieImage_Click(object sender, RoutedEventArgs e)
+        {      
+               fileOperator.StartFS(0, TabFull.IsSelected);
+               CounterOfclicks.AddClick((int)Buttons.StartFittingSoftware);
+        }
+
+        private void btnGenieMedicalImage_Click(object sender, RoutedEventArgs e)
+        {
+                fileOperator.StartFS(1, TabFull.IsSelected);
+                CounterOfclicks.AddClick((int)Buttons.StartFittingSoftware);  
+        }
+
+        private void btnExpressfitImage_Click(object sender, RoutedEventArgs e)
+        {
+                fileOperator.StartFS(2, TabFull.IsSelected);
+                CounterOfclicks.AddClick((int)Buttons.StartFittingSoftware);  
+        }
+
+        private void btnHearSuiteImage_Click(object sender, RoutedEventArgs e)
+        {
+                fileOperator.StartFS(3, TabFull.IsSelected);
+                CounterOfclicks.AddClick((int)Buttons.StartFittingSoftware); 
+        }
+
+        private void btnOasisImage_Click(object sender, RoutedEventArgs e)
+        {
+                fileOperator.StartFS(4, TabFull.IsSelected);
+                CounterOfclicks.AddClick((int)Buttons.StartFittingSoftware);
+        }
+
         private void ListTeamPerson_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 

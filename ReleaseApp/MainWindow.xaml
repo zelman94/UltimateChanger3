@@ -707,19 +707,19 @@
                     </Grid.RowDefinitions>
 
 
-                    <Button Name="btnGenieImage" Grid.Column="0" Grid.Row="0" Opacity="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Height="auto" Margin="10" Background="White">                       
+                    <Button Name="btnGenieImage" Grid.Column="0" Grid.Row="0" Opacity="0.9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Height="auto" Margin="10" Background="White" Click="btnGenieImage_Click" >                       
                             <Image Source="Images/oticon.png" Margin="5" />    
                     </Button>
-                    <Button Name="btnGenieMedicalImage" Grid.Column="1" Grid.Row="0" Opacity="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Height="auto" Margin="10" Background="#FFECB3">
+                    <Button Name="btnGenieMedicalImage" Grid.Column="1" Grid.Row="0" Opacity="0.9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Height="auto" Margin="10" Background="#FFECB3" Click="btnGenieMedicalImage_Click">
                         <Image Source="Images/oticonmedical.png" Margin="5" />
                     </Button>
-                    <Button Name="btnExpressfitImage" Grid.Column="0" Grid.Row="2" Opacity="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Height="auto" Margin="10" Background="#42A5F5">
+                    <Button Name="btnExpressfitImage" Grid.Column="0" Grid.Row="2" Opacity="0.9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Height="auto" Margin="10" Background="#42A5F5" Click="btnExpressfitImage_Click">
                         <Image Source="Images/sonic.png" Margin="5" />
                     </Button>
-                    <Button Name="btnHearSuiteImage" Grid.Column="1" Grid.Row="2" Opacity="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Height="auto" Margin="10" Background="#0D47A1">
+                    <Button Name="btnHearSuiteImage" Grid.Column="1" Grid.Row="2" Opacity="0.9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Height="auto" Margin="10" Background="#0D47A1" Click="btnHearSuiteImage_Click">
                         <Image Source="Images/starto.png" Margin="5" />
                     </Button>
-                    <Button Name="btnOasisImage" Grid.Column="0" Grid.Row="4" Opacity="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Height="auto" Margin="10" Background="#616161">
+                    <Button Name="btnOasisImage" Grid.Column="0" Grid.Row="4" Opacity="0.9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Height="auto" Margin="10" Background="#616161" Click="btnOasisImage_Click">
                         <Image Source="Images/bernafon.png" Margin="5" />
                     </Button>
                     
