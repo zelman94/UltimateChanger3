@@ -687,6 +687,9 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
 
+                
+                
+                
                 <!-- #############################################################   BRAND SECTION    ###################################################### -->
                 <Grid x:Name="BrandSection" Margin="0 0 0 10">
                     <Grid.ColumnDefinitions>
@@ -703,6 +706,22 @@
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
 
+
+                    <Button Name="btnGenieImage" Grid.Column="0" Grid.Row="0" Opacity="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Height="auto" Margin="10" Background="White">                       
+                            <Image Source="Images/oticon.png" Margin="5" />    
+                    </Button>
+                    <Button Name="btnGenieMedicalImage" Grid.Column="1" Grid.Row="0" Opacity="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Height="auto" Margin="10" Background="#FFECB3">
+                        <Image Source="Images/oticonmedical.png" Margin="5" />
+                    </Button>
+                    <Button Name="btnExpressfitImage" Grid.Column="0" Grid.Row="2" Opacity="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Height="auto" Margin="10" Background="#42A5F5">
+                        <Image Source="Images/sonic.png" Margin="5" />
+                    </Button>
+                    <Button Name="btnHearSuiteImage" Grid.Column="1" Grid.Row="2" Opacity="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Height="auto" Margin="10" Background="#0D47A1">
+                        <Image Source="Images/starto.png" Margin="5" />
+                    </Button>
+                    <Button Name="btnOasisImage" Grid.Column="0" Grid.Row="4" Opacity="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Height="auto" Margin="10" Background="#616161">
+                        <Image Source="Images/bernafon.png" Margin="5" />
+                    </Button>
                     
 
                     <Grid Grid.Row="1" Grid.Column="0" Margin="10 0">
@@ -779,7 +798,7 @@
                     <Border x:Name="Grid3" Grid.Row="3" Grid.ColumnSpan="2" BorderBrush="#FF616161" BorderThickness="0,0,0,1" Margin="10,-2"/>
                     <Border x:Name="Grid5" Grid.Row="5" Grid.ColumnSpan="2" BorderBrush="#FF616161" BorderThickness="0,0,0,1" Margin="10,-2"/>
                     
-                    <!--TLO NA LOGO-->
+                    <!--TLO NA LOGO--><!--
                     <Rectangle
                         x:Name="oticonRectangle" 
                         Grid.Column="0"
@@ -822,29 +841,12 @@
                         Grid.Row="2"
                         Fill="#0D47A1"
                         Opacity="0.6"
-                        RadiusY="5" RadiusX="5"/>
+                        RadiusY="5" RadiusX="5"/>-->
 
 
-                    
-                    <!--LOGO-->
-                    <Image x:Name="imgOticon" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="110" Source="Images/oticon.png">
-                        <!--<Image.Source>C:/UltimateChanger/oticon2.png</Image.Source>-->
-                    </Image>
-                    <Image x:Name="imgOticonMedical" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="160" Source="Images/oticonmedical.png">
-                        <!--<Image.Source>C:/UltimateChanger/sonic2.png</Image.Source>-->
-                    </Image>
-                    <Image x:Name="imgBernafon" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Source="Images/bernafon.png">
-                        <!--<Image.Source>C:/UltimateChanger/bernafon2.png</Image.Source>-->
-                    </Image>
-                    <Image x:Name="imgSonic" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="110" Source="Images/sonic.png">
-                        <!--<Image.Source>C:/UltimateChanger/sonic2.png</Image.Source>-->
-                    </Image>
 
-                    <Image x:Name="imgStarto" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="110" Source="Images/starto.PNG">
-                        <!--<Image.Source>C:/UltimateChanger/sonic2.png</Image.Source>-->
-                    </Image>
 
-                    
+
                 </Grid>
                 <!-- #############################################################   COMBO SECTION    ###################################################### -->
                 <Grid x:Name="ComboSection" Grid.Column="1" Grid.Row="0">

@@ -142,7 +142,11 @@ namespace UltimateChanger
                     }
                     foreach (Button item in FindLogicalChildren<Button>(this))
                     {
-                        buttonListForUi.Add(item);
+                        if (!item.Name.Contains("Image")) // jezeli nie jest bo button od FS 
+                        {
+                            buttonListForUi.Add(item);
+                        }
+                        
                     }
                     foreach (CheckBox item in FindLogicalChildren<CheckBox>(this))
                     {
@@ -865,20 +869,20 @@ namespace UltimateChanger
 
             ListRactanglesNames = new List<Rectangle>()
             {
-                oticonRectangle,
-                oticonmedicalnRectangle,
-                sonicRectangle,
-                startoRectangle,
-                bernafonRectangle
+                //oticonRectangle,
+                //oticonmedicalnRectangle,
+                //sonicRectangle,
+                //startoRectangle,
+                //bernafonRectangle
             };
 
             ListImages = new List<Image>()
             {
-                imgOticon,
-                imgOticonMedical,
-                imgSonic,
-                imgStarto,
-                imgBernafon
+                //imgOticon,
+                //imgOticonMedical,
+                //imgSonic,
+                //imgStarto,
+                //imgBernafon
             };
 
             listlabelsinfoFS = new List<Label>()
@@ -2560,8 +2564,8 @@ namespace UltimateChanger
 
             //USTAWIENIA TŁA
             this.Background = (Brush)converter.ConvertFromString("#E2212121");
-            oticonmedicalnRectangle.Fill= (Brush)converter.ConvertFromString("#FFECB3");
-            oticonRectangle.Fill = (Brush)converter.ConvertFromString("#FAFAFA");
+          //  oticonmedicalnRectangle.Fill= (Brush)converter.ConvertFromString("#FFECB3");
+            //oticonRectangle.Fill = (Brush)converter.ConvertFromString("#FAFAFA");
 
             progress.Background = (Brush)converter.ConvertFromString("#FF616161");
             progress.BorderBrush = (Brush)converter.ConvertFromString("#FF424242");
@@ -2693,8 +2697,8 @@ namespace UltimateChanger
 
             //USTAWIENIA TŁA
             this.Background= (Brush)converter.ConvertFromString("#F5F5F5");
-            oticonmedicalnRectangle.Fill = Brushes.Black;
-            oticonRectangle.Fill = Brushes.White;
+        //    oticonmedicalnRectangle.Fill = Brushes.Black;
+           // oticonRectangle.Fill = Brushes.White;
 
             //USTAWIENIA PROGESSBARÓW
             progress.Background= (Brush)converter.ConvertFromString("#FF616161");
@@ -3307,7 +3311,7 @@ namespace UltimateChanger
             tabControl.Foreground = Brushes.White;
             passwordBox.Foreground = Brushes.White;
             passwordBox.BorderBrush = Brushes.White;
-            oticonRectangle.Fill = (Brush)converter.ConvertFromString("#FAFAFA");
+            //oticonRectangle.Fill = (Brush)converter.ConvertFromString("#FAFAFA");
 
             UpdateLayout();
             GridDataRandomHardware.ColumnHeaderStyle = Resources["DataGridDark"] as Style;
@@ -3315,7 +3319,7 @@ namespace UltimateChanger
             tabControl.ItemContainerStyle = Resources["TabItemDark"] as Style;
             tabControl.Background = (Brush)converter.ConvertFromString("#FF212121");
             this.Background = (Brush)converter.ConvertFromString("#E2212121");
-            oticonmedicalnRectangle.Fill = (Brush)converter.ConvertFromString("#FFECB3");
+            //oticonmedicalnRectangle.Fill = (Brush)converter.ConvertFromString("#FFECB3");
 
             Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
             {
