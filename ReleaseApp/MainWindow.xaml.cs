@@ -31,7 +31,7 @@ using System.Data;
 using Rekurencjon; // logi
 
 
-[assembly: System.Reflection.AssemblyVersion("3.3.0.0")]
+[assembly: System.Reflection.AssemblyVersion("3.3.1.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window
@@ -1354,6 +1354,7 @@ namespace UltimateChanger
                         instal.UninstallBrand(path_to_Uninstall, mode_uninstall);
                     }
                     uninstallTimer.Start();
+                MessageBox.Show("Uninstallation in progress");
                 }
                 catch (Exception)
                 {
@@ -1818,7 +1819,7 @@ namespace UltimateChanger
 
            List<string> childs = FileOperator.FindAllProcessesSpawnedBy(Convert.ToUInt32(currentProcess.Id));
 
-            if (childs.Count == 0 ) // chyba nazywaja sie tam samo...
+            if (childs.Count == 0 ) 
             {
                 if (listOfPathsToInstall.Count != 0)
                 {
@@ -1843,8 +1844,12 @@ namespace UltimateChanger
         }
         private void checkUninstallation_Tick(object sender, EventArgs e)
         {
+            Process currentProcess = Process.GetCurrentProcess();
+            //string pid = currentProcess.Id.ToString();
 
-            if (!fileOperator.checkRunningProcess(fileOperator.listUninstallProcessNames))
+            List<string> childs = FileOperator.FindAllProcessesSpawnedBy(Convert.ToUInt32(currentProcess.Id));
+
+            if (childs.Count == 0)
             {
                 if (listGlobalPathsToUninstall.Count != 0)
                 {
@@ -1877,6 +1882,7 @@ namespace UltimateChanger
                     btninstal.IsEnabled = true;
                     btnDelete.IsEnabled = true;
                     lbluninstallinfo.Content = "Stoped";
+                    MessageBox.Show("Uninstallation DONE");
                 }
 
             }
@@ -2774,10 +2780,7 @@ namespace UltimateChanger
 
         private void RBsilet_Checked(object sender, RoutedEventArgs e)
         {
-            if (!uninstallTimer.IsEnabled)
-            {
-                uninstallTimer.Start();
-            }
+
         }
 
         private void rbnStartwithWindows_Checked(object sender, RoutedEventArgs e)

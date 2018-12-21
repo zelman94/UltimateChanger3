@@ -39,7 +39,20 @@ namespace UltimateChanger
             FindingPaths = new DispatcherTimer();
             FindingPaths.Tick += updateListUI;
             FindingPaths.Interval = new TimeSpan(0, 0, 1);
+            this.Background = ((MainWindow)System.Windows.Application.Current.MainWindow).Background;
+           
+            txtpathToBuilds.Foreground = ((MainWindow)System.Windows.Application.Current.MainWindow).rbnHI_1.Foreground;
+            txtpathToBuilds.BorderBrush = ((MainWindow)System.Windows.Application.Current.MainWindow).rbnHI_1.Foreground;
+            var converter = new System.Windows.Media.BrushConverter();
 
+            btnCancelAdvance.Background = (Brush)converter.ConvertFromString("#FF616161");
+            btnCancelAdvance.Foreground = (Brush)converter.ConvertFromString("#E5FFFFFF");
+
+            btnInstallFSs.Background = (Brush)converter.ConvertFromString("#FF616161");
+            btnInstallFSs.Foreground = (Brush)converter.ConvertFromString("#E5FFFFFF");
+
+            btnFindPaths.Background = (Brush)converter.ConvertFromString("#FF616161");
+            btnFindPaths.Foreground = (Brush)converter.ConvertFromString("#E5FFFFFF");
         }
 
         public void updateListUI(object sender, EventArgs e)
