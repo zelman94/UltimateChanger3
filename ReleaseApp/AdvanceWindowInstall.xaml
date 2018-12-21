@@ -5,9 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UltimateChanger"
         mc:Ignorable="d"
-        Title="Advance Install Of FS" Height="500" Width="800">
+        Title="Advance Install Of FS" Height="500" Width="800" ResizeMode="NoResize">
 
-
+    <Window.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+            <GradientStop Color="#FF424242" Offset="0"/>
+            <GradientStop Color="#E2212121" Offset="0"/>
+        </LinearGradientBrush>
+    </Window.Background>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="600"/>

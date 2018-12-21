@@ -1233,8 +1233,14 @@ namespace UltimateChanger
             else
             {
                 List<string> pathsToExeCompositions = GetExeCompo(licznik);
-                Process.Start(pathsToExeCompositions[0]);
-
+                try
+                {
+                    Process.Start(pathsToExeCompositions[0]);
+                }
+                catch (Exception)
+                {
+              
+                }
             }
         }
 
@@ -1264,9 +1270,34 @@ namespace UltimateChanger
             return false;
         }
 
-        public string getChangeLog()
+        public string getChangeLog(bool update = false) // jezeli true to inna lokalizacja pobrania change loga
         {
-            string[] readText = File.ReadAllLines(@"C:\Program Files\UltimateChanger\ChangeLogUC3.txt");
+            string[] readText = null;
+            if (update)
+            {
+                try
+                {
+                    readText = File.ReadAllLines(@"\\10.128.3.1\DFS_data_SSC_FS_Images-SSC\PAZE\change_market\Multi_Changer\currentVersion\update\ChangeLogUC3.txt");
+                }
+                catch (Exception)
+                {
+                    try
+                    {
+                        readText = File.ReadAllLines(@"\\10.128.3.1\DFS_Data_KBN_RnD_FS_Programs\Support_Tools\Ultimate_changer\currentVersion\update\ChangeLogUC3.txt");
+                    }
+                    catch (Exception)
+                    {
+
+                      
+                    }
+                }
+            }
+            else
+            {
+                readText = File.ReadAllLines(@"C:\Program Files\UltimateChanger\ChangeLogUC3.txt");
+            }
+
+            
             string text = "";
             foreach (var item in readText)
             {
@@ -1322,7 +1353,7 @@ namespace UltimateChanger
                 {
                     //System.Windows.Forms.MessageBox.Show($"Update available: {Kolumna[1]}");
 
-                    Window Update = new UpdateWindow(path, getChangeLog(), "true", "true", "true", "true", "true");
+                    Window Update = new UpdateWindow(path, getChangeLog(true), "true", "true", "true", "true", "true");
                     Update.ShowDialog();
 
 

@@ -31,7 +31,7 @@ using System.Data;
 using Rekurencjon; // logi
 
 
-[assembly: System.Reflection.AssemblyVersion("3.3.0.0")]
+[assembly: System.Reflection.AssemblyVersion("3.3.2.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window
@@ -52,7 +52,6 @@ namespace UltimateChanger
         BindCombobox BindCombo;
         private List<pathAndDir> paths_Dirs = new List<pathAndDir>();
         //string OEMname = "";
-        List<Image> ListImages;
         List<Label> listlabelsinfoFS, listlabelsinfoFS_Version;  
         List<CheckBox> checkBoxList = new List<CheckBox>();
         List<ComboBox> comboBoxList = new List<ComboBox>();
@@ -62,6 +61,8 @@ namespace UltimateChanger
 
 
         List<Button> buttonListForUi = new List<Button>();
+        List<Button> ListFSButtons = new List<Button>();
+
         List<Label> lableListForUi = new List<Label>();
         List<Label> labelListsforRefreshUI = new List<Label>();
         List<Label> labelListsforUninstall = new List<Label>() ; // lista zaznaczonych do usuniecia FS
@@ -81,7 +82,6 @@ namespace UltimateChanger
         List<string> listOfRandomHardawre_perPerson = new List<string>();
         List<RadioButton> RadioButtonsList = new List<RadioButton>();
         public SortedDictionary<string, string> StringToUI = new SortedDictionary<string, string>(); // slownik do zamiany stringow z xml do wartości UI 
-        List<Rectangle> ListRactanglesNames;
         //BackgroundWorker worker;
         HIs Random_HI = new HIs();
         myXMLReader XMLReader = new myXMLReader();
@@ -142,7 +142,15 @@ namespace UltimateChanger
                     }
                     foreach (Button item in FindLogicalChildren<Button>(this))
                     {
-                        buttonListForUi.Add(item);
+                        if (!item.Name.Contains("Image")) // jezeli nie jest bo button od FS 
+                        {
+                            buttonListForUi.Add(item);
+                        }
+                        else
+                        {
+                            ListFSButtons.Add(item);
+                        }
+                        
                     }
                     foreach (CheckBox item in FindLogicalChildren<CheckBox>(this))
                     {
@@ -672,10 +680,10 @@ namespace UltimateChanger
 
                 for (int i = 0; i < ListBuildsInfo.Count; i++)
                 {
-                    ListRactanglesNames[i].ToolTip = ListBuildsInfo[i].Brand+", "+ ListBuildsInfo[i].OEM + "\n" + logmodesFS[i];
+                    ListFSButtons[i].ToolTip = ListBuildsInfo[i].Brand+", "+ ListBuildsInfo[i].OEM + "\n" + logmodesFS[i];
                     if (ListBuildsInfo[i].Brand == "")
                     {
-                        ListRactanglesNames[i].ToolTip = null;
+                        ListFSButtons[i].ToolTip = null;
                     }
                     if (!uninstallTimer.IsEnabled)
                     {
@@ -686,31 +694,7 @@ namespace UltimateChanger
            
 
 
-                    foreach (var item in ListRactanglesNames)
-                    {
-                        if (item.Name.Contains(ListBuildsInfo[i].Brand.ToLower()))
-                        {
-
-                            foreach (var obrazki in ListImages)
-                            {
-                                string tmppp = obrazki.Name.ToLower().Substring(3, obrazki.Name.Length - 3);
-
-                                if (item.Name.ToLower().Contains(tmppp))
-                                {
-                                    try
-                                    {
-                                        obrazki.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + $"\\Images\\" + tmppp + ".png"));
-                                    }
-                                    catch (Exception x)
-                                    {
-                                        logging.AddLog(x.ToString());
-                                        Console.WriteLine("Problem with images");
-                                    }
-
-                                }
-                            }
-                        }
-                    }
+                   
                 }
             }
             catch (Exception x)
@@ -863,23 +847,8 @@ namespace UltimateChanger
                 cmbRelease
             };
 
-            ListRactanglesNames = new List<Rectangle>()
-            {
-                oticonRectangle,
-                oticonmedicalnRectangle,
-                sonicRectangle,
-                startoRectangle,
-                bernafonRectangle
-            };
 
-            ListImages = new List<Image>()
-            {
-                imgOticon,
-                imgOticonMedical,
-                imgSonic,
-                imgStarto,
-                imgBernafon
-            };
+
 
             listlabelsinfoFS = new List<Label>()
             {
@@ -1354,6 +1323,7 @@ namespace UltimateChanger
                         instal.UninstallBrand(path_to_Uninstall, mode_uninstall);
                     }
                     uninstallTimer.Start();
+                MessageBox.Show("Uninstallation in progress");
                 }
                 catch (Exception)
                 {
@@ -1818,7 +1788,7 @@ namespace UltimateChanger
 
            List<string> childs = FileOperator.FindAllProcessesSpawnedBy(Convert.ToUInt32(currentProcess.Id));
 
-            if (childs.Count == 0 ) // chyba nazywaja sie tam samo...
+            if (childs.Count == 0 ) 
             {
                 if (listOfPathsToInstall.Count != 0)
                 {
@@ -1843,8 +1813,12 @@ namespace UltimateChanger
         }
         private void checkUninstallation_Tick(object sender, EventArgs e)
         {
+            Process currentProcess = Process.GetCurrentProcess();
+            //string pid = currentProcess.Id.ToString();
 
-            if (!fileOperator.checkRunningProcess(fileOperator.listUninstallProcessNames))
+            List<string> childs = FileOperator.FindAllProcessesSpawnedBy(Convert.ToUInt32(currentProcess.Id));
+
+            if (childs.Count == 0)
             {
                 if (listGlobalPathsToUninstall.Count != 0)
                 {
@@ -1877,6 +1851,7 @@ namespace UltimateChanger
                     btninstal.IsEnabled = true;
                     btnDelete.IsEnabled = true;
                     lbluninstallinfo.Content = "Stoped";
+                    MessageBox.Show("Uninstallation DONE");
                 }
 
             }
@@ -2554,8 +2529,8 @@ namespace UltimateChanger
 
             //USTAWIENIA TŁA
             this.Background = (Brush)converter.ConvertFromString("#E2212121");
-            oticonmedicalnRectangle.Fill= (Brush)converter.ConvertFromString("#FFECB3");
-            oticonRectangle.Fill = (Brush)converter.ConvertFromString("#FAFAFA");
+          //  oticonmedicalnRectangle.Fill= (Brush)converter.ConvertFromString("#FFECB3");
+            //oticonRectangle.Fill = (Brush)converter.ConvertFromString("#FAFAFA");
 
             progress.Background = (Brush)converter.ConvertFromString("#FF616161");
             progress.BorderBrush = (Brush)converter.ConvertFromString("#FF424242");
@@ -2687,8 +2662,8 @@ namespace UltimateChanger
 
             //USTAWIENIA TŁA
             this.Background= (Brush)converter.ConvertFromString("#F5F5F5");
-            oticonmedicalnRectangle.Fill = Brushes.Black;
-            oticonRectangle.Fill = Brushes.White;
+        //    oticonmedicalnRectangle.Fill = Brushes.Black;
+           // oticonRectangle.Fill = Brushes.White;
 
             //USTAWIENIA PROGESSBARÓW
             progress.Background= (Brush)converter.ConvertFromString("#FF616161");
@@ -2774,10 +2749,7 @@ namespace UltimateChanger
 
         private void RBsilet_Checked(object sender, RoutedEventArgs e)
         {
-            if (!uninstallTimer.IsEnabled)
-            {
-                uninstallTimer.Start();
-            }
+
         }
 
         private void rbnStartwithWindows_Checked(object sender, RoutedEventArgs e)
@@ -3304,7 +3276,7 @@ namespace UltimateChanger
             tabControl.Foreground = Brushes.White;
             passwordBox.Foreground = Brushes.White;
             passwordBox.BorderBrush = Brushes.White;
-            oticonRectangle.Fill = (Brush)converter.ConvertFromString("#FAFAFA");
+            //oticonRectangle.Fill = (Brush)converter.ConvertFromString("#FAFAFA");
 
             UpdateLayout();
             GridDataRandomHardware.ColumnHeaderStyle = Resources["DataGridDark"] as Style;
@@ -3312,7 +3284,7 @@ namespace UltimateChanger
             tabControl.ItemContainerStyle = Resources["TabItemDark"] as Style;
             tabControl.Background = (Brush)converter.ConvertFromString("#FF212121");
             this.Background = (Brush)converter.ConvertFromString("#E2212121");
-            oticonmedicalnRectangle.Fill = (Brush)converter.ConvertFromString("#FFECB3");
+            //oticonmedicalnRectangle.Fill = (Brush)converter.ConvertFromString("#FFECB3");
 
             Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
             {
@@ -3457,6 +3429,36 @@ namespace UltimateChanger
         {
             Window AdvanceInstall = new AdvanceWindowInstalla();
             AdvanceInstall.ShowDialog();
+        }
+
+        private void btnGenieImage_Click(object sender, RoutedEventArgs e)
+        {      
+               fileOperator.StartFS(0, TabFull.IsSelected);
+               CounterOfclicks.AddClick((int)Buttons.StartFittingSoftware);
+        }
+
+        private void btnGenieMedicalImage_Click(object sender, RoutedEventArgs e)
+        {
+                fileOperator.StartFS(1, TabFull.IsSelected);
+                CounterOfclicks.AddClick((int)Buttons.StartFittingSoftware);  
+        }
+
+        private void btnExpressfitImage_Click(object sender, RoutedEventArgs e)
+        {
+                fileOperator.StartFS(2, TabFull.IsSelected);
+                CounterOfclicks.AddClick((int)Buttons.StartFittingSoftware);  
+        }
+
+        private void btnHearSuiteImage_Click(object sender, RoutedEventArgs e)
+        {
+                fileOperator.StartFS(3, TabFull.IsSelected);
+                CounterOfclicks.AddClick((int)Buttons.StartFittingSoftware); 
+        }
+
+        private void btnOasisImage_Click(object sender, RoutedEventArgs e)
+        {
+                fileOperator.StartFS(4, TabFull.IsSelected);
+                CounterOfclicks.AddClick((int)Buttons.StartFittingSoftware);
         }
 
         private void ListTeamPerson_SelectionChanged(object sender, SelectionChangedEventArgs e)

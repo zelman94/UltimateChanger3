@@ -9,7 +9,7 @@
         xmlns:local="clr-namespace:UltimateChanger"
         xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
         mc:Ignorable="d"
-        Title="Ultimate Changer 3.3.0" Height="800" Width="800" ResizeMode="CanResize" Closing="Window_Closing_1"
+        Title="Ultimate Changer 3.3.2" Height="800" Width="800" ResizeMode="CanResize" Closing="Window_Closing_1"
         MinHeight="800"
         MinWidth="800"
         Localization.Attributes="Center"
@@ -687,6 +687,9 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
 
+                
+                
+                
                 <!-- #############################################################   BRAND SECTION    ###################################################### -->
                 <Grid x:Name="BrandSection" Margin="0 0 0 10">
                     <Grid.ColumnDefinitions>
@@ -703,6 +706,23 @@
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
 
+
+                    <Button Name="btnGenieImage" Grid.Column="0" Grid.Row="0" Opacity="0.9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Height="auto" Margin="10" Background="White" Click="btnGenieImage_Click" >                       
+                            <Image Source="Images/oticon.png" Margin="5" />    
+                    </Button>
+                    <Button Name="btnGenieMedicalImage" Grid.Column="1" Grid.Row="0" Opacity="0.9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Height="auto" Margin="10" Background="#FFECB3" Click="btnGenieMedicalImage_Click">
+                        <Image Source="Images/oticonmedical.png" Margin="5" />
+                    </Button>
+                    <Button Name="btnExpressfitImage" Grid.Column="0" Grid.Row="2" Opacity="0.9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Height="auto" Margin="10" Background="#42A5F5" Click="btnExpressfitImage_Click">
+                        <Image Source="Images/sonic.png" Margin="5" />
+                    </Button>
+                    <Button Name="btnHearSuiteImage" Grid.Column="1" Grid.Row="2" Opacity="0.9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Height="auto" Margin="10" Background="#0D47A1" Click="btnHearSuiteImage_Click">
+                        <Image Source="Images/starto.png" Margin="5" />
+                    </Button>
+                    <Button Name="btnOasisImage" Grid.Column="0" Grid.Row="4" Opacity="0.9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Height="auto" Margin="10" Background="#616161" Click="btnOasisImage_Click">
+                        <Image Source="Images/bernafon.png" Margin="5" />
+                    </Button>
+                    
 
                     <Grid Grid.Row="1" Grid.Column="0" Margin="10 0">
                         <Grid.ColumnDefinitions>
@@ -775,18 +795,18 @@
                     </Grid>
 
                     <Border x:Name="Grid1" Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="#FF616161" BorderThickness="0,0,0,1" Margin="10,-2"/>
-                    <Border x:Name="Grid3" Grid.Row="2" Grid.ColumnSpan="2" BorderBrush="#FF616161" BorderThickness="0,0,0,1" Margin="10,-2"/>
-                    <Border x:Name="Grid5" Grid.Row="4" Grid.ColumnSpan="2" BorderBrush="#FF616161" BorderThickness="0,0,0,1" Margin="10,-2"/>
-
-                    <!--TLO NA LOGO-->
+                    <Border x:Name="Grid3" Grid.Row="3" Grid.ColumnSpan="2" BorderBrush="#FF616161" BorderThickness="0,0,0,1" Margin="10,-2"/>
+                    <Border x:Name="Grid5" Grid.Row="5" Grid.ColumnSpan="2" BorderBrush="#FF616161" BorderThickness="0,0,0,1" Margin="10,-2"/>
+                    
+                    <!--TLO NA LOGO--><!--
                     <Rectangle
                         x:Name="oticonRectangle" 
                         Grid.Column="0"
                         Grid.Row="0"
-                        Margin="10"
+                        Margin="10,9,10,11"
                         Fill="#FAFAFA"  
                         RadiusY="5" RadiusX="5"/>
-
+                    
                     <Rectangle
                         x:Name="oticonmedicalnRectangle" 
                         Margin="10"
@@ -821,25 +841,11 @@
                         Grid.Row="2"
                         Fill="#0D47A1"
                         Opacity="0.6"
-                        RadiusY="5" RadiusX="5"/>
+                        RadiusY="5" RadiusX="5"/>-->
 
-                    <!--LOGO-->
-                    <Image x:Name="imgOticon" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="110" Source="Images/oticon.png">
-                        <!--<Image.Source>C:/UltimateChanger/oticon2.png</Image.Source>-->
-                    </Image>
-                    <Image x:Name="imgOticonMedical" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="160" Source="Images/oticonmedical.png">
-                        <!--<Image.Source>C:/UltimateChanger/sonic2.png</Image.Source>-->
-                    </Image>
-                    <Image x:Name="imgBernafon" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Source="Images/bernafon.png">
-                        <!--<Image.Source>C:/UltimateChanger/bernafon2.png</Image.Source>-->
-                    </Image>
-                    <Image x:Name="imgSonic" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="110" Source="Images/sonic.png">
-                        <!--<Image.Source>C:/UltimateChanger/sonic2.png</Image.Source>-->
-                    </Image>
 
-                    <Image x:Name="imgStarto" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="110" Source="Images/starto.PNG">
-                        <!--<Image.Source>C:/UltimateChanger/sonic2.png</Image.Source>-->
-                    </Image>
+
+
 
                 </Grid>
                 <!-- #############################################################   COMBO SECTION    ###################################################### -->
@@ -1077,6 +1083,8 @@
                             <Button x:Name="btnFS_Compo" Grid.Row="4" Grid.Column="2" Content="Start FS" Click="btnFSRun" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" VerticalAlignment="Center"/>
                             <Button x:Name="btnHattori_Compo" Content="Start Hattori" Click="btnHattori_Click" Grid.Row="4" Grid.Column="3" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" VerticalAlignment="Center"/>
                         </Grid>
+                        
+                        
                     </TabItem>
                 </TabControl>
 
