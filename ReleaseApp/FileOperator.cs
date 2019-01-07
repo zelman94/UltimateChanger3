@@ -362,7 +362,7 @@ namespace UltimateChanger
                     plik = File.ReadAllLines(FindSettingFileForComposition(number_checkbox)).ToList<string>();
                 }
             }
-            catch(DirectoryNotFoundException e)
+            catch(DirectoryNotFoundException )
             {
                 // super :) 
 
@@ -374,7 +374,7 @@ namespace UltimateChanger
                 }
                 
             }
-            catch (Exception x)
+            catch (Exception )
             {
                 // brak pliku nic nie robie 
                 return;
@@ -489,7 +489,7 @@ namespace UltimateChanger
                 }
                
             }
-            catch(DirectoryNotFoundException e)
+            catch(DirectoryNotFoundException )
             {
 
             }
@@ -886,7 +886,7 @@ namespace UltimateChanger
                     }
                 }
             }
-            catch (Exception x)
+            catch (Exception )
             {
 
                 MessageBox.Show("can not create new directory C:\\Program Files\\UltimateChanger\\Data");
@@ -1242,7 +1242,7 @@ namespace UltimateChanger
             {
                 Process.Start("C:\\Program Files (x86)\\HIMSA\\Noah 4\\Noah4.exe");
             }
-            catch (Exception x )
+            catch (Exception  )
             {
                 MessageBox.Show("Noah Problem");
             }
@@ -1351,7 +1351,7 @@ namespace UltimateChanger
                 versionInfo = FileVersionInfo.GetVersionInfo(@"\\10.128.3.1\DFS_data_SSC_FS_Images-SSC\PAZE\change_market\Multi_Changer\currentVersion\update\Ultimate Changer.exe"); // SSC
                 path = @"\\10.128.3.1\DFS_data_SSC_FS_Images-SSC\PAZE\change_market\Multi_Changer\currentVersion\update\";
             }
-            catch (Exception x)
+            catch (Exception )
             {
                 try
                 {

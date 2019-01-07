@@ -47,7 +47,7 @@ namespace UltimateChanger
         ClockManager clockManager;
         // DataBaseManager dataBaseManager;
         DispatcherTimer RefUiTIMER, Rekurencja;
-        DispatcherTimer ConnectionToDBTimer, progressBarTimer;
+        DispatcherTimer ConnectionToDBTimer;
        public DispatcherTimer uninstallTimer, checkUpdate, InstallTimer;
         BindCombobox BindCombo;
         private List<pathAndDir> paths_Dirs = new List<pathAndDir>();
@@ -412,7 +412,7 @@ namespace UltimateChanger
                         // uruchomic silent installera 
                     }
                 }
-                catch (IOException y)
+                catch (IOException )
                 {
                     btnFakeV.IsEnabled = false;
                     MessageBox.Show(@"can not find \n \\demant.com\data\KBN\RnD\FS_Programs\Support_Tools\REMedy\_currentVersion");
@@ -1318,7 +1318,7 @@ namespace UltimateChanger
                             instal.UninstallBrand(path_to_Uninstall, mode_uninstall);
                         }
                     }
-                    catch (Exception x)
+                    catch (Exception )
                     {
                         instal.UninstallBrand(path_to_Uninstall, mode_uninstall);
                     }
@@ -1498,7 +1498,7 @@ namespace UltimateChanger
                     {
                          infoFile = new DirectoryInfo(cmbBuild_Compo.ToolTip.ToString() + $"\\DevResults-{cmbRelease_Compo.Text}").GetFiles();
                     }
-                    catch (Exception x)
+                    catch (Exception )
                     {
                         MessageBox.Show("check release and try again");
                             return;
@@ -2094,7 +2094,7 @@ namespace UltimateChanger
                             {
                                 System.IO.Compression.ZipFile.CreateFromDirectory(fileOperator.pathToLogs[licznik], saveFileDialog1.FileName + "_" + item.Name + ".zip"); // dziala 
                             }
-                            catch (IOException xx)
+                            catch (IOException )
                             {
                                 File.Delete(saveFileDialog1.FileName + "_" + item.Name + ".zip");
                                 System.IO.Compression.ZipFile.CreateFromDirectory(fileOperator.pathToLogs[licznik], saveFileDialog1.FileName + "_" + item.Name + ".zip"); // dziala 
@@ -3048,7 +3048,6 @@ namespace UltimateChanger
 
         private void btnExportData_Click(object sender, RoutedEventArgs e)
         {
-            Stream myStream;
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.Filter = "txt files (*.csv)|*.csv|All files (*.*)|*.*";
             saveFileDialog1.FilterIndex = 2;

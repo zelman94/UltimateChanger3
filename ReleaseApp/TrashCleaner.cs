@@ -9,8 +9,7 @@ using System.Windows.Forms;
 namespace UltimateChanger
 {
     public class TrashCleaner
-    {
-        private Dictionary<string, string> BrandtoSoft;
+    {       
         public TrashCleaner(/*Dictionary<string, string> BrandtoSofte*/)
         {
         }

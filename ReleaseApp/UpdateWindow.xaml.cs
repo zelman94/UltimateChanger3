@@ -84,7 +84,7 @@ namespace UltimateChanger
                     string tmp = Environment.CurrentDirectory + @"\Updater" + $"\\UltimateChangerUpdater.exe ";
                     System.Diagnostics.Process.Start(tmp, $"{SSC} {REKU} {SETTINGS} {UPDATER} {RESOURCES} {IMAGES}");
                     }
-                    catch (Exception x)
+                    catch (Exception )
                     {
                         try
                         {
