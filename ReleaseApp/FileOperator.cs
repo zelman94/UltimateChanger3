@@ -164,15 +164,46 @@ namespace UltimateChanger
         public List<string> GetAllLocalCompositions() // lista nazw katalogow z kompozycjami
         {
             List<string> LocalCompos = new List<string>();
+            List<string> LocalCompos_return = new List<string> {
+                "",
+                "",
+                "",
+                "",
+                ""
+            };
             try
             {
-                LocalCompos = Directory.GetDirectories(@"C:\Program Files\UltimateChanger\compositions").ToList();
+                LocalCompos = Directory.GetDirectories(@"C:\Program Files\UltimateChanger\compositions").ToList();// zamienic to gdy nie ma FS to string ""
+
+                foreach (var item in LocalCompos)
+                {
+                    if (item.ToLower().Contains("genie"))
+                    {
+                        LocalCompos_return[0] = item;
+                    }
+                    if (item.ToLower().Contains("medical"))
+                    {
+                        LocalCompos_return[1] = item;
+                    }
+                    if (item.ToLower().Contains("expressfit"))
+                    {
+                        LocalCompos_return[2] = item;
+                    }
+                    if (item.ToLower().Contains("hearsuite"))
+                    {
+                        LocalCompos_return[3] = item;
+                    }
+                    if (item.ToLower().Contains("oasis"))
+                    {
+                        LocalCompos_return[4] = item;
+                    }
+                }
             }
             catch (Exception)
             {
 
             }
-            return LocalCompos;
+            return LocalCompos_return;
         }
 
         public bool CheckIfCompositionIsAvailable(List<string> LocalCompos,int Brand)

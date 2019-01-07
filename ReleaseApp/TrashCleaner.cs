@@ -51,13 +51,10 @@ namespace UltimateChanger
                 catch (Exception)
                 {
                     MessageBox.Show("Error in DeleteLogs");
-                }
-               
+                }               
             }
-
-
         }
-        public void DeleteCompo(int nrFS) // powinno dzialac
+        public void DeleteCompo(int nrFS) // dziala
         {
             FileOperator fileoperator = new FileOperator();
            List <string> listAllCompoLocal = fileoperator.GetAllLocalCompositions();
@@ -71,12 +68,8 @@ namespace UltimateChanger
                 }
                 catch (Exception)
                 {
-
-
                 }
             }
-
-
         }
     }
 }

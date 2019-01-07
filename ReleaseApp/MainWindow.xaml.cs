@@ -3482,7 +3482,7 @@ namespace UltimateChanger
                 {
                     try
                     {
-                        smieciarka.DeleteCompo(licznik);
+                        smieciarka.DeleteCompo(licznik); 
                         //CounterOfclicks.AddClick((int)Buttons.StartFittingSoftware);
                     }
                     catch (Exception x)
@@ -3492,6 +3492,7 @@ namespace UltimateChanger
                 }
                 licznik++;
             }
+            refreshUI(new object(), new EventArgs());
         }
 
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)
