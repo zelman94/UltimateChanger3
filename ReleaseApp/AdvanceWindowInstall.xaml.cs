@@ -159,7 +159,7 @@ namespace UltimateChanger
             {
                 ((MainWindow)System.Windows.Application.Current.MainWindow).InstallTimer.Start();
             }
-
+            this.Close();
         }
     }
 }
