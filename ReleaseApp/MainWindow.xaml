@@ -9,7 +9,7 @@
         xmlns:local="clr-namespace:UltimateChanger"
         xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
         mc:Ignorable="d"
-        Title="Ultimate Changer 3.3.4" Height="800" Width="800" ResizeMode="CanResize" Closing="Window_Closing_1"
+        Title="Ultimate Changer 3.3.5" Height="800" Width="800" ResizeMode="CanResize" Closing="Window_Closing_1"
         MinHeight="800"
         MinWidth="800"
         Localization.Attributes="Center"

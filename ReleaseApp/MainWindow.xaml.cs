@@ -1444,15 +1444,13 @@ namespace UltimateChanger
                 {
                     if (!fileOperator.checkRunningProcess(item.Name) && item.Name != "Cumulus")
                     {
-                        smieciarka.DeleteLogs(licznik,TabFull.IsSelected);
-                        flag = true;
+                        flag = smieciarka.DeleteLogs(licznik,TabFull.IsSelected);                       
                     }
                     else if (item.Name == "Cumulus")
                     {
                           if (!fileOperator.checkRunningProcess("Philips HearSuite"))
                           {
-                              smieciarka.DeleteLogs(licznik, TabFull.IsSelected);
-                              flag = true;
+                              flag = smieciarka.DeleteLogs(licznik, TabFull.IsSelected);                              
                           }
                     } else
                     {
@@ -1464,6 +1462,10 @@ namespace UltimateChanger
             if (flag)
             {
                 MessageBox.Show(message);
+            }
+            else
+            {
+                MessageBox.Show("Close FS to Delete Logs");
             }
         }
         private void cmbLogMode_SelectionChanged(object sender, SelectionChangedEventArgs e)
