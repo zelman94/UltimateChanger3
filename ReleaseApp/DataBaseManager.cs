@@ -228,7 +228,7 @@ namespace UltimateChanger
                   
 
                 }
-                catch (Exception x)
+                catch (Exception )
                 {
                     // DB_connection = false;
                     //MessageBox.Show("no acess to DB");
@@ -554,7 +554,7 @@ namespace UltimateChanger
                     listVerifit.Add(myReader.GetString(0));
                 }
             }
-            catch (Exception x)
+            catch (Exception )
             {
                 System.Windows.MessageBox.Show("Cannot connect to Database user: " + user);
             }

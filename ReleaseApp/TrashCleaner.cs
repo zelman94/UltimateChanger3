@@ -9,8 +9,7 @@ using System.Windows.Forms;
 namespace UltimateChanger
 {
     public class TrashCleaner
-    {
-        private Dictionary<string, string> BrandtoSoft;
+    {       
         public TrashCleaner(/*Dictionary<string, string> BrandtoSofte*/)
         {
         }
@@ -35,7 +34,7 @@ namespace UltimateChanger
             FileOperator fileoperator = new FileOperator();
             if (Full)
             {
-                pathToLogsFiles = Directory.GetFiles(fileoperator.pathToLogs[nrFS], "Log.txt").ToList();
+                pathToLogsFiles = Directory.GetFiles(fileoperator.pathToLogs[nrFS]).ToList();
             }
             else
             {                
@@ -51,13 +50,10 @@ namespace UltimateChanger
                 catch (Exception)
                 {
                     MessageBox.Show("Error in DeleteLogs");
-                }
-               
+                }               
             }
-
-
         }
-        public void DeleteCompo(int nrFS) // powinno dzialac
+        public void DeleteCompo(int nrFS) // dziala
         {
             FileOperator fileoperator = new FileOperator();
            List <string> listAllCompoLocal = fileoperator.GetAllLocalCompositions();
@@ -71,12 +67,8 @@ namespace UltimateChanger
                 }
                 catch (Exception)
                 {
-
-
                 }
             }
-
-
         }
     }
 }

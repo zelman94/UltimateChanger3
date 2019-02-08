@@ -31,7 +31,7 @@ using System.Data;
 using Rekurencjon; // logi
 
 
-[assembly: System.Reflection.AssemblyVersion("3.3.2.0")]
+[assembly: System.Reflection.AssemblyVersion("3.3.4.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window
@@ -47,7 +47,7 @@ namespace UltimateChanger
         ClockManager clockManager;
         // DataBaseManager dataBaseManager;
         DispatcherTimer RefUiTIMER, Rekurencja;
-        DispatcherTimer ConnectionToDBTimer, progressBarTimer;
+        DispatcherTimer ConnectionToDBTimer;
        public DispatcherTimer uninstallTimer, checkUpdate, InstallTimer;
         BindCombobox BindCombo;
         private List<pathAndDir> paths_Dirs = new List<pathAndDir>();
@@ -412,7 +412,7 @@ namespace UltimateChanger
                         // uruchomic silent installera 
                     }
                 }
-                catch (IOException y)
+                catch (IOException )
                 {
                     btnFakeV.IsEnabled = false;
                     MessageBox.Show(@"can not find \n \\demant.com\data\KBN\RnD\FS_Programs\Support_Tools\REMedy\_currentVersion");
@@ -1318,7 +1318,7 @@ namespace UltimateChanger
                             instal.UninstallBrand(path_to_Uninstall, mode_uninstall);
                         }
                     }
-                    catch (Exception x)
+                    catch (Exception )
                     {
                         instal.UninstallBrand(path_to_Uninstall, mode_uninstall);
                     }
@@ -1442,21 +1442,22 @@ namespace UltimateChanger
             {
                 if (item.IsChecked.Value)
                 {
-                    if (fileOperator.checkRunningProcess(item.Name))
+                    if (!fileOperator.checkRunningProcess(item.Name) && item.Name != "Cumulus")
                     {
                         smieciarka.DeleteLogs(licznik,TabFull.IsSelected);
+                        flag = true;
                     }
                     else if (item.Name == "Cumulus")
-                        {
-                            if (fileOperator.checkRunningProcess("Philips HearSuite"))
-                            {
-                            smieciarka.DeleteLogs(licznik, TabFull.IsSelected);
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("Close FS to Delete Logs");
-                        }
+                    {
+                          if (!fileOperator.checkRunningProcess("Philips HearSuite"))
+                          {
+                              smieciarka.DeleteLogs(licznik, TabFull.IsSelected);
+                              flag = true;
+                          }
+                    } else
+                    {
+                         MessageBox.Show("Close FS to Delete Logs");
+                    }
                 }
                 licznik++;
             }
@@ -1498,7 +1499,7 @@ namespace UltimateChanger
                     {
                          infoFile = new DirectoryInfo(cmbBuild_Compo.ToolTip.ToString() + $"\\DevResults-{cmbRelease_Compo.Text}").GetFiles();
                     }
-                    catch (Exception x)
+                    catch (Exception )
                     {
                         MessageBox.Show("check release and try again");
                             return;
@@ -2094,7 +2095,7 @@ namespace UltimateChanger
                             {
                                 System.IO.Compression.ZipFile.CreateFromDirectory(fileOperator.pathToLogs[licznik], saveFileDialog1.FileName + "_" + item.Name + ".zip"); // dziala 
                             }
-                            catch (IOException xx)
+                            catch (IOException )
                             {
                                 File.Delete(saveFileDialog1.FileName + "_" + item.Name + ".zip");
                                 System.IO.Compression.ZipFile.CreateFromDirectory(fileOperator.pathToLogs[licznik], saveFileDialog1.FileName + "_" + item.Name + ".zip"); // dziala 
@@ -3048,7 +3049,6 @@ namespace UltimateChanger
 
         private void btnExportData_Click(object sender, RoutedEventArgs e)
         {
-            Stream myStream;
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.Filter = "txt files (*.csv)|*.csv|All files (*.*)|*.*";
             saveFileDialog1.FilterIndex = 2;
@@ -3482,7 +3482,7 @@ namespace UltimateChanger
                 {
                     try
                     {
-                        smieciarka.DeleteCompo(licznik);
+                        smieciarka.DeleteCompo(licznik); 
                         //CounterOfclicks.AddClick((int)Buttons.StartFittingSoftware);
                     }
                     catch (Exception x)
@@ -3492,6 +3492,7 @@ namespace UltimateChanger
                 }
                 licznik++;
             }
+            refreshUI(new object(), new EventArgs());
         }
 
         private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)

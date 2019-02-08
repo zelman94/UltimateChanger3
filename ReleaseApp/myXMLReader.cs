@@ -111,7 +111,7 @@ namespace UltimateChanger
                     lista.Add(new MyHardware(NodesNames[i].InnerText, NodesManufacturer[i].InnerText, NodesType[i].InnerText, NodesId[i].InnerText,   NodesLocalization[i].InnerText));
                 }
 
-                catch (Exception x)
+                catch (Exception )
                 {
                 }
             } 
@@ -185,7 +185,7 @@ namespace UltimateChanger
                 NodesLocalization[index].InnerText = txtLocal;
                 }
 
-                catch (Exception x)
+                catch (Exception )
                 {
                 }
             doc.Save("Settings\\Hardware.xml");
@@ -198,7 +198,7 @@ namespace UltimateChanger
             {
                 doc.Load("Settings\\myTeam.xml");
             }
-            catch (Exception x)
+            catch (Exception )
             {
                 doc.Load("C:\\Program Files\\UltimateChanger\\Settings\\myTeam.xml");
             }   

@@ -42,7 +42,7 @@
     </CheckBoxes>
   <ComboBox>
     <Name>Release</Name>
-    <Value>19.1</Value>
+    <Value>19.2</Value>
   </ComboBox>
   <DataBase>
 	  <Name>connectionString</Name>

@@ -164,15 +164,46 @@ namespace UltimateChanger
         public List<string> GetAllLocalCompositions() // lista nazw katalogow z kompozycjami
         {
             List<string> LocalCompos = new List<string>();
+            List<string> LocalCompos_return = new List<string> {
+                "",
+                "",
+                "",
+                "",
+                ""
+            };
             try
             {
-                LocalCompos = Directory.GetDirectories(@"C:\Program Files\UltimateChanger\compositions").ToList();
+                LocalCompos = Directory.GetDirectories(@"C:\Program Files\UltimateChanger\compositions").ToList();// zamienic to gdy nie ma FS to string ""
+
+                foreach (var item in LocalCompos)
+                {
+                    if (item.ToLower().Contains("genie"))
+                    {
+                        LocalCompos_return[0] = item;
+                    }
+                    if (item.ToLower().Contains("medical"))
+                    {
+                        LocalCompos_return[1] = item;
+                    }
+                    if (item.ToLower().Contains("expressfit"))
+                    {
+                        LocalCompos_return[2] = item;
+                    }
+                    if (item.ToLower().Contains("hearsuite"))
+                    {
+                        LocalCompos_return[3] = item;
+                    }
+                    if (item.ToLower().Contains("oasis"))
+                    {
+                        LocalCompos_return[4] = item;
+                    }
+                }
             }
             catch (Exception)
             {
 
             }
-            return LocalCompos;
+            return LocalCompos_return;
         }
 
         public bool CheckIfCompositionIsAvailable(List<string> LocalCompos,int Brand)
@@ -331,7 +362,7 @@ namespace UltimateChanger
                     plik = File.ReadAllLines(FindSettingFileForComposition(number_checkbox)).ToList<string>();
                 }
             }
-            catch(DirectoryNotFoundException e)
+            catch(DirectoryNotFoundException )
             {
                 // super :) 
 
@@ -343,7 +374,7 @@ namespace UltimateChanger
                 }
                 
             }
-            catch (Exception x)
+            catch (Exception )
             {
                 // brak pliku nic nie robie 
                 return;
@@ -458,7 +489,7 @@ namespace UltimateChanger
                 }
                
             }
-            catch(DirectoryNotFoundException e)
+            catch(DirectoryNotFoundException )
             {
 
             }
@@ -743,13 +774,12 @@ namespace UltimateChanger
         }
         public bool checkRunningProcess(string name)
         {
-            Process[] localAll = Process.GetProcesses();            
-            //Process[] proc = Process.GetProcessesByName(item_name);               
-
+            Process[] localAll = Process.GetProcesses();
+            //Process[] proc = Process.GetProcessesByName(item_name);     
             foreach (Process item in localAll)
             {
                 string tmop = item.ProcessName;
-                if (tmop.Contains(name))
+                if (tmop.Contains(name) && !tmop.Contains("Updater"))
                 {
                     return true;
                 }
@@ -855,7 +885,7 @@ namespace UltimateChanger
                     }
                 }
             }
-            catch (Exception x)
+            catch (Exception )
             {
 
                 MessageBox.Show("can not create new directory C:\\Program Files\\UltimateChanger\\Data");
@@ -1211,7 +1241,7 @@ namespace UltimateChanger
             {
                 Process.Start("C:\\Program Files (x86)\\HIMSA\\Noah 4\\Noah4.exe");
             }
-            catch (Exception x )
+            catch (Exception  )
             {
                 MessageBox.Show("Noah Problem");
             }
@@ -1320,7 +1350,7 @@ namespace UltimateChanger
                 versionInfo = FileVersionInfo.GetVersionInfo(@"\\10.128.3.1\DFS_data_SSC_FS_Images-SSC\PAZE\change_market\Multi_Changer\currentVersion\update\Ultimate Changer.exe"); // SSC
                 path = @"\\10.128.3.1\DFS_data_SSC_FS_Images-SSC\PAZE\change_market\Multi_Changer\currentVersion\update\";
             }
-            catch (Exception x)
+            catch (Exception )
             {
                 try
                 {
