@@ -34,7 +34,7 @@ namespace UltimateChanger
             FileOperator fileoperator = new FileOperator();
             if (Full)
             {
-                pathToLogsFiles = Directory.GetFiles(fileoperator.pathToLogs[nrFS], "Log.txt").ToList();
+                pathToLogsFiles = Directory.GetFiles(fileoperator.pathToLogs[nrFS]).ToList();
             }
             else
             {                

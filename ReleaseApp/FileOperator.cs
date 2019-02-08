@@ -774,13 +774,12 @@ namespace UltimateChanger
         }
         public bool checkRunningProcess(string name)
         {
-            Process[] localAll = Process.GetProcesses();            
-            //Process[] proc = Process.GetProcessesByName(item_name);               
-
+            Process[] localAll = Process.GetProcesses();
+            //Process[] proc = Process.GetProcessesByName(item_name);     
             foreach (Process item in localAll)
             {
                 string tmop = item.ProcessName;
-                if (tmop.Contains(name))
+                if (tmop.Contains(name) && !tmop.Contains("Updater"))
                 {
                     return true;
                 }

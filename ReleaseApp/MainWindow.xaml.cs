@@ -31,7 +31,7 @@ using System.Data;
 using Rekurencjon; // logi
 
 
-[assembly: System.Reflection.AssemblyVersion("3.3.2.0")]
+[assembly: System.Reflection.AssemblyVersion("3.3.4.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window
@@ -1442,21 +1442,22 @@ namespace UltimateChanger
             {
                 if (item.IsChecked.Value)
                 {
-                    if (fileOperator.checkRunningProcess(item.Name))
+                    if (!fileOperator.checkRunningProcess(item.Name) && item.Name != "Cumulus")
                     {
                         smieciarka.DeleteLogs(licznik,TabFull.IsSelected);
+                        flag = true;
                     }
                     else if (item.Name == "Cumulus")
-                        {
-                            if (fileOperator.checkRunningProcess("Philips HearSuite"))
-                            {
-                            smieciarka.DeleteLogs(licznik, TabFull.IsSelected);
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("Close FS to Delete Logs");
-                        }
+                    {
+                          if (!fileOperator.checkRunningProcess("Philips HearSuite"))
+                          {
+                              smieciarka.DeleteLogs(licznik, TabFull.IsSelected);
+                              flag = true;
+                          }
+                    } else
+                    {
+                         MessageBox.Show("Close FS to Delete Logs");
+                    }
                 }
                 licznik++;
             }
