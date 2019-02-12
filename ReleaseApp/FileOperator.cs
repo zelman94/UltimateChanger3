@@ -128,6 +128,10 @@ namespace UltimateChanger
         public List<string> pathToManufacturerInfo_Compo = new List<string>();
         public List<string> listGenieOems = myXMLReader.getOemNames("Oticon"); // lista oemow oticon z pliku kolejne listy kolejne brandy
         public List<string> listOasisOems = myXMLReader.getOemNames("Bernafon");
+        public List<string> listSonicOems = myXMLReader.getOemNames("Sonic");
+        public List<string> listMedicalOems = myXMLReader.getOemNames("Medical");
+        public List<string> listPhilipsOems = myXMLReader.getOemNames("Philips");
+
         public void getPathToLogMode_Compo() // zapisuje do listy pathToLogMode_Compo zebrane kompozycje pathy do ustawien logow
         {
             pathToLogMode_Compo = Directory.GetFiles(@"C:\Program Files\UltimateChanger\compositions\", "Configure.log4net",SearchOption.AllDirectories).ToList();
@@ -1274,10 +1278,8 @@ namespace UltimateChanger
             }
         }
 
-        public bool checkIfGenieOem(string OemName, bool Brand) // sprawdzam czy sting zawiera nazwe któregoś z oemów wybrannego Brandu 0- Oticon 1 - Bernafon
+        public bool checkIfGenie(string OemName) // sprawdzam czy sting zawiera nazwe któregoś z oemów wybrannego Brandu 0- Oticon 1 - Bernafon
         {
-            if (!Brand)
-            {
                 foreach (string item in listGenieOems)
                 {
                     if (OemName.Contains(item))
@@ -1285,20 +1287,57 @@ namespace UltimateChanger
                         return true;
                     }
                 }
-            }
-            else
-            {
-                foreach (string item in listOasisOems)
+            return false;
+        }
+
+        public bool checkIfOasis(string OemName) // sprawdzam czy sting zawiera nazwe któregoś z oemów wybrannego Brandu 0- Oticon 1 - Bernafon
+        {
+            foreach (string item in listOasisOems)
                 {
                     if (OemName.Contains(item))
                     {
                         return true;
                     }
                 }
-            }
-
             return false;
         }
+
+        public bool checkIfMedical(string OemName) // sprawdzam czy sting zawiera nazwe któregoś z oemów wybrannego Brandu 0- Oticon 1 - Bernafon
+        {
+            foreach (string item in listMedicalOems)
+            {
+                if (OemName.Contains(item))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool checkIfSonic(string OemName) // sprawdzam czy sting zawiera nazwe któregoś z oemów wybrannego Brandu 0- Oticon 1 - Bernafon
+        {
+            foreach (string item in listSonicOems)
+            {
+                if (OemName.Contains(item))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool checkIfPhilips(string OemName) // sprawdzam czy sting zawiera nazwe któregoś z oemów wybrannego Brandu 0- Oticon 1 - Bernafon
+        {
+            foreach (string item in listPhilipsOems)
+            {
+                if (OemName.Contains(item))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
         public string getChangeLog(bool update = false) // jezeli true to inna lokalizacja pobrania change loga
         {
