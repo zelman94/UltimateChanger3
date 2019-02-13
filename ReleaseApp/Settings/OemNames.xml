@@ -19,4 +19,13 @@
     <OEM>Oasis Meditrend</OEM>
     <OEM>Oasis ProAkustik</OEM>
   </Bernafon>
+  <Sonic>
+    <OEM>EXPRESSfit Pro</OEM>
+  </Sonic>
+  <Medical>
+    <OEM>Genie Medical</OEM>
+  </Medical>
+  <Philips>
+    <OEM>HearSuite</OEM>
+  </Philips>
 </Brand>

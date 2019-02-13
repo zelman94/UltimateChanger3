@@ -31,7 +31,7 @@ using System.Data;
 using Rekurencjon; // logi
 
 
-[assembly: System.Reflection.AssemblyVersion("3.3.4.0")]
+[assembly: System.Reflection.AssemblyVersion("3.3.5.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window
@@ -1086,13 +1086,9 @@ namespace UltimateChanger
                     {
                         item.IsEnabled = true;
                     }
-
                     counter++;
-                }
-
-              
-            }
-          
+                }              
+            }          
         }
 
         bool checkRunningProcess(string name)
@@ -1213,10 +1209,8 @@ namespace UltimateChanger
         }
         private void btnuninstal_Click(object sender, RoutedEventArgs e)
         {
-
-
             bool mode_uninstall = RBnormal.IsChecked.Value;
-                byte count = 0,countFS =0;
+            byte count = 0,countFS =0;
             bool flag = true;
             int chechboxNr = 0;
             string checkboxname = "";
@@ -1256,7 +1250,7 @@ namespace UltimateChanger
                         {
                             FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(item);
 
-                            if (fileOperator.checkIfGenieOem(myFileVersionInfo.FileDescription,false))
+                            if (myFileVersionInfo.FileName.Contains("OticonMedium") || fileOperator.checkIfGenie(myFileVersionInfo.FileDescription))
                             {
                                 checkboxname = "Genie 2";
                                 if (checkBoxList[0].IsChecked.Value)
@@ -1264,40 +1258,40 @@ namespace UltimateChanger
                                     path_to_Uninstall[0] = item;
                                 }
                             }
-                                
 
 
-                            if (myFileVersionInfo.FileDescription.Contains("Genie Medical"))
-                            {
+
+                        if (myFileVersionInfo.FileName.Contains("OticonMedicalMedium") || fileOperator.checkIfMedical(myFileVersionInfo.FileDescription))
+                        {
                                 checkboxname = "Genie Medical";
                                 if (checkBoxList[1].IsChecked.Value)
                                 {
                                     path_to_Uninstall[1] = item;
                                 }
-                            }
+                        }
 
-                            if (fileOperator.checkIfGenieOem(myFileVersionInfo.FileDescription, true))
+                        if (myFileVersionInfo.FileName.Contains("BernafonMedium") || fileOperator.checkIfOasis(myFileVersionInfo.FileDescription))
                         {
                                 checkboxname = "Oasis NXT";
                                 if (checkBoxList[4].IsChecked.Value)
                                 {
                                     path_to_Uninstall[4] = item;
                                 }
-                            }
-                        
+                        }
 
-                            if (myFileVersionInfo.FileDescription.Contains("EXPRESSfit Pro"))
-                            {
+
+                        if (myFileVersionInfo.FileName.Contains("SonicMedium") || fileOperator.checkIfSonic(myFileVersionInfo.FileDescription))
+                        {
                                 checkboxname = "EXPRESSfit Pro";
                                 if (checkBoxList[2].IsChecked.Value)
                                 {
                                     path_to_Uninstall[2] = item;
                                 }
-                            }
-                        
-                        
-                            if (myFileVersionInfo.FileDescription.Contains("HearSuite"))
-                            {
+                        }
+
+
+                        if (myFileVersionInfo.FileName.Contains("PhilipsMedium") || fileOperator.checkIfPhilips(myFileVersionInfo.FileDescription))
+                        {
                                 checkboxname = "HearSuite";
                                 if (checkBoxList[3].IsChecked.Value)
                                 {
@@ -1444,15 +1438,13 @@ namespace UltimateChanger
                 {
                     if (!fileOperator.checkRunningProcess(item.Name) && item.Name != "Cumulus")
                     {
-                        smieciarka.DeleteLogs(licznik,TabFull.IsSelected);
-                        flag = true;
+                        flag = smieciarka.DeleteLogs(licznik,TabFull.IsSelected);                       
                     }
                     else if (item.Name == "Cumulus")
                     {
                           if (!fileOperator.checkRunningProcess("Philips HearSuite"))
                           {
-                              smieciarka.DeleteLogs(licznik, TabFull.IsSelected);
-                              flag = true;
+                              flag = smieciarka.DeleteLogs(licznik, TabFull.IsSelected);                              
                           }
                     } else
                     {
@@ -1464,6 +1456,10 @@ namespace UltimateChanger
             if (flag)
             {
                 MessageBox.Show(message);
+            }
+            else
+            {
+                MessageBox.Show("Close FS to Delete Logs");
             }
         }
         private void cmbLogMode_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1536,27 +1532,17 @@ namespace UltimateChanger
                             return;
                         }
                     }
-
                 }
                 else
                 {
                     FSInstaller installer = new FSInstaller();
-
-
                     installer.InstallBrand(cmbBuild.Text, RBnormal.IsChecked.Value);
-
-
-                    //zapisanie patha do instalatora do  pozniejszej uninstalki bez sciagania do pliku
-
                 }
             }
             else
             {
                 MessageBox.Show("select build to install");
             }
-
-
-
         }
         private static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
         {
@@ -1642,7 +1628,6 @@ namespace UltimateChanger
         {
             cmbBrandstoinstall.Items.Refresh();
             ChangedBrandOfFittingSoftware();
-
         }
         private void cmbbuild_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -1854,7 +1839,6 @@ namespace UltimateChanger
                     lbluninstallinfo.Content = "Stoped";
                     MessageBox.Show("Uninstallation DONE");
                 }
-
             }
             else
             {
@@ -1884,7 +1868,6 @@ namespace UltimateChanger
                 {
                     progress.Value = 0;
                     progress_Compo.Value = 0;
-
                 }
                 if (pname.Length == 0)
                 {
@@ -1911,8 +1894,6 @@ namespace UltimateChanger
                     ChangedBrandOfFittingSoftware();
                     RBsilet.IsEnabled = true;
                     RBnormal.IsEnabled = true;
-
-
                 }
                 else
                 {
@@ -1938,7 +1919,6 @@ namespace UltimateChanger
                 {
                     progress.Value = 0;
                     progress_Compo.Value = 0;
-
                 }
 
                 if (pname.Length == 0) // jezeli koniec kopiowania
@@ -1961,17 +1941,14 @@ namespace UltimateChanger
                     catch (Exception)
                     {
                         MessageBox.Show($"path to composition doesnt exist :\n{pathToLocalComposition}");
-                    }
-                    
+                    }                    
                 }
                 else
                 {
                     TabFull.IsEnabled = false;
                     TabCompo.IsEnabled = false;
-                }
-            
-            }
-           
+                }            
+            }           
         }
 
 
@@ -2009,8 +1986,7 @@ namespace UltimateChanger
                     logging.AddLog(x.ToString());
                     Console.WriteLine(x.ToString());
                 }
-            }
-           
+            }           
         }
 
         private void btnFakeV_Click(object sender, RoutedEventArgs e)
@@ -2023,7 +1999,6 @@ namespace UltimateChanger
             {
                 btnFakeV.IsEnabled = false;
             }
-
         }
 
         private void cmbOEM_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -2034,9 +2009,7 @@ namespace UltimateChanger
                 cmbBuild.ItemsSource = AllOemPaths;
         }
         private void cmbOEM_Compo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-            
+        {            
             cmbBuild_Compo.ItemsSource = Paths_Dirs[0].dir;
         }
 
@@ -2104,7 +2077,6 @@ namespace UltimateChanger
                             {
                                 MessageBox.Show(x.ToString());
                             }
-
                         }
                         licznik++;
                     }
@@ -2119,8 +2091,6 @@ namespace UltimateChanger
             Window downgrade = new DowngradeWindow();
             //downgrade.ShowDialog();
             downgrade.Show();
-
-
             CounterOfclicks.AddClick((int)Buttons.Downgrade);
         }
 
@@ -2403,7 +2373,6 @@ namespace UltimateChanger
 
 
         private void chBWireless_Checked(object sender, RoutedEventArgs e)
-
         {
             Random_HI.Wireless = !Random_HI.Wireless;
         }
@@ -2497,8 +2466,7 @@ namespace UltimateChanger
             foreach (var item in sliderListForUi)
             {
                 item.Foreground = Brushes.White;
-                item.BorderBrush = Brushes.White;
-               
+                item.BorderBrush = Brushes.White;               
             }
 
             //USTAWIENIA RAMEK
@@ -2578,8 +2546,7 @@ namespace UltimateChanger
             foreach (var item in listBoxForUi)
             {
                 item.Foreground = Brushes.Black;
-                item.BorderBrush = Brushes.Black;
-                
+                item.BorderBrush = Brushes.Black;                
             }
             var converter = new System.Windows.Media.BrushConverter();
 
@@ -2681,17 +2648,11 @@ namespace UltimateChanger
             {
                 Source = new Uri("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml", UriKind.RelativeOrAbsolute)
             });
-
             skin_name = "Crystal White"; // ustawiam nazwe do logowania do bazy danych
-
-
         }
 
         private void Radio_Genie_Checked(object sender, RoutedEventArgs e)
         {
-      
-
-
             XMLReader.setSetting("Genie_skin", "RadioButtons", Convert.ToString(rbn_Genie.IsChecked.Value).ToUpper());
             bool tmp = !rbn_Genie.IsChecked.Value;
             XMLReader.setSetting("Dark_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
@@ -2699,17 +2660,13 @@ namespace UltimateChanger
             XMLReader.setSetting("Oasis_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
             XMLReader.setSetting("ExpressFit_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
 
-
             imgBrandSkin.Visibility = Visibility.Visible;
 
             imgBrandSkin.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + $"\\Images\\oticon.png"));
-
         }
 
         private void Radio_Oasis_Checked(object sender, RoutedEventArgs e)
         {
-   
-
             XMLReader.setSetting("Oasis_skin", "RadioButtons", Convert.ToString(rbn_Oasis.IsChecked.Value).ToUpper());
             bool tmp = !rbn_Oasis.IsChecked.Value;
             XMLReader.setSetting("Dark_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
@@ -2727,7 +2684,6 @@ namespace UltimateChanger
             Brush c1 = new SolidColorBrush(Color.FromRgb(72, 196, 249));
             Brush c2 = new SolidColorBrush(Colors.Black);
 
-
             XMLReader.setSetting("ExpressFit_skin", "RadioButtons", Convert.ToString(rbn_ExpressFit.IsChecked.Value).ToUpper());
             bool tmp = !rbn_ExpressFit.IsChecked.Value;
             XMLReader.setSetting("Dark_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
@@ -2740,8 +2696,6 @@ namespace UltimateChanger
             imgBrandSkin.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + $"\\Images\\sonic.png"));
         }
 
-
-
         private void RBnormal_Checked(object sender, RoutedEventArgs e)
         {
             uninstallTimer.Stop();
@@ -2750,7 +2704,6 @@ namespace UltimateChanger
 
         private void RBsilet_Checked(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void rbnStartwithWindows_Checked(object sender, RoutedEventArgs e)
@@ -2760,8 +2713,6 @@ namespace UltimateChanger
             tmp = !tmp;
             XMLReader.setSetting("NotStartWithWindows", "RadioButtons", Convert.ToString(tmp));
             fileOperator.setAutostart(true);
-
-
         }
 
         private void rbnNotStartwithWindows_Checked(object sender, RoutedEventArgs e)
@@ -2896,7 +2847,6 @@ namespace UltimateChanger
                 txtId.Text = "";
                 txtLocal.Text = "";
             }
-
         }
 
         private void btnClearFields_Click(object sender, RoutedEventArgs e)
@@ -2926,7 +2876,6 @@ namespace UltimateChanger
             cmbLogSettings.Visibility = Visibility.Hidden;
             AdvanseSettingsWindow advance = new AdvanseSettingsWindow();
             advance.Show();
-
         }
 
         private void btnAddPersonToList_Click(object sender, RoutedEventArgs e)
@@ -2986,7 +2935,6 @@ namespace UltimateChanger
             {
                 MessageBox.Show("Select Person");
             }
-
         }
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
@@ -3014,10 +2962,8 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
-
                 logging.AddLog(x.ToString());
             }
-
         }
 
         private void rbnLogsAll_YES_Checked(object sender, RoutedEventArgs e)
@@ -3160,10 +3106,8 @@ namespace UltimateChanger
             catch (Exception) // zapobieganie crashowi gdy zmieniassz release a masz wybrany Styl i Typ HI
             {
                 ListBoxOfAvailableTypes.ItemsSource = null;
-            }
-           
+            }           
         }
-
 
         private void sliderWeightWireless_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
@@ -3175,9 +3119,7 @@ namespace UltimateChanger
             {
                 logging.AddLog(x.ToString());
             }
-
         }
-
 
         private void ListBoxOfAvailableFeautures_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -3185,16 +3127,12 @@ namespace UltimateChanger
             foreach (var item in ListBoxOfAvailableFeautures.SelectedItems)
             {
                 listOfFiczursSelected.Add(item.ToString());
-            }
-            
+            }            
         }
 
         private void ListBoxOfAvailableTypes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
-        }
-
-    
+        } 
 
     
         private void Radio_Christmas_Checked(object sender, RoutedEventArgs e)
@@ -3329,32 +3267,23 @@ namespace UltimateChanger
                     if (TabCompo.IsSelected)
                     {
                         Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease_Compo.Text}  path_Composition.txt dir_Composition.txt {cmbBuild2_Compo.Text}"); // wlaczyc gdy bedzie nowy exe gotowy
-
                     }
                     else
                     {
                         string tmp = Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe" + $"Full {cmbRelease.Text}";
-
                         Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Full {cmbRelease.Text}"); // wlaczyc gdy bedzie nowy exe gotowy
-
                     }
-
                 }
                 else
                 {
-
                     if (TabCompo.IsSelected)
                     {
                         Process.Start(@"C:\Program Files\UltimateChanger" + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease_Compo.Text}  path_Composition.txt dir_Composition.txt"); // wlaczyc gdy bedzie nowy exe gotowy
-
                     }
                     else
                     {
                         Process.Start(@"C:\Program Files\UltimateChanger" + @"\reku" + @"\Rekurencjon.exe", $"Full {cmbRelease.Text}"); // wlaczyc gdy bedzie nowy exe gotowy
-
                     }
-
-
                 }
                 progress.Visibility = Visibility.Visible;
                 cmbRelease.IsEnabled = false;
@@ -3362,9 +3291,6 @@ namespace UltimateChanger
                 Rekurencja.Tick += checkRekurencja;
                 Rekurencja.Interval = new TimeSpan(0, 0, 1);
                 Rekurencja.Start();
-
-                
-
             }
         }
 
@@ -3376,11 +3302,9 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
-
                 logging.AddLog(x.ToString());
             }
         }
-
         private void Click_btnNoah(object sender, RoutedEventArgs e)
         {
             fileOperator.StartNoah();
@@ -3397,7 +3321,6 @@ namespace UltimateChanger
                 cmbLogSettings_Compo.SelectedIndex = -1;
             }
         }
-
         private void cmbRelease_SelectionChanged_Compo(object sender, SelectionChangedEventArgs e)
         {
             cmbRelease_Compo.Items.Refresh();
@@ -3520,16 +3443,14 @@ namespace UltimateChanger
                                         if (!fileOperator.setMarket(licz, BindCombobox.marketIndex[cmbMarket.SelectedIndex], Full)) // jezeli sie nie udalo to zmieniam message
                                         {
                                             message = "error: ";
-                                        }
-                                       
+                                        }                                       
                                     }
                                     else
                                     {
                                         if (fileOperator.setMarket(licz, BindCombobox.marketIndex[cmbMarket_Compo.SelectedIndex], Full))
                                         {
                                             message = "error: ";
-                                        }
-                                        
+                                        }                                        
                                     }
                                     
                                     message = message + item.Name + "\n";
@@ -3556,13 +3477,9 @@ namespace UltimateChanger
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-
             CounterOfclicks.AddClick((int)Buttons.UpdateMarket);
-
             updateMarket(TabFull.IsSelected); // funkcja ustawiajaca mozna ja przeniesc do fileoperatora
-
             refreshUI(new object(), new EventArgs());
-
         }
 
         private void tabControl2_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -3597,11 +3514,8 @@ namespace UltimateChanger
                     catch (Exception x)
                     {
                         logging.AddLog(x.ToString());
-                    }
-                   
+                    }                   
                 }
-               
-
             }
             if (TabCompo != null && TabCompo.IsSelected)
             {
@@ -3624,25 +3538,19 @@ namespace UltimateChanger
                     ChangedBrandOfFittingSoftware();
                     cmbBuild.Items.Refresh();
 
-
                     // ustawiam na -1 bo inaczej jest crush jak nie masz zaznaczonego marketu a chcesz zrobic update
                     cmbMarket.SelectedIndex = -1;
                     cmbLogMode.SelectedIndex = -1;
                     //cmbLogSettings.SelectedIndex = -1;
-
 
                     RBnormal.IsEnabled = false;
                     RBsilet.IsEnabled = false;
                     TabCompo.IsEnabled = false;
                     TabFull.IsEnabled = true;
                     cmbBrandstoinstall.SelectedIndex = 0;
-                }
-               
+                }               
             }
-
-
         }
-
     }
     class RandomHIandHardware
     {
