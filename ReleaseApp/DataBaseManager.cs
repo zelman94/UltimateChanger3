@@ -352,7 +352,7 @@ namespace UltimateChanger
                       
                     }
 
-                    if (APPversion == "3.0.2.0"  && FileOperator.getCountUCRun() == "0") // dodać "i pierwszy start aplikacji"
+                    if (APPversion == "3.0.2.0" /* && FileOperator.getCountUCRun() == "0"*/) // dodać "i pierwszy start aplikacji"
                     {
 
 

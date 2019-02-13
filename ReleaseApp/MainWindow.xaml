@@ -9,7 +9,7 @@
         xmlns:local="clr-namespace:UltimateChanger"
         xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
         mc:Ignorable="d"
-        Title="Ultimate Changer 3.3.4" Height="800" Width="800" ResizeMode="CanResize" Closing="Window_Closing_1"
+        Title="Ultimate Changer 4.0" Height="800" Width="800" ResizeMode="CanResize" Closing="Window_Closing_1"
         MinHeight="800"
         MinWidth="800"
         Localization.Attributes="Center"
@@ -1057,7 +1057,7 @@
 
 
 
-                            <ComboBox x:Name="cmbBuild2_Compo" Grid.Row="2" Grid.Column="0" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom"/>
+                            <ComboBox x:Name="cmbBuild2_Compo" Grid.Row="2" Grid.Column="0" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom" SelectionChanged="cmbBuild2_Compo_SelectionChanged"/>
                             <ComboBox x:Name="cmbBuild_Compo" Grid.Row="2" Grid.Column="1" SelectionChanged="cmbBuild_Compo_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom"/>
                             <Label Content="Build:" Grid.Row="2" Grid.Column="1" Foreground="White" FontWeight="SemiBold" FontSize="12.5" VerticalAlignment="Top"/>
 
@@ -1293,7 +1293,7 @@
                 <Button Name="btnEdit" Content="Edit" Click="btnEdit_Click" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Left" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Width="150" Margin="20 0 0 0"/>
                 <Button Name="btnClearFields" Content="Clear" Click="btnClearFields_Click" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Right" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Width="150" Margin="0 0 20 0"/>
 
-                <Button Name="btnIdentify" Content="Identyfikuj" Grid.Column="0" Grid.Row="10" HorizontalAlignment="Left" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Width="150" Margin="20 0 0 0"/>
+                <Button Name="btnIdentify" Content="Identyfikuj" Grid.Column="0" Grid.Row="10" HorizontalAlignment="Left" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Width="150" Margin="20 0 0 0" Click="btnIdentify_Click"/>
                 <StackPanel HorizontalAlignment="Center" Height="59" Grid.Column="0" Margin="10,0,0,0" Grid.Row="8" VerticalAlignment="Center" Width="353">
                     <RadioButton Name="rbnSystemView" Content="System mode"/>
                     <RadioButton Content="Platform mode" IsChecked="True"/>
@@ -1302,7 +1302,7 @@
         </TabItem>
 
 
-        <TabItem Header="Admin" Foreground="White">
+        <!--<TabItem Header="Admin" Foreground="White">
             <Grid x:Name="AdminPanel">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -1325,7 +1325,7 @@
                         <PasswordBox Margin="0 0 50 20" Padding="2 3 2 0" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" x:Name="passwordBox" MouseEnter="LoggingMouseEnter" MouseLeave="LoggingMouseEnter" Foreground="White" BorderBrush="White"/>
                     </Grid>
                     <Button x:Name="btnLogToDB" Content="Log in" HorizontalAlignment="Center" MouseEnter="LoggingMouseEnter" MouseLeave="LoggingMouseEnter" Click="btnLogToDB_Click"  Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="100 0" Width="110"/>
-                    <Button Name="btnNewUser" Content="Create New" HorizontalAlignment="Center"  Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="100 15" Width="110"/>
+                    <Button Name="btnNewUser" Content="Create New" HorizontalAlignment="Center"  Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="100 15" Width="110" Click="btnNewUser_Click"/>
                 </StackPanel>
 
                 <Grid x:Name="Mario" Width="300" Margin="0 20 30 20" HorizontalAlignment="Right" Grid.Column="1">
@@ -1574,7 +1574,7 @@
 
                 </Grid>
             </Grid>
-        </TabItem>
+        </TabItem>-->
 
         <TabItem Header="Settings" Foreground="White">
 
@@ -1611,7 +1611,7 @@
                 <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="10,82,0,10" Height="353" Width="195">
                     <Label Content="Startup settings" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
                     <RadioButton Name="rbnStartwithWindows" Content="Start with Windows" GroupName="group1" Checked="rbnStartwithWindows_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
-                    <RadioButton Name="rbnNotStartwithWindows" Content="Do not Start with Windows" GroupName="group1" Checked="rbnNotStartwithWindows_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 1 0 0"/>
+                    <RadioButton x:Name="rbnNotStartwithWindows" Content="Do not Start with Windows" GroupName="group1" Checked="rbnNotStartwithWindows_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 1 0 0"/>
                     <Label Content="Godzilla logging" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
                     <RadioButton Name="rbnDeletelogs" Content="On" Checked="rbnDeletelogs_Checked" GroupName="group2" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
                     <RadioButton Name="rbnholdlogs" Content="Off" GroupName="group2" Checked="rbnholdlogs_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 1 0 0"/>
@@ -1633,10 +1633,6 @@
                     <Label x:Name="Skin" Content="Skin" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
                     <RadioButton x:Name="rbnLight_skin" Content="Crystal White" Checked="Light_skin_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
                     <RadioButton x:Name="rbnDark_skin" Content="On the dark side" Checked="Dark_skin_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
-                    <RadioButton x:Name="rbn_Genie" Content="Genie" Checked="Radio_Genie_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
-                    <RadioButton x:Name="rbn_Oasis" Content="Oasis" Checked="Radio_Oasis_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
-                    <RadioButton x:Name="rbn_ExpressFit" Content="ExpressFit" Checked="Radio_ExpressFit_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
-                    <RadioButton x:Name="rbn_Christmas" Content="Christmas" Checked="Radio_Christmas_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
                 </StackPanel>
 
             </Grid>

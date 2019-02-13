@@ -27,9 +27,7 @@ namespace UltimateChanger
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
 
-            ((MainWindow)System.Windows.Application.Current.MainWindow).Advance_1 = txtsettlog1.Text;
-            ((MainWindow)System.Windows.Application.Current.MainWindow).Advance_2 = txtsettlog2.Text;
-            ((MainWindow)System.Windows.Application.Current.MainWindow).Advance_3 = txtsettlog3.Text;
+
             this.Close();
         }
     }

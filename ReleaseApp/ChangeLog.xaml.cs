@@ -21,9 +21,7 @@ namespace UltimateChanger
     {
         public ChangeLog()
         {
-            InitializeComponent();
-            FileOperator fileOperator = new FileOperator();
-            txtChangeLog.Content = fileOperator.getChangeLog();
+
            
         }
 
