@@ -708,19 +708,60 @@
 
 
                     <Button Name="btnGenieImage" Grid.Column="0" Grid.Row="0" Opacity="0.9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Height="auto" Margin="10" Background="White" Click="btnGenieImage_Click" >                       
-                            <Image Source="Images/oticon.png" Margin="5" />    
+                            <Image Source="Images/oticon.png" Margin="5" />
+                        <Button.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="UnInstall" Click="View_OnClick_Genie_Uninstall"/>
+                                <!--<MenuItem Header="Setting"/>
+                                <Separator/>
+                                <MenuItem Header="Property"/>-->
+                            </ContextMenu>
+                        </Button.ContextMenu>
+
                     </Button>
                     <Button Name="btnGenieMedicalImage" Grid.Column="1" Grid.Row="0" Opacity="0.9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Height="auto" Margin="10" Background="#FFECB3" Click="btnGenieMedicalImage_Click">
                         <Image Source="Images/oticonmedical.png" Margin="5" />
+                        <Button.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="UnInstall" Click="View_OnClick_GenieMedical_Uninstall"/>
+                                <!--<MenuItem Header="Setting"/>
+                                <Separator/>
+                                <MenuItem Header="Property"/>-->
+                            </ContextMenu>
+                        </Button.ContextMenu>
                     </Button>
                     <Button Name="btnExpressfitImage" Grid.Column="0" Grid.Row="2" Opacity="0.9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Height="auto" Margin="10" Background="#42A5F5" Click="btnExpressfitImage_Click">
                         <Image Source="Images/sonic.png" Margin="5" />
+                        <Button.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="UnInstall" Click="View_OnClick_Expressfit_Uninstall"/>
+                                <!--<MenuItem Header="Setting"/>
+                                <Separator/>
+                                <MenuItem Header="Property"/>-->
+                            </ContextMenu>
+                        </Button.ContextMenu>
                     </Button>
                     <Button Name="btnHearSuiteImage" Grid.Column="1" Grid.Row="2" Opacity="0.9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Height="auto" Margin="10" Background="#0D47A1" Click="btnHearSuiteImage_Click">
                         <Image Source="Images/starto.png" Margin="5" />
+                        <Button.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="UnInstall" Click="View_OnClick_HearSuite_Uninstall"/>
+                                <!--<MenuItem Header="Setting"/>
+                                <Separator/>
+                                <MenuItem Header="Property"/>-->
+                            </ContextMenu>
+                        </Button.ContextMenu>
                     </Button>
                     <Button Name="btnOasisImage" Grid.Column="0" Grid.Row="4" Opacity="0.9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Height="auto" Margin="10" Background="#616161" Click="btnOasisImage_Click">
                         <Image Source="Images/bernafon.png" Margin="5" />
+                        <Button.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="UnInstall" Click="View_OnClick_Oasis_Uninstall"/>
+                                <!--<MenuItem Header="Setting"/>
+                                <Separator/>
+                                <MenuItem Header="Property"/>-->
+                            </ContextMenu>
+                        </Button.ContextMenu>
                     </Button>
                     
 

@@ -250,9 +250,36 @@ namespace UltimateChanger
                 Window ChangeLogWindow = new ChangeLog();
                 ChangeLogWindow.ShowDialog();
             }
-            
+
         }
         //________________________________________________________________________________________________________________________________________________
+
+
+        private void View_OnClick_Genie_Uninstall(object sender, RoutedEventArgs e) {
+
+            MessageBox.Show("Uninstall Genie");
+        }
+        private void View_OnClick_GenieMedical_Uninstall(object sender, RoutedEventArgs e)
+        {
+
+            MessageBox.Show("Uninstall Medical");
+        }
+        private void View_OnClick_Expressfit_Uninstall(object sender, RoutedEventArgs e)
+        {
+
+            MessageBox.Show("Uninstall Sonic");
+        }
+        private void View_OnClick_HearSuite_Uninstall(object sender, RoutedEventArgs e)
+        {
+
+            MessageBox.Show("Uninstall Philips");
+        }
+        private void View_OnClick_Oasis_Uninstall(object sender, RoutedEventArgs e)
+        {
+
+            MessageBox.Show("Uninstall Oasis");
+        }
+
 
         public void setUIdefaults(SortedDictionary<string, string> settings, string mode) // mode to tryb ustawienia co zmieniasz radiobutton checkbox
         {
@@ -3355,7 +3382,7 @@ namespace UltimateChanger
         }
 
         private void btnGenieImage_Click(object sender, RoutedEventArgs e)
-        {      
+        {            
                fileOperator.StartFS(0, TabFull.IsSelected);
                CounterOfclicks.AddClick((int)Buttons.StartFittingSoftware);
         }
@@ -3387,6 +3414,19 @@ namespace UltimateChanger
         private void ListTeamPerson_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void ContextMenu_Genie_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                MessageBox.Show("tststst");
+            }
+        }
+
+        private void ContextMenu_Genie_IsMouseCapturedChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            MessageBox.Show("test33");
         }
 
         private void rbnTurnOffDevMode_Checked(object sender, RoutedEventArgs e)
@@ -3481,6 +3521,8 @@ namespace UltimateChanger
             updateMarket(TabFull.IsSelected); // funkcja ustawiajaca mozna ja przeniesc do fileoperatora
             refreshUI(new object(), new EventArgs());
         }
+
+
 
         private void tabControl2_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

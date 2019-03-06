@@ -46,6 +46,23 @@
           <Magneto>FALSE</Magneto>
         </Custom>
       </HighestPP>
+
+      <Obelix>
+        <SP>
+          <LED>TRUE</LED>
+          <TwoButtons>TRUE</TwoButtons>
+          <Wireless>TRUE</Wireless>
+          <T-Coil>TRUE</T-Coil>
+          <Magneto>TRUE</Magneto>
+        </SP>
+        <UP>
+          <LED>TRUE</LED>
+          <TwoButtons>TRUE</TwoButtons>
+          <Wireless>TRUE</Wireless>
+          <T-Coil>TRUE</T-Coil>
+          <Magneto>TRUE</Magneto>
+        </UP>
+      </Obelix>      
       <OPN_S>
         <miniRITE-S>
           <LED>FALSE</LED>
