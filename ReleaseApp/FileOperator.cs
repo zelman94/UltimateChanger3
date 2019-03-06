@@ -312,14 +312,13 @@ namespace UltimateChanger
             }
         }
 
-        public List<string> getLogMode()
+        public List<string> getLogMode(int index)
         {
             List<string> listalogmode = new List<string>();
-            foreach (var item in pathToLogMode)
-            {
+
                 try
                 {
-                    var plik = File.ReadAllLines(item);
+                    var plik = File.ReadAllLines(pathToLogMode[index]);
                     int licznik = 0;
                     foreach (var item2 in plik)
                     {
@@ -345,7 +344,7 @@ namespace UltimateChanger
                 {
                     listalogmode.Add("");
                 }
-            }
+            
             return listalogmode;
         }
 
@@ -503,7 +502,7 @@ namespace UltimateChanger
             }
         }
 
-        public void GetfilesSaveData(bool composition, int FS) // pobieram pliki z dysku i zapisuje z nich dane do zmiennej potrzebnej do cmbbuilds 
+        public void GetfilesSaveData(bool composition ) // pobieram pliki z dysku i zapisuje z nich dane do zmiennej potrzebnej do cmbbuilds 
         {
             // compozycja true/false
             List<string> ListaFS = new List<string>()
@@ -515,10 +514,19 @@ namespace UltimateChanger
                 {"Philips"}
             };
 
+            List<string> allFiles;
+            try
+            {
+                allFiles = Directory.GetFiles(@"C:\Program Files\UltimateChanger\Data").ToList();
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.ToString());
+                return;
+            }
 
             if (composition)
             {
-                List<string> allFiles = Directory.GetFiles(@"C:\Program Files\UltimateChanger\Data").ToList();
                 List<string> allCompositionsFiles = new List<string>();
                 List<string> textDirFile = new List<string>();
                 List<string> textPathFile = new List<string>();
@@ -555,7 +563,7 @@ namespace UltimateChanger
             else
             {
 
-                List<string> allFiles = Directory.GetFiles(@"C:\Program Files\UltimateChanger\Data").ToList();
+                
                 List<string> allFullFiles = new List<string>(10);
                 for (int i = 0; i < 10; i++)
                 {
@@ -690,7 +698,15 @@ namespace UltimateChanger
             XmlDocument doc = new XmlDocument();
             if (FULL)
             {
-                doc.Load(BuildInfo.ListPathsToManInfo[licz]);
+                try
+                {
+                    doc.Load(BuildInfo.ListPathsToManInfo[licz]);
+                }
+                catch (Exception)
+                {
+                    return "";
+                }
+               
             }
             else // dla kompozyji
             {
@@ -1132,13 +1148,29 @@ namespace UltimateChanger
         {
             XmlDocument xmlDoc = new XmlDocument(); // Create an XML document object
             XmlDocument xmlDoc2 = new XmlDocument();
-            xmlDoc.Load(path); // Load the XML document from the specified file
+            try
+            {
+                xmlDoc.Load(path); // Load the XML document from the specified file
+            }
+            catch (Exception)
+            {
+                return new BuildInfo("", "FS not installed", "", "", "");
+            }
+            
                                // Get elements
             XmlNodeList Brand = xmlDoc.GetElementsByTagName("Brand");
             XmlNodeList MarketName = xmlDoc.GetElementsByTagName("MarketName");
             XmlNodeList OEM = xmlDoc.GetElementsByTagName("OEM");
             XmlNodeList SelectedLanguage = xmlDoc.GetElementsByTagName("SelectedLanguage");
-            xmlDoc2.Load(path2);
+            
+            try
+            {
+                xmlDoc2.Load(path2);
+            }
+            catch (Exception)
+            {
+                return new BuildInfo("", "", "", "", "");
+            }
             XmlNodeList Major = xmlDoc2.GetElementsByTagName("Major");
             XmlNodeList Minor = xmlDoc2.GetElementsByTagName("Minor");
             XmlNodeList Build = xmlDoc2.GetElementsByTagName("Build");
