@@ -560,7 +560,7 @@ namespace UltimateChanger
         }
 
 
-        public static List<string> getPaths(string listName)
+        public static List<string> getPaths(string listName,string brand) 
         {
             XmlDocument doc = new XmlDocument();
             try
@@ -584,7 +584,7 @@ namespace UltimateChanger
             List<string> listpaths = new List<string>();
             try
             {
-                XmlNodeList NodesNames = doc.DocumentElement.SelectNodes(string.Format($"/Paths/{listName}"));
+                XmlNodeList NodesNames = doc.DocumentElement.SelectNodes(string.Format($"/Paths/{listName}/{brand}"));
                 XmlNodeList NodesNames2 = NodesNames[0].ChildNodes; // pobieram OPN itp później można odczytać z tego parametry
                 foreach (XmlNode item in NodesNames2)
                 {

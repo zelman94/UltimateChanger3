@@ -123,7 +123,7 @@ namespace UltimateChanger
         };
 
 
-        public List<string> pathToLogMode = myXMLReader.getPaths("pathToLogMode");
+        
         public List<string> pathToLogMode_Compo = new List<string>();
         public List<string> pathToManufacturerInfo_Compo = new List<string>();
         public List<string> listGenieOems = myXMLReader.getOemNames("Oticon"); // lista oemow oticon z pliku kolejne listy kolejne brandy
@@ -232,9 +232,7 @@ namespace UltimateChanger
         }
 
 
-        public List<string> pathToLogs = myXMLReader.getPaths("pathToLogs");
-
-        public static List<string> pathToTrash = myXMLReader.getPaths("pathToTrash");
+       
 
 
         static public void DeleteOldDirs()
@@ -312,13 +310,13 @@ namespace UltimateChanger
             }
         }
 
-        public List<string> getLogMode(int index)
+        public List<string> getLogMode(int index, string PathToLogMode)
         {
             List<string> listalogmode = new List<string>();
 
                 try
                 {
-                    var plik = File.ReadAllLines(pathToLogMode[index]);
+                    var plik = File.ReadAllLines(PathToLogMode);
                     int licznik = 0;
                     foreach (var item2 in plik)
                     {
@@ -348,7 +346,7 @@ namespace UltimateChanger
             return listalogmode;
         }
 
-        public void setLogMode(string mode, int setting_number, byte number_checkbox,bool Full, bool advance, string sett1 = "", string sett2 = "", string sett3 = "") // advance true czyli zaawansowane ustawienia usera
+        public void setLogMode(string PathToLogMode, string mode, int setting_number, byte number_checkbox,bool Full, bool advance, string sett1 = "", string sett2 = "", string sett3 = "") // advance true czyli zaawansowane ustawienia usera
         {
             List<string> plik = new List<string>();
             List<string> plik_edited = new List<string>();
@@ -357,7 +355,7 @@ namespace UltimateChanger
                  // wczytywanie zaleznie od full lub compo - nowa lista z pathami do compo ? funkcja wyszukująca ?
                 if (Full) // jezeli pelny build to zainstalowane czy li bez zmian
                 {
-                    plik = File.ReadAllLines(pathToLogMode[number_checkbox]).ToList<string>();
+                    plik = File.ReadAllLines(PathToLogMode).ToList<string>();
                 }
                 else
                 {
@@ -478,7 +476,7 @@ namespace UltimateChanger
             {
                 if (Full)
                 {
-                    TextWriter tw = new StreamWriter(pathToLogMode[number_checkbox]);
+                    TextWriter tw = new StreamWriter(PathToLogMode);
                     foreach (String s in plik_edited)
                         tw.WriteLine(s);
                     tw.Close();

@@ -711,7 +711,8 @@
                             <Image Source="Images/oticon.png" Margin="5" />
                         <Button.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="UnInstall" Click="View_OnClick_Genie_Uninstall"/>
+                                <MenuItem Header="Uninstall" Click="View_OnClick_Genie_Uninstall"/>
+                                <MenuItem Header="Edit" Click="View_OnClick_Genie_Edit"/>
                                 <!--<MenuItem Header="Setting"/>
                                 <Separator/>
                                 <MenuItem Header="Property"/>-->
@@ -723,7 +724,8 @@
                         <Image Source="Images/oticonmedical.png" Margin="5" />
                         <Button.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="UnInstall" Click="View_OnClick_GenieMedical_Uninstall"/>
+                                <MenuItem Header="Uninstall" Click="View_OnClick_GenieMedical_Uninstall"/>
+                                <MenuItem Header="Edit" Click="View_OnClick_GenieMedical_Edit"/>
                                 <!--<MenuItem Header="Setting"/>
                                 <Separator/>
                                 <MenuItem Header="Property"/>-->
@@ -734,7 +736,8 @@
                         <Image Source="Images/sonic.png" Margin="5" />
                         <Button.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="UnInstall" Click="View_OnClick_Expressfit_Uninstall"/>
+                                <MenuItem Header="Uninstall" Click="View_OnClick_Expressfit_Uninstall"/>
+                                <MenuItem Header="Edit" Click="View_OnClick_Expressfit_Edit"/>
                                 <!--<MenuItem Header="Setting"/>
                                 <Separator/>
                                 <MenuItem Header="Property"/>-->
@@ -745,7 +748,8 @@
                         <Image Source="Images/starto.png" Margin="5" />
                         <Button.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="UnInstall" Click="View_OnClick_HearSuite_Uninstall"/>
+                                <MenuItem Header="Uninstall" Click="View_OnClick_HearSuite_Uninstall"/>
+                                <MenuItem Header="Edit" Click="View_OnClick_HearSuite_Edit"/>
                                 <!--<MenuItem Header="Setting"/>
                                 <Separator/>
                                 <MenuItem Header="Property"/>-->
@@ -756,7 +760,8 @@
                         <Image Source="Images/bernafon.png" Margin="5" />
                         <Button.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="UnInstall" Click="View_OnClick_Oasis_Uninstall"/>
+                                <MenuItem Header="Uninstall" Click="View_OnClick_Oasis_Uninstall"/>
+                                <MenuItem Header="Edit" Click="View_OnClick_Oasis_Edit"/>
                                 <!--<MenuItem Header="Setting"/>
                                 <Separator/>
                                 <MenuItem Header="Property"/>-->

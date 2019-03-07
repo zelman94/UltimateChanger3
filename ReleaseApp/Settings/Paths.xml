@@ -1,29 +1,59 @@
 ﻿<?xml version="1.0"?>
 <Paths>
   <pathToLogMode> 
-    <Value>C:\Program Files (x86)\Oticon\Genie\Genie2\Configure.log4net</Value>
-    <Value>C:\Program Files (x86)\Oticon Medical\Genie Medical BAHS\GenieMedical2\Configure.log4net</Value>
-    <Value>C:\Program Files (x86)\Sonic\ExpressFit\EXPRESSfit2\Configure.log4net</Value>
-    <Value>C:\Program Files (x86)\Philips HearSuite\HearSuite\HearSuite2\Configure.log4net</Value>
-    <Value>C:\Program Files (x86)\Bernafon\Oasis\Oasis2\Configure.log4net</Value>
+    <Oticon>
+      <Value>C:\Program Files (x86)\Oticon\Genie\Genie2\Configure.log4net</Value>
+    </Oticon>
+    <Medical>
+      <Value>C:\Program Files (x86)\Oticon Medical\Genie Medical BAHS\GenieMedical2\Configure.log4net</Value>
+    </Medical>
+    <Sonic>
+      <Value>C:\Program Files (x86)\Sonic\ExpressFit\EXPRESSfit2\Configure.log4net</Value>
+    </Sonic>
+    <Philips>
+      <Value>C:\Program Files (x86)\Philips HearSuite\HearSuite\HearSuite2\Configure.log4net</Value>
+    </Philips>
+    <Bernafon>
+      <Value>C:\Program Files (x86)\Bernafon\Oasis\Oasis2\Configure.log4net</Value>
+    </Bernafon>
   </pathToLogMode>
   <pathToLogs> 
-    <Value>C:\ProgramData\Oticon\Genie\Logfiles\</Value>
-    <Value>C:\ProgramData\Oticon Medical\Genie Medical BAHS\Logfiles</Value>
-    <Value>C:\ProgramData\Sonic\ExpressFit\Logfiles\</Value>
-    <Value>C:\ProgramData\Philips HearSuite\HearSuite\Logfiles\</Value>
-    <Value>C:\ProgramData\Bernafon\Oasis\Logfiles\</Value>
+    <Oticon>
+      <Value>C:\ProgramData\Oticon\Genie\Logfiles\</Value>
+    </Oticon>
+    <Medical>
+      <Value>C:\ProgramData\Oticon Medical\Genie Medical BAHS\Logfiles</Value>
+    </Medical>
+    <Sonic>
+      <Value>C:\ProgramData\Sonic\ExpressFit\Logfiles\</Value>
+    </Sonic>
+    <Philips>
+      <Value>C:\ProgramData\Philips HearSuite\HearSuite\Logfiles\</Value>
+    </Philips>
+    <Bernafon>
+      <Value>C:\ProgramData\Bernafon\Oasis\Logfiles\</Value>
+    </Bernafon>      
   </pathToLogs>
   <pathToTrash> 
-    <Value>C:\ProgramData\Oticon</Value>
-    <Value>C:\Program Files (x86)\Oticon</Value>
-    <Value>C:\ProgramData\Oticon Medical</Value>
-    <Value>C:\Program Files (x86)\Oticon Medical BAHS</Value>
-    <Value>C:\ProgramData\Sonic</Value>
-    <Value>C:\Program Files (x86)\Sonic</Value>
-    <Value>C:\ProgramData\Philips HearSuite</Value>
-    <Value>C:\Program Files (x86)\Philips HearSuite</Value>
-    <Value>C:\ProgramData\Bernafon</Value>
-    <Value>C:\Program Files (x86)\Bernafon</Value>
+    <Oticon>
+      <Value>C:\ProgramData\Oticon</Value>
+      <Value>C:\Program Files (x86)\Oticon</Value>
+    </Oticon>
+   <Medical>
+     <Value>C:\ProgramData\Oticon Medical</Value>
+     <Value>C:\Program Files (x86)\Oticon Medical BAHS</Value>
+   </Medical>
+   <Sonic>
+     <Value>C:\ProgramData\Sonic</Value>
+     <Value>C:\Program Files (x86)\Sonic</Value>
+   </Sonic>
+   <Philips>
+     <Value>C:\ProgramData\Philips HearSuite</Value>
+     <Value>C:\Program Files (x86)\Philips HearSuite</Value>
+   </Philips>
+   <Bernafon>
+     <Value>C:\ProgramData\Bernafon</Value>
+     <Value>C:\Program Files (x86)\Bernafon</Value>
+   </Bernafon>    
   </pathToTrash>
 </Paths>

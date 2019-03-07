@@ -214,7 +214,7 @@ namespace UltimateChanger
                 ListBoxOfAvailableStyles.SelectionMode = SelectionMode.Multiple;
                 ListBoxOfAvailableTypes.SelectionMode = SelectionMode.Multiple;
 
-                refreshUI(new object(), new EventArgs());
+                
                 dataBaseManager = new DataBaseManager(XMLReader.getDefaultSettings("DataBase").ElementAt(0).Value); // tam jest wątek
 
 
@@ -254,40 +254,56 @@ namespace UltimateChanger
             }
             FittingSoftware_List.Add(new FittingSoftware("Genie 2"));
             FittingSoftware_List.Add(new FittingSoftware("Medical"));
-            FittingSoftware_List.Add(new FittingSoftware("Oasis"));
             FittingSoftware_List.Add(new FittingSoftware("Express"));
             FittingSoftware_List.Add(new FittingSoftware("HearSuite"));
+            FittingSoftware_List.Add(new FittingSoftware("Oasis"));
+            refreshUI(new object(), new EventArgs());
 
         }
         //________________________________________________________________________________________________________________________________________________
         FSInstaller instal = new FSInstaller();
 
-        private void View_OnClick_Genie_Uninstall(object sender, RoutedEventArgs e) {
-
-            MessageBox.Show("Uninstall Genie");
+        private void View_OnClick_Genie_Uninstall(object sender, RoutedEventArgs e)
+        {
             instal.UninstallBrand(new List<string>() { FittingSoftware_List[0].Path_Local_Installer }, true);
         }
         private void View_OnClick_GenieMedical_Uninstall(object sender, RoutedEventArgs e)
         {
             instal.UninstallBrand(new List<string>() { FittingSoftware_List[1].Path_Local_Installer }, true);
-            MessageBox.Show("Uninstall Medical");
         }
         private void View_OnClick_Expressfit_Uninstall(object sender, RoutedEventArgs e)
         {
             instal.UninstallBrand(new List<string>() { FittingSoftware_List[2].Path_Local_Installer }, true);
-            MessageBox.Show("Uninstall Sonic");
         }
         private void View_OnClick_HearSuite_Uninstall(object sender, RoutedEventArgs e)
         {
             instal.UninstallBrand(new List<string>() { FittingSoftware_List[3].Path_Local_Installer }, true);
-            MessageBox.Show("Uninstall Philips");
         }
         private void View_OnClick_Oasis_Uninstall(object sender, RoutedEventArgs e)
         {
             instal.UninstallBrand(new List<string>() { FittingSoftware_List[4].Path_Local_Installer }, true);
-            MessageBox.Show("Uninstall Oasis");
         }
 
+        private void View_OnClick_Genie_Edit(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void View_OnClick_GenieMedical_Edit(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void View_OnClick_Expressfit_Edit(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void View_OnClick_HearSuite_Edit(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void View_OnClick_Oasis_Edit(object sender, RoutedEventArgs e)
+        {
+
+        }
 
         public void setUIdefaults(SortedDictionary<string, string> settings, string mode) // mode to tryb ustawienia co zmieniasz radiobutton checkbox
         {
@@ -543,7 +559,7 @@ namespace UltimateChanger
             List<string> logmod = new List<string>();
             for (int i = 0; i < 5; i++)
             {
-                logmod.Add(fileOperator.getLogMode(i)[0]);
+                logmod.Add(FittingSoftware_List[i].LogMode);
             }
             List<string> ListofMarkets = new List<string>();
             for (int i = 0; i < logmod.Count; i++)
@@ -627,7 +643,7 @@ namespace UltimateChanger
                 List<string> logmod = new List<string>();
                 for (int i = 0; i < 5; i++)
                 {
-                    logmod.Add(fileOperator.getLogMode(i)[0]);
+                    logmod.Add(FittingSoftware_List[i].LogMode);
                 }
                 List<string> ListofMarkets = new List<string>();
                 for (int i = 0; i < logmod.Count; i++)
@@ -1140,8 +1156,6 @@ namespace UltimateChanger
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             TrashCleaner smieciarka = new TrashCleaner();
-            byte i = 0;
-            byte j = 1;
             byte licznik = 0;
             bool flag = false;
             string message = "Deleted: \n";
@@ -1152,8 +1166,7 @@ namespace UltimateChanger
                 {
                     if (checkRunningProcess(item.Name) && !fileOperator.checkInstanceOfFS(licznik))
                     {
-                        smieciarka.DeleteTrash(FileOperator.pathToTrash[i]);
-                        smieciarka.DeleteTrash(FileOperator.pathToTrash[j]);
+                        FittingSoftware_List[licznik].deleteTrash();
                         refreshUI(new object(), new EventArgs());
                         message = message + item.Name + "\n";
                         flag = true;
@@ -1163,15 +1176,12 @@ namespace UltimateChanger
                         message2 = message2 + item.Name;
                     }
                 }
-                i += 2;
-                j += 2;
                 licznik++;
             }
             if (flag)
             {
                 MessageBox.Show(message + message2);
-            }
-     
+            }     
         }
         private void btnFS_Click(object sender, RoutedEventArgs e)
         {
@@ -1381,7 +1391,7 @@ namespace UltimateChanger
                     {
                         if (item.IsChecked.Value)
                         {
-                            fileOperator.setLogMode(cmbLogMode.Text, cmbLogSettings.SelectedIndex, licznik,TabFull.IsSelected,true, Advance_1, Advance_2, Advance_3);
+                            fileOperator.setLogMode(FittingSoftware_List[licznik].PathToLogMode,cmbLogMode.Text, cmbLogSettings.SelectedIndex, licznik,TabFull.IsSelected,true, "", "", "");
                             message = message + item.Name + "\n";                            
                         }
                         licznik++;
@@ -3457,7 +3467,7 @@ namespace UltimateChanger
                                 {
                                     if (Full)
                                     {
-                                        if (!fileOperator.setMarket(licz, BindCombobox.marketIndex[cmbMarket.SelectedIndex], Full)) // jezeli sie nie udalo to zmieniam message
+                                        if (!FittingSoftware_List[licz].setMarket(BindCombobox.marketIndex[cmbMarket.SelectedIndex])) // jezeli sie nie udalo to zmieniam message
                                         {
                                             message = "error: ";
                                         }                                       

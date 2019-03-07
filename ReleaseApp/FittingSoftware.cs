@@ -10,7 +10,7 @@ namespace UltimateChanger
 {
     class FittingSoftware
     {
-       public string Name_FS;
+        public string Name_FS;
         public string Path_Local_Installer;
         public string Version;
         public string Market;
@@ -18,8 +18,9 @@ namespace UltimateChanger
         public bool customPath; // jezeli customowa lokalizacja FS
         public int indexFS;
         public string Brand;
-
-        public string OEM ;
+        public List<string> PathTrash = new List<string>();
+        public string PathToLogMode;
+        public string OEM;
         public string SelectedLanguage;
         public string LogMode;
 
@@ -34,20 +35,35 @@ namespace UltimateChanger
             customPath = false;
             switch (Name)
             {
-                case("Genie 2"):
+                case ("Genie 2"):
                     indexFS = 0;
+                    Brand = "Oticon";
+                    PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
+                    PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
                     break;
                 case ("Medical"):
                     indexFS = 1;
+                    Brand = "Medical";
+                    PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
+                    PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
                     break;
                 case ("Express"):
                     indexFS = 2;
+                    Brand = "Sonic";
+                    PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
+                    PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
                     break;
                 case ("HearSuite"):
                     indexFS = 3;
+                    Brand = "Philips";
+                    PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
+                    PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
                     break;
                 case ("Oasis"):
                     indexFS = 4;
+                    Brand = "Bernafon";
+                    PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
+                    PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
                     break;
                 default:
                     indexFS = -1;
@@ -60,52 +76,52 @@ namespace UltimateChanger
             ListPathsToAboutInfo = BuildInfo.ListPathsToAboutInfo;
 
             BuildInfo infoAboutFS = fileOperator.GetInfoAboutFs(ListpathsToManInfo[indexFS], ListPathsToAboutInfo[indexFS]);
-            Brand = infoAboutFS.Brand;
+            //Brand = infoAboutFS.Brand;
             Market = infoAboutFS.MarketName;
             OEM = infoAboutFS.OEM;
             SelectedLanguage = infoAboutFS.SelectedLanguage;
             Version = infoAboutFS.Version;
-            LogMode = fileOperator.getLogMode(indexFS)[0];
+            LogMode = fileOperator.getLogMode(indexFS, PathToLogMode)[0];
         }
 
         public string findUnInstaller()
-        {                
-                    var allFiles = Directory.GetFiles(@"C:\ProgramData\Package Cache", "*.exe", SearchOption.AllDirectories);
-                    foreach (var item in allFiles)
+        {
+            var allFiles = Directory.GetFiles(@"C:\ProgramData\Package Cache", "*.exe", SearchOption.AllDirectories);
+            foreach (var item in allFiles)
+            {
+                try
+                {
+                    FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(item);
+
+                    if ((myFileVersionInfo.FileName.Contains("OticonMedium") || fileOperator.checkIfGenie(myFileVersionInfo.FileDescription)) && Name_FS.Contains("2"))
                     {
-                        try
-                        {
-                            FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(item);
-
-                            if ((myFileVersionInfo.FileName.Contains("OticonMedium") || fileOperator.checkIfGenie(myFileVersionInfo.FileDescription)) && Name_FS.Contains("2"))
-                            {                  
-                                return item;                                
-                            }
-
-                            if ((myFileVersionInfo.FileName.Contains("OticonMedicalMedium") || fileOperator.checkIfMedical(myFileVersionInfo.FileDescription)) && Name_FS.Contains("Medical"))
-                            {   
-                                return item;                                
-                            }
-
-                            if ((myFileVersionInfo.FileName.Contains("BernafonMedium") || fileOperator.checkIfOasis(myFileVersionInfo.FileDescription)) && Name_FS.Contains("Oasis"))
-                            {
-                                return item;
-                            }
-
-                            if ((myFileVersionInfo.FileName.Contains("SonicMedium") || fileOperator.checkIfSonic(myFileVersionInfo.FileDescription)) && Name_FS.Contains("Express"))
-                            {                            
-                               return item;                            
-                            }
-
-                            if ((myFileVersionInfo.FileName.Contains("PhilipsMedium") || fileOperator.checkIfPhilips(myFileVersionInfo.FileDescription)) && Name_FS.Contains("HearSuite"))
-                            {
-                                return item;
-                            }
-                        }
-                        catch (Exception x)
-                        {
-                        }
+                        return item;
                     }
+
+                    if ((myFileVersionInfo.FileName.Contains("OticonMedicalMedium") || fileOperator.checkIfMedical(myFileVersionInfo.FileDescription)) && Name_FS.Contains("Medical"))
+                    {
+                        return item;
+                    }
+
+                    if ((myFileVersionInfo.FileName.Contains("BernafonMedium") || fileOperator.checkIfOasis(myFileVersionInfo.FileDescription)) && Name_FS.Contains("Oasis"))
+                    {
+                        return item;
+                    }
+
+                    if ((myFileVersionInfo.FileName.Contains("SonicMedium") || fileOperator.checkIfSonic(myFileVersionInfo.FileDescription)) && Name_FS.Contains("Express"))
+                    {
+                        return item;
+                    }
+
+                    if ((myFileVersionInfo.FileName.Contains("PhilipsMedium") || fileOperator.checkIfPhilips(myFileVersionInfo.FileDescription)) && Name_FS.Contains("HearSuite"))
+                    {
+                        return item;
+                    }
+                }
+                catch (Exception x)
+                {
+                }
+            }
             return "";
         }
 
@@ -116,12 +132,35 @@ namespace UltimateChanger
 
         public string getMarket()
         {
-            return fileOperator.getMarket(indexFS, true);             
+            return fileOperator.getMarket(indexFS, true);
         }
 
-        public bool setMarket()
+        public bool setMarket(string Market)
         {
-            return true;
+            if (fileOperator.setMarket(indexFS, Market, true))
+            {
+                this.Market = Market;
+                return true;
+            } else
+                return false;
+        }
+        public string getLogMode()
+        {
+           return fileOperator.getLogMode(indexFS, PathToLogMode)[0];
+        }
+
+        public void setLogMode()
+        {
+            fileOperator.setLogMode(PathToLogMode, cmbLogMode.Text, cmbLogSettings.SelectedIndex, licznik, TabFull.IsSelected, true, "", "", "");
+        }
+
+        public void deleteTrash()
+        {
+            TrashCleaner smieciarka = new TrashCleaner();
+            foreach (var item in PathTrash)
+            {
+                smieciarka.DeleteTrash(item);
+            }    
         }
 
         public string getFS_Version()
