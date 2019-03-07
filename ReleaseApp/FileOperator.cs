@@ -232,9 +232,6 @@ namespace UltimateChanger
         }
 
 
-       
-
-
         static public void DeleteOldDirs()
         {
             try

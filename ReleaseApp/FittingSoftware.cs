@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace UltimateChanger
 {
@@ -19,7 +20,7 @@ namespace UltimateChanger
         public int indexFS;
         public string Brand;
         public List<string> PathTrash = new List<string>();
-        public string PathToLogMode;
+        public string PathToLogMode,pathToLogs;
         public string OEM;
         public string SelectedLanguage;
         public string LogMode;
@@ -40,30 +41,35 @@ namespace UltimateChanger
                     Brand = "Oticon";
                     PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
                     PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
+                    pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
                     break;
                 case ("Medical"):
                     indexFS = 1;
                     Brand = "Medical";
                     PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
                     PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
+                    pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
                     break;
                 case ("Express"):
                     indexFS = 2;
                     Brand = "Sonic";
                     PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
                     PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
+                    pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
                     break;
                 case ("HearSuite"):
                     indexFS = 3;
                     Brand = "Philips";
                     PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
                     PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
+                    pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
                     break;
                 case ("Oasis"):
                     indexFS = 4;
                     Brand = "Bernafon";
                     PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
                     PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
+                    pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
                     break;
                 default:
                     indexFS = -1;
@@ -149,9 +155,9 @@ namespace UltimateChanger
            return fileOperator.getLogMode(indexFS, PathToLogMode)[0];
         }
 
-        public void setLogMode()
+        public void setLogMode(string LogMode,int indexSetting,bool Full)
         {
-            fileOperator.setLogMode(PathToLogMode, cmbLogMode.Text, cmbLogSettings.SelectedIndex, licznik, TabFull.IsSelected, true, "", "", "");
+            fileOperator.setLogMode(PathToLogMode, LogMode, indexSetting,Convert.ToByte(indexFS),Full, false, "", "", "");
         }
 
         public void deleteTrash()
@@ -161,6 +167,30 @@ namespace UltimateChanger
             {
                 smieciarka.DeleteTrash(item);
             }    
+        }
+
+        public void deleteLogs()
+        {
+            List<string> pathToLogsFiles = new List<string>();
+
+            pathToLogsFiles = Directory.GetFiles(pathToLogs).ToList();
+            string problems = "";
+            foreach (var item in pathToLogsFiles)
+            {
+                try
+                {
+                    File.Delete(item);
+                }
+                catch (Exception x)
+                {
+                    problems += item + "\n";
+                }
+            }
+            if (problems != "")
+            {
+                MessageBox.Show("Problems with files: \n" + problems);
+            }
+
         }
 
         public string getFS_Version()

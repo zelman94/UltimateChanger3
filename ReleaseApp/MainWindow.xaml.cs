@@ -1391,7 +1391,7 @@ namespace UltimateChanger
                     {
                         if (item.IsChecked.Value)
                         {
-                            FittingSoftware_List[licznik].setLogMode();
+                            FittingSoftware_List[licznik].setLogMode(cmbLogMode.Text,cmbLogSettings.SelectedIndex, TabFull.IsEnabled);
                            
                             message = message + item.Name + "\n";                            
                         }
@@ -1420,7 +1420,7 @@ namespace UltimateChanger
                     {
                         if (item.IsChecked.Value)
                         {
-                            fileOperator.setLogMode(cmbLogMode.Text, cmbLogSettings.SelectedIndex, licznik, TabFull.IsSelected, false);
+                            FittingSoftware_List[licznik].setLogMode(cmbLogMode.Text, cmbLogSettings.SelectedIndex, TabFull.IsEnabled);
                             message = message + item.Name + "\n";
                         }
                         licznik++;
@@ -1445,21 +1445,19 @@ namespace UltimateChanger
             byte licznik = 0;
             CounterOfclicks.AddClick((int)Buttons.DeleteLogs);
             TrashCleaner smieciarka = new TrashCleaner();
-            bool flag = false;
-            string message = "Deleted";
             foreach (var item in checkBoxList)
             {
                 if (item.IsChecked.Value)
                 {
                     if (!fileOperator.checkRunningProcess(item.Name) && item.Name != "Cumulus")
                     {
-                        flag = smieciarka.DeleteLogs(licznik,TabFull.IsSelected);                       
+                        FittingSoftware_List[licznik].deleteLogs();                      
                     }
                     else if (item.Name == "Cumulus")
                     {
                           if (!fileOperator.checkRunningProcess("Philips HearSuite"))
                           {
-                              flag = smieciarka.DeleteLogs(licznik, TabFull.IsSelected);                              
+                            FittingSoftware_List[licznik].deleteLogs();
                           }
                     } else
                     {
@@ -1468,14 +1466,7 @@ namespace UltimateChanger
                 }
                 licznik++;
             }
-            if (flag)
-            {
-                MessageBox.Show(message);
-            }
-            else
-            {
-                MessageBox.Show("Close FS to Delete Logs");
-            }
+
         }
         private void cmbLogMode_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -2081,12 +2072,12 @@ namespace UltimateChanger
                         {
                             try
                             {
-                                System.IO.Compression.ZipFile.CreateFromDirectory(fileOperator.pathToLogs[licznik], saveFileDialog1.FileName + "_" + item.Name + ".zip"); // dziala 
+                                System.IO.Compression.ZipFile.CreateFromDirectory(FittingSoftware_List[licznik].pathToLogs, saveFileDialog1.FileName + "_" + item.Name + ".zip"); // dziala 
                             }
                             catch (IOException )
                             {
                                 File.Delete(saveFileDialog1.FileName + "_" + item.Name + ".zip");
-                                System.IO.Compression.ZipFile.CreateFromDirectory(fileOperator.pathToLogs[licznik], saveFileDialog1.FileName + "_" + item.Name + ".zip"); // dziala 
+                                System.IO.Compression.ZipFile.CreateFromDirectory(FittingSoftware_List[licznik].pathToLogs, saveFileDialog1.FileName + "_" + item.Name + ".zip"); // dziala 
                             }
                             catch (Exception x)
                             {
@@ -2888,6 +2879,8 @@ namespace UltimateChanger
 
         private void btnAdvancelogs_Click(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show("może kiedyś :)");
+            return;
             cmbLogSettings.Visibility = Visibility.Hidden;
             AdvanseSettingsWindow advance = new AdvanseSettingsWindow();
             advance.Show();
@@ -2993,9 +2986,8 @@ namespace UltimateChanger
             {
                 if (item.IsEnabled)
                 {
-                    fileOperator.setLogMode("ALL", 0, licznik,TabFull.IsSelected ,false, Advance_1, Advance_2, Advance_3);
-                }
-                
+                    FittingSoftware_List[licznik].setLogMode("ALL",0, TabFull.IsSelected);
+                }                
                 licznik++;
             }
         }

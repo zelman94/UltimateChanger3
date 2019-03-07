@@ -28,34 +28,6 @@ namespace UltimateChanger
             }
         }
 
-        public bool DeleteLogs(int nrFS,bool Full)
-        {
-            List<string> pathToLogsFiles = new List<string>();
-            FileOperator fileoperator = new FileOperator();
-            if (Full)
-            {
-                pathToLogsFiles = Directory.GetFiles(fileoperator.pathToLogs[nrFS]).ToList();
-            }
-            else
-            {                
-                pathToLogsFiles = Directory.GetFiles(fileoperator.GetAllLocalCompositions()[nrFS],"Log.txt").ToList();
-            }
-            bool flag = false;
-            foreach (var item in pathToLogsFiles)
-            {
-                try
-                {
-                    File.Delete(item);
-                    flag = true;
-                }
-                catch (Exception)
-                {
-                    //MessageBox.Show("Error in DeleteLogs");
-                    return false;
-                }               
-            }
-            return flag;
-        }
         public void DeleteCompo(int nrFS) // dziala
         {
             FileOperator fileoperator = new FileOperator();
