@@ -1391,7 +1391,8 @@ namespace UltimateChanger
                     {
                         if (item.IsChecked.Value)
                         {
-                            fileOperator.setLogMode(FittingSoftware_List[licznik].PathToLogMode,cmbLogMode.Text, cmbLogSettings.SelectedIndex, licznik,TabFull.IsSelected,true, "", "", "");
+                            FittingSoftware_List[licznik].setLogMode();
+                           
                             message = message + item.Name + "\n";                            
                         }
                         licznik++;
