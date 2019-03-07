@@ -53,6 +53,8 @@ namespace UltimateChanger
 
             btnFindPaths.Background = (Brush)converter.ConvertFromString("#FF616161");
             btnFindPaths.Foreground = (Brush)converter.ConvertFromString("#E5FFFFFF");
+            progressAdvanceInstall.Visibility = Visibility.Hidden;
+            cmbLastselected.ItemsSource = getLastUsedPaths();
         }
 
         public void updateListUI(object sender, EventArgs e)
@@ -61,12 +63,55 @@ namespace UltimateChanger
             {
                 ListBoxBuilds.ItemsSource = PathTobuildsUI;
                 FindingPaths.Stop();
+                progressAdvanceInstall.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                progressAdvanceInstall.Value += 10;
+     
+                if (progressAdvanceInstall.Value == 100 )
+                {
+                    progressAdvanceInstall.Value = 0;                    
+                }
             }
         }
 
-        
+        public List<string> getLastUsedPaths()
+        {
+            if (!File.Exists(@"C:\Program Files\UltimateChanger\Settings\LastUsedRootPaths.txt"))
+            {
+                try
+                {
+                    File.Create(@"C:\Program Files\UltimateChanger\Settings\LastUsedRootPaths.txt");
+                }
+                catch (Exception x)
+                {
+                    MessageBox.Show(x.ToString());
+                    return null;
+                }
+                
+                return null;
+            }
 
+            List<string> Roots = new List<string>();
 
+            Roots = File.ReadAllLines(@"C:\Program Files\UltimateChanger\Settings\LastUsedRootPaths.txt").ToList();
+
+            return Roots;
+        }
+        public void writeRootPath(string path)
+        {
+            List<string> Roots = new List<string>();
+
+            Roots = File.ReadAllLines(@"C:\Program Files\UltimateChanger\Settings\LastUsedRootPaths.txt").ToList();
+            if (Roots.Count == 10)
+            {
+                Roots.Clear();
+            }
+            Roots.Add(path);
+
+            File.WriteAllLines(@"C:\Program Files\UltimateChanger\Settings\LastUsedRootPaths.txt",Roots);
+        }
 
         public List<string> getPaths()
         {
@@ -94,12 +139,20 @@ namespace UltimateChanger
 
             foreach (var item in Paths)
             {
-                List<string> tmp = Directory.GetFiles(item, "Setup.exe", SearchOption.AllDirectories).ToList();
-                foreach (var item2 in tmp)
+                try
                 {
-                    builds.Add(item2.Remove(0, root.Length));
+                    List<string> tmp = Directory.GetFiles(item, "Setup.exe", SearchOption.AllDirectories).ToList();
+                    foreach (var item2 in tmp)
+                    {
+                        builds.Add(item2.Remove(0, root.Length));
+                    }
+                    PathTobuilds.AddRange(tmp);
                 }
-                PathTobuilds.AddRange(tmp);
+                catch (Exception)
+                {
+
+                }
+               
                 // builds.AddRange(tmp); // dodaje liste wszystkich exe z pathow 
             }
 
@@ -114,15 +167,17 @@ namespace UltimateChanger
                 MessageBox.Show("Add Path(s)");
                 return;
             }
+            writeRootPath(txtpathToBuilds.Text);
             Paths = getPaths();
-            MessageBox.Show("please wait");
+            // dodanie start dl aprogress bar
+            progressAdvanceInstall.Visibility = Visibility.Visible;
             string root = txtpathToBuilds.Text;
             FindingPaths.Start();
             TaskFindBuilds = Task.Run(() =>
             {
                 PathTobuildsUI = findBuildsInPaths(Paths, root);
             });
-
+            cmbLastselected.ItemsSource = getLastUsedPaths();
         }
 
         private void ListBoxBuilds_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -160,6 +215,14 @@ namespace UltimateChanger
                 ((MainWindow)System.Windows.Application.Current.MainWindow).InstallTimer.Start();
             }
             this.Close();
+        }
+
+        private void cmbLastselected_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmbLastselected.SelectedIndex !=-1)
+            {
+                txtpathToBuilds.Text = cmbLastselected.Text;
+            }
         }
     }
 }
