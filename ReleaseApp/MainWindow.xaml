@@ -712,6 +712,7 @@
                         <Button.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Header="Uninstall" Click="View_OnClick_Genie_Uninstall"/>
+                                <MenuItem Header="Delete Trash" Click="View_OnClick_Genie_Delete_Trash"/>
                                 <MenuItem Header="Edit" Click="View_OnClick_Genie_Edit"/>
                                 <!--<MenuItem Header="Setting"/>
                                 <Separator/>
@@ -725,6 +726,7 @@
                         <Button.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Header="Uninstall" Click="View_OnClick_GenieMedical_Uninstall"/>
+                                <MenuItem Header="Delete Trash" Click="View_OnClick_GenieMedical_Delete_Trash"/>
                                 <MenuItem Header="Edit" Click="View_OnClick_GenieMedical_Edit"/>
                                 <!--<MenuItem Header="Setting"/>
                                 <Separator/>
@@ -737,6 +739,7 @@
                         <Button.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Header="Uninstall" Click="View_OnClick_Expressfit_Uninstall"/>
+                                <MenuItem Header="Delete Trash" Click="View_OnClick_Expressfit_Delete_Trash"/>
                                 <MenuItem Header="Edit" Click="View_OnClick_Expressfit_Edit"/>
                                 <!--<MenuItem Header="Setting"/>
                                 <Separator/>
@@ -749,6 +752,7 @@
                         <Button.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Header="Uninstall" Click="View_OnClick_HearSuite_Uninstall"/>
+                                <MenuItem Header="Delete Trash" Click="View_OnClick_HearSuite_Delete_Trash"/>
                                 <MenuItem Header="Edit" Click="View_OnClick_HearSuite_Edit"/>
                                 <!--<MenuItem Header="Setting"/>
                                 <Separator/>
@@ -761,6 +765,7 @@
                         <Button.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Header="Uninstall" Click="View_OnClick_Oasis_Uninstall"/>
+                                <MenuItem Header="Delete Trash" Click="View_OnClick_Oasis_Delete_Trash"/>
                                 <MenuItem Header="Edit" Click="View_OnClick_Oasis_Edit"/>
                                 <!--<MenuItem Header="Setting"/>
                                 <Separator/>

@@ -305,6 +305,33 @@ namespace UltimateChanger
 
         }
 
+        private void View_OnClick_Genie_Delete_Trash(object sender, RoutedEventArgs e)
+        {
+            FittingSoftware_List[0].deleteTrash();
+            refreshUI(new object(), new EventArgs());
+        }
+        private void View_OnClick_GenieMedical_Delete_Trash(object sender, RoutedEventArgs e)
+        {
+            FittingSoftware_List[1].deleteTrash();
+            refreshUI(new object(), new EventArgs());
+        }
+        private void View_OnClick_Expressfit_Delete_Trash(object sender, RoutedEventArgs e)
+        {
+            FittingSoftware_List[2].deleteTrash();
+            refreshUI(new object(), new EventArgs());
+        }
+        private void View_OnClick_HearSuite_Delete_Trash(object sender, RoutedEventArgs e)
+        {
+            FittingSoftware_List[3].deleteTrash();
+            refreshUI(new object(), new EventArgs());
+        }
+        private void View_OnClick_Oasis_Delete_Trash(object sender, RoutedEventArgs e)
+        {
+            FittingSoftware_List[4].deleteTrash();
+            refreshUI(new object(), new EventArgs());
+        }
+        
+
         public void setUIdefaults(SortedDictionary<string, string> settings, string mode) // mode to tryb ustawienia co zmieniasz radiobutton checkbox
         {
 
