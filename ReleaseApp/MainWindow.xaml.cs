@@ -31,7 +31,7 @@ using System.Data;
 using Rekurencjon; // logi
 
 
-[assembly: System.Reflection.AssemblyVersion("4.0.0.0")]
+[assembly: System.Reflection.AssemblyVersion("4.1.0.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window
@@ -56,7 +56,7 @@ namespace UltimateChanger
         List<CheckBox> checkBoxList = new List<CheckBox>();
         List<ComboBox> comboBoxList = new List<ComboBox>();
         string skin_name;
-
+        int savedTime = 0; // to bind => lblSavedTime
         ClickCounter CounterOfclicks = new ClickCounter(10);
 
 
@@ -309,6 +309,7 @@ namespace UltimateChanger
             FittingSoftware_List.Add(new FittingSoftware("Express"));
             FittingSoftware_List.Add(new FittingSoftware("HearSuite"));
             FittingSoftware_List.Add(new FittingSoftware("Oasis"));
+            setNewSavedTime(0);
             refreshUI(new object(), new EventArgs());
 
         }
@@ -319,26 +320,31 @@ namespace UltimateChanger
         {
             instal.UninstallBrand(new List<string>() { FittingSoftware_List[0].Path_Local_Installer }, true);
             InstallTimer_Normal_Installation.Start();
+            setNewSavedTime(15);
         }
         private void View_OnClick_GenieMedical_Uninstall(object sender, RoutedEventArgs e)
         {
             instal.UninstallBrand(new List<string>() { FittingSoftware_List[1].Path_Local_Installer }, true);
             InstallTimer_Normal_Installation.Start();
+            setNewSavedTime(15);
         }
         private void View_OnClick_Expressfit_Uninstall(object sender, RoutedEventArgs e)
         {
             instal.UninstallBrand(new List<string>() { FittingSoftware_List[2].Path_Local_Installer }, true);
             InstallTimer_Normal_Installation.Start();
+            setNewSavedTime(15);
         }
         private void View_OnClick_HearSuite_Uninstall(object sender, RoutedEventArgs e)
         {
             instal.UninstallBrand(new List<string>() { FittingSoftware_List[3].Path_Local_Installer }, true);
             InstallTimer_Normal_Installation.Start();
+            setNewSavedTime(15);
         }
         private void View_OnClick_Oasis_Uninstall(object sender, RoutedEventArgs e)
         {
             instal.UninstallBrand(new List<string>() { FittingSoftware_List[4].Path_Local_Installer }, true);
             InstallTimer_Normal_Installation.Start();
+            setNewSavedTime(15);
         }
 
         private void View_OnClick_Genie_Edit(object sender, RoutedEventArgs e)
@@ -366,26 +372,31 @@ namespace UltimateChanger
         {
             FittingSoftware_List[0].deleteTrash();
             refreshUI(new object(), new EventArgs());
+            setNewSavedTime(20);
         }
         private void View_OnClick_GenieMedical_Delete_Trash(object sender, RoutedEventArgs e)
         {
             FittingSoftware_List[1].deleteTrash();
             refreshUI(new object(), new EventArgs());
+            setNewSavedTime(20);
         }
         private void View_OnClick_Expressfit_Delete_Trash(object sender, RoutedEventArgs e)
         {
             FittingSoftware_List[2].deleteTrash();
             refreshUI(new object(), new EventArgs());
+            setNewSavedTime(20);
         }
         private void View_OnClick_HearSuite_Delete_Trash(object sender, RoutedEventArgs e)
         {
             FittingSoftware_List[3].deleteTrash();
             refreshUI(new object(), new EventArgs());
+            setNewSavedTime(20);
         }
         private void View_OnClick_Oasis_Delete_Trash(object sender, RoutedEventArgs e)
         {
             FittingSoftware_List[4].deleteTrash();
             refreshUI(new object(), new EventArgs());
+            setNewSavedTime(20);
         }
         
 
@@ -608,6 +619,10 @@ namespace UltimateChanger
             StringToUI.Add("rbnLogsAll_NO", "NotSetAll");
             StringToUI.Add("rbnTurnOnVerifit", "TurnOnVerifit");
             StringToUI.Add("rbnTurnOffVerifit", "TurnOffVerifit");
+
+            //get savedTime
+            fileOperator.getSavedTime();
+
         }
 
         public void checkbox(object sender, RoutedEventArgs e)
@@ -988,6 +1003,7 @@ namespace UltimateChanger
 
             //}
             FileOperator.setNextCountUCRun();
+            fileOperator.saveSavedTime(savedTime.ToString());
             dataBaseManager.setLogs(CounterOfclicks, skin_name);
 
         }
@@ -1251,6 +1267,7 @@ namespace UltimateChanger
                     if (checkRunningProcess(item.Name) && !fileOperator.checkInstanceOfFS(licznik))
                     {
                         FittingSoftware_List[licznik].deleteTrash();
+                        setNewSavedTime(5);
                         refreshUI(new object(), new EventArgs());
                         message = message + item.Name + "\n";
                         flag = true;
@@ -1477,7 +1494,7 @@ namespace UltimateChanger
                         if (item.IsChecked.Value)
                         {
                             FittingSoftware_List[licznik].setLogMode(cmbLogMode.Text,cmbLogSettings.SelectedIndex, TabFull.IsEnabled);
-                           
+                            setNewSavedTime(20);
                             message = message + item.Name + "\n";                            
                         }
                         licznik++;
@@ -1536,14 +1553,16 @@ namespace UltimateChanger
                 {
                     if (!fileOperator.checkRunningProcess(item.Name) && item.Name != "Cumulus")
                     {
-                        FittingSoftware_List[licznik].deleteLogs();                      
+                        FittingSoftware_List[licznik].deleteLogs();
+                        setNewSavedTime(10);
                     }
                     else if (item.Name == "Cumulus")
                     {
                           if (!fileOperator.checkRunningProcess("Philips HearSuite"))
                           {
                             FittingSoftware_List[licznik].deleteLogs();
-                          }
+                            setNewSavedTime(10);
+                        }
                     } else
                     {
                          MessageBox.Show("Close FS to Delete Logs");
@@ -2160,6 +2179,7 @@ namespace UltimateChanger
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             fileOperator.KillFS();
+            setNewSavedTime(10);
             CounterOfclicks.AddClick((int)Buttons.Kill);
         }
 
@@ -3423,6 +3443,7 @@ namespace UltimateChanger
             try
             {
                 fileOperator.StartGearbox();
+                setNewSavedTime(5);
             }
             catch (Exception x)
             {
@@ -3580,7 +3601,11 @@ namespace UltimateChanger
                                         if (!FittingSoftware_List[licz].setMarket(BindCombobox.marketIndex[cmbMarket.SelectedIndex])) // jezeli sie nie udalo to zmieniam message
                                         {
                                             message = "error: ";
-                                        }                                       
+                                        }
+                                        else
+                                        {
+                                            setNewSavedTime(10);
+                                        }                                   
                                     }
                                     else
                                     {
@@ -3689,6 +3714,17 @@ namespace UltimateChanger
                     cmbBrandstoinstall.SelectedIndex = 0;
                 }               
             }
+        }
+
+        public void setNewSavedTime(int time_)
+        {
+            savedTime += time_;
+            TimeSpan time = TimeSpan.FromSeconds(savedTime);
+
+            //here backslash is must to tell that colon is
+            //not the part of format, it just a character that we want in output
+            string str = time.ToString(@"hh\:mm\:ss");
+            lblSavedTime.Content = "Saved Time: " + str;
         }
     }
     class RandomHIandHardware

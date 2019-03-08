@@ -1500,5 +1500,30 @@ namespace UltimateChanger
             return listChildProcess;
         }
 
+        public string getSavedTime()
+        {
+            try
+            {
+                return File.ReadAllText(@"C:\Program Files\UltimateChanger\Settings\SavedTime.txt");
+            }
+            catch (Exception)
+            {
+                File.WriteAllText(@"C:\Program Files\UltimateChanger\Settings\SavedTime.txt","0");
+                return "0";
+            }
+        }
+
+        public void saveSavedTime(string time)
+        {
+            try
+            {
+                File.WriteAllText(@"C:\Program Files\UltimateChanger\Settings\SavedTime.txt", time);
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.ToString());
+            }
+        }
+
     }
 }

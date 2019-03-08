@@ -1113,7 +1113,7 @@
                             <ComboBox x:Name="cmbBuild_Compo" Grid.Row="2" Grid.Column="1" SelectionChanged="cmbBuild_Compo_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom"/>
                             <Label Content="Build:" Grid.Row="2" Grid.Column="1" Foreground="White" FontWeight="SemiBold" FontSize="12.5" VerticalAlignment="Top"/>
 
-                            
+
 
                             <Button x:Name="btninstal_Compo" Content="Copy And Run" Click="btninstal_Click" Grid.Row="3" Grid.Column="0" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Center" Margin="10 0"/>
                             <Button x:Name="btnInfo_Compo" Content="Copy path to build" Grid.Row="3" Grid.Column="1" Click="btnInfo_Click" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Center" Margin="10 0"/>
@@ -1636,9 +1636,9 @@
             <Grid x:Name="aboutGrid" Margin="0,2,0,-2">
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="201*"/>
-                    <ColumnDefinition Width="61*"/>
-                    <ColumnDefinition Width="131*"/>
+                    <ColumnDefinition Width="402*"/>
+                    <ColumnDefinition Width="193*"/>
+                    <ColumnDefinition Width="191*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3*"/>
@@ -1693,6 +1693,7 @@
                     <RadioButton x:Name="rbn_ExpressFit" Content="ExpressFit" Checked="Radio_ExpressFit_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
                     <RadioButton x:Name="rbn_Christmas" Content="Christmas" Checked="Radio_Christmas_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
                 </StackPanel>
+                <Label Name="lblSavedTime" ToolTip="HH\MM\SS" Content="zaoszczedzony czas: " Grid.Column="1" HorizontalAlignment="Center" Margin="30,83,26,31" Grid.Row="2" VerticalAlignment="Center" Height="35" Width="150"/>
 
             </Grid>
         </TabItem>
