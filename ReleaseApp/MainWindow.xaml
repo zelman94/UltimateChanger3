@@ -1693,7 +1693,8 @@
                     <RadioButton x:Name="rbn_ExpressFit" Content="ExpressFit" Checked="Radio_ExpressFit_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
                     <RadioButton x:Name="rbn_Christmas" Content="Christmas" Checked="Radio_Christmas_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
                 </StackPanel>
-                <Label Name="lblSavedTime" ToolTip="HH\MM\SS" Content="zaoszczedzony czas: " Grid.Column="1" HorizontalAlignment="Center" Margin="30,83,26,31" Grid.Row="2" VerticalAlignment="Center" Height="35" Width="150"/>
+                <Label Name="lblSavedTime" ToolTip="HH\MM\SS" Content="zaoszczedzony czas: " Grid.Column="1" HorizontalAlignment="Center" Margin="10,35,10,79" Grid.Row="2" VerticalAlignment="Center" Height="34" Width="173"/>
+                <Button Name="btnResetSavedTime" Content="Reset" Grid.Column="1" HorizontalAlignment="Left" Margin="56,91,0,25" Grid.Row="2" Width="76" Height="Auto" Click="btnResetSavedTime_Click"/>
 
             </Grid>
         </TabItem>

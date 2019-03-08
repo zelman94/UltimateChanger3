@@ -56,7 +56,7 @@ namespace UltimateChanger
         List<CheckBox> checkBoxList = new List<CheckBox>();
         List<ComboBox> comboBoxList = new List<ComboBox>();
         string skin_name;
-        int savedTime = 0; // to bind => lblSavedTime
+        int savedTime ; // to bind => lblSavedTime
         ClickCounter CounterOfclicks = new ClickCounter(10);
 
 
@@ -158,8 +158,6 @@ namespace UltimateChanger
                     }
                 }
 
-
-
                 clockManager = new ClockManager();
                 BindCombo = new BindCombobox();
                 InitializeComponent();
@@ -178,9 +176,7 @@ namespace UltimateChanger
                 BindCombo.setReleaseComboBox();
                 BindCombo.setMarketCmb();
                 BindCombo.bindlogmode();
-                bindMarketDictionary();
                 BindCombo.bindListBox();
-
                
                 initializeTimers();
 
@@ -299,9 +295,7 @@ namespace UltimateChanger
             Rekurencja.Interval = new TimeSpan(0, 0, 1);
             Rekurencja.Start();
 
-            InstallTimer_Normal_Installation = new DispatcherTimer();
-            InstallTimer_Normal_Installation.Tick += checkNormal_Installation;
-            InstallTimer_Normal_Installation.Interval = new TimeSpan(0, 0, 10);
+
 
             
             FittingSoftware_List.Add(new FittingSoftware("Genie 2"));
@@ -309,6 +303,7 @@ namespace UltimateChanger
             FittingSoftware_List.Add(new FittingSoftware("Express"));
             FittingSoftware_List.Add(new FittingSoftware("HearSuite"));
             FittingSoftware_List.Add(new FittingSoftware("Oasis"));
+            savedTime = Convert.ToInt32(fileOperator.getSavedTime());
             setNewSavedTime(0);
             refreshUI(new object(), new EventArgs());
 
@@ -916,18 +911,10 @@ namespace UltimateChanger
             {
                 logging.AddLog(x.ToString());
             }
-        }
-        void bindMarketDictionary()// czy to potrzebne ?
-        {
 
-            FStoPath = new Dictionary<string, string>()
-            {
-                {"Oticon",@"D:\moje apki\test"},
-                {"Bernafon",@"D:\moje apki\test"},
-                {"Sonic",@"D:\moje apki\test"}
-            };
-
-
+            InstallTimer_Normal_Installation = new DispatcherTimer();
+            InstallTimer_Normal_Installation.Tick += checkNormal_Installation;
+            InstallTimer_Normal_Installation.Interval = new TimeSpan(0, 0, 10);
         }
 
         void initializeElements()
@@ -3545,6 +3532,13 @@ namespace UltimateChanger
         private void ContextMenu_Genie_IsMouseCapturedChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             MessageBox.Show("test33");
+        }
+
+        private void btnResetSavedTime_Click(object sender, RoutedEventArgs e)
+        {
+            savedTime = 0;
+            setNewSavedTime(0);
+            fileOperator.saveSavedTime("0");
         }
 
         private void rbnTurnOffDevMode_Checked(object sender, RoutedEventArgs e)
