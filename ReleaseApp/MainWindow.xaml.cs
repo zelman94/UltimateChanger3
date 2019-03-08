@@ -48,7 +48,7 @@ namespace UltimateChanger
         // DataBaseManager dataBaseManager;
         DispatcherTimer RefUiTIMER, Rekurencja;
         DispatcherTimer ConnectionToDBTimer;
-       public DispatcherTimer uninstallTimer, checkUpdate, InstallTimer;
+       public DispatcherTimer uninstallTimer, checkUpdate, InstallTimer, InstallTimer_Normal_Installation;
         BindCombobox BindCombo;
         private List<pathAndDir> paths_Dirs = new List<pathAndDir>();
         //string OEMname = "";
@@ -107,7 +107,59 @@ namespace UltimateChanger
                 {
                     System.Environment.Exit(1);
                 }
-               
+
+                if (FileOperator.getCountUCRun() == "0")
+                {
+                    Window ChangeLogWindow = new ChangeLog();
+                    ChangeLogWindow.ShowDialog();
+
+                    //wersja apki
+                    string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
+                    if (version == "4.0.0.0") // jezeli pierwszy start UC4 i versja 4.0.0 to usuń starego updatera i weź nowego 
+                    {
+                        foreach (var item in Directory.GetFiles(@"C:\Program Files\UltimateChanger\Updater"))
+                        {
+                            File.Delete(item); // usuwam starego updatera
+                        }
+
+                        try // dla szczecina
+                        {
+                            foreach (var item in Directory.GetFiles(@"\\10.128.3.1\DFS_data_SSC_FS_Images-SSC\PAZE\change_market\Multi_Changer\currentVersion\update\Updater"))
+                            {
+                                File.Copy(item, @"C:\Program Files\UltimateChanger\Updater\" + System.IO.Path.GetFileName(item));
+                            }
+                            foreach (var item in Directory.GetFiles(@"\\10.128.3.1\DFS_data_SSC_FS_Images-SSC\PAZE\change_market\Multi_Changer\v_4.0.0\update\Settings"))
+                            {
+                                File.Copy(item, @"C:\Program Files\UltimateChanger\Settings\" + System.IO.Path.GetFileName(item),true);
+                            }
+
+                        }
+                        catch (Exception)
+                        {
+
+                            try // dla reszty 
+                            {
+                                foreach (var item in Directory.GetFiles(@"\\demant.com\data\KBN\RnD\FS_Programs\Support_Tools\Ultimate_changer\currentVersion\update\Updater"))
+                                {
+                                    File.Copy(item, @"C:\Program Files\UltimateChanger\Updater\" + System.IO.Path.GetFileName(item));
+                                }
+                                foreach (var item in Directory.GetFiles(@"\\demant.com\data\KBN\RnD\FS_Programs\Support_Tools\Ultimate_changer\v_4.0.0\update\Settings"))
+                                {
+                                    File.Copy(item, @"C:\Program Files\UltimateChanger\Settings\" + System.IO.Path.GetFileName(item), true);
+                                }
+                            }
+                            catch (Exception x) // nie ma dostpeu to info
+                            {
+                                MessageBox.Show("No access ?\n" + x.ToString());
+                            }
+                        }
+
+                    }
+                }
+
+
+
                 clockManager = new ClockManager();
                 BindCombo = new BindCombobox();
                 InitializeComponent();
@@ -247,11 +299,11 @@ namespace UltimateChanger
             Rekurencja.Interval = new TimeSpan(0, 0, 1);
             Rekurencja.Start();
 
-            if (FileOperator.getCountUCRun() == "0")
-            {
-                Window ChangeLogWindow = new ChangeLog();
-                ChangeLogWindow.ShowDialog();
-            }
+            InstallTimer_Normal_Installation = new DispatcherTimer();
+            InstallTimer_Normal_Installation.Tick += checkNormal_Installation;
+            InstallTimer_Normal_Installation.Interval = new TimeSpan(0, 0, 10);
+
+            
             FittingSoftware_List.Add(new FittingSoftware("Genie 2"));
             FittingSoftware_List.Add(new FittingSoftware("Medical"));
             FittingSoftware_List.Add(new FittingSoftware("Express"));
@@ -266,22 +318,27 @@ namespace UltimateChanger
         private void View_OnClick_Genie_Uninstall(object sender, RoutedEventArgs e)
         {
             instal.UninstallBrand(new List<string>() { FittingSoftware_List[0].Path_Local_Installer }, true);
+            InstallTimer_Normal_Installation.Start();
         }
         private void View_OnClick_GenieMedical_Uninstall(object sender, RoutedEventArgs e)
         {
             instal.UninstallBrand(new List<string>() { FittingSoftware_List[1].Path_Local_Installer }, true);
+            InstallTimer_Normal_Installation.Start();
         }
         private void View_OnClick_Expressfit_Uninstall(object sender, RoutedEventArgs e)
         {
             instal.UninstallBrand(new List<string>() { FittingSoftware_List[2].Path_Local_Installer }, true);
+            InstallTimer_Normal_Installation.Start();
         }
         private void View_OnClick_HearSuite_Uninstall(object sender, RoutedEventArgs e)
         {
             instal.UninstallBrand(new List<string>() { FittingSoftware_List[3].Path_Local_Installer }, true);
+            InstallTimer_Normal_Installation.Start();
         }
         private void View_OnClick_Oasis_Uninstall(object sender, RoutedEventArgs e)
         {
             instal.UninstallBrand(new List<string>() { FittingSoftware_List[4].Path_Local_Installer }, true);
+            InstallTimer_Normal_Installation.Start();
         }
 
         private void View_OnClick_Genie_Edit(object sender, RoutedEventArgs e)
@@ -1358,7 +1415,8 @@ namespace UltimateChanger
                         instal.UninstallBrand(path_to_Uninstall, mode_uninstall);
                     }
                     uninstallTimer.Start();
-                MessageBox.Show("Uninstallation in progress");
+                InstallTimer_Normal_Installation.Start();
+               
                 }
                 catch (Exception)
                 {
@@ -1570,6 +1628,7 @@ namespace UltimateChanger
                 {
                     FSInstaller installer = new FSInstaller();
                     installer.InstallBrand(cmbBuild.Text, RBnormal.IsChecked.Value);
+                    InstallTimer_Normal_Installation.Start();
                 }
             }
             else
@@ -1829,6 +1888,15 @@ namespace UltimateChanger
                     InstallTimer.Stop();
                 }
             }
+            else
+            {
+                ProgressInstallation.Value += 10;
+
+                if (ProgressInstallation.Value == 100)
+                {
+                    ProgressInstallation.Value = 0;
+                }
+            }
         }
         private void checkUninstallation_Tick(object sender, EventArgs e)
         {
@@ -1890,6 +1958,28 @@ namespace UltimateChanger
                 return false; // process nie istnieje
             }
         }
+
+        private void checkNormal_Installation(object sender, EventArgs e)
+        {
+            Process currentProcess = Process.GetCurrentProcess();
+            List<string> childs = FileOperator.FindAllProcessesSpawnedBy(Convert.ToUInt32(currentProcess.Id));
+            if (childs.Count>0)
+            {
+                ProgressInstallation.Visibility = Visibility.Visible;
+                ProgressInstallation.Value += 10;
+
+                if (ProgressInstallation.Value == 100)
+                {
+                    ProgressInstallation.Value = 0;
+                }
+            }
+            else
+            {
+                ProgressInstallation.Visibility = Visibility.Hidden;
+            }
+
+        }
+
         private void checkRekurencja(object sender, EventArgs e)
         {
             Process[] pname = Process.GetProcessesByName("Rekurencjon");

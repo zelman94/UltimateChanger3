@@ -687,9 +687,9 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
 
-                
-                
-                
+
+
+
                 <!-- #############################################################   BRAND SECTION    ###################################################### -->
                 <Grid x:Name="BrandSection" Margin="0 0 0 10">
                     <Grid.ColumnDefinitions>
@@ -707,8 +707,8 @@
                     </Grid.RowDefinitions>
 
 
-                    <Button Name="btnGenieImage" Grid.Column="0" Grid.Row="0" Opacity="0.9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Height="auto" Margin="10" Background="White" Click="btnGenieImage_Click" >                       
-                            <Image Source="Images/oticon.png" Margin="5" />
+                    <Button Name="btnGenieImage" Grid.Column="0" Grid.Row="0" Opacity="0.9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Height="auto" Margin="10" Background="White" Click="btnGenieImage_Click" >
+                        <Image Source="Images/oticon.png" Margin="5" />
                         <Button.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Header="Uninstall" Click="View_OnClick_Genie_Uninstall"/>
@@ -773,7 +773,7 @@
                             </ContextMenu>
                         </Button.ContextMenu>
                     </Button>
-                    
+
 
                     <Grid Grid.Row="1" Grid.Column="0" Margin="10 0">
                         <Grid.ColumnDefinitions>
@@ -848,8 +848,9 @@
                     <Border x:Name="Grid1" Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="#FF616161" BorderThickness="0,0,0,1" Margin="10,-2"/>
                     <Border x:Name="Grid3" Grid.Row="3" Grid.ColumnSpan="2" BorderBrush="#FF616161" BorderThickness="0,0,0,1" Margin="10,-2"/>
                     <Border x:Name="Grid5" Grid.Row="5" Grid.ColumnSpan="2" BorderBrush="#FF616161" BorderThickness="0,0,0,1" Margin="10,-2"/>
-                    
-                    <!--TLO NA LOGO--><!--
+
+                    <!--TLO NA LOGO-->
+                    <!--
                     <Rectangle
                         x:Name="oticonRectangle" 
                         Grid.Column="0"
@@ -1050,7 +1051,7 @@
                             <Button x:Name="btnFS" Grid.Row="4" Grid.Column="2" Content="Start FS" Click="btnFSRun" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" VerticalAlignment="Center"/>
                             <Button x:Name="btnHattori" Content="Start Hattori" Click="btnHattori_Click" Grid.Row="4" Grid.Column="3" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" VerticalAlignment="Center"/>
                             <Button x:Name="btnAdvanceInstall" Content="Advance" HorizontalAlignment="Left"  Grid.Row="4" VerticalAlignment="Center" Margin="10,12,0,12" Width="175" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Click="btnAdvanceInstall_Click"/>
-
+                            <ProgressBar Name="ProgressInstallation"  Visibility="Hidden" Height="32" Grid.Row="5" Grid.Column="0" VerticalAlignment ="Center" Margin="19,12,0,13" HorizontalAlignment="Left" Width="156" BorderBrush="#FF424242" Background="#FF616161" Foreground="White"/>
                         </Grid>
                     </TabItem>
                     <TabItem Name="TabCompo" Header="Composition" Foreground="White">
@@ -1112,6 +1113,8 @@
                             <ComboBox x:Name="cmbBuild_Compo" Grid.Row="2" Grid.Column="1" SelectionChanged="cmbBuild_Compo_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom"/>
                             <Label Content="Build:" Grid.Row="2" Grid.Column="1" Foreground="White" FontWeight="SemiBold" FontSize="12.5" VerticalAlignment="Top"/>
 
+                            
+
                             <Button x:Name="btninstal_Compo" Content="Copy And Run" Click="btninstal_Click" Grid.Row="3" Grid.Column="0" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Center" Margin="10 0"/>
                             <Button x:Name="btnInfo_Compo" Content="Copy path to build" Grid.Row="3" Grid.Column="1" Click="btnInfo_Click" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" VerticalAlignment="Center" Margin="10 0"/>
                             <Button x:Name="btnuninstal_Compo"  Grid.Row="5" Content="Delete FS" Click="btnDeleteC_Compo_Click" Grid.Column="2" ToolTip="Selected FS will be Deleted" IsEnabled="false" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" VerticalAlignment="Center"/>
@@ -1134,9 +1137,10 @@
                             <Button x:Name="btnFS_Compo" Grid.Row="4" Grid.Column="2" Content="Start FS" Click="btnFSRun" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" VerticalAlignment="Center"/>
                             <Button x:Name="btnHattori_Compo" Content="Start Hattori" Click="btnHattori_Click" Grid.Row="4" Grid.Column="3" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" VerticalAlignment="Center"/>
                         </Grid>
-                        
-                        
+
+
                     </TabItem>
+
                 </TabControl>
 
 

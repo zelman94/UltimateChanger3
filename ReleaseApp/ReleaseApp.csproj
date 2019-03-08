@@ -188,6 +188,23 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Downgrade\NOAHlink WLP downgrade\Noahlink Wireless Upgrader instructions.pdf" />
+    <None Include="Downgrade\Production\Controller\AT91SAM4S16C.jflash" />
+    <None Include="Downgrade\Production\Controller\ETC\JFlash\Flash.csv" />
+    <None Include="Downgrade\Production\Controller\ETC\JFlash\MCU.csv" />
+    <None Include="Downgrade\Production\Controller\ResetScript" />
+    <None Include="Downgrade\Production\CPLD\WLP_CPLD.pof" />
+    <None Include="Downgrade\Production\Dongle 2.0.2 Downgrade\Downgrade Dongle.cmd" />
+    <None Include="Downgrade\Production\Dongle 2.0.2 Downgrade\leyline_wireless_usb_dongle_202_full.dfu" />
+    <None Include="Downgrade\Production\DongleInitialize.cmd" />
+    <None Include="Downgrade\Production\DongleProduction.cmd" />
+    <None Include="Downgrade\Production\DongleUpgrade.cmd" />
+    <None Include="Downgrade\Production\Dongle\bdaddr.psq" />
+    <None Include="Downgrade\Production\Dongle\Upgrade\Upgrade.exe.config" />
+    <None Include="Downgrade\Production\Release_Test.bat" />
+    <None Include="Downgrade\Production\Release_Test_Light.bat" />
+    <None Include="Downgrade\Production\WirelessProgrammerFQCAComplete.cmd" />
+    <None Include="Downgrade\Production\WirelessProgrammerFQCASettingsOnly.cmd" />
     <None Include="UpdaterCopy.exe.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -197,6 +214,55 @@
     <Content Include="ChangeLogUC3.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Downgrade\NOAHlink WLP downgrade\howto.txt" />
+    <Content Include="Downgrade\NOAHlink WLP downgrade\NLWUpgrader_11063s.exe" />
+    <Content Include="Downgrade\Production\Bluetooth\BlueFlashCmd.exe" />
+    <Content Include="Downgrade\Production\Bluetooth\flash.dll" />
+    <Content Include="Downgrade\Production\Bluetooth\pscli.exe" />
+    <Content Include="Downgrade\Production\Bluetooth\pshelp.dll" />
+    <Content Include="Downgrade\Production\Bluetooth\pttransport.dll" />
+    <Content Include="Downgrade\Production\Bluetooth\usbspi.dll" />
+    <Content Include="Downgrade\Production\Controller\JFlashARM.exe" />
+    <Content Include="Downgrade\Production\Controller\JLink.exe" />
+    <Content Include="Downgrade\Production\Controller\JLinkARM.dll" />
+    <Content Include="Downgrade\Production\Controller\ToolBackdoor.exe" />
+    <Content Include="Downgrade\Production\Controller\ToolProgramController.exe" />
+    <Resource Include="Downgrade\Production\Dongle 2.0.2 Downgrade\README.txt" />
+    <Content Include="Downgrade\Production\Dongle\BTD800DFUmode.exe" />
+    <Content Include="Downgrade\Production\Dongle\CsrUpgrade.exe" />
+    <Content Include="Downgrade\Production\Dongle\DFUEngine.dll" />
+    <Content Include="Downgrade\Production\Dongle\DFUmode.exe" />
+    <Content Include="Downgrade\Production\Dongle\SecomParser.dll" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\CosmosBase.dll" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\CosmosInterfaces.dll" />
+    <Resource Include="Downgrade\Production\Dongle\Upgrade\CosmosInterfaces.XML" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\CosmosModules.dll" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\LeylineDevice.CosmosPlugin.dll" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\LeylineFitting.CosmosPlugin.dll" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\LeylineProxyDevice.CosmosPlugin.dll" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\LeylineProxyFirmwareUpgrade.CosmosPlugin.dll" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\Nautilus.dll" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\Upgrade.exe" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\UsbHidTransport.dll" />
+    <Content Include="Downgrade\Production\Dongle\Upgrade\WinUsbTransport.dll" />
+    <Content Include="Downgrade\Production\EngineFrameworkCpp.dll" />
+    <Content Include="Downgrade\Production\FQCA.exe" />
+    <Resource Include="Downgrade\Production\HOWTO upgrade dongle FW.txt" />
+    <Content Include="Downgrade\Production\msvcp100.dll" />
+    <Content Include="Downgrade\Production\msvcp100d.dll" />
+    <Content Include="Downgrade\Production\msvcr100.dll" />
+    <Content Include="Downgrade\Production\msvcr100d.dll" />
+    <Content Include="Downgrade\Production\pttransport.dll" />
+    <Resource Include="Downgrade\Production\README_FQCA.txt" />
+    <Content Include="Downgrade\Production\spilpt.dll" />
+    <Content Include="Downgrade\Production\TestEngine.dll" />
+    <Content Include="Downgrade\Production\ToolCheckDongle.exe" />
+    <Content Include="Downgrade\Production\ToolOOBPairing.exe" />
+    <Content Include="Downgrade\Production\usbspi.dll" />
+    <Content Include="Downgrade\Production\vcredist_x86.EXE" />
+    <Content Include="Downgrade\Production\WLPInterface.dll" />
+    <Content Include="Downgrade\Production\WLPInterface.h" />
+    <Content Include="Downgrade\Production\ykush.exe" />
     <Content Include="Images\icon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -243,23 +309,23 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Settings\Ficzurs.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Settings\Hardware.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Settings\HIs.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Settings\myTeam.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Settings\Paths.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Settings\Releases.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -339,7 +405,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Settings\Defaults.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>

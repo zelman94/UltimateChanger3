@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace UltimateChanger
 {
@@ -24,6 +25,9 @@ namespace UltimateChanger
         public string OEM;
         public string SelectedLanguage;
         public string LogMode;
+        DispatcherTimer Timer_InfoFS; // timer do sprawdzania info o buildach
+        List<string> ListPathsToAboutInfo = new List<string>();
+        List<string> ListpathsToManInfo = new List<string>();
 
         FileOperator fileOperator = new FileOperator();
 
@@ -75,8 +79,7 @@ namespace UltimateChanger
                     indexFS = -1;
                     break;
             }
-            List<string> ListPathsToAboutInfo = new List<string>();
-            List<string> ListpathsToManInfo = new List<string>();
+
 
             ListpathsToManInfo = BuildInfo.ListPathsToManInfo;
             ListPathsToAboutInfo = BuildInfo.ListPathsToAboutInfo;
@@ -88,9 +91,26 @@ namespace UltimateChanger
             SelectedLanguage = infoAboutFS.SelectedLanguage;
             Version = infoAboutFS.Version;
             LogMode = fileOperator.getLogMode(indexFS, PathToLogMode)[0];
+
+
+            Timer_InfoFS = new DispatcherTimer();
+            Timer_InfoFS.Tick += updateInfoFS;
+            Timer_InfoFS.Interval = new TimeSpan(0, 0, 10);
+            Timer_InfoFS.Start();
+
         }
 
-        public string findUnInstaller()
+        public void updateInfoFS(object sender, EventArgs e)
+        {
+            BuildInfo infoAboutFS = fileOperator.GetInfoAboutFs(ListpathsToManInfo[indexFS], ListPathsToAboutInfo[indexFS]);
+            Market = infoAboutFS.MarketName;
+            OEM = infoAboutFS.OEM;
+            SelectedLanguage = infoAboutFS.SelectedLanguage;
+            Version = infoAboutFS.Version;
+            LogMode = fileOperator.getLogMode(indexFS, PathToLogMode)[0];
+        }
+
+            public string findUnInstaller()
         {
             var allFiles = Directory.GetFiles(@"C:\ProgramData\Package Cache", "*.exe", SearchOption.AllDirectories);
             foreach (var item in allFiles)
@@ -165,7 +185,16 @@ namespace UltimateChanger
             TrashCleaner smieciarka = new TrashCleaner();
             foreach (var item in PathTrash)
             {
-                smieciarka.DeleteTrash(item);
+                if (Version=="")
+                {
+                    smieciarka.DeleteTrash(item);
+                }
+                else
+                {
+                    MessageBox.Show("Please Uninstall FS");
+                    return;
+                }
+                
             }    
         }
 

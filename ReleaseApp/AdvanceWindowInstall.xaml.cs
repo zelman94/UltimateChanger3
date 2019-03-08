@@ -126,16 +126,12 @@ namespace UltimateChanger
                 MessageBox.Show(x.ToString());
             }
 
-
-
             return Paths;
         }
         public List<string> findBuildsInPaths(List<string> Paths, string root)
         {
 
             List<string> builds = new List<string>();
-
-
 
             foreach (var item in Paths)
             {
@@ -219,6 +215,7 @@ namespace UltimateChanger
 
         private void cmbLastselected_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            cmbLastselected.Items.Refresh();
             if (cmbLastselected.SelectedIndex !=-1)
             {
                 txtpathToBuilds.Text = cmbLastselected.Text;
