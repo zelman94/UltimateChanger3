@@ -94,7 +94,7 @@ namespace UltimateChanger
 
         public string Advance_1 = "", Advance_2 = "", Advance_3 = "";
 
-        List<FittingSoftware> FittingSoftware_List = new List<FittingSoftware>();
+       public List<FittingSoftware> FittingSoftware_List = new List<FittingSoftware>();
 
         public MainWindow()
         {
@@ -344,7 +344,9 @@ namespace UltimateChanger
 
         private void View_OnClick_Genie_Edit(object sender, RoutedEventArgs e)
         {
-
+            Window EditFittingSoftware = new EditFittingSoftware(FittingSoftware_List[0]);
+            //downgrade.ShowDialog();
+            EditFittingSoftware.ShowDialog();
         }
         private void View_OnClick_GenieMedical_Edit(object sender, RoutedEventArgs e)
         {
@@ -1244,7 +1246,7 @@ namespace UltimateChanger
         {
             TrashCleaner smieciarka = new TrashCleaner();
             byte licznik = 0;
-            bool flag = false;
+
             string message = "Deleted: \n";
             string message2 = "Close FS or uninstall: \n";
             foreach (var item in checkBoxList)
@@ -1257,7 +1259,7 @@ namespace UltimateChanger
                         setNewSavedTime(5);
                         refreshUI(new object(), new EventArgs());
                         message = message + item.Name + "\n";
-                        flag = true;
+
                     }
                     else
                     {
@@ -1266,10 +1268,9 @@ namespace UltimateChanger
                 }
                 licznik++;
             }
-            if (flag)
-            {
+         
                 MessageBox.Show(message + message2);
-            }     
+                
         }
         private void btnFS_Click(object sender, RoutedEventArgs e)
         {

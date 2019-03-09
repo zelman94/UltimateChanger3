@@ -10,7 +10,7 @@ using System.Windows.Threading;
 
 namespace UltimateChanger
 {
-    class FittingSoftware
+    public class FittingSoftware
     {
         public string Name_FS;
         public string Path_Local_Installer;
@@ -28,15 +28,34 @@ namespace UltimateChanger
         DispatcherTimer Timer_InfoFS; // timer do sprawdzania info o buildach
         List<string> ListPathsToAboutInfo = new List<string>();
         List<string> ListpathsToManInfo = new List<string>();
-
+        public string pathToExe, pathToManu;
         FileOperator fileOperator = new FileOperator();
+        public bool composition;
 
-        public FittingSoftware(string Name)
+
+        public FittingSoftware(FittingSoftware tmpFS)
+        {
+            Name_FS = tmpFS.Name_FS;
+            Path_Local_Installer = tmpFS.Path_Local_Installer;
+            Version = tmpFS.Version;
+            Market = tmpFS.Market;
+            customPath = false;
+            Brand = tmpFS.Brand;
+            PathTrash = tmpFS.PathTrash;
+            PathToLogMode = tmpFS.PathToLogMode;
+            pathToLogs = tmpFS.pathToLogs;
+            OEM = tmpFS.OEM;
+            SelectedLanguage = tmpFS.SelectedLanguage;
+            LogMode = tmpFS.LogMode;
+            pathToExe = tmpFS.pathToExe;
+            pathToManu = tmpFS.pathToManu;
+        }
+        public FittingSoftware(string Name,bool composition = false)
         {
             Name_FS = Name;
             Path_Local_Installer = findUnInstaller();
             Version = getFS_Version();
-            Market = getMarket();
+           // Market = getMarket();
             customPath = false;
             switch (Name)
             {
@@ -46,6 +65,7 @@ namespace UltimateChanger
                     PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
                     PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
                     pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
+                    this.composition = composition;
                     break;
                 case ("Medical"):
                     indexFS = 1;
@@ -53,6 +73,7 @@ namespace UltimateChanger
                     PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
                     PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
                     pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
+                    this.composition = composition;
                     break;
                 case ("Express"):
                     indexFS = 2;
@@ -60,6 +81,7 @@ namespace UltimateChanger
                     PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
                     PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
                     pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
+                    this.composition = composition;
                     break;
                 case ("HearSuite"):
                     indexFS = 3;
@@ -67,6 +89,7 @@ namespace UltimateChanger
                     PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
                     PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
                     pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
+                    this.composition = composition;
                     break;
                 case ("Oasis"):
                     indexFS = 4;
@@ -74,16 +97,18 @@ namespace UltimateChanger
                     PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
                     PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
                     pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
+                    this.composition = composition;
                     break;
                 default:
                     indexFS = -1;
                     break;
             }
-
+            pathToExe = BuildInfo.ListPathsToSetup[indexFS];
 
             ListpathsToManInfo = BuildInfo.ListPathsToManInfo;
             ListPathsToAboutInfo = BuildInfo.ListPathsToAboutInfo;
 
+            pathToManu = ListpathsToManInfo[indexFS];
             BuildInfo infoAboutFS = fileOperator.GetInfoAboutFs(ListpathsToManInfo[indexFS], ListPathsToAboutInfo[indexFS]);
             //Brand = infoAboutFS.Brand;
             Market = infoAboutFS.MarketName;

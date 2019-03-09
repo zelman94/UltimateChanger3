@@ -128,6 +128,9 @@
     <Compile Include="DowngradeWindow.xaml.cs">
       <DependentUpon>DowngradeWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EditFittingSoftware.xaml.cs">
+      <DependentUpon>EditFittingSoftware.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FittingSoftware.cs" />
     <Compile Include="FSInstaller.cs" />
     <Compile Include="Hardware.cs" />
@@ -153,6 +156,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DowngradeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditFittingSoftware.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
