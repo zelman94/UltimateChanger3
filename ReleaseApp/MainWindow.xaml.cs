@@ -303,6 +303,11 @@ namespace UltimateChanger
             FittingSoftware_List.Add(new FittingSoftware("Express"));
             FittingSoftware_List.Add(new FittingSoftware("HearSuite"));
             FittingSoftware_List.Add(new FittingSoftware("Oasis"));
+            FittingSoftware_List.Add(new FittingSoftware("Genie 2_Compo"));
+            FittingSoftware_List.Add(new FittingSoftware("Medical_Compo"));
+            FittingSoftware_List.Add(new FittingSoftware("Express_Compo"));
+            FittingSoftware_List.Add(new FittingSoftware("HearSuite_Compo"));
+            FittingSoftware_List.Add(new FittingSoftware("Oasis_Compo"));
             savedTime = Convert.ToInt32(fileOperator.getSavedTime());
             setNewSavedTime(0);
             refreshUI(new object(), new EventArgs());
@@ -313,56 +318,128 @@ namespace UltimateChanger
 
         private void View_OnClick_Genie_Uninstall(object sender, RoutedEventArgs e)
         {
-            instal.UninstallBrand(new List<string>() { FittingSoftware_List[0].Path_Local_Installer }, true);
-            InstallTimer_Normal_Installation.Start();
+            
+            if (TabFull.IsSelected)
+            {
+                instal.UninstallBrand(new List<string>() { FittingSoftware_List[0].Path_Local_Installer }, true);
+                InstallTimer_Normal_Installation.Start();
+            }
+            else
+            {
+                // usuwanie kompozycji
+            }
             setNewSavedTime(15);
         }
         private void View_OnClick_GenieMedical_Uninstall(object sender, RoutedEventArgs e)
         {
-            instal.UninstallBrand(new List<string>() { FittingSoftware_List[1].Path_Local_Installer }, true);
-            InstallTimer_Normal_Installation.Start();
+
+            if (TabFull.IsSelected)
+            {
+                instal.UninstallBrand(new List<string>() { FittingSoftware_List[1].Path_Local_Installer }, true);
+                InstallTimer_Normal_Installation.Start();
+            }
             setNewSavedTime(15);
         }
         private void View_OnClick_Expressfit_Uninstall(object sender, RoutedEventArgs e)
         {
-            instal.UninstallBrand(new List<string>() { FittingSoftware_List[2].Path_Local_Installer }, true);
-            InstallTimer_Normal_Installation.Start();
+
+            if (TabFull.IsSelected)
+            {
+                instal.UninstallBrand(new List<string>() { FittingSoftware_List[2].Path_Local_Installer }, true);
+                InstallTimer_Normal_Installation.Start();
+            }
             setNewSavedTime(15);
         }
         private void View_OnClick_HearSuite_Uninstall(object sender, RoutedEventArgs e)
         {
-            instal.UninstallBrand(new List<string>() { FittingSoftware_List[3].Path_Local_Installer }, true);
-            InstallTimer_Normal_Installation.Start();
+
+            if (TabFull.IsSelected)
+            {
+                instal.UninstallBrand(new List<string>() { FittingSoftware_List[3].Path_Local_Installer }, true);
+                InstallTimer_Normal_Installation.Start();
+            }
             setNewSavedTime(15);
         }
         private void View_OnClick_Oasis_Uninstall(object sender, RoutedEventArgs e)
         {
-            instal.UninstallBrand(new List<string>() { FittingSoftware_List[4].Path_Local_Installer }, true);
-            InstallTimer_Normal_Installation.Start();
+
+            if (TabFull.IsSelected)
+            {
+                instal.UninstallBrand(new List<string>() { FittingSoftware_List[4].Path_Local_Installer }, true);
+                InstallTimer_Normal_Installation.Start();
+            }
             setNewSavedTime(15);
         }
 
         private void View_OnClick_Genie_Edit(object sender, RoutedEventArgs e)
         {
-            Window EditFittingSoftware = new EditFittingSoftware(FittingSoftware_List[0]);
-            //downgrade.ShowDialog();
+            Window EditFittingSoftware = null;
+
+            if (TabFull.IsSelected)
+            {
+                EditFittingSoftware = new EditFittingSoftware(FittingSoftware_List[0]);
+            }
+            else
+            {
+                EditFittingSoftware = new EditFittingSoftware(FittingSoftware_List[5]);
+            }
             EditFittingSoftware.ShowDialog();
         }
         private void View_OnClick_GenieMedical_Edit(object sender, RoutedEventArgs e)
         {
+            Window EditFittingSoftware = null;
 
+            if (TabFull.IsSelected)
+            {
+                EditFittingSoftware = new EditFittingSoftware(FittingSoftware_List[1]);
+            }
+            else
+            {
+                EditFittingSoftware = new EditFittingSoftware(FittingSoftware_List[6]);
+            }
+            EditFittingSoftware.ShowDialog();
         }
         private void View_OnClick_Expressfit_Edit(object sender, RoutedEventArgs e)
         {
+            Window EditFittingSoftware = null;
 
+            if (TabFull.IsSelected)
+            {
+                EditFittingSoftware = new EditFittingSoftware(FittingSoftware_List[2]);
+            }
+            else
+            {
+                EditFittingSoftware = new EditFittingSoftware(FittingSoftware_List[7]);
+            }
+            EditFittingSoftware.ShowDialog();
         }
         private void View_OnClick_HearSuite_Edit(object sender, RoutedEventArgs e)
         {
+            Window EditFittingSoftware = null;
 
+            if (TabFull.IsSelected)
+            {
+                EditFittingSoftware = new EditFittingSoftware(FittingSoftware_List[3]);
+            }
+            else
+            {
+                EditFittingSoftware = new EditFittingSoftware(FittingSoftware_List[8]);
+            }
+            EditFittingSoftware.ShowDialog();
         }
         private void View_OnClick_Oasis_Edit(object sender, RoutedEventArgs e)
         {
+            Window EditFittingSoftware = null;
 
+            if (TabFull.IsSelected)
+            {
+                EditFittingSoftware = new EditFittingSoftware(FittingSoftware_List[4]);
+            }
+            else
+            {
+                EditFittingSoftware = new EditFittingSoftware(FittingSoftware_List[9]);
+            }
+            EditFittingSoftware.ShowDialog();
         }
 
         private void View_OnClick_Genie_Delete_Trash(object sender, RoutedEventArgs e)
@@ -809,7 +886,7 @@ namespace UltimateChanger
                 foreach (var item in FittingSoftware_List)
                 {
                     ListFSButtons[counter].ToolTip = item.Brand + ", " + item.OEM + "\n" + item.LogMode;
-                    if (item.Brand == "")
+                    if (item.Version == "")
                     {
                         ListFSButtons[counter].ToolTip = null;
                     }
@@ -861,7 +938,7 @@ namespace UltimateChanger
 
         }
 
-        public void chechUpdateOnServer(object sender, EventArgs e)
+        public void checkUpdateOnServer(object sender, EventArgs e)
         {
             fileOperator.checkVersion();
         }
@@ -893,7 +970,7 @@ namespace UltimateChanger
             RefUiTIMER.Start();
 
             checkUpdate = new DispatcherTimer();
-            checkUpdate.Tick += chechUpdateOnServer;
+            checkUpdate.Tick += checkUpdateOnServer;
             checkUpdate.Interval = new TimeSpan(1, 0, 0);
             checkUpdate.Start();
 
@@ -996,8 +1073,6 @@ namespace UltimateChanger
             dataBaseManager.setLogs(CounterOfclicks, skin_name);
 
         }
-
-
 
         void changeMarket(string source)
         {
@@ -1982,6 +2057,7 @@ namespace UltimateChanger
             }
             else
             {
+                InstallTimer_Normal_Installation.Stop();
                 ProgressInstallation.Visibility = Visibility.Hidden;
             }
 

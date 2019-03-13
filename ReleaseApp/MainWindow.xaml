@@ -1051,10 +1051,10 @@
                             <Button x:Name="btnFS" Grid.Row="4" Grid.Column="2" Content="Start FS" Click="btnFSRun" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" VerticalAlignment="Center"/>
                             <Button x:Name="btnHattori" Content="Start Hattori" Click="btnHattori_Click" Grid.Row="4" Grid.Column="3" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10 0" VerticalAlignment="Center"/>
                             <Button x:Name="btnAdvanceInstall" Content="Advance" HorizontalAlignment="Left"  Grid.Row="4" VerticalAlignment="Center" Margin="10,12,0,12" Width="175" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Click="btnAdvanceInstall_Click"/>
-                            <ProgressBar Name="ProgressInstallation"  Visibility="Hidden" Height="32" Grid.Row="5" Grid.Column="0" VerticalAlignment ="Center" Margin="19,12,0,13" HorizontalAlignment="Left" Width="156" BorderBrush="#FF424242" Background="#FF616161" Foreground="White"/>
+                            <ProgressBar Name="ProgressInstallation" ToolTip="Uninstall in progress"  Visibility="Hidden" Height="32" Grid.Row="5" Grid.Column="0" VerticalAlignment ="Center" Margin="19,12,0,13" HorizontalAlignment="Left" Width="156" BorderBrush="#FF424242" Background="#FF616161" Foreground="White"/>
                         </Grid>
                     </TabItem>
-                    <TabItem Name="TabCompo" Header="Composition" Foreground="White">
+                    <TabItem Name="TabCompo" Header="Composition" Foreground="White" IsEnabled="False">
                         <Grid x:Name="RightBottom_Compo" Grid.Column="1" Grid.Row="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"/>

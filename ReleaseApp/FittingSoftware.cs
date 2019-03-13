@@ -30,7 +30,8 @@ namespace UltimateChanger
         List<string> ListpathsToManInfo = new List<string>();
         public string pathToExe, pathToManu;
         FileOperator fileOperator = new FileOperator();
-        public bool composition;
+        public bool composition,uninstallation=false;
+
 
 
         public FittingSoftware(FittingSoftware tmpFS)
@@ -103,30 +104,46 @@ namespace UltimateChanger
                     indexFS = -1;
                     break;
             }
-            pathToExe = BuildInfo.ListPathsToSetup[indexFS];
+            if (indexFS>-1)
+            {
+                pathToExe = BuildInfo.ListPathsToSetup[indexFS];
 
-            ListpathsToManInfo = BuildInfo.ListPathsToManInfo;
-            ListPathsToAboutInfo = BuildInfo.ListPathsToAboutInfo;
+                ListpathsToManInfo = BuildInfo.ListPathsToManInfo;
+                ListPathsToAboutInfo = BuildInfo.ListPathsToAboutInfo;
 
-            pathToManu = ListpathsToManInfo[indexFS];
-            BuildInfo infoAboutFS = fileOperator.GetInfoAboutFs(ListpathsToManInfo[indexFS], ListPathsToAboutInfo[indexFS]);
-            //Brand = infoAboutFS.Brand;
-            Market = infoAboutFS.MarketName;
-            OEM = infoAboutFS.OEM;
-            SelectedLanguage = infoAboutFS.SelectedLanguage;
-            Version = infoAboutFS.Version;
-            LogMode = fileOperator.getLogMode(indexFS, PathToLogMode)[0];
-
-
-            Timer_InfoFS = new DispatcherTimer();
-            Timer_InfoFS.Tick += updateInfoFS;
-            Timer_InfoFS.Interval = new TimeSpan(0, 0, 10);
-            Timer_InfoFS.Start();
-
+                pathToManu = ListpathsToManInfo[indexFS];
+                BuildInfo infoAboutFS = fileOperator.GetInfoAboutFs(ListpathsToManInfo[indexFS], ListPathsToAboutInfo[indexFS]);
+                //Brand = infoAboutFS.Brand;
+                Market = infoAboutFS.MarketName;
+                OEM = infoAboutFS.OEM;
+                SelectedLanguage = infoAboutFS.SelectedLanguage;
+                Version = infoAboutFS.Version;
+                LogMode = fileOperator.getLogMode(indexFS, PathToLogMode)[0];
+                Timer_InfoFS = new DispatcherTimer();
+                Timer_InfoFS.Tick += updateInfoFS;
+                Timer_InfoFS.Interval = new TimeSpan(0, 0, 10);
+                Timer_InfoFS.Start();
+            }
+            else
+            {
+                pathToExe = "";
+                pathToManu = "";              
+                Market = "";
+                OEM = "";
+                SelectedLanguage = "";
+                Version = "";
+                LogMode = "";
+            }
         }
 
         public void updateInfoFS(object sender, EventArgs e)
         {
+            if (uninstallation)
+            {
+                Market = "Uninstallation";
+                return;
+            }
+
             BuildInfo infoAboutFS = fileOperator.GetInfoAboutFs(ListpathsToManInfo[indexFS], ListPathsToAboutInfo[indexFS]);
             Market = infoAboutFS.MarketName;
             OEM = infoAboutFS.OEM;
@@ -136,7 +153,7 @@ namespace UltimateChanger
         }
 
             public string findUnInstaller()
-        {
+            {
             var allFiles = Directory.GetFiles(@"C:\ProgramData\Package Cache", "*.exe", SearchOption.AllDirectories);
             foreach (var item in allFiles)
             {
@@ -246,14 +263,13 @@ namespace UltimateChanger
             }
 
         }
+        public void setUninstallation(bool status)
+        {
+            uninstallation = status;
+        }
 
         public string getFS_Version()
         {
-            List<string> ListPathsToAboutInfo = new List<string>();
-            List<string> ListpathsToManInfo = new List<string>();
-            
-                ListpathsToManInfo = BuildInfo.ListPathsToManInfo;
-                ListPathsToAboutInfo = BuildInfo.ListPathsToAboutInfo;
 
             //ListpathsToManInfo = BuildInfo.ListPathsToManInfo; // zakomentować gdy juz dopisze funkcje
 

@@ -100,7 +100,7 @@ namespace UltimateChanger
             }
 
             ((MainWindow)System.Windows.Application.Current.MainWindow).FittingSoftware_List[FS.indexFS] = FS;
-
+            this.Close();
         }
 
         public static IEnumerable<T> FindLogicalChildren<T>(DependencyObject obj) where T : DependencyObject
