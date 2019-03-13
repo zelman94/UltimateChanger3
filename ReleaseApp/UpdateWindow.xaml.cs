@@ -31,6 +31,7 @@ namespace UltimateChanger
             IMAGES = copyImages;
 
             InitializeComponent();
+
             //txtInfoUpdate.Text = info;
         }
 
@@ -111,9 +112,8 @@ namespace UltimateChanger
         }
 
         private void btnInfoUpdate_Click(object sender, RoutedEventArgs e)
-        {
-          
-            MessageBox.Show(INFO);
+        {          
+            MessageBox.Show("New version contain:\n" + INFO);
         }
 
         private void txtInfoUpdate_TextChanged(object sender, TextChangedEventArgs e)

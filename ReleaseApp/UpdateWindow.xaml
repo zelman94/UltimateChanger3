@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UltimateChanger"
         mc:Ignorable="d"
-        Title="UpdateWindow" Height="350" Width="350" ResizeMode="NoResize">
+        Title="UpdateWindow" Height="350" Width="350" ResizeMode="NoResize" Focusable="True" Topmost="True">
 
     <Grid>
         <Grid.ColumnDefinitions>
