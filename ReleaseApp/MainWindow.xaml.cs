@@ -383,6 +383,8 @@ namespace UltimateChanger
             {
                 EditFittingSoftware = new EditFittingSoftware(FittingSoftware_List[5]);
             }
+            EditFittingSoftware.Owner = this;
+            EditFittingSoftware.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             EditFittingSoftware.ShowDialog();
         }
         private void View_OnClick_GenieMedical_Edit(object sender, RoutedEventArgs e)
@@ -397,6 +399,8 @@ namespace UltimateChanger
             {
                 EditFittingSoftware = new EditFittingSoftware(FittingSoftware_List[6]);
             }
+            EditFittingSoftware.Owner = this;
+            EditFittingSoftware.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             EditFittingSoftware.ShowDialog();
         }
         private void View_OnClick_Expressfit_Edit(object sender, RoutedEventArgs e)
@@ -411,6 +415,8 @@ namespace UltimateChanger
             {
                 EditFittingSoftware = new EditFittingSoftware(FittingSoftware_List[7]);
             }
+            EditFittingSoftware.Owner = this;
+            EditFittingSoftware.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             EditFittingSoftware.ShowDialog();
         }
         private void View_OnClick_HearSuite_Edit(object sender, RoutedEventArgs e)
@@ -425,6 +431,8 @@ namespace UltimateChanger
             {
                 EditFittingSoftware = new EditFittingSoftware(FittingSoftware_List[8]);
             }
+            EditFittingSoftware.Owner = this;
+            EditFittingSoftware.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             EditFittingSoftware.ShowDialog();
         }
         private void View_OnClick_Oasis_Edit(object sender, RoutedEventArgs e)
@@ -439,6 +447,8 @@ namespace UltimateChanger
             {
                 EditFittingSoftware = new EditFittingSoftware(FittingSoftware_List[9]);
             }
+            EditFittingSoftware.Owner = this;
+            EditFittingSoftware.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             EditFittingSoftware.ShowDialog();
         }
 
@@ -486,6 +496,8 @@ namespace UltimateChanger
             {
                 EditMarket = new Edit_Market(FittingSoftware_List[0]);
             }
+            EditMarket.Owner = this;
+            EditMarket.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             EditMarket.ShowDialog();
         }
         private void View_OnClick_GenieMedical_Change_Market_US(object sender, RoutedEventArgs e)
@@ -500,6 +512,8 @@ namespace UltimateChanger
             {
                 EditMarket = new Edit_Market(FittingSoftware_List[1]);
             }
+            EditMarket.Owner = this;
+            EditMarket.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             EditMarket.ShowDialog();
         }
         private void View_OnClick_Expressfit_Change_Market_US(object sender, RoutedEventArgs e)
@@ -514,6 +528,8 @@ namespace UltimateChanger
             {
                 EditMarket = new Edit_Market(FittingSoftware_List[2]);
             }
+            EditMarket.Owner = this;
+            EditMarket.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             EditMarket.ShowDialog();
         }
         private void View_OnClick_HearSuite_Change_Market_US(object sender, RoutedEventArgs e)
@@ -528,6 +544,8 @@ namespace UltimateChanger
             {
                 EditMarket = new Edit_Market(FittingSoftware_List[3]);
             }
+            EditMarket.Owner = this;
+            EditMarket.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             EditMarket.ShowDialog();
         }
         private void View_OnClick_Oasis_Change_Market_US(object sender, RoutedEventArgs e)
@@ -542,6 +560,8 @@ namespace UltimateChanger
             {
                 EditMarket = new Edit_Market(FittingSoftware_List[4]);
             }
+            EditMarket.Owner = this;
+            EditMarket.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             EditMarket.ShowDialog();
         }
 
