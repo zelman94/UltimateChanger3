@@ -711,9 +711,25 @@
                         <Image Source="Images/oticon.png" Margin="5" />
                         <Button.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Uninstall" Click="View_OnClick_Genie_Uninstall"/>
-                                <MenuItem Header="Delete Trash" Click="View_OnClick_Genie_Delete_Trash"/>
-                                <MenuItem Header="Edit" Click="View_OnClick_Genie_Edit"/>
+                                <MenuItem Header="Uninstall" Click="View_OnClick_Genie_Uninstall">
+                                    <MenuItem.Icon>
+                                        <Image Source="/Images/uninstall_ICON.png" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="Delete Trash" Click="View_OnClick_Genie_Delete_Trash">
+                                    <MenuItem.Icon>
+                                        <Image Source="/Images/Delete_Trash.png" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="Edit" Click="View_OnClick_Genie_Edit">
+                                    <MenuItem.Icon>
+                                        <Image Source="/Images/Edit_Icon.png" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="Change Market">
+                                    <MenuItem Header="US" Click="View_OnClick_Genie_Change_Market_US"/>
+                                    <MenuItem Header="Other" Click="View_OnClick_Genie_Change_Market"/>
+                                </MenuItem>
                                 <!--<MenuItem Header="Setting"/>
                                 <Separator/>
                                 <MenuItem Header="Property"/>-->
@@ -725,9 +741,26 @@
                         <Image Source="Images/oticonmedical.png" Margin="5" />
                         <Button.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Uninstall" Click="View_OnClick_GenieMedical_Uninstall"/>
-                                <MenuItem Header="Delete Trash" Click="View_OnClick_GenieMedical_Delete_Trash"/>
-                                <MenuItem Header="Edit" Click="View_OnClick_GenieMedical_Edit"/>
+                                <MenuItem Header="Uninstall" Click="View_OnClick_GenieMedical_Uninstall">
+                                    <MenuItem.Icon>
+                                    <Image Source="/Images/uninstall_ICON.png" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+
+                                <MenuItem Header="Delete Trash" Click="View_OnClick_GenieMedical_Delete_Trash">
+                                    <MenuItem.Icon>
+                                        <Image Source="/Images/Delete_Trash.png" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="Edit" Click="View_OnClick_GenieMedical_Edit">
+                                    <MenuItem.Icon>
+                                        <Image Source="/Images/Edit_Icon.png" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="Change Market">
+                                    <MenuItem Header="US" Click="View_OnClick_GenieMedical_Change_Market_US"/>
+                                    <MenuItem Header="Other" Click="View_OnClick_GenieMedical_Change_Market"/>
+                                </MenuItem>
                                 <!--<MenuItem Header="Setting"/>
                                 <Separator/>
                                 <MenuItem Header="Property"/>-->
@@ -738,9 +771,25 @@
                         <Image Source="Images/sonic.png" Margin="5" />
                         <Button.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Uninstall" Click="View_OnClick_Expressfit_Uninstall"/>
-                                <MenuItem Header="Delete Trash" Click="View_OnClick_Expressfit_Delete_Trash"/>
-                                <MenuItem Header="Edit" Click="View_OnClick_Expressfit_Edit"/>
+                                <MenuItem Header="Uninstall" Click="View_OnClick_Expressfit_Uninstall">
+                                    <MenuItem.Icon>
+                                        <Image Source="/Images/uninstall_ICON.png" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="Delete Trash" Click="View_OnClick_Expressfit_Delete_Trash">
+                                    <MenuItem.Icon>
+                                        <Image Source="/Images/Delete_Trash.png" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="Edit" Click="View_OnClick_Expressfit_Edit">
+                                    <MenuItem.Icon>
+                                        <Image Source="/Images/Edit_Icon.png" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="Change Market" >
+                                    <MenuItem Header="US" Click="View_OnClick_Expressfit_Change_Market_US"/>
+                                    <MenuItem Header="Other" Click="View_OnClick_Expressfit_Change_Market"/>
+                                </MenuItem>
                                 <!--<MenuItem Header="Setting"/>
                                 <Separator/>
                                 <MenuItem Header="Property"/>-->
@@ -751,9 +800,25 @@
                         <Image Source="Images/starto.png" Margin="5" />
                         <Button.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Uninstall" Click="View_OnClick_HearSuite_Uninstall"/>
-                                <MenuItem Header="Delete Trash" Click="View_OnClick_HearSuite_Delete_Trash"/>
-                                <MenuItem Header="Edit" Click="View_OnClick_HearSuite_Edit"/>
+                                <MenuItem Header="Uninstall" Click="View_OnClick_HearSuite_Uninstall">
+                                    <MenuItem.Icon>
+                                        <Image Source="/Images/uninstall_ICON.png" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="Delete Trash" Click="View_OnClick_HearSuite_Delete_Trash">
+                                    <MenuItem.Icon>
+                                        <Image Source="/Images/Delete_Trash.png" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="Edit" Click="View_OnClick_HearSuite_Edit">
+                                    <MenuItem.Icon>
+                                        <Image Source="/Images/Edit_Icon.png" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="Change Market" >
+                                    <MenuItem Header="US" Click="View_OnClick_HearSuite_Change_Market_US"/>
+                                    <MenuItem Header="Other" Click="View_OnClick_HearSuite_Change_Market"/>
+                                </MenuItem>
                                 <!--<MenuItem Header="Setting"/>
                                 <Separator/>
                                 <MenuItem Header="Property"/>-->
@@ -764,9 +829,26 @@
                         <Image Source="Images/bernafon.png" Margin="5" />
                         <Button.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Uninstall" Click="View_OnClick_Oasis_Uninstall"/>
-                                <MenuItem Header="Delete Trash" Click="View_OnClick_Oasis_Delete_Trash"/>
-                                <MenuItem Header="Edit" Click="View_OnClick_Oasis_Edit"/>
+                                <MenuItem Header="Uninstall" Click="View_OnClick_Oasis_Uninstall">
+                                    <MenuItem.Icon>
+                                        <Image Source="/Images/uninstall_ICON.png" />
+                                    </MenuItem.Icon>
+                                    
+                                </MenuItem>
+                                <MenuItem Header="Delete Trash" Click="View_OnClick_Oasis_Delete_Trash">
+                                    <MenuItem.Icon>
+                                        <Image Source="/Images/Delete_Trash.png" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="Edit" Click="View_OnClick_Oasis_Edit">
+                                    <MenuItem.Icon>
+                                        <Image Source="/Images/Edit_Icon.png" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="Change Market" >
+                                    <MenuItem Header="US" Click="View_OnClick_Oasis_Change_Market_US"/>
+                                    <MenuItem Header="Other" Click="View_OnClick_Oasis_Change_Market"/>
+                                </MenuItem>
                                 <!--<MenuItem Header="Setting"/>
                                 <Separator/>
                                 <MenuItem Header="Property"/>-->

@@ -472,7 +472,79 @@ namespace UltimateChanger
             refreshUI(new object(), new EventArgs());
             setNewSavedTime(20);
         }
-        
+
+
+        private void View_OnClick_Genie_Change_Market_US(object sender, RoutedEventArgs e)
+        {
+            FittingSoftware_List[0].setMarket("US");
+            refreshUI(new object(), new EventArgs());
+        }
+        private void View_OnClick_Genie_Change_Market(object sender, RoutedEventArgs e)
+        {
+            Window EditMarket = null;
+            if (TabFull.IsSelected)
+            {
+                EditMarket = new Edit_Market(FittingSoftware_List[0]);
+            }
+            EditMarket.ShowDialog();
+        }
+        private void View_OnClick_GenieMedical_Change_Market_US(object sender, RoutedEventArgs e)
+        {
+            FittingSoftware_List[1].setMarket("US");
+            refreshUI(new object(), new EventArgs());
+        }
+        private void View_OnClick_GenieMedical_Change_Market(object sender, RoutedEventArgs e)
+        {
+            Window EditMarket = null;
+            if (TabFull.IsSelected)
+            {
+                EditMarket = new Edit_Market(FittingSoftware_List[1]);
+            }
+            EditMarket.ShowDialog();
+        }
+        private void View_OnClick_Expressfit_Change_Market_US(object sender, RoutedEventArgs e)
+        {
+            FittingSoftware_List[2].setMarket("US");
+            refreshUI(new object(), new EventArgs());
+        }
+        private void View_OnClick_Expressfit_Change_Market(object sender, RoutedEventArgs e)
+        {
+            Window EditMarket = null;
+            if (TabFull.IsSelected)
+            {
+                EditMarket = new Edit_Market(FittingSoftware_List[2]);
+            }
+            EditMarket.ShowDialog();
+        }
+        private void View_OnClick_HearSuite_Change_Market_US(object sender, RoutedEventArgs e)
+        {
+            FittingSoftware_List[3].setMarket("US");
+            refreshUI(new object(), new EventArgs());
+        }
+        private void View_OnClick_HearSuite_Change_Market(object sender, RoutedEventArgs e)
+        {
+            Window EditMarket = null;
+            if (TabFull.IsSelected)
+            {
+                EditMarket = new Edit_Market(FittingSoftware_List[3]);
+            }
+            EditMarket.ShowDialog();
+        }
+        private void View_OnClick_Oasis_Change_Market_US(object sender, RoutedEventArgs e)
+        {
+            FittingSoftware_List[4].setMarket("US");
+            refreshUI(new object(), new EventArgs());
+        }
+        private void View_OnClick_Oasis_Change_Market(object sender, RoutedEventArgs e)
+        {
+            Window EditMarket = null;
+            if (TabFull.IsSelected)
+            {
+                EditMarket = new Edit_Market(FittingSoftware_List[4]);
+            }
+            EditMarket.ShowDialog();
+        }
+
 
         public void setUIdefaults(SortedDictionary<string, string> settings, string mode) // mode to tryb ustawienia co zmieniasz radiobutton checkbox
         {
@@ -993,7 +1065,7 @@ namespace UltimateChanger
 
             InstallTimer_Normal_Installation = new DispatcherTimer();
             InstallTimer_Normal_Installation.Tick += checkNormal_Installation;
-            InstallTimer_Normal_Installation.Interval = new TimeSpan(0, 0, 10);
+            InstallTimer_Normal_Installation.Interval = new TimeSpan(0, 0, 2);
         }
 
         void initializeElements()

@@ -131,6 +131,9 @@
     <Compile Include="EditFittingSoftware.xaml.cs">
       <DependentUpon>EditFittingSoftware.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Edit_Market.xaml.cs">
+      <DependentUpon>Edit_Market.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FittingSoftware.cs" />
     <Compile Include="FSInstaller.cs" />
     <Compile Include="Hardware.cs" />
@@ -160,6 +163,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="EditFittingSoftware.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Edit_Market.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -270,6 +277,10 @@
     <Content Include="Downgrade\Production\WLPInterface.dll" />
     <Content Include="Downgrade\Production\WLPInterface.h" />
     <Content Include="Downgrade\Production\ykush.exe" />
+    <Resource Include="Images\Delete_Trash.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Edit_Icon.png" />
     <Content Include="Images\icon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -279,6 +290,9 @@
     <Content Include="Images\refreshWhite.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\uninstall_ICON.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Images\update.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
