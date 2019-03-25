@@ -709,8 +709,8 @@
 
                     <Button Name="btnGenieImage" Grid.Column="0" Grid.Row="0" Opacity="0.9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Height="auto" Margin="10" Background="White" Click="btnGenieImage_Click" >
                         <Image Source="Images/oticon.png" Margin="5" />
-                        <Button.ContextMenu>
-                            <ContextMenu>
+                        <Button.ContextMenu >
+                            <ContextMenu Name="contextGenie">
                                 <MenuItem Header="Uninstall" Click="View_OnClick_Genie_Uninstall">
                                     <MenuItem.Icon>
                                         <Image Source="/Images/uninstall_ICON.png" />
@@ -726,9 +726,10 @@
                                         <Image Source="/Images/Edit_Icon.png" />
                                     </MenuItem.Icon>
                                 </MenuItem>
-                                <MenuItem Header="Change Market">
-                                    <MenuItem Header="US" Click="View_OnClick_Genie_Change_Market_US"/>
-                                    <MenuItem Header="Other" Click="View_OnClick_Genie_Change_Market"/>
+                                <MenuItem Name="Items_Market" Header="Change Market">
+                                    <!--<MenuItem Header="US" Click="View_OnClick_Genie_Change_Market_US" x:Uid="1"/>
+                                    <MenuItem Header="US2" Click="View_OnClick_Genie_Change_Market_US" x:Uid="2"/>
+                                    <MenuItem Header="Other" Click="View_OnClick_Genie_Change_Market"/>-->
                                 </MenuItem>
                                 <!--<MenuItem Header="Setting"/>
                                 <Separator/>

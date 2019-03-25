@@ -295,9 +295,18 @@ namespace UltimateChanger
             Rekurencja.Interval = new TimeSpan(0, 0, 1);
             Rekurencja.Start();
 
+            List<MenuItem> menuitems = new List<MenuItem>();
+
+            MenuItem tmp = new MenuItem();
+            tmp.Header = "US 3";
+            tmp.Uid = "3";
+            tmp.Click += View_OnClick_Genie_Change_Market_US;
+            menuitems.Add(tmp);
+            Items_Market.ItemsSource = menuitems;
 
 
-            
+
+
             FittingSoftware_List.Add(new FittingSoftware("Genie 2"));
             FittingSoftware_List.Add(new FittingSoftware("Medical"));
             FittingSoftware_List.Add(new FittingSoftware("Express"));
@@ -486,6 +495,11 @@ namespace UltimateChanger
 
         private void View_OnClick_Genie_Change_Market_US(object sender, RoutedEventArgs e)
         {
+            var clickedMenuItem = sender as MenuItem;
+            var menuText = clickedMenuItem.Uid;
+
+            MessageBox.Show(menuText.ToString());
+
             FittingSoftware_List[0].setMarket("US");
             refreshUI(new object(), new EventArgs());
         }
