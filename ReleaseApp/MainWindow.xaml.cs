@@ -360,7 +360,7 @@ namespace UltimateChanger
             {
                 FittingSoftware_List[Convert.ToInt32(parent_ID)+5].setLogMode("ALL", 0, TabFull.IsSelected);
             }
-
+            setNewSavedTime(15);
         }
 
             private void View_OnClick_Context_Edit(object sender, RoutedEventArgs e)
@@ -380,6 +380,7 @@ namespace UltimateChanger
             EditFittingSoftware.Owner = this;
             EditFittingSoftware.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             EditFittingSoftware.ShowDialog();
+            setNewSavedTime(15);
         }
 
 
@@ -3675,8 +3676,6 @@ namespace UltimateChanger
             updateMarket(TabFull.IsSelected); // funkcja ustawiajaca mozna ja przeniesc do fileoperatora
             refreshUI(new object(), new EventArgs());
         }
-
-
 
         private void tabControl2_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
