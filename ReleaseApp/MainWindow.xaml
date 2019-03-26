@@ -711,26 +711,29 @@
                         <Image Source="Images/oticon.png" Margin="5" />
                         <Button.ContextMenu >
                             <ContextMenu Name="contextGenie">
-                                <MenuItem Header="Uninstall" Click="View_OnClick_Genie_Uninstall">
+                                <MenuItem Header="Uninstall" Click="View_OnClick_Context_Uninstall" x:Uid="0">
                                     <MenuItem.Icon>
                                         <Image Source="/Images/uninstall_ICON.png" />
                                     </MenuItem.Icon>
                                 </MenuItem>
-                                <MenuItem Header="Delete Trash" Click="View_OnClick_Genie_Delete_Trash">
+                                <MenuItem Header="Delete Trash" Click="View_OnClick_Context_Delete_Trash" x:Uid="0">
                                     <MenuItem.Icon>
                                         <Image Source="/Images/Delete_Trash.png" />
                                     </MenuItem.Icon>
                                 </MenuItem>
-                                <MenuItem Header="Edit" Click="View_OnClick_Genie_Edit">
+                                <MenuItem Header="Edit" Click="View_OnClick_Context_Edit" x:Uid="0">
                                     <MenuItem.Icon>
                                         <Image Source="/Images/Edit_Icon.png" />
                                     </MenuItem.Icon>
                                 </MenuItem>
-                                <MenuItem Name="Items_Market" Header="Change Market">
-                                    <!--<MenuItem Header="US" Click="View_OnClick_Genie_Change_Market_US" x:Uid="1"/>
-                                    <MenuItem Header="US2" Click="View_OnClick_Genie_Change_Market_US" x:Uid="2"/>
-                                    <MenuItem Header="Other" Click="View_OnClick_Genie_Change_Market"/>-->
+                                <MenuItem  Header="Log Level" x:Uid="0">
+                                    <MenuItem Header="ALL" Click="View_OnClick_Context_Change_LogLevel" x:Uid="0"/>                                   
                                 </MenuItem>
+                                <MenuItem Name="Items_Market" Header="Change Market">
+                                    <MenuItem Header="US" Click="View_OnClick_Context_Change_Market_US" x:Uid="0"/>
+                                    <MenuItem Header="Other" Click="View_OnClick_Context_Change_Market" x:Uid="0"/>
+                                </MenuItem>
+                                
                                 <!--<MenuItem Header="Setting"/>
                                 <Separator/>
                                 <MenuItem Header="Property"/>-->
@@ -742,25 +745,27 @@
                         <Image Source="Images/oticonmedical.png" Margin="5" />
                         <Button.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Uninstall" Click="View_OnClick_GenieMedical_Uninstall">
+                                <MenuItem Header="Uninstall" Click="View_OnClick_Context_Uninstall" x:Uid="1">
                                     <MenuItem.Icon>
                                     <Image Source="/Images/uninstall_ICON.png" />
                                     </MenuItem.Icon>
                                 </MenuItem>
-
-                                <MenuItem Header="Delete Trash" Click="View_OnClick_GenieMedical_Delete_Trash">
+                                <MenuItem Header="Delete Trash" Click="View_OnClick_Context_Delete_Trash" x:Uid="1">
                                     <MenuItem.Icon>
                                         <Image Source="/Images/Delete_Trash.png" />
                                     </MenuItem.Icon>
                                 </MenuItem>
-                                <MenuItem Header="Edit" Click="View_OnClick_GenieMedical_Edit">
+                                <MenuItem Header="Edit" Click="View_OnClick_Context_Edit" x:Uid="1">
                                     <MenuItem.Icon>
                                         <Image Source="/Images/Edit_Icon.png" />
                                     </MenuItem.Icon>
                                 </MenuItem>
+                                <MenuItem  Header="Log Level" x:Uid="1">
+                                    <MenuItem Header="ALL" Click="View_OnClick_Context_Change_LogLevel" x:Uid="0"/>
+                                </MenuItem>
                                 <MenuItem Header="Change Market">
-                                    <MenuItem Header="US" Click="View_OnClick_GenieMedical_Change_Market_US"/>
-                                    <MenuItem Header="Other" Click="View_OnClick_GenieMedical_Change_Market"/>
+                                    <MenuItem Header="US" Click="View_OnClick_Context_Change_Market_US" x:Uid="1"/>
+                                    <MenuItem Header="Other" Click="View_OnClick_Context_Change_Market" x:Uid="1"/>
                                 </MenuItem>
                                 <!--<MenuItem Header="Setting"/>
                                 <Separator/>
@@ -772,24 +777,27 @@
                         <Image Source="Images/sonic.png" Margin="5" />
                         <Button.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Uninstall" Click="View_OnClick_Expressfit_Uninstall">
+                                <MenuItem Header="Uninstall" Click="View_OnClick_Context_Uninstall" x:Uid="2">
                                     <MenuItem.Icon>
                                         <Image Source="/Images/uninstall_ICON.png" />
                                     </MenuItem.Icon>
                                 </MenuItem>
-                                <MenuItem Header="Delete Trash" Click="View_OnClick_Expressfit_Delete_Trash">
+                                <MenuItem Header="Delete Trash" Click="View_OnClick_Context_Delete_Trash" x:Uid="2">
                                     <MenuItem.Icon>
                                         <Image Source="/Images/Delete_Trash.png" />
                                     </MenuItem.Icon>
                                 </MenuItem>
-                                <MenuItem Header="Edit" Click="View_OnClick_Expressfit_Edit">
+                                <MenuItem Header="Edit" Click="View_OnClick_Context_Edit" x:Uid="2">
                                     <MenuItem.Icon>
                                         <Image Source="/Images/Edit_Icon.png" />
                                     </MenuItem.Icon>
                                 </MenuItem>
+                                <MenuItem  Header="Log Level" x:Uid="2">
+                                    <MenuItem Header="ALL" Click="View_OnClick_Context_Change_LogLevel" x:Uid="0"/>
+                                </MenuItem>
                                 <MenuItem Header="Change Market" >
-                                    <MenuItem Header="US" Click="View_OnClick_Expressfit_Change_Market_US"/>
-                                    <MenuItem Header="Other" Click="View_OnClick_Expressfit_Change_Market"/>
+                                    <MenuItem Header="US" Click="View_OnClick_Context_Change_Market_US" x:Uid="2"/>
+                                    <MenuItem Header="Other" Click="View_OnClick_Context_Change_Market" x:Uid="2"/>
                                 </MenuItem>
                                 <!--<MenuItem Header="Setting"/>
                                 <Separator/>
@@ -801,24 +809,27 @@
                         <Image Source="Images/starto.png" Margin="5" />
                         <Button.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Uninstall" Click="View_OnClick_HearSuite_Uninstall">
+                                <MenuItem Header="Uninstall" Click="View_OnClick_Context_Uninstall" x:Uid="3">
                                     <MenuItem.Icon>
                                         <Image Source="/Images/uninstall_ICON.png" />
                                     </MenuItem.Icon>
                                 </MenuItem>
-                                <MenuItem Header="Delete Trash" Click="View_OnClick_HearSuite_Delete_Trash">
+                                <MenuItem Header="Delete Trash" Click="View_OnClick_Context_Delete_Trash" x:Uid="3">
                                     <MenuItem.Icon>
                                         <Image Source="/Images/Delete_Trash.png" />
                                     </MenuItem.Icon>
                                 </MenuItem>
-                                <MenuItem Header="Edit" Click="View_OnClick_HearSuite_Edit">
+                                <MenuItem Header="Edit" Click="View_OnClick_Context_Edit" x:Uid="3">
                                     <MenuItem.Icon>
                                         <Image Source="/Images/Edit_Icon.png" />
                                     </MenuItem.Icon>
                                 </MenuItem>
+                                <MenuItem  Header="Log Level" x:Uid="3">
+                                    <MenuItem Header="ALL" Click="View_OnClick_Context_Change_LogLevel" x:Uid="0"/>
+                                </MenuItem>
                                 <MenuItem Header="Change Market" >
-                                    <MenuItem Header="US" Click="View_OnClick_HearSuite_Change_Market_US"/>
-                                    <MenuItem Header="Other" Click="View_OnClick_HearSuite_Change_Market"/>
+                                    <MenuItem Header="US" Click="View_OnClick_Context_Change_Market_US" x:Uid="3"/>
+                                    <MenuItem Header="Other" Click="View_OnClick_Context_Change_Market" x:Uid="3"/>
                                 </MenuItem>
                                 <!--<MenuItem Header="Setting"/>
                                 <Separator/>
@@ -830,25 +841,28 @@
                         <Image Source="Images/bernafon.png" Margin="5" />
                         <Button.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Uninstall" Click="View_OnClick_Oasis_Uninstall">
+                                <MenuItem Header="Uninstall" Click="View_OnClick_Context_Uninstall" x:Uid="4">
                                     <MenuItem.Icon>
                                         <Image Source="/Images/uninstall_ICON.png" />
                                     </MenuItem.Icon>
                                     
                                 </MenuItem>
-                                <MenuItem Header="Delete Trash" Click="View_OnClick_Oasis_Delete_Trash">
+                                <MenuItem Header="Delete Trash" Click="View_OnClick_Context_Delete_Trash" x:Uid="4">
                                     <MenuItem.Icon>
                                         <Image Source="/Images/Delete_Trash.png" />
                                     </MenuItem.Icon>
                                 </MenuItem>
-                                <MenuItem Header="Edit" Click="View_OnClick_Oasis_Edit">
+                                <MenuItem Header="Edit" Click="View_OnClick_Context_Edit" x:Uid="4">
                                     <MenuItem.Icon>
                                         <Image Source="/Images/Edit_Icon.png" />
                                     </MenuItem.Icon>
                                 </MenuItem>
+                                <MenuItem  Header="Log Level" x:Uid="4">
+                                    <MenuItem Header="ALL" Click="View_OnClick_Context_Change_LogLevel" x:Uid="0"/>
+                                </MenuItem>
                                 <MenuItem Header="Change Market" >
-                                    <MenuItem Header="US" Click="View_OnClick_Oasis_Change_Market_US"/>
-                                    <MenuItem Header="Other" Click="View_OnClick_Oasis_Change_Market"/>
+                                    <MenuItem Header="US" Click="View_OnClick_Context_Change_Market_US" x:Uid="4"/>
+                                    <MenuItem Header="Other" Click="View_OnClick_Context_Change_Market" x:Uid="4"/>
                                 </MenuItem>
                                 <!--<MenuItem Header="Setting"/>
                                 <Separator/>

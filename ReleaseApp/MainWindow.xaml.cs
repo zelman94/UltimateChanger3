@@ -297,12 +297,12 @@ namespace UltimateChanger
 
             List<MenuItem> menuitems = new List<MenuItem>();
 
-            MenuItem tmp = new MenuItem();
-            tmp.Header = "US 3";
-            tmp.Uid = "3";
-            tmp.Click += View_OnClick_Genie_Change_Market_US;
-            menuitems.Add(tmp);
-            Items_Market.ItemsSource = menuitems;
+            //MenuItem tmp = new MenuItem();
+            //tmp.Header = "US 3";
+            //tmp.Uid = "3";
+            //tmp.Click += View_OnClick_Genie_Change_Market_US;
+            //menuitems.Add(tmp);
+            //Items_Market.ItemsSource = menuitems;
 
 
 
@@ -325,12 +325,15 @@ namespace UltimateChanger
         //________________________________________________________________________________________________________________________________________________
         FSInstaller instal = new FSInstaller();
 
-        private void View_OnClick_Genie_Uninstall(object sender, RoutedEventArgs e)
+        private void View_OnClick_Context_Uninstall(object sender, RoutedEventArgs e)
         {
-            
+            var clickedMenuItem = sender as MenuItem;
+            var menuText = clickedMenuItem.Uid;
+
+
             if (TabFull.IsSelected)
             {
-                instal.UninstallBrand(new List<string>() { FittingSoftware_List[0].Path_Local_Installer }, true);
+                instal.UninstallBrand(new List<string>() { FittingSoftware_List[Convert.ToInt32(menuText)].Path_Local_Installer }, true);
                 InstallTimer_Normal_Installation.Start();
             }
             else
@@ -339,246 +342,98 @@ namespace UltimateChanger
             }
             setNewSavedTime(15);
         }
-        private void View_OnClick_GenieMedical_Uninstall(object sender, RoutedEventArgs e)
+
+
+        private void View_OnClick_Context_Change_LogLevel(object sender, RoutedEventArgs e)
         {
+            var clickedMenuItem = sender as MenuItem;
+            var ID = clickedMenuItem.Uid; // info jaki poziom logowania (na razie tylko 0 - ALL)
+            var parent = clickedMenuItem.Parent as MenuItem;
+            var parent_ID = parent.Uid; // informacja ktory brand
+
 
             if (TabFull.IsSelected)
             {
-                instal.UninstallBrand(new List<string>() { FittingSoftware_List[1].Path_Local_Installer }, true);
-                InstallTimer_Normal_Installation.Start();
-            }
-            setNewSavedTime(15);
-        }
-        private void View_OnClick_Expressfit_Uninstall(object sender, RoutedEventArgs e)
-        {
-
-            if (TabFull.IsSelected)
-            {
-                instal.UninstallBrand(new List<string>() { FittingSoftware_List[2].Path_Local_Installer }, true);
-                InstallTimer_Normal_Installation.Start();
-            }
-            setNewSavedTime(15);
-        }
-        private void View_OnClick_HearSuite_Uninstall(object sender, RoutedEventArgs e)
-        {
-
-            if (TabFull.IsSelected)
-            {
-                instal.UninstallBrand(new List<string>() { FittingSoftware_List[3].Path_Local_Installer }, true);
-                InstallTimer_Normal_Installation.Start();
-            }
-            setNewSavedTime(15);
-        }
-        private void View_OnClick_Oasis_Uninstall(object sender, RoutedEventArgs e)
-        {
-
-            if (TabFull.IsSelected)
-            {
-                instal.UninstallBrand(new List<string>() { FittingSoftware_List[4].Path_Local_Installer }, true);
-                InstallTimer_Normal_Installation.Start();
-            }
-            setNewSavedTime(15);
-        }
-
-        private void View_OnClick_Genie_Edit(object sender, RoutedEventArgs e)
-        {
-            Window EditFittingSoftware = null;
-
-            if (TabFull.IsSelected)
-            {
-                EditFittingSoftware = new EditFittingSoftware(FittingSoftware_List[0]);
+                FittingSoftware_List[Convert.ToInt32(parent_ID)].setLogMode("ALL", 0, TabFull.IsSelected);
             }
             else
             {
-                EditFittingSoftware = new EditFittingSoftware(FittingSoftware_List[5]);
+                FittingSoftware_List[Convert.ToInt32(parent_ID)+5].setLogMode("ALL", 0, TabFull.IsSelected);
             }
-            EditFittingSoftware.Owner = this;
-            EditFittingSoftware.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            EditFittingSoftware.ShowDialog();
+
         }
-        private void View_OnClick_GenieMedical_Edit(object sender, RoutedEventArgs e)
-        {
+
+            private void View_OnClick_Context_Edit(object sender, RoutedEventArgs e)
+            {
             Window EditFittingSoftware = null;
+            var clickedMenuItem = sender as MenuItem;
+            var menuText = clickedMenuItem.Uid;
 
             if (TabFull.IsSelected)
             {
-                EditFittingSoftware = new EditFittingSoftware(FittingSoftware_List[1]);
+                EditFittingSoftware = new EditFittingSoftware(FittingSoftware_List[Convert.ToInt32(menuText)]);
             }
             else
             {
-                EditFittingSoftware = new EditFittingSoftware(FittingSoftware_List[6]);
-            }
-            EditFittingSoftware.Owner = this;
-            EditFittingSoftware.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            EditFittingSoftware.ShowDialog();
-        }
-        private void View_OnClick_Expressfit_Edit(object sender, RoutedEventArgs e)
-        {
-            Window EditFittingSoftware = null;
-
-            if (TabFull.IsSelected)
-            {
-                EditFittingSoftware = new EditFittingSoftware(FittingSoftware_List[2]);
-            }
-            else
-            {
-                EditFittingSoftware = new EditFittingSoftware(FittingSoftware_List[7]);
-            }
-            EditFittingSoftware.Owner = this;
-            EditFittingSoftware.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            EditFittingSoftware.ShowDialog();
-        }
-        private void View_OnClick_HearSuite_Edit(object sender, RoutedEventArgs e)
-        {
-            Window EditFittingSoftware = null;
-
-            if (TabFull.IsSelected)
-            {
-                EditFittingSoftware = new EditFittingSoftware(FittingSoftware_List[3]);
-            }
-            else
-            {
-                EditFittingSoftware = new EditFittingSoftware(FittingSoftware_List[8]);
-            }
-            EditFittingSoftware.Owner = this;
-            EditFittingSoftware.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            EditFittingSoftware.ShowDialog();
-        }
-        private void View_OnClick_Oasis_Edit(object sender, RoutedEventArgs e)
-        {
-            Window EditFittingSoftware = null;
-
-            if (TabFull.IsSelected)
-            {
-                EditFittingSoftware = new EditFittingSoftware(FittingSoftware_List[4]);
-            }
-            else
-            {
-                EditFittingSoftware = new EditFittingSoftware(FittingSoftware_List[9]);
+                EditFittingSoftware = new EditFittingSoftware(FittingSoftware_List[Convert.ToInt32(menuText)+5]);
             }
             EditFittingSoftware.Owner = this;
             EditFittingSoftware.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             EditFittingSoftware.ShowDialog();
         }
 
-        private void View_OnClick_Genie_Delete_Trash(object sender, RoutedEventArgs e)
-        {
-            FittingSoftware_List[0].deleteTrash();
-            refreshUI(new object(), new EventArgs());
-            setNewSavedTime(20);
-        }
-        private void View_OnClick_GenieMedical_Delete_Trash(object sender, RoutedEventArgs e)
-        {
-            FittingSoftware_List[1].deleteTrash();
-            refreshUI(new object(), new EventArgs());
-            setNewSavedTime(20);
-        }
-        private void View_OnClick_Expressfit_Delete_Trash(object sender, RoutedEventArgs e)
-        {
-            FittingSoftware_List[2].deleteTrash();
-            refreshUI(new object(), new EventArgs());
-            setNewSavedTime(20);
-        }
-        private void View_OnClick_HearSuite_Delete_Trash(object sender, RoutedEventArgs e)
-        {
-            FittingSoftware_List[3].deleteTrash();
-            refreshUI(new object(), new EventArgs());
-            setNewSavedTime(20);
-        }
-        private void View_OnClick_Oasis_Delete_Trash(object sender, RoutedEventArgs e)
-        {
-            FittingSoftware_List[4].deleteTrash();
-            refreshUI(new object(), new EventArgs());
-            setNewSavedTime(20);
-        }
 
+        private void View_OnClick_Context_Delete_Trash(object sender, RoutedEventArgs e)
+        {
+            var clickedMenuItem = sender as MenuItem;
+            var menuText = clickedMenuItem.Uid;
+            if (TabFull.IsSelected)
+            {
+                FittingSoftware_List[Convert.ToInt32(menuText)].deleteTrash();
+            }
+            else
+            {
+                FittingSoftware_List[Convert.ToInt32(menuText)+5].deleteTrash();
+            }
+                       
+            refreshUI(new object(), new EventArgs());
+            setNewSavedTime(20);
+        }
+       
 
-        private void View_OnClick_Genie_Change_Market_US(object sender, RoutedEventArgs e)
+        private void View_OnClick_Context_Change_Market_US(object sender, RoutedEventArgs e)
         {
             var clickedMenuItem = sender as MenuItem;
             var menuText = clickedMenuItem.Uid;
 
-            MessageBox.Show(menuText.ToString());
-
-            FittingSoftware_List[0].setMarket("US");
-            refreshUI(new object(), new EventArgs());
-        }
-        private void View_OnClick_Genie_Change_Market(object sender, RoutedEventArgs e)
-        {
-            Window EditMarket = null;
             if (TabFull.IsSelected)
             {
-                EditMarket = new Edit_Market(FittingSoftware_List[0]);
+                FittingSoftware_List[Convert.ToInt32(menuText)].setMarket("US");
             }
+            else
+            {
+                FittingSoftware_List[Convert.ToInt32(menuText)+5].setMarket("US");
+            }
+            
+            refreshUI(new object(), new EventArgs());
+        }
+        private void View_OnClick_Context_Change_Market(object sender, RoutedEventArgs e)
+        {
+            Window EditMarket = null;
+            var clickedMenuItem = sender as MenuItem;
+            var menuText = clickedMenuItem.Uid;
+            if (TabFull.IsSelected)
+            {
+                EditMarket = new Edit_Market(FittingSoftware_List[Convert.ToInt32(menuText)]);
+            }
+            else
+            {
+                EditMarket = new Edit_Market(FittingSoftware_List[Convert.ToInt32(menuText)+5]);
+            }    
             EditMarket.Owner = this;
             EditMarket.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             EditMarket.ShowDialog();
         }
-        private void View_OnClick_GenieMedical_Change_Market_US(object sender, RoutedEventArgs e)
-        {
-            FittingSoftware_List[1].setMarket("US");
-            refreshUI(new object(), new EventArgs());
-        }
-        private void View_OnClick_GenieMedical_Change_Market(object sender, RoutedEventArgs e)
-        {
-            Window EditMarket = null;
-            if (TabFull.IsSelected)
-            {
-                EditMarket = new Edit_Market(FittingSoftware_List[1]);
-            }
-            EditMarket.Owner = this;
-            EditMarket.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            EditMarket.ShowDialog();
-        }
-        private void View_OnClick_Expressfit_Change_Market_US(object sender, RoutedEventArgs e)
-        {
-            FittingSoftware_List[2].setMarket("US");
-            refreshUI(new object(), new EventArgs());
-        }
-        private void View_OnClick_Expressfit_Change_Market(object sender, RoutedEventArgs e)
-        {
-            Window EditMarket = null;
-            if (TabFull.IsSelected)
-            {
-                EditMarket = new Edit_Market(FittingSoftware_List[2]);
-            }
-            EditMarket.Owner = this;
-            EditMarket.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            EditMarket.ShowDialog();
-        }
-        private void View_OnClick_HearSuite_Change_Market_US(object sender, RoutedEventArgs e)
-        {
-            FittingSoftware_List[3].setMarket("US");
-            refreshUI(new object(), new EventArgs());
-        }
-        private void View_OnClick_HearSuite_Change_Market(object sender, RoutedEventArgs e)
-        {
-            Window EditMarket = null;
-            if (TabFull.IsSelected)
-            {
-                EditMarket = new Edit_Market(FittingSoftware_List[3]);
-            }
-            EditMarket.Owner = this;
-            EditMarket.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            EditMarket.ShowDialog();
-        }
-        private void View_OnClick_Oasis_Change_Market_US(object sender, RoutedEventArgs e)
-        {
-            FittingSoftware_List[4].setMarket("US");
-            refreshUI(new object(), new EventArgs());
-        }
-        private void View_OnClick_Oasis_Change_Market(object sender, RoutedEventArgs e)
-        {
-            Window EditMarket = null;
-            if (TabFull.IsSelected)
-            {
-                EditMarket = new Edit_Market(FittingSoftware_List[4]);
-            }
-            EditMarket.Owner = this;
-            EditMarket.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            EditMarket.ShowDialog();
-        }
-
 
         public void setUIdefaults(SortedDictionary<string, string> settings, string mode) // mode to tryb ustawienia co zmieniasz radiobutton checkbox
         {
