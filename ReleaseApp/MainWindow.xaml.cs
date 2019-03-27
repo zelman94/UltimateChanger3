@@ -2042,12 +2042,6 @@ namespace UltimateChanger
 
         private void btnSavelogs_Click(object sender, RoutedEventArgs e)
         {
-            if (TabFull.IsSelected)
-            {
-                MessageBox.Show("in progress ... \n next update");
-                return;
-            }
-
             Stream myStream;
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.Filter = "txt files (*.zip)|*.zip|All files (*.*)|*.*";
