@@ -314,11 +314,11 @@ namespace UltimateChanger
             FittingSoftware_List.Add(new FittingSoftware("Express"));
             FittingSoftware_List.Add(new FittingSoftware("HearSuite"));
             FittingSoftware_List.Add(new FittingSoftware("Oasis"));
-            FittingSoftware_List.Add(new FittingSoftware("Genie 2_Compo",true));
-            FittingSoftware_List.Add(new FittingSoftware("Medical_Compo",true));
-            FittingSoftware_List.Add(new FittingSoftware("Express_Compo",true));
-            FittingSoftware_List.Add(new FittingSoftware("HearSuite_Compo",true));
-            FittingSoftware_List.Add(new FittingSoftware("Oasis_Compo",true));
+            FittingSoftware_List.Add(new FittingSoftware("Genie 2",true));
+            FittingSoftware_List.Add(new FittingSoftware("Medical",true));
+            FittingSoftware_List.Add(new FittingSoftware("Express",true));
+            FittingSoftware_List.Add(new FittingSoftware("HearSuite",true));
+            FittingSoftware_List.Add(new FittingSoftware("Oasis",true));
             savedTime = Convert.ToInt32(fileOperator.getSavedTime());
             setNewSavedTime(0);
             refreshUI(new object(), new EventArgs());

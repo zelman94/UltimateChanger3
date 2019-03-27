@@ -62,6 +62,8 @@ namespace UltimateChanger
             switch (Name)
             {
                 case ("Genie 2"):
+
+                    Brand = "Oticon";
                     if (composition)
                     {
                         indexFS = 0 + 5;
@@ -78,12 +80,13 @@ namespace UltimateChanger
                         pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
                     }
                     
-                    Brand = "Oticon";       
+   
                     this.composition = composition;
                     break;
 
                 case ("Medical"):
 
+                    Brand = "Medical";
                     if (composition)
                     {
                         indexFS = 1 + 5;
@@ -99,11 +102,12 @@ namespace UltimateChanger
                         PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
                         pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
                     }
-                    Brand = "Medical";
+
                     this.composition = composition;
                     break;
                 case ("Express"):
 
+                    Brand = "Sonic";
                     if (composition)
                     {
                         indexFS = 2 + 5;
@@ -120,11 +124,12 @@ namespace UltimateChanger
                         pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
                     }
 
-                    Brand = "Sonic";
+
                     this.composition = composition;
                     break;
                 case ("HearSuite"):
 
+                    Brand = "Philips";
                     if (composition)
                     {
                         indexFS = 3 + 5;
@@ -140,11 +145,12 @@ namespace UltimateChanger
                         PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
                         pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
                     }
-                    Brand = "Philips";
+
                     this.composition = composition;
                     break;
                 case ("Oasis"):
 
+                    Brand = "Bernafon";
                     if (composition)
                     {
                         indexFS = 4 + 5;
@@ -161,7 +167,7 @@ namespace UltimateChanger
                         pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
                     }
 
-                    Brand = "Bernafon";
+
                     this.composition = composition;
                     break;
                 default:
