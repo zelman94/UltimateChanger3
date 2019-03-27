@@ -55,6 +55,7 @@ namespace UltimateChanger
         List<Label> listlabelsinfoFS, listlabelsinfoFS_Version;  
         List<CheckBox> checkBoxList = new List<CheckBox>();
         List<ComboBox> comboBoxList = new List<ComboBox>();
+        List<TextBox> textBoxList = new List<TextBox>();
         string skin_name;
         int savedTime ; // to bind => lblSavedTime
         ClickCounter CounterOfclicks = new ClickCounter(10);
@@ -269,6 +270,7 @@ namespace UltimateChanger
                 setUIdefaults(XMLReader.getDefaultSettings("RadioButtons"), "RadioButtons");
                 setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
                 setUIdefaults(XMLReader.getDefaultSettings("ComboBox"), "ComboBox");
+                setUIdefaults(XMLReader.getDefaultSettings("TextBox"), "TextBox");
 
             }
             catch (Exception x)
@@ -312,11 +314,11 @@ namespace UltimateChanger
             FittingSoftware_List.Add(new FittingSoftware("Express"));
             FittingSoftware_List.Add(new FittingSoftware("HearSuite"));
             FittingSoftware_List.Add(new FittingSoftware("Oasis"));
-            FittingSoftware_List.Add(new FittingSoftware("Genie 2_Compo"));
-            FittingSoftware_List.Add(new FittingSoftware("Medical_Compo"));
-            FittingSoftware_List.Add(new FittingSoftware("Express_Compo"));
-            FittingSoftware_List.Add(new FittingSoftware("HearSuite_Compo"));
-            FittingSoftware_List.Add(new FittingSoftware("Oasis_Compo"));
+            FittingSoftware_List.Add(new FittingSoftware("Genie 2_Compo",true));
+            FittingSoftware_List.Add(new FittingSoftware("Medical_Compo",true));
+            FittingSoftware_List.Add(new FittingSoftware("Express_Compo",true));
+            FittingSoftware_List.Add(new FittingSoftware("HearSuite_Compo",true));
+            FittingSoftware_List.Add(new FittingSoftware("Oasis_Compo",true));
             savedTime = Convert.ToInt32(fileOperator.getSavedTime());
             setNewSavedTime(0);
             refreshUI(new object(), new EventArgs());
@@ -514,6 +516,27 @@ namespace UltimateChanger
 
 
                     break;
+                case ("TextBox"):
+                    foreach (var item in textBoxList)
+                    {
+                        try
+                        {
+                            //string tmpNameOfRadioButton = StringToUI[item.Name];
+                            // w item mam nazwe radiobuttona i radiobutton
+                            foreach (var item2 in StringToUI.Keys)
+                            {
+                                if (item2 == item.Name)
+                                {
+                                    item.Text = settings[StringToUI[item2]];                                   
+                                }
+                            }
+                        }
+                        catch (Exception x)
+                        {
+                            logging.AddLog(x.ToString());
+                        }
+                    }
+                    break;
                 default:
                     break;
             }
@@ -655,6 +678,7 @@ namespace UltimateChanger
             StringToUI.Add("rbnLogsAll_NO", "NotSetAll");
             StringToUI.Add("rbnTurnOnVerifit", "TurnOnVerifit");
             StringToUI.Add("rbnTurnOffVerifit", "TurnOffVerifit");
+            StringToUI.Add("txtLocalCompoPath", "LocalComposition");
 
             //get savedTime
             fileOperator.getSavedTime();
@@ -994,7 +1018,10 @@ namespace UltimateChanger
                 cmbRelease
             };
 
-
+            textBoxList = new List<TextBox>()
+            {
+                txtLocalCompoPath
+            };
 
 
             listlabelsinfoFS = new List<Label>()
@@ -3572,6 +3599,19 @@ namespace UltimateChanger
             savedTime = 0;
             setNewSavedTime(0);
             fileOperator.saveSavedTime("0");
+        }
+
+        private void txtLocalCompoPath_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) // jezeli był enter to spr czy byla jakas zmiana jezeli tak to zapisz do defaultow i pokaż komunikat ze zmieniono jezeli nie to olać
+            {
+                var tmp = XMLReader.getDefaultSettings("TextBox");
+
+                if (txtLocalCompoPath.Text != tmp["LocalComposition"])
+                {
+                    XMLReader.setSetting("LocalComposition", "TextBox", txtLocalCompoPath.Text);
+                }
+            }
         }
 
         private void rbnTurnOffDevMode_Checked(object sender, RoutedEventArgs e)

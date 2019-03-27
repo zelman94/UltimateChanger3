@@ -1756,6 +1756,8 @@
                     <Label x:Name="lblDevMode" Content="Dev mode" FontWeight="SemiBold" FontSize="12.5" Margin="0,0,28,0"/>
                     <RadioButton x:Name="rbnTurnOnDevMode" Content="On" GroupName="group4" Checked="rbnTurnOnDevMode_Checked" Margin="0,0,28,0"/>
                     <RadioButton x:Name="rbnTurnOffDevMode" Content="Off" GroupName="group4" Checked="rbnTurnOffDevMode_Checked" Margin="0,0,28,0"/>
+                    <Label x:Name="lblDefPathCompo" Content="Path to local Compositions:"/>
+                    <TextBox x:Name="txtLocalCompoPath" Height="23" TextWrapping="Wrap" ToolTip="Edit, tap enter to save" Text="" KeyDown="txtLocalCompoPath_KeyDown"/>
 
                 </StackPanel>
 

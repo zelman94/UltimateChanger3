@@ -58,53 +58,117 @@ namespace UltimateChanger
             Version = getFS_Version();
            // Market = getMarket();
             customPath = false;
+            var localCompo = fileOperator.GetAllLocalCompositions();
             switch (Name)
             {
                 case ("Genie 2"):
-                    indexFS = 0;
-                    Brand = "Oticon";
-                    PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
-                    PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
-                    pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
+                    if (composition)
+                    {
+                        indexFS = 0 + 5;
+                        PathTrash = new List<string>() { localCompo[0] };
+                        fileOperator.getPathToLogMode_Compo();
+                        PathToLogMode = fileOperator.FindSettingFileForComposition(0);
+                        pathToLogs = ""; // do sprawdzenia gdzie sie zapisuja
+                    }
+                    else
+                    {
+                        indexFS = 0;
+                        PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
+                        PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
+                        pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
+                    }
+                    
+                    Brand = "Oticon";       
                     this.composition = composition;
                     break;
+
                 case ("Medical"):
-                    indexFS = 1;
+
+                    if (composition)
+                    {
+                        indexFS = 1 + 5;
+                        PathTrash = new List<string>() { localCompo[1] };
+                        fileOperator.getPathToLogMode_Compo();
+                        PathToLogMode = fileOperator.FindSettingFileForComposition(0);
+                        pathToLogs = ""; // do sprawdzenia gdzie sie zapisuja
+                    }
+                    else
+                    {
+                        indexFS = 1;
+                        PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
+                        PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
+                        pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
+                    }
                     Brand = "Medical";
-                    PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
-                    PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
-                    pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
                     this.composition = composition;
                     break;
                 case ("Express"):
-                    indexFS = 2;
+
+                    if (composition)
+                    {
+                        indexFS = 2 + 5;
+                        PathTrash = new List<string>() { localCompo[2] };
+                        fileOperator.getPathToLogMode_Compo();
+                        PathToLogMode = fileOperator.FindSettingFileForComposition(0);
+                        pathToLogs = ""; // do sprawdzenia gdzie sie zapisuja
+                    }
+                    else
+                    {
+                        indexFS = 2;
+                        PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
+                        PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
+                        pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
+                    }
+
                     Brand = "Sonic";
-                    PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
-                    PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
-                    pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
                     this.composition = composition;
                     break;
                 case ("HearSuite"):
-                    indexFS = 3;
+
+                    if (composition)
+                    {
+                        indexFS = 3 + 5;
+                        PathTrash = new List<string>() { localCompo[3] };
+                        fileOperator.getPathToLogMode_Compo();
+                        PathToLogMode = fileOperator.FindSettingFileForComposition(0);
+                        pathToLogs = ""; // do sprawdzenia gdzie sie zapisuja
+                    }
+                    else
+                    {
+                        indexFS = 3;
+                        PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
+                        PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
+                        pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
+                    }
                     Brand = "Philips";
-                    PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
-                    PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
-                    pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
                     this.composition = composition;
                     break;
                 case ("Oasis"):
-                    indexFS = 4;
+
+                    if (composition)
+                    {
+                        indexFS = 4 + 5;
+                        PathTrash = new List<string>() { localCompo[4] };
+                        fileOperator.getPathToLogMode_Compo();
+                        PathToLogMode = fileOperator.FindSettingFileForComposition(0);
+                        pathToLogs = ""; // do sprawdzenia gdzie sie zapisuja
+                    }
+                    else
+                    {
+                        indexFS = 4;
+                        PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
+                        PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
+                        pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
+                    }
+
                     Brand = "Bernafon";
-                    PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
-                    PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
-                    pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
                     this.composition = composition;
                     break;
                 default:
                     indexFS = -1;
                     break;
             }
-            if (indexFS>-1)
+            if (!composition) // dla full builds
             {
                 pathToExe = BuildInfo.ListPathsToSetup[indexFS];
 
