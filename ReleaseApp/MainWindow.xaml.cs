@@ -324,7 +324,14 @@ namespace UltimateChanger
             savedTime = Convert.ToInt32(fileOperator.getSavedTime());
             setNewSavedTime(0);
             tabControl.IsEnabled = true;
+
+            //-- DSZY LOSU LOSU--//
+            listboxTeam.SelectionMode = SelectionMode.Multiple;
+            Refresh();
+            //--------------------//
+
             refreshUI(new object(), new EventArgs());
+            R_Day.Visibility = Visibility.Hidden;
 
         }
         //________________________________________________________________________________________________________________________________________________
@@ -3892,6 +3899,166 @@ namespace UltimateChanger
             string str = time.ToString(@"hh\:mm\:ss");
             lblSavedTime.Content = "Saved Time: " + str;
         }
+
+
+
+        //--- DSZY "LOSU LOSU" ---- //
+
+        int numberOfPeople = 0;
+        List<string> listOfPeople = new List<string>();
+
+        public void SetButtons(bool state)
+        {
+            btnRandomize.IsEnabled = state;
+            btnRemove.IsEnabled = state;
+            btnRemoveAll.IsEnabled = state;
+        }
+        public void Refresh()
+        {
+            SetButtons(false);
+
+            if (File.Exists("Teammates.txt"))
+            {
+                numberOfPeople = File.ReadLines("Teammates.txt").Count();
+
+                if (numberOfPeople < 1)
+                    SetButtons(false);
+
+                else
+                    SetButtons(true);
+
+                labelCounter.Content = numberOfPeople;
+                listOfPeople.Clear();
+
+                foreach (string line in File.ReadLines("Teammates.txt", Encoding.UTF8))
+                    listOfPeople.Add(line);
+            }
+
+            else
+            {
+                listboxTeam.Items.Clear();
+                numberOfPeople = 0;
+                labelCounter.Content = numberOfPeople;
+                listOfPeople.Clear();
+            }
+
+            if (numberOfPeople > 0 && File.Exists("Teammates.txt"))
+            {
+                listboxTeam.Items.Clear();
+
+                foreach (string line in File.ReadLines("Teammates.txt", Encoding.UTF8))
+                    listboxTeam.Items.Add(line);
+            }
+        }
+
+
+        private void BtnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            txtbxPerson.Text = txtbxPerson.Text.Replace(" ", "");
+
+            if (txtbxPerson.Text == "")
+                return;
+
+            txtbxPerson.Text = txtbxPerson.Text.ToLower();
+
+            if (!File.Exists("Teammates.txt"))
+            {
+                StreamWriter sw = File.CreateText("Teammates.txt");
+
+                sw.WriteLine(txtbxPerson.Text);
+                sw.Close();
+            }
+            else
+            {
+                foreach (string line in File.ReadLines("Teammates.txt", Encoding.UTF8))
+                {
+                    if (line.Equals(txtbxPerson.Text))
+                    {
+                        MessageBox.Show(txtbxPerson.Text + " is already on the list.", "Oh man");
+                        txtbxPerson.Text = "";
+                        return;
+                    }
+                }
+
+                StreamWriter sw = File.AppendText("Teammates.txt");
+
+                sw.WriteLine(txtbxPerson.Text);
+                sw.Close();
+            }
+
+            txtbxPerson.Text = "";
+            Refresh();
+        }
+
+        private void BtnRandomize_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (Int32.Parse(txtbxTeamSize.Text) <= 0)
+                {
+                    MessageBox.Show("Insert real team size", "Very Funny");
+                    return;
+                }
+
+                int teamSize = Int32.Parse(txtbxTeamSize.Text);
+                double temp = listOfPeople.Count() / teamSize;
+
+                double teamsNumber = Math.Ceiling(temp);
+
+                ResultWindow result1 = new ResultWindow(teamsNumber, teamSize, listOfPeople);
+                result1.Show();
+            }
+            catch
+            {
+                MessageBox.Show("Insert real team size", "Very Funny");
+            }
+        }
+
+        private void BtnRemoveAll_Click(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists("Teammates.txt"))
+            {
+                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Remove all people?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    File.Delete("Teammates.txt");
+                    //MessageBox.Show("All poeple removed", "BOOM");
+                    Refresh();
+                    return;
+                }
+                return;
+            }
+
+            MessageBox.Show("There is no one to remove!", "Are you kidding me?");
+        }
+
+        private void btnRemove_Click_DSZY(object sender, RoutedEventArgs e)
+        {
+            if (this.listboxTeam.SelectedIndex >= 0)
+            {
+                var newlist = listboxTeam.SelectedItems.Cast<string>().ToList();
+
+                foreach (string s in newlist)
+                    listboxTeam.Items.Remove(s);
+
+                File.Delete("Teammates.txt");
+                StreamWriter sw = File.CreateText("Teammates.txt");
+
+                foreach (var person in listboxTeam.Items)
+                    sw.WriteLine(person);
+
+                sw.Close();
+                Refresh();
+
+                return;
+            }
+
+            MessageBox.Show("Select person to remove.");
+        }
+
+
+
+
     }
     class RandomHIandHardware
     {
@@ -3902,5 +4069,8 @@ namespace UltimateChanger
         public string Ficzur_ { get; set; }
         public string ComDev_ { get; set; }
     }
+
+  
+
 
 }
