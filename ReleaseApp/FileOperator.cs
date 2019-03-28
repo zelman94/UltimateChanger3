@@ -135,7 +135,7 @@ namespace UltimateChanger
 
         public void getPathToLogMode_Compo() // zapisuje do listy pathToLogMode_Compo zebrane kompozycje pathy do ustawien logow
         {
-            pathToLogMode_Compo = Directory.GetFiles(@"C:\Program Files\UltimateChanger\compositions\", "Configure.log4net",SearchOption.AllDirectories).ToList();
+            pathToLogMode_Compo = Directory.GetFiles(((MainWindow)System.Windows.Application.Current.MainWindow).txtLocalCompoPath.Text, "Configure.log4net",SearchOption.AllDirectories).ToList();
         }
 
         public string getPathToConfigure(int index)
@@ -155,7 +155,7 @@ namespace UltimateChanger
 
         public void getPathToManufacturerInfo_Compo() // zapisuje do listy pathToLogMode_Compo zebrane kompozycje pathy do ustawien logow
         {
-            pathToManufacturerInfo_Compo = Directory.GetFiles(@"C:\Program Files\UltimateChanger\compositions\", "ManufacturerInfo.xml", SearchOption.AllDirectories).ToList();
+            pathToManufacturerInfo_Compo = Directory.GetFiles(((MainWindow)System.Windows.Application.Current.MainWindow).txtLocalCompoPath.Text, "ManufacturerInfo.xml", SearchOption.AllDirectories).ToList();
         }
         public List<string> getPathToManufacturerInfo_Compo_List() // zapisuje do listy pathToLogMode_Compo zebrane kompozycje pathy do ustawien logow
         {
@@ -169,7 +169,7 @@ namespace UltimateChanger
             };
             try
             {
-                LocalManu = Directory.GetFiles(@"C:\Program Files\UltimateChanger\compositions\", "ManufacturerInfo.xml", SearchOption.AllDirectories).ToList();
+                LocalManu = Directory.GetFiles(((MainWindow)System.Windows.Application.Current.MainWindow).txtLocalCompoPath.Text, "ManufacturerInfo.xml", SearchOption.AllDirectories).ToList();
 
                 foreach (var item in LocalManu)
                 {
@@ -221,7 +221,7 @@ namespace UltimateChanger
         {
             List<string> listofExes = new List<string>();
 
-            listofExes = Directory.GetFiles(@"C:\Program Files\UltimateChanger\compositions\", listExeNames[nrFS], SearchOption.AllDirectories).ToList();
+            listofExes = Directory.GetFiles(((MainWindow)System.Windows.Application.Current.MainWindow).txtLocalCompoPath.Text, listExeNames[nrFS], SearchOption.AllDirectories).ToList();
 
             return listofExes;
         }
@@ -238,7 +238,7 @@ namespace UltimateChanger
             };
             try
             {
-                LocalCompos = Directory.GetDirectories(@"C:\Program Files\UltimateChanger\compositions").ToList();// zamienic to gdy nie ma FS to string ""
+                LocalCompos = Directory.GetDirectories(((MainWindow)System.Windows.Application.Current.MainWindow).txtLocalCompoPath.Text).ToList();// zamienic to gdy nie ma FS to string ""
 
                 foreach (var item in LocalCompos)
                 {

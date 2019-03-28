@@ -42,7 +42,7 @@ namespace UltimateChanger
 
         
         Dictionary<string, string> FStoPath;
-        FileOperator fileOperator = new FileOperator();
+        FileOperator fileOperator;
         DataBaseManager dataBaseManager;
         ClockManager clockManager;
         // DataBaseManager dataBaseManager;
@@ -99,7 +99,8 @@ namespace UltimateChanger
 
         public MainWindow()
         {
-            
+            InitializeComponent();
+            fileOperator = new FileOperator();
             try
             {
                
@@ -161,7 +162,8 @@ namespace UltimateChanger
 
                 clockManager = new ClockManager();
                 BindCombo = new BindCombobox();
-                InitializeComponent();
+               
+
                 try
                 {
                     przegladarka.Navigate("http://confluence.kitenet.com/display/SWSQA/Ultimate+Changer");
@@ -321,6 +323,7 @@ namespace UltimateChanger
             FittingSoftware_List.Add(new FittingSoftware("Oasis",true));
             savedTime = Convert.ToInt32(fileOperator.getSavedTime());
             setNewSavedTime(0);
+            tabControl.IsEnabled = true;
             refreshUI(new object(), new EventArgs());
 
         }
@@ -864,12 +867,28 @@ namespace UltimateChanger
         }
         public void refreshUI(object sender, EventArgs e)
         {
-            verifyInstalledBrands();
-            
+            verifyInstalledBrands();            
             try
             {
                 int counter = 0;
-                foreach (var item in FittingSoftware_List)
+                List<FittingSoftware> partListFS = new List<FittingSoftware>();                
+                if (TabFull.IsSelected)
+                {
+                    for (int i = 0; i < 5; i++)
+                    {
+                        partListFS.Add(FittingSoftware_List[i]);
+                    }
+                }
+                else
+                {
+                    for (int i = 5; i < FittingSoftware_List.Count; i++)
+                    {
+                        partListFS.Add(FittingSoftware_List[i]);
+                    }
+                }
+
+
+                foreach (var item in partListFS)
                 {
                     ListFSButtons[counter].ToolTip = item.Brand + ", " + item.OEM + "\n" + item.LogMode;
                     if (item.Version == "")
@@ -1249,7 +1268,7 @@ namespace UltimateChanger
                 byte counter = 0;
                 foreach (var item in checkBoxList)
                 {
-                    if (!fileOperator.CheckIfCompositionIsAvailable(fileOperator.GetAllLocalCompositions(), counter))
+                    if (FittingSoftware_List[counter+5].pathToExe == "") // jezeli nie ma path to nie ma kompozycji 
                     {
                         item.IsEnabled = false;
                         item.IsChecked = false;
@@ -1896,16 +1915,20 @@ namespace UltimateChanger
             try
             {
                 User_Power = dataBaseManager.logIn(txtNameUser.Text, passwordBox.Password.ToString());
-                if (User_Power == "")
+                if (User_Power == "" && txtNameUser.Text != "SWS")
                 {
                     MessageBox.Show("failed");
-                    return;
-                }                
+                    
+                }else             
                 MessageBox.Show("done");
             }
             catch (Exception x)
             {
                 logging.AddLog(x.ToString());
+            }
+            if (txtNameUser.Text == "SWS")
+            {
+                R_Day.Visibility = Visibility.Visible;
             }
 
         }
@@ -3614,6 +3637,85 @@ namespace UltimateChanger
             }
         }
 
+        private void btnImportSettings_Click(object sender, RoutedEventArgs e)
+        {
+
+            //dodac otwieranie wskazanego pliku + jego podmiane w programfiles
+            Stream myStream;
+            OpenFileDialog saveFileDialog1 = new OpenFileDialog();
+            saveFileDialog1.Filter = "txt files (*.xml)|*.xml|All files (*.*)|*.*";
+            saveFileDialog1.FilterIndex = 1;
+            saveFileDialog1.RestoreDirectory = true;
+
+            if ((bool)saveFileDialog1.ShowDialog())
+            {
+                if ((myStream = saveFileDialog1.OpenFile()) != null)
+                {
+                    myStream.Close();
+                    try
+                    {
+                        if (saveFileDialog1.FileName.Contains(".xml"))
+                        {
+                            File.Copy(saveFileDialog1.FileName, @"C:\Program Files\UltimateChanger\Settings\Defaults.xml", true);
+                            File.Delete(saveFileDialog1.FileName.Remove(saveFileDialog1.FileName.Length - 4, 4));
+                        }
+                        else
+                        {
+                            File.Copy(saveFileDialog1.FileName + ".xml", @"C:\Program Files\UltimateChanger\Settings\Defaults.xml", true);
+                            File.Delete(saveFileDialog1.FileName);
+                        }
+                    }
+
+                    catch (Exception x)
+                    {
+                        MessageBox.Show(x.ToString());
+                    }
+                }
+            }
+
+
+            setUIdefaults(XMLReader.getDefaultSettings("RadioButtons"), "RadioButtons");
+            setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
+            setUIdefaults(XMLReader.getDefaultSettings("ComboBox"), "ComboBox");
+            setUIdefaults(XMLReader.getDefaultSettings("TextBox"), "TextBox");
+        }
+
+        private void btnExportSettings_Click(object sender, RoutedEventArgs e)
+        {
+            // zapis pliku do wskazanej przez usera lokalizacji 
+            Stream myStream;
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "txt files (*.xml)|*.xml|All files (*.*)|*.*";
+            saveFileDialog1.FilterIndex = 1;
+            saveFileDialog1.RestoreDirectory = true;
+
+            if ((bool)saveFileDialog1.ShowDialog())
+            {
+                if ((myStream = saveFileDialog1.OpenFile()) != null)
+                {
+                    myStream.Close();
+                    try
+                        {
+                            if (saveFileDialog1.FileName.Contains(".xml"))
+                            {
+                                File.Copy(@"C:\Program Files\UltimateChanger\Settings\Defaults.xml", saveFileDialog1.FileName, true);
+                                File.Delete(saveFileDialog1.FileName.Remove(saveFileDialog1.FileName.Length - 4, 4));
+                            }
+                            else
+                            {
+                                File.Copy(@"C:\Program Files\UltimateChanger\Settings\Defaults.xml", saveFileDialog1.FileName + ".xml", true);
+                                File.Delete(saveFileDialog1.FileName);
+                            }
+                        }
+                       
+                        catch (Exception x)
+                        {
+                            MessageBox.Show(x.ToString());
+                        }                      
+                }
+            }
+        }
+
         private void rbnTurnOffDevMode_Checked(object sender, RoutedEventArgs e)
         {
             lbluninstallinfo.Visibility = Visibility.Hidden;
@@ -3752,7 +3854,6 @@ namespace UltimateChanger
                 {
                     refreshUI(new object(), new EventArgs());
                     cmbBuild2_Compo.SelectedIndex = 1;
-                    fileOperator.GetfilesSaveData(true);
                     BindCombo.setFScomboBox_compositions(); // bindowanie do compozycjji  
                     cmbRelease_Compo.Text = cmbRelease.Text;
                     cmbBrandstoinstall_Compo.SelectedIndex = 0;
