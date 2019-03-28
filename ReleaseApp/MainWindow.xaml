@@ -1809,9 +1809,52 @@
                 <WebBrowser Name="przegladarka"/>
             </Grid>
         </TabItem>
-        <TabItem Name="R_Day" Header="Release Day" Foreground="White" Visibility="Hidden">
-            <Grid x:Name="Grid" Margin="10">
-                
+        <TabItem Name="R_Day" Header="Release Day" Foreground="White">
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <Image x:Name="imgMyTeam" Source="/Images/MyTeam.png " Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="0" Grid.RowSpan="3" Margin="5"/>
+
+                <Label x:Name="txtbxPersonLabel" Content="Name" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="White"/>
+                <TextBox x:Name="txtbxPerson" Grid.Column="2" Grid.Row="4" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="10" Foreground="White" BorderBrush="White"/>
+                <Button x:Name="btnAddD" Content="Add person" Click="BtnAdd_Click" Grid.Column="4" Grid.Row="4" Margin="5" Background="#6d6d6d" Foreground="White" BorderBrush="#8e8e8e" BorderThickness="0.5" Padding="0" FontSize="12"/>
+
+                <Label x:Name="txtbxTeamSizeLabel" Content="Team Size:" Grid.Row="6" Grid.Column="2" HorizontalAlignment ="Right" VerticalAlignment="Center" Foreground="White"/>
+                <TextBox x:Name="txtbxTeamSize" Grid.Row="6" Grid.Column="3" Margin="5" Foreground="White" BorderBrush="White" VerticalAlignment="Center"/>
+                <Button x:Name="btnRandomize" Content="RANDOMIZE IT!" Click="BtnRandomize_Click" Grid.Column="2" Grid.Row="7" Grid.ColumnSpan="2" Margin="5" Background="#6d6d6d" Foreground="White" BorderBrush="#8e8e8e" BorderThickness="0.5" Padding="0" FontSize="14"/>
+
+                <Label x:Name="labelCounter" Content="0" Grid.Column="5" Grid.Row="8" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="White"/>
+                <Label x:Name="label2" Content="people added." Grid.Column="6" Grid.Row="8" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"/>
+
+                <Label x:Name="YourTeamLabel" Content="Your team:"  Grid.Column="5" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.ColumnSpan="2" FontWeight="Bold" Foreground="White" FontSize="15"/>
+                <ListBox x:Name="listboxTeam" Grid.Column="5" Grid.Row="1" Grid.RowSpan="7" Margin="15 10" Grid.ColumnSpan="2"  />
+
+                <Button x:Name="btnRemovee" Content="Remove person" Grid.Column="7" Grid.Row="6" Margin="5" Click="btnRemove_Click_DSZY" Background="#6d6d6d" Foreground="White" BorderBrush="#8e8e8e" BorderThickness="0.5" Padding="0" FontSize="12"/>
+                <Button x:Name="btnRemoveAll" Content="Remove All" Click="BtnRemoveAll_Click" Grid.Column="7" Grid.Row="7" Margin="5" Background="#6d6d6d" Foreground="White" BorderBrush="#8e8e8e" BorderThickness="0.5" Padding="0" FontSize="12"/>
+
+                <Label x:Name="label3" Content="Developed by:" Grid.Column="0" Grid.Row="8" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"/>
+                <Label x:Name="label4" Content="DSZY" Grid.Column="0" Grid.Row="8" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
             </Grid>
         </TabItem>
     </TabControl>
