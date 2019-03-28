@@ -44,6 +44,10 @@
     <Name>Release</Name>
     <Value>19.2</Value>
   </ComboBox>
+  <TextBox>
+    <Name>LocalComposition</Name>
+    <Value>C:\Program Files\UltimateChanger\compositions</Value>
+  </TextBox>
   <DataBase>
 	  <Name>connectionString</Name>
 	  <Value>0</Value>

@@ -40,6 +40,7 @@ namespace UltimateChanger
         /// <param name="expressFit">Label opisujacy market dla ExpressFit</param>
         /// <param name="cmbMarket">Combobox z lista marketow</param>
         /// 
+
         static public List<string> listPathTobuilds = new List<string> {
 
             @"\\10.128.3.1\DFS_Data_SSC_FS_GenieBuilds\Phoenix\Genie", // po kolei jak w cmb FS
@@ -134,12 +135,72 @@ namespace UltimateChanger
 
         public void getPathToLogMode_Compo() // zapisuje do listy pathToLogMode_Compo zebrane kompozycje pathy do ustawien logow
         {
-            pathToLogMode_Compo = Directory.GetFiles(@"C:\Program Files\UltimateChanger\compositions\", "Configure.log4net",SearchOption.AllDirectories).ToList();
+            pathToLogMode_Compo = Directory.GetFiles(((MainWindow)System.Windows.Application.Current.MainWindow).txtLocalCompoPath.Text, "Configure.log4net",SearchOption.AllDirectories).ToList();
+        }
+
+        public string getPathToConfigure(int index)
+        {
+            string Configure_return = "";
+
+            foreach (var item in pathToLogMode_Compo)
+            {
+                if (item.Contains(listCompoNames[index]))
+                {
+                    Configure_return = item;
+                }
+            }
+
+            return Configure_return;
         }
 
         public void getPathToManufacturerInfo_Compo() // zapisuje do listy pathToLogMode_Compo zebrane kompozycje pathy do ustawien logow
         {
-            pathToManufacturerInfo_Compo = Directory.GetFiles(@"C:\Program Files\UltimateChanger\compositions\", "ManufacturerInfo.xml", SearchOption.AllDirectories).ToList();
+            pathToManufacturerInfo_Compo = Directory.GetFiles(((MainWindow)System.Windows.Application.Current.MainWindow).txtLocalCompoPath.Text, "ManufacturerInfo.xml", SearchOption.AllDirectories).ToList();
+        }
+        public List<string> getPathToManufacturerInfo_Compo_List() // zapisuje do listy pathToLogMode_Compo zebrane kompozycje pathy do ustawien logow
+        {
+            List<string> LocalManu = new List<string>();
+            List<string> LocalManu_return = new List<string> {
+                "",
+                "",
+                "",
+                "",
+                ""
+            };
+            try
+            {
+                LocalManu = Directory.GetFiles(((MainWindow)System.Windows.Application.Current.MainWindow).txtLocalCompoPath.Text, "ManufacturerInfo.xml", SearchOption.AllDirectories).ToList();
+
+                foreach (var item in LocalManu)
+                {
+                    if (item.ToLower().Contains("genie"))
+                    {
+                        LocalManu_return[0] = item;
+                    }
+                    if (item.ToLower().Contains("medical"))
+                    {
+                        LocalManu_return[1] = item;
+                    }
+                    if (item.ToLower().Contains("expressfit"))
+                    {
+                        LocalManu_return[2] = item;
+                    }
+                    if (item.ToLower().Contains("hearsuite"))
+                    {
+                        LocalManu_return[3] = item;
+                    }
+                    if (item.ToLower().Contains("oasis"))
+                    {
+                        LocalManu_return[4] = item;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            return LocalManu_return;
+             
         }
 
         public string FindSettingFileForComposition(int numberOfCheckbox)
@@ -160,7 +221,7 @@ namespace UltimateChanger
         {
             List<string> listofExes = new List<string>();
 
-            listofExes = Directory.GetFiles(@"C:\Program Files\UltimateChanger\compositions\", listExeNames[nrFS], SearchOption.AllDirectories).ToList();
+            listofExes = Directory.GetFiles(((MainWindow)System.Windows.Application.Current.MainWindow).txtLocalCompoPath.Text, listExeNames[nrFS], SearchOption.AllDirectories).ToList();
 
             return listofExes;
         }
@@ -177,7 +238,7 @@ namespace UltimateChanger
             };
             try
             {
-                LocalCompos = Directory.GetDirectories(@"C:\Program Files\UltimateChanger\compositions").ToList();// zamienic to gdy nie ma FS to string ""
+                LocalCompos = Directory.GetDirectories(((MainWindow)System.Windows.Application.Current.MainWindow).txtLocalCompoPath.Text).ToList();// zamienic to gdy nie ma FS to string ""
 
                 foreach (var item in LocalCompos)
                 {
@@ -706,7 +767,15 @@ namespace UltimateChanger
             else // dla kompozyji
             {
                 getPathToManufacturerInfo_Compo();
-                doc.Load(FindSettingFileForComposition(licz));
+                try
+                {
+                    doc.Load(FindSettingFileForComposition(licz));
+                }
+                catch (Exception)
+                {
+                    return "";
+                }
+                
             }
            
             return doc.SelectSingleNode("/ManufacturerInfo/MarketName").InnerText;
@@ -884,6 +953,7 @@ namespace UltimateChanger
 
         public FileOperator()
         {
+            getPathToManufacturerInfo_Compo();
             licznik_przejsc = 0;
             try
             {
@@ -922,222 +992,6 @@ namespace UltimateChanger
             this.imgSonic = imgSonic;
         }
 
-        public void Savebuildsinfo()
-        {
-            List<pathAndDir> tmpList = ((MainWindow)System.Windows.Application.Current.MainWindow).Paths_Dirs;
-            int j = 1;
-            int k = 0;
-            for (int i = 0; i < tmpList.Count; i++)
-            {
-                try
-                {
-                    //File.Delete(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + listFilesName[k]);
-                    //File.Delete(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + listFilesName[j]);
-
-                    //File.Create(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + listFilesName[k]);
-                    //File.Create(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + listFilesName[j]);                    
-
-                    using (StreamWriter outputFile = new StreamWriter(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + listFilesName[k]))
-                    {
-                        foreach (string line in tmpList[i].dir)
-                            outputFile.WriteLine(line);
-
-                        outputFile.Close();
-                    }
-
-                    using (StreamWriter outputFile = new StreamWriter(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + listFilesName[j]))
-                    {
-                        foreach (string line in tmpList[i].path)
-                            outputFile.WriteLine(line);
-
-                        outputFile.Close();
-                    }
-
-                    //System.IO.File.WriteAllLines(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + listFilesName[k], tmpList[i].dir);
-                    //System.IO.File.WriteAllLines(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + listFilesName[j], tmpList[i].path);
-                                       
-                    j += 2; ;
-                    k += 2; ;
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("cannot write to file");
-                }
-            }
-        }
-
-        public bool getDataToBuildCombobox()
-        {
-            if (Directory.Exists(@"C:\Program Files\DGS - PAZE & MIBW\Data"))
-            {
-                string[] filess = Directory.GetFiles(@"C:\Program Files\DGS - PAZE & MIBW\Data").Select(file => Path.GetFileName(file)).ToArray(); // wszystkie pliki z katalogu
-                List<string> files = new List<string>(); // wszystkie pliki z dir
-                List<string> paths = new List<string>(); // wszystkie pliki z path
-                foreach (var item in filess)
-                {
-                    if (item.Contains("dir"))
-                    {
-                        files.Add(item);
-                    }
-                    else
-                    {
-                        paths.Add(item);
-                    }
-                }
-                pathAndDir tmp = new pathAndDir();
-                List<List<string>> dirsList = new List<List<string>>();
-                List<List<string>> pathsList = new List<List<string>>();
-
-                foreach (var item in files)
-                {
-                    try
-                    {
-                        List<string> logList = new List<string>();
-                        using (StreamReader sr = new StreamReader(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + item))
-                        {
-                            while (!sr.EndOfStream)
-                                logList.Add(sr.ReadLine());
-
-                            sr.Close();
-                        }
-                        dirsList.Add(logList);
-                    }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("The file could not be read:");
-                        return false;
-                    }
-                }
-
-                foreach (var item2 in paths)
-                {
-                    try
-                    {
-                        List<string> logList = new List<string>();
-                        using (StreamReader sr = new StreamReader(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + item2))
-                        {
-                            while (!sr.EndOfStream)
-                                logList.Add(sr.ReadLine());
-                            sr.Close();
-                        }
-                        pathsList.Add(logList);
-                    }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("The file could not be read:");
-                        return false;
-                    }
-                }
-
-                for (int i = 0; i < dirsList.Count; i++)
-                {
-                    pathAndDir tmpp = new pathAndDir();
-                    tmpp.dir = dirsList[i];
-                    tmpp.path = pathsList[i];
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).Paths_Dirs.Add(tmpp);
-                }
-                return true;
-            }
-            else
-            {
-                try
-                {
-                    if (Directory.Exists(@"C:\Program Files\DGS - PAZE & MIBW\"))
-                    {
-                        Directory.CreateDirectory(@"C:\Program Files\DGS - PAZE & MIBW\Data");
-                    }
-                    else
-                    {
-                        Directory.CreateDirectory(@"C:\Program Files\DGS - PAZE & MIBW\");
-                        Directory.CreateDirectory(@"C:\Program Files\DGS - PAZE & MIBW\Data");
-                    }
-                    // zrobić bindowanie z rekurencji podpiąć i zapisać do pliku 
-
-                    //return true;
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-
-                List<pathAndDir> tmpList = ((MainWindow)System.Windows.Application.Current.MainWindow).Paths_Dirs;
-                int j = 1;
-                int k = 0;
-                for (int i = 0; i < tmpList.Count; i++)
-                {
-                    try
-                    {
-                        File.Create(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + listFilesName[k]);
-                        File.Create(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + listFilesName[j]);
-
-                        using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Program Files\DGS - PAZE & MIBW\Data\" + listFilesName[k]))
-                        {
-                            foreach (string line in tmpList[i].dir)
-                            {
-                                file.WriteLine(line);
-                            }
-                            file.Close();
-                        }
-                        j += 2; ;
-                        k += 2; ;
-                    }
-                    catch (Exception)
-                    {
-                        MessageBox.Show("cannot write to file");
-                    }
-                }
-                return true;
-            }
-        }
-
-        public bool Get_run_with_Application() // czytanie z pliku czy chcemy zeby byla apka uruchamiana 
-        {
-            if (File.Exists(@"C:\Program Files\DGS - PAZE & MIBW\Multi Changer\info.txt"))
-            {
-                try
-                {
-                    using (StreamReader sr = new StreamReader(@"C:\Program Files\DGS - PAZE & MIBW\Multi Changer\info.txt"))
-                    {
-                        String line = sr.ReadToEnd();
-                        if (line == "1")
-                        {
-                            sr.Close();
-                            return true; // jezeli jest 1 to chceymy zeby sie uruchamiał z windowsem czyli kopiujemy exe do folderu startup
-                        }
-                        else
-                        {
-                            sr.Close();
-                            return false;
-                        }
-                    }
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("The file could not be read:");
-                    return false;
-                }
-            }
-            else
-            {
-                try
-                {
-                    File.Create(@"C:\Program Files\DGS - PAZE & MIBW\Multi Changer\info.txt");
-                }
-                catch (Exception)
-                {
-                    if (!Directory.Exists(@"C:\Program Files\DGS - PAZE & MIBW"))
-                        Directory.CreateDirectory(@"C:\Program Files\DGS - PAZE & MIBW");
-                    if (!Directory.Exists(@"C:\Program Files\DGS - PAZE & MIBW\Multi Changer"))
-                        Directory.CreateDirectory(@"C:\Program Files\DGS - PAZE & MIBW\Multi Changer");
-                    File.Create(@"C:\Program Files\DGS - PAZE & MIBW\Multi Changer\info.txt");
-                }
-                return false;
-            }
-        }
-
-     
-
-       
 
         public BuildInfo GetInfoAboutFs(string path, string path2)
         {
