@@ -1304,6 +1304,7 @@ namespace UltimateChanger
                     //System.Windows.Forms.MessageBox.Show($"Update available: {Kolumna[1]}");
 
                     Window Update = new UpdateWindow(path, getChangeLog(true), "true", "true", "true", "true", "true");
+                    Update.WindowStartupLocation = WindowStartupLocation.CenterOwner;
                     Update.ShowDialog();
 
 
@@ -1315,9 +1316,41 @@ namespace UltimateChanger
                 }
             }
 
-
-
         }
+
+        public string getPathToEmulator(int index, bool composition, string pathToExe_FS)
+        {
+            string returnString = "";
+            System.IO.DirectoryInfo directoryInfo;
+            try
+            {
+                directoryInfo = System.IO.Directory.GetParent(pathToExe_FS);
+
+                System.Console.WriteLine(directoryInfo.FullName);
+            
+            }
+            catch (ArgumentNullException)
+            {
+                System.Console.WriteLine("Path is a null reference.");
+                return returnString;
+            }
+            catch (ArgumentException)
+            {
+                System.Console.WriteLine("Path is an empty string, " +
+                    "contains only white spaces, or " +
+                    "contains invalid characters.");
+                return returnString;
+            }
+            if (File.Exists(directoryInfo.FullName + @"\Phoenix.HardwareAbstraction.Ninjago.Emulation.Program.exe"))
+            {
+                returnString = directoryInfo.FullName + @"\Phoenix.HardwareAbstraction.Ninjago.Emulation.Program.exe";
+            }
+           
+
+
+            return returnString;
+        }
+
         public static List<string> FindAllProcessesSpawnedBy(UInt32 parentProcessId)
         {
 

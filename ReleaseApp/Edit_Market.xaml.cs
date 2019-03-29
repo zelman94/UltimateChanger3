@@ -22,6 +22,7 @@ namespace UltimateChanger
         List<Label> lableListForUi = new List<Label>();
         List<TextBox> listTextBoxForUi = new List<TextBox>();
         List<Button> buttonListForUi = new List<Button>();
+        List<ComboBox> comboBoxListForUi = new List<ComboBox>();
         FittingSoftware FS;
         public Edit_Market(FittingSoftware FS)
         {
@@ -46,7 +47,10 @@ namespace UltimateChanger
             {
                 buttonListForUi.Add(item);
             }
-
+            foreach (ComboBox item in FindLogicalChildren<ComboBox>(this))
+            {
+                comboBoxListForUi.Add(item);
+            }
             //USTAWIENIA LABELI
             foreach (var item in lableListForUi)
             {
@@ -60,6 +64,13 @@ namespace UltimateChanger
                 item.BorderBrush = ((MainWindow)System.Windows.Application.Current.MainWindow).txtnewTeamMember.BorderBrush;
             }
             var converter = new System.Windows.Media.BrushConverter();
+
+            //USTAWIENIA COMBOBOXÓW
+            foreach (var item in comboBoxListForUi)
+            {
+                item.Foreground = ((MainWindow)System.Windows.Application.Current.MainWindow).cmbBrandstoinstall.Foreground;
+                item.BorderBrush = ((MainWindow)System.Windows.Application.Current.MainWindow).cmbBrandstoinstall.BorderBrush;
+            }
 
             //USTAWIENIA BUTTONÓW
             foreach (var item in buttonListForUi)

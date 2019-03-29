@@ -375,7 +375,23 @@ namespace UltimateChanger
             setNewSavedTime(15);
         }
 
-            private void View_OnClick_Context_Edit(object sender, RoutedEventArgs e)
+        
+        private void View_OnClick_Context_Emulator(object sender, RoutedEventArgs e)
+        {
+            var clickedMenuItem = sender as MenuItem;
+            var menuText = clickedMenuItem.Uid;
+            if (TabFull.IsSelected)
+            {
+                FittingSoftware_List[Convert.ToInt32(menuText)].StartEmulator();
+            }
+            else
+            {
+                FittingSoftware_List[Convert.ToInt32(menuText) + 5].StartEmulator();
+            }
+            setNewSavedTime(15);
+        }
+
+        private void View_OnClick_Context_Edit(object sender, RoutedEventArgs e)
             {
             Window EditFittingSoftware = null;
             var clickedMenuItem = sender as MenuItem;
@@ -3573,6 +3589,8 @@ namespace UltimateChanger
         private void btnAdvanceInstall_Click(object sender, RoutedEventArgs e)
         {
             Window AdvanceInstall = new AdvanceWindowInstalla();
+            AdvanceInstall.Owner = this;
+            AdvanceInstall.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             AdvanceInstall.ShowDialog();
         }
 

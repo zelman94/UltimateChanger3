@@ -25,6 +25,7 @@ namespace UltimateChanger
         public string OEM;
         public string SelectedLanguage;
         public string LogMode;
+        public string Emulator_Path = "";
         DispatcherTimer Timer_InfoFS; // timer do sprawdzania info o buildach
         List<string> ListPathsToAboutInfo = new List<string>();
         List<string> ListpathsToManInfo = new List<string>();
@@ -218,6 +219,30 @@ namespace UltimateChanger
                 Version = getFS_Version();
                 LogMode = getLogMode();
             }
+
+            Emulator_Path = fileOperator.getPathToEmulator(indexFS, composition, pathToExe);
+        }
+
+        public void StartEmulator()
+        {
+
+            if (Emulator_Path!="")
+            {
+                try
+                {
+                    Process.Start(Emulator_Path);
+                }
+                catch (Exception x)
+                {
+                    MessageBox.Show(x.ToString());
+                }
+                
+            }
+            else
+            {
+                MessageBox.Show("No available Emulator for " + Brand + "\nComposition: " + composition);
+            }
+
         }
 
         public void updateInfoFS(object sender, EventArgs e)
