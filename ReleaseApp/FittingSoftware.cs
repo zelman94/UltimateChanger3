@@ -295,7 +295,7 @@ namespace UltimateChanger
                         return item;
                     }
                 }
-                catch (Exception x)
+                catch (Exception )
                 {
                 }
             }
@@ -366,7 +366,7 @@ namespace UltimateChanger
                 {
                     File.Delete(item);
                 }
-                catch (Exception x)
+                catch (Exception)
                 {
                     problems += item + "\n";
                 }
