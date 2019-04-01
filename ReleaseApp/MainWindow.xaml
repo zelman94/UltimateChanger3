@@ -1765,6 +1765,8 @@
                     <RadioButton x:Name="rbnTurnOffDevMode" Content="Off" GroupName="group4" Checked="rbnTurnOffDevMode_Checked" Margin="0,0,28,0"/>
                     <Label x:Name="lblDefPathCompo" Content="Path to local Compositions:"/>
                     <TextBox x:Name="txtLocalCompoPath" Height="23" TextWrapping="Wrap" ToolTip="Edit, click enter to save" Text="C:\Program Files\UltimateChanger\compositions" KeyDown="txtLocalCompoPath_KeyDown"/>
+                    <Label Content="-----------------------------------"/>
+                    <CheckBox x:Name="InstallByNight" Content="Install newest build at night" IsChecked="False" Checked="InstallByNight_Checked" Unchecked="InstallByNight_Unchecked" />
 
                 </StackPanel>
 

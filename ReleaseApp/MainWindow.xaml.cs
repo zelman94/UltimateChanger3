@@ -3923,6 +3923,17 @@ namespace UltimateChanger
         //--- DSZY "LOSU LOSU" ---- //
 
         int numberOfPeople = 0;
+
+        private void InstallByNight_Checked(object sender, RoutedEventArgs e)
+        {
+            fileOperator.checkIfAvailableNewFS(FittingSoftware_List[0]); // testowo
+        }
+        private void InstallByNight_Unchecked(object sender, RoutedEventArgs e)
+        {
+
+        }
+        
+
         List<string> listOfPeople = new List<string>();
 
         public void SetButtons(bool state)

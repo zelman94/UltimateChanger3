@@ -1318,6 +1318,33 @@ namespace UltimateChanger
 
         }
 
+        public bool checkIfAvailableNewFS(FittingSoftware CurrentFS)
+        {
+            var all_dirs = Directory.GetDirectories(@"\\demant.com\data\KBN\RnD\SWS\Build\Arizona\Phoenix\FullInstaller-19.2"); // zmienić później na generycznie zamiast sztywnie 19.2
+            List<string> all_RC = new List<string>();
+            List<DateTime> creationdate = new List<DateTime>();
+            SortedDictionary<DateTime, string> All_RCs = new SortedDictionary<DateTime,string>();
+
+            foreach (var item in all_dirs)
+            {
+                if (item.Contains("rc-"))
+                {
+                    All_RCs.Add(Directory.GetCreationTime(item), item);                    
+                }
+            }
+            All_RCs.OrderBy(key => key.Key); //ostatni jest najnowszy
+
+            var Fulls = Directory.GetDirectories(All_RCs.Last().Value); // foldery z najnowszego buildu
+            // wyszukiwanie  folderu dla odpowiedniego brandu - dodać pole w klasie FS
+            //
+            List<string> PathTolatestBuildExe = new List<string>();
+            //
+            PathTolatestBuildExe = Directory.GetFiles();
+
+
+            return true;
+        }
+
         public string getPathToEmulator(int index, bool composition, string pathToExe_FS)
         {
             string returnString = "";
