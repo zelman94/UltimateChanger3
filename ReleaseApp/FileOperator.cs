@@ -1337,9 +1337,10 @@ namespace UltimateChanger
             var Fulls = Directory.GetDirectories(All_RCs.Last().Value); // foldery z najnowszego buildu
             // wyszukiwanie  folderu dla odpowiedniego brandu - dodać pole w klasie FS
             //
+
             List<string> PathTolatestBuildExe = new List<string>();
             //
-            PathTolatestBuildExe = Directory.GetFiles();
+            //PathTolatestBuildExe = Directory.GetFiles();
 
 
             return true;

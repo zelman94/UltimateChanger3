@@ -382,7 +382,8 @@ namespace UltimateChanger
             var menuText = clickedMenuItem.Uid;
             if (TabFull.IsSelected)
             {
-                FittingSoftware_List[Convert.ToInt32(menuText)].StartEmulator();
+                // FittingSoftware_List[Convert.ToInt32(menuText)].StartEmulator();
+                FittingSoftware_List[Convert.ToInt32(menuText) + 5].StartEmulator();
             }
             else
             {
@@ -463,6 +464,39 @@ namespace UltimateChanger
             EditMarket.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             EditMarket.ShowDialog();
         }
+        private void View_OnClick_Context_Release(object sender, RoutedEventArgs e)
+        {
+          
+            var clickedMenuItem = sender as MenuItem;
+            var menuText = clickedMenuItem.Uid;
+            myXMLReader myXML = new myXMLReader();
+            if (TabFull.IsSelected)
+            {
+                //menuText - 0 - set default
+                //menuText - 1 - add release
+                if (Convert.ToInt32(menuText) == 0)
+                {
+                    myXML.setSetting("Release", "ComboBox", cmbRelease.Text);
+                }
+                else
+                {
+                    Window add = new AddRelease();
+                    add.Owner = this;
+                    add.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                    add.ShowDialog();
+                    BindCombo.setReleaseComboBox();
+                }
+
+            }
+            else
+            {
+
+            }
+
+        }
+
+        
+
 
         public void setUIdefaults(SortedDictionary<string, string> settings, string mode) // mode to tryb ustawienia co zmieniasz radiobutton checkbox
         {

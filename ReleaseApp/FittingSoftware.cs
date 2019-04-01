@@ -240,7 +240,7 @@ namespace UltimateChanger
             }
             else
             {
-                MessageBox.Show("No available Emulator for " + Brand + "\nComposition: " + composition);
+                MessageBox.Show("No available Emulator for " + Brand + "\nComposition: " + composition + "\nPlease download composition to use Emulator");
             }
 
         }

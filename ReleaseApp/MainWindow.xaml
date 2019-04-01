@@ -1126,7 +1126,14 @@
                                     <ColumnDefinition Width="1*"/>
                                 </Grid.ColumnDefinitions>
                                 <ComboBox x:Name="cmbOEM" Grid.Column="0" ToolTip="OEM version" SelectionChanged="cmbOEM_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom"/>
-                                <ComboBox x:Name="cmbRelease" Grid.Column="1" ToolTip="Release of FS" SelectionChanged="cmbRelease_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom"/>
+                                <ComboBox x:Name="cmbRelease" Grid.Column="1" ToolTip="Release of FS" SelectionChanged="cmbRelease_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom">
+                                    <ComboBox.ContextMenu>
+                                    <ContextMenu>
+                                            <MenuItem Header="Set Default" Click="View_OnClick_Context_Release" ToolTip="Selected value will be new default Release" x:Uid="0"></MenuItem>
+                                            <MenuItem Header="Add Release" Click="View_OnClick_Context_Release" x:Uid="1"></MenuItem>
+                                        </ContextMenu>
+                                    </ComboBox.ContextMenu>
+                                </ComboBox>
                             </Grid>
 
 
