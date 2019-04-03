@@ -26,9 +26,6 @@ namespace UltimateChanger
                 doc.Load("C:\\Program Files\\UltimateChanger\\Settings\\Releases.xml");
             }
 
-            
-
-
             XmlNodeList NodesValues = doc.SelectNodes(string.Format($"/Release/Value"));
             for (int i = 0; i < NodesValues.Count; i++)
             {
@@ -36,6 +33,24 @@ namespace UltimateChanger
             }
 
             return lista;
+        }
+
+        public static void AddRelease(string Release_new)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load("Settings\\Releases.xml");
+            XmlNode root = doc.DocumentElement;
+
+            //Create a new node.
+            XmlElement elem = doc.CreateElement("Value");
+            elem.InnerText = Release_new;
+
+            //Add the node to the document.
+            root.AppendChild(elem);
+
+            Console.WriteLine("Display the modified XML...");
+            doc.Save(Console.Out);
+            doc.Save("Settings\\Releases.xml");
         }
 
         public SortedDictionary<string, string> getDefaultSettings(string type) // type to nazwa noda do ustawien czyli RadioButtons albo CheckBoxes

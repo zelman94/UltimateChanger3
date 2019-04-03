@@ -1304,6 +1304,7 @@ namespace UltimateChanger
                     //System.Windows.Forms.MessageBox.Show($"Update available: {Kolumna[1]}");
 
                     Window Update = new UpdateWindow(path, getChangeLog(true), "true", "true", "true", "true", "true");
+                    Update.WindowStartupLocation = WindowStartupLocation.CenterOwner;
                     Update.ShowDialog();
 
 
@@ -1315,9 +1316,110 @@ namespace UltimateChanger
                 }
             }
 
-
-
         }
+
+        public string GetAvailableNewFS(FittingSoftware CurrentFS)
+        {
+            var all_dirs = Directory.GetDirectories(@"\\demant.com\data\KBN\RnD\SWS\Build\Arizona\Phoenix\FullInstaller-19.2"); // zmienić później na generycznie zamiast sztywnie 19.2
+            SortedDictionary<DateTime, string> All_RCs = new SortedDictionary<DateTime,string>();
+
+            foreach (var item in all_dirs)
+            {
+                if (item.Contains("rc-"))
+                {
+                    All_RCs.Add(Directory.GetCreationTime(item), item);                    
+                }
+            }
+            All_RCs.OrderBy(key => key.Key); //ostatni jest najnowszy
+
+            var Fulls = Directory.GetDirectories(All_RCs.Last().Value); // foldery z najnowszego buildu
+                                                                       // wyszukiwanie  folderu dla odpowiedniego brandu
+            var DirFullInstallerName = "";
+
+            foreach (var item in Fulls)
+            {
+                if (item.Contains(CurrentFS.Name_FS))
+                {
+                    if (CurrentFS.Name_FS == "Genie" && !(item.Contains("GenieMedical")))
+                    {
+                        DirFullInstallerName = item;
+                        break;
+                    }
+                    else
+                    {
+                        DirFullInstallerName = item;
+                        break;
+                    }
+                }
+            }
+
+            List<string> PathTolatestBuildExe = new List<string>();
+            //
+            PathTolatestBuildExe = Directory.GetFiles(DirFullInstallerName + $"\\{CurrentFS.DirFullBuildName}","setup.exe").ToList(); // path do glownego instalatora main brandu
+            if (PathTolatestBuildExe.Count > 0)
+            {
+                FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(PathTolatestBuildExe[0]);
+                var tmp = myFileVersionInfo.FileVersion;
+                var splitedVerNew = tmp.Split('.');
+                var splitedCurrentVer = CurrentFS.Version.Split('.');
+
+                for (int i = 0; i < splitedVerNew.Length; i++)
+                {
+                    try
+                    {
+                        if (Convert.ToInt16(splitedVerNew[i]) > Convert.ToInt16(splitedCurrentVer[i]))
+                        {
+                            return PathTolatestBuildExe[0];
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        return "";
+                    }
+                   
+                }
+            }
+            else
+            {
+                return DirFullInstallerName;
+            }
+
+            return DirFullInstallerName;
+        }
+
+        public string getPathToEmulator(int index, bool composition, string pathToExe_FS)
+        {
+            string returnString = "";
+            System.IO.DirectoryInfo directoryInfo;
+            try
+            {
+                directoryInfo = System.IO.Directory.GetParent(pathToExe_FS);
+
+                System.Console.WriteLine(directoryInfo.FullName);
+            
+            }
+            catch (ArgumentNullException)
+            {
+                System.Console.WriteLine("Path is a null reference.");
+                return returnString;
+            }
+            catch (ArgumentException)
+            {
+                System.Console.WriteLine("Path is an empty string, " +
+                    "contains only white spaces, or " +
+                    "contains invalid characters.");
+                return returnString;
+            }
+            if (File.Exists(directoryInfo.FullName + @"\Phoenix.HardwareAbstraction.Ninjago.Emulation.Program.exe"))
+            {
+                returnString = directoryInfo.FullName + @"\Phoenix.HardwareAbstraction.Ninjago.Emulation.Program.exe";
+            }
+           
+
+
+            return returnString;
+        }
+
         public static List<string> FindAllProcessesSpawnedBy(UInt32 parentProcessId)
         {
 

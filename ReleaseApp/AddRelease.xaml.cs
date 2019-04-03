@@ -15,25 +15,17 @@ using System.Windows.Shapes;
 namespace UltimateChanger
 {
     /// <summary>
-    /// Interaction logic for Edit_Market.xaml
+    /// Logika interakcji dla klasy AddRelease.xaml
     /// </summary>
-    public partial class Edit_Market : Window
+    public partial class AddRelease : Window
     {
         List<Label> lableListForUi = new List<Label>();
         List<TextBox> listTextBoxForUi = new List<TextBox>();
         List<Button> buttonListForUi = new List<Button>();
         List<ComboBox> comboBoxListForUi = new List<ComboBox>();
-        FittingSoftware FS;
-        public Edit_Market(FittingSoftware FS)
+        public AddRelease()
         {
-            this.FS = FS;
             InitializeComponent();
-            cmbMarket.ItemsSource = ((MainWindow)System.Windows.Application.Current.MainWindow).cmbMarket.ItemsSource;
-            cmbMarket.DisplayMemberPath = "Key";
-            cmbMarket.SelectedValuePath = "Value";
-            cmbMarket.SelectedValue = FS.Market;
-            txtNameFS.Text = FS.Brand;
-
             foreach (Label tb in FindLogicalChildren<Label>(this)) // dziala
             {
                 lableListForUi.Add(tb);
@@ -84,6 +76,25 @@ namespace UltimateChanger
             this.Background = ((MainWindow)System.Windows.Application.Current.MainWindow).Background;
         }
 
+        private void txtRelease_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (txtRelease.Text.Length == 2)
+            {
+                txtRelease.Text += '.';
+                txtRelease.CaretIndex = txtRelease.Text.Length;
+            }
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnAccept_Click(object sender, RoutedEventArgs e)
+        {
+            myXMLReader.AddRelease(txtRelease.Text);
+            this.Close();
+        }
         public static IEnumerable<T> FindLogicalChildren<T>(DependencyObject obj) where T : DependencyObject
         {
             if (obj != null)
@@ -96,22 +107,6 @@ namespace UltimateChanger
                         yield return c;
             }
         }
-
-        private void btnAccept_Click(object sender, RoutedEventArgs e)
-        {
-            if (FS.Market == cmbMarket.Text || FS.Version == "") // jezeli nic nie zmieniłem to wychodze
-            {
-                this.Close();
-            }
-            FS.setMarket(BindCombobox.marketIndex[cmbMarket.SelectedIndex]);
-            ((MainWindow)System.Windows.Application.Current.MainWindow).FittingSoftware_List[FS.indexFS].Market = BindCombobox.marketIndex[cmbMarket.SelectedIndex];
-            ((MainWindow)System.Windows.Application.Current.MainWindow).refreshUI(new object(), new EventArgs());
-            this.Close();
-        }
-
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
     }
+
 }

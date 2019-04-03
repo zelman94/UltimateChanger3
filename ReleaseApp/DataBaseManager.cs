@@ -389,6 +389,7 @@ namespace UltimateChanger
                             //System.Windows.Forms.MessageBox.Show($"Update available: {Kolumna[1]}");
 
                             Window Update = new UpdateWindow(Kolumna[1], Kolumna[3], Kolumna[5], Kolumna[6], Kolumna[7], Kolumna[8], Kolumna[9]);
+                            Update.WindowStartupLocation = WindowStartupLocation.CenterOwner;
                             Update.ShowDialog();
 
 

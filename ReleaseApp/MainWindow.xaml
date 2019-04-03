@@ -721,6 +721,9 @@
                                         <Image Source="/Images/Delete_Trash.png" />
                                     </MenuItem.Icon>
                                 </MenuItem>
+                                
+                                <MenuItem Header="Emulator" Click="View_OnClick_Context_Emulator" x:Uid="0"/>
+                                
                                 <MenuItem Header="Edit" Click="View_OnClick_Context_Edit" x:Uid="0">
                                     <MenuItem.Icon>
                                         <Image Source="/Images/Edit_Icon.png" />
@@ -755,6 +758,7 @@
                                         <Image Source="/Images/Delete_Trash.png" />
                                     </MenuItem.Icon>
                                 </MenuItem>
+                                <MenuItem Header="Emulator" Click="View_OnClick_Context_Emulator" x:Uid="1"/>
                                 <MenuItem Header="Edit" Click="View_OnClick_Context_Edit" x:Uid="1">
                                     <MenuItem.Icon>
                                         <Image Source="/Images/Edit_Icon.png" />
@@ -787,6 +791,7 @@
                                         <Image Source="/Images/Delete_Trash.png" />
                                     </MenuItem.Icon>
                                 </MenuItem>
+                                <MenuItem Header="Emulator" Click="View_OnClick_Context_Emulator" x:Uid="2"/>
                                 <MenuItem Header="Edit" Click="View_OnClick_Context_Edit" x:Uid="2">
                                     <MenuItem.Icon>
                                         <Image Source="/Images/Edit_Icon.png" />
@@ -819,6 +824,7 @@
                                         <Image Source="/Images/Delete_Trash.png" />
                                     </MenuItem.Icon>
                                 </MenuItem>
+                                <MenuItem Header="Emulator" Click="View_OnClick_Context_Emulator" x:Uid="3"/>
                                 <MenuItem Header="Edit" Click="View_OnClick_Context_Edit" x:Uid="3">
                                     <MenuItem.Icon>
                                         <Image Source="/Images/Edit_Icon.png" />
@@ -852,6 +858,7 @@
                                         <Image Source="/Images/Delete_Trash.png" />
                                     </MenuItem.Icon>
                                 </MenuItem>
+                                <MenuItem Header="Emulator" Click="View_OnClick_Context_Emulator" x:Uid="4"/>
                                 <MenuItem Header="Edit" Click="View_OnClick_Context_Edit" x:Uid="4">
                                     <MenuItem.Icon>
                                         <Image Source="/Images/Edit_Icon.png" />
@@ -1119,7 +1126,14 @@
                                     <ColumnDefinition Width="1*"/>
                                 </Grid.ColumnDefinitions>
                                 <ComboBox x:Name="cmbOEM" Grid.Column="0" ToolTip="OEM version" SelectionChanged="cmbOEM_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom"/>
-                                <ComboBox x:Name="cmbRelease" Grid.Column="1" ToolTip="Release of FS" SelectionChanged="cmbRelease_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom"/>
+                                <ComboBox x:Name="cmbRelease" Grid.Column="1" ToolTip="Release of FS" SelectionChanged="cmbRelease_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom">
+                                    <ComboBox.ContextMenu>
+                                    <ContextMenu>
+                                            <MenuItem Header="Set Default" Click="View_OnClick_Context_Release" ToolTip="Selected value will be new default Release" x:Uid="0"></MenuItem>
+                                            <MenuItem Header="Add Release" Click="View_OnClick_Context_Release" x:Uid="1"></MenuItem>
+                                        </ContextMenu>
+                                    </ComboBox.ContextMenu>
+                                </ComboBox>
                             </Grid>
 
 
@@ -1758,6 +1772,8 @@
                     <RadioButton x:Name="rbnTurnOffDevMode" Content="Off" GroupName="group4" Checked="rbnTurnOffDevMode_Checked" Margin="0,0,28,0"/>
                     <Label x:Name="lblDefPathCompo" Content="Path to local Compositions:"/>
                     <TextBox x:Name="txtLocalCompoPath" Height="23" TextWrapping="Wrap" ToolTip="Edit, click enter to save" Text="C:\Program Files\UltimateChanger\compositions" KeyDown="txtLocalCompoPath_KeyDown"/>
+                    <Label Content="-----------------------------------"/>
+                    <CheckBox x:Name="InstallByNight" Content="Install newest build at night" IsChecked="False" Checked="InstallByNight_Checked" Unchecked="InstallByNight_Unchecked" IsEnabled="True" />
 
                 </StackPanel>
 
