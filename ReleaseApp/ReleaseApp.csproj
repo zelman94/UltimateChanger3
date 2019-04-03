@@ -135,6 +135,8 @@
       <DependentUpon>Edit_Market.xaml</DependentUpon>
     </Compile>
     <Compile Include="FittingSoftware.cs" />
+    <Compile Include="FittingSoftwareComposition.cs" />
+    <Compile Include="FSFactory.cs" />
     <Compile Include="FSInstaller.cs" />
     <Compile Include="Hardware.cs" />
     <Compile Include="HIs.cs" />

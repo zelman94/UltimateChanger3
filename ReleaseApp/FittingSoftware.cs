@@ -27,12 +27,15 @@ namespace UltimateChanger
         public string LogMode;
         DispatcherTimer Timer_InfoFS; // timer do sprawdzania info o buildach
         List<string> ListPathsToAboutInfo = new List<string>();
-        List<string> ListpathsToManInfo = new List<string>();
+        protected List<string> ListpathsToManInfo = new List<string>();
         public string pathToExe, pathToManu;
-        FileOperator fileOperator = new FileOperator();
-        public bool composition,uninstallation=false;
+        protected FileOperator fileOperator = new FileOperator();
+        public bool composition = false;
+        public bool uninstallation = false;
 
-
+        public FittingSoftware()
+        {
+        }
 
         public FittingSoftware(FittingSoftware tmpFS)
         {
@@ -51,173 +54,42 @@ namespace UltimateChanger
             pathToExe = tmpFS.pathToExe;
             pathToManu = tmpFS.pathToManu;
         }
-        public FittingSoftware(string Name,bool composition = false)
+
+        private void CreateFullFsw()
         {
-            Name_FS = Name;
+            PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
+            PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
+            pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
+
+            pathToExe = pathToExe = BuildInfo.ListPathsToSetup[indexFS];
+
+            ListpathsToManInfo = BuildInfo.ListPathsToManInfo;
+            ListPathsToAboutInfo = BuildInfo.ListPathsToAboutInfo;
+
+            pathToManu = ListpathsToManInfo[indexFS];
+            BuildInfo infoAboutFS = fileOperator.GetInfoAboutFs(ListpathsToManInfo[indexFS], ListPathsToAboutInfo[indexFS]);
+            //Brand = infoAboutFS.Brand;
+            Market = infoAboutFS.MarketName;
+            OEM = infoAboutFS.OEM;
+            SelectedLanguage = infoAboutFS.SelectedLanguage;
+            Version = infoAboutFS.Version;
+            LogMode = fileOperator.getLogMode(indexFS, PathToLogMode)[0];
+            Timer_InfoFS = new DispatcherTimer();
+            Timer_InfoFS.Tick += updateInfoFS;
+            Timer_InfoFS.Interval = new TimeSpan(0, 0, 10);
+            Timer_InfoFS.Start();
+        }
+
+        public FittingSoftware(string name, string brand, int index)
+        {
+            Name_FS = name;
+            Brand = brand;
+            indexFS = index;
             Path_Local_Installer = findUnInstaller();
             Version = getFS_Version();
            // Market = getMarket();
             customPath = false;
-            var localCompo = fileOperator.GetAllLocalCompositions();
-            switch (Name)
-            {
-                case ("Genie 2"):
-
-                    Brand = "Oticon";
-                    if (composition)
-                    {
-                        indexFS = 0 + 5;
-                        PathTrash = new List<string>() { localCompo[0] };
-                        fileOperator.getPathToLogMode_Compo();
-                        PathToLogMode = fileOperator.getPathToConfigure(0);
-                        pathToLogs = ""; // do sprawdzenia gdzie sie zapisuja
-                        pathToManu = fileOperator.FindSettingFileForComposition(0);
-                    }
-                    else
-                    {
-                        indexFS = 0;
-                        PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
-                        PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
-                        pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
-                    }
-                    
-   
-                    this.composition = composition;
-                    break;
-
-                case ("Medical"):
-
-                    Brand = "Medical";
-                    if (composition)
-                    {
-                        indexFS = 1 + 5;
-                        PathTrash = new List<string>() { localCompo[1] };
-                        fileOperator.getPathToLogMode_Compo();
-                        PathToLogMode = fileOperator.getPathToConfigure(1);
-                        pathToLogs = ""; // do sprawdzenia gdzie sie zapisuja
-                        pathToManu = fileOperator.FindSettingFileForComposition(1);
-                    }
-                    else
-                    {
-                        indexFS = 1;
-                        PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
-                        PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
-                        pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
-                    }
-
-                    this.composition = composition;
-                    break;
-                case ("Express"):
-
-                    Brand = "Sonic";
-                    if (composition)
-                    {
-                        indexFS = 2 + 5;
-                        PathTrash = new List<string>() { localCompo[2] };
-                        fileOperator.getPathToLogMode_Compo();
-                        PathToLogMode = fileOperator.getPathToConfigure(2);
-                        pathToLogs = ""; // do sprawdzenia gdzie sie zapisuja
-                        pathToManu = fileOperator.FindSettingFileForComposition(2);
-                    }
-                    else
-                    {
-                        indexFS = 2;
-                        PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
-                        PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
-                        pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
-                    }
-
-
-                    this.composition = composition;
-                    break;
-                case ("HearSuite"):
-
-                    Brand = "Philips";
-                    if (composition)
-                    {
-                        indexFS = 3 + 5;
-                        PathTrash = new List<string>() { localCompo[3] };
-                        fileOperator.getPathToLogMode_Compo();
-                        PathToLogMode = fileOperator.getPathToConfigure(3);
-                        pathToLogs = ""; // do sprawdzenia gdzie sie zapisuja
-                        pathToManu = fileOperator.FindSettingFileForComposition(3);
-                    }
-                    else
-                    {
-                        indexFS = 3;
-                        PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
-                        PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
-                        pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
-                    }
-
-                    this.composition = composition;
-                    break;
-                case ("Oasis"):
-
-                    Brand = "Bernafon";
-                    if (composition)
-                    {
-                        indexFS = 4 + 5;
-                        PathTrash = new List<string>() { localCompo[4] };
-                        fileOperator.getPathToLogMode_Compo();
-                        PathToLogMode = fileOperator.getPathToConfigure(4);
-                        pathToLogs = ""; // do sprawdzenia gdzie sie zapisuja
-                        pathToManu = fileOperator.FindSettingFileForComposition(4);
-                    }
-                    else
-                    {
-                        indexFS = 4;
-                        PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
-                        PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
-                        pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
-                    }
-
-
-                    this.composition = composition;
-                    break;
-                default:
-                    indexFS = -1;
-                    break;
-            }
-            if (!composition) // dla full builds
-            {
-                pathToExe = BuildInfo.ListPathsToSetup[indexFS];
-
-                ListpathsToManInfo = BuildInfo.ListPathsToManInfo;
-                ListPathsToAboutInfo = BuildInfo.ListPathsToAboutInfo;
-
-                pathToManu = ListpathsToManInfo[indexFS];
-                BuildInfo infoAboutFS = fileOperator.GetInfoAboutFs(ListpathsToManInfo[indexFS], ListPathsToAboutInfo[indexFS]);
-                //Brand = infoAboutFS.Brand;
-                Market = infoAboutFS.MarketName;
-                OEM = infoAboutFS.OEM;
-                SelectedLanguage = infoAboutFS.SelectedLanguage;
-                Version = infoAboutFS.Version;
-                LogMode = fileOperator.getLogMode(indexFS, PathToLogMode)[0];
-                Timer_InfoFS = new DispatcherTimer();
-                Timer_InfoFS.Tick += updateInfoFS;
-                Timer_InfoFS.Interval = new TimeSpan(0, 0, 10);
-                Timer_InfoFS.Start();
-            }
-            else
-            {
-                ListpathsToManInfo = fileOperator.getPathToManufacturerInfo_Compo_List() ;
-                try
-                {
-                    pathToExe = fileOperator.GetExeCompo(indexFS - 5)[0];
-                }
-                catch (Exception)
-                {
-                    pathToExe = "";
-                }
-               
-                pathToManu = fileOperator.FindSettingFileForComposition(indexFS - 5);              
-                Market = getMarket();
-                OEM = "";
-                SelectedLanguage = "";
-                Version = getFS_Version();
-                LogMode = getLogMode();
-            }
+            CreateFullFsw();
         }
 
         public void updateInfoFS(object sender, EventArgs e)
@@ -282,13 +154,8 @@ namespace UltimateChanger
 
         }
 
-        public string getMarket()
+        public virtual string getMarket()
         {
-            if (composition)
-            {
-                return fileOperator.getMarket(indexFS - 5, !composition);
-            }
-            else
             return fileOperator.getMarket(indexFS, !composition);
         }
 
@@ -357,33 +224,16 @@ namespace UltimateChanger
             uninstallation = status;
         }
 
-        public string getFS_Version()
+        public virtual string getFS_Version()
         {
-
-            if (composition)
+            try
             {
-                try
-                {
-                    FileVersionInfo tmp = FileVersionInfo.GetVersionInfo(pathToExe);
-
-                    return tmp.FileVersion;
-                }
-                catch (Exception)
-                {
-                    return "";
-                }
+                return fileOperator.GetInfoAboutFs(ListpathsToManInfo[indexFS], ListPathsToAboutInfo[indexFS]).Version;
             }
-            else
+            catch (Exception)
             {
-                try
-                {
-                    return fileOperator.GetInfoAboutFs(ListpathsToManInfo[indexFS], ListPathsToAboutInfo[indexFS]).Version;
-                }
-                catch (Exception)
-                {
-                    return "";
-                }
-            }                    
+                return "";
+            }
         }
 
     }

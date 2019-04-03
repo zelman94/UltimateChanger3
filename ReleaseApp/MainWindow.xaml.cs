@@ -311,16 +311,16 @@ namespace UltimateChanger
 
 
 
-            FittingSoftware_List.Add(new FittingSoftware("Genie 2"));
-            FittingSoftware_List.Add(new FittingSoftware("Medical"));
-            FittingSoftware_List.Add(new FittingSoftware("Express"));
-            FittingSoftware_List.Add(new FittingSoftware("HearSuite"));
-            FittingSoftware_List.Add(new FittingSoftware("Oasis"));
-            FittingSoftware_List.Add(new FittingSoftware("Genie 2",true));
-            FittingSoftware_List.Add(new FittingSoftware("Medical",true));
-            FittingSoftware_List.Add(new FittingSoftware("Express",true));
-            FittingSoftware_List.Add(new FittingSoftware("HearSuite",true));
-            FittingSoftware_List.Add(new FittingSoftware("Oasis",true));
+            FittingSoftware_List.Add(FSFactory.CreateFS("Genie 2"));
+            FittingSoftware_List.Add(FSFactory.CreateFS("Medical"));
+            FittingSoftware_List.Add(FSFactory.CreateFS("Express"));
+            FittingSoftware_List.Add(FSFactory.CreateFS("HearSuite"));
+            FittingSoftware_List.Add(FSFactory.CreateFS("Oasis"));
+            FittingSoftware_List.Add(FSFactory.CreateFS("Genie 2",true));
+            FittingSoftware_List.Add(FSFactory.CreateFS("Medical",true));
+            FittingSoftware_List.Add(FSFactory.CreateFS("Express",true));
+            FittingSoftware_List.Add(FSFactory.CreateFS("HearSuite",true));
+            FittingSoftware_List.Add(FSFactory.CreateFS("Oasis",true));
             savedTime = Convert.ToInt32(fileOperator.getSavedTime());
             setNewSavedTime(0);
             tabControl.IsEnabled = true;
