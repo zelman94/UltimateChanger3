@@ -159,7 +159,7 @@ namespace UltimateChanger
                         PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
                         pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
                         DirFullBuildName = "Philips";
-                        path_ConfigData = @"C:\ProgramData\Philips HearSuite\HearSuite\ConfigurationData";
+                        path_ConfigData = @"C:\ProgramData\Philips" + "\"" + " " + "\"" + @"HearSuite\HearSuite\ConfigurationData";
                     }
 
                     this.composition = composition;
