@@ -1318,11 +1318,9 @@ namespace UltimateChanger
 
         }
 
-        public bool checkIfAvailableNewFS(FittingSoftware CurrentFS)
+        public string GetAvailableNewFS(FittingSoftware CurrentFS)
         {
             var all_dirs = Directory.GetDirectories(@"\\demant.com\data\KBN\RnD\SWS\Build\Arizona\Phoenix\FullInstaller-19.2"); // zmienić później na generycznie zamiast sztywnie 19.2
-            List<string> all_RC = new List<string>();
-            List<DateTime> creationdate = new List<DateTime>();
             SortedDictionary<DateTime, string> All_RCs = new SortedDictionary<DateTime,string>();
 
             foreach (var item in all_dirs)
@@ -1335,15 +1333,58 @@ namespace UltimateChanger
             All_RCs.OrderBy(key => key.Key); //ostatni jest najnowszy
 
             var Fulls = Directory.GetDirectories(All_RCs.Last().Value); // foldery z najnowszego buildu
-            // wyszukiwanie  folderu dla odpowiedniego brandu - dodać pole w klasie FS
-            //
+                                                                       // wyszukiwanie  folderu dla odpowiedniego brandu
+            var DirFullInstallerName = "";
+
+            foreach (var item in Fulls)
+            {
+                if (item.Contains(CurrentFS.Name_FS))
+                {
+                    if (CurrentFS.Name_FS == "Genie" && !(item.Contains("GenieMedical")))
+                    {
+                        DirFullInstallerName = item;
+                        break;
+                    }
+                    else
+                    {
+                        DirFullInstallerName = item;
+                        break;
+                    }
+                }
+            }
 
             List<string> PathTolatestBuildExe = new List<string>();
             //
-            //PathTolatestBuildExe = Directory.GetFiles();
+            PathTolatestBuildExe = Directory.GetFiles(DirFullInstallerName + $"\\{CurrentFS.DirFullBuildName}","setup.exe").ToList(); // path do glownego instalatora main brandu
+            if (PathTolatestBuildExe.Count > 0)
+            {
+                FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(PathTolatestBuildExe[0]);
+                var tmp = myFileVersionInfo.FileVersion;
+                var splitedVerNew = tmp.Split('.');
+                var splitedCurrentVer = CurrentFS.Version.Split('.');
 
+                for (int i = 0; i < splitedVerNew.Length; i++)
+                {
+                    try
+                    {
+                        if (Convert.ToInt16(splitedVerNew[i]) > Convert.ToInt16(splitedCurrentVer[i]))
+                        {
+                            return PathTolatestBuildExe[0];
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        return "";
+                    }
+                   
+                }
+            }
+            else
+            {
+                return DirFullInstallerName;
+            }
 
-            return true;
+            return DirFullInstallerName;
         }
 
         public string getPathToEmulator(int index, bool composition, string pathToExe_FS)

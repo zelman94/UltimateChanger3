@@ -40,15 +40,14 @@ namespace UltimateChanger
         Log logging = new Log("UltimateChanger");
         bool copystatus = false; // to know if copy composition is running in rekurencjon.exe
 
-        
-        Dictionary<string, string> FStoPath;
         FileOperator fileOperator;
         DataBaseManager dataBaseManager;
         ClockManager clockManager;
         // DataBaseManager dataBaseManager;
         DispatcherTimer RefUiTIMER, Rekurencja;
         DispatcherTimer ConnectionToDBTimer;
-       public DispatcherTimer uninstallTimer, checkUpdate, InstallTimer, InstallTimer_Normal_Installation;
+       public DispatcherTimer uninstallTimer, checkUpdate, InstallTimer, InstallTimer_Normal_Installation,
+            silentUninstal_Install_Timer; //silentUninstal_Install_Timer - timer do sprawdzenia czy uninstallacja sie skonczyla 
         BindCombobox BindCombo;
         private List<pathAndDir> paths_Dirs = new List<pathAndDir>();
         //string OEMname = "";
@@ -311,14 +310,14 @@ namespace UltimateChanger
 
 
 
-            FittingSoftware_List.Add(new FittingSoftware("Genie 2"));
-            FittingSoftware_List.Add(new FittingSoftware("Medical"));
-            FittingSoftware_List.Add(new FittingSoftware("Express"));
+            FittingSoftware_List.Add(new FittingSoftware("Genie"));
+            FittingSoftware_List.Add(new FittingSoftware("GenieMedical"));
+            FittingSoftware_List.Add(new FittingSoftware("ExpressFit"));
             FittingSoftware_List.Add(new FittingSoftware("HearSuite"));
             FittingSoftware_List.Add(new FittingSoftware("Oasis"));
-            FittingSoftware_List.Add(new FittingSoftware("Genie 2",true));
-            FittingSoftware_List.Add(new FittingSoftware("Medical",true));
-            FittingSoftware_List.Add(new FittingSoftware("Express",true));
+            FittingSoftware_List.Add(new FittingSoftware("Genie",true));
+            FittingSoftware_List.Add(new FittingSoftware("GenieMedical", true));
+            FittingSoftware_List.Add(new FittingSoftware("ExpressFit", true));
             FittingSoftware_List.Add(new FittingSoftware("HearSuite",true));
             FittingSoftware_List.Add(new FittingSoftware("Oasis",true));
             savedTime = Convert.ToInt32(fileOperator.getSavedTime());
@@ -383,7 +382,7 @@ namespace UltimateChanger
             if (TabFull.IsSelected)
             {
                 // FittingSoftware_List[Convert.ToInt32(menuText)].StartEmulator();
-                FittingSoftware_List[Convert.ToInt32(menuText) + 5].StartEmulator();
+                FittingSoftware_List[Convert.ToInt32(menuText) ].StartEmulator();
             }
             else
             {
@@ -1056,6 +1055,10 @@ namespace UltimateChanger
             InstallTimer_Normal_Installation = new DispatcherTimer();
             InstallTimer_Normal_Installation.Tick += checkNormal_Installation;
             InstallTimer_Normal_Installation.Interval = new TimeSpan(0, 0, 2);
+
+            silentUninstal_Install_Timer = new DispatcherTimer();
+            silentUninstal_Install_Timer.Tick += checkUninstall;
+            silentUninstal_Install_Timer.Interval = new TimeSpan(0, 1, 0);
         }
 
         void initializeElements()
@@ -1404,12 +1407,13 @@ namespace UltimateChanger
                     else
                     {
                         message2 = message2 + item.Name;
+                        MessageBox.Show(message2);
                     }
                 }
                 licznik++;
             }
          
-                MessageBox.Show(message + message2);
+                
                 
         }
         private void btnFS_Click(object sender, RoutedEventArgs e)
@@ -2089,7 +2093,7 @@ namespace UltimateChanger
                     btninstal.IsEnabled = true;
                     btnDelete.IsEnabled = true;
                     lbluninstallinfo.Content = "Stoped";
-                    MessageBox.Show("Uninstallation DONE");
+                   // MessageBox.Show("Uninstallation DONE");
                 }
             }
             else
@@ -2132,6 +2136,30 @@ namespace UltimateChanger
 
         }
 
+        private void checkUninstall(object sender, EventArgs e) // sprawdz czy uninstallacja trwa jezeli juz sie skonczyla wtedy wlacz timer do instalacji nocnej
+        {
+            Process currentProcess = Process.GetCurrentProcess();
+            List<string> childs = FileOperator.FindAllProcessesSpawnedBy(Convert.ToUInt32(currentProcess.Id));
+            if (childs.Count > 0)
+            {
+                ProgressInstallation.Visibility = Visibility.Visible;
+                ProgressInstallation.Value += 10;
+
+                if (ProgressInstallation.Value == 100)
+                {
+                    ProgressInstallation.Value = 0;
+                }
+            }
+            else
+            {
+                InstallTimer_Normal_Installation.Stop();
+                btnDelete_Click(new object(), new RoutedEventArgs());
+                InstallTimer.Start();
+                ProgressInstallation.Visibility = Visibility.Hidden;
+            }
+
+        }
+        
         private void checkRekurencja(object sender, EventArgs e)
         {
             Process[] pname = Process.GetProcessesByName("Rekurencjon");
@@ -3145,9 +3173,9 @@ namespace UltimateChanger
         {
             MessageBox.Show("może kiedyś :)");
             return;
-            cmbLogSettings.Visibility = Visibility.Hidden;
-            AdvanseSettingsWindow advance = new AdvanseSettingsWindow();
-            advance.Show();
+            //cmbLogSettings.Visibility = Visibility.Hidden;
+            //AdvanseSettingsWindow advance = new AdvanseSettingsWindow();
+            //advance.Show();
         }
 
         private void btnAddPersonToList_Click(object sender, RoutedEventArgs e)
@@ -3960,7 +3988,36 @@ namespace UltimateChanger
 
         private void InstallByNight_Checked(object sender, RoutedEventArgs e)
         {
-            fileOperator.checkIfAvailableNewFS(FittingSoftware_List[0]); // testowo
+            for (int i = 0; i < 5; i++)
+            {
+                FittingSoftware_List[i].getNewFSPath();
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                while (FittingSoftware_List[i].Task_GetNewBuild.Status == TaskStatus.Running) // czekam az sie nie skonczy szukanie patha
+                {
+                    FittingSoftware_List[i].Task_GetNewBuild.Wait();
+                }
+                if (FittingSoftware_List[i].PathToNewVerFS != "") // jezlei jest nowsza warsja to dodaje do usuniecia checkbox
+                {
+                    checkBoxList[i].IsChecked = true;
+                    listOfPathsToInstall.Add(FittingSoftware_List[i].PathToNewVerFS); // dodaje na liste paths do instalacji
+                }
+                else
+                {
+                    checkBoxList[i].IsChecked = false;
+                }                
+            }
+            // zamykam wszystkie FS
+            Button_Click_2(new object(), new RoutedEventArgs());
+            MessageBox.Show(listOfPathsToInstall[0]);
+            // po zaznaczeniu checkboxow uruchamiam uninstalacje
+            RBsilet.IsChecked = true;
+            btnuninstal_Click(new object(), new RoutedEventArgs());
+            // dodac timer sprawdzajacy czy uninstallsilet sie skonczyl jezeli sie skonczyl to uruchomić silet instalacje 
+            silentUninstal_Install_Timer.Start(); // jezeli uninstall sie skonczy to uruchomi tam InstallTimer.Start() i zainstaluje wszystkie FS;
+
         }
         private void InstallByNight_Unchecked(object sender, RoutedEventArgs e)
         {

@@ -26,13 +26,16 @@ namespace UltimateChanger
         public string SelectedLanguage;
         public string LogMode;
         public string Emulator_Path = "";
+        public string DirFullBuildName = ""; // \\demant.com\data\KBN\RnD\SWS\Build\Arizona\Phoenix\FullInstaller-19.2\rc-19.2_19.2_7.18.46.0-b278379\FullInstaller-19.2-Genie i tutaj (Oticon)
         DispatcherTimer Timer_InfoFS; // timer do sprawdzania info o buildach
         List<string> ListPathsToAboutInfo = new List<string>();
         List<string> ListpathsToManInfo = new List<string>();
         public string pathToExe, pathToManu;
         FileOperator fileOperator = new FileOperator();
         public bool composition,uninstallation=false;
-
+        public string PathToNewVerFS=""; // path do nowej wersji FS tylko dla fulli bedzie
+        public Task Task_GetNewBuild =null;
+        public string path_ConfigData = "";
 
 
         public FittingSoftware(FittingSoftware tmpFS)
@@ -62,7 +65,7 @@ namespace UltimateChanger
             var localCompo = fileOperator.GetAllLocalCompositions();
             switch (Name)
             {
-                case ("Genie 2"):
+                case ("Genie"):
 
                     Brand = "Oticon";
                     if (composition)
@@ -80,13 +83,15 @@ namespace UltimateChanger
                         PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
                         PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
                         pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
+                        DirFullBuildName = "Oticon";
+                        path_ConfigData = @"C:\ProgramData\Oticon\Genie\ConfigurationData";
                     }
                     
    
                     this.composition = composition;
                     break;
 
-                case ("Medical"):
+                case ("GenieMedical"):
 
                     Brand = "Medical";
                     if (composition)
@@ -104,11 +109,13 @@ namespace UltimateChanger
                         PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
                         PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
                         pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
+                        DirFullBuildName = "OticonMedical";
+                        path_ConfigData = @"C:\ProgramData\OticonMedical\GenieMedical\ConfigurationData";
                     }
 
                     this.composition = composition;
                     break;
-                case ("Express"):
+                case ("ExpressFit"):
 
                     Brand = "Sonic";
                     if (composition)
@@ -126,6 +133,8 @@ namespace UltimateChanger
                         PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
                         PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
                         pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
+                        DirFullBuildName = "Sonic";
+                        path_ConfigData = @"C:\ProgramData\Sonic\Expressfit\ConfigurationData";
                     }
 
 
@@ -149,6 +158,8 @@ namespace UltimateChanger
                         PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
                         PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
                         pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
+                        DirFullBuildName = "Philips";
+                        path_ConfigData = @"C:\ProgramData\Philips HearSuite\HearSuite\ConfigurationData";
                     }
 
                     this.composition = composition;
@@ -171,6 +182,8 @@ namespace UltimateChanger
                         PathTrash = myXMLReader.getPaths("pathToTrash", Brand);
                         PathToLogMode = myXMLReader.getPaths("pathToLogMode", Brand)[0];
                         pathToLogs = myXMLReader.getPaths("pathToLogs", Brand)[0];
+                        DirFullBuildName = "Bernafon";
+                        path_ConfigData = @"C:\ProgramData\Bernafon\Oasis\ConfigurationData";
                     }
 
 
@@ -226,23 +239,25 @@ namespace UltimateChanger
         public void StartEmulator()
         {
 
-            if (Emulator_Path!="")
+            if (path_ConfigData != "")
             {
                 try
                 {
-                    Process.Start(Emulator_Path);
+                    Process tmpProcess = new Process();
+                    tmpProcess.StartInfo.WorkingDirectory = "Emulator\\";
+                    tmpProcess.StartInfo.FileName = "Phoenix.HardwareAbstraction.Ninjago.Emulation.Program.exe";
+                    tmpProcess.StartInfo.Arguments = $"ConfigurationDataPath={path_ConfigData}";
+                    tmpProcess.Start();                  
                 }
                 catch (Exception x)
                 {
                     MessageBox.Show(x.ToString());
-                }
-                
+                }                
             }
             else
             {
-                MessageBox.Show("No available Emulator for " + Brand + "\nComposition: " + composition + "\nPlease download composition to use Emulator");
+                MessageBox.Show("No available Emulator for " + Brand + "\nComposition: " + composition );
             }
-
         }
 
         public void updateInfoFS(object sender, EventArgs e)
@@ -336,6 +351,22 @@ namespace UltimateChanger
             fileOperator.setLogMode(PathToLogMode, LogMode, indexSetting,Convert.ToByte(indexFS),Full, false, "", "", "");
         }
 
+        public void getNewFSPath()
+        {
+
+                Task_GetNewBuild = Task.Run(() => { // watek 
+                try
+                {
+                    PathToNewVerFS = fileOperator.GetAvailableNewFS(this);
+                }
+                catch (Exception x)
+                {
+                    MessageBox.Show(x.ToString());
+                }
+            });
+
+            //PathToNewVerFS = fileOperator.GetAvailableNewFS(this);
+        }
         public void deleteTrash()
         {
             TrashCleaner smieciarka = new TrashCleaner();
