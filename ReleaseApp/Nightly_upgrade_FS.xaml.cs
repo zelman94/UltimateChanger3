@@ -23,9 +23,38 @@ namespace UltimateChanger
         List<Label> lableListForUi = new List<Label>();
         List<TextBox> listTextBoxForUi = new List<TextBox>();
         List<Button> buttonListForUi = new List<Button>();
+        List<ComboBox> comboBoxListForUi = new List<ComboBox>();
+        DateTime Time_now;
         public Nightly_upgrade_FS()
         {
             InitializeComponent();
+            InitializeUI();
+        }
+
+
+        public void InitializeUI()
+        {
+            setDefaultSkin();
+            bindComboBox();
+            Time_now = new DateTime();
+            Time_now = Time_now.AddHours(DateTime.Now.Hour);
+            Time_now = Time_now.AddMinutes(DateTime.Now.Minute);
+            updateClockUI();
+
+        }
+
+        public void bindComboBox()
+        {
+            cmbRelease.ItemsSource = ((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease.ItemsSource;
+            cmbRelease.SelectedIndex = ((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease.SelectedIndex;
+            cmbBranch.ItemsSource = new List<string>() {"master","rc"};
+            cmbBranch.SelectedIndex = 1;
+            cmbOption.ItemsSource = new List<string>() { "Full", "Medium"};
+            cmbOption.SelectedIndex = 0;
+        }
+
+        public void setDefaultSkin()
+        {
             foreach (Label tb in FindLogicalChildren<Label>(this)) // dziala
             {
                 lableListForUi.Add(tb);
@@ -38,6 +67,10 @@ namespace UltimateChanger
             foreach (Button item in FindLogicalChildren<Button>(this))
             {
                 buttonListForUi.Add(item);
+            }
+            foreach (ComboBox item in FindLogicalChildren<ComboBox>(this))
+            {
+                comboBoxListForUi.Add(item);
             }
 
             //USTAWIENIA LABELI
@@ -63,8 +96,16 @@ namespace UltimateChanger
                 item.Opacity = ((MainWindow)System.Windows.Application.Current.MainWindow).txtnewTeamMember.Opacity;
                 item.MaxWidth = ((MainWindow)System.Windows.Application.Current.MainWindow).txtnewTeamMember.MaxWidth;
             }
+            //USTAWIENIA COMBOBOXÓW
+            foreach (var item in comboBoxListForUi)
+            {
+                item.Foreground = ((MainWindow)System.Windows.Application.Current.MainWindow).cmbBrandstoinstall.Foreground;
+                item.BorderBrush = ((MainWindow)System.Windows.Application.Current.MainWindow).cmbBrandstoinstall.BorderBrush;
+            }
+
             this.Background = ((MainWindow)System.Windows.Application.Current.MainWindow).Background;
         }
+
         public static IEnumerable<T> FindLogicalChildren<T>(DependencyObject obj) where T : DependencyObject
         {
             if (obj != null)
@@ -76,6 +117,62 @@ namespace UltimateChanger
                     foreach (T c in FindLogicalChildren<T>(child))
                         yield return c;
             }
+        }
+
+        private void btnHoursUp_Click(object sender, RoutedEventArgs e)
+        {
+            Time_now = Time_now.AddHours(1);
+            updateClockUI();
+        }
+
+        private void btnHoursDown_Click(object sender, RoutedEventArgs e)
+        {
+            Time_now = Time_now.AddHours(-1);
+            updateClockUI();
+        }
+
+        private void btnMinutesUp_Click(object sender, RoutedEventArgs e)
+        {
+            Time_now = Time_now.AddMinutes(1);
+            updateClockUI();
+        }
+
+        private void btnMinutesDown_Click(object sender, RoutedEventArgs e)
+        {
+            Time_now = Time_now.AddMinutes(-1);
+            updateClockUI();
+        }
+
+        public void updateClockUI()
+        {
+            string time = "";
+            if (Time_now.Hour < 10)
+            {
+                time = $"0{Time_now.Hour}:";
+            }
+            else
+            {
+                time = $"{Time_now.Hour}:";
+            }
+            if (Time_now.Minute < 10)
+            {
+                time += $"0{Time_now.Minute}";
+            }
+            else
+            {
+                time += $"{Time_now.Minute}";
+            }
+            lblTime.Content = time;
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnAccept_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 

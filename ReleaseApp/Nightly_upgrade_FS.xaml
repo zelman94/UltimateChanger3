@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UltimateChanger"
         mc:Ignorable="d"
-        Title="Nightly_upgrade_FS" Height="450" Width="800">
+        Title="Nightly_upgrade_FS" Height="400" Width="600">
     <Window.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
             <GradientStop Color="#FF424242" Offset="0"/>
@@ -17,8 +17,6 @@
             <ColumnDefinition Width="141"/>
             <ColumnDefinition Width="277*"/>
             <ColumnDefinition Width="278*"/>
-            <ColumnDefinition Width="96*"/>
-
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -27,11 +25,22 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
+        <Button Name="btnAccept" Content="Accept" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="4" Width="150"  Height="Auto" Click="btnAccept_Click"/>
+        <Button Name="btnCancel" Content="Cancel" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="4" Width="150"  Height="Auto" Click="btnCancel_Click"/>
+        <Label Content="Brach" HorizontalAlignment="Center"  Grid.Row="1" VerticalAlignment="Top"/>
+        <Label Content="Release" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <ComboBox Name="cmbRelease" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="120" BorderBrush="White"/>
+        <ComboBox Name="cmbBranch" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Bottom" Width="120" BorderBrush="White"/>
+        <ComboBox Name="cmbOption" ToolTip="medium lub full" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Bottom" Width="120" BorderBrush="White"/>
 
+        <Button x:Name="btnHoursDown" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="2" FontFamily="Marlett" FontSize="20" Content="6" Click="btnHoursDown_Click" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"  Height="50" Width="100"/>
+        <Button x:Name="btnHoursUp" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" FontFamily="Marlett" FontSize="20" Content="5" Click="btnHoursUp_Click" Grid.Row="1" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"  Height="50" Width="100"/>
+
+        <Button x:Name="btnMinutesDown" VerticalAlignment="top" HorizontalAlignment="Right" Grid.Column="3" Grid.Row="2" FontFamily="Marlett" FontSize="20" Content="6" Click="btnMinutesDown_Click" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Height="50" Width="100"/>
+        <Button x:Name="btnMinutesUp" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Column="3" FontFamily="Marlett" FontSize="20" Content="5" Click="btnMinutesUp_Click" Grid.Row="1" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"  Height="50" Width="100"/>
+
+        <Label x:Name="lblTime" Grid.Column="2" Grid.Row="0" FontSize="50" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Content="10:10" Foreground="White"/>
 
     </Grid>
 </Window>
