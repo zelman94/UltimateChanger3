@@ -3988,35 +3988,40 @@ namespace UltimateChanger
 
         private void InstallByNight_Checked(object sender, RoutedEventArgs e)
         {
-            for (int i = 0; i < 5; i++)
-            {
-                FittingSoftware_List[i].getNewFSPath();
-            }
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    FittingSoftware_List[i].getNewFSPath();
+            //}
 
-            for (int i = 0; i < 5; i++)
-            {
-                while (FittingSoftware_List[i].Task_GetNewBuild.Status == TaskStatus.Running) // czekam az sie nie skonczy szukanie patha
-                {
-                    FittingSoftware_List[i].Task_GetNewBuild.Wait();
-                }
-                if (FittingSoftware_List[i].PathToNewVerFS != "") // jezlei jest nowsza warsja to dodaje do usuniecia checkbox
-                {
-                    checkBoxList[i].IsChecked = true;
-                    listOfPathsToInstall.Add(FittingSoftware_List[i].PathToNewVerFS); // dodaje na liste paths do instalacji
-                }
-                else
-                {
-                    checkBoxList[i].IsChecked = false;
-                }                
-            }
-            // zamykam wszystkie FS
-            Button_Click_2(new object(), new RoutedEventArgs());
-            MessageBox.Show(listOfPathsToInstall[0]);
-            // po zaznaczeniu checkboxow uruchamiam uninstalacje
-            RBsilet.IsChecked = true;
-            btnuninstal_Click(new object(), new RoutedEventArgs());
-            // dodac timer sprawdzajacy czy uninstallsilet sie skonczyl jezeli sie skonczyl to uruchomić silet instalacje 
-            silentUninstal_Install_Timer.Start(); // jezeli uninstall sie skonczy to uruchomi tam InstallTimer.Start() i zainstaluje wszystkie FS;
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    while (FittingSoftware_List[i].Task_GetNewBuild.Status == TaskStatus.Running) // czekam az sie nie skonczy szukanie patha
+            //    {
+            //        FittingSoftware_List[i].Task_GetNewBuild.Wait();
+            //    }
+            //    if (FittingSoftware_List[i].PathToNewVerFS != "") // jezlei jest nowsza warsja to dodaje do usuniecia checkbox
+            //    {
+            //        checkBoxList[i].IsChecked = true;
+            //        listOfPathsToInstall.Add(FittingSoftware_List[i].PathToNewVerFS); // dodaje na liste paths do instalacji
+            //    }
+            //    else
+            //    {
+            //        checkBoxList[i].IsChecked = false;
+            //    }                
+            //}
+            //// zamykam wszystkie FS
+            //Button_Click_2(new object(), new RoutedEventArgs());
+            //MessageBox.Show(listOfPathsToInstall[0]);
+            //// po zaznaczeniu checkboxow uruchamiam uninstalacje
+            //RBsilet.IsChecked = true;
+            //btnuninstal_Click(new object(), new RoutedEventArgs());
+            //// dodac timer sprawdzajacy czy uninstallsilet sie skonczyl jezeli sie skonczyl to uruchomić silet instalacje 
+            //silentUninstal_Install_Timer.Start(); // jezeli uninstall sie skonczy to uruchomi tam InstallTimer.Start() i zainstaluje wszystkie FS;
+
+            Window win = new Nightly_upgrade_FS();
+            win.Owner = this;
+            win.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            win.Show();
 
         }
         private void InstallByNight_Unchecked(object sender, RoutedEventArgs e)
