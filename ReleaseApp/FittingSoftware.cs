@@ -36,6 +36,7 @@ namespace UltimateChanger
         public string PathToNewVerFS=""; // path do nowej wersji FS tylko dla fulli bedzie
         public Task Task_GetNewBuild =null;
         public string path_ConfigData = "";
+        Upgrade_FittingSoftware Upgrade_FS = null; // jezeli null to nie ma zgody na nocny update
 
 
         public FittingSoftware(FittingSoftware tmpFS)
@@ -211,7 +212,14 @@ namespace UltimateChanger
                 Timer_InfoFS = new DispatcherTimer();
                 Timer_InfoFS.Tick += updateInfoFS;
                 Timer_InfoFS.Interval = new TimeSpan(0, 0, 10);
-                Timer_InfoFS.Start();
+                Timer_InfoFS.Start(); 
+                // nowy timer dla sprawdzania czy nadszedl czas dla update FS ? 
+                // jezeli null to wychodze ze sprawdzenia jezeli cos jest to wejsc do srodka obiektu i spr czy zgadza sie czas 
+                // jezeli zgadza sie czas to przekazac liste do odpowiedniej listy w głównym oknie 
+                // albo dac ten timer na mainwindow i tam to sprawdzacchyba lepsze :)
+                //przejechac po liscie obiektow i spr czy jest nullem 
+                // a jezeli zaczne już robić update to po przekazaniu listy od wszystkich dostepnych FS  z pathami do nowszej wersji 
+                // mozna usunac obiekty i wylaczyc sprawdzanie timera czy obiekt jest nullem
             }
             else
             {
