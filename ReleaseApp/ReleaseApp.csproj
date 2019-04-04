@@ -160,6 +160,7 @@
     <Compile Include="UpdateWindow.xaml.cs">
       <DependentUpon>UpdateWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Upgrade_FittingSoftware.cs" />
     <Page Include="AddRelease.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

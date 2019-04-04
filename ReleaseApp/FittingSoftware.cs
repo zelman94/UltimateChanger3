@@ -255,7 +255,12 @@ namespace UltimateChanger
                     tmpProcess.StartInfo.WorkingDirectory = "Emulator\\";
                     tmpProcess.StartInfo.FileName = "Phoenix.HardwareAbstraction.Ninjago.Emulation.Program.exe";
                     tmpProcess.StartInfo.Arguments = $"ConfigurationDataPath={path_ConfigData}";
-                    tmpProcess.Start();                  
+                    tmpProcess.Start();
+                }
+                catch (IOException y)
+                {
+                    // nie ma emulatora
+                    MessageBox.Show("lack of Emulator.exe");
                 }
                 catch (Exception x)
                 {

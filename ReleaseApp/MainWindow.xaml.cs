@@ -676,36 +676,15 @@ namespace UltimateChanger
                         // uruchomic silent installera 
                     }
                 }
-                catch (IOException )
-                {
-                    try
-                    {
-                        btnFakeV.IsEnabled = false;
-                    }
-                    catch (Exception)
-                    {
-                        MessageBox.Show("superError");
-                    }
-                   
+                catch (IOException y)
+                {       
                     MessageBox.Show(@"can not find \n \\demant.com\data\KBN\RnD\FS_Programs\Support_Tools\REMedy\_currentVersion");
                 }
                 catch (Exception x)
-                {
-                    try
-                    {
-                        btnFakeV.IsEnabled = false;
-                        MessageBox.Show(x.ToString());
-                    }
-                    catch (Exception)
-                    {
-                       
-                    }
-                   
+                {                    
+                  MessageBox.Show(x.ToString());
                 }
             });
-
-
-           
 
             if (fileOperator.checkInstanceNewPreconditioner())
             {
@@ -717,7 +696,6 @@ namespace UltimateChanger
             {
                 btnNewPrecon.IsEnabled = false;
             }
-
 
             StringToUI.Add("rbnStartwithWindows", "StartWithWindows");
             StringToUI.Add("rbnholdlogs", "HoldLogs");
@@ -738,7 +716,6 @@ namespace UltimateChanger
             StringToUI.Add("rbnTurnOnVerifit", "TurnOnVerifit");
             StringToUI.Add("rbnTurnOffVerifit", "TurnOffVerifit");
             StringToUI.Add("txtLocalCompoPath", "LocalComposition");
-
             //get savedTime
             fileOperator.getSavedTime();
 
