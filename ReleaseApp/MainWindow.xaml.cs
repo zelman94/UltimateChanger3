@@ -345,6 +345,11 @@ namespace UltimateChanger
 
             if (TabFull.IsSelected)
             {
+                if (FittingSoftware_List[Convert.ToInt32(menuText)].Path_Local_Installer == "")
+                {
+                    FittingSoftware_List[Convert.ToInt32(menuText)].findUnInstaller();
+                }               
+
                 instal.UninstallBrand(new List<string>() { FittingSoftware_List[Convert.ToInt32(menuText)].Path_Local_Installer }, true);
                 InstallTimer_Normal_Installation.Start();
             }
@@ -960,11 +965,6 @@ namespace UltimateChanger
                 if (dataBaseManager.DB_connection)
                 {
                     lblConnectionToDB.Content = "Connected to DB";
-
-                    // sprawdzenie czy update istenieje
-
-                dataBaseManager.getInformation_DB();
-
                 }
                 else
                 {
@@ -1109,19 +1109,8 @@ namespace UltimateChanger
 
         private void Window_Closing_1(object sender, CancelEventArgs e) // closing window by X button
         {
-            //Process[] proc = Process.GetProcessesByName("Rekurencjon");
-            //try
-            //{
-            //    proc[0].Kill(); // zamykam process rekurencja gdy zamyrefream UCH do przedyskutowania czy zostawiac ten process
-            //}
-            //catch (Exception)
-            //{
-
-            //}
             FileOperator.setNextCountUCRun();
             fileOperator.saveSavedTime(savedTime.ToString());
-            dataBaseManager.setLogs(CounterOfclicks, skin_name);
-
         }
 
         void changeMarket(string source)
@@ -1954,21 +1943,7 @@ namespace UltimateChanger
             lblTime.Content = clockManager.GetTime();
         }
         private void btnLogToDB_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                User_Power = dataBaseManager.logIn(txtNameUser.Text, passwordBox.Password.ToString());
-                if (User_Power == "" && txtNameUser.Text != "SWS")
-                {
-                    MessageBox.Show("failed");
-                    
-                }else             
-                MessageBox.Show("done");
-            }
-            catch (Exception x)
-            {
-                logging.AddLog(x.ToString());
-            }
+        {           
             if (txtNameUser.Text == "SWS")
             {
                 R_Day.Visibility = Visibility.Visible;
@@ -1977,14 +1952,7 @@ namespace UltimateChanger
         }
         private void btnNewUser_Click(object sender, RoutedEventArgs e)
         {
-            if (User_Power == "SUPERUSER")
-            {
-                dataBaseManager.CreateNew(txtNameUser.Text, passwordBox.Password.ToString());
-            }
-            else
-            {
-                MessageBox.Show("Only SUPER_USER can create new Accounts");
-            }
+           
         }
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
