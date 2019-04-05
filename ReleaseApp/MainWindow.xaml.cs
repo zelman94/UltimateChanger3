@@ -345,6 +345,11 @@ namespace UltimateChanger
 
             if (TabFull.IsSelected)
             {
+                if (FittingSoftware_List[Convert.ToInt32(menuText)].Path_Local_Installer == "")
+                {
+                    FittingSoftware_List[Convert.ToInt32(menuText)].findUnInstaller();
+                }               
+
                 instal.UninstallBrand(new List<string>() { FittingSoftware_List[Convert.ToInt32(menuText)].Path_Local_Installer }, true);
                 InstallTimer_Normal_Installation.Start();
             }
