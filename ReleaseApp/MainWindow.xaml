@@ -1774,6 +1774,7 @@
                     <TextBox x:Name="txtLocalCompoPath" Height="23" TextWrapping="Wrap" ToolTip="Edit, click enter to save" Text="C:\Program Files\UltimateChanger\compositions" KeyDown="txtLocalCompoPath_KeyDown"/>
                     <Label Content="-----------------------------------"/>
                     <CheckBox x:Name="InstallByNight" Content="Install newest build at night" IsChecked="False" Checked="InstallByNight_Checked" Unchecked="InstallByNight_Unchecked" IsEnabled="True" />
+                    <Label x:Name="lblTime_toUpgrade" Content="Label"/>
 
                 </StackPanel>
 

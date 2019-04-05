@@ -20,13 +20,16 @@ namespace UltimateChanger
 
     public partial class Nightly_upgrade_FS : Window
     {
+
+        List<FittingSoftware> FittingSoftware_list = new List<FittingSoftware>();
         List<Label> lableListForUi = new List<Label>();
         List<TextBox> listTextBoxForUi = new List<TextBox>();
         List<Button> buttonListForUi = new List<Button>();
         List<ComboBox> comboBoxListForUi = new List<ComboBox>();
         DateTime Time_now;
-        public Nightly_upgrade_FS()
+        public Nightly_upgrade_FS(List<FittingSoftware> FittingSoftware_list)
         {
+            this.FittingSoftware_list = FittingSoftware_list;
             InitializeComponent();
             InitializeUI();
         }
@@ -172,6 +175,13 @@ namespace UltimateChanger
 
         private void btnAccept_Click(object sender, RoutedEventArgs e)
         {
+            for (int i = 0; i < 5; i++)
+            {            
+                this.FittingSoftware_list[i].Upgrade_FS = new Upgrade_FittingSoftware(cmbRelease.Text,cmbBranch.Text,cmbOption.Text ,Time_now);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).FittingSoftware_List[i] = this.FittingSoftware_list[i]; // przekazanie obiektów do odpowiednikow glownych
+            }
+            // wlaczyc timer w mainwindow dla sprawdzania czy godzina już jest ok
+            ((MainWindow)System.Windows.Application.Current.MainWindow).checkTime_Timer.Start();
             this.Close();
         }
     }
