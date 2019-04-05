@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace UltimateChanger
 {
-    struct InfoUpdate
+    public struct InfoUpdate
     {
         public string Release,Branch,Option; // option - master/rc
         public DateTime Time_Update;
     } 
 
-    class Upgrade_FittingSoftware
+    public class Upgrade_FittingSoftware
     {
-        InfoUpdate info = new InfoUpdate();
+        public InfoUpdate info = new InfoUpdate();
 
         public Upgrade_FittingSoftware(string Release, string Branch, string Option, DateTime updateTime)
         {

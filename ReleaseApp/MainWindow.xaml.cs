@@ -47,6 +47,7 @@ namespace UltimateChanger
         DispatcherTimer RefUiTIMER, Rekurencja;
         DispatcherTimer ConnectionToDBTimer;
        public DispatcherTimer uninstallTimer, checkUpdate, InstallTimer, InstallTimer_Normal_Installation,
+            checkTime_Timer, // czy juz czas na upgrade FS
             silentUninstal_Install_Timer; //silentUninstal_Install_Timer - timer do sprawdzenia czy uninstallacja sie skonczyla 
         BindCombobox BindCombo;
         private List<pathAndDir> paths_Dirs = new List<pathAndDir>();
@@ -636,7 +637,7 @@ namespace UltimateChanger
 
                     if (fileOperator.checkInstanceFakeVerifit())
                     {
-                        btnFakeV.IsEnabled = true;
+                        //btnFakeV.IsEnabled = true;
                         FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(@"C:\Program Files (x86)\REMedy\REMedy.Launcher.exe");
                         FileVersionInfo veronserver = FileVersionInfo.GetVersionInfo(fileonServer[0]);//pobieram info o pliku 
 
@@ -1036,6 +1037,10 @@ namespace UltimateChanger
             silentUninstal_Install_Timer = new DispatcherTimer();
             silentUninstal_Install_Timer.Tick += checkUninstall;
             silentUninstal_Install_Timer.Interval = new TimeSpan(0, 1, 0);
+
+            checkTime_Timer = new DispatcherTimer();
+            checkTime_Timer.Tick += checkTime_forUpgradeFS;
+            checkTime_Timer.Interval = new TimeSpan(0, 1, 0);
         }
 
         void initializeElements()
@@ -2136,7 +2141,48 @@ namespace UltimateChanger
             }
 
         }
-        
+        private void checkTime_forUpgradeFS(object sender, EventArgs e) // sprawdz czy uninstallacja trwa jezeli juz sie skonczyla wtedy wlacz timer do instalacji nocnej
+        {
+            if (FittingSoftware_List[0].Upgrade_FS.info.Time_Update.Hour == DateTime.Now.Hour) // jezeli godzina sie zgadza
+            {
+                if (DateTime.Now.Minute >= FittingSoftware_List[0].Upgrade_FS.info.Time_Update.Minute) // jezeli minuta sie zgadza lub juz minela
+                {
+                    for (int i = 0; i < 5; i++)
+                    {
+                        FittingSoftware_List[i].getNewFSPath();
+                        
+                    }
+                    
+                    for (int i = 0; i < 5; i++)
+                    {
+                        while (FittingSoftware_List[i].Task_GetNewBuild.Status == TaskStatus.Running) // czekam az sie nie skonczy szukanie patha
+                        {
+                            FittingSoftware_List[i].Task_GetNewBuild.Wait();
+                        }
+                        Thread.Sleep(1000);
+                        if (FittingSoftware_List[i].PathToNewVerFS != "") // jezlei jest nowsza warsja to dodaje do usuniecia checkbox
+                        {
+                            checkBoxList[i].IsChecked = true;
+                            listOfPathsToInstall.Add(FittingSoftware_List[i].PathToNewVerFS); // dodaje na liste paths do instalacji
+                        }
+                        else
+                        {
+                            checkBoxList[i].IsChecked = false;
+                        }
+                    }                    
+                    // zamykam wszystkie FS
+                    Button_Click_2(new object(), new RoutedEventArgs());
+                    // po zaznaczeniu checkboxow uruchamiam uninstalacje
+                    RBsilet.IsChecked = true;
+                    btnuninstal_Click(new object(), new RoutedEventArgs());
+                    // dodac timer sprawdzajacy czy uninstallsilet sie skonczyl jezeli sie skonczyl to uruchomić silet instalacje 
+                    silentUninstal_Install_Timer.Start(); // jezeli uninstall sie skonczy to uruchomi tam InstallTimer.Start() i zainstaluje wszystkie FS;
+                    checkTime_Timer.Stop();
+                }
+            }   
+        }       
+
+
         private void checkRekurencja(object sender, EventArgs e)
         {
             Process[] pname = Process.GetProcessesByName("Rekurencjon");
@@ -3965,45 +4011,17 @@ namespace UltimateChanger
 
         private void InstallByNight_Checked(object sender, RoutedEventArgs e)
         {
-            //for (int i = 0; i < 5; i++)
-            //{
-            //    FittingSoftware_List[i].getNewFSPath();
-            //}
-
-            //for (int i = 0; i < 5; i++)
-            //{
-            //    while (FittingSoftware_List[i].Task_GetNewBuild.Status == TaskStatus.Running) // czekam az sie nie skonczy szukanie patha
-            //    {
-            //        FittingSoftware_List[i].Task_GetNewBuild.Wait();
-            //    }
-            //    if (FittingSoftware_List[i].PathToNewVerFS != "") // jezlei jest nowsza warsja to dodaje do usuniecia checkbox
-            //    {
-            //        checkBoxList[i].IsChecked = true;
-            //        listOfPathsToInstall.Add(FittingSoftware_List[i].PathToNewVerFS); // dodaje na liste paths do instalacji
-            //    }
-            //    else
-            //    {
-            //        checkBoxList[i].IsChecked = false;
-            //    }                
-            //}
-            //// zamykam wszystkie FS
-            //Button_Click_2(new object(), new RoutedEventArgs());
-            //MessageBox.Show(listOfPathsToInstall[0]);
-            //// po zaznaczeniu checkboxow uruchamiam uninstalacje
-            //RBsilet.IsChecked = true;
-            //btnuninstal_Click(new object(), new RoutedEventArgs());
-            //// dodac timer sprawdzajacy czy uninstallsilet sie skonczyl jezeli sie skonczyl to uruchomić silet instalacje 
-            //silentUninstal_Install_Timer.Start(); // jezeli uninstall sie skonczy to uruchomi tam InstallTimer.Start() i zainstaluje wszystkie FS;
-
-            Window win = new Nightly_upgrade_FS();
+            Window win = new Nightly_upgrade_FS(FittingSoftware_List);
             win.Owner = this;
             win.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             win.Show();
-
         }
         private void InstallByNight_Unchecked(object sender, RoutedEventArgs e)
         {
-
+            for (int i = 0; i < 5; i++)
+            {
+                FittingSoftware_List[i].Upgrade_FS = null;
+            }
         }
         
 

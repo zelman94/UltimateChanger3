@@ -36,7 +36,7 @@ namespace UltimateChanger
         public string PathToNewVerFS=""; // path do nowej wersji FS tylko dla fulli bedzie
         public Task Task_GetNewBuild =null;
         public string path_ConfigData = "";
-        Upgrade_FittingSoftware Upgrade_FS = null; // jezeli null to nie ma zgody na nocny update
+        public Upgrade_FittingSoftware Upgrade_FS = null; // jezeli null to nie ma zgody na nocny update
 
 
         public FittingSoftware(FittingSoftware tmpFS)
