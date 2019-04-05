@@ -1320,12 +1320,12 @@ namespace UltimateChanger
 
         public string GetAvailableNewFS(FittingSoftware CurrentFS)
         {
-            var all_dirs = Directory.GetDirectories(@"\\demant.com\data\KBN\RnD\SWS\Build\Arizona\Phoenix\FullInstaller-19.2"); // zmienić później na generycznie zamiast sztywnie 19.2
+            var all_dirs = Directory.GetDirectories(@"\\demant.com\data\KBN\RnD\SWS\Build\Arizona\Phoenix\FullInstaller-"+CurrentFS.Upgrade_FS.info.Release); // zmienić później na generycznie zamiast sztywnie 19.2
             SortedDictionary<DateTime, string> All_RCs = new SortedDictionary<DateTime,string>();
 
             foreach (var item in all_dirs)
             {
-                if (item.Contains("rc-"))
+                if (item.Contains(CurrentFS.Upgrade_FS.info.Branch))
                 {
                     All_RCs.Add(Directory.GetCreationTime(item), item);                    
                 }

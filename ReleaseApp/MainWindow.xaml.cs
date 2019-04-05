@@ -2179,7 +2179,11 @@ namespace UltimateChanger
                     silentUninstal_Install_Timer.Start(); // jezeli uninstall sie skonczy to uruchomi tam InstallTimer.Start() i zainstaluje wszystkie FS;
                     checkTime_Timer.Stop();
                 }
-            }   
+            }
+            else
+            {
+                lblTime_toUpgrade.Content = "Time to start: " + FittingSoftware_List[0].Upgrade_FS.info.Time_Update.Hour + " H " + FittingSoftware_List[0].Upgrade_FS.info.Time_Update.Minute + " M";
+            }
         }       
 
 
