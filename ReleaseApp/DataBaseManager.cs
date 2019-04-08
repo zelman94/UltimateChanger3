@@ -66,31 +66,20 @@ namespace UltimateChanger
             TaskConnectToDB = Task.Run(() => {
                 SQLConnection = ConnectToDB(switch_);
                 try
-                {
-                    if (SQLConnection == null)
-                    {
-                        SQLConnection.Open();
-                    }
-                   
-                    // SQLConnection.Close();
+                {                    
                     DB_connection = true;
-
-                    setLogs_Begin(); // logowanie wlaczenia UC3
-                  
+                    setLogs_Begin(); // logowanie wlaczenia UC3                 
 
                 }
                 catch (Exception )
                 {
                     // DB_connection = false;
                     //MessageBox.Show("no acess to DB");
-
                 }
+
             });
-            //t.Wait();
-
-
+            TaskConnectToDB.Wait();
         }
-
 
         private SqlConnection ConnectToDB(string switch_)
         {
@@ -121,7 +110,30 @@ namespace UltimateChanger
             }
         }
 
+        public string getInfo_AboutBuild(string ver)
+        {
+            try
+            {
+                string info = "";
+                SQLConnection.Open();
+                SqlCommand command = new SqlCommand($"Select Changelog from Info where Version='{ver}'", SQLConnection);
 
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    reader.Read();
+                    info = reader.GetString(0);
+                }
+                SQLConnection.Close();
+                return info;
+            }
+            catch (Exception x)
+            {              
+                System.Windows.MessageBox.Show(x.ToString());
+                return "";
+            }
+           
+
+        }
 
         public void setLogs_Begin()
         {
@@ -136,8 +148,5 @@ namespace UltimateChanger
             //    Console.WriteLine(x.ToString());
             //}
         }
-
-
-
     }
 }

@@ -101,6 +101,7 @@ namespace UltimateChanger
         {
             InitializeComponent();
             fileOperator = new FileOperator();
+            dataBaseManager = new DataBaseManager(XMLReader.getDefaultSettings("DataBase").ElementAt(0).Value); // tam jest wątek
             try
             {
                
@@ -112,11 +113,12 @@ namespace UltimateChanger
 
                 if (FileOperator.getCountUCRun() == "0")
                 {
-                    Window ChangeLogWindow = new ChangeLog();
-                    ChangeLogWindow.ShowDialog();
-
                     //wersja apki
                     string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                    Window ChangeLogWindow = new ChangeLog(dataBaseManager, version);
+                    ChangeLogWindow.ShowDialog();
+
+
 
                     if (version == "4.0.0.0") // jezeli pierwszy start UC4 i versja 4.0.0 to usuń starego updatera i weź nowego 
                     {
@@ -174,6 +176,7 @@ namespace UltimateChanger
                 }
              
                 initializeElements();
+                
                 initiationForprograms();
                 BindCombo.setFScomboBox();
                 BindCombo.setReleaseComboBox();
@@ -266,7 +269,7 @@ namespace UltimateChanger
                 ListBoxOfAvailableTypes.SelectionMode = SelectionMode.Multiple;
 
                 
-                dataBaseManager = new DataBaseManager(XMLReader.getDefaultSettings("DataBase").ElementAt(0).Value); // tam jest wątek
+                
 
 
                 setUIdefaults(XMLReader.getDefaultSettings("RadioButtons"), "RadioButtons");

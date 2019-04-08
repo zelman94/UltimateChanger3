@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,11 +20,19 @@ namespace UltimateChanger
     /// </summary>
     public partial class ChangeLog : Window
     {
-        public ChangeLog()
+        public ChangeLog(DataBaseManager dataBase_Manager, string ver)
         {
             InitializeComponent();
-            FileOperator fileOperator = new FileOperator();
-            txtChangeLog.Content = fileOperator.getChangeLog();
+            if (dataBase_Manager.SQLConnection == null)
+            {
+                FileOperator fileOperator = new FileOperator();
+                txtChangeLog.Content = fileOperator.getChangeLog();
+            }
+            else
+            {
+                txtChangeLog.Content = dataBase_Manager.getInfo_AboutBuild(ver);
+            }
+           
            
         }
 
