@@ -101,6 +101,7 @@ namespace UltimateChanger
         {
             InitializeComponent();
             fileOperator = new FileOperator();
+            dataBaseManager = new DataBaseManager(XMLReader.getDefaultSettings("DataBase").ElementAt(0).Value); // tam jest wątek
             try
             {
                
@@ -112,11 +113,12 @@ namespace UltimateChanger
 
                 if (FileOperator.getCountUCRun() == "0")
                 {
-                    Window ChangeLogWindow = new ChangeLog();
-                    ChangeLogWindow.ShowDialog();
-
                     //wersja apki
                     string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                    Window ChangeLogWindow = new ChangeLog(dataBaseManager, version);
+                    ChangeLogWindow.ShowDialog();
+
+
 
                     if (version == "4.0.0.0") // jezeli pierwszy start UC4 i versja 4.0.0 to usuń starego updatera i weź nowego 
                     {
@@ -174,6 +176,7 @@ namespace UltimateChanger
                 }
              
                 initializeElements();
+                
                 initiationForprograms();
                 BindCombo.setFScomboBox();
                 BindCombo.setReleaseComboBox();
@@ -266,7 +269,7 @@ namespace UltimateChanger
                 ListBoxOfAvailableTypes.SelectionMode = SelectionMode.Multiple;
 
                 
-                dataBaseManager = new DataBaseManager(XMLReader.getDefaultSettings("DataBase").ElementAt(0).Value); // tam jest wątek
+                
 
 
                 setUIdefaults(XMLReader.getDefaultSettings("RadioButtons"), "RadioButtons");
@@ -2147,10 +2150,14 @@ namespace UltimateChanger
                     silentUninstal_Install_Timer.Start(); // jezeli uninstall sie skonczy to uruchomi tam InstallTimer.Start() i zainstaluje wszystkie FS;
                     checkTime_Timer.Stop();
                 }
+                else
+                {
+                    lblTime_toUpgrade.Content = "Time to start: " + (FittingSoftware_List[0].Upgrade_FS.info.Time_Update.Hour - DateTime.Now.Hour) + " H " + (FittingSoftware_List[0].Upgrade_FS.info.Time_Update.Minute - DateTime.Now.Minute) + " M";
+                }
             }
             else
             {
-                lblTime_toUpgrade.Content = "Time to start: " + FittingSoftware_List[0].Upgrade_FS.info.Time_Update.Hour + " H " + FittingSoftware_List[0].Upgrade_FS.info.Time_Update.Minute + " M";
+                lblTime_toUpgrade.Content = "Time to start: " + (FittingSoftware_List[0].Upgrade_FS.info.Time_Update.Hour - DateTime.Now.Hour) + " H " + ( FittingSoftware_List[0].Upgrade_FS.info.Time_Update.Minute - DateTime.Now.Minute) + " M";
             }
         }       
 
@@ -3994,6 +4001,7 @@ namespace UltimateChanger
             {
                 FittingSoftware_List[i].Upgrade_FS = null;
             }
+            lblTime_toUpgrade.Content = "";
         }
         
 

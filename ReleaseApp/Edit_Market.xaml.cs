@@ -32,6 +32,10 @@ namespace UltimateChanger
             cmbMarket.DisplayMemberPath = "Key";
             cmbMarket.SelectedValuePath = "Value";
             cmbMarket.SelectedValue = FS.Market;
+            if (cmbMarket.SelectedIndex == -1)
+            {
+                cmbMarket.SelectedIndex = 0;
+            }
             txtNameFS.Text = FS.Brand;
 
             foreach (Label tb in FindLogicalChildren<Label>(this)) // dziala
