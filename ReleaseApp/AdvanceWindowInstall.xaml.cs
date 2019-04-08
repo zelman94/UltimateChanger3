@@ -29,12 +29,14 @@ namespace UltimateChanger
         public List<string> PathTobuildsUI = new List<string>();
         List<string> Paths = new List<string>();
         DispatcherTimer FindingPaths;
+        DataBaseManager databaseManager;
 
         public Task TaskFindBuilds { get; private set; }
 
-        public AdvanceWindowInstalla()
+        public AdvanceWindowInstalla(DataBaseManager databaseManager_ = null)
         {
             InitializeComponent();
+            databaseManager = databaseManager_;
             FindingPaths = new DispatcherTimer();
             FindingPaths = new DispatcherTimer();
             FindingPaths.Tick += updateListUI;
@@ -62,6 +64,7 @@ namespace UltimateChanger
             if (TaskFindBuilds.Status != TaskStatus.Running)
             {
                 ListBoxBuilds.ItemsSource = PathTobuildsUI;
+                databaseManager.Advance_AddPath(Paths[0], PathTobuilds); //Paths - root //PathTobuilds - cale pathy to setup.exe
                 FindingPaths.Stop();
                 progressAdvanceInstall.Visibility = Visibility.Hidden;
             }
@@ -164,16 +167,26 @@ namespace UltimateChanger
                 return;
             }
             writeRootPath(txtpathToBuilds.Text);
-            Paths = getPaths();
-            // dodanie start dl aprogress bar
-            progressAdvanceInstall.Visibility = Visibility.Visible;
-            string root = txtpathToBuilds.Text;
-            FindingPaths.Start();
-            TaskFindBuilds = Task.Run(() =>
+            List<string> paths_Azure = databaseManager.Advance_GetPath(txtpathToBuilds.Text);
+            if (paths_Azure.Count > 0) // jezeli jest cos na azure 
             {
-                PathTobuildsUI = findBuildsInPaths(Paths, root);
-            });
-            cmbLastselected.ItemsSource = getLastUsedPaths();
+                updateUIListPaths(paths_Azure);
+                return;
+            }
+            else // jezeli nie ma to trzeba dodac!
+            {
+                Paths = getPaths();
+                // dodanie start dl aprogress bar
+                progressAdvanceInstall.Visibility = Visibility.Visible;
+                string root = txtpathToBuilds.Text;
+                FindingPaths.Start();
+                TaskFindBuilds = Task.Run(() =>
+                {
+                    PathTobuildsUI = findBuildsInPaths(Paths, root);
+                });
+                cmbLastselected.ItemsSource = getLastUsedPaths();
+               
+            }            
         }
 
         private void ListBoxBuilds_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -219,7 +232,25 @@ namespace UltimateChanger
             if (cmbLastselected.SelectedIndex !=-1)
             {
                 txtpathToBuilds.Text = cmbLastselected.Text;
+                if (databaseManager != null)
+                {
+                    updateUIListPaths(databaseManager.Advance_GetPath(txtpathToBuilds.Text));
+                }                
             }
+        }
+
+        private void updateUIListPaths(List <string> listOfPaths)  // aktualizacja listy paths po pobraniu danych z SQL
+        {
+            PathTobuilds = listOfPaths;
+
+            List<string> UIpaths = new List<string>();
+
+            foreach (var item in listOfPaths)
+            {
+                UIpaths.Add(item.Remove(0, cmbLastselected.Text.Length));
+            }
+
+            ListBoxBuilds.ItemsSource = UIpaths;
         }
     }
 }

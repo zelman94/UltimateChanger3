@@ -3652,7 +3652,7 @@ namespace UltimateChanger
 
         private void btnAdvanceInstall_Click(object sender, RoutedEventArgs e)
         {
-            Window AdvanceInstall = new AdvanceWindowInstalla();
+            Window AdvanceInstall = new AdvanceWindowInstalla(dataBaseManager);
             AdvanceInstall.Owner = this;
             AdvanceInstall.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             AdvanceInstall.ShowDialog();

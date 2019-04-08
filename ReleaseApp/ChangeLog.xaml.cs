@@ -26,14 +26,18 @@ namespace UltimateChanger
             if (dataBase_Manager.SQLConnection == null)
             {
                 FileOperator fileOperator = new FileOperator();
-                txtChangeLog.Content = fileOperator.getChangeLog();
+                setInfoTextUI(fileOperator.getChangeLog());
             }
             else
             {
-                txtChangeLog.Content = dataBase_Manager.getInfo_AboutBuild(ver);
+                setInfoTextUI(dataBase_Manager.getInfo_AboutBuild(ver));
             }
-           
-           
+        }
+
+        private void setInfoTextUI(string info)
+        {
+            txtChangeLog.VerticalContentAlignment = VerticalAlignment.Top;
+            txtChangeLog.Text = info;
         }
 
         private void btnOk_Click(object sender, RoutedEventArgs e)

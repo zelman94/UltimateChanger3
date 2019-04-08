@@ -131,8 +131,51 @@ namespace UltimateChanger
                 System.Windows.MessageBox.Show(x.ToString());
                 return "";
             }
-           
+        }
+        public List<string> Advance_GetPath(string root) //AdvanceBuild podajesz root patha i sprawdzasz czy jest juz w bazie jezeli jest to pobierasz pathy jako lista stringow
+        {
+            List<string> listOfPaths = new List<string>();
 
+            try
+            {
+                SQLConnection.Open();
+                SqlCommand command = new SqlCommand($"Select Paths From AdvanceBuild Where Root_ LIKE '{root}'", SQLConnection);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        listOfPaths.Add(reader.GetString(0));
+                    }
+                   
+                }
+                SQLConnection.Close();
+                return listOfPaths;
+            }
+            catch (Exception x)
+            {
+                System.Windows.MessageBox.Show(x.ToString());
+                return null;
+            }
+        }
+        public void Advance_AddPath(string root, List<string> paths)
+        {
+            try
+            {
+                SQLConnection.Open();
+
+                foreach (var item in paths)
+                {
+                    SqlCommand command = new SqlCommand($"Insert INTO AdvanceBuild values ('{root}','{item}')", SQLConnection);
+                    command.ExecuteNonQuery();
+                }
+
+                SQLConnection.Close();
+            }
+            catch (Exception x)
+            {
+                System.Windows.MessageBox.Show(x.ToString());
+            }
         }
 
         public void setLogs_Begin()
