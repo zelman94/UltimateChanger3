@@ -26,9 +26,9 @@
       <Name>HI_2</Name>
             <Value>TRUE</Value>
       <Name>Light_skin</Name>
-            <Value>TRUE</Value>
-      <Name>Dark_skin</Name>
             <Value>FALSE</Value>
+      <Name>Dark_skin</Name>
+            <Value>TRUE</Value>
       <Name>Genie_skin</Name>
             <Value>FALSE</Value>
       <Name>Oasis_skin</Name>
