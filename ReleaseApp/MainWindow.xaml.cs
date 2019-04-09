@@ -267,16 +267,7 @@ namespace UltimateChanger
 
                 ListBoxOfAvailableStyles.SelectionMode = SelectionMode.Multiple;
                 ListBoxOfAvailableTypes.SelectionMode = SelectionMode.Multiple;
-
                 
-                
-
-
-                setUIdefaults(XMLReader.getDefaultSettings("RadioButtons"), "RadioButtons");
-                setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
-                setUIdefaults(XMLReader.getDefaultSettings("ComboBox"), "ComboBox");
-                setUIdefaults(XMLReader.getDefaultSettings("TextBox"), "TextBox");
-
             }
             catch (Exception x)
             {
@@ -304,16 +295,6 @@ namespace UltimateChanger
 
             List<MenuItem> menuitems = new List<MenuItem>();
 
-            //MenuItem tmp = new MenuItem();
-            //tmp.Header = "US 3";
-            //tmp.Uid = "3";
-            //tmp.Click += View_OnClick_Genie_Change_Market_US;
-            //menuitems.Add(tmp);
-            //Items_Market.ItemsSource = menuitems;
-
-
-
-
             FittingSoftware_List.Add(new FittingSoftware("Genie"));
             FittingSoftware_List.Add(new FittingSoftware("GenieMedical"));
             FittingSoftware_List.Add(new FittingSoftware("ExpressFit"));
@@ -327,6 +308,20 @@ namespace UltimateChanger
             savedTime = Convert.ToInt32(fileOperator.getSavedTime());
             setNewSavedTime(0);
             tabControl.IsEnabled = true;
+
+            try
+            {
+
+                setUIdefaults(XMLReader.getDefaultSettings("RadioButtons"), "RadioButtons");
+                setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
+                setUIdefaults(XMLReader.getDefaultSettings("ComboBox"), "ComboBox");
+                setUIdefaults(XMLReader.getDefaultSettings("TextBox"), "TextBox");
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.ToString());
+            }
+
 
             //-- DSZY LOSU LOSU--//
             listboxTeam.SelectionMode = SelectionMode.Multiple;
@@ -662,11 +657,11 @@ namespace UltimateChanger
                                 MessageBox.Show("Dir Error :) kiedyś naprawie :)");
                             }
                         }
-                        btnFakeV.ToolTip = myFileVersionInfo.FileVersion;
+                       // btnFakeV.ToolTip = myFileVersionInfo.FileVersion;
                     }
                     else
                     {
-                        btnFakeV.IsEnabled = false;
+                        //btnFakeV.IsEnabled = false;
                         if (!Directory.Exists(@"C:\Program Files\UltimateChanger\Resources"))
                         {
                             Directory.CreateDirectory(@"C:\Program Files\UltimateChanger\Resources");
@@ -1114,6 +1109,7 @@ namespace UltimateChanger
         {
             FileOperator.setNextCountUCRun();
             fileOperator.saveSavedTime(savedTime.ToString());
+            dataBaseManager.pushLogs();
         }
 
         void changeMarket(string source)
@@ -2105,8 +2101,19 @@ namespace UltimateChanger
             }
             else
             {
+                try
+                {
+                    if (FittingSoftware_List[0].Upgrade_FS.info.TrashCleaner)
+                    {
+                        btnDelete_Click(new object(), new RoutedEventArgs());
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
                 InstallTimer_Normal_Installation.Stop();
-                btnDelete_Click(new object(), new RoutedEventArgs());
+                
                 InstallTimer.Start();
                 ProgressInstallation.Visibility = Visibility.Hidden;
             }
@@ -2120,10 +2127,16 @@ namespace UltimateChanger
                 {
                     for (int i = 0; i < 5; i++)
                     {
-                        FittingSoftware_List[i].getNewFSPath();
-                        
+                        if (FittingSoftware_List[i].Upgrade_FS.info.path_to_root == "")
+                        {
+                            FittingSoftware_List[i].getNewFSPath();
+                        }
+                        else
+                        {
+                            FittingSoftware_List[i].PathToNewVerFS = fileOperator.getPathToSetup(FittingSoftware_List[i]); // dodac wyszukiwanie z rootpatha path to setup.exe dla main brandu 
+                        }
                     }
-                    
+                                   
                     for (int i = 0; i < 5; i++)
                     {
                         while (FittingSoftware_List[i].Task_GetNewBuild.Status == TaskStatus.Running) // czekam az sie nie skonczy szukanie patha

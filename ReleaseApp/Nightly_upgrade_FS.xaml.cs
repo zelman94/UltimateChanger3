@@ -26,7 +26,9 @@ namespace UltimateChanger
         List<TextBox> listTextBoxForUi = new List<TextBox>();
         List<Button> buttonListForUi = new List<Button>();
         List<ComboBox> comboBoxListForUi = new List<ComboBox>();
+        List<CheckBox> checkBoxListForUi = new List<CheckBox>();
         DateTime Time_now;
+        bool TrashCleaner = false;
         public Nightly_upgrade_FS(List<FittingSoftware> FittingSoftware_list)
         {
             this.FittingSoftware_list = FittingSoftware_list;
@@ -75,6 +77,10 @@ namespace UltimateChanger
             {
                 comboBoxListForUi.Add(item);
             }
+            foreach (CheckBox item in FindLogicalChildren<CheckBox>(this))
+            {
+                checkBoxListForUi.Add(item);
+            }
 
             //USTAWIENIA LABELI
             foreach (var item in lableListForUi)
@@ -105,7 +111,12 @@ namespace UltimateChanger
                 item.Foreground = ((MainWindow)System.Windows.Application.Current.MainWindow).cmbBrandstoinstall.Foreground;
                 item.BorderBrush = ((MainWindow)System.Windows.Application.Current.MainWindow).cmbBrandstoinstall.BorderBrush;
             }
-
+            //USTAWIENIA COMBOBOXÓW
+            foreach (var item in comboBoxListForUi)
+            {
+                item.Foreground = ((MainWindow)System.Windows.Application.Current.MainWindow).Oticon.Foreground;
+                item.BorderBrush = ((MainWindow)System.Windows.Application.Current.MainWindow).Oticon.BorderBrush;
+            }
             this.Background = ((MainWindow)System.Windows.Application.Current.MainWindow).Background;
         }
 
@@ -176,14 +187,30 @@ namespace UltimateChanger
         private void btnAccept_Click(object sender, RoutedEventArgs e)
         {
             for (int i = 0; i < 5; i++)
-            {            
-                this.FittingSoftware_list[i].Upgrade_FS = new Upgrade_FittingSoftware(cmbRelease.Text,cmbBranch.Text,cmbOption.Text ,Time_now);
+            {
+                if (txtPathRoot.Text != "")
+                {
+                    this.FittingSoftware_list[i].Upgrade_FS = new Upgrade_FittingSoftware(cmbOption.Text,txtPathRoot.Text,Time_now, TrashCleaner);
+                }
+                else
+                this.FittingSoftware_list[i].Upgrade_FS = new Upgrade_FittingSoftware(cmbRelease.Text,cmbBranch.Text,cmbOption.Text ,Time_now, TrashCleaner);
+
                 ((MainWindow)System.Windows.Application.Current.MainWindow).FittingSoftware_List[i] = this.FittingSoftware_list[i]; // przekazanie obiektów do odpowiednikow glownych
             }
             // wlaczyc timer w mainwindow dla sprawdzania czy godzina już jest ok
             ((MainWindow)System.Windows.Application.Current.MainWindow).checkTime_Timer.Start();
             ((MainWindow)System.Windows.Application.Current.MainWindow).lblTime_toUpgrade.Content = "Time to start: " + (FittingSoftware_list[0].Upgrade_FS.info.Time_Update.Hour - DateTime.Now.Hour) + " H " + (FittingSoftware_list[0].Upgrade_FS.info.Time_Update.Minute - DateTime.Now.Minute) + " M";
             this.Close();
+        }
+
+        private void chbox_DeleteTrash_Checked(object sender, RoutedEventArgs e)
+        {
+            TrashCleaner = true;
+        }
+
+        private void chbox_DeleteTrash_Unchecked(object sender, RoutedEventArgs e)
+        {
+            TrashCleaner = false;
         }
     }
 

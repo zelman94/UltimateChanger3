@@ -361,6 +361,7 @@ namespace UltimateChanger
 
         public void setLogMode(string LogMode,int indexSetting,bool Full)
         {
+            this.LogMode = LogMode;
             fileOperator.setLogMode(PathToLogMode, LogMode, indexSetting,Convert.ToByte(indexFS),Full, false, "", "", "");
         }
 

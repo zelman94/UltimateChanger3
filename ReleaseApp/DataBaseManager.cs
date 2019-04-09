@@ -68,8 +68,6 @@ namespace UltimateChanger
                 try
                 {                    
                     DB_connection = true;
-                    setLogs_Begin(); // logowanie wlaczenia UC3                 
-
                 }
                 catch (Exception )
                 {
@@ -178,18 +176,42 @@ namespace UltimateChanger
             }
         }
 
-        public void setLogs_Begin()
+        public void pushLogs()
         {
-            //try
-            //{
-            //    string data = DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day + "/" + DateTime.Now.ToString("h:mm:ss tt");
-            //    MySqlCommand myCommand = new MySqlCommand($"INSERT INTO Logs VALUES ('{Environment.UserName}','{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()}','{data}')", SQLConnection);
-            //    myCommand.ExecuteNonQuery();
-            //}
-            //catch (Exception x)
-            //{
-            //    Console.WriteLine(x.ToString());
-            //}
+
+            string data = DateTime.Now.Year.ToString();
+            if (DateTime.Now.Month < 10)
+            {
+                data += $"0{DateTime.Now.Month.ToString()}";
+            }
+            else
+            {
+                data += $"{DateTime.Now.Month.ToString()}";
+            }
+
+            if (DateTime.Now.Day < 10)
+            {
+                data += $"0{DateTime.Now.Day.ToString()}";
+            }
+            else
+            {
+                data += $"{DateTime.Now.Day.ToString()}";
+            }
+
+            data +=" "+ DateTime.Now.ToString("h:mm:ss tt");
+
+            try
+            {
+                SQLConnection.Open();
+                SqlCommand myCommand = new SqlCommand($"INSERT INTO usage VALUES ('{Environment.UserName}','{data}','{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()}')", SQLConnection);
+                myCommand.ExecuteNonQuery();
+                SQLConnection.Close();
+            }
+            catch (Exception x)
+            {
+                System.Windows.MessageBox.Show(x.ToString());
+            }
+            
         }
     }
 }
