@@ -657,11 +657,11 @@ namespace UltimateChanger
                                 MessageBox.Show("Dir Error :) kiedyś naprawie :)");
                             }
                         }
-                        btnFakeV.ToolTip = myFileVersionInfo.FileVersion;
+                       // btnFakeV.ToolTip = myFileVersionInfo.FileVersion;
                     }
                     else
                     {
-                        btnFakeV.IsEnabled = false;
+                        //btnFakeV.IsEnabled = false;
                         if (!Directory.Exists(@"C:\Program Files\UltimateChanger\Resources"))
                         {
                             Directory.CreateDirectory(@"C:\Program Files\UltimateChanger\Resources");
@@ -1109,6 +1109,7 @@ namespace UltimateChanger
         {
             FileOperator.setNextCountUCRun();
             fileOperator.saveSavedTime(savedTime.ToString());
+            dataBaseManager.pushLogs();
         }
 
         void changeMarket(string source)
