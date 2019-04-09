@@ -2116,10 +2116,16 @@ namespace UltimateChanger
                 {
                     for (int i = 0; i < 5; i++)
                     {
-                        FittingSoftware_List[i].getNewFSPath();
-                        
+                        if (FittingSoftware_List[i].Upgrade_FS.info.path_to_root == "")
+                        {
+                            FittingSoftware_List[i].getNewFSPath();
+                        }
+                        else
+                        {
+                            FittingSoftware_List[i].PathToNewVerFS = fileOperator.getPathToSetup(FittingSoftware_List[i]); // dodac wyszukiwanie z rootpatha path to setup.exe dla main brandu 
+                        }
                     }
-                    
+                                   
                     for (int i = 0; i < 5; i++)
                     {
                         while (FittingSoftware_List[i].Task_GetNewBuild.Status == TaskStatus.Running) // czekam az sie nie skonczy szukanie patha

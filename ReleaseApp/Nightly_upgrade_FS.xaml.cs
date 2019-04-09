@@ -176,8 +176,14 @@ namespace UltimateChanger
         private void btnAccept_Click(object sender, RoutedEventArgs e)
         {
             for (int i = 0; i < 5; i++)
-            {            
+            {
+                if (txtPathRoot.Text != "")
+                {
+                    this.FittingSoftware_list[i].Upgrade_FS = new Upgrade_FittingSoftware(cmbOption.Text,txtPathRoot.Text,Time_now);
+                }
+                else
                 this.FittingSoftware_list[i].Upgrade_FS = new Upgrade_FittingSoftware(cmbRelease.Text,cmbBranch.Text,cmbOption.Text ,Time_now);
+
                 ((MainWindow)System.Windows.Application.Current.MainWindow).FittingSoftware_List[i] = this.FittingSoftware_list[i]; // przekazanie obiektów do odpowiednikow glownych
             }
             // wlaczyc timer w mainwindow dla sprawdzania czy godzina już jest ok

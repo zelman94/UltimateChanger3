@@ -138,6 +138,51 @@ namespace UltimateChanger
             pathToLogMode_Compo = Directory.GetFiles(((MainWindow)System.Windows.Application.Current.MainWindow).txtLocalCompoPath.Text, "Configure.log4net",SearchOption.AllDirectories).ToList();
         }
 
+        public string getPathToSetup(FittingSoftware FS) // zwraca path do setup.exe dla podanego brandu w podanym root path
+        {
+            // pobieram katalogi w root
+            var tmp = new DirectoryInfo(FS.Upgrade_FS.info.path_to_root);
+
+            List<DirectoryInfo> dirInRoot = tmp.GetDirectories().ToList(); // lista z nazwami folderow w root
+            string path_ForBrand= FS.Upgrade_FS.info.path_to_root + @"\";
+
+            foreach (var item in dirInRoot)
+            {
+                if (item.Name.Contains(FS.Name_FS))
+                {
+                    if (item.Name.Contains("Medical") && FS.Name_FS.Contains("Medical")) // jezeli dir jest medicalem i szukam medicala
+                    {
+                        //zapisuje wartosc wychodze z petli i ide dalej
+                        path_ForBrand += item.Name;
+                        break;
+                    }
+                    else // dla innych 
+                    {
+                        path_ForBrand += item.Name;
+                        break;
+                    }
+                }
+            }
+
+            // przeszukuje foldery w poszukiwaniu setup.exe
+            //FS.Brand to np Oticon
+            if (FS.Name_FS.Contains("Medical"))
+            {
+                path_ForBrand += @"\OticonMedical"+ @"\setup.exe";
+            }
+            else
+            path_ForBrand += @"\" + FS.Brand + @"\setup.exe";
+            if (File.Exists(path_ForBrand))
+            {
+                return path_ForBrand;
+            }
+            else
+            {
+                return ""; // jezeli nie ma pliku wtedy zwracam ""
+            }
+
+        }
+
         public string getPathToConfigure(int index)
         {
             string Configure_return = "";
