@@ -402,8 +402,15 @@ namespace UltimateChanger
         public void deleteLogs()
         {
             List<string> pathToLogsFiles = new List<string>();
+            try
+            {
+                pathToLogsFiles = Directory.GetFiles(pathToLogs).ToList();
+            }
+            catch (Exception)
+            {
+                return;
+            }
 
-            pathToLogsFiles = Directory.GetFiles(pathToLogs).ToList();
             string problems = "";
             foreach (var item in pathToLogsFiles)
             {
