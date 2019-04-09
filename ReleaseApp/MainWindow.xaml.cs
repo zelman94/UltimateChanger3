@@ -432,7 +432,22 @@ namespace UltimateChanger
             refreshUI(new object(), new EventArgs());
             setNewSavedTime(20);
         }
-       
+
+        private void View_OnClick_Context_DeleteLogs(object sender, RoutedEventArgs e)
+        {
+            var clickedMenuItem = sender as MenuItem;
+            var menuText = clickedMenuItem.Uid;
+            if (TabFull.IsSelected)
+            {
+                FittingSoftware_List[Convert.ToInt32(menuText)].deleteLogs();
+            }
+            else
+            {
+                FittingSoftware_List[Convert.ToInt32(menuText) + 5].deleteLogs();
+            }
+            setNewSavedTime(20);
+        }
+        
 
         private void View_OnClick_Context_Change_Market_US(object sender, RoutedEventArgs e)
         {

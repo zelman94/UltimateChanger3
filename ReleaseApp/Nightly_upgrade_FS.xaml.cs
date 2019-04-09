@@ -52,7 +52,7 @@ namespace UltimateChanger
         {
             cmbRelease.ItemsSource = ((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease.ItemsSource;
             cmbRelease.SelectedIndex = ((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease.SelectedIndex;
-            cmbBranch.ItemsSource = new List<string>() {"master","rc"};
+            cmbBranch.ItemsSource = new List<string>() {"master","rc","IP"};
             cmbBranch.SelectedIndex = 1;
             cmbOption.ItemsSource = new List<string>() { "Full", "Medium"};
             cmbOption.SelectedIndex = 0;
@@ -211,6 +211,11 @@ namespace UltimateChanger
         private void chbox_DeleteTrash_Unchecked(object sender, RoutedEventArgs e)
         {
             TrashCleaner = false;
+        }
+
+        private void cmbOption_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 

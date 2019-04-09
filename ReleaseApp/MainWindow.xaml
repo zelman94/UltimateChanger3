@@ -721,7 +721,7 @@
                                         <Image Source="/Images/Delete_Trash.png" />
                                     </MenuItem.Icon>
                                 </MenuItem>
-
+                                <MenuItem Header="Delete Logs" Click="View_OnClick_Context_DeleteLogs" x:Uid="0"/>
                                 <MenuItem Header="Emulator" Click="View_OnClick_Context_Emulator" x:Uid="0"/>
 
                                 <MenuItem Header="Edit" Click="View_OnClick_Context_Edit" x:Uid="0">
@@ -758,6 +758,7 @@
                                         <Image Source="/Images/Delete_Trash.png" />
                                     </MenuItem.Icon>
                                 </MenuItem>
+                                <MenuItem Header="Delete Logs" Click="View_OnClick_Context_DeleteLogs" x:Uid="1"/>
                                 <MenuItem Header="Emulator" Click="View_OnClick_Context_Emulator" x:Uid="1"/>
                                 <MenuItem Header="Edit" Click="View_OnClick_Context_Edit" x:Uid="1">
                                     <MenuItem.Icon>
@@ -791,6 +792,7 @@
                                         <Image Source="/Images/Delete_Trash.png" />
                                     </MenuItem.Icon>
                                 </MenuItem>
+                                <MenuItem Header="Delete Logs" Click="View_OnClick_Context_DeleteLogs" x:Uid="2"/>
                                 <MenuItem Header="Emulator" Click="View_OnClick_Context_Emulator" x:Uid="2"/>
                                 <MenuItem Header="Edit" Click="View_OnClick_Context_Edit" x:Uid="2">
                                     <MenuItem.Icon>
@@ -824,6 +826,7 @@
                                         <Image Source="/Images/Delete_Trash.png" />
                                     </MenuItem.Icon>
                                 </MenuItem>
+                                <MenuItem Header="Delete Logs" Click="View_OnClick_Context_DeleteLogs" x:Uid="3"/>
                                 <MenuItem Header="Emulator" Click="View_OnClick_Context_Emulator" x:Uid="3"/>
                                 <MenuItem Header="Edit" Click="View_OnClick_Context_Edit" x:Uid="3">
                                     <MenuItem.Icon>
@@ -858,6 +861,7 @@
                                         <Image Source="/Images/Delete_Trash.png" />
                                     </MenuItem.Icon>
                                 </MenuItem>
+                                <MenuItem Header="Delete Logs" Click="View_OnClick_Context_DeleteLogs" x:Uid="4"/>
                                 <MenuItem Header="Emulator" Click="View_OnClick_Context_Emulator" x:Uid="4"/>
                                 <MenuItem Header="Edit" Click="View_OnClick_Context_Edit" x:Uid="4">
                                     <MenuItem.Icon>
