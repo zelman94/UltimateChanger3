@@ -43,6 +43,7 @@ namespace UltimateChanger
             FindingPaths.Interval = new TimeSpan(0, 0, 1);
             this.Background = ((MainWindow)System.Windows.Application.Current.MainWindow).Background;
            
+
             txtpathToBuilds.Foreground = ((MainWindow)System.Windows.Application.Current.MainWindow).rbnHI_1.Foreground;
             txtpathToBuilds.BorderBrush = ((MainWindow)System.Windows.Application.Current.MainWindow).rbnHI_1.Foreground;
             var converter = new System.Windows.Media.BrushConverter();
@@ -247,7 +248,7 @@ namespace UltimateChanger
 
             foreach (var item in listOfPaths)
             {
-                UIpaths.Add(item.Remove(0, cmbLastselected.Text.Length));
+                UIpaths.Add(item.Remove(0, txtpathToBuilds.Text.Length));
             }
 
             ListBoxBuilds.ItemsSource = UIpaths;
