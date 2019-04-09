@@ -2101,8 +2101,19 @@ namespace UltimateChanger
             }
             else
             {
+                try
+                {
+                    if (FittingSoftware_List[0].Upgrade_FS.info.TrashCleaner)
+                    {
+                        btnDelete_Click(new object(), new RoutedEventArgs());
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
                 InstallTimer_Normal_Installation.Stop();
-                btnDelete_Click(new object(), new RoutedEventArgs());
+                
                 InstallTimer.Start();
                 ProgressInstallation.Visibility = Visibility.Hidden;
             }
