@@ -267,16 +267,7 @@ namespace UltimateChanger
 
                 ListBoxOfAvailableStyles.SelectionMode = SelectionMode.Multiple;
                 ListBoxOfAvailableTypes.SelectionMode = SelectionMode.Multiple;
-
                 
-                
-
-
-                setUIdefaults(XMLReader.getDefaultSettings("RadioButtons"), "RadioButtons");
-                setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
-                setUIdefaults(XMLReader.getDefaultSettings("ComboBox"), "ComboBox");
-                setUIdefaults(XMLReader.getDefaultSettings("TextBox"), "TextBox");
-
             }
             catch (Exception x)
             {
@@ -304,16 +295,6 @@ namespace UltimateChanger
 
             List<MenuItem> menuitems = new List<MenuItem>();
 
-            //MenuItem tmp = new MenuItem();
-            //tmp.Header = "US 3";
-            //tmp.Uid = "3";
-            //tmp.Click += View_OnClick_Genie_Change_Market_US;
-            //menuitems.Add(tmp);
-            //Items_Market.ItemsSource = menuitems;
-
-
-
-
             FittingSoftware_List.Add(new FittingSoftware("Genie"));
             FittingSoftware_List.Add(new FittingSoftware("GenieMedical"));
             FittingSoftware_List.Add(new FittingSoftware("ExpressFit"));
@@ -327,6 +308,20 @@ namespace UltimateChanger
             savedTime = Convert.ToInt32(fileOperator.getSavedTime());
             setNewSavedTime(0);
             tabControl.IsEnabled = true;
+
+            try
+            {
+
+                setUIdefaults(XMLReader.getDefaultSettings("RadioButtons"), "RadioButtons");
+                setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
+                setUIdefaults(XMLReader.getDefaultSettings("ComboBox"), "ComboBox");
+                setUIdefaults(XMLReader.getDefaultSettings("TextBox"), "TextBox");
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.ToString());
+            }
+
 
             //-- DSZY LOSU LOSU--//
             listboxTeam.SelectionMode = SelectionMode.Multiple;
