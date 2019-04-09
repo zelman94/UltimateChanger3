@@ -3668,6 +3668,7 @@ namespace UltimateChanger
             {
                 item.FontSize = 12;
             }
+            lblTime.FontSize = 50;
         }
 
         private void rbnBiggerSize_Checked(object sender, RoutedEventArgs e)
@@ -3676,6 +3677,7 @@ namespace UltimateChanger
             {
                 item.FontSize = 17;
             }
+            lblTime.FontSize = 50;
         }
 
         private void btnAdvanceInstall_Click(object sender, RoutedEventArgs e)

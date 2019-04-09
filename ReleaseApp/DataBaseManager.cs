@@ -213,5 +213,20 @@ namespace UltimateChanger
             }
             
         }
+
+        public void SendFeedBack(string feedback)
+        {
+            try
+            {
+                SQLConnection.Open();
+                SqlCommand command = new SqlCommand($"Insert INTO feedback values ('{Environment.UserName}','{feedback}')", SQLConnection); // dodac tabele do bazy danych
+                command.ExecuteNonQuery();
+                SQLConnection.Close();
+            }
+            catch (Exception x)
+            {
+                System.Windows.MessageBox.Show(x.ToString());
+            }
+        }
     }
 }
