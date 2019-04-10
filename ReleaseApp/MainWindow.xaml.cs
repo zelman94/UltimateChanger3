@@ -2154,11 +2154,15 @@ namespace UltimateChanger
                                    
                     for (int i = 0; i < 5; i++)
                     {
-                        while (FittingSoftware_List[i].Task_GetNewBuild.Status == TaskStatus.Running) // czekam az sie nie skonczy szukanie patha
+                        if (FittingSoftware_List[i].Task_GetNewBuild != null) // jezeli jest rozny od null
                         {
-                            FittingSoftware_List[i].Task_GetNewBuild.Wait();
+                            while (FittingSoftware_List[i].Task_GetNewBuild.Status == TaskStatus.Running) // czekam az sie nie skonczy szukanie patha
+                            {
+                                FittingSoftware_List[i].Task_GetNewBuild.Wait();
+                            }
+                            Thread.Sleep(1000);
                         }
-                        Thread.Sleep(1000);
+
                         if (FittingSoftware_List[i].PathToNewVerFS != "") // jezlei jest nowsza warsja to dodaje do usuniecia checkbox
                         {
                             checkBoxList[i].IsChecked = true;
