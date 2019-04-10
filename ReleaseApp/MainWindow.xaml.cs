@@ -432,7 +432,22 @@ namespace UltimateChanger
             refreshUI(new object(), new EventArgs());
             setNewSavedTime(20);
         }
-       
+
+        private void View_OnClick_Context_DeleteLogs(object sender, RoutedEventArgs e)
+        {
+            var clickedMenuItem = sender as MenuItem;
+            var menuText = clickedMenuItem.Uid;
+            if (TabFull.IsSelected)
+            {
+                FittingSoftware_List[Convert.ToInt32(menuText)].deleteLogs();
+            }
+            else
+            {
+                FittingSoftware_List[Convert.ToInt32(menuText) + 5].deleteLogs();
+            }
+            setNewSavedTime(20);
+        }
+        
 
         private void View_OnClick_Context_Change_Market_US(object sender, RoutedEventArgs e)
         {
@@ -2139,11 +2154,15 @@ namespace UltimateChanger
                                    
                     for (int i = 0; i < 5; i++)
                     {
-                        while (FittingSoftware_List[i].Task_GetNewBuild.Status == TaskStatus.Running) // czekam az sie nie skonczy szukanie patha
+                        if (FittingSoftware_List[i].Task_GetNewBuild != null) // jezeli jest rozny od null
                         {
-                            FittingSoftware_List[i].Task_GetNewBuild.Wait();
+                            while (FittingSoftware_List[i].Task_GetNewBuild.Status == TaskStatus.Running) // czekam az sie nie skonczy szukanie patha
+                            {
+                                FittingSoftware_List[i].Task_GetNewBuild.Wait();
+                            }
+                            Thread.Sleep(1000);
                         }
-                        Thread.Sleep(1000);
+
                         if (FittingSoftware_List[i].PathToNewVerFS != "") // jezlei jest nowsza warsja to dodaje do usuniecia checkbox
                         {
                             checkBoxList[i].IsChecked = true;
@@ -3653,6 +3672,7 @@ namespace UltimateChanger
             {
                 item.FontSize = 12;
             }
+            lblTime.FontSize = 50;
         }
 
         private void rbnBiggerSize_Checked(object sender, RoutedEventArgs e)
@@ -3661,6 +3681,7 @@ namespace UltimateChanger
             {
                 item.FontSize = 17;
             }
+            lblTime.FontSize = 50;
         }
 
         private void btnAdvanceInstall_Click(object sender, RoutedEventArgs e)

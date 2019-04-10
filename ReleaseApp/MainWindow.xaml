@@ -721,7 +721,7 @@
                                         <Image Source="/Images/Delete_Trash.png" />
                                     </MenuItem.Icon>
                                 </MenuItem>
-
+                                <MenuItem Header="Delete Logs" Click="View_OnClick_Context_DeleteLogs" x:Uid="0"/>
                                 <MenuItem Header="Emulator" Click="View_OnClick_Context_Emulator" x:Uid="0"/>
 
                                 <MenuItem Header="Edit" Click="View_OnClick_Context_Edit" x:Uid="0">
@@ -758,6 +758,7 @@
                                         <Image Source="/Images/Delete_Trash.png" />
                                     </MenuItem.Icon>
                                 </MenuItem>
+                                <MenuItem Header="Delete Logs" Click="View_OnClick_Context_DeleteLogs" x:Uid="1"/>
                                 <MenuItem Header="Emulator" Click="View_OnClick_Context_Emulator" x:Uid="1"/>
                                 <MenuItem Header="Edit" Click="View_OnClick_Context_Edit" x:Uid="1">
                                     <MenuItem.Icon>
@@ -791,6 +792,7 @@
                                         <Image Source="/Images/Delete_Trash.png" />
                                     </MenuItem.Icon>
                                 </MenuItem>
+                                <MenuItem Header="Delete Logs" Click="View_OnClick_Context_DeleteLogs" x:Uid="2"/>
                                 <MenuItem Header="Emulator" Click="View_OnClick_Context_Emulator" x:Uid="2"/>
                                 <MenuItem Header="Edit" Click="View_OnClick_Context_Edit" x:Uid="2">
                                     <MenuItem.Icon>
@@ -824,6 +826,7 @@
                                         <Image Source="/Images/Delete_Trash.png" />
                                     </MenuItem.Icon>
                                 </MenuItem>
+                                <MenuItem Header="Delete Logs" Click="View_OnClick_Context_DeleteLogs" x:Uid="3"/>
                                 <MenuItem Header="Emulator" Click="View_OnClick_Context_Emulator" x:Uid="3"/>
                                 <MenuItem Header="Edit" Click="View_OnClick_Context_Edit" x:Uid="3">
                                     <MenuItem.Icon>
@@ -858,6 +861,7 @@
                                         <Image Source="/Images/Delete_Trash.png" />
                                     </MenuItem.Icon>
                                 </MenuItem>
+                                <MenuItem Header="Delete Logs" Click="View_OnClick_Context_DeleteLogs" x:Uid="4"/>
                                 <MenuItem Header="Emulator" Click="View_OnClick_Context_Emulator" x:Uid="4"/>
                                 <MenuItem Header="Edit" Click="View_OnClick_Context_Edit" x:Uid="4">
                                     <MenuItem.Icon>
@@ -1747,9 +1751,8 @@
             <Grid x:Name="aboutGrid" Margin="0,2,0,-2">
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="402*"/>
-                    <ColumnDefinition Width="193*"/>
-                    <ColumnDefinition Width="191*"/>
+                    <ColumnDefinition Width="67*"/>
+                    <ColumnDefinition Width="64*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3*"/>
@@ -1809,14 +1812,16 @@
                     <RadioButton x:Name="rbn_ExpressFit" Content="ExpressFit" Checked="Radio_ExpressFit_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
                     <RadioButton x:Name="rbn_Christmas" Content="Christmas" Checked="Radio_Christmas_Checked" Foreground="White" Background="White" BorderBrush="#FF424242"/>
                 </StackPanel>
-                <StackPanel Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10 0 0 0" Height="144" Width="200">
+                <StackPanel Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Right" Height="144" Width="200">
                     <Label Content="Settings" HorizontalAlignment="Center" />
                     <Button Name="btnImportSettings" Content="Import" Height="30" Width="auto" Margin="10,10,10,0" Click="btnImportSettings_Click"/>
                     <Button Name="btnExportSettings" Content="Export" Height="30" Width="auto" Margin="10,10,10,0" Click="btnExportSettings_Click"/>
 
                 </StackPanel>
-                <Label Name="lblSavedTime" ToolTip="HH\MM\SS" Content="zaoszczedzony czas: " Grid.Column="1" HorizontalAlignment="Center" Margin="10,35,10,79" Grid.Row="2" VerticalAlignment="Center" Height="34" Width="173"/>
+                <Label Name="lblSavedTime" ToolTip="HH\MM\SS" Content="zaoszczedzony czas: " Grid.Column="1" HorizontalAlignment="Center" Margin="12,35,200,79" Grid.Row="2" VerticalAlignment="Center" Height="34" Width="172"/>
                 <Button Name="btnResetSavedTime" Content="Reset" Grid.Column="1" HorizontalAlignment="Left" Margin="56,91,0,25" Grid.Row="2" Width="76" Height="Auto" Click="btnResetSavedTime_Click"/>
+                <Button Name="btnSendFeedBack" Content="SEND" Grid.Column="1" HorizontalAlignment="Center" Margin="0,240,0,0" VerticalAlignment="Top" Width="AUTO"/>
+                <TextBox Name="txtFeedBack" MaxHeight="170" Grid.Column="1" HorizontalAlignment="Center" Height="auto" Margin="0,61,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="284"/>
 
             </Grid>
         </TabItem>
