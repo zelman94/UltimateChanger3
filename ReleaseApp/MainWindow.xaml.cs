@@ -2148,7 +2148,7 @@ namespace UltimateChanger
                         }
                         else
                         {
-                            FittingSoftware_List[i].PathToNewVerFS = fileOperator.getPathToSetup(FittingSoftware_List[i]); // dodac wyszukiwanie z rootpatha path to setup.exe dla main brandu 
+                            FittingSoftware_List[i].PathToNewVerFS = fileOperator.getPathToSetup(FittingSoftware_List[i]); // dodac wyszukiwanie z rootpatha path to setup.exe dla main brandu                     
                         }
                     }
                                    
@@ -2163,6 +2163,23 @@ namespace UltimateChanger
                             Thread.Sleep(1000);
                         }
 
+                        try
+                        {
+                            logging.AddLog(FittingSoftware_List[i].Name_FS + " path to new build setup: " + FittingSoftware_List[i].PathToNewVerFS);
+                        }
+                        catch (Exception x)
+                        {
+
+                            try
+                            {
+                                logging.AddLog("logging error at checkTime_forUpgradeFS\n" + x.ToString());
+                            }
+                            catch (Exception)
+                            {
+
+                            }
+
+                        }
                         if (FittingSoftware_List[i].PathToNewVerFS != "") // jezlei jest nowsza warsja to dodaje do usuniecia checkbox
                         {
                             checkBoxList[i].IsChecked = true;
