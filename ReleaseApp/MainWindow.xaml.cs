@@ -4039,6 +4039,37 @@ namespace UltimateChanger
 
         int numberOfPeople = 0;
 
+        private void btnReadHI_Click(object sender, RoutedEventArgs e)
+        {
+            HI_Reader readHI = new HI_Reader();
+            readHI.startServer();
+            readHI.CreateSession();
+            string side;
+            if (rbLeft.IsChecked.Value)
+            {
+                side = "Left";
+            }
+            else
+            {
+                side = "Right";
+            }
+            string device;
+            if (rbExpress.IsChecked.Value)
+            {
+                device = "ExpressLink";
+            }
+            else
+            {
+                device = "HiPro";
+            }
+            readHI.Connect(device, side);
+            List<string> HI = readHI.ReadHI();
+            txtHIBrand.Text = HI[0];
+            txtPP.Text = HI[1];
+            readHI.shutDown();
+           
+        }
+
         private void InstallByNight_Checked(object sender, RoutedEventArgs e)
         {
             Window win = new Nightly_upgrade_FS(FittingSoftware_List);

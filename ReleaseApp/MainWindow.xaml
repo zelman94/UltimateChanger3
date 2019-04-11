@@ -1822,6 +1822,15 @@
                 <Button Name="btnResetSavedTime" Content="Reset" Grid.Column="1" HorizontalAlignment="Left" Margin="56,91,0,25" Grid.Row="2" Width="76" Height="Auto" Click="btnResetSavedTime_Click"/>
                 <Button Name="btnSendFeedBack" Content="SEND" Grid.Column="1" HorizontalAlignment="Center" Margin="0,240,0,0" VerticalAlignment="Top" Width="AUTO"/>
                 <TextBox Name="txtFeedBack" MaxHeight="170" Grid.Column="1" HorizontalAlignment="Center" Height="auto" Margin="0,61,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="284"/>
+                <TextBox Name="txtHIBrand" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="243,23,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="auto"/>
+                <StackPanel Grid.Column="1" HorizontalAlignment="Left" Height="79" Margin="12,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="auto">
+                    <RadioButton Name="rbLeft" Content="Left" GroupName="Side" IsChecked="True"/>
+                    <RadioButton Name="rbRight" Content="Right" GroupName="Side"/>
+                    <RadioButton Name="rbExpress" Content="ExpressLink" GroupName="Hardware" IsChecked="True"/>
+                    <RadioButton Name="rbHIPRO" Content="HI-PRO" GroupName="Hardware"/>
+                </StackPanel>
+                <Button Name="btnReadHI" Content="Read HI" Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="1" VerticalAlignment="Bottom" Width="auto" Margin="20,0,0,20" Click="btnReadHI_Click"/>
+                <TextBox Name="txtPP" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="243,66,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="auto"/>
 
             </Grid>
         </TabItem>
