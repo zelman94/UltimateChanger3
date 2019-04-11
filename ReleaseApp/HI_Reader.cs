@@ -17,13 +17,32 @@ namespace UltimateChanger
         StreamReader reader;
         Stream data;
         string urlString = @"http://localhost:1111///general.createAuroraSession?name=default&modelFile=C:\Users\paze\Documents\GitHub\UltimateChanger3\ReleaseApp\ReadHI\ModelCompilerOutput\CompactModel_xuda.corona";
+        SortedDictionary<string, string> slownik = new SortedDictionary<string, string>();
+        SortedDictionary<string, string> slownik_PP = new SortedDictionary<string, string>();
 
         public HI_Reader()
         {
             client = new WebClient();           
             //reader = new StreamReader(data);
             Path_Gearbox = FindGearbox();
+
+            slownik.Add("2700", "Oticon");
+            slownik.Add("4786", "Amplifon");
+            slownik.Add("2701", "AudioNova");
+            slownik.Add("2702", "KIND");
+            slownik.Add("3931", "GPL");
+            slownik.Add("3703", "HHM");
+            slownik.Add("3580", "Bernafon");
+            slownik.Add("3581", "Sonic");
+            slownik.Add("5278", "Medical");
+            slownik.Add("4964", "Philips");
+
+            slownik_PP.Add("5082", "Xceed 1");
+
         }
+
+
+
 
         public void startServer()
         {
@@ -119,16 +138,7 @@ namespace UltimateChanger
         {
             List<string> brand = new List<string>();
 
-            SortedDictionary<string, string> slownik = new SortedDictionary<string, string>();
-            SortedDictionary<string, string> slownik_PP = new SortedDictionary<string, string>();
-
-            slownik.Add("2700", "Oticon");
-            slownik.Add("3580", "Bernafon");
-            slownik.Add("3581", "Sonic");
-            slownik.Add("5278", "Medical");
-            slownik.Add("4964", "Philips");
-
-            slownik_PP.Add("5082", "Xceed 1");
+            
 
 
             try
