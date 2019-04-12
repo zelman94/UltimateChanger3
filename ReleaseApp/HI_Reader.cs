@@ -50,7 +50,13 @@ namespace UltimateChanger
             string arguments = "server -s http://localhost:1111";
             if (gearbox != "")
             {
-                Process.Start(gearbox + @"\gearboxj", arguments);
+                Process gear = new Process();
+                gear.StartInfo.CreateNoWindow = true;
+                gear.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                gear.StartInfo.Arguments = arguments;
+                gear.StartInfo.FileName = gearbox + @"\gearboxj";
+                gear.Start();
+                //Process.Start(gearbox + @"\gearboxj", arguments);
             }           
         }
 
@@ -103,11 +109,19 @@ namespace UltimateChanger
             urlString = @"http://localhost:1111//manager/sessions/default/connections/myConnection" + side + "/hiid.getProductionSerialNumber";
             data = client.OpenRead(urlString);
             reader = new StreamReader(data);
-            List<string> s = findBrandModel(reader.ReadToEnd(),false);
-            Console.WriteLine(s[1]);
-            data.Close();
-            reader.Close();
-            return s[1];
+            try
+            {
+                List<string> s = findBrandModel(reader.ReadToEnd(), false);
+                Console.WriteLine(s[1]);
+                data.Close();
+                reader.Close();
+                return s[1];
+            }
+            catch (Exception)
+            {
+                return "error";
+            }
+           
         }
 
         public void shutDown()
