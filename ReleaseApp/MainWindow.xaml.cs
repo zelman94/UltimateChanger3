@@ -46,9 +46,10 @@ namespace UltimateChanger
         // DataBaseManager dataBaseManager;
         DispatcherTimer RefUiTIMER, Rekurencja;
         DispatcherTimer ConnectionToDBTimer;
-       public DispatcherTimer uninstallTimer, checkUpdate, InstallTimer, InstallTimer_Normal_Installation,
-            checkTime_Timer, // czy juz czas na upgrade FS
-            silentUninstal_Install_Timer; //silentUninstal_Install_Timer - timer do sprawdzenia czy uninstallacja sie skonczyla 
+        public DispatcherTimer uninstallTimer, checkUpdate, InstallTimer, InstallTimer_Normal_Installation,
+             checkTime_Timer, // czy juz czas na upgrade FS
+             silentUninstal_Install_Timer, //silentUninstal_Install_Timer - timer do sprawdzenia czy uninstallacja sie skonczyla 
+             progressHI_Timer;
         BindCombobox BindCombo;
         private List<pathAndDir> paths_Dirs = new List<pathAndDir>();
         //string OEMname = "";
@@ -278,10 +279,6 @@ namespace UltimateChanger
 
             btnIdentify.Visibility = Visibility.Hidden;
 
-            rbn_Genie.Visibility = Visibility.Hidden;
-            rbn_Oasis.Visibility = Visibility.Hidden;
-            rbn_ExpressFit.Visibility = Visibility.Hidden;
-            rbn_Christmas.Visibility = Visibility.Hidden;
             rbnTurnOffDevMode.IsChecked = true;
 
             rbnNormalSize.IsChecked = true;
@@ -1079,9 +1076,7 @@ namespace UltimateChanger
                 rbnHI_2,
                 rbnLight_skin,
                 rbnDark_skin,
-                rbn_Genie,
-                rbn_Oasis,
-                rbn_ExpressFit,
+
                 rbnLogsAll_YES,
                 rbnLogsAll_NO,
                 rbnTurnOnDevMode,
@@ -3001,51 +2996,7 @@ namespace UltimateChanger
             skin_name = "Crystal White"; // ustawiam nazwe do logowania do bazy danych
         }
 
-        private void Radio_Genie_Checked(object sender, RoutedEventArgs e)
-        {
-            XMLReader.setSetting("Genie_skin", "RadioButtons", Convert.ToString(rbn_Genie.IsChecked.Value).ToUpper());
-            bool tmp = !rbn_Genie.IsChecked.Value;
-            XMLReader.setSetting("Dark_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
-            XMLReader.setSetting("Light_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
-            XMLReader.setSetting("Oasis_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
-            XMLReader.setSetting("ExpressFit_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
-
-            imgBrandSkin.Visibility = Visibility.Visible;
-
-            imgBrandSkin.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + $"\\Images\\oticon.png"));
-        }
-
-        private void Radio_Oasis_Checked(object sender, RoutedEventArgs e)
-        {
-            XMLReader.setSetting("Oasis_skin", "RadioButtons", Convert.ToString(rbn_Oasis.IsChecked.Value).ToUpper());
-            bool tmp = !rbn_Oasis.IsChecked.Value;
-            XMLReader.setSetting("Dark_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
-            XMLReader.setSetting("Light_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
-            XMLReader.setSetting("Genie_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
-            XMLReader.setSetting("ExpressFit_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
-
-            imgBrandSkin.Visibility = Visibility.Visible;
-
-            imgBrandSkin.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + $"\\Images\\bernafon.png"));
-        }
-
-        private void Radio_ExpressFit_Checked(object sender, RoutedEventArgs e)
-        {
-            Brush c1 = new SolidColorBrush(Color.FromRgb(72, 196, 249));
-            Brush c2 = new SolidColorBrush(Colors.Black);
-
-            XMLReader.setSetting("ExpressFit_skin", "RadioButtons", Convert.ToString(rbn_ExpressFit.IsChecked.Value).ToUpper());
-            bool tmp = !rbn_ExpressFit.IsChecked.Value;
-            XMLReader.setSetting("Dark_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
-            XMLReader.setSetting("Light_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
-            XMLReader.setSetting("Genie_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
-            XMLReader.setSetting("Oasis_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
-
-            imgBrandSkin.Visibility = Visibility.Visible;
-
-            imgBrandSkin.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + $"\\Images\\sonic.png"));
-        }
-
+  
         private void RBnormal_Checked(object sender, RoutedEventArgs e)
         {
             uninstallTimer.Stop();
@@ -4048,11 +3999,13 @@ namespace UltimateChanger
             txtPP_R.Text = "";
             txtSN.Text = "";
             txtSN_R.Text = "";
-
-
+            progressHI.Value = 0;
             HI_Reader readHI = new HI_Reader();
+            progressHI.Value += 10;
             readHI.startServer();
+            progressHI.Value += 40;
             readHI.CreateSession();
+            progressHI.Value += 10;
             List<string> HI;
             string device;
             if (rbExpress.IsChecked.Value)
@@ -4077,13 +4030,15 @@ namespace UltimateChanger
                 txtHIBrand.Text = HI[0];
                 txtPP.Text = HI[1];                
                 txtSN.Text = readHI.getSerialNumber("Left");
+                progressHI.Value += 15;
                 readHI.Connect(device, "Right");
                 HI = readHI.ReadHI("Right");
                 txtHIBrand_R.Text = HI[0];
                 txtPP_R.Text = HI[1];
                 txtSN_R.Text = readHI.getSerialNumber("Right");
-
+                progressHI.Value += 15;
                 readHI.shutDown();
+                progressHI.Value += 10;
                 return;
             }
             else
@@ -4107,9 +4062,10 @@ namespace UltimateChanger
                 txtPP.Text = HI[1];
                 txtSN.Text = readHI.getSerialNumber("Left");
             }
-           
+            progressHI.Value += 30;
             readHI.shutDown();
-           
+            progressHI.Value += 10;
+
         }
 
         private void InstallByNight_Checked(object sender, RoutedEventArgs e)
