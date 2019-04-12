@@ -1755,9 +1755,9 @@
                     <ColumnDefinition Width="64*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="3*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="420*"/>
+                    <RowDefinition Height="173*"/>
+                    <RowDefinition Height="148*"/>
                 </Grid.RowDefinitions>
 
                 <Border x:Name="Grid6" Grid.Row="0" BorderBrush="#FF616161" BorderThickness="0,0,1,1"/>
@@ -1766,7 +1766,7 @@
 
                 <Image x:Name="imgBrandSkin" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Source="Images/sonic.png" Margin="96,10,100,0" Height="74" Width="206"/>
 
-                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="0,82,0,10" Height="353" Width="192">
+                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="0,76,0,163" Height="354" Width="192" Grid.RowSpan="2">
                     <Label Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5" Content="Labels size"/>
                     <RadioButton Name="rbnNormalSize" GroupName="labelsSize" Content="Normal" Checked="rbnNormalSize_Checked"/>
                     <RadioButton Name="rbnBiggerSize" GroupName="labelsSize" Content="Bigger" Checked="rbnBiggerSize_Checked"/>
@@ -1782,7 +1782,7 @@
                 </StackPanel>
 
 
-                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="10,82,0,10" Height="353" Width="195">
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="10,76,0,163" Height="354" Width="195" Grid.RowSpan="2">
                     <Label Content="Startup settings" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
                     <RadioButton Name="rbnStartwithWindows" Content="Start with Windows" GroupName="group1" Checked="rbnStartwithWindows_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
                     <RadioButton Name="rbnNotStartwithWindows" Content="Do not Start with Windows" GroupName="group1" Checked="rbnNotStartwithWindows_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 1 0 0"/>
@@ -1820,17 +1820,26 @@
                 </StackPanel>
                 <Label Name="lblSavedTime" ToolTip="HH\MM\SS" Content="zaoszczedzony czas: " Grid.Column="1" HorizontalAlignment="Center" Margin="12,35,200,79" Grid.Row="2" VerticalAlignment="Center" Height="34" Width="172"/>
                 <Button Name="btnResetSavedTime" Content="Reset" Grid.Column="1" HorizontalAlignment="Left" Margin="56,91,0,25" Grid.Row="2" Width="76" Height="Auto" Click="btnResetSavedTime_Click"/>
-                <Button Name="btnSendFeedBack" Content="SEND" Grid.Column="1" HorizontalAlignment="Center" Margin="0,240,0,0" VerticalAlignment="Top" Width="AUTO"/>
-                <TextBox Name="txtFeedBack" MaxHeight="170" Grid.Column="1" HorizontalAlignment="Center" Height="auto" Margin="0,61,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="284"/>
-                <TextBox Name="txtHIBrand" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="243,23,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="auto"/>
-                <StackPanel Grid.Column="1" HorizontalAlignment="Left" Height="79" Margin="12,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="auto">
+                <Button Name="btnSendFeedBack" Content="SEND" Grid.Column="1" HorizontalAlignment="Center" Margin="158,240,158,0" VerticalAlignment="Top" Width="68"/>
+                <TextBox Name="txtFeedBack" MaxHeight="170" Grid.Column="1" HorizontalAlignment="Center" Height="25" Margin="50,61,50,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="284"/>
+                
+                <StackPanel Grid.Column="1" HorizontalAlignment="Left" Height="auto" Margin="12,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="88">
                     <RadioButton Name="rbLeft" Content="Left" GroupName="Side" IsChecked="True"/>
                     <RadioButton Name="rbRight" Content="Right" GroupName="Side"/>
+                    <RadioButton Name="rbBoth" Content="Both" GroupName="Side" />
+                    <Label></Label>
                     <RadioButton Name="rbExpress" Content="ExpressLink" GroupName="Hardware" IsChecked="True"/>
                     <RadioButton Name="rbHIPRO" Content="HI-PRO" GroupName="Hardware"/>
                 </StackPanel>
-                <Button Name="btnReadHI" Content="Read HI" Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="1" VerticalAlignment="Bottom" Width="auto" Margin="20,0,0,20" Click="btnReadHI_Click"/>
-                <TextBox Name="txtPP" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="243,66,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="auto"/>
+                <Button Name="btnReadHI" Content="Read HI" Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="1" VerticalAlignment="Bottom" Width="82" Margin="20,0,0,20" Click="btnReadHI_Click"/>
+                <TextBox Name="txtHIBrand" Grid.Column="1" HorizontalAlignment="Left" Height="25" Margin="143,43,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="auto"/>
+                <TextBox Name="txtPP" Grid.Column="1" HorizontalAlignment="Left" Height="25" Margin="143,86,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="auto"/>
+                <TextBox Name="txtHIBrand_R" Grid.Column="1" HorizontalAlignment="Left" Height="25" Margin="243,43,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="auto"/>
+                <TextBox Name="txtPP_R" Grid.Column="1" HorizontalAlignment="Left" Height="25" Margin="243,86,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="auto"/>
+                <TextBox Name="txtSN" Grid.Column="1" HorizontalAlignment="Left" Height="25" Margin="143,120,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="auto"/>
+                <TextBox Name="txtSN_R" Grid.Column="1" HorizontalAlignment="Left" Height="25" Margin="243,120,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="auto"/>
+                <Label Content="Left" Grid.Column="1" HorizontalAlignment="Left" Margin="143,12,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+                <Label Content="Right" Grid.Column="1" HorizontalAlignment="Left" Margin="243,12,0,0" Grid.Row="1" VerticalAlignment="Top"/>
 
             </Grid>
         </TabItem>

@@ -140,6 +140,12 @@ namespace UltimateChanger
 
         public string getPathToSetup(FittingSoftware FS) // zwraca path do setup.exe dla podanego brandu w podanym root path
         {
+            if (!Directory.Exists(FS.Upgrade_FS.info.path_to_root))
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).logging.AddLog(FS.string_For_Log());
+                return "";
+            }
+
             // pobieram katalogi w root
             var tmp = new DirectoryInfo(FS.Upgrade_FS.info.path_to_root);
 
@@ -1365,7 +1371,16 @@ namespace UltimateChanger
 
         public string GetAvailableNewFS(FittingSoftware CurrentFS)
         {
-            var all_dirs = Directory.GetDirectories(@"\\demant.com\data\KBN\RnD\SWS\Build\Arizona\Phoenix\FullInstaller-"+CurrentFS.Upgrade_FS.info.Release); // zmienić później na generycznie zamiast sztywnie 19.2
+            string path = "";
+            if (CurrentFS.Upgrade_FS.info.Option == "Full")
+            {
+                path = @"\\demant.com\data\KBN\RnD\SWS\Build\Arizona\Phoenix\FullInstaller-" + CurrentFS.Upgrade_FS.info.Release;
+            }
+            else
+            {
+                path = @"\\demant.com\data\KBN\RnD\SWS\Build\Arizona\Phoenix\Nightly-" + CurrentFS.Upgrade_FS.info.Release;
+            }
+            var all_dirs = Directory.GetDirectories(path); 
             SortedDictionary<DateTime, string> All_RCs = new SortedDictionary<DateTime,string>();
 
             foreach (var item in all_dirs)
@@ -1400,7 +1415,25 @@ namespace UltimateChanger
 
             List<string> PathTolatestBuildExe = new List<string>();
             //
-            PathTolatestBuildExe = Directory.GetFiles(DirFullInstallerName + $"\\{CurrentFS.DirFullBuildName}","setup.exe").ToList(); // path do glownego instalatora main brandu
+            if (CurrentFS.Upgrade_FS.info.Option == "Full")
+            {
+                PathTolatestBuildExe = Directory.GetFiles(DirFullInstallerName + $"\\{CurrentFS.DirFullBuildName}", "setup.exe").ToList(); // path do glownego instalatora main brandu
+            }
+            else
+            {
+                try
+                {
+                    PathTolatestBuildExe = Directory.GetFiles(DirFullInstallerName + $"\\", ".exe").ToList(); // path do glownego instalatora main brandu
+
+                }
+                catch (Exception x)
+                {
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).logging.AddLog(x.ToString());
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).logging.AddLog(CurrentFS.string_For_Log());                    
+                }
+            }
+
+
             if (PathTolatestBuildExe.Count > 0)
             {
                 FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(PathTolatestBuildExe[0]);

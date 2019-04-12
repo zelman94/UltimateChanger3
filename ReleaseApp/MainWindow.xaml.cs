@@ -37,11 +37,11 @@ namespace UltimateChanger
     public partial class MainWindow : Window
     {
         int Licznik_All_button = 0;
-        Log logging = new Log("UltimateChanger");
+       public Log logging = new Log("UltimateChanger");
         bool copystatus = false; // to know if copy composition is running in rekurencjon.exe
 
         FileOperator fileOperator;
-        DataBaseManager dataBaseManager;
+        public DataBaseManager dataBaseManager;
         ClockManager clockManager;
         // DataBaseManager dataBaseManager;
         DispatcherTimer RefUiTIMER, Rekurencja;
@@ -2148,6 +2148,7 @@ namespace UltimateChanger
                         }
                         else
                         {
+                            // tylko full 
                             FittingSoftware_List[i].PathToNewVerFS = fileOperator.getPathToSetup(FittingSoftware_List[i]); // dodac wyszukiwanie z rootpatha path to setup.exe dla main brandu                     
                         }
                     }
@@ -4041,18 +4042,18 @@ namespace UltimateChanger
 
         private void btnReadHI_Click(object sender, RoutedEventArgs e)
         {
+            txtHIBrand.Text = "";
+            txtHIBrand_R.Text = "";
+            txtPP.Text = "";
+            txtPP_R.Text = "";
+            txtSN.Text = "";
+            txtSN_R.Text = "";
+
+
             HI_Reader readHI = new HI_Reader();
             readHI.startServer();
             readHI.CreateSession();
-            string side;
-            if (rbLeft.IsChecked.Value)
-            {
-                side = "Left";
-            }
-            else
-            {
-                side = "Right";
-            }
+            List<string> HI;
             string device;
             if (rbExpress.IsChecked.Value)
             {
@@ -4060,12 +4061,53 @@ namespace UltimateChanger
             }
             else
             {
-                device = "HiPro";
+                device = "HIPro";
             }
+
+            string side;
+            if (rbLeft.IsChecked.Value)
+            {
+                side = "Left";
+            } else if (rbBoth.IsChecked.Value)
+            {
+                side = "Both";
+
+                readHI.Connect(device, "Left");
+                HI = readHI.ReadHI("Left");
+                txtHIBrand.Text = HI[0];
+                txtPP.Text = HI[1];                
+                txtSN.Text = readHI.getSerialNumber("Left");
+                readHI.Connect(device, "Right");
+                HI = readHI.ReadHI("Right");
+                txtHIBrand_R.Text = HI[0];
+                txtPP_R.Text = HI[1];
+                txtSN_R.Text = readHI.getSerialNumber("Right");
+
+                readHI.shutDown();
+                return;
+            }
+            else
+            {
+                side = "Right";
+            }
+            
+
+           
             readHI.Connect(device, side);
-            List<string> HI = readHI.ReadHI();
-            txtHIBrand.Text = HI[0];
-            txtPP.Text = HI[1];
+            HI = readHI.ReadHI(side);
+            if (side =="Right")
+            {
+                txtHIBrand_R.Text = HI[0];
+                txtPP_R.Text= HI[1];
+                txtSN_R.Text = readHI.getSerialNumber("Right");
+            }
+            else
+            {
+                txtHIBrand.Text = HI[0];
+                txtPP.Text = HI[1];
+                txtSN.Text = readHI.getSerialNumber("Left");
+            }
+           
             readHI.shutDown();
            
         }

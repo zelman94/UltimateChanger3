@@ -66,7 +66,7 @@ namespace UltimateChanger
 
         public void Connect(string device, string side)
         {
-            urlString = @" http://localhost:1111//manager/sessions/default/general.createConnection?name=myConnection&medium="+$"{device}"+"&side="+$"{side}"+"&protocol=PIF2FW&properties=%22%22&connected=true";
+            urlString = @" http://localhost:1111//manager/sessions/default/general.createConnection?name=myConnection" + side + "&medium=" + $"{device}"+"&side="+$"{side}"+"&protocol=PIF2FW&properties=%22%22&connected=true";
 
             data = client.OpenRead(urlString);
             reader = new StreamReader(data);
@@ -76,18 +76,40 @@ namespace UltimateChanger
             reader.Close();
         }
 
-        public List<string> ReadHI()
+        public List<string> ReadHI(string side)
         {
-            urlString = @"http://localhost:1111//manager/sessions/default/connections/myConnection/hiid.getEimData";
+            urlString = @"http://localhost:1111//manager/sessions/default/connections/myConnection" + side + "/hiid.getEimData";
+
+            try
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).logging.AddLog("side: " + side);
+            }
+            catch (Exception)
+            {
+
+            }
 
             data = client.OpenRead(urlString);
             reader = new StreamReader(data);
-            List<string> s = findBrandModel(reader.ReadToEnd());
+            List<string> s = findBrandModel(reader.ReadToEnd(),true);
             Console.WriteLine(s[0]);
             data.Close();
             reader.Close();
             return s;
         }
+
+        public string getSerialNumber(string side)
+        {
+            urlString = @"http://localhost:1111//manager/sessions/default/connections/myConnection" + side + "/hiid.getProductionSerialNumber";
+            data = client.OpenRead(urlString);
+            reader = new StreamReader(data);
+            List<string> s = findBrandModel(reader.ReadToEnd(),false);
+            Console.WriteLine(s[1]);
+            data.Close();
+            reader.Close();
+            return s[1];
+        }
+
         public void shutDown()
         {
             urlString = @"http://localhost:1111///general.shutdownServer";
@@ -100,7 +122,7 @@ namespace UltimateChanger
             reader.Close();
         }
 
-        public List<string> findBrandModel(string text)
+        public List<string> findBrandModel(string text, bool Translate)
         {
            int tmp = text.IndexOf('=');
             List<int> indexes = new List<int>();
@@ -116,7 +138,16 @@ namespace UltimateChanger
             for (int i = 0; i < indexes.Count; i++)
             {
                 string stringg = "";
-                for (int j = indexes[i] + 1; j <= indexes[i] + 4; j++)
+                int maxIndex;
+                if (Translate)
+                {
+                    maxIndex = indexes[i] + 4;
+                }
+                else
+                {
+                    maxIndex = indexes[i] + 8;
+                }
+                for (int j = indexes[i] + 1; j <= maxIndex; j++)
                 {
                     try
                     {
@@ -130,8 +161,11 @@ namespace UltimateChanger
                 }
                 dataHI.Add(stringg);
             }
-
-            return TranslateModel(dataHI);
+            if (Translate)
+            {
+                return TranslateModel(dataHI);
+            }
+            return dataHI;
 
         }
         public List<string> TranslateModel(List<string> model) //[0] - brand [1] - model
@@ -144,19 +178,41 @@ namespace UltimateChanger
             try
             {
                 brand.Add(slownik[model[0]]); // brand
+
+                try
+                {
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).logging.AddLog("Brand: " + model[0]);
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).logging.AddLog("Translated Brand: " + brand[0]);
+                }
+                catch (Exception)
+                {
+
+                }
+
             }
             catch (Exception)
             {
                 brand.Add("");
             }
-            try
-            {
-                brand.Add(slownik_PP[model[1]]); // model
+
+
+                try
+                {
+                    brand.Add(((MainWindow)System.Windows.Application.Current.MainWindow).dataBaseManager.getModelHI(model[1]));
+                try
+                {
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).logging.AddLog("Model: " + model[1]);
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).logging.AddLog("Translated Model: " + brand[1]);
+                }
+                catch (Exception)
+                {
+
+                }
             }
-            catch (Exception)
-            {
-                brand.Add("");
-            }
+                catch (Exception)
+                {
+                    brand.Add("error");
+                }
 
             return brand;
         }
@@ -182,6 +238,15 @@ namespace UltimateChanger
                         index_Hmajor = i;
                     }
                 }
+                try
+                {
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).logging.AddLog("used gearbox: " + gearboxes[index_Hmajor].FullName);
+                }
+                catch (Exception)
+                {
+                    
+                }
+               
 
                 return gearboxes[index_Hmajor].FullName;
 
