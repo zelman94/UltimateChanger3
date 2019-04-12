@@ -228,5 +228,32 @@ namespace UltimateChanger
                 System.Windows.MessageBox.Show(x.ToString());
             }
         }
+
+        public string getModelHI(string model)
+        {
+            string model_name = "error";
+
+            try
+            {
+                SQLConnection.Open();
+                SqlCommand command = new SqlCommand($"Select value From model_HI Where key_value = '{model}'", SQLConnection);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        model_name = reader.GetString(0);
+                    }
+                }
+                SQLConnection.Close();
+                return model_name;
+            }
+            catch (Exception x)
+            {
+                System.Windows.MessageBox.Show(x.ToString());
+                return model_name;
+            }
+        }
+
     }
 }

@@ -463,5 +463,19 @@ namespace UltimateChanger
             }                    
         }
 
+        public string string_For_Log()
+        {
+            string upgrade_info="";
+            if (Upgrade_FS != null)
+            {
+                upgrade_info = "Upgrade_FS.info.Option " + Upgrade_FS.info.Option + "\n" + "Upgrade_FS.info.path_to_root " + Upgrade_FS.info.path_to_root + "\n" +
+                    "Upgrade_FS.info.Release " + Upgrade_FS.info.Release + "\n";
+            }
+            return "Name_FS " + Name_FS + "\n" + "Path_Local_Installer " + Path_Local_Installer + "\n" + "Version " + Version + "\n" +
+                "Market " + Market + "\n" + "customPath " + customPath.ToString() + "\n" + "Brand " + Brand + "\n" +
+                "OEM " + OEM + "\n" + "LogMode " + LogMode + "\n" + "pathToExe " + pathToExe + "\n" +
+                "upgrade_info " + upgrade_info;
+        }
+
     }
 }

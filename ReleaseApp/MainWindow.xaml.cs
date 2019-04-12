@@ -37,18 +37,19 @@ namespace UltimateChanger
     public partial class MainWindow : Window
     {
         int Licznik_All_button = 0;
-        Log logging = new Log("UltimateChanger");
+       public Log logging = new Log("UltimateChanger");
         bool copystatus = false; // to know if copy composition is running in rekurencjon.exe
 
         FileOperator fileOperator;
-        DataBaseManager dataBaseManager;
+        public DataBaseManager dataBaseManager;
         ClockManager clockManager;
         // DataBaseManager dataBaseManager;
         DispatcherTimer RefUiTIMER, Rekurencja;
         DispatcherTimer ConnectionToDBTimer;
-       public DispatcherTimer uninstallTimer, checkUpdate, InstallTimer, InstallTimer_Normal_Installation,
-            checkTime_Timer, // czy juz czas na upgrade FS
-            silentUninstal_Install_Timer; //silentUninstal_Install_Timer - timer do sprawdzenia czy uninstallacja sie skonczyla 
+        public DispatcherTimer uninstallTimer, checkUpdate, InstallTimer, InstallTimer_Normal_Installation,
+             checkTime_Timer, // czy juz czas na upgrade FS
+             silentUninstal_Install_Timer, //silentUninstal_Install_Timer - timer do sprawdzenia czy uninstallacja sie skonczyla 
+             progressHI_Timer;
         BindCombobox BindCombo;
         private List<pathAndDir> paths_Dirs = new List<pathAndDir>();
         //string OEMname = "";
@@ -278,10 +279,6 @@ namespace UltimateChanger
 
             btnIdentify.Visibility = Visibility.Hidden;
 
-            rbn_Genie.Visibility = Visibility.Hidden;
-            rbn_Oasis.Visibility = Visibility.Hidden;
-            rbn_ExpressFit.Visibility = Visibility.Hidden;
-            rbn_Christmas.Visibility = Visibility.Hidden;
             rbnTurnOffDevMode.IsChecked = true;
 
             rbnNormalSize.IsChecked = true;
@@ -1079,9 +1076,7 @@ namespace UltimateChanger
                 rbnHI_2,
                 rbnLight_skin,
                 rbnDark_skin,
-                rbn_Genie,
-                rbn_Oasis,
-                rbn_ExpressFit,
+
                 rbnLogsAll_YES,
                 rbnLogsAll_NO,
                 rbnTurnOnDevMode,
@@ -2148,7 +2143,8 @@ namespace UltimateChanger
                         }
                         else
                         {
-                            FittingSoftware_List[i].PathToNewVerFS = fileOperator.getPathToSetup(FittingSoftware_List[i]); // dodac wyszukiwanie z rootpatha path to setup.exe dla main brandu 
+                            // tylko full 
+                            FittingSoftware_List[i].PathToNewVerFS = fileOperator.getPathToSetup(FittingSoftware_List[i]); // dodac wyszukiwanie z rootpatha path to setup.exe dla main brandu                     
                         }
                     }
                                    
@@ -2163,6 +2159,23 @@ namespace UltimateChanger
                             Thread.Sleep(1000);
                         }
 
+                        try
+                        {
+                            logging.AddLog(FittingSoftware_List[i].Name_FS + " path to new build setup: " + FittingSoftware_List[i].PathToNewVerFS);
+                        }
+                        catch (Exception x)
+                        {
+
+                            try
+                            {
+                                logging.AddLog("logging error at checkTime_forUpgradeFS\n" + x.ToString());
+                            }
+                            catch (Exception)
+                            {
+
+                            }
+
+                        }
                         if (FittingSoftware_List[i].PathToNewVerFS != "") // jezlei jest nowsza warsja to dodaje do usuniecia checkbox
                         {
                             checkBoxList[i].IsChecked = true;
@@ -2983,51 +2996,7 @@ namespace UltimateChanger
             skin_name = "Crystal White"; // ustawiam nazwe do logowania do bazy danych
         }
 
-        private void Radio_Genie_Checked(object sender, RoutedEventArgs e)
-        {
-            XMLReader.setSetting("Genie_skin", "RadioButtons", Convert.ToString(rbn_Genie.IsChecked.Value).ToUpper());
-            bool tmp = !rbn_Genie.IsChecked.Value;
-            XMLReader.setSetting("Dark_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
-            XMLReader.setSetting("Light_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
-            XMLReader.setSetting("Oasis_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
-            XMLReader.setSetting("ExpressFit_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
-
-            imgBrandSkin.Visibility = Visibility.Visible;
-
-            imgBrandSkin.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + $"\\Images\\oticon.png"));
-        }
-
-        private void Radio_Oasis_Checked(object sender, RoutedEventArgs e)
-        {
-            XMLReader.setSetting("Oasis_skin", "RadioButtons", Convert.ToString(rbn_Oasis.IsChecked.Value).ToUpper());
-            bool tmp = !rbn_Oasis.IsChecked.Value;
-            XMLReader.setSetting("Dark_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
-            XMLReader.setSetting("Light_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
-            XMLReader.setSetting("Genie_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
-            XMLReader.setSetting("ExpressFit_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
-
-            imgBrandSkin.Visibility = Visibility.Visible;
-
-            imgBrandSkin.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + $"\\Images\\bernafon.png"));
-        }
-
-        private void Radio_ExpressFit_Checked(object sender, RoutedEventArgs e)
-        {
-            Brush c1 = new SolidColorBrush(Color.FromRgb(72, 196, 249));
-            Brush c2 = new SolidColorBrush(Colors.Black);
-
-            XMLReader.setSetting("ExpressFit_skin", "RadioButtons", Convert.ToString(rbn_ExpressFit.IsChecked.Value).ToUpper());
-            bool tmp = !rbn_ExpressFit.IsChecked.Value;
-            XMLReader.setSetting("Dark_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
-            XMLReader.setSetting("Light_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
-            XMLReader.setSetting("Genie_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
-            XMLReader.setSetting("Oasis_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
-
-            imgBrandSkin.Visibility = Visibility.Visible;
-
-            imgBrandSkin.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + $"\\Images\\sonic.png"));
-        }
-
+  
         private void RBnormal_Checked(object sender, RoutedEventArgs e)
         {
             uninstallTimer.Stop();
@@ -4021,6 +3990,83 @@ namespace UltimateChanger
         //--- DSZY "LOSU LOSU" ---- //
 
         int numberOfPeople = 0;
+
+        private void btnReadHI_Click(object sender, RoutedEventArgs e)
+        {
+            txtHIBrand.Text = "";
+            txtHIBrand_R.Text = "";
+            txtPP.Text = "";
+            txtPP_R.Text = "";
+            txtSN.Text = "";
+            txtSN_R.Text = "";
+            progressHI.Value = 0;
+            HI_Reader readHI = new HI_Reader();
+            progressHI.Value += 10;
+            readHI.startServer();
+            progressHI.Value += 40;
+            readHI.CreateSession();
+            progressHI.Value += 10;
+            List<string> HI;
+            string device;
+            if (rbExpress.IsChecked.Value)
+            {
+                device = "ExpressLink";
+            }
+            else
+            {
+                device = "HIPro";
+            }
+
+            string side;
+            if (rbLeft.IsChecked.Value)
+            {
+                side = "Left";
+            } else if (rbBoth.IsChecked.Value)
+            {
+                side = "Both";
+
+                readHI.Connect(device, "Left");
+                HI = readHI.ReadHI("Left");
+                txtHIBrand.Text = HI[0];
+                txtPP.Text = HI[1];                
+                txtSN.Text = readHI.getSerialNumber("Left");
+                progressHI.Value += 15;
+                readHI.Connect(device, "Right");
+                HI = readHI.ReadHI("Right");
+                txtHIBrand_R.Text = HI[0];
+                txtPP_R.Text = HI[1];
+                txtSN_R.Text = readHI.getSerialNumber("Right");
+                progressHI.Value += 15;
+                readHI.shutDown();
+                progressHI.Value += 10;
+                return;
+            }
+            else
+            {
+                side = "Right";
+            }
+            
+
+           
+            readHI.Connect(device, side);
+            HI = readHI.ReadHI(side);
+            if (side =="Right")
+            {
+                txtHIBrand_R.Text = HI[0];
+                txtPP_R.Text= HI[1];
+                txtSN_R.Text = readHI.getSerialNumber("Right");
+            }
+            else
+            {
+                txtHIBrand.Text = HI[0];
+                txtPP.Text = HI[1];
+                txtSN.Text = readHI.getSerialNumber("Left");
+            }
+            progressHI.Value += 30;
+            readHI.shutDown();
+            progressHI.Value += 10;
+
+        }
 
         private void InstallByNight_Checked(object sender, RoutedEventArgs e)
         {

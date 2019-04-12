@@ -32,7 +32,7 @@
         <Label Content="Release" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <ComboBox Name="cmbRelease" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="120" BorderBrush="White"/>
         <ComboBox Name="cmbBranch" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Bottom" Width="120" BorderBrush="White"/>
-        <ComboBox Name="cmbOption" ToolTip="medium lub full" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Bottom" Width="120" BorderBrush="White" SelectionChanged="cmbOption_SelectionChanged"/>
+        <ComboBox Name="cmbOption" IsEnabled="False" ToolTip="medium lub full" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Bottom" Width="120" BorderBrush="White" SelectionChanged="cmbOption_SelectionChanged"/>
 
         <Button x:Name="btnHoursDown" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="2" FontFamily="Marlett" FontSize="20" Content="6" Click="btnHoursDown_Click" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"  Height="50" Width="100"/>
         <Button x:Name="btnHoursUp" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" FontFamily="Marlett" FontSize="20" Content="5" Click="btnHoursUp_Click" Grid.Row="1" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"  Height="50" Width="100"/>

@@ -146,6 +146,7 @@
     <Compile Include="FSInstaller.cs" />
     <Compile Include="Hardware.cs" />
     <Compile Include="HIs.cs" />
+    <Compile Include="HI_Reader.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="MyRandomizer.cs" />
     <Compile Include="myXMLReader.cs" />

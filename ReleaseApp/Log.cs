@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Rekurencjon
 {
-    class Log
+   public class Log
     {
         public Log(string name)
         {

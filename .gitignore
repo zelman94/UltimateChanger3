@@ -260,3 +260,8 @@ paket-files/
 __pycache__/
 *.pyc
 /ReleaseApp/Emulator
+*.xuda
+*.corona
+*.bin
+ReleaseApp/ReadHI/ModelCompilerOutput/CompactModelOperations.csv
+ReleaseApp/ReadHI/ModelCompilerOutput/CompactModelParameters.csv
