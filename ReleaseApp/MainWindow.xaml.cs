@@ -4024,19 +4024,33 @@ namespace UltimateChanger
             } else if (rbBoth.IsChecked.Value)
             {
                 side = "Both";
-
-                readHI.Connect(device, "Left");
-                HI = readHI.ReadHI("Left");
-                txtHIBrand.Text = HI[0];
-                txtPP.Text = HI[1];                
-                txtSN.Text = readHI.getSerialNumber("Left");
-                progressHI.Value += 15;
-                readHI.Connect(device, "Right");
-                HI = readHI.ReadHI("Right");
-                txtHIBrand_R.Text = HI[0];
-                txtPP_R.Text = HI[1];
-                txtSN_R.Text = readHI.getSerialNumber("Right");
-                progressHI.Value += 15;
+                try
+                {
+                    readHI.Connect(device, "Left");
+                    HI = readHI.ReadHI("Left");
+                    txtHIBrand.Text = HI[0];
+                    txtPP.Text = HI[1];
+                    txtSN.Text = readHI.getSerialNumber("Left");
+                    progressHI.Value += 15;
+                }
+                catch (Exception)
+                {
+                    progressHI.Value += 15;
+                }
+                try
+                {
+                    readHI.Connect(device, "Right");
+                    HI = readHI.ReadHI("Right");
+                    txtHIBrand_R.Text = HI[0];
+                    txtPP_R.Text = HI[1];
+                    txtSN_R.Text = readHI.getSerialNumber("Right");
+                    progressHI.Value += 15;
+                }
+                catch (Exception)
+                {
+                    progressHI.Value += 15;
+                }
+               
                 readHI.shutDown();
                 progressHI.Value += 10;
                 return;
@@ -4065,7 +4079,7 @@ namespace UltimateChanger
             progressHI.Value += 30;
             readHI.shutDown();
             progressHI.Value += 10;
-
+            setNewSavedTime(30);
         }
 
         private void InstallByNight_Checked(object sender, RoutedEventArgs e)
