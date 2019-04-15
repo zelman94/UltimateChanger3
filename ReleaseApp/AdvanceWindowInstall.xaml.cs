@@ -222,6 +222,7 @@ namespace UltimateChanger
             }
             else // uruchamianie instalacji kolejkowej na oknie glownym
             {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).ProgressInstallation.Visibility = Visibility.Visible;
                 ((MainWindow)System.Windows.Application.Current.MainWindow).InstallTimer.Start();
             }
             this.Close();
