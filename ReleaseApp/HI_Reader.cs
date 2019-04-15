@@ -37,12 +37,7 @@ namespace UltimateChanger
             slownik.Add("5278", "Medical");
             slownik.Add("4964", "Philips");
 
-            slownik_PP.Add("5082", "Xceed 1");
-
         }
-
-
-
 
         public void startServer()
         {
@@ -73,7 +68,7 @@ namespace UltimateChanger
         public void Connect(string device, string side)
         {
             urlString = @" http://localhost:1111//manager/sessions/default/general.createConnection?name=myConnection" + side + "&medium=" + $"{device}"+"&side="+$"{side}"+"&protocol=PIF2FW&properties=%22%22&connected=true";
-
+            ((MainWindow)System.Windows.Application.Current.MainWindow).logging.AddLog("urlString: " + urlString);
             data = client.OpenRead(urlString);
             reader = new StreamReader(data);
             string s = reader.ReadToEnd();
@@ -120,8 +115,7 @@ namespace UltimateChanger
             catch (Exception)
             {
                 return "error";
-            }
-           
+            }           
         }
 
         public void shutDown()
@@ -129,8 +123,7 @@ namespace UltimateChanger
             urlString = @"http://localhost:1111///general.shutdownServer";
             data = client.OpenRead(urlString);
             reader = new StreamReader(data);
-            string s = reader.ReadToEnd();
-           
+            string s = reader.ReadToEnd();           
             Console.WriteLine(s);
             data.Close();
             reader.Close();
@@ -169,9 +162,7 @@ namespace UltimateChanger
                     }
                     catch (Exception)
                     {
-
-                    }
-                    
+                    }                    
                 }
                 dataHI.Add(stringg);
             }
@@ -180,15 +171,10 @@ namespace UltimateChanger
                 return TranslateModel(dataHI);
             }
             return dataHI;
-
         }
         public List<string> TranslateModel(List<string> model) //[0] - brand [1] - model
         {
-            List<string> brand = new List<string>();
-
-            
-
-
+            List<string> brand = new List<string>();            
             try
             {
                 brand.Add(slownik[model[0]]); // brand
@@ -200,16 +186,12 @@ namespace UltimateChanger
                 }
                 catch (Exception)
                 {
-
                 }
-
             }
             catch (Exception)
             {
                 brand.Add("");
             }
-
-
                 try
                 {
                     brand.Add(((MainWindow)System.Windows.Application.Current.MainWindow).dataBaseManager.getModelHI(model[1]));
@@ -220,14 +202,12 @@ namespace UltimateChanger
                 }
                 catch (Exception)
                 {
-
                 }
             }
                 catch (Exception)
                 {
                     brand.Add("error");
                 }
-
             return brand;
         }
         public string FindGearbox()
@@ -242,7 +222,6 @@ namespace UltimateChanger
                     string cut_dir = item.Name.Remove(0, "gearboxj-rel_".Length);
                     tmppaths.Add(cut_dir.Remove(5, cut_dir.Length - 5));
                 }
-
                 // porownanie ktory ma najwyzszy major nr
                 int index_Hmajor = 0;
                 for (int i = 0; i < tmppaths.Count; i++)
@@ -257,19 +236,14 @@ namespace UltimateChanger
                     ((MainWindow)System.Windows.Application.Current.MainWindow).logging.AddLog("used gearbox: " + gearboxes[index_Hmajor].FullName);
                 }
                 catch (Exception)
-                {
-                    
+                {                    
                 }
-               
-
                 return gearboxes[index_Hmajor].FullName;
-
             }
             catch (Exception)
             {
                 return "";
             }
         }
-
     }
 }

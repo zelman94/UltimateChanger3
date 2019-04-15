@@ -1999,6 +1999,7 @@ namespace UltimateChanger
                 }
                 else
                 {
+                    ProgressInstallation.Visibility = Visibility.Hidden;
                     InstallTimer.Stop();
                 }
             }
@@ -3985,11 +3986,19 @@ namespace UltimateChanger
             lblSavedTime.Content = "Saved Time: " + str;
         }
 
-
-
         //--- DSZY "LOSU LOSU" ---- //
 
         int numberOfPeople = 0;
+
+        private void btnSendFeedBack_Click(object sender, RoutedEventArgs e)
+        {
+            if (txtFeedBack.Text!="")
+            {
+                dataBaseManager.SendFeedBack(txtFeedBack.Text);
+                txtFeedBack.Text = "";
+            }
+            
+        }
 
         private void btnReadHI_Click(object sender, RoutedEventArgs e)
         {
@@ -4014,7 +4023,7 @@ namespace UltimateChanger
             }
             else
             {
-                device = "HIPro";
+                device = "HiPro";
             }
 
             string side;
@@ -4059,9 +4068,6 @@ namespace UltimateChanger
             {
                 side = "Right";
             }
-            
-
-           
             readHI.Connect(device, side);
             HI = readHI.ReadHI(side);
             if (side =="Right")

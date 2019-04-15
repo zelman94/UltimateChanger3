@@ -1817,7 +1817,7 @@
                 </StackPanel>
                 <Label Name="lblSavedTime" ToolTip="HH\MM\SS" Content="zaoszczedzony czas: " Grid.Column="1" HorizontalAlignment="Center" Margin="12,11,200,71" Grid.Row="2" VerticalAlignment="Center" Height="34" Width="172"/>
                 <Button Name="btnResetSavedTime" Content="Reset" Grid.Column="1" HorizontalAlignment="Left" Margin="12,71,0,0" Grid.Row="2" Width="76" Height="27" Click="btnResetSavedTime_Click" VerticalAlignment="Top"/>
-                <Button Name="btnSendFeedBack" Content="SEND" Grid.Column="1" HorizontalAlignment="Center" Margin="158,240,158,0" VerticalAlignment="Top" Width="68"/>
+                <Button Name="btnSendFeedBack" Content="SEND" Grid.Column="1" HorizontalAlignment="Center" Margin="158,240,158,0" VerticalAlignment="Top" Width="68" Click="btnSendFeedBack_Click"/>
                 <TextBox Name="txtFeedBack" MaxHeight="170" Grid.Column="1" HorizontalAlignment="Center" Height="25" Margin="50,61,50,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="284"/>
 
                 <StackPanel Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="12,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="88">
