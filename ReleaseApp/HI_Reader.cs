@@ -16,9 +16,8 @@ namespace UltimateChanger
         WebClient client;
         StreamReader reader;
         Stream data;
-        string urlString = @"http://localhost:1111///general.createAuroraSession?name=default&modelFile=C:\Users\paze\Documents\GitHub\UltimateChanger3\ReleaseApp\ReadHI\ModelCompilerOutput\CompactModel_xuda.corona";
+        string urlString = @"http://localhost:1111///general.createAuroraSession?name=default&modelFile=C:\Program Files\UltimateChanger\ReadHI\ModelCompilerOutput\CompactModel_xuda.corona";
         SortedDictionary<string, string> slownik = new SortedDictionary<string, string>();
-        SortedDictionary<string, string> slownik_PP = new SortedDictionary<string, string>();
 
         public HI_Reader()
         {
@@ -57,12 +56,21 @@ namespace UltimateChanger
 
         public void CreateSession()
         {
-            data = client.OpenRead(urlString);
-            reader = new StreamReader(data);
-            string s = reader.ReadToEnd();
-            //Console.WriteLine(s);
-            data.Close();
-            reader.Close();
+            try
+            {
+                data = client.OpenRead(urlString);
+                reader = new StreamReader(data);
+                string s = reader.ReadToEnd();
+                //Console.WriteLine(s);
+                data.Close();
+                reader.Close();
+            }
+            catch (Exception x)
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).logging.AddLog("CreateSession: " + urlString);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).logging.AddLog(x.ToString());
+            }
+            
         }
 
         public void Connect(string device, string side)
@@ -120,13 +128,22 @@ namespace UltimateChanger
 
         public void shutDown()
         {
-            urlString = @"http://localhost:1111///general.shutdownServer";
-            data = client.OpenRead(urlString);
-            reader = new StreamReader(data);
-            string s = reader.ReadToEnd();           
-            Console.WriteLine(s);
-            data.Close();
-            reader.Close();
+            try
+            {
+                urlString = @"http://localhost:1111///general.shutdownServer";
+                data = client.OpenRead(urlString);
+                reader = new StreamReader(data);
+                string s = reader.ReadToEnd();
+                Console.WriteLine(s);
+                data.Close();
+                reader.Close();
+            }
+            catch (Exception x)
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).logging.AddLog("shutDown: " + urlString);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).logging.AddLog(x.ToString());
+            }
+
         }
 
         public List<string> findBrandModel(string text, bool Translate)
