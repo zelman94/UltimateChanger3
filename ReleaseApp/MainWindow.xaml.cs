@@ -3751,7 +3751,7 @@ namespace UltimateChanger
                         cmbOEM.Items.Refresh();
                         TabFull.IsEnabled = false;
                         TabCompo.IsEnabled = true;
-                        cmbBuild.ItemsSource = dataBaseManager.getBuilds("FULL",cmbRelease.Text,"RC", cmbBrandstoinstall.Text, cmbOEM.Text);
+                        cmbBuild.ItemsSource = dataBaseManager.getBuilds("FULL",cmbRelease.Text, cmbBuild_mode.Text, cmbBrandstoinstall.Text, cmbOEM.Text);
                     }
                     catch (Exception x)
                     {

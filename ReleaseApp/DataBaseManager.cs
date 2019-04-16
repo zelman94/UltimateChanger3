@@ -243,6 +243,7 @@ namespace UltimateChanger
                     while (reader.Read())
                     {
                         model_name = reader.GetString(0);
+                        model_name = System.Text.RegularExpressions.Regex.Replace(model_name,"  ","");
                     }
                 }
                 SQLConnection.Close();
@@ -261,7 +262,11 @@ namespace UltimateChanger
             try
             {
                 SQLConnection.Open();
-                SqlCommand command = new SqlCommand($"select path from builds where type = '{TYPE}' AND release = '{RELEASE}' AND mode = '{MODE}' AND brand = '{BRAND}' AND oem = '{OEM}'", SQLConnection);
+                if (MODE == "IP")
+                {
+
+                }
+                SqlCommand command = new SqlCommand($"select path from builds where type = '{TYPE}' AND release = '{RELEASE}' AND mode LIKE '%{MODE}%' AND brand = '{BRAND}' AND oem = '{OEM}' order by about desc", SQLConnection);
                 logging.AddLog("getBuilds:  TYPE,  RELEASE,  MODE,  BRAND,  OEM \n" + TYPE +" "+ RELEASE + " " + MODE + " " + BRAND + " " + OEM);
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
