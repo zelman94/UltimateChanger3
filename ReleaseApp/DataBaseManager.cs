@@ -255,5 +255,29 @@ namespace UltimateChanger
             }
         }
 
+        public List<string> getBuilds(string TYPE, string RELEASE, string MODE, string BRAND, string OEM)
+        {
+            List<string> BuildsList = new List<string>();
+            try
+            {
+                SQLConnection.Open();
+                SqlCommand command = new SqlCommand($"select path from builds where type = '{TYPE}' AND release = '{RELEASE}' AND mode = '{MODE}' AND brand = '{BRAND}' AND oem = '{OEM}'", SQLConnection);
+                logging.AddLog("getBuilds:  TYPE,  RELEASE,  MODE,  BRAND,  OEM \n" + TYPE +" "+ RELEASE + " " + MODE + " " + BRAND + " " + OEM);
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        BuildsList.Add(reader.GetString(0));
+                    }
+                }
+                SQLConnection.Close();
+                return BuildsList;
+            }
+            catch (Exception x)
+            {
+                System.Windows.MessageBox.Show(x.ToString());
+                return BuildsList;
+            }
+        }
     }
 }

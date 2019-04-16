@@ -274,21 +274,11 @@ namespace UltimateChanger
             {
                 MessageBox.Show("inicjalizacja part 2 \n" + x.ToString());
             }
-
-            progress.Visibility = Visibility.Hidden; // ukryty bo startuje przez refresh albo zmiane release
-
             btnIdentify.Visibility = Visibility.Hidden;
 
             rbnTurnOffDevMode.IsChecked = true;
 
             rbnNormalSize.IsChecked = true;
-
-           // uninstallTimer.Start();
-
-            Rekurencja = new DispatcherTimer();
-            Rekurencja.Tick += checkRekurencja;
-            Rekurencja.Interval = new TimeSpan(0, 0, 1);
-            Rekurencja.Start();
 
             List<MenuItem> menuitems = new List<MenuItem>();
 
@@ -1005,13 +995,6 @@ namespace UltimateChanger
             {
                 logging.AddLog(x.ToString());
             }
-
-            //progressBarTimer = new DispatcherTimer();
-            progress.ToolTip = "Binding builds ...";
-            //progressBarTimer.Tick += makeProgress;
-            //progressBarTimer.Interval = new TimeSpan(0, 0, 1);
-            //progressBarTimer.Start();
-
 
             RefUiTIMER = new DispatcherTimer();
             RefUiTIMER.Tick += refreshUI;
@@ -1743,7 +1726,6 @@ namespace UltimateChanger
                            
                             cmbBuild2_Compo.IsEnabled = false;
                             cmbOEM_Compo.IsEnabled = false;
-                            btnRefresh_Compo.IsEnabled = false;
                             Rekurencja.Start();
                             progress_Compo.Visibility = Visibility.Visible;
 
@@ -1828,15 +1810,8 @@ namespace UltimateChanger
             {
                 try
                 {
-                    // cmbBuild.ItemsSource = Paths_Dirs[(cmbBrandstoinstall.SelectedIndex)].dir;
-                    fileOperator.GetfilesSaveData(false);
-
-                    cmbBrandstoinstall.Items.Refresh();
                     BindCombo.setOEMComboBox(cmbBrandstoinstall.Text);
-                    cmbOEM.IsEnabled = true;
-                    //cmbBuild.Items.Refresh();
-                    //  cmbBrandstoinstall.Items.Refresh();
-
+                    cmbBuild.ItemsSource = dataBaseManager.getBuilds("FULL", cmbRelease.Text, cmbBuild_mode.Text, cmbBrandstoinstall.Text, cmbOEM.Text);
                 }
                 catch (Exception x)
                 {
@@ -2208,101 +2183,6 @@ namespace UltimateChanger
         }       
 
 
-        private void checkRekurencja(object sender, EventArgs e)
-        {
-            Process[] pname = Process.GetProcessesByName("Rekurencjon");
-            if (!copystatus) // jezeli trwa rekurencja zwyczajna
-            {
-                progress.Value += 10;
-                progress_Compo.Value += 10;
-                if (progress.Value == 100 || progress_Compo.Value == 100)
-                {
-                    progress.Value = 0;
-                    progress_Compo.Value = 0;
-                }
-                if (pname.Length == 0)
-                {
-                    fileOperator.GetfilesSaveData(TabCompo.IsSelected);
-                    ChangedBrandOfFittingSoftware();
-                    Rekurencja.Stop();
-                    cmbRelease.IsEnabled = true;
-                    cmbBrandstoinstall.IsEnabled = true;
-                    cmbBuild.IsEnabled = true;
-                    cmbOEM.IsEnabled = true;
-                    progress.Visibility = Visibility.Hidden;
-                    btnRefresh.Visibility = Visibility.Visible;
-
-                    progress_Compo.Visibility = Visibility.Hidden;
-                    btnRefresh_Compo.Visibility = Visibility.Visible;
-                    cmbBuild2_Compo.IsEnabled = true;
-                    cmbBuild_Compo.IsEnabled = true;
-                    cmbBrandstoinstall_Compo.IsEnabled = true;
-                    cmbOEM_Compo.IsEnabled = true;
-                    cmbRelease_Compo.IsEnabled = true;
-
-                    TabFull.IsEnabled = true;
-                    TabCompo.IsEnabled = true;
-                    ChangedBrandOfFittingSoftware();
-                    RBsilet.IsEnabled = true;
-                    RBnormal.IsEnabled = true;
-                }
-                else
-                {
-                    cmbBuild2_Compo.IsEnabled = false;
-                    cmbBuild_Compo.IsEnabled = false;
-                    cmbBrandstoinstall_Compo.IsEnabled = false;
-                    cmbOEM_Compo.IsEnabled = false;
-                    cmbRelease_Compo.IsEnabled = false;
-
-                    cmbOEM.IsEnabled = false;
-                    cmbBrandstoinstall.IsEnabled = false;
-
-                    TabFull.IsEnabled = false;
-                    TabCompo.IsEnabled = false;
-                }
-            }
-            else // jezeli trwa kopiowanie
-            {
-
-                progress.Value += 10;
-                progress_Compo.Value += 10;
-                if (progress.Value == 100 || progress_Compo.Value == 100)
-                {
-                    progress.Value = 0;
-                    progress_Compo.Value = 0;
-                }
-
-                if (pname.Length == 0) // jezeli koniec kopiowania
-                {
-                    Rekurencja.Stop();
-                    copystatus = false;
-                    TabFull.IsEnabled = true;
-                    TabCompo.IsEnabled = true;
-                    cmbBuild2_Compo.IsEnabled = true;
-                    cmbOEM_Compo.IsEnabled = true;
-                    btnRefresh_Compo.IsEnabled = true;
-                    progress_Compo.Visibility = Visibility.Hidden;
-                    try
-                    {
-                       // Process.Start(pathToLocalComposition); // uruchomienie skopiowanego extraktora na dysku ze zmiennej globalnej uzupelnionej podczas uruchamiania procesu rekurencjon
-                        cmbRelease_Compo.IsEnabled = true;
-                        cmbBrandstoinstall_Compo.IsEnabled = true;
-                        cmbBuild_Compo.IsEnabled = true;
-                    }
-                    catch (Exception)
-                    {
-                       // MessageBox.Show($"path to composition doesnt exist :\n{pathToLocalComposition}");
-                    }                    
-                }
-                else
-                {
-                    TabFull.IsEnabled = false;
-                    TabCompo.IsEnabled = false;
-                }            
-            }           
-        }
-
-
         private void txtCompositionPart2_TextChanged(object sender, TextChangedEventArgs e)
         {
             // Releases_prereleases          
@@ -2353,11 +2233,11 @@ namespace UltimateChanger
         }
 
         private void cmbOEM_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            
+        {            
                 cmbOEM.Items.Refresh();
                 AllOemPaths = BindCombo.getAllPathsOem(cmbOEM.Text, cmbBrandstoinstall.SelectedIndex, Paths_Dirs);
                 cmbBuild.ItemsSource = AllOemPaths;
+                cmbBuild.ItemsSource = dataBaseManager.getBuilds("FULL", cmbRelease.Text, cmbBuild_mode.Text, cmbBrandstoinstall.Text, cmbOEM.Text);
         }
         private void cmbOEM_Compo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {            
@@ -2736,11 +2616,7 @@ namespace UltimateChanger
 
         private void Dark_skin_Checked(object sender, RoutedEventArgs e)
         {
-            //zmiana image refresh
-            imgRefresh.Source = new BitmapImage(new Uri("/Images/refreshDark.png", UriKind.Relative));
-            imageRefresh_Compo.Source = new BitmapImage(new Uri("/Images/refreshDark.png", UriKind.Relative));
-
-            //Zmiany na ciemny motyw (można zmienić kolor ramki itd.)
+           //Zmiany na ciemny motyw (można zmienić kolor ramki itd.)
             XMLReader.setSetting("Dark_skin", "RadioButtons", Convert.ToString(rbnDark_skin.IsChecked.Value).ToUpper());
             bool tmp = !rbnDark_skin.IsChecked.Value;
             XMLReader.setSetting("Light_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
@@ -2847,10 +2723,6 @@ namespace UltimateChanger
           //  oticonmedicalnRectangle.Fill= (Brush)converter.ConvertFromString("#FFECB3");
             //oticonRectangle.Fill = (Brush)converter.ConvertFromString("#FAFAFA");
 
-            progress.Background = (Brush)converter.ConvertFromString("#FF616161");
-            progress.BorderBrush = (Brush)converter.ConvertFromString("#FF424242");
-            progress.Foreground = Brushes.White;
-
             //USTAWIENIA AKCENTÓW
             Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
             {
@@ -2867,10 +2739,6 @@ namespace UltimateChanger
 
         private void Light_skin_Checked(object sender, RoutedEventArgs e)
         {
-
-            // zmiana img dla buttona refresh
-            imgRefresh.Source = new BitmapImage(new Uri("/Images/refreshWhite.png", UriKind.Relative));
-            imageRefresh_Compo.Source = new BitmapImage(new Uri("/Images/refreshWhite.png", UriKind.Relative));
 
             //Zmiany na jasny motyw
             XMLReader.setSetting("Light_skin", "RadioButtons",Convert.ToString(rbnLight_skin.IsChecked.Value).ToUpper());
@@ -2979,11 +2847,7 @@ namespace UltimateChanger
         //    oticonmedicalnRectangle.Fill = Brushes.Black;
            // oticonRectangle.Fill = Brushes.White;
 
-            //USTAWIENIA PROGESSBARÓW
-            progress.Background= (Brush)converter.ConvertFromString("#FF616161");
-            progress.BorderBrush = (Brush)converter.ConvertFromString("#FF424242");
-            progress.Foreground = Brushes.Black;
-
+       
             //USTAWIENIA AKCENTÓW
             Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
             {
@@ -3550,53 +3414,6 @@ namespace UltimateChanger
 
 
 
-        private void btnRefresh_Click(object sender, RoutedEventArgs e)
-        {
-            // zamiast watku napisac maly programik osobny ktory bedzie uruchamiany na timerze co 3 s i bedzie sprawdzac czy sie zakonczyl ! :D
-            if (!statusOfProcess("Rekurencjon"))
-            {
-                // args 0 - Full/Medium/Composition
-                // args 1 release
-                // args 2 pathFile - only file name
-                // args 3 dirFile - only file name "test.txt"
-                btnRefresh.Visibility = Visibility.Hidden;
-                btnRefresh_Compo.Visibility = Visibility.Hidden;
-                progress_Compo.Visibility = Visibility.Visible;
-                progress.Visibility = Visibility.Visible;
-
-
-                if (File.Exists(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe"))
-                {
-                    if (TabCompo.IsSelected)
-                    {
-                        Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease_Compo.Text}  path_Composition.txt dir_Composition.txt {cmbBuild2_Compo.Text}"); // wlaczyc gdy bedzie nowy exe gotowy
-                    }
-                    else
-                    {
-                        string tmp = Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe" + $"Full {cmbRelease.Text}";
-                        Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Full {cmbRelease.Text}"); // wlaczyc gdy bedzie nowy exe gotowy
-                    }
-                }
-                else
-                {
-                    if (TabCompo.IsSelected)
-                    {
-                        Process.Start(@"C:\Program Files\UltimateChanger" + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease_Compo.Text}  path_Composition.txt dir_Composition.txt"); // wlaczyc gdy bedzie nowy exe gotowy
-                    }
-                    else
-                    {
-                        Process.Start(@"C:\Program Files\UltimateChanger" + @"\reku" + @"\Rekurencjon.exe", $"Full {cmbRelease.Text}"); // wlaczyc gdy bedzie nowy exe gotowy
-                    }
-                }
-                progress.Visibility = Visibility.Visible;
-                cmbRelease.IsEnabled = false;
-                Rekurencja = new DispatcherTimer();
-                Rekurencja.Tick += checkRekurencja;
-                Rekurencja.Interval = new TimeSpan(0, 0, 1);
-                Rekurencja.Start();
-            }
-        }
-
         private void btn_Gearbox(object sender, RoutedEventArgs e)
         {
             try
@@ -3842,7 +3659,7 @@ namespace UltimateChanger
         {
             cmbRelease.Items.Refresh();
             XMLReader.setSetting("Release", "ComboBox", cmbRelease.Text);
-            
+            cmbBuild.ItemsSource = dataBaseManager.getBuilds("FULL", cmbRelease.Text, cmbBuild_mode.Text, cmbBrandstoinstall.Text, cmbOEM.Text);
         }
 
         void updateMarket(bool Full)
@@ -3934,6 +3751,7 @@ namespace UltimateChanger
                         cmbOEM.Items.Refresh();
                         TabFull.IsEnabled = false;
                         TabCompo.IsEnabled = true;
+                        cmbBuild.ItemsSource = dataBaseManager.getBuilds("FULL",cmbRelease.Text,"RC", cmbBrandstoinstall.Text, cmbOEM.Text);
                     }
                     catch (Exception x)
                     {
@@ -4000,6 +3818,12 @@ namespace UltimateChanger
             
         }
 
+        private void cmbBuild_mode_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cmbBuild_mode.Items.Refresh();
+            cmbBuild.ItemsSource = dataBaseManager.getBuilds("FULL", cmbRelease.Text, cmbBuild_mode.Text, cmbBrandstoinstall.Text, cmbOEM.Text);
+        }
+
         private void btnReadHI_Click(object sender, RoutedEventArgs e)
         {
             btnReadHI.IsEnabled = false;
@@ -4040,6 +3864,7 @@ namespace UltimateChanger
                     HI = readHI.ReadHI("Left");
                     txtHIBrand.Text = HI[0];
                     txtPP.Text = HI[1];
+                    txtFW.Text = HI[2];
                     txtSN.Text = readHI.getSerialNumber("Left");
                     progressHI.Value += 15;
                 }
@@ -4053,6 +3878,7 @@ namespace UltimateChanger
                     HI = readHI.ReadHI("Right");
                     txtHIBrand_R.Text = HI[0];
                     txtPP_R.Text = HI[1];
+                    txtFW_R.Text = HI[2];
                     txtSN_R.Text = readHI.getSerialNumber("Right");
                     progressHI.Value += 15;
                 }
@@ -4075,12 +3901,14 @@ namespace UltimateChanger
             {
                 txtHIBrand_R.Text = HI[0];
                 txtPP_R.Text= HI[1];
+                txtFW_R.Text = HI[2];
                 txtSN_R.Text = readHI.getSerialNumber("Right");
             }
             else
             {
                 txtHIBrand.Text = HI[0];
-                txtPP.Text = HI[1];
+                txtPP.Text = HI[1];                
+                txtFW.Text = HI[2];
                 txtSN.Text = readHI.getSerialNumber("Left");
             }
             progressHI.Value += 30;

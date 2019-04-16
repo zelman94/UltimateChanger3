@@ -1103,23 +1103,6 @@
                                     <ColumnDefinition Width="2*"/>
                                     <ColumnDefinition Width="1*"/>
                                 </Grid.ColumnDefinitions>
-
-                                <ProgressBar Name="progress" Grid.Column="0" Height="Auto" Grid.Row="0" BorderBrush="#FF424242" Background="#FF616161" Foreground="White" Margin="5,13">
-                                    <ProgressBar.RenderTransform>
-                                        <TransformGroup>
-                                            <ScaleTransform/>
-                                            <SkewTransform/>
-                                            <RotateTransform Angle="-0.289"/>
-                                            <TranslateTransform/>
-                                        </TransformGroup>
-                                    </ProgressBar.RenderTransform>
-                                </ProgressBar>
-
-                                <Button Name="btnRefresh" Grid.Column="1" ToolTip="refresh paths" Click="btnRefresh_Click" Margin="5,12" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Height="Auto"  >
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image Name="imgRefresh" Stretch="Fill" Source="Images/refreshDark.PNG" Height="20" Width="20" />
-                                    </StackPanel>
-                                </Button>
                             </Grid>
 
                             <Label Content="Fitting Software:" Foreground="White" Grid.Column="0" Grid.Row="1" FontWeight="SemiBold" FontSize="12.5" VerticalAlignment="Top"/>
@@ -1140,9 +1123,10 @@
                                 </ComboBox>
                             </Grid>
 
-
-                            <Label Content="Build:" Grid.Row="2" Grid.Column="0" Foreground="White" FontWeight="SemiBold" FontSize="12.5" VerticalAlignment="Top"/>
-                            <ComboBox x:Name="cmbBuild" Grid.Row="2" Grid.Column="0" SelectionChanged="cmbbuild_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom"/>
+                            <ComboBox x:Name="cmbBuild_mode" Grid.Row="2" Grid.Column="0" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom" SelectionChanged="cmbBuild_mode_SelectionChanged"/>
+                            
+                            <Label Content="Build:" Grid.Row="2" Grid.Column="1" Foreground="White" FontWeight="SemiBold" FontSize="12.5" VerticalAlignment="Top"/>
+                            <ComboBox x:Name="cmbBuild" Grid.Row="2" Grid.Column="1" SelectionChanged="cmbbuild_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom"/>
 
                             <Button x:Name="btninstal" Content="Install" Click="btninstal_Click" Grid.Row="3" Grid.Column="0" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10,12" Height="Auto"/>
                             <Button x:Name="btnInfo" Content="Copy path to build" Grid.Row="3" Grid.Column="1" Click="btnInfo_Click" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10,12" Height="Auto"/>
@@ -1203,12 +1187,6 @@
                                         </TransformGroup>
                                     </ProgressBar.RenderTransform>
                                 </ProgressBar>
-
-                                <Button Name="btnRefresh_Compo" Grid.Column="1" ToolTip="refresh paths" Click="btnRefresh_Click" Margin="5,12" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Height="Auto"  >
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image Name="imageRefresh_Compo" Stretch="Fill" Source="Images/refreshWhite.PNG" Height="20" Width="20"/>
-                                    </StackPanel>
-                                </Button>
                             </Grid>
 
                             <Label Content="Fitting Software:" Foreground="White" Grid.Column="0" Grid.Row="1" FontWeight="SemiBold" FontSize="12.5" VerticalAlignment="Top"/>
@@ -1774,7 +1752,7 @@
                     <RadioButton x:Name="rbnTurnOnDevMode" Content="On" GroupName="group4" Checked="rbnTurnOnDevMode_Checked" Margin="0,0,28,0"/>
                     <RadioButton x:Name="rbnTurnOffDevMode" Content="Off" GroupName="group4" Checked="rbnTurnOffDevMode_Checked" Margin="0,0,28,0"/>
                     <Label x:Name="lblDefPathCompo" Content="Path to local Compositions:"/>
-                    <TextBox x:Name="txtLocalCompoPath" Height="23" TextWrapping="Wrap" ToolTip="Edit, click enter to save" Text="C:\Program Files\UltimateChanger\compositions" KeyDown="txtLocalCompoPath_KeyDown"/>
+                    <TextBox x:Name="txtLocalCompoPath" Height="auto" TextWrapping="Wrap" ToolTip="Edit, click enter to save" Text="C:\Program Files\UltimateChanger\compositions" KeyDown="txtLocalCompoPath_KeyDown"/>
                     <Label Content="-----------------------------------"/>
                     <CheckBox x:Name="InstallByNight" Content="Install newest build at night" IsChecked="False" Checked="InstallByNight_Checked" Unchecked="InstallByNight_Unchecked" IsEnabled="True" />
                     <Label x:Name="lblTime_toUpgrade" Content=""/>
@@ -1833,7 +1811,8 @@
                 <StackPanel Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,125,0" Height="auto" Grid.Row="1" Width="125">
                     <Label Content="Left" HorizontalAlignment="Center" VerticalAlignment="Top" Height="26" Width="30"/>                    
                     <TextBox x:Name="txtHIBrand" Grid.Column="1" HorizontalAlignment="Center" Height="25"  Grid.Row="1" TextWrapping="Wrap" Text="" Width="auto"/>
-                    <TextBox x:Name="txtPP" Grid.Column="1" HorizontalAlignment="Center" Height="25"  Grid.Row="1" TextWrapping="Wrap" Text=""  Width="auto"/>                   
+                    <TextBox x:Name="txtPP" Grid.Column="1" HorizontalAlignment="Center" Height="25"  Grid.Row="1" TextWrapping="Wrap" Text=""  Width="auto"/>
+                    <TextBox x:Name="txtFW" Grid.Column="1" HorizontalAlignment="Center" Height="25"  Grid.Row="1" TextWrapping="Wrap" Text=""  Width="auto"/>
                     <TextBox x:Name="txtSN" Grid.Column="1" HorizontalAlignment="Center" Height="25" Grid.Row="1" TextWrapping="Wrap" Text=""  Width="auto"/>
                     
                 </StackPanel>
@@ -1841,6 +1820,7 @@
                     <Label Content="Right" HorizontalAlignment="Center" VerticalAlignment="Top" Height="26" Width="38"/>
                     <TextBox x:Name="txtHIBrand_R" Grid.Column="1" HorizontalAlignment="Center" Height="25"  Grid.Row="1" TextWrapping="Wrap" Text="" Width="auto"/>
                     <TextBox x:Name="txtPP_R" Grid.Column="1" HorizontalAlignment="Center" Height="25"  Grid.Row="1" TextWrapping="Wrap" Text=""  Width="auto"/>
+                    <TextBox x:Name="txtFW_R" Grid.Column="1" HorizontalAlignment="Center" Height="25"  Grid.Row="1" TextWrapping="Wrap" Text=""  Width="auto"/>
                     <TextBox x:Name="txtSN_R" Grid.Column="1" HorizontalAlignment="Center" Height="25" Grid.Row="1" TextWrapping="Wrap" Text=""  Width="auto"/>
                 </StackPanel>
 

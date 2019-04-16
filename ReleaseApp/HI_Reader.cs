@@ -44,13 +44,20 @@ namespace UltimateChanger
             string arguments = "server -s http://localhost:1111";
             if (gearbox != "")
             {
-                Process gear = new Process();
-                gear.StartInfo.CreateNoWindow = true;
-                gear.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                gear.StartInfo.Arguments = arguments;
-                gear.StartInfo.FileName = gearbox + @"\gearboxj";
-                gear.Start();
-                //Process.Start(gearbox + @"\gearboxj", arguments);
+                try
+                {
+                    Process gear = new Process();
+                    gear.StartInfo.CreateNoWindow = true;
+                    gear.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    gear.StartInfo.Arguments = arguments;
+                    gear.StartInfo.FileName = gearbox + @"\gearboxj";
+                    gear.Start();
+                    //Process.Start(gearbox + @"\gearboxj", arguments);
+                }
+                catch (Exception)
+                {
+                }
+               
             }           
         }
 
@@ -104,6 +111,10 @@ namespace UltimateChanger
             Console.WriteLine(s[0]);
             data.Close();
             reader.Close();
+            if (s.Count<3)
+            {
+                s.Add("error");
+            }
             return s;
         }
 
@@ -189,7 +200,7 @@ namespace UltimateChanger
             }
             return dataHI;
         }
-        public List<string> TranslateModel(List<string> model) //[0] - brand [1] - model
+        public List<string> TranslateModel(List<string> model) //[0] - brand [1] - model [2] - Firmware
         {
             List<string> brand = new List<string>();            
             try
@@ -212,19 +223,29 @@ namespace UltimateChanger
                 try
                 {
                     brand.Add(((MainWindow)System.Windows.Application.Current.MainWindow).dataBaseManager.getModelHI(model[1]));
-                try
-                {
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).logging.AddLog("Model: " + model[1]);
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).logging.AddLog("Translated Model: " + brand[1]);
+                    try
+                    {
+                        ((MainWindow)System.Windows.Application.Current.MainWindow).logging.AddLog("Model: " + model[1]);
+                        ((MainWindow)System.Windows.Application.Current.MainWindow).logging.AddLog("Translated Model: " + brand[1]);
+                    }
+                    catch (Exception)
+                    {
+                    }
                 }
-                catch (Exception)
-                {
-                }
-            }
                 catch (Exception)
                 {
                     brand.Add("error");
                 }
+
+            try
+            {
+                brand.Add("FW: " + model[2][0].ToString());
+            }
+            catch (Exception)
+            {
+                brand.Add("error");
+            }
+
             return brand;
         }
         public string FindGearbox()
