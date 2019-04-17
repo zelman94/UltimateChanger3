@@ -242,8 +242,7 @@ namespace UltimateChanger
                 {
                     while (reader.Read())
                     {
-                        model_name = reader.GetString(0);
-                        model_name = System.Text.RegularExpressions.Regex.Replace(model_name,"  ","");
+                        model_name = reader.GetString(0).Trim();
                     }
                 }
                 SQLConnection.Close();

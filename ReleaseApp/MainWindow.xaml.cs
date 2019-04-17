@@ -3826,13 +3826,15 @@ namespace UltimateChanger
 
         private void btnReadHI_Click(object sender, RoutedEventArgs e)
         {
-            btnReadHI.IsEnabled = false;
+
             txtHIBrand.Text = "";
             txtHIBrand_R.Text = "";
             txtPP.Text = "";
             txtPP_R.Text = "";
             txtSN.Text = "";
             txtSN_R.Text = "";
+            txtFW.Text = "";
+            txtFW_R.Text = "";
             progressHI.Value = 0;
             HI_Reader readHI = new HI_Reader();
             progressHI.Value += 10;
@@ -3915,7 +3917,7 @@ namespace UltimateChanger
             readHI.shutDown();
             progressHI.Value += 10;
             setNewSavedTime(30);
-            btnReadHI.IsEnabled = true;
+
         }
 
         private void InstallByNight_Checked(object sender, RoutedEventArgs e)
