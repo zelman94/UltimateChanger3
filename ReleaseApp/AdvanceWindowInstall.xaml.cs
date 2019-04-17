@@ -37,6 +37,30 @@ namespace UltimateChanger
         {
             InitializeComponent();
             databaseManager = databaseManager_;
+
+            cmbRelease.ItemsSource = databaseManager.executeSelect("select DISTINCT release from builds where type = 'FULL' order by release");
+            try
+            {
+                cmbRelease.SelectedIndex = 0;
+            }
+            catch (Exception)
+            {
+
+            }
+            cmbMode.ItemsSource = new List<string>() { { "IP" }, { "RC" }, { "Master" } };
+            cmbMode.SelectedIndex = 0;
+
+            
+
+            try
+            {
+                cmbAbout.SelectedIndex = 0;
+            }
+            catch (Exception)
+            {
+
+            }
+
             FindingPaths = new DispatcherTimer();
             FindingPaths = new DispatcherTimer();
             FindingPaths.Tick += updateListUI;
@@ -57,7 +81,7 @@ namespace UltimateChanger
             btnFindPaths.Background = (Brush)converter.ConvertFromString("#FF616161");
             btnFindPaths.Foreground = (Brush)converter.ConvertFromString("#E5FFFFFF");
             progressAdvanceInstall.Visibility = Visibility.Hidden;
-            cmbLastselected.ItemsSource = getLastUsedPaths();
+            //cmbLastselected.ItemsSource = getLastUsedPaths();
         }
 
         public void updateListUI(object sender, EventArgs e)
@@ -253,6 +277,41 @@ namespace UltimateChanger
             }
 
             ListBoxBuilds.ItemsSource = UIpaths;
+        }
+
+        private void cmbMode_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cmbMode.Items.Refresh();
+            cmbAbout.Items.Refresh();
+            cmbRelease.Items.Refresh();
+            cmbAbout.ItemsSource = databaseManager.executeSelect($"select DISTINCT about from builds where type = 'FULL' AND RELEASE = '{cmbRelease.Text}' AND MODE like '%{cmbMode.Text}%' order by about DESC");
+            cmbAbout_SelectionChanged(new object(), null);
+        }
+
+        private void cmbAbout_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cmbAbout.Items.Refresh();
+            cmbMode.Items.Refresh();
+            cmbRelease.Items.Refresh();
+            txtpathToBuilds.Text = @"\\demant.com\data\KBN\RnD\SWS\Build\Arizona\Phoenix\FullInstaller-"; // common part...
+            updateUIListPaths(databaseManager.executeSelect($"select path from builds where type = 'FULL' AND RELEASE = '{cmbRelease.Text}' AND MODE like '%{cmbMode.Text}%' AND ABOUT = '{cmbAbout.Text}'"));
+        }
+
+        private void cmbRelease_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cmbRelease.Items.Refresh();
+            cmbMode.Items.Refresh();
+            cmbAbout.Items.Refresh();
+            cmbAbout.ItemsSource = databaseManager.executeSelect($"select DISTINCT about from builds where type = 'FULL' AND RELEASE = '{cmbRelease.Text}' AND MODE like '%{cmbMode.Text}%' order by about DESC");
+            try
+            {
+                cmbAbout.SelectedIndex = 0;
+            }
+            catch (Exception)
+            {
+
+            }
+            cmbAbout_SelectionChanged(new object(), null);
         }
     }
 }

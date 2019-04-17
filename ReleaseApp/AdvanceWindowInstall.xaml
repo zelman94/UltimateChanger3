@@ -30,12 +30,15 @@
 
         <ListBox Name="ListBoxBuilds" SelectionChanged="ListBoxBuilds_SelectionChanged" Grid.Column="0" Grid.Row="1" SelectionMode="Multiple" />
         <TextBox Name="txtpathToBuilds" BorderThickness="1" BorderBrush="Gray" HorizontalAlignment="Right" Height="40" Margin="0,54,49,50" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="400" ToolTip="add root path to build if more than one please separate by ;" SpellCheck.IsEnabled="True"  />
-        <Button Name="btnFindPaths" Content="Find " Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="75" Click="BtnFindPaths" Margin="11,52,11,60"/>
+        <Button Name="btnFindPaths" Content="Find " Grid.Column="2" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="75" Click="BtnFindPaths" Margin="11,52,11,60"/>
         <Button Name="btnInstallFSs" Content="Install" Grid.Column="1" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Width="75" Click="btnInstallFSs_Click" Margin="11,4,11,9"/>
         <Button Name="btnCancelAdvance" Content="Cancel" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Width="75" Click="btnCancelAdvance_Click" Margin="11,4,11,9"/>
         <Label Content="Root Path" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,68,0,50" Width="100" Height="26"/>
         <ProgressBar  BorderThickness="1" BorderBrush="Gray" Name="progressAdvanceInstall" HorizontalAlignment="Left" Height="20" Margin="200,21,0,0" VerticalAlignment="Top" Width="300"/>
         <ComboBox Name="cmbLastselected" Foreground="white" BorderThickness="1" BorderBrush="Gray" HorizontalAlignment="Left" Margin="151,106,0,0" VerticalAlignment="Top" Width="400" SelectionChanged="cmbLastselected_SelectionChanged"/>
+        <ComboBox Name="cmbRelease" Grid.Column="1" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Width="80" SelectionChanged="cmbRelease_SelectionChanged"/>
+        <ComboBox Name="cmbMode" Grid.Column="1" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" Width="80" SelectionChanged="cmbMode_SelectionChanged"/>
+        <ComboBox Name="cmbAbout" Grid.Column="1" HorizontalAlignment="Center" Margin="0,90,0,0" VerticalAlignment="Top" Width="80" SelectionChanged="cmbAbout_SelectionChanged"/>
 
 
 

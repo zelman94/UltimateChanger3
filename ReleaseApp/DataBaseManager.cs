@@ -283,5 +283,31 @@ namespace UltimateChanger
                 return BuildsList;
             }
         }
+
+        public List<string> executeSelect(string command_)
+        {
+            List<string> returnedValues = new List<string>();
+            try
+            {
+                SQLConnection.Open();
+                SqlCommand command = new SqlCommand(command_, SQLConnection);
+                logging.AddLog("executeSelect:  command_\n" + command_);
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        returnedValues.Add(reader.GetString(0));
+                    }
+                }
+                SQLConnection.Close();
+                return returnedValues;
+            }
+            catch (Exception x)
+            {
+                System.Windows.MessageBox.Show(x.ToString());
+                return returnedValues;
+            }
+        }
+
     }
 }
