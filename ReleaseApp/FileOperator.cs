@@ -863,7 +863,7 @@ namespace UltimateChanger
                 return false;
         }
 
-        string[] marki = { "Genie", "Oasis", "EXPRESSfit", "Philips HearSuite", "Philips HearSuite (development mode)", "Genie Medical BAHS", "HearSuite" };
+        string[] marki = { "Genie", "Oasis", "EXPRESSfit", "Philips HearSuite", "Philips HearSuite (development mode)", "Genie Medical", "HearSuite","FirmwareUpdater" };
         bool killRunningProcess(string name)
         {
             //Process[] proc = Process.GetProcessesByName(name);

@@ -1836,7 +1836,7 @@ namespace UltimateChanger
 
                 cmbBuild.Items.Refresh();
                 cmbBrandstoinstall.Items.Refresh();
-                cmbBuild.ToolTip = AllOemPaths[cmbBuild.SelectedIndex];
+                cmbBuild.ToolTip = cmbBuild.Text;
             }
             else
             {

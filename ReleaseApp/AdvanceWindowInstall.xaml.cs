@@ -28,6 +28,11 @@ namespace UltimateChanger
         public List<string> PathTobuilds = new List<string>();
         public List<string> PathTobuildsUI = new List<string>();
         List<string> Paths = new List<string>();
+        List<Label> lableListForUi = new List<Label>();
+        List<TextBox> listTextBoxForUi = new List<TextBox>();
+        List<Button> buttonListForUi = new List<Button>();
+        List<ComboBox> comboBoxListForUi = new List<ComboBox>();
+        List<CheckBox> checkBoxListForUi = new List<CheckBox>();
         DispatcherTimer FindingPaths;
         DataBaseManager databaseManager;
 
@@ -72,14 +77,7 @@ namespace UltimateChanger
             txtpathToBuilds.BorderBrush = ((MainWindow)System.Windows.Application.Current.MainWindow).rbnHI_1.Foreground;
             var converter = new System.Windows.Media.BrushConverter();
 
-            btnCancelAdvance.Background = (Brush)converter.ConvertFromString("#FF616161");
-            btnCancelAdvance.Foreground = (Brush)converter.ConvertFromString("#E5FFFFFF");
-
-            btnInstallFSs.Background = (Brush)converter.ConvertFromString("#FF616161");
-            btnInstallFSs.Foreground = (Brush)converter.ConvertFromString("#E5FFFFFF");
-
-            btnFindPaths.Background = (Brush)converter.ConvertFromString("#FF616161");
-            btnFindPaths.Foreground = (Brush)converter.ConvertFromString("#E5FFFFFF");
+            setDefaultSkin();
             progressAdvanceInstall.Visibility = Visibility.Hidden;
             //cmbLastselected.ItemsSource = getLastUsedPaths();
         }
@@ -286,6 +284,15 @@ namespace UltimateChanger
             cmbRelease.Items.Refresh();
             cmbAbout.ItemsSource = databaseManager.executeSelect($"select DISTINCT about from builds where type = 'FULL' AND RELEASE = '{cmbRelease.Text}' AND MODE like '%{cmbMode.Text}%' order by about DESC");
             cmbAbout_SelectionChanged(new object(), null);
+            try
+            {
+                cmbAbout.SelectedIndex = 0;
+            }
+            catch (Exception)
+            {
+
+            }
+
         }
 
         private void cmbAbout_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -313,5 +320,77 @@ namespace UltimateChanger
             }
             cmbAbout_SelectionChanged(new object(), null);
         }
+
+        public void setDefaultSkin()
+        {
+            foreach (Label tb in FindLogicalChildren<Label>(this)) // dziala
+            {
+                lableListForUi.Add(tb);
+            }
+
+            foreach (TextBox item in FindLogicalChildren<TextBox>(this))
+            {
+                listTextBoxForUi.Add(item);
+            }
+            foreach (Button item in FindLogicalChildren<Button>(this))
+            {
+                buttonListForUi.Add(item);
+            }
+            foreach (ComboBox item in FindLogicalChildren<ComboBox>(this))
+            {
+                comboBoxListForUi.Add(item);
+            }
+            foreach (CheckBox item in FindLogicalChildren<CheckBox>(this))
+            {
+                checkBoxListForUi.Add(item);
+            }
+
+            //USTAWIENIA LABELI
+            foreach (var item in lableListForUi)
+            {
+                item.Foreground = ((MainWindow)System.Windows.Application.Current.MainWindow).lblSavedTime.Foreground;
+            }
+
+            //USTAWIENIA BOXÓW
+            foreach (var item in listTextBoxForUi)
+            {
+                item.Foreground = ((MainWindow)System.Windows.Application.Current.MainWindow).txtnewTeamMember.Foreground;
+                item.BorderBrush = ((MainWindow)System.Windows.Application.Current.MainWindow).txtnewTeamMember.BorderBrush;
+            }
+            var converter = new System.Windows.Media.BrushConverter();
+
+            //USTAWIENIA BUTTONÓW
+            foreach (var item in buttonListForUi)
+            {
+                item.Background = ((MainWindow)System.Windows.Application.Current.MainWindow).btnNewPrecon.Background;
+                item.Foreground = ((MainWindow)System.Windows.Application.Current.MainWindow).btnNewPrecon.Foreground;
+                item.BorderBrush = ((MainWindow)System.Windows.Application.Current.MainWindow).btnNewPrecon.BorderBrush;
+                item.Opacity = ((MainWindow)System.Windows.Application.Current.MainWindow).btnNewPrecon.Opacity;
+                item.MaxWidth = ((MainWindow)System.Windows.Application.Current.MainWindow).btnNewPrecon.MaxWidth;
+            }
+            //USTAWIENIA COMBOBOXÓW
+            foreach (var item in comboBoxListForUi)
+            {
+                item.Foreground = ((MainWindow)System.Windows.Application.Current.MainWindow).cmbBrandstoinstall.Foreground;
+                item.BorderBrush = ((MainWindow)System.Windows.Application.Current.MainWindow).cmbBrandstoinstall.BorderBrush;
+
+            }
+
+            this.Background = ((MainWindow)System.Windows.Application.Current.MainWindow).Background;
+        }
+
+        public static IEnumerable<T> FindLogicalChildren<T>(DependencyObject obj) where T : DependencyObject
+        {
+            if (obj != null)
+            {
+                if (obj is T)
+                    yield return obj as T;
+
+                foreach (DependencyObject child in LogicalTreeHelper.GetChildren(obj).OfType<DependencyObject>())
+                    foreach (T c in FindLogicalChildren<T>(child))
+                        yield return c;
+            }
+        }
+
     }
 }

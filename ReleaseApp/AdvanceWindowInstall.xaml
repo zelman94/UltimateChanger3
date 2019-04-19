@@ -36,9 +36,9 @@
         <Label Content="Root Path" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,68,0,50" Width="100" Height="26"/>
         <ProgressBar  BorderThickness="1" BorderBrush="Gray" Name="progressAdvanceInstall" HorizontalAlignment="Left" Height="20" Margin="200,21,0,0" VerticalAlignment="Top" Width="300"/>
         <ComboBox Name="cmbLastselected" Foreground="white" BorderThickness="1" BorderBrush="Gray" HorizontalAlignment="Left" Margin="151,106,0,0" VerticalAlignment="Top" Width="400" SelectionChanged="cmbLastselected_SelectionChanged"/>
-        <ComboBox Name="cmbRelease" Grid.Column="1" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Width="80" SelectionChanged="cmbRelease_SelectionChanged"/>
-        <ComboBox Name="cmbMode" Grid.Column="1" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" Width="80" SelectionChanged="cmbMode_SelectionChanged"/>
-        <ComboBox Name="cmbAbout" Grid.Column="1" HorizontalAlignment="Center" Margin="0,90,0,0" VerticalAlignment="Top" Width="80" SelectionChanged="cmbAbout_SelectionChanged"/>
+        <ComboBox Name="cmbRelease" Foreground="white" Grid.Column="1" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Width="80" SelectionChanged="cmbRelease_SelectionChanged"/>
+        <ComboBox Name="cmbMode" Foreground="white" Grid.Column="1" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" Width="80" SelectionChanged="cmbMode_SelectionChanged"/>
+        <ComboBox Name="cmbAbout" Foreground="white" Grid.Column="1" HorizontalAlignment="Center" Margin="0,90,0,0" VerticalAlignment="Top" Width="80" SelectionChanged="cmbAbout_SelectionChanged"/>
 
 
 
