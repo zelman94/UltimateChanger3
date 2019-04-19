@@ -1404,7 +1404,6 @@ namespace UltimateChanger
                 {
                     try
                     {
-
                         Process.Start(BuildInfo.ListPathsToHattori[licznik] + "FirmwareUpdater.exe");
                         CounterOfclicks.AddClick((int)Buttons.StartHAttori);
                     }
@@ -2307,6 +2306,7 @@ namespace UltimateChanger
                         licznik++;
                     }
                     myStream.Close();
+                    MessageBox.Show("Logs Saved");
                 }
             }
         }
