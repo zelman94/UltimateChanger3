@@ -13,11 +13,14 @@ using System.Xml;
 using System.Diagnostics;
 using System.IO.Compression;
 using System.Management;
+using log4net;
 
 namespace UltimateChanger
 {
     public class FileOperator
     {
+        private static readonly ILog Log =
+              LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private Label lblGenie;
         private Label lblOasis;
         private Label lblExpressFit;
@@ -599,12 +602,13 @@ namespace UltimateChanger
                 }
                
             }
-            catch(DirectoryNotFoundException )
+            catch(DirectoryNotFoundException xx)
             {
-
+                Log.Debug(xx.ToString());
             }
             catch (Exception x)
             {
+                Log.Debug(x.ToString());
                 MessageBox.Show(x.ToString());
             }
         }
@@ -628,6 +632,7 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
+                Log.Debug(x.ToString());
                 MessageBox.Show(x.ToString());
                 return;
             }
@@ -1021,12 +1026,12 @@ namespace UltimateChanger
                     }
                 }
             }
-            catch (Exception )
+            catch (Exception x)
             {
-
+                Log.Debug(x.ToString());
                 MessageBox.Show("can not create new directory C:\\Program Files\\UltimateChanger\\Data");
             }
-
+            Log.Info("FileOperator Created");
         }
 
         public FileOperator(DataBaseManager dataBase, Label genie, Label oasis, Label expressFit, ComboBox cmbMarket, List<CheckBox> checkBoxList, List<string> marketIndex, Image imgOticon, Image imgBernafon, Image imgSonic)
@@ -1151,6 +1156,7 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
+                Log.Debug(x.ToString());
                 MessageBox.Show(x.ToString());
             }  
         }
@@ -1167,6 +1173,7 @@ namespace UltimateChanger
             }
             catch (Exception x) // nie ma gearboxa moze jest zainstalowany w innej lokalizacji ? albo dać możliwość do zainstalowania 
             { // dopisać funkcjonalość na zapis katalogu do xml i mozliwosc edycji 
+                Log.Debug(x.ToString());
                 MessageBox.Show(x.ToString() + PathToGearbox + "\\eclipse.exe");
             }
         }
@@ -1428,8 +1435,8 @@ namespace UltimateChanger
                 }
                 catch (Exception x)
                 {
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).logging.AddLog(x.ToString());
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).logging.AddLog(CurrentFS.string_For_Log());                    
+                    Log.Debug(x.ToString());
+             
                 }
             }
 
@@ -1555,6 +1562,7 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
+                Log.Debug(x.ToString());
                 MessageBox.Show(x.ToString());
             }
         }

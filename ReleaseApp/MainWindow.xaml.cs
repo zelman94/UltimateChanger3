@@ -29,13 +29,17 @@ using ICSharpCode.SharpZipLib.Zip;
 using System.Net;
 using System.Data;
 using Rekurencjon; // logi
-
+using log4net;
 
 [assembly: System.Reflection.AssemblyVersion("4.1.0.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window
     {
+        private static readonly ILog Log =
+              LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+
         int Licznik_All_button = 0;
        public Log logging = new Log("UltimateChanger");
         bool copystatus = false; // to know if copy composition is running in rekurencjon.exe
@@ -100,6 +104,7 @@ namespace UltimateChanger
 
         public MainWindow()
         {
+
             InitializeComponent();
             fileOperator = new FileOperator();
             dataBaseManager = new DataBaseManager(XMLReader.getDefaultSettings("DataBase").ElementAt(0).Value); // tam jest wątek
@@ -153,8 +158,9 @@ namespace UltimateChanger
                                 {
                                     File.Copy(item, @"C:\Program Files\UltimateChanger\Settings\" + System.IO.Path.GetFileName(item), true);
                                 }
-                            }
-                            catch (Exception x) // nie ma dostpeu to info
+                            }catch(Exception x)
+                            
+                            // nie ma dostpeu to info
                             {
                                 MessageBox.Show("No access ?\n" + x.ToString());
                             }
@@ -251,6 +257,7 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
+                Log.Debug(x.ToString());
                 MessageBox.Show("inicjalizacja \n" + x.ToString());
             }
 
@@ -272,6 +279,7 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
+                Log.Debug(x.ToString());
                 MessageBox.Show("inicjalizacja part 2 \n" + x.ToString());
             }
             btnIdentify.Visibility = Visibility.Hidden;
@@ -306,6 +314,7 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
+                Log.Debug(x.ToString());
                 MessageBox.Show(x.ToString());
             }
 
@@ -317,6 +326,7 @@ namespace UltimateChanger
 
             refreshUI(new object(), new EventArgs());
             R_Day.Visibility = Visibility.Hidden;
+            Log.Info("Main created");
 
         }
         //________________________________________________________________________________________________________________________________________________
@@ -343,6 +353,7 @@ namespace UltimateChanger
                 // usuwanie kompozycji
             }
             setNewSavedTime(15);
+
         }
 
 
