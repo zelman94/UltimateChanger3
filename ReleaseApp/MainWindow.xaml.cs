@@ -631,10 +631,14 @@ namespace UltimateChanger
                     if (!Directory.Exists("C:\\Program Files\\UltimateChanger\\compositions\\"))
                     {
                         Directory.CreateDirectory("C:\\Program Files\\UltimateChanger\\compositions\\");
+                        Log.Debug("Dir: C:\\Program Files\\UltimateChanger\\compositions\\ - Created");
+                        return;
                     }
+                    Log.Debug("Dir: C:\\Program Files\\UltimateChanger\\compositions\\ - Exist");
                 }
                 catch (Exception x)
                 {
+                    Log.Debug(x.ToString());
                     MessageBox.Show(x.ToString());
                 }
             });

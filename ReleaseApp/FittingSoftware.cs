@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -12,6 +13,8 @@ namespace UltimateChanger
 {
     public class FittingSoftware
     {
+        private static readonly ILog Log =
+              LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public string Name_FS;
         public string Path_Local_Installer;
         public string Version;
@@ -55,6 +58,7 @@ namespace UltimateChanger
             LogMode = tmpFS.LogMode;
             pathToExe = tmpFS.pathToExe;
             pathToManu = tmpFS.pathToManu;
+            Log.Debug(this.string_For_Log());
         }
         public FittingSoftware(string Name,bool composition = false)
         {
@@ -242,6 +246,7 @@ namespace UltimateChanger
             }
 
             Emulator_Path = fileOperator.getPathToEmulator(indexFS, composition, pathToExe);
+            Log.Debug(this.string_For_Log());
         }
 
         public void StartEmulator()
@@ -474,7 +479,7 @@ namespace UltimateChanger
             return "Name_FS " + Name_FS + "\n" + "Path_Local_Installer " + Path_Local_Installer + "\n" + "Version " + Version + "\n" +
                 "Market " + Market + "\n" + "customPath " + customPath.ToString() + "\n" + "Brand " + Brand + "\n" +
                 "OEM " + OEM + "\n" + "LogMode " + LogMode + "\n" + "pathToExe " + pathToExe + "\n" +
-                "upgrade_info " + upgrade_info;
+                "upgrade_info " + upgrade_info + "\n";
         }
 
     }
