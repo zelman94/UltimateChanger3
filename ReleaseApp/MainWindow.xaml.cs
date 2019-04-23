@@ -1633,6 +1633,7 @@ namespace UltimateChanger
                         {
                             FittingSoftware_List[licznik].setLogMode(cmbLogMode.Text, cmbLogSettings.SelectedIndex, TabFull.IsEnabled);
                             message = message + item.Name + "\n";
+                            flag = true;
                         }
                         licznik++;
                     }
@@ -2293,7 +2294,7 @@ namespace UltimateChanger
             saveFileDialog1.Filter = "txt files (*.zip)|*.zip|All files (*.*)|*.*";
             saveFileDialog1.FilterIndex = 2;
             saveFileDialog1.RestoreDirectory = true;
-
+            List<string> listFiles = new List<string>();
             if ((bool)saveFileDialog1.ShowDialog())
             {
                 if ((myStream = saveFileDialog1.OpenFile()) != null)
@@ -2307,8 +2308,9 @@ namespace UltimateChanger
                             try
                             {
                                 System.IO.Compression.ZipFile.CreateFromDirectory(FittingSoftware_List[licznik].pathToLogs, saveFileDialog1.FileName + "_" + item.Name + ".zip"); // dziala 
+                                listFiles.Add(saveFileDialog1.FileName);
                             }
-                            catch (IOException )
+                            catch (IOException y)
                             {
                                 File.Delete(saveFileDialog1.FileName + "_" + item.Name + ".zip");
                                 System.IO.Compression.ZipFile.CreateFromDirectory(FittingSoftware_List[licznik].pathToLogs, saveFileDialog1.FileName + "_" + item.Name + ".zip"); // dziala 
@@ -2321,14 +2323,24 @@ namespace UltimateChanger
                         licznik++;
                     }
                     myStream.Close();
+                    foreach (var item in listFiles)
+                    {
+                        try
+                        {
+                            File.Delete(item);
+                        }
+                        catch (Exception x)
+                        {
+                            Log.Debug(x.ToString());
+                        }                       
+                    }
                     MessageBox.Show("Logs Saved");
                 }
             }
         }
 
         private void Downgrade(object sender, RoutedEventArgs e)
-        {
-            
+        {            
             Window downgrade = new DowngradeWindow();
             //downgrade.ShowDialog();
             downgrade.Show();
@@ -2596,38 +2608,6 @@ namespace UltimateChanger
             Random_HI.Release = lblRelease.Content.ToString();
             ListBoxOfAvailableStyles.ItemsSource = myXMLReader.GetStylesInRelease(lblRelease.Content.ToString());
         }
-
-        private void chBt_coil_Checked(object sender, RoutedEventArgs e)
-        {
-            Random_HI.T_Coil = !Random_HI.T_Coil;
-        }
-
-        private void chBlED_Checked(object sender, RoutedEventArgs e)
-        {
-            Random_HI.Led = !Random_HI.Led;
-        }
-
-        private void chBbUTTONS_Checked(object sender, RoutedEventArgs e)
-        {
-            Random_HI.twoButtons = !Random_HI.twoButtons;
-        }
-
-
-        private void chBWireless_Checked(object sender, RoutedEventArgs e)
-        {
-            Random_HI.Wireless = !Random_HI.Wireless;
-        }
-
-        private void CheckBox_Checked_1(object sender, RoutedEventArgs e)
-        {
-            Random_HI.Custom = !Random_HI.Custom;
-        }
-
-        private void CheckBox_Checked_2(object sender, RoutedEventArgs e)
-        {
-            Random_HI.S = !Random_HI.S;
-        }
-
 
         private void Dark_skin_Checked(object sender, RoutedEventArgs e)
         {
