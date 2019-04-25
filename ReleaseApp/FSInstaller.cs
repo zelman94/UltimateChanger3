@@ -70,25 +70,25 @@ namespace UltimateChanger
             }
         }
 
-        public bool UninstallBrand(List<string> path, bool mode)
+        public bool UninstallBrand(FittingSoftware FS, bool mode)
         {
             List<string> paths = new List<string>();
-            foreach (var item in path)
-            {
-                if (!File.Exists(item) && item !="")
+           
+
+
+                if (!File.Exists(FS.Path_Local_Installer) && FS.Path_Local_Installer != "")
                 {                    
                     return false; // jakiś plik nie istnieje
                 }
                 else
                 {
-                    if (item != "")
+                    if (FS.Path_Local_Installer != "")
                     {
-                        paths.Add(item); // dodaje do listy path do istniejacych instllerow bez ""
+                        paths.Add(FS.Path_Local_Installer); // dodaje do listy path do istniejacych instllerow bez ""
                     }
                    
                 }
-                
-            }
+
 
             if (mode)
             {
@@ -104,7 +104,7 @@ namespace UltimateChanger
             }
             if (!mode) //silent installation
             {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).listGlobalPathsToUninstall = paths; // przekazanie listy do glownego okna dalsze operacje tam
+                ((MainWindow)System.Windows.Application.Current.MainWindow).listGlobalPathsToUninstall = new List<FittingSoftware>() { FS }; // przekazanie listy do glownego okna dalsze operacje tam
                 //try
                 //{
                 //    Process.Start(path, " /uninstall /quiet");

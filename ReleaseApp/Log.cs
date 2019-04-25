@@ -43,7 +43,15 @@ namespace Rekurencjon
             {
                 foreach (var item in Directory.GetFiles("C:\\Program Files\\UltimateChanger\\Logs"))
                 {
-                    File.Delete(item);
+                    try
+                    {
+                        File.Delete(item);
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+
                 }
             }
         }

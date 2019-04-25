@@ -29,13 +29,17 @@ using ICSharpCode.SharpZipLib.Zip;
 using System.Net;
 using System.Data;
 using Rekurencjon; // logi
-
+using log4net;
 
 [assembly: System.Reflection.AssemblyVersion("4.1.0.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window
     {
+        private static readonly ILog Log =
+              LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+
         int Licznik_All_button = 0;
        public Log logging = new Log("UltimateChanger");
         bool copystatus = false; // to know if copy composition is running in rekurencjon.exe
@@ -79,7 +83,7 @@ namespace UltimateChanger
         List<Slider> sliderListForUi = new List<Slider>();
 
         List<string> listOfTeammembers = new List<string>();
-        public List<string> listGlobalPathsToUninstall = new List<string>();
+        public List<FittingSoftware> listGlobalPathsToUninstall = new List<FittingSoftware>();
         List<string> listOfFiczursSelected = new List<string>();
         List<string> listOfRandomHardawre_perPerson = new List<string>();
         List<RadioButton> RadioButtonsList = new List<RadioButton>();
@@ -100,6 +104,7 @@ namespace UltimateChanger
 
         public MainWindow()
         {
+
             InitializeComponent();
             fileOperator = new FileOperator();
             dataBaseManager = new DataBaseManager(XMLReader.getDefaultSettings("DataBase").ElementAt(0).Value); // tam jest wątek
@@ -153,8 +158,9 @@ namespace UltimateChanger
                                 {
                                     File.Copy(item, @"C:\Program Files\UltimateChanger\Settings\" + System.IO.Path.GetFileName(item), true);
                                 }
-                            }
-                            catch (Exception x) // nie ma dostpeu to info
+                            }catch(Exception x)
+                            
+                            // nie ma dostpeu to info
                             {
                                 MessageBox.Show("No access ?\n" + x.ToString());
                             }
@@ -251,6 +257,7 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
+                Log.Debug(x.ToString());
                 MessageBox.Show("inicjalizacja \n" + x.ToString());
             }
 
@@ -272,23 +279,10 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
+                Log.Debug(x.ToString());
                 MessageBox.Show("inicjalizacja part 2 \n" + x.ToString());
             }
-
-            progress.Visibility = Visibility.Hidden; // ukryty bo startuje przez refresh albo zmiane release
-
             btnIdentify.Visibility = Visibility.Hidden;
-
-            rbnTurnOffDevMode.IsChecked = true;
-
-            rbnNormalSize.IsChecked = true;
-
-           // uninstallTimer.Start();
-
-            Rekurencja = new DispatcherTimer();
-            Rekurencja.Tick += checkRekurencja;
-            Rekurencja.Interval = new TimeSpan(0, 0, 1);
-            Rekurencja.Start();
 
             List<MenuItem> menuitems = new List<MenuItem>();
 
@@ -316,6 +310,7 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
+                Log.Debug(x.ToString());
                 MessageBox.Show(x.ToString());
             }
 
@@ -327,6 +322,7 @@ namespace UltimateChanger
 
             refreshUI(new object(), new EventArgs());
             R_Day.Visibility = Visibility.Hidden;
+            Log.Info("Main created");
 
         }
         //________________________________________________________________________________________________________________________________________________
@@ -345,7 +341,7 @@ namespace UltimateChanger
                     FittingSoftware_List[Convert.ToInt32(menuText)].findUnInstaller();
                 }               
 
-                instal.UninstallBrand(new List<string>() { FittingSoftware_List[Convert.ToInt32(menuText)].Path_Local_Installer }, true);
+                instal.UninstallBrand( FittingSoftware_List[Convert.ToInt32(menuText)], true);
                 InstallTimer_Normal_Installation.Start();
             }
             else
@@ -353,6 +349,7 @@ namespace UltimateChanger
                 // usuwanie kompozycji
             }
             setNewSavedTime(15);
+
         }
 
 
@@ -630,10 +627,14 @@ namespace UltimateChanger
                     if (!Directory.Exists("C:\\Program Files\\UltimateChanger\\compositions\\"))
                     {
                         Directory.CreateDirectory("C:\\Program Files\\UltimateChanger\\compositions\\");
+                        Log.Debug("Dir: C:\\Program Files\\UltimateChanger\\compositions\\ - Created");
+                        return;
                     }
+                    Log.Debug("Dir: C:\\Program Files\\UltimateChanger\\compositions\\ - Exist");
                 }
                 catch (Exception x)
                 {
+                    Log.Debug(x.ToString());
                     MessageBox.Show(x.ToString());
                 }
             });
@@ -1006,13 +1007,6 @@ namespace UltimateChanger
                 logging.AddLog(x.ToString());
             }
 
-            //progressBarTimer = new DispatcherTimer();
-            progress.ToolTip = "Binding builds ...";
-            //progressBarTimer.Tick += makeProgress;
-            //progressBarTimer.Interval = new TimeSpan(0, 0, 1);
-            //progressBarTimer.Start();
-
-
             RefUiTIMER = new DispatcherTimer();
             RefUiTIMER.Tick += refreshUI;
             RefUiTIMER.Interval = new TimeSpan(0, 0, 20);
@@ -1042,7 +1036,7 @@ namespace UltimateChanger
 
             InstallTimer_Normal_Installation = new DispatcherTimer();
             InstallTimer_Normal_Installation.Tick += checkNormal_Installation;
-            InstallTimer_Normal_Installation.Interval = new TimeSpan(0, 0, 2);
+            InstallTimer_Normal_Installation.Interval = new TimeSpan(0, 0, 5);
 
             silentUninstal_Install_Timer = new DispatcherTimer();
             silentUninstal_Install_Timer.Tick += checkUninstall;
@@ -1076,11 +1070,8 @@ namespace UltimateChanger
                 rbnHI_2,
                 rbnLight_skin,
                 rbnDark_skin,
-
                 rbnLogsAll_YES,
                 rbnLogsAll_NO,
-                rbnTurnOnDevMode,
-                rbnTurnOffDevMode,
             };
             comboBoxList = new List<ComboBox>()
             {
@@ -1421,7 +1412,6 @@ namespace UltimateChanger
                 {
                     try
                     {
-
                         Process.Start(BuildInfo.ListPathsToHattori[licznik] + "FirmwareUpdater.exe");
                         CounterOfclicks.AddClick((int)Buttons.StartHAttori);
                     }
@@ -1440,7 +1430,7 @@ namespace UltimateChanger
             byte count = 0,countFS =0;
             bool flag = true;
             int chechboxNr = 0;
-            string checkboxname = "";
+            List<int> listIndexOfCheckedFS = new List<int>();
             foreach (var item in checkBoxList)
             {
                 if (item.IsChecked.Value)
@@ -1448,6 +1438,7 @@ namespace UltimateChanger
                     count++;
                     flag = false;
                     labelListsforUninstall.Add(listlabelsinfoFS_Version[countFS]);
+                    listIndexOfCheckedFS.Add(countFS);
                 }
                 if (flag)
                 {
@@ -1461,106 +1452,24 @@ namespace UltimateChanger
                 return;
             }
 
-            FSInstaller instal = new FSInstaller();
-            List<string> path_to_Uninstall = new List<string>();
-            for (int i = 0; i < 5; i++)
+            if (count == 1 && mode_uninstall) // 1 FS with UI
             {
-                path_to_Uninstall.Add("");
+                Log.Debug("Normal Uninstall Started for: \n" + FittingSoftware_List[chechboxNr].string_For_Log());
+                FittingSoftware_List[chechboxNr].uninstallFS(true);
+                return;
             }
 
-                try
-                {
-                    var allFiles = Directory.GetFiles(@"C:\ProgramData\Package Cache", "*.exe", SearchOption.AllDirectories);
-                foreach (var item in allFiles)
-                {
-                        try
-                        {
-                            FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(item);
+            for (int i = 0; i < listIndexOfCheckedFS.Count; i++)
+            {
+                Log.Debug("Silent Uninstallation for: \n\n" + FittingSoftware_List[chechboxNr].string_For_Log());
+                listGlobalPathsToUninstall.Add(FittingSoftware_List[chechboxNr]);
+            }
 
-                            if (myFileVersionInfo.FileName.Contains("OticonMedium") || fileOperator.checkIfGenie(myFileVersionInfo.FileDescription))
-                            {
-                                checkboxname = "Genie 2";
-                                if (checkBoxList[0].IsChecked.Value)
-                                {
-                                    path_to_Uninstall[0] = item;
-                                }
-                            }
+            uninstallTimer.Start();
 
-
-
-                        if (myFileVersionInfo.FileName.Contains("OticonMedicalMedium") || fileOperator.checkIfMedical(myFileVersionInfo.FileDescription))
-                        {
-                                checkboxname = "Genie Medical";
-                                if (checkBoxList[1].IsChecked.Value)
-                                {
-                                    path_to_Uninstall[1] = item;
-                                }
-                        }
-
-                        if (myFileVersionInfo.FileName.Contains("BernafonMedium") || fileOperator.checkIfOasis(myFileVersionInfo.FileDescription))
-                        {
-                                checkboxname = "Oasis NXT";
-                                if (checkBoxList[4].IsChecked.Value)
-                                {
-                                    path_to_Uninstall[4] = item;
-                                }
-                        }
-
-
-                        if (myFileVersionInfo.FileName.Contains("SonicMedium") || fileOperator.checkIfSonic(myFileVersionInfo.FileDescription))
-                        {
-                                checkboxname = "EXPRESSfit Pro";
-                                if (checkBoxList[2].IsChecked.Value)
-                                {
-                                    path_to_Uninstall[2] = item;
-                                }
-                        }
-
-
-                        if (myFileVersionInfo.FileName.Contains("PhilipsMedium") || fileOperator.checkIfPhilips(myFileVersionInfo.FileDescription))
-                        {
-                                checkboxname = "HearSuite";
-                                if (checkBoxList[3].IsChecked.Value)
-                                {
-                                    path_to_Uninstall[3] = item;
-                                }
-                            }                        
-
-                        }
-                        catch (Exception x )
-                        {
-                            logging.AddLog(x.ToString());
-                        }
-                    }
-                    try
-                    {
-                        if (checkboxname != "") // pewnie trzeba bedzie poprawić to 
-                        {
-                            instal.UninstallBrand(path_to_Uninstall, mode_uninstall);
-                        }
-                    }
-                    catch (Exception )
-                    {
-                        instal.UninstallBrand(path_to_Uninstall, mode_uninstall);
-                    }
-                    uninstallTimer.Start();
-                InstallTimer_Normal_Installation.Start();
-               
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Can not be uninstalled by Ultimate Changer");
-                    return;
-                }
-
-            CounterOfclicks.AddClick((int)Buttons.UninstallFittingSoftware);
             /*
              1 FS na raz timer sprawdzający czy uninstall się skończył 
-             gdy uninstallacja trwa uninstall i install button zablokowany
-
-            pobranie z pliku jaka wersja FS jest zainstalowana - path
-            uruchomienie procesu z path usunięcie informacji o path z pliku             
-             
+             gdy uninstallacja trwa uninstall i install button zablokowany     
              */
         }
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -1636,6 +1545,7 @@ namespace UltimateChanger
                         {
                             FittingSoftware_List[licznik].setLogMode(cmbLogMode.Text, cmbLogSettings.SelectedIndex, TabFull.IsEnabled);
                             message = message + item.Name + "\n";
+                            flag = true;
                         }
                         licznik++;
                     }
@@ -1743,7 +1653,6 @@ namespace UltimateChanger
                            
                             cmbBuild2_Compo.IsEnabled = false;
                             cmbOEM_Compo.IsEnabled = false;
-                            btnRefresh_Compo.IsEnabled = false;
                             Rekurencja.Start();
                             progress_Compo.Visibility = Visibility.Visible;
 
@@ -1828,15 +1737,8 @@ namespace UltimateChanger
             {
                 try
                 {
-                    // cmbBuild.ItemsSource = Paths_Dirs[(cmbBrandstoinstall.SelectedIndex)].dir;
-                    fileOperator.GetfilesSaveData(false);
-
-                    cmbBrandstoinstall.Items.Refresh();
                     BindCombo.setOEMComboBox(cmbBrandstoinstall.Text);
-                    cmbOEM.IsEnabled = true;
-                    //cmbBuild.Items.Refresh();
-                    //  cmbBrandstoinstall.Items.Refresh();
-
+                    cmbBuild.ItemsSource = dataBaseManager.getBuilds("FULL", cmbRelease.Text, cmbBuild_mode.Text, cmbBrandstoinstall.Text, cmbOEM.Text);
                 }
                 catch (Exception x)
                 {
@@ -1861,7 +1763,7 @@ namespace UltimateChanger
 
                 cmbBuild.Items.Refresh();
                 cmbBrandstoinstall.Items.Refresh();
-                cmbBuild.ToolTip = AllOemPaths[cmbBuild.SelectedIndex];
+                cmbBuild.ToolTip = cmbBuild.Text;
             }
             else
             {
@@ -2027,21 +1929,19 @@ namespace UltimateChanger
                     //uninstallTimer.Stop(); // chce skanowac zawsze czy inaczej ?
                     try
                     {
-                        Process.Start(listGlobalPathsToUninstall[0], " /uninstall /quiet");
+                        Process.Start(listGlobalPathsToUninstall[0].Path_Local_Installer, " /uninstall /quiet");
+                        Log.Debug("Silent Uninstallation Started For: "+ listGlobalPathsToUninstall[0].Path_Local_Installer);
+                        //FittingSoftware_List[listGlobalPathsToUninstall[0].indexFS].uninstalled = true;
                         listGlobalPathsToUninstall.RemoveAt(0);
                         labelListsforUninstall[0].Content = "Uninstall in progress";
                         labelListsforUninstall.RemoveAt(0);
-
-
                     }
                     catch (Exception x)
                     {
-                        logging.AddLog(x.ToString());
+                        Log.Debug(x.ToString());
                         uninstallTimer.Stop();
-                        lbluninstallinfo.Content = "Error";
                         return;
                     }
-                    lbluninstallinfo.Content = "Started";
                     btnuninstal.IsEnabled = false;
                     btninstal.IsEnabled = false;
                     btnDelete.IsEnabled = false;
@@ -2052,13 +1952,9 @@ namespace UltimateChanger
                     btnuninstal.IsEnabled = true;
                     btninstal.IsEnabled = true;
                     btnDelete.IsEnabled = true;
-                    lbluninstallinfo.Content = "Stoped";
+                    Log.Debug("Uninstallation DONE");
                    // MessageBox.Show("Uninstallation DONE");
                 }
-            }
-            else
-            {
-                lbluninstallinfo.Content = "in progess";
             }
         }
         public bool statusOfProcess(string name)
@@ -2208,101 +2104,6 @@ namespace UltimateChanger
         }       
 
 
-        private void checkRekurencja(object sender, EventArgs e)
-        {
-            Process[] pname = Process.GetProcessesByName("Rekurencjon");
-            if (!copystatus) // jezeli trwa rekurencja zwyczajna
-            {
-                progress.Value += 10;
-                progress_Compo.Value += 10;
-                if (progress.Value == 100 || progress_Compo.Value == 100)
-                {
-                    progress.Value = 0;
-                    progress_Compo.Value = 0;
-                }
-                if (pname.Length == 0)
-                {
-                    fileOperator.GetfilesSaveData(TabCompo.IsSelected);
-                    ChangedBrandOfFittingSoftware();
-                    Rekurencja.Stop();
-                    cmbRelease.IsEnabled = true;
-                    cmbBrandstoinstall.IsEnabled = true;
-                    cmbBuild.IsEnabled = true;
-                    cmbOEM.IsEnabled = true;
-                    progress.Visibility = Visibility.Hidden;
-                    btnRefresh.Visibility = Visibility.Visible;
-
-                    progress_Compo.Visibility = Visibility.Hidden;
-                    btnRefresh_Compo.Visibility = Visibility.Visible;
-                    cmbBuild2_Compo.IsEnabled = true;
-                    cmbBuild_Compo.IsEnabled = true;
-                    cmbBrandstoinstall_Compo.IsEnabled = true;
-                    cmbOEM_Compo.IsEnabled = true;
-                    cmbRelease_Compo.IsEnabled = true;
-
-                    TabFull.IsEnabled = true;
-                    TabCompo.IsEnabled = true;
-                    ChangedBrandOfFittingSoftware();
-                    RBsilet.IsEnabled = true;
-                    RBnormal.IsEnabled = true;
-                }
-                else
-                {
-                    cmbBuild2_Compo.IsEnabled = false;
-                    cmbBuild_Compo.IsEnabled = false;
-                    cmbBrandstoinstall_Compo.IsEnabled = false;
-                    cmbOEM_Compo.IsEnabled = false;
-                    cmbRelease_Compo.IsEnabled = false;
-
-                    cmbOEM.IsEnabled = false;
-                    cmbBrandstoinstall.IsEnabled = false;
-
-                    TabFull.IsEnabled = false;
-                    TabCompo.IsEnabled = false;
-                }
-            }
-            else // jezeli trwa kopiowanie
-            {
-
-                progress.Value += 10;
-                progress_Compo.Value += 10;
-                if (progress.Value == 100 || progress_Compo.Value == 100)
-                {
-                    progress.Value = 0;
-                    progress_Compo.Value = 0;
-                }
-
-                if (pname.Length == 0) // jezeli koniec kopiowania
-                {
-                    Rekurencja.Stop();
-                    copystatus = false;
-                    TabFull.IsEnabled = true;
-                    TabCompo.IsEnabled = true;
-                    cmbBuild2_Compo.IsEnabled = true;
-                    cmbOEM_Compo.IsEnabled = true;
-                    btnRefresh_Compo.IsEnabled = true;
-                    progress_Compo.Visibility = Visibility.Hidden;
-                    try
-                    {
-                       // Process.Start(pathToLocalComposition); // uruchomienie skopiowanego extraktora na dysku ze zmiennej globalnej uzupelnionej podczas uruchamiania procesu rekurencjon
-                        cmbRelease_Compo.IsEnabled = true;
-                        cmbBrandstoinstall_Compo.IsEnabled = true;
-                        cmbBuild_Compo.IsEnabled = true;
-                    }
-                    catch (Exception)
-                    {
-                       // MessageBox.Show($"path to composition doesnt exist :\n{pathToLocalComposition}");
-                    }                    
-                }
-                else
-                {
-                    TabFull.IsEnabled = false;
-                    TabCompo.IsEnabled = false;
-                }            
-            }           
-        }
-
-
         private void txtCompositionPart2_TextChanged(object sender, TextChangedEventArgs e)
         {
             // Releases_prereleases          
@@ -2353,11 +2154,11 @@ namespace UltimateChanger
         }
 
         private void cmbOEM_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            
+        {            
                 cmbOEM.Items.Refresh();
                 AllOemPaths = BindCombo.getAllPathsOem(cmbOEM.Text, cmbBrandstoinstall.SelectedIndex, Paths_Dirs);
                 cmbBuild.ItemsSource = AllOemPaths;
+                cmbBuild.ItemsSource = dataBaseManager.getBuilds("FULL", cmbRelease.Text, cmbBuild_mode.Text, cmbBrandstoinstall.Text, cmbOEM.Text);
         }
         private void cmbOEM_Compo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {            
@@ -2399,7 +2200,7 @@ namespace UltimateChanger
             saveFileDialog1.Filter = "txt files (*.zip)|*.zip|All files (*.*)|*.*";
             saveFileDialog1.FilterIndex = 2;
             saveFileDialog1.RestoreDirectory = true;
-
+            List<string> listFiles = new List<string>();
             if ((bool)saveFileDialog1.ShowDialog())
             {
                 if ((myStream = saveFileDialog1.OpenFile()) != null)
@@ -2413,8 +2214,9 @@ namespace UltimateChanger
                             try
                             {
                                 System.IO.Compression.ZipFile.CreateFromDirectory(FittingSoftware_List[licznik].pathToLogs, saveFileDialog1.FileName + "_" + item.Name + ".zip"); // dziala 
+                                listFiles.Add(saveFileDialog1.FileName);
                             }
-                            catch (IOException )
+                            catch (IOException y)
                             {
                                 File.Delete(saveFileDialog1.FileName + "_" + item.Name + ".zip");
                                 System.IO.Compression.ZipFile.CreateFromDirectory(FittingSoftware_List[licznik].pathToLogs, saveFileDialog1.FileName + "_" + item.Name + ".zip"); // dziala 
@@ -2427,13 +2229,24 @@ namespace UltimateChanger
                         licznik++;
                     }
                     myStream.Close();
+                    foreach (var item in listFiles)
+                    {
+                        try
+                        {
+                            File.Delete(item);
+                        }
+                        catch (Exception x)
+                        {
+                            Log.Debug(x.ToString());
+                        }                       
+                    }
+                    MessageBox.Show("Logs Saved");
                 }
             }
         }
 
         private void Downgrade(object sender, RoutedEventArgs e)
-        {
-            
+        {            
             Window downgrade = new DowngradeWindow();
             //downgrade.ShowDialog();
             downgrade.Show();
@@ -2702,45 +2515,9 @@ namespace UltimateChanger
             ListBoxOfAvailableStyles.ItemsSource = myXMLReader.GetStylesInRelease(lblRelease.Content.ToString());
         }
 
-        private void chBt_coil_Checked(object sender, RoutedEventArgs e)
-        {
-            Random_HI.T_Coil = !Random_HI.T_Coil;
-        }
-
-        private void chBlED_Checked(object sender, RoutedEventArgs e)
-        {
-            Random_HI.Led = !Random_HI.Led;
-        }
-
-        private void chBbUTTONS_Checked(object sender, RoutedEventArgs e)
-        {
-            Random_HI.twoButtons = !Random_HI.twoButtons;
-        }
-
-
-        private void chBWireless_Checked(object sender, RoutedEventArgs e)
-        {
-            Random_HI.Wireless = !Random_HI.Wireless;
-        }
-
-        private void CheckBox_Checked_1(object sender, RoutedEventArgs e)
-        {
-            Random_HI.Custom = !Random_HI.Custom;
-        }
-
-        private void CheckBox_Checked_2(object sender, RoutedEventArgs e)
-        {
-            Random_HI.S = !Random_HI.S;
-        }
-
-
         private void Dark_skin_Checked(object sender, RoutedEventArgs e)
         {
-            //zmiana image refresh
-            imgRefresh.Source = new BitmapImage(new Uri("/Images/refreshDark.png", UriKind.Relative));
-            imageRefresh_Compo.Source = new BitmapImage(new Uri("/Images/refreshDark.png", UriKind.Relative));
-
-            //Zmiany na ciemny motyw (można zmienić kolor ramki itd.)
+           //Zmiany na ciemny motyw (można zmienić kolor ramki itd.)
             XMLReader.setSetting("Dark_skin", "RadioButtons", Convert.ToString(rbnDark_skin.IsChecked.Value).ToUpper());
             bool tmp = !rbnDark_skin.IsChecked.Value;
             XMLReader.setSetting("Light_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
@@ -2847,10 +2624,6 @@ namespace UltimateChanger
           //  oticonmedicalnRectangle.Fill= (Brush)converter.ConvertFromString("#FFECB3");
             //oticonRectangle.Fill = (Brush)converter.ConvertFromString("#FAFAFA");
 
-            progress.Background = (Brush)converter.ConvertFromString("#FF616161");
-            progress.BorderBrush = (Brush)converter.ConvertFromString("#FF424242");
-            progress.Foreground = Brushes.White;
-
             //USTAWIENIA AKCENTÓW
             Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
             {
@@ -2867,10 +2640,6 @@ namespace UltimateChanger
 
         private void Light_skin_Checked(object sender, RoutedEventArgs e)
         {
-
-            // zmiana img dla buttona refresh
-            imgRefresh.Source = new BitmapImage(new Uri("/Images/refreshWhite.png", UriKind.Relative));
-            imageRefresh_Compo.Source = new BitmapImage(new Uri("/Images/refreshWhite.png", UriKind.Relative));
 
             //Zmiany na jasny motyw
             XMLReader.setSetting("Light_skin", "RadioButtons",Convert.ToString(rbnLight_skin.IsChecked.Value).ToUpper());
@@ -2979,11 +2748,7 @@ namespace UltimateChanger
         //    oticonmedicalnRectangle.Fill = Brushes.Black;
            // oticonRectangle.Fill = Brushes.White;
 
-            //USTAWIENIA PROGESSBARÓW
-            progress.Background= (Brush)converter.ConvertFromString("#FF616161");
-            progress.BorderBrush = (Brush)converter.ConvertFromString("#FF424242");
-            progress.Foreground = Brushes.Black;
-
+       
             //USTAWIENIA AKCENTÓW
             Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
             {
@@ -3001,7 +2766,6 @@ namespace UltimateChanger
         private void RBnormal_Checked(object sender, RoutedEventArgs e)
         {
             uninstallTimer.Stop();
-            lbluninstallinfo.Content = "Stoped";
         }
 
         private void RBsilet_Checked(object sender, RoutedEventArgs e)
@@ -3550,53 +3314,6 @@ namespace UltimateChanger
 
 
 
-        private void btnRefresh_Click(object sender, RoutedEventArgs e)
-        {
-            // zamiast watku napisac maly programik osobny ktory bedzie uruchamiany na timerze co 3 s i bedzie sprawdzac czy sie zakonczyl ! :D
-            if (!statusOfProcess("Rekurencjon"))
-            {
-                // args 0 - Full/Medium/Composition
-                // args 1 release
-                // args 2 pathFile - only file name
-                // args 3 dirFile - only file name "test.txt"
-                btnRefresh.Visibility = Visibility.Hidden;
-                btnRefresh_Compo.Visibility = Visibility.Hidden;
-                progress_Compo.Visibility = Visibility.Visible;
-                progress.Visibility = Visibility.Visible;
-
-
-                if (File.Exists(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe"))
-                {
-                    if (TabCompo.IsSelected)
-                    {
-                        Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease_Compo.Text}  path_Composition.txt dir_Composition.txt {cmbBuild2_Compo.Text}"); // wlaczyc gdy bedzie nowy exe gotowy
-                    }
-                    else
-                    {
-                        string tmp = Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe" + $"Full {cmbRelease.Text}";
-                        Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Full {cmbRelease.Text}"); // wlaczyc gdy bedzie nowy exe gotowy
-                    }
-                }
-                else
-                {
-                    if (TabCompo.IsSelected)
-                    {
-                        Process.Start(@"C:\Program Files\UltimateChanger" + @"\reku" + @"\Rekurencjon.exe", $"Composition {cmbRelease_Compo.Text}  path_Composition.txt dir_Composition.txt"); // wlaczyc gdy bedzie nowy exe gotowy
-                    }
-                    else
-                    {
-                        Process.Start(@"C:\Program Files\UltimateChanger" + @"\reku" + @"\Rekurencjon.exe", $"Full {cmbRelease.Text}"); // wlaczyc gdy bedzie nowy exe gotowy
-                    }
-                }
-                progress.Visibility = Visibility.Visible;
-                cmbRelease.IsEnabled = false;
-                Rekurencja = new DispatcherTimer();
-                Rekurencja.Tick += checkRekurencja;
-                Rekurencja.Interval = new TimeSpan(0, 0, 1);
-                Rekurencja.Start();
-            }
-        }
-
         private void btn_Gearbox(object sender, RoutedEventArgs e)
         {
             try
@@ -3629,29 +3346,6 @@ namespace UltimateChanger
         {
             cmbRelease_Compo.Items.Refresh();
             XMLReader.setSetting("Release", "ComboBox", cmbRelease_Compo.Text);
-        }
-
-        private void rbnTurnOnDevMode_Checked(object sender, RoutedEventArgs e)
-        {
-            lbluninstallinfo.Visibility = Visibility.Visible;
-        }
-
-        private void rbnNormalSize_Checked(object sender, RoutedEventArgs e)
-        {
-            foreach (var item in lableListForUi)
-            {
-                item.FontSize = 12;
-            }
-            lblTime.FontSize = 50;
-        }
-
-        private void rbnBiggerSize_Checked(object sender, RoutedEventArgs e)
-        {
-            foreach (var item in lableListForUi)
-            {
-                item.FontSize = 17;
-            }
-            lblTime.FontSize = 50;
         }
 
         private void btnAdvanceInstall_Click(object sender, RoutedEventArgs e)
@@ -3809,11 +3503,6 @@ namespace UltimateChanger
             }
         }
 
-        private void rbnTurnOffDevMode_Checked(object sender, RoutedEventArgs e)
-        {
-            lbluninstallinfo.Visibility = Visibility.Hidden;
-        }
-
         private void btnDeleteC_Compo_Click(object sender, RoutedEventArgs e)
         {
             TrashCleaner smieciarka = new TrashCleaner();
@@ -3842,7 +3531,7 @@ namespace UltimateChanger
         {
             cmbRelease.Items.Refresh();
             XMLReader.setSetting("Release", "ComboBox", cmbRelease.Text);
-            
+            cmbBuild.ItemsSource = dataBaseManager.getBuilds("FULL", cmbRelease.Text, cmbBuild_mode.Text, cmbBrandstoinstall.Text, cmbOEM.Text);
         }
 
         void updateMarket(bool Full)
@@ -3934,6 +3623,7 @@ namespace UltimateChanger
                         cmbOEM.Items.Refresh();
                         TabFull.IsEnabled = false;
                         TabCompo.IsEnabled = true;
+                        cmbBuild.ItemsSource = dataBaseManager.getBuilds("FULL",cmbRelease.Text, cmbBuild_mode.Text, cmbBrandstoinstall.Text, cmbOEM.Text);
                     }
                     catch (Exception x)
                     {
@@ -4000,14 +3690,23 @@ namespace UltimateChanger
             
         }
 
+        private void cmbBuild_mode_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cmbBuild_mode.Items.Refresh();
+            cmbBuild.ItemsSource = dataBaseManager.getBuilds("FULL", cmbRelease.Text, cmbBuild_mode.Text, cmbBrandstoinstall.Text, cmbOEM.Text);
+        }
+
         private void btnReadHI_Click(object sender, RoutedEventArgs e)
         {
+
             txtHIBrand.Text = "";
             txtHIBrand_R.Text = "";
             txtPP.Text = "";
             txtPP_R.Text = "";
             txtSN.Text = "";
             txtSN_R.Text = "";
+            txtFW.Text = "";
+            txtFW_R.Text = "";
             progressHI.Value = 0;
             HI_Reader readHI = new HI_Reader();
             progressHI.Value += 10;
@@ -4039,6 +3738,7 @@ namespace UltimateChanger
                     HI = readHI.ReadHI("Left");
                     txtHIBrand.Text = HI[0];
                     txtPP.Text = HI[1];
+                    txtFW.Text = HI[2];
                     txtSN.Text = readHI.getSerialNumber("Left");
                     progressHI.Value += 15;
                 }
@@ -4052,6 +3752,7 @@ namespace UltimateChanger
                     HI = readHI.ReadHI("Right");
                     txtHIBrand_R.Text = HI[0];
                     txtPP_R.Text = HI[1];
+                    txtFW_R.Text = HI[2];
                     txtSN_R.Text = readHI.getSerialNumber("Right");
                     progressHI.Value += 15;
                 }
@@ -4074,18 +3775,21 @@ namespace UltimateChanger
             {
                 txtHIBrand_R.Text = HI[0];
                 txtPP_R.Text= HI[1];
+                txtFW_R.Text = HI[2];
                 txtSN_R.Text = readHI.getSerialNumber("Right");
             }
             else
             {
                 txtHIBrand.Text = HI[0];
-                txtPP.Text = HI[1];
+                txtPP.Text = HI[1];                
+                txtFW.Text = HI[2];
                 txtSN.Text = readHI.getSerialNumber("Left");
             }
             progressHI.Value += 30;
             readHI.shutDown();
             progressHI.Value += 10;
             setNewSavedTime(30);
+
         }
 
         private void InstallByNight_Checked(object sender, RoutedEventArgs e)

@@ -13,6 +13,7 @@ using Rekurencjon; // logi
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
+using log4net;
 
 namespace UltimateChanger
 {
@@ -21,6 +22,8 @@ namespace UltimateChanger
     /// </summary>
     public class DataBaseManager
     {
+        private static readonly ILog Log =
+              LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public SqlConnection SQLConnection;
         //private ClickCounter clickCounter;
         public string pathsToUpdate = "";
@@ -242,7 +245,7 @@ namespace UltimateChanger
                 {
                     while (reader.Read())
                     {
-                        model_name = reader.GetString(0);
+                        model_name = reader.GetString(0).Trim();
                     }
                 }
                 SQLConnection.Close();
@@ -252,6 +255,58 @@ namespace UltimateChanger
             {
                 System.Windows.MessageBox.Show(x.ToString());
                 return model_name;
+            }
+        }
+
+        public List<string> getBuilds(string TYPE, string RELEASE, string MODE, string BRAND, string OEM)
+        {
+            List<string> BuildsList = new List<string>();
+            try
+            {
+                SQLConnection.Open();
+
+                SqlCommand command = new SqlCommand($"select path from builds where type = '{TYPE}' AND release = '{RELEASE}' AND mode LIKE '%{MODE}%' AND brand = '{BRAND}' AND oem = '{OEM}' order by about desc", SQLConnection);
+                Log.Debug("getBuilds:  TYPE,  RELEASE,  MODE,  BRAND,  OEM \n" + TYPE + " " + RELEASE + " " + MODE + " " + BRAND + " " + OEM);
+                Log.Debug(command.CommandText);
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        BuildsList.Add(reader.GetString(0));
+                    }
+                }
+                SQLConnection.Close();
+                return BuildsList;
+            }
+            catch (Exception x)
+            {
+                System.Windows.MessageBox.Show(x.ToString());
+                return BuildsList;
+            }
+        }
+
+        public List<string> executeSelect(string command_)
+        {
+            List<string> returnedValues = new List<string>();
+            try
+            {
+                SQLConnection.Open();
+                SqlCommand command = new SqlCommand(command_, SQLConnection);
+                logging.AddLog("executeSelect:  command_\n" + command_);
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        returnedValues.Add(reader.GetString(0));
+                    }
+                }
+                SQLConnection.Close();
+                return returnedValues;
+            }
+            catch (Exception x)
+            {
+                System.Windows.MessageBox.Show(x.ToString());
+                return returnedValues;
             }
         }
 
