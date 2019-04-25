@@ -83,7 +83,7 @@ namespace UltimateChanger
         List<Slider> sliderListForUi = new List<Slider>();
 
         List<string> listOfTeammembers = new List<string>();
-        public List<string> listGlobalPathsToUninstall = new List<string>();
+        public List<FittingSoftware> listGlobalPathsToUninstall = new List<FittingSoftware>();
         List<string> listOfFiczursSelected = new List<string>();
         List<string> listOfRandomHardawre_perPerson = new List<string>();
         List<RadioButton> RadioButtonsList = new List<RadioButton>();
@@ -284,10 +284,6 @@ namespace UltimateChanger
             }
             btnIdentify.Visibility = Visibility.Hidden;
 
-            rbnTurnOffDevMode.IsChecked = true;
-
-            rbnNormalSize.IsChecked = true;
-
             List<MenuItem> menuitems = new List<MenuItem>();
 
             FittingSoftware_List.Add(new FittingSoftware("Genie"));
@@ -345,7 +341,7 @@ namespace UltimateChanger
                     FittingSoftware_List[Convert.ToInt32(menuText)].findUnInstaller();
                 }               
 
-                instal.UninstallBrand(new List<string>() { FittingSoftware_List[Convert.ToInt32(menuText)].Path_Local_Installer }, true);
+                instal.UninstallBrand( FittingSoftware_List[Convert.ToInt32(menuText)], true);
                 InstallTimer_Normal_Installation.Start();
             }
             else
@@ -1040,7 +1036,7 @@ namespace UltimateChanger
 
             InstallTimer_Normal_Installation = new DispatcherTimer();
             InstallTimer_Normal_Installation.Tick += checkNormal_Installation;
-            InstallTimer_Normal_Installation.Interval = new TimeSpan(0, 0, 2);
+            InstallTimer_Normal_Installation.Interval = new TimeSpan(0, 0, 5);
 
             silentUninstal_Install_Timer = new DispatcherTimer();
             silentUninstal_Install_Timer.Tick += checkUninstall;
@@ -1074,11 +1070,8 @@ namespace UltimateChanger
                 rbnHI_2,
                 rbnLight_skin,
                 rbnDark_skin,
-
                 rbnLogsAll_YES,
                 rbnLogsAll_NO,
-                rbnTurnOnDevMode,
-                rbnTurnOffDevMode,
             };
             comboBoxList = new List<ComboBox>()
             {
@@ -1437,7 +1430,7 @@ namespace UltimateChanger
             byte count = 0,countFS =0;
             bool flag = true;
             int chechboxNr = 0;
-            string checkboxname = "";
+            List<int> listIndexOfCheckedFS = new List<int>();
             foreach (var item in checkBoxList)
             {
                 if (item.IsChecked.Value)
@@ -1445,6 +1438,7 @@ namespace UltimateChanger
                     count++;
                     flag = false;
                     labelListsforUninstall.Add(listlabelsinfoFS_Version[countFS]);
+                    listIndexOfCheckedFS.Add(countFS);
                 }
                 if (flag)
                 {
@@ -1458,106 +1452,24 @@ namespace UltimateChanger
                 return;
             }
 
-            FSInstaller instal = new FSInstaller();
-            List<string> path_to_Uninstall = new List<string>();
-            for (int i = 0; i < 5; i++)
+            if (count == 1 && mode_uninstall) // 1 FS with UI
             {
-                path_to_Uninstall.Add("");
+                Log.Debug("Normal Uninstall Started for: \n" + FittingSoftware_List[chechboxNr].string_For_Log());
+                FittingSoftware_List[chechboxNr].uninstallFS(true);
+                return;
             }
 
-                try
-                {
-                    var allFiles = Directory.GetFiles(@"C:\ProgramData\Package Cache", "*.exe", SearchOption.AllDirectories);
-                foreach (var item in allFiles)
-                {
-                        try
-                        {
-                            FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(item);
+            for (int i = 0; i < listIndexOfCheckedFS.Count; i++)
+            {
+                Log.Debug("Silent Uninstallation for: \n\n" + FittingSoftware_List[chechboxNr].string_For_Log());
+                listGlobalPathsToUninstall.Add(FittingSoftware_List[chechboxNr]);
+            }
 
-                            if (myFileVersionInfo.FileName.Contains("OticonMedium") || fileOperator.checkIfGenie(myFileVersionInfo.FileDescription))
-                            {
-                                checkboxname = "Genie 2";
-                                if (checkBoxList[0].IsChecked.Value)
-                                {
-                                    path_to_Uninstall[0] = item;
-                                }
-                            }
+            uninstallTimer.Start();
 
-
-
-                        if (myFileVersionInfo.FileName.Contains("OticonMedicalMedium") || fileOperator.checkIfMedical(myFileVersionInfo.FileDescription))
-                        {
-                                checkboxname = "Genie Medical";
-                                if (checkBoxList[1].IsChecked.Value)
-                                {
-                                    path_to_Uninstall[1] = item;
-                                }
-                        }
-
-                        if (myFileVersionInfo.FileName.Contains("BernafonMedium") || fileOperator.checkIfOasis(myFileVersionInfo.FileDescription))
-                        {
-                                checkboxname = "Oasis NXT";
-                                if (checkBoxList[4].IsChecked.Value)
-                                {
-                                    path_to_Uninstall[4] = item;
-                                }
-                        }
-
-
-                        if (myFileVersionInfo.FileName.Contains("SonicMedium") || fileOperator.checkIfSonic(myFileVersionInfo.FileDescription))
-                        {
-                                checkboxname = "EXPRESSfit Pro";
-                                if (checkBoxList[2].IsChecked.Value)
-                                {
-                                    path_to_Uninstall[2] = item;
-                                }
-                        }
-
-
-                        if (myFileVersionInfo.FileName.Contains("PhilipsMedium") || fileOperator.checkIfPhilips(myFileVersionInfo.FileDescription))
-                        {
-                                checkboxname = "HearSuite";
-                                if (checkBoxList[3].IsChecked.Value)
-                                {
-                                    path_to_Uninstall[3] = item;
-                                }
-                            }                        
-
-                        }
-                        catch (Exception x )
-                        {
-                            logging.AddLog(x.ToString());
-                        }
-                    }
-                    try
-                    {
-                        if (checkboxname != "") // pewnie trzeba bedzie poprawić to 
-                        {
-                            instal.UninstallBrand(path_to_Uninstall, mode_uninstall);
-                        }
-                    }
-                    catch (Exception )
-                    {
-                        instal.UninstallBrand(path_to_Uninstall, mode_uninstall);
-                    }
-                    uninstallTimer.Start();
-                InstallTimer_Normal_Installation.Start();
-               
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Can not be uninstalled by Ultimate Changer");
-                    return;
-                }
-
-            CounterOfclicks.AddClick((int)Buttons.UninstallFittingSoftware);
             /*
              1 FS na raz timer sprawdzający czy uninstall się skończył 
-             gdy uninstallacja trwa uninstall i install button zablokowany
-
-            pobranie z pliku jaka wersja FS jest zainstalowana - path
-            uruchomienie procesu z path usunięcie informacji o path z pliku             
-             
+             gdy uninstallacja trwa uninstall i install button zablokowany     
              */
         }
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -2017,21 +1929,19 @@ namespace UltimateChanger
                     //uninstallTimer.Stop(); // chce skanowac zawsze czy inaczej ?
                     try
                     {
-                        Process.Start(listGlobalPathsToUninstall[0], " /uninstall /quiet");
+                        Process.Start(listGlobalPathsToUninstall[0].Path_Local_Installer, " /uninstall /quiet");
+                        Log.Debug("Silent Uninstallation Started For: "+ listGlobalPathsToUninstall[0].Path_Local_Installer);
+                        //FittingSoftware_List[listGlobalPathsToUninstall[0].indexFS].uninstalled = true;
                         listGlobalPathsToUninstall.RemoveAt(0);
                         labelListsforUninstall[0].Content = "Uninstall in progress";
                         labelListsforUninstall.RemoveAt(0);
-
-
                     }
                     catch (Exception x)
                     {
-                        logging.AddLog(x.ToString());
+                        Log.Debug(x.ToString());
                         uninstallTimer.Stop();
-                        lbluninstallinfo.Content = "Error";
                         return;
                     }
-                    lbluninstallinfo.Content = "Started";
                     btnuninstal.IsEnabled = false;
                     btninstal.IsEnabled = false;
                     btnDelete.IsEnabled = false;
@@ -2042,13 +1952,9 @@ namespace UltimateChanger
                     btnuninstal.IsEnabled = true;
                     btninstal.IsEnabled = true;
                     btnDelete.IsEnabled = true;
-                    lbluninstallinfo.Content = "Stoped";
+                    Log.Debug("Uninstallation DONE");
                    // MessageBox.Show("Uninstallation DONE");
                 }
-            }
-            else
-            {
-                lbluninstallinfo.Content = "in progess";
             }
         }
         public bool statusOfProcess(string name)
@@ -2860,7 +2766,6 @@ namespace UltimateChanger
         private void RBnormal_Checked(object sender, RoutedEventArgs e)
         {
             uninstallTimer.Stop();
-            lbluninstallinfo.Content = "Stoped";
         }
 
         private void RBsilet_Checked(object sender, RoutedEventArgs e)
@@ -3443,29 +3348,6 @@ namespace UltimateChanger
             XMLReader.setSetting("Release", "ComboBox", cmbRelease_Compo.Text);
         }
 
-        private void rbnTurnOnDevMode_Checked(object sender, RoutedEventArgs e)
-        {
-            lbluninstallinfo.Visibility = Visibility.Visible;
-        }
-
-        private void rbnNormalSize_Checked(object sender, RoutedEventArgs e)
-        {
-            foreach (var item in lableListForUi)
-            {
-                item.FontSize = 12;
-            }
-            lblTime.FontSize = 50;
-        }
-
-        private void rbnBiggerSize_Checked(object sender, RoutedEventArgs e)
-        {
-            foreach (var item in lableListForUi)
-            {
-                item.FontSize = 17;
-            }
-            lblTime.FontSize = 50;
-        }
-
         private void btnAdvanceInstall_Click(object sender, RoutedEventArgs e)
         {
             Window AdvanceInstall = new AdvanceWindowInstalla(dataBaseManager);
@@ -3619,11 +3501,6 @@ namespace UltimateChanger
                         }                      
                 }
             }
-        }
-
-        private void rbnTurnOffDevMode_Checked(object sender, RoutedEventArgs e)
-        {
-            lbluninstallinfo.Visibility = Visibility.Hidden;
         }
 
         private void btnDeleteC_Compo_Click(object sender, RoutedEventArgs e)

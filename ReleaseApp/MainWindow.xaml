@@ -1031,7 +1031,6 @@
                     <Button x:Name="btnFakeV" Content="REMedy" Grid.Row="2" Click="btnFakeV_Click" Background="#FF616161" BorderBrush="#FF424242" Foreground="White" Margin="10,14,10,15" Height="Auto"/>
                     <Button x:Name="btnGearbox"  Content="Gearbox" Grid.Row="2" Grid.Column="1" Click="btn_Gearbox" Background="#FF616161" BorderBrush="#FF424242" Foreground="White" Margin="10,14,10,15" Height="Auto"/>
                     <Button Content="Downgrade HW" Grid.Column="0"  Grid.Row="3" Click="Downgrade" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10,15,10,14" Height="Auto"/>
-                    <Label Name="lbluninstallinfo" Content="Label" HorizontalAlignment="Left" Margin="46,26,0,0" Grid.Row="5" VerticalAlignment="Top"/>
 
 
                 </Grid>
@@ -1726,6 +1725,9 @@
 
         <TabItem Header="Settings" Foreground="White">
 
+
+
+
             <Grid x:Name="aboutGrid" Margin="0,2,0,-2">
 
                 <Grid.ColumnDefinitions>
@@ -1739,20 +1741,14 @@
                 </Grid.RowDefinitions>
 
                 <Border x:Name="Grid6" Grid.Row="0" BorderBrush="#FF616161" BorderThickness="0,0,1,1"/>
-                <Border x:Name="Grid7" Grid.Row="1" BorderBrush="#FF616161" BorderThickness="0,0,1,1">
+                <Border x:Name="Grid7" Grid.Row="1" BorderBrush="#FF616161" BorderThickness="0,0,1,1"/>
+                <Border x:Name="Grid7a" Grid.Row="1" Grid.Column="1" BorderBrush="#FF616161" BorderThickness="0,1,0,1"/>
 
-                </Border>
                 <Border x:Name="Grid8" Grid.Row="2" BorderBrush="#FF616161" BorderThickness="0,0,1,0"/>
 
                 <Image x:Name="imgBrandSkin" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Source="Images/sonic.png" Margin="96,10,100,0" Height="74" Width="206"/>
 
                 <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="0,84,0,187" Height="354" Width="192" Grid.RowSpan="2">
-                    <Label Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5" Content="Labels size"/>
-                    <RadioButton Name="rbnNormalSize" GroupName="labelsSize" Content="Normal" Checked="rbnNormalSize_Checked"/>
-                    <RadioButton Name="rbnBiggerSize" GroupName="labelsSize" Content="Bigger" Checked="rbnBiggerSize_Checked"/>
-                    <Label x:Name="lblDevMode" Content="Dev mode" FontWeight="SemiBold" FontSize="12.5" Margin="0,0,28,0"/>
-                    <RadioButton x:Name="rbnTurnOnDevMode" Content="On" GroupName="group4" Checked="rbnTurnOnDevMode_Checked" Margin="0,0,28,0"/>
-                    <RadioButton x:Name="rbnTurnOffDevMode" Content="Off" GroupName="group4" Checked="rbnTurnOffDevMode_Checked" Margin="0,0,28,0"/>
                     <Label x:Name="lblDefPathCompo" Content="Path to local Compositions:"/>
                     <TextBox x:Name="txtLocalCompoPath" Height="auto" TextWrapping="Wrap" ToolTip="Edit, click enter to save" Text="C:\Program Files\UltimateChanger\compositions" KeyDown="txtLocalCompoPath_KeyDown"/>
                     <Label Content="-----------------------------------"/>
@@ -1782,10 +1778,10 @@
                     <Label x:Name="lblVersion" Content="" Height="35" HorizontalAlignment="Left" Foreground="White"/>
                     <Label x:Name="lblConnectionToDB"  Content="Trying to Connect" Height="35" HorizontalAlignment="Left" Foreground="White" Width="162" />
                 </StackPanel>
-                <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 10 10 0" Width="160" Height="auto">
+                <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 10 10 0" Width="160" Height="150">
 
                     <TextBox x:Name="txtFeedBack" MaxHeight="140" HorizontalAlignment="Center" Height="25" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160"/>
-                    <Button x:Name="btnSendFeedBack" Content="SEND" HorizontalAlignment="Center" VerticalAlignment="Top" Width="68" Click="btnSendFeedBack_Click"/>
+                    <Button x:Name="btnSendFeedBack" Content="SEND FeedBack" Margin="0,10,0,0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="auto" Click="btnSendFeedBack_Click"/>
 
                 </StackPanel >
 
@@ -1831,6 +1827,7 @@
                 </StackPanel>
 
                 <ProgressBar Name="progressHI" Grid.Column="1" HorizontalAlignment="Left" Height="15" Margin="10,0,00,10" Grid.Row="1" VerticalAlignment="Bottom" Width="100"/>
+
 
             </Grid>
         </TabItem>

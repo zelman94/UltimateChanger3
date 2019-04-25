@@ -13,6 +13,7 @@ using Rekurencjon; // logi
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
+using log4net;
 
 namespace UltimateChanger
 {
@@ -21,6 +22,8 @@ namespace UltimateChanger
     /// </summary>
     public class DataBaseManager
     {
+        private static readonly ILog Log =
+              LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public SqlConnection SQLConnection;
         //private ClickCounter clickCounter;
         public string pathsToUpdate = "";
@@ -261,12 +264,10 @@ namespace UltimateChanger
             try
             {
                 SQLConnection.Open();
-                if (MODE == "IP")
-                {
 
-                }
                 SqlCommand command = new SqlCommand($"select path from builds where type = '{TYPE}' AND release = '{RELEASE}' AND mode LIKE '%{MODE}%' AND brand = '{BRAND}' AND oem = '{OEM}' order by about desc", SQLConnection);
-                logging.AddLog("getBuilds:  TYPE,  RELEASE,  MODE,  BRAND,  OEM \n" + TYPE +" "+ RELEASE + " " + MODE + " " + BRAND + " " + OEM);
+                Log.Debug("getBuilds:  TYPE,  RELEASE,  MODE,  BRAND,  OEM \n" + TYPE + " " + RELEASE + " " + MODE + " " + BRAND + " " + OEM);
+                Log.Debug(command.CommandText);
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())

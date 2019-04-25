@@ -31,6 +31,7 @@ namespace UltimateChanger
         public string Emulator_Path = "";
         public string DirFullBuildName = ""; // \\demant.com\data\KBN\RnD\SWS\Build\Arizona\Phoenix\FullInstaller-19.2\rc-19.2_19.2_7.18.46.0-b278379\FullInstaller-19.2-Genie i tutaj (Oticon)
         DispatcherTimer Timer_InfoFS; // timer do sprawdzania info o buildach
+        DispatcherTimer TimerCheckUninstall;
         List<string> ListPathsToAboutInfo = new List<string>();
         List<string> ListpathsToManInfo = new List<string>();
         public string pathToExe, pathToManu;
@@ -40,7 +41,7 @@ namespace UltimateChanger
         public Task Task_GetNewBuild =null;
         public string path_ConfigData = "";
         public Upgrade_FittingSoftware Upgrade_FS = null; // jezeli null to nie ma zgody na nocny update
-
+        public bool uninstalled; // true byl odinstalowany - wlaczyc skanowanie czy build sie pojawil // false build jest zainstalowany 
 
         public FittingSoftware(FittingSoftware tmpFS)
         {
@@ -206,17 +207,17 @@ namespace UltimateChanger
                 ListPathsToAboutInfo = BuildInfo.ListPathsToAboutInfo;
 
                 pathToManu = ListpathsToManInfo[indexFS];
-                BuildInfo infoAboutFS = fileOperator.GetInfoAboutFs(ListpathsToManInfo[indexFS], ListPathsToAboutInfo[indexFS]);
-                //Brand = infoAboutFS.Brand;
-                Market = infoAboutFS.MarketName;
-                OEM = infoAboutFS.OEM;
-                SelectedLanguage = infoAboutFS.SelectedLanguage;
-                Version = infoAboutFS.Version;
-                LogMode = fileOperator.getLogMode(indexFS, PathToLogMode)[0];
+                getInfoBuild(indexFS);
                 Timer_InfoFS = new DispatcherTimer();
                 Timer_InfoFS.Tick += updateInfoFS;
                 Timer_InfoFS.Interval = new TimeSpan(0, 0, 10);
-                Timer_InfoFS.Start(); 
+                Timer_InfoFS.Start();
+
+
+                TimerCheckUninstall = new DispatcherTimer();
+                Timer_InfoFS.Tick += checkUninstallStatus;
+                Timer_InfoFS.Interval = new TimeSpan(0, 0, 10);
+
                 // nowy timer dla sprawdzania czy nadszedl czas dla update FS ? 
                 // jezeli null to wychodze ze sprawdzenia jezeli cos jest to wejsc do srodka obiektu i spr czy zgadza sie czas 
                 // jezeli zgadza sie czas to przekazac liste do odpowiedniej listy w głównym oknie 
@@ -237,16 +238,37 @@ namespace UltimateChanger
                     pathToExe = "";
                 }
                
-                pathToManu = fileOperator.FindSettingFileForComposition(indexFS - 5);              
-                Market = getMarket();
-                OEM = "";
-                SelectedLanguage = "";
-                Version = getFS_Version();
-                LogMode = getLogMode();
+                pathToManu = fileOperator.FindSettingFileForComposition(indexFS - 5);
+                getInfoBuild(indexFS - 5);
             }
 
             Emulator_Path = fileOperator.getPathToEmulator(indexFS, composition, pathToExe);
             Log.Debug(this.string_For_Log());
+        }
+
+        public void getInfoBuild(int index)
+        {
+            if (ListPathsToAboutInfo.Count == 0)
+            {
+                return;
+            }
+
+            BuildInfo infoAboutFS = fileOperator.GetInfoAboutFs(ListpathsToManInfo[index], ListPathsToAboutInfo[index]);
+            Market = infoAboutFS.MarketName;
+            OEM = infoAboutFS.OEM;
+            SelectedLanguage = infoAboutFS.SelectedLanguage;
+            Version = infoAboutFS.Version;
+            LogMode = fileOperator.getLogMode(index, PathToLogMode)[0];
+
+            if (Market == "FS not installed")
+            {
+                uninstalled = true;
+            }
+            else
+            {
+                uninstalled = false;
+            }
+
         }
 
         public void StartEmulator()
@@ -278,6 +300,18 @@ namespace UltimateChanger
             }
         }
 
+        public void checkUninstallStatus(object sender, EventArgs e)
+        {
+            Process currentProcess = Process.GetCurrentProcess();
+            List<string> childs = FileOperator.FindAllProcessesSpawnedBy(Convert.ToUInt32(currentProcess.Id));
+
+            if (childs.Count == 0)
+            {
+                uninstalled = true;
+                TimerCheckUninstall.Stop();
+            }
+
+        }
         public void updateInfoFS(object sender, EventArgs e)
         {
             if (uninstallation)
@@ -285,13 +319,15 @@ namespace UltimateChanger
                 Market = "Uninstallation";
                 return;
             }
+            if (uninstalled) // jezeli zostal usuniety lub nie ma danych to sprawdzaj
+            {
+                if (composition)
+                {
+                    getInfoBuild(indexFS - 5);
+                }
+                getInfoBuild(indexFS);
+            }
 
-            BuildInfo infoAboutFS = fileOperator.GetInfoAboutFs(ListpathsToManInfo[indexFS], ListPathsToAboutInfo[indexFS]);
-            Market = infoAboutFS.MarketName;
-            OEM = infoAboutFS.OEM;
-            SelectedLanguage = infoAboutFS.SelectedLanguage;
-            Version = infoAboutFS.Version;
-            LogMode = fileOperator.getLogMode(indexFS, PathToLogMode)[0];
         }
 
             public string findUnInstaller()
@@ -335,9 +371,11 @@ namespace UltimateChanger
             return "";
         }
 
-        public void uninstallFS()
+        public void uninstallFS(bool mode) // true z UI
         {
-
+            FSInstaller instal = new FSInstaller();
+            instal.UninstallBrand( this, mode);
+            TimerCheckUninstall.Start();
         }
 
         public string getMarket()
