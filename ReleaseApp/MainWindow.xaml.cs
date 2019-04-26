@@ -2106,10 +2106,18 @@ namespace UltimateChanger
 
         private void cmbOEM_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {            
-                cmbOEM.Items.Refresh();
-                AllOemPaths = BindCombo.getAllPathsOem(cmbOEM.Text, cmbBrandstoinstall.SelectedIndex, Paths_Dirs);
-                cmbBuild.ItemsSource = AllOemPaths;
+            cmbOEM.Items.Refresh();
+            AllOemPaths = BindCombo.getAllPathsOem(cmbOEM.Text, cmbBrandstoinstall.SelectedIndex, Paths_Dirs);
+            cmbBuild.ItemsSource = AllOemPaths;
+            if (TabFull.IsSelected)
+            {
                 cmbBuild.ItemsSource = dataBaseManager.getBuilds("FULL", cmbRelease.Text, cmbBuild_mode.Text, cmbBrandstoinstall.Text, cmbOEM.Text);
+            }
+            else
+            {
+                cmbBuild.ItemsSource = dataBaseManager.getBuilds("Composition", cmbRelease.Text, cmbBuild_mode.Text, cmbBrandstoinstall.Text, cmbOEM.Text);
+            }
+                
         }
         private void cmbOEM_Compo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {            
@@ -3295,8 +3303,9 @@ namespace UltimateChanger
         }
         private void cmbRelease_SelectionChanged_Compo(object sender, SelectionChangedEventArgs e)
         {
-            cmbRelease_Compo.Items.Refresh();
-            XMLReader.setSetting("Release", "ComboBox", cmbRelease_Compo.Text);
+            cmbRelease.Items.Refresh();
+            XMLReader.setSetting("Release", "ComboBox", cmbRelease.Text);
+            cmbBuild.ItemsSource = dataBaseManager.getBuilds("Composition", cmbRelease.Text, cmbBuild_mode.Text, cmbBrandstoinstall.Text, cmbOEM.Text);
         }
 
         private void btnAdvanceInstall_Click(object sender, RoutedEventArgs e)
@@ -3645,6 +3654,12 @@ namespace UltimateChanger
         {
             cmbBuild_mode.Items.Refresh();
             cmbBuild.ItemsSource = dataBaseManager.getBuilds("FULL", cmbRelease.Text, cmbBuild_mode.Text, cmbBrandstoinstall.Text, cmbOEM.Text);
+        }
+
+        private void cmbBuild2_Compo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cmbBuild_mode.Items.Refresh();
+            cmbBuild.ItemsSource = dataBaseManager.getBuilds("Composition", cmbRelease.Text, cmbBuild_mode.Text, cmbBrandstoinstall.Text, cmbOEM.Text);
         }
 
         private void btnReadHI_Click(object sender, RoutedEventArgs e)

@@ -48,28 +48,29 @@ namespace UltimateChanger
                     }
                     try
                     {
-                        string tmp = Environment.CurrentDirectory + @"\Updater" + $"\\UltimateChangerUpdater.exe ";
+                        //string tmp = Environment.CurrentDirectory + @"\Updater" + $"\\UltimateChangerUpdater.exe ";
                         System.Diagnostics.Process.Start(SSC);
                     }
                     catch (Exception )
                     {
                         try
-                        {
-                        
+                        {                        
                             System.Diagnostics.Process.Start(KBN);
                         }
                         catch (Exception)
                         {
                             MessageBox.Show("ERROR :C");
+                            this.Close();
                         }
-                    }                 
-
+                    }
+                
                 }
                 catch (Exception x)
                 {
                     MessageBox.Show("Error \n" + x.ToString());
                 }
-                this.Close();
+            ((MainWindow)System.Windows.Application.Current.MainWindow).Close();
+            this.Close();
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

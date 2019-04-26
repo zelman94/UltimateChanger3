@@ -1284,10 +1284,14 @@ namespace UltimateChanger
 
             
             string text = "";
-            foreach (var item in readText)
+            if (readText != null)
             {
-                text += item + "\n";
+                foreach (var item in readText)
+                {
+                    text += item + "\n";
+                }
             }
+          
            
             return text;
            
