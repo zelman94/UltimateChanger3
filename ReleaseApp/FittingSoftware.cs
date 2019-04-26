@@ -42,7 +42,7 @@ namespace UltimateChanger
         public string path_ConfigData = "";
         public Upgrade_FittingSoftware Upgrade_FS = null; // jezeli null to nie ma zgody na nocny update
         public bool uninstalled; // true byl odinstalowany - wlaczyc skanowanie czy build sie pojawil // false build jest zainstalowany 
-
+        DataBaseManager dbManagerLocal;
         public FittingSoftware(FittingSoftware tmpFS)
         {
             Name_FS = tmpFS.Name_FS;
@@ -60,6 +60,7 @@ namespace UltimateChanger
             pathToExe = tmpFS.pathToExe;
             pathToManu = tmpFS.pathToManu;
             Log.Debug(this.string_For_Log());
+            dbManagerLocal = tmpFS.dbManagerLocal;
         }
         public FittingSoftware(string Name,bool composition = false)
         {
@@ -243,7 +244,26 @@ namespace UltimateChanger
             }
 
             Emulator_Path = fileOperator.getPathToEmulator(indexFS, composition, pathToExe);
+            dbManagerLocal = new DataBaseManager("local");
+            setBuild();
             Log.Debug(this.string_For_Log());
+        }
+
+        public List<string> getVersionBuildDB()
+        {
+            return dbManagerLocal.executeSelect($"Select VerBuild from builds where NameBuild = {Name_FS}");
+        }
+
+        public void setBuild()
+        {
+            if (dbManagerLocal.executeSelect($"Select VerBuild from builds where NameBuild = '{Name_FS}'").Count > 0)
+            { // jest wiec mozna edytowac
+
+            }
+            else
+            { // nie ma wiec trzeba dodac
+                dbManagerLocal.executeInput($"Insert InTo builds Values ('{Name_FS}','{Version}','{DateTime.Now.ToShortDateString()}')");
+            }
         }
 
         public void getInfoBuild(int index)

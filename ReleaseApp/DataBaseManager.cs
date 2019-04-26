@@ -87,7 +87,17 @@ namespace UltimateChanger
             try
             {
                 //Create a connection calling the App.config
-                string conn = ConfigurationManager.ConnectionStrings["MyConnection"].ConnectionString;
+                string conn;
+                if (switch_ == "local")
+                {
+                    
+                       conn = ConfigurationManager.ConnectionStrings["UltimateChanger.Properties.Settings.dbFittingSoftwaresConnectionString"].ConnectionString;
+                }
+                else
+                {
+                    conn = ConfigurationManager.ConnectionStrings["MyConnection"].ConnectionString;
+                }
+
                 //The query to use
                 SqlConnection connection = new SqlConnection(conn);
                 //Create a Data Adapter
@@ -290,6 +300,7 @@ namespace UltimateChanger
             List<string> returnedValues = new List<string>();
             try
             {
+            
                 SQLConnection.Open();
                 SqlCommand command = new SqlCommand(command_, SQLConnection);
                 logging.AddLog("executeSelect:  command_\n" + command_);
@@ -306,9 +317,27 @@ namespace UltimateChanger
             catch (Exception x)
             {
                 System.Windows.MessageBox.Show(x.ToString());
+                SQLConnection.Close();
                 return returnedValues;
             }
         }
+
+        public void executeInput(string command_)
+        {
+            try
+            {
+                SQLConnection.Open();
+                SqlCommand command = new SqlCommand(command_, SQLConnection); 
+                command.ExecuteNonQuery();
+                SQLConnection.Close();
+            }
+            catch (Exception x)
+            {
+                System.Windows.MessageBox.Show(x.ToString());
+                Log.Debug(x.ToString());
+            }
+        }
+
 
     }
 }

@@ -15,6 +15,8 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -29,8 +31,6 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -136,6 +136,11 @@
     <Compile Include="ClickCounter.cs" />
     <Compile Include="ClockManager.cs" />
     <Compile Include="DataBaseManager.cs" />
+    <Compile Include="dbFittingSoftwaresDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dbFittingSoftwaresDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DowngradeWindow.xaml.cs">
       <DependentUpon>DowngradeWindow.xaml</DependentUpon>
     </Compile>
@@ -233,6 +238,17 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="dbFittingSoftwaresDataSet.xsc">
+      <DependentUpon>dbFittingSoftwaresDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="dbFittingSoftwaresDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dbFittingSoftwaresDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="dbFittingSoftwaresDataSet.xss">
+      <DependentUpon>dbFittingSoftwaresDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Downgrade\NOAHlink WLP downgrade\Noahlink Wireless Upgrader instructions.pdf" />
     <None Include="Downgrade\Production\Controller\AT91SAM4S16C.jflash" />
     <None Include="Downgrade\Production\Controller\ETC\JFlash\Flash.csv" />
@@ -260,6 +276,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="Downgrade\NOAHlink WLP downgrade\howto.txt" />
+    <Content Include="dbFittingSoftwares.mdf" />
+    <Content Include="dbFittingSoftwares_log.ldf">
+      <DependentUpon>dbFittingSoftwares.mdf</DependentUpon>
+    </Content>
     <Content Include="Downgrade\NOAHlink WLP downgrade\NLWUpgrader_11063s.exe" />
     <Content Include="Downgrade\Production\Bluetooth\BlueFlashCmd.exe" />
     <Content Include="Downgrade\Production\Bluetooth\flash.dll" />
