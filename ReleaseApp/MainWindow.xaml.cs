@@ -31,7 +31,7 @@ using System.Data;
 using Rekurencjon; // logi
 using log4net;
 
-[assembly: System.Reflection.AssemblyVersion("4.1.0.0")]
+[assembly: System.Reflection.AssemblyVersion("3.0.0.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window
@@ -103,14 +103,13 @@ namespace UltimateChanger
        public List<FittingSoftware> FittingSoftware_List = new List<FittingSoftware>();
 
         public MainWindow()
-        {
-
+        {            
             InitializeComponent();
             fileOperator = new FileOperator();
             dataBaseManager = new DataBaseManager(XMLReader.getDefaultSettings("DataBase").ElementAt(0).Value); // tam jest wątek
             try
             {
-               
+                
                 var exists = System.Diagnostics.Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location)).Count() > 1;
                 if (exists) // jezeli wiecej niz 1 instancja to nie uruchomi sie
                 {
@@ -124,49 +123,6 @@ namespace UltimateChanger
                     Window ChangeLogWindow = new ChangeLog(dataBaseManager, version);
                     ChangeLogWindow.ShowDialog();
 
-
-
-                    if (version == "4.0.0.0") // jezeli pierwszy start UC4 i versja 4.0.0 to usuń starego updatera i weź nowego 
-                    {
-                        foreach (var item in Directory.GetFiles(@"C:\Program Files\UltimateChanger\Updater"))
-                        {
-                            File.Delete(item); // usuwam starego updatera
-                        }
-
-                        try // dla szczecina
-                        {
-                            foreach (var item in Directory.GetFiles(@"\\10.128.3.1\DFS_data_SSC_FS_Images-SSC\PAZE\change_market\Multi_Changer\currentVersion\update\Updater"))
-                            {
-                                File.Copy(item, @"C:\Program Files\UltimateChanger\Updater\" + System.IO.Path.GetFileName(item));
-                            }
-                            foreach (var item in Directory.GetFiles(@"\\10.128.3.1\DFS_data_SSC_FS_Images-SSC\PAZE\change_market\Multi_Changer\v_4.0.0\update\Settings"))
-                            {
-                                File.Copy(item, @"C:\Program Files\UltimateChanger\Settings\" + System.IO.Path.GetFileName(item),true);
-                            }
-
-                        }
-                        catch (Exception)
-                        {
-
-                            try // dla reszty 
-                            {
-                                foreach (var item in Directory.GetFiles(@"\\demant.com\data\KBN\RnD\FS_Programs\Support_Tools\Ultimate_changer\currentVersion\update\Updater"))
-                                {
-                                    File.Copy(item, @"C:\Program Files\UltimateChanger\Updater\" + System.IO.Path.GetFileName(item));
-                                }
-                                foreach (var item in Directory.GetFiles(@"\\demant.com\data\KBN\RnD\FS_Programs\Support_Tools\Ultimate_changer\v_4.0.0\update\Settings"))
-                                {
-                                    File.Copy(item, @"C:\Program Files\UltimateChanger\Settings\" + System.IO.Path.GetFileName(item), true);
-                                }
-                            }catch(Exception x)
-                            
-                            // nie ma dostpeu to info
-                            {
-                                MessageBox.Show("No access ?\n" + x.ToString());
-                            }
-                        }
-
-                    }
                 }
 
                 clockManager = new ClockManager();
@@ -323,6 +279,7 @@ namespace UltimateChanger
             refreshUI(new object(), new EventArgs());
             R_Day.Visibility = Visibility.Hidden;
             Log.Info("Main created");
+            fileOperator.checkVersion();
 
         }
         //________________________________________________________________________________________________________________________________________________
@@ -977,12 +934,6 @@ namespace UltimateChanger
                 {
                     lblConnectionToDB.Content = "Connected to DB";
                 }
-                else
-                {
-                    lblConnectionToDB.Content = "Connection failed";
-                    fileOperator.checkVersion(); // sprawdzam czy jest nowsza wersja UCH3 na serverze gdy nie ma polaczenia z BD
-                }
-
                 ConnectionToDBTimer.Stop();
             }
 
@@ -3467,7 +3418,7 @@ namespace UltimateChanger
             setUIdefaults(XMLReader.getDefaultSettings("TextBox"), "TextBox");
         }
 
-        private void btnExportSettings_Click(object sender, RoutedEventArgs e)
+        public void btnExportSettings_Click(object sender, RoutedEventArgs e)
         {
             // zapis pliku do wskazanej przez usera lokalizacji 
             Stream myStream;

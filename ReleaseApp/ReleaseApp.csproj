@@ -317,6 +317,7 @@
     </Content>
     <Resource Include="Images\MyTeam.png" />
     <Resource Include="Images\icon_New.ico" />
+    <SplashScreen Include="Images\KMDR.png.png" />
     <Content Include="Images\refreshDark.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -356,9 +357,9 @@
     <Content Include="Updater\UltimateChangerUpdater.exe.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <SplashScreen Include="Images\splash.png">
+    <Content Include="Images\splash.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </SplashScreen>
+    </Content>
     <Content Include="reku\Rekurencjon.pdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

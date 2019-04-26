@@ -19,49 +19,17 @@ namespace UltimateChanger
 {
     public partial class UpdateWindow : Window
     {
-        string PATHS = "",INFO="", REKU = "", SETTINGS = "", UPDATER = "", RESOURCES = "", IMAGES = "";
-        public UpdateWindow(string paths, string info, string copyReku,string copySettings, string copyUpdater, string copyResources, string copyImages)
+        string PATHS = "", INFO = "";
+        public UpdateWindow(string paths, string info)
         {
             PATHS = paths;
             INFO = info;
-            REKU = copyReku;
-            SETTINGS = copySettings;
-            UPDATER = copyUpdater;
-            RESOURCES = copyResources;
-            IMAGES = copyImages;
-
             InitializeComponent();
-
-            //txtInfoUpdate.Text = info;
+            txtpath.Text = paths;
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-            //string IP = "";
-            //try
-            //{
-            //    string strHostName = "";
-            //    strHostName = System.Net.Dns.GetHostName();
-            //    IPHostEntry ipEntry = System.Net.Dns.GetHostEntry(strHostName);
-            //    IPAddress[] addr = ipEntry.AddressList;
-            //    IP = addr[2].ToString();
-            //}
-            //catch (Exception)
-            //{
-            //    return;
-            //}
-            //Initializing a new xml document object to begin reading the xml file returned
-            //XmlDocument doc = new XmlDocument();
-            //try
-            //{
-            //    doc.Load("http://api.ipstack.com/check?access_key=b1f434893303697fffd4f9597a50e1f8&format=1"); // zrobione konto free na email paze 
-            //    XmlNodeList nodeLstCity = doc.GetElementsByTagName("country_code");
-            //    IP = nodeLstCity[0].InnerText; // IP to tutaj kod państwa w któym jestem
-            //}
-            //catch (Exception x )
-            //{
-            //    MessageBox.Show(x.ToString());
-            //}
             string SSC = "", KBN="";
             string[] lines = PATHS.Split(Environment.NewLine.ToCharArray());
                 try
@@ -78,20 +46,18 @@ namespace UltimateChanger
                             KBN = item;
                         }
                     }
-
                     try
                     {
-                    //System.Diagnostics.Process.Start(lines[lines.Length - 5]); // szczecin // do poprawy tu 
-                    string tmp = Environment.CurrentDirectory + @"\Updater" + $"\\UltimateChangerUpdater.exe ";
-                    System.Diagnostics.Process.Start(tmp, $"{SSC} {REKU} {SETTINGS} {UPDATER} {RESOURCES} {IMAGES}");
+                        string tmp = Environment.CurrentDirectory + @"\Updater" + $"\\UltimateChangerUpdater.exe ";
+                        System.Diagnostics.Process.Start(SSC);
                     }
                     catch (Exception )
                     {
                         try
                         {
-                        // System.Diagnostics.Process.Start(lines[lines.Length-1]);// dania
-                        System.Diagnostics.Process.Start(Environment.CurrentDirectory + @"\Updater" + $"\\UltimateChangerUpdater.exe",$" {KBN} {REKU} {SETTINGS} {UPDATER} {RESOURCES} {IMAGES}");
-                    }
+                        
+                            System.Diagnostics.Process.Start(KBN);
+                        }
                         catch (Exception)
                         {
                             MessageBox.Show("ERROR :C");
@@ -115,6 +81,13 @@ namespace UltimateChanger
         {          
             MessageBox.Show("New version contain:\n" + INFO);
         }
+
+        private void btnExportSettings_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)System.Windows.Application.Current.MainWindow).btnExportSettings_Click(new object(),new RoutedEventArgs());
+        }
+
+
 
         private void txtInfoUpdate_TextChanged(object sender, TextChangedEventArgs e)
         {

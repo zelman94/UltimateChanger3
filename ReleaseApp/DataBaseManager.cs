@@ -128,7 +128,15 @@ namespace UltimateChanger
                 return info;
             }
             catch (Exception x)
-            {              
+            {
+                try
+                {
+                    SQLConnection.Close();
+                }
+                catch (Exception)
+                {
+
+                }
                 System.Windows.MessageBox.Show(x.ToString());
                 return "";
             }
@@ -155,6 +163,14 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
+                try
+                {
+                    SQLConnection.Close();
+                }
+                catch (Exception)
+                {
+
+                }
                 System.Windows.MessageBox.Show(x.ToString());
                 return null;
             }
@@ -175,6 +191,14 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
+                try
+                {
+                    SQLConnection.Close();
+                }
+                catch (Exception)
+                {
+
+                }
                 System.Windows.MessageBox.Show(x.ToString());
             }
         }
@@ -212,6 +236,14 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
+                try
+                {
+                    SQLConnection.Close();
+                }
+                catch (Exception)
+                {
+
+                }
                 System.Windows.MessageBox.Show(x.ToString());
             }
             
@@ -228,6 +260,14 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
+                try
+                {
+                    SQLConnection.Close();
+                }
+                catch (Exception)
+                {
+
+                }
                 System.Windows.MessageBox.Show(x.ToString());
             }
         }
@@ -253,6 +293,14 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
+                try
+                {
+                    SQLConnection.Close();
+                }
+                catch (Exception)
+                {
+
+                }
                 System.Windows.MessageBox.Show(x.ToString());
                 return model_name;
             }
@@ -280,6 +328,14 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
+                try
+                {
+                    SQLConnection.Close();
+                }
+                catch (Exception)
+                {
+
+                }
                 System.Windows.MessageBox.Show(x.ToString());
                 return BuildsList;
             }
