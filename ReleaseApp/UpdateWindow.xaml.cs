@@ -88,8 +88,6 @@ namespace UltimateChanger
             ((MainWindow)System.Windows.Application.Current.MainWindow).btnExportSettings_Click(new object(),new RoutedEventArgs());
         }
 
-
-
         private void txtInfoUpdate_TextChanged(object sender, TextChangedEventArgs e)
         {
 

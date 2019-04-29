@@ -31,7 +31,6 @@ namespace UltimateChanger
         //private Stopwatch time;
         public string APPversion;
         public Task TaskConnectToDB = null;
-        Log logging = new Log("DataBaseManager");
         public bool getConnectionstatus() // true - skonczyl sie watek / false - watek trwa
         {
             if (TaskConnectToDB.IsCompleted)
@@ -105,7 +104,7 @@ namespace UltimateChanger
             catch (Exception e)
             {
                 Console.WriteLine("Wystąpił nieoczekiwany błąd!");
-                logging.AddLog(e.ToString());
+                Log.Debug(e.ToString());
                 //System.Windows.MessageBox.Show(e.ToString() + " switch: " + switch_);
                 return null;
             }
@@ -137,7 +136,7 @@ namespace UltimateChanger
                 {
 
                 }
-                System.Windows.MessageBox.Show(x.ToString());
+                Log.Debug(x.ToString());
                 return "";
             }
         }
@@ -348,7 +347,7 @@ namespace UltimateChanger
             {
                 SQLConnection.Open();
                 SqlCommand command = new SqlCommand(command_, SQLConnection);
-                logging.AddLog("executeSelect:  command_\n" + command_);
+                Log.Debug("executeSelect:  command_\n" + command_);               
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())

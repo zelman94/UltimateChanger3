@@ -1807,7 +1807,7 @@
                     <RadioButton Name="rbBoth" Content="Both" GroupName="Side" />
                     <Label></Label>
                     <RadioButton Name="rbExpress" Content="ExpressLink" GroupName="Hardware" IsChecked="True"/>
-                    <RadioButton Name="rbHIPRO" Content="HI-PRO" GroupName="Hardware"/>
+                    <RadioButton Name="rbHIPRO" Content="HI-PRO" GroupName="Hardware" IsEnabled="False"/>
                 </StackPanel>
                 <Button Name="btnReadHI" Content="Read HI" Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="1" VerticalAlignment="Bottom" Width="82" Margin="12,0,0,40" Click="btnReadHI_Click"/>
 

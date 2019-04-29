@@ -145,7 +145,7 @@ namespace UltimateChanger
         {
             if (!Directory.Exists(FS.Upgrade_FS.info.path_to_root))
             {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).logging.AddLog(FS.string_For_Log());
+                Log.Debug(FS.string_For_Log());                
                 return "";
             }
 
@@ -1315,7 +1315,7 @@ namespace UltimateChanger
                 Log.Debug(x.ToString());
             }
             path = dataBase.executeSelect("Select SSC From UpdateUC")[0];
-            if (!Directory.Exists(path))
+            if (!File.Exists(path))
             {
                 path = dataBase.executeSelect("Select Other From UpdateUC")[0];
             }

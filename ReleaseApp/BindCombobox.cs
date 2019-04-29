@@ -149,7 +149,7 @@ namespace UltimateChanger
         }
         public void setFScomboBox_compositions()
         {
-            List<string> bind = new List<string> { "Oticon", "Bernafon", "Sonic", "GenieMedical", "Philips" };
+            List<string> bind = new List<string> { "Genie", "Oasis", "ExpressFit", "GenieMedical", "HearSuite" };
             try
             {
                 ((MainWindow)System.Windows.Application.Current.MainWindow).cmbBrandstoinstall_Compo.ItemsSource = bind;
@@ -207,7 +207,7 @@ namespace UltimateChanger
 
         public void setOEMComboBox(string FS)
         {
-            if (FS.Contains("Genie"))
+            if (FS.Contains("Genie") || FS.Contains("Oticon"))
             {
                 List<string> bind = new List<string> { "Audigy", "Audika", "Audionova", "Avada", "Kind", "Oticon", "VA" };
                 ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM.ItemsSource = bind;
@@ -215,7 +215,7 @@ namespace UltimateChanger
                 ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM_Compo.ItemsSource = bind;
                 ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM_Compo.SelectedIndex = 5;
             }
-            else if (FS.Contains("Oasis"))
+            else if (FS.Contains("Oasis") || FS.Contains("Bernafon"))
             {
                 List<string> bind = new List<string> { "PrivateLable", "AccuQuest", "Audilab", "Bernafon", "Costco", "GPL", "HansAnders", "Horex", "Maico", "Meditrend", "ProAkustik" };
                 ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM.ItemsSource = bind;
@@ -223,7 +223,7 @@ namespace UltimateChanger
                 ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM_Compo.ItemsSource = bind;
                 ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM_Compo.SelectedIndex = 3;
             }
-            else if(FS.Contains("ExpressFit"))
+            else if(FS.Contains("ExpressFit") || FS.Contains("Sonic"))
             {
                 List<string> bind = new List<string> { "Sonic" };
                 ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM.ItemsSource = bind;
@@ -231,7 +231,7 @@ namespace UltimateChanger
                 ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM_Compo.ItemsSource = bind;
                 ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM_Compo.SelectedIndex = 0;
             }
-            else if (FS.Contains("HearSuite"))
+            else if (FS.Contains("HearSuite") || FS.Contains("Philips"))
             {
                 List<string> bind = new List<string> { "HearSuite" };
                 ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM.ItemsSource = bind;
