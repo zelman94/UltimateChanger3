@@ -106,7 +106,7 @@ namespace UltimateChanger
         {            
             InitializeComponent();
             fileOperator = new FileOperator();
-            dataBaseManager = new DataBaseManager(XMLReader.getDefaultSettings("DataBase").ElementAt(0).Value); // tam jest wątek
+             dataBaseManager = new DataBaseManager(XMLReader.getDefaultSettings("DataBase").ElementAt(0).Value); // tam jest wątek
             try
             {
                 

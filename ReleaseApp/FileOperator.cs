@@ -1538,5 +1538,18 @@ namespace UltimateChanger
             }
         }
 
+        public async void CopyFileasync(string StartDirectory, string EndDirectory)
+        {// dziala ale jak wydobyc info kiedy sie skonczy kopiowac
+
+                using (FileStream SourceStream = File.Open(StartDirectory, FileMode.Open))
+                {
+                    using (FileStream DestinationStream = File.Create(EndDirectory))
+                    {
+                        await SourceStream.CopyToAsync(DestinationStream);
+                    }
+                }
+            
+        }
+
     }
 }
