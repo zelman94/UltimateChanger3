@@ -9,7 +9,7 @@
         xmlns:local="clr-namespace:UltimateChanger"
         xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
         mc:Ignorable="d"
-        Title="Ultimate Changer 4.0.DEV" Height="800" Width="800" ResizeMode="CanResize" Closing="Window_Closing_1"
+        Title="Ultimate Changer 4.0" Height="800" Width="800" ResizeMode="CanResize" Closing="Window_Closing_1"
         MinHeight="800"
         MinWidth="800"
         Localization.Attributes="Center"
@@ -1193,15 +1193,16 @@
                             <Grid Grid.Column="1" Grid.Row="1">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
-                                    <ColumnDefinition Width="65"/>
+                                    <ColumnDefinition Width="25"/>
+                                    <ColumnDefinition Width="40"/>
                                 </Grid.ColumnDefinitions>
-                                <ComboBox x:Name="cmbOEM_Compo" Grid.Column="0" ToolTip="OEM version" SelectionChanged="cmbOEM_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom"/>
-                                <ComboBox x:Name="cmbRelease_Compo" Grid.Column="1" ToolTip="Release of FS" SelectionChanged="cmbRelease_SelectionChanged_Compo" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom"/>
+                                <ComboBox x:Name="cmbOEM_Compo" Grid.Column="0" ToolTip="OEM version" SelectionChanged="cmbOEM_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5,0,5,5" VerticalAlignment="Bottom"/>
+                                <ComboBox x:Name="cmbRelease_Compo" Grid.Column="1" ToolTip="Release of FS" SelectionChanged="cmbRelease_SelectionChanged_Compo" BorderBrush="White" Foreground="White" Margin="5,0,5,5" VerticalAlignment="Bottom" Grid.ColumnSpan="2"/>
                             </Grid>
 
 
 
-                            <ComboBox x:Name="cmbBuild2_Compo" Grid.Row="2" Grid.Column="0" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom"/>
+                            <ComboBox x:Name="cmbBuild2_Compo" Grid.Row="2" Grid.Column="0" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom" SelectionChanged="cmbBuild2_Compo_SelectionChanged"/>
                             <ComboBox x:Name="cmbBuild_Compo" Grid.Row="2" Grid.Column="1" SelectionChanged="cmbBuild_Compo_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom"/>
                             <Label Content="Build:" Grid.Row="2" Grid.Column="1" Foreground="White" FontWeight="SemiBold" FontSize="12.5" VerticalAlignment="Top"/>
 
@@ -1806,7 +1807,7 @@
                     <RadioButton Name="rbBoth" Content="Both" GroupName="Side" />
                     <Label></Label>
                     <RadioButton Name="rbExpress" Content="ExpressLink" GroupName="Hardware" IsChecked="True"/>
-                    <RadioButton Name="rbHIPRO" Content="HI-PRO" GroupName="Hardware"/>
+                    <RadioButton Name="rbHIPRO" Content="HI-PRO" GroupName="Hardware" IsEnabled="False"/>
                 </StackPanel>
                 <Button Name="btnReadHI" Content="Read HI" Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="1" VerticalAlignment="Bottom" Width="82" Margin="12,0,0,40" Click="btnReadHI_Click"/>
 

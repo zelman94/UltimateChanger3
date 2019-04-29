@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UltimateChanger"
         mc:Ignorable="d"
-        Title="UpdateWindow" Height="350" Width="350" ResizeMode="NoResize" Focusable="True" Topmost="True">
+        Title="UpdateWindow" Height="400" Width="400" ResizeMode="NoResize" Focusable="True" Topmost="True">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -14,14 +14,16 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="4*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Image Source="Images/update.png" Grid.ColumnSpan="3"/>
-        <Button Name="btnUpdate" Content="Update" Grid.Column="0" Grid.Row="1" Click="btnUpdate_Click" Margin="10" BorderBrush="Black" Background="Black" Foreground="White" Opacity="0.8"/>
-        <Button Name="btnCancel" Content="Cancel" Grid.Column="2" Grid.Row="1" Click="btnCancel_Click" Margin="10" BorderBrush="Black" Background="Black" Foreground="White" Opacity="0.8"/>
-        <Button Name="btnInfoUpdate" Content="?" Grid.Column="1" Grid.Row="1" Click="btnInfoUpdate_Click" Margin="10" BorderBrush="Black" Background="Black" Foreground="White" Opacity="0.8"/>
-        
-       
+        <Image Source="Images/update.png" Grid.ColumnSpan="3" Grid.RowSpan="1"/>
+        <Button Name="btnUpdate" Content="Update" Grid.Column="0" Grid.Row="2" Click="btnUpdate_Click" Margin="10" BorderBrush="Black" Background="Black" Foreground="White" Opacity="0.8"/>
+        <Button Name="btnCancel" Content="Cancel" Grid.Column="2" Grid.Row="2" Click="btnCancel_Click" Margin="10" BorderBrush="Black" Background="Black" Foreground="White" Opacity="0.8"/>
+        <Button Name="btnInfoUpdate" Content="?" Grid.Column="1" Grid.Row="2" Click="btnInfoUpdate_Click" Margin="0,0,0,0" BorderBrush="Black" Background="Black" Foreground="White" Opacity="0.8"  VerticalAlignment="Top"/>
+        <Button Name="btnExportSettings" Content="Export Settings" Grid.Column="1" Grid.Row="2" Margin="0,0,0,5" BorderBrush="Black" Background="Black" Foreground="White" Opacity="0.8" VerticalAlignment="Bottom" Click="btnExportSettings_Click"/>
+        <TextBox Name="txtpath" Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="1" Height="auto" Margin="10" BorderBrush="Black" TextWrapping="Wrap"/>
+
     </Grid>
 </Window>

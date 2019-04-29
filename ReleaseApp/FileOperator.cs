@@ -145,7 +145,7 @@ namespace UltimateChanger
         {
             if (!Directory.Exists(FS.Upgrade_FS.info.path_to_root))
             {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).logging.AddLog(FS.string_For_Log());
+                Log.Debug(FS.string_For_Log());                
                 return "";
             }
 
@@ -1032,6 +1032,7 @@ namespace UltimateChanger
                 MessageBox.Show("can not create new directory C:\\Program Files\\UltimateChanger\\Data");
             }
             Log.Info("FileOperator Created");
+            dataBase = new DataBaseManager("");
         }
 
         public FileOperator(DataBaseManager dataBase, Label genie, Label oasis, Label expressFit, ComboBox cmbMarket, List<CheckBox> checkBoxList, List<string> marketIndex, Image imgOticon, Image imgBernafon, Image imgSonic)
@@ -1091,29 +1092,6 @@ namespace UltimateChanger
             string count = "";
             try
             {
-                if (Environment.CurrentDirectory.Contains("Updater")) // jezeli odpalam po update 
-                {
-                    if (!File.Exists(@"C:\Program Files\UltimateChanger\Settings\counter.txt"))
-                    {
-                        using (StreamWriter sr = new StreamWriter(@"C:\Program Files\UltimateChanger\Settings\counter.txt"))
-                        {
-                            sr.WriteLine("0");
-                            sr.Close();
-                        }
-                        return "0";
-                    }
-
-                    //using (StreamReader sr = new StreamReader(@"C:\Program Files\UltimateChanger\Settings\counter.txt"))
-                    //{
-                    //    String line = sr.ReadLine();
-                    //    count = line;
-                    //    sr.Close();
-                    //    //return count;
-                    //}
-                    return "0";
-                }// jezeli odpalam normalnie 
-
-
 
                 if (!File.Exists(@"Settings\counter.txt"))
                 {
@@ -1133,12 +1111,11 @@ namespace UltimateChanger
                     sr.Close();
                 }
             }
-            catch (Exception)
+            catch (Exception x)
             {
-
+                Log.Debug(x.ToString());
             }
-
-
+            Log.Info("getCountUCRun: " + count);
             return count;
         }
 
@@ -1307,10 +1284,14 @@ namespace UltimateChanger
 
             
             string text = "";
-            foreach (var item in readText)
+            if (readText != null)
             {
-                text += item + "\n";
+                foreach (var item in readText)
+                {
+                    text += item + "\n";
+                }
             }
+          
            
             return text;
            
@@ -1321,31 +1302,27 @@ namespace UltimateChanger
             string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             //-----------------------------------
             int[] ver = new int[3]; // wersja z srvera
-            FileVersionInfo versionInfo ;
             string path;
+
+
+            string versionInfo ="0.0.0";
             try
             {
-                versionInfo = FileVersionInfo.GetVersionInfo(@"\\10.128.3.1\DFS_data_SSC_FS_Images-SSC\PAZE\change_market\Multi_Changer\currentVersion\update\Ultimate Changer.exe"); // SSC
-                path = @"\\10.128.3.1\DFS_data_SSC_FS_Images-SSC\PAZE\change_market\Multi_Changer\currentVersion\update\";
+                versionInfo = dataBase.executeSelect("Select Version From UpdateUC")[0];
             }
-            catch (Exception )
+            catch (Exception x)
             {
-                try
-                {
-                    versionInfo = FileVersionInfo.GetVersionInfo(@"\\demant.com\data\KBN\RnD\FS_Programs\Support_Tools\Ultimate_changer\currentVersion\update\Ultimate Changer.exe"); //other
-                    path = @"\\demant.com\data\KBN\RnD\FS_Programs\Support_Tools\Ultimate_changer\currentVersion\update\";
-                }
-                catch (Exception)
-                {
-                    return;  
-                }
-              
+                Log.Debug(x.ToString());
+            }
+            path = dataBase.executeSelect("Select SSC From UpdateUC")[0];
+            if (!File.Exists(path))
+            {
+                path = dataBase.executeSelect("Select Other From UpdateUC")[0];
             }
 
-
-            int.TryParse(versionInfo.FileVersion[0].ToString(), out ver[0]);
-            int.TryParse(versionInfo.FileVersion[2].ToString(), out ver[1]);
-            int.TryParse(versionInfo.FileVersion[4].ToString(), out ver[2]);
+            int.TryParse(versionInfo[0].ToString(), out ver[0]);
+            int.TryParse(versionInfo[2].ToString(), out ver[1]);
+            int.TryParse(versionInfo[4].ToString(), out ver[2]);
             //-----------------------------------------
             //wersja apki
             int[] ver_apki = new int[3];
@@ -1361,16 +1338,10 @@ namespace UltimateChanger
                 {
                     //System.Windows.Forms.MessageBox.Show($"Update available: {Kolumna[1]}");
 
-                    Window Update = new UpdateWindow(path, getChangeLog(true), "true", "true", "true", "true", "true");
+                    Window Update = new UpdateWindow(path, getChangeLog(true));
                     Update.WindowStartupLocation = WindowStartupLocation.CenterOwner;
                     Update.ShowDialog();
-
-
-                    //pathsToUpdate = Kolumna[1];
-
-                    //return true;
-
-                     message = true; /*HATORI NARAZIE PODZIEKUJEMY*/
+                    message = true; /*HATORI NARAZIE PODZIEKUJEMY*/
                 }
             }
 

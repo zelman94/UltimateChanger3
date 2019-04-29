@@ -31,7 +31,7 @@ using System.Data;
 using Rekurencjon; // logi
 using log4net;
 
-[assembly: System.Reflection.AssemblyVersion("4.1.0.0")]
+[assembly: System.Reflection.AssemblyVersion("4.0.0.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window
@@ -41,7 +41,7 @@ namespace UltimateChanger
 
 
         int Licznik_All_button = 0;
-       public Log logging = new Log("UltimateChanger");
+
         bool copystatus = false; // to know if copy composition is running in rekurencjon.exe
 
         FileOperator fileOperator;
@@ -103,14 +103,13 @@ namespace UltimateChanger
        public List<FittingSoftware> FittingSoftware_List = new List<FittingSoftware>();
 
         public MainWindow()
-        {
-
+        {            
             InitializeComponent();
             fileOperator = new FileOperator();
             dataBaseManager = new DataBaseManager(XMLReader.getDefaultSettings("DataBase").ElementAt(0).Value); // tam jest wątek
             try
             {
-               
+                
                 var exists = System.Diagnostics.Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location)).Count() > 1;
                 if (exists) // jezeli wiecej niz 1 instancja to nie uruchomi sie
                 {
@@ -124,49 +123,6 @@ namespace UltimateChanger
                     Window ChangeLogWindow = new ChangeLog(dataBaseManager, version);
                     ChangeLogWindow.ShowDialog();
 
-
-
-                    if (version == "4.0.0.0") // jezeli pierwszy start UC4 i versja 4.0.0 to usuń starego updatera i weź nowego 
-                    {
-                        foreach (var item in Directory.GetFiles(@"C:\Program Files\UltimateChanger\Updater"))
-                        {
-                            File.Delete(item); // usuwam starego updatera
-                        }
-
-                        try // dla szczecina
-                        {
-                            foreach (var item in Directory.GetFiles(@"\\10.128.3.1\DFS_data_SSC_FS_Images-SSC\PAZE\change_market\Multi_Changer\currentVersion\update\Updater"))
-                            {
-                                File.Copy(item, @"C:\Program Files\UltimateChanger\Updater\" + System.IO.Path.GetFileName(item));
-                            }
-                            foreach (var item in Directory.GetFiles(@"\\10.128.3.1\DFS_data_SSC_FS_Images-SSC\PAZE\change_market\Multi_Changer\v_4.0.0\update\Settings"))
-                            {
-                                File.Copy(item, @"C:\Program Files\UltimateChanger\Settings\" + System.IO.Path.GetFileName(item),true);
-                            }
-
-                        }
-                        catch (Exception)
-                        {
-
-                            try // dla reszty 
-                            {
-                                foreach (var item in Directory.GetFiles(@"\\demant.com\data\KBN\RnD\FS_Programs\Support_Tools\Ultimate_changer\currentVersion\update\Updater"))
-                                {
-                                    File.Copy(item, @"C:\Program Files\UltimateChanger\Updater\" + System.IO.Path.GetFileName(item));
-                                }
-                                foreach (var item in Directory.GetFiles(@"\\demant.com\data\KBN\RnD\FS_Programs\Support_Tools\Ultimate_changer\v_4.0.0\update\Settings"))
-                                {
-                                    File.Copy(item, @"C:\Program Files\UltimateChanger\Settings\" + System.IO.Path.GetFileName(item), true);
-                                }
-                            }catch(Exception x)
-                            
-                            // nie ma dostpeu to info
-                            {
-                                MessageBox.Show("No access ?\n" + x.ToString());
-                            }
-                        }
-
-                    }
                 }
 
                 clockManager = new ClockManager();
@@ -323,6 +279,7 @@ namespace UltimateChanger
             refreshUI(new object(), new EventArgs());
             R_Day.Visibility = Visibility.Hidden;
             Log.Info("Main created");
+            fileOperator.checkVersion();
 
         }
         //________________________________________________________________________________________________________________________________________________
@@ -532,7 +489,7 @@ namespace UltimateChanger
                         }
                         catch (Exception x)
                         {
-                            logging.AddLog(x.ToString());
+                            Log.Debug(x.ToString());
                         }
                     }
                     break;
@@ -554,7 +511,7 @@ namespace UltimateChanger
                         }
                         catch (Exception x)
                         {
-                            logging.AddLog(x.ToString());
+                            Log.Debug(x.ToString());
                         }
 
 
@@ -582,7 +539,7 @@ namespace UltimateChanger
                         }
                         catch (Exception x)
                         {
-                            logging.AddLog(x.ToString());
+                            Log.Debug(x.ToString());
                         }
                     }
 
@@ -605,7 +562,7 @@ namespace UltimateChanger
                         }
                         catch (Exception x)
                         {
-                            logging.AddLog(x.ToString());
+                            Log.Debug(x.ToString());
                         }
                     }
                     break;
@@ -686,7 +643,7 @@ namespace UltimateChanger
                         }
                         catch (Exception x)
                         {
-                            logging.AddLog(x.ToString());
+                            Log.Debug(x.ToString());
                             Process.Start("Resources\\REMedy.Installer.Mini.1.0.3.0.exe", "/silent /install ");
                         }
                         Process.Start(fileonServer[0], "/silent /install ");
@@ -694,12 +651,13 @@ namespace UltimateChanger
                     }
                 }
                 catch (IOException y)
-                {       
-                    MessageBox.Show(@"can not find \n \\demant.com\data\KBN\RnD\FS_Programs\Support_Tools\REMedy\_currentVersion");
+                {
+                    Log.Debug(@"can not find \n \\demant.com\data\KBN\RnD\FS_Programs\Support_Tools\REMedy\_currentVersion");
+                    Log.Debug(y.ToString());
                 }
                 catch (Exception x)
-                {                    
-                  MessageBox.Show(x.ToString());
+                {
+                    Log.Debug(x.ToString());
                 }
             });
 
@@ -956,7 +914,7 @@ namespace UltimateChanger
                     }
                     catch (Exception x)
                     {
-                        logging.AddLog(x.ToString());                       
+                        Log.Debug(x.ToString());
                         listlabelsinfoFS[counter].Content = "FS not installed";
                     }
 
@@ -965,7 +923,7 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
-                logging.AddLog(x.ToString());
+                Log.Debug(x.ToString());
             }           
         }
 
@@ -977,12 +935,6 @@ namespace UltimateChanger
                 {
                     lblConnectionToDB.Content = "Connected to DB";
                 }
-                else
-                {
-                    lblConnectionToDB.Content = "Connection failed";
-                    fileOperator.checkVersion(); // sprawdzam czy jest nowsza wersja UCH3 na serverze gdy nie ma polaczenia z BD
-                }
-
                 ConnectionToDBTimer.Stop();
             }
 
@@ -1004,7 +956,7 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
-                logging.AddLog(x.ToString());
+                Log.Debug(x.ToString());
             }
 
             RefUiTIMER = new DispatcherTimer();
@@ -1031,7 +983,7 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
-                logging.AddLog(x.ToString());
+                Log.Debug(x.ToString());
             }
 
             InstallTimer_Normal_Installation = new DispatcherTimer();
@@ -1717,14 +1669,10 @@ namespace UltimateChanger
             if (TabCompo.IsSelected)
             {
                 try
-                {
-
-                    cmbBuild_Compo.ItemsSource = Paths_Dirs[0].dir;
+                {                    
                     cmbBrandstoinstall_Compo.Items.Refresh();
                     BindCombo.setOEMComboBox(cmbBrandstoinstall_Compo.Text);
-                    cmbBuild_Compo.ItemsSource = Paths_Dirs[0].dir;
-                    cmbBuild_Compo.Items.Refresh();
-                    cmbBrandstoinstall_Compo.Items.Refresh();
+                    cmbBuild_Compo.ItemsSource = dataBaseManager.getBuilds("Composition", cmbRelease_Compo.Text, cmbBuild2_Compo.Text, cmbBrandstoinstall_Compo.Text, cmbBrandstoinstall_Compo.Text);
                     // cmbBrandstoinstall.ToolTip = FileOperator.listPathTobuilds[cmbBrandstoinstall.SelectedIndex];
                     //cmbBrandstoinstall.ToolTip = FileOperator.listPathTobuilds[cmbBrandstoinstall.SelectedIndex];
                 }
@@ -1743,8 +1691,8 @@ namespace UltimateChanger
                 catch (Exception x)
                 {
                     // MessageBox.Show("Error FS Combo \n" + x.ToString());
-                    logging.AddLog(x.ToString());
-                    Console.WriteLine("Error FS Combo \n" + x.ToString());
+                    Log.Info("Error FS Combo \n");
+                    Log.Debug(x.ToString());
                 }
             }
         }
@@ -1781,7 +1729,7 @@ namespace UltimateChanger
 
                 cmbBuild_Compo.Items.Refresh();
                 cmbBrandstoinstall_Compo.Items.Refresh();
-                cmbBuild_Compo.ToolTip = Paths_Dirs[0].path[cmbBuild_Compo.SelectedIndex];
+                cmbBuild_Compo.ToolTip = cmbBuild_Compo.Text;
             }
             else
             {
@@ -1893,7 +1841,7 @@ namespace UltimateChanger
                     }
                     catch (Exception x)
                     {
-                        logging.AddLog(x.ToString());
+                        Log.Debug(x.ToString());
                         InstallTimer.Stop();
                         MessageBox.Show("Error installation");
                         return;
@@ -2056,23 +2004,8 @@ namespace UltimateChanger
                             Thread.Sleep(1000);
                         }
 
-                        try
-                        {
-                            logging.AddLog(FittingSoftware_List[i].Name_FS + " path to new build setup: " + FittingSoftware_List[i].PathToNewVerFS);
-                        }
-                        catch (Exception x)
-                        {
-
-                            try
-                            {
-                                logging.AddLog("logging error at checkTime_forUpgradeFS\n" + x.ToString());
-                            }
-                            catch (Exception)
-                            {
-
-                            }
-
-                        }
+                        Log.Debug(FittingSoftware_List[i].Name_FS + " path to new build setup: " + FittingSoftware_List[i].PathToNewVerFS);
+                        
                         if (FittingSoftware_List[i].PathToNewVerFS != "") // jezlei jest nowsza warsja to dodaje do usuniecia checkbox
                         {
                             checkBoxList[i].IsChecked = true;
@@ -2123,7 +2056,7 @@ namespace UltimateChanger
                 }
                 catch (Exception x)
                 {
-                    logging.AddLog(x.ToString());
+                    Log.Debug(x.ToString());
                     Console.WriteLine(x.ToString());
                 }
             }
@@ -2135,7 +2068,7 @@ namespace UltimateChanger
                 }
                 catch (Exception x)
                 {
-                    logging.AddLog(x.ToString());
+                    Log.Debug(x.ToString());
                     Console.WriteLine(x.ToString());
                 }
             }           
@@ -2147,18 +2080,27 @@ namespace UltimateChanger
             {
                 Process.Start(@"C:\Program Files (x86)\REMedy\REMedy.Launcher.exe");
             }
-            catch (Exception)
+            catch (Exception x)
             {
+                Log.Debug(x.ToString());
                 btnFakeV.IsEnabled = false;
             }
         }
 
         private void cmbOEM_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {            
-                cmbOEM.Items.Refresh();
-                AllOemPaths = BindCombo.getAllPathsOem(cmbOEM.Text, cmbBrandstoinstall.SelectedIndex, Paths_Dirs);
-                cmbBuild.ItemsSource = AllOemPaths;
+            cmbOEM.Items.Refresh();
+            AllOemPaths = BindCombo.getAllPathsOem(cmbOEM.Text, cmbBrandstoinstall.SelectedIndex, Paths_Dirs);
+            cmbBuild.ItemsSource = AllOemPaths;
+            if (TabFull.IsSelected)
+            {
                 cmbBuild.ItemsSource = dataBaseManager.getBuilds("FULL", cmbRelease.Text, cmbBuild_mode.Text, cmbBrandstoinstall.Text, cmbOEM.Text);
+            }
+            else
+            {
+                cmbBuild_Compo.ItemsSource = dataBaseManager.getBuilds("Composition", cmbRelease_Compo.Text, cmbBuild2_Compo.Text, cmbBrandstoinstall_Compo.Text, cmbBrandstoinstall_Compo.Text);
+            }
+                
         }
         private void cmbOEM_Compo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {            
@@ -3030,7 +2972,7 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
-                logging.AddLog(x.ToString());
+                Log.Debug(x.ToString());
             }
         }
 
@@ -3138,7 +3080,7 @@ namespace UltimateChanger
                     catch (Exception ex)  //Writing to log has failed, send message to trace in case anyone is listening.
                     {
                         System.Diagnostics.Trace.Write(ex.ToString());
-                        logging.AddLog(ex.ToString());
+                    Log.Debug(ex.ToString());
                 }
                     
                 //}
@@ -3154,7 +3096,7 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
-                logging.AddLog(x.ToString());
+                Log.Debug(x.ToString());
             }
 
         }
@@ -3184,7 +3126,7 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
-                logging.AddLog(x.ToString());
+                Log.Debug(x.ToString());
             }
         }
 
@@ -3323,7 +3265,7 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
-                logging.AddLog(x.ToString());
+                Log.Debug(x.ToString());
             }
         }
         private void Click_btnNoah(object sender, RoutedEventArgs e)
@@ -3344,8 +3286,9 @@ namespace UltimateChanger
         }
         private void cmbRelease_SelectionChanged_Compo(object sender, SelectionChangedEventArgs e)
         {
-            cmbRelease_Compo.Items.Refresh();
-            XMLReader.setSetting("Release", "ComboBox", cmbRelease_Compo.Text);
+            cmbRelease.Items.Refresh();
+            XMLReader.setSetting("Release", "ComboBox", cmbRelease.Text);
+            cmbBuild_Compo.ItemsSource = dataBaseManager.getBuilds("Composition", cmbRelease_Compo.Text, cmbBuild2_Compo.Text, cmbBrandstoinstall_Compo.Text, cmbBrandstoinstall_Compo.Text);
         }
 
         private void btnAdvanceInstall_Click(object sender, RoutedEventArgs e)
@@ -3467,7 +3410,7 @@ namespace UltimateChanger
             setUIdefaults(XMLReader.getDefaultSettings("TextBox"), "TextBox");
         }
 
-        private void btnExportSettings_Click(object sender, RoutedEventArgs e)
+        public void btnExportSettings_Click(object sender, RoutedEventArgs e)
         {
             // zapis pliku do wskazanej przez usera lokalizacji 
             Stream myStream;
@@ -3519,7 +3462,7 @@ namespace UltimateChanger
                     }
                     catch (Exception x)
                     {
-                        logging.AddLog(x.ToString());
+                        Log.Debug(x.ToString());
                     }
                 }
                 licznik++;
@@ -3627,7 +3570,7 @@ namespace UltimateChanger
                     }
                     catch (Exception x)
                     {
-                        logging.AddLog(x.ToString());
+                        Log.Debug(x.ToString());
                     }                   
                 }
             }
@@ -3694,6 +3637,12 @@ namespace UltimateChanger
         {
             cmbBuild_mode.Items.Refresh();
             cmbBuild.ItemsSource = dataBaseManager.getBuilds("FULL", cmbRelease.Text, cmbBuild_mode.Text, cmbBrandstoinstall.Text, cmbOEM.Text);
+        }
+
+        private void cmbBuild2_Compo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cmbBuild2_Compo.Items.Refresh();
+            cmbBuild_Compo.ItemsSource = dataBaseManager.getBuilds("Composition", cmbRelease_Compo.Text, cmbBuild2_Compo.Text, cmbBrandstoinstall_Compo.Text, cmbBrandstoinstall_Compo.Text);
         }
 
         private void btnReadHI_Click(object sender, RoutedEventArgs e)
@@ -3956,13 +3905,8 @@ namespace UltimateChanger
 
                 return;
             }
-
             MessageBox.Show("Select person to remove.");
         }
-
-
-
-
     }
     class RandomHIandHardware
     {
@@ -3973,8 +3917,5 @@ namespace UltimateChanger
         public string Ficzur_ { get; set; }
         public string ComDev_ { get; set; }
     }
-
-  
-
 
 }
