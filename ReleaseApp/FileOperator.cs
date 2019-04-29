@@ -35,6 +35,8 @@ namespace UltimateChanger
         public List<pathAndDir> lista;
         public int licznik_przejsc;
         public bool komunikat_trash = false;
+        public BackgroundWorker worker = new BackgroundWorker();
+        public string sourcePath, desPath;
         /// <summary>
         /// 
         /// </summary>
@@ -1009,6 +1011,10 @@ namespace UltimateChanger
 
         public FileOperator()
         {
+            worker.WorkerSupportsCancellation = true;
+            worker.WorkerReportsProgress = true;
+            worker.ProgressChanged += worker_ProgressChanged;
+            worker.DoWork += worker_DoWork;
             getPathToManufacturerInfo_Compo();
             licznik_przejsc = 0;
             try
@@ -1549,6 +1555,41 @@ namespace UltimateChanger
                     }
                 }
             
+        }
+
+        public void StartCopyProcess(string source, string des)
+        {
+            sourcePath = source;
+            desPath = des;
+            worker.RunWorkerAsync();
+        }
+
+        public void CopyFile(string source, string des) {
+
+            FileStream fsOut = new FileStream(des,FileMode.Create);
+            FileStream fsIn = new FileStream(source, FileMode.Open);
+            byte[] bt = new byte[1048756];
+            int readByte;
+            while ((readByte = fsIn.Read(bt,0,bt.Length))>0)
+            {
+                fsOut.Write(bt,0,readByte);
+                worker.ReportProgress((int)(fsIn.Position * 100 / fsIn.Length));                   
+            }
+            fsIn.Close();
+            fsOut.Close();
+        }
+
+        private void worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            CopyFile(sourcePath,desPath);
+        }
+        private void worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            Log.Debug("Copy progress: " + e.ProgressPercentage.ToString());
+            if (e.ProgressPercentage == 100)
+            {
+                MessageBox.Show("copy done");
+            }
         }
 
     }

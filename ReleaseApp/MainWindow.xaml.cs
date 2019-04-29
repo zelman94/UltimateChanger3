@@ -106,6 +106,7 @@ namespace UltimateChanger
         {            
             InitializeComponent();
             fileOperator = new FileOperator();
+            
              dataBaseManager = new DataBaseManager(XMLReader.getDefaultSettings("DataBase").ElementAt(0).Value); // tam jest wątek
             try
             {
@@ -3296,7 +3297,7 @@ namespace UltimateChanger
             Window AdvanceInstall = new AdvanceWindowInstalla(dataBaseManager);
             AdvanceInstall.Owner = this;
             AdvanceInstall.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            AdvanceInstall.ShowDialog();
+            AdvanceInstall.ShowDialog();           
         }
 
         private void btnGenieImage_Click(object sender, RoutedEventArgs e)
