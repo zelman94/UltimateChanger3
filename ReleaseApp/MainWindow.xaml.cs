@@ -3496,16 +3496,19 @@ namespace UltimateChanger
                                         else
                                         {
                                             setNewSavedTime(10);
-                                        }                                   
+                                        }
                                     }
                                     else
                                     {
-                                        if (fileOperator.setMarket(licz, BindCombobox.marketIndex[cmbMarket_Compo.SelectedIndex], Full))
+                                        if (!FittingSoftware_List[licz + 5].setMarket(BindCombobox.marketIndex[cmbMarket_Compo.SelectedIndex])) // jezeli sie nie udalo to zmieniam message
                                         {
                                             message = "error: ";
-                                        }                                        
+                                        }
+                                        else
+                                        {
+                                            setNewSavedTime(10);
+                                        }
                                     }
-                                    
                                     message = message + item.Name + "\n";
                                     flag = true;
                                 }

@@ -248,11 +248,18 @@ namespace UltimateChanger
 
         public void getInfoBuild(int index)
         {
-            if (ListPathsToAboutInfo.Count == 0)
+            if (ListPathsToAboutInfo.Count == 0 && !composition)
             {
                 return;
             }
-
+            if (composition)
+            {
+                ListPathsToAboutInfo.Add("");
+            }
+            if (pathToManu == "")
+            {
+                return;
+            }
             BuildInfo infoAboutFS = fileOperator.GetInfoAboutFs(ListpathsToManInfo[index], ListPathsToAboutInfo[index]);
             Market = infoAboutFS.MarketName;
             OEM = infoAboutFS.OEM;

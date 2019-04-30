@@ -794,9 +794,9 @@ namespace UltimateChanger
                 {
                     getPathToManufacturerInfo_Compo();
                     
-                    doc.Load(FindSettingFileForComposition(licz));
+                    doc.Load(FindSettingFileForComposition(licz - 5));
                     doc.SelectSingleNode("/ManufacturerInfo/MarketName").InnerText = market;
-                    doc.Save(FindSettingFileForComposition(licz));
+                    doc.Save(FindSettingFileForComposition(licz - 5));
                 }
                 return true;
             }
@@ -1093,7 +1093,7 @@ namespace UltimateChanger
             }
             catch (Exception)
             {
-                return new BuildInfo("", "", "", "", "");
+                return new BuildInfo(Brand[0].InnerText, MarketName[0].InnerText, OEM[0].InnerText, SelectedLanguage[0].InnerText, "");
             }
             XmlNodeList Major = xmlDoc2.GetElementsByTagName("Major");
             XmlNodeList Minor = xmlDoc2.GetElementsByTagName("Minor");
