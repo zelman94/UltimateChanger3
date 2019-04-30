@@ -506,6 +506,11 @@ namespace UltimateChanger
             }                    
         }
 
+        public void Kill()
+        {
+            fileOperator.KillFS(indexFS);
+        }
+
         public string string_For_Log()
         {
             string upgrade_info="";

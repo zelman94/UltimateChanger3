@@ -870,7 +870,7 @@ namespace UltimateChanger
                 return false;
         }
 
-        string[] marki = { "Genie", "Oasis", "EXPRESSfit", "Philips HearSuite", "Philips HearSuite (development mode)", "Genie Medical", "HearSuite","FirmwareUpdater" };
+        public string[] marki = { "Genie", "Genie Medical", "EXPRESSfit", "HearSuite", "Oasis","FirmwareUpdater" };
         bool killRunningProcess(string name)
         {
             //Process[] proc = Process.GetProcessesByName(name);
@@ -929,12 +929,24 @@ namespace UltimateChanger
             return false;
         }
 
-        public void KillFS()
+        public void KillFS(int index = -1)
         {
-            foreach (var item in marki)
+            if (index > -1)
             {
-                killRunningProcess(item);
+
+                killRunningProcess(marki[index]);
+                killRunningProcess(marki[5]); // hattori
+                                              
             }
+            else
+            {
+                foreach (var item in marki)
+                {
+                    killRunningProcess(item);
+                }
+            }
+
+
         }
 
         public List<pathAndDir> getAllDirPath(string release) // pobieram wszystkie sciezki i dir z path i podmieniam w glownym pliku 
@@ -1544,30 +1556,23 @@ namespace UltimateChanger
             }
         }
 
-        public async void CopyFileasync(string StartDirectory, string EndDirectory)
-        {// dziala ale jak wydobyc info kiedy sie skonczy kopiowac
-
-                using (FileStream SourceStream = File.Open(StartDirectory, FileMode.Open))
-                {
-                    using (FileStream DestinationStream = File.Create(EndDirectory))
-                    {
-                        await SourceStream.CopyToAsync(DestinationStream);
-                    }
-                }
-            
-        }
-
         public void StartCopyProcess(string source, string des)
         {
             sourcePath = source;
             desPath = des;
+            ((MainWindow)System.Windows.Application.Current.MainWindow).progress_Compo.Visibility = Visibility.Visible;
             worker.RunWorkerAsync();
         }
 
         public void CopyFile(string source, string des) {
+            if (!File.Exists(source))
+            {
+                Log.Info("dir doesnt exist: " + source);
+                return;
+            }
 
             FileStream fsOut = new FileStream(des,FileMode.Create);
-            FileStream fsIn = new FileStream(source, FileMode.Open);
+            FileStream fsIn = new FileStream(source, FileMode.Open,FileAccess.Read);
             byte[] bt = new byte[1048756];
             int readByte;
             while ((readByte = fsIn.Read(bt,0,bt.Length))>0)
@@ -1586,9 +1591,11 @@ namespace UltimateChanger
         private void worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             Log.Debug("Copy progress: " + e.ProgressPercentage.ToString());
+            ((MainWindow)System.Windows.Application.Current.MainWindow).progress_Compo.Value = e.ProgressPercentage;
+            ((MainWindow)System.Windows.Application.Current.MainWindow).progress_Compo.ToolTip = e.ProgressPercentage.ToString() + " %";
             if (e.ProgressPercentage == 100)
             {
-                MessageBox.Show("copy done");
+                ((MainWindow)System.Windows.Application.Current.MainWindow).progress_Compo.Visibility = Visibility.Hidden;
             }
         }
 
