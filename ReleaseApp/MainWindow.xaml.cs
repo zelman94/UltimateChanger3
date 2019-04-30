@@ -901,7 +901,7 @@ namespace UltimateChanger
                 foreach (var item in partListFS)
                 {
                     ListFSButtons[counter].ToolTip = item.Brand + ", " + item.OEM + "\n" + item.LogMode;
-                    if (item.Version == "")
+                    if (item.Market == null || item.Version == "")
                     {
                         ListFSButtons[counter].ToolTip = null;
                     }
