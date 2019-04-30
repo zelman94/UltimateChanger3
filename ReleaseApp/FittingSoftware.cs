@@ -254,7 +254,11 @@ namespace UltimateChanger
             }
             if (composition)
             {
-                ListPathsToAboutInfo.Add("");
+                for (int i = 0; i <= index; i++)
+                {
+                    ListPathsToAboutInfo.Add("");
+                }
+               
             }
             if (pathToManu == "")
             {
