@@ -34,7 +34,7 @@ using log4net;
 [assembly: System.Reflection.AssemblyVersion("4.0.0.0")]
 namespace UltimateChanger
 {//
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window 
     {
         private static readonly ILog Log =
               LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -102,6 +102,7 @@ namespace UltimateChanger
 
        public List<FittingSoftware> FittingSoftware_List = new List<FittingSoftware>();
         public string pathToCopyOfComposition = "";
+
 
         public MainWindow()
         {            

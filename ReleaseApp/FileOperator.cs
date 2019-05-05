@@ -1332,7 +1332,15 @@ namespace UltimateChanger
             {
                 Log.Debug(x.ToString());
             }
-            path = dataBase.executeSelect("Select SSC From UpdateUC")[0];
+            try
+            {
+                path = dataBase.executeSelect("Select SSC From UpdateUC")[0];
+            }
+            catch (Exception)
+            {
+                return;
+            }
+            
             if (!File.Exists(path))
             {
                 path = dataBase.executeSelect("Select Other From UpdateUC")[0];
