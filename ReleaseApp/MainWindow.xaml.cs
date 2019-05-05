@@ -1997,8 +1997,14 @@ namespace UltimateChanger
                             while (FittingSoftware_List[i].Task_GetNewBuild.Status == TaskStatus.Running) // czekam az sie nie skonczy szukanie patha
                             {
                                 FittingSoftware_List[i].Task_GetNewBuild.Wait();
+                                
                             }
+                            MessageBox.Show(FittingSoftware_List[i].Task_GetNewBuild.Status.ToString());
                             Thread.Sleep(1000);
+                        }
+                        else
+                        {
+                            Log.Debug("Task_GetNewBuild is null" + FittingSoftware_List[i].Task_GetNewBuild.ToString());
                         }
 
                         Log.Debug(FittingSoftware_List[i].Name_FS + " path to new build setup: " + FittingSoftware_List[i].PathToNewVerFS);

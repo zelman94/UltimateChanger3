@@ -1414,6 +1414,7 @@ namespace UltimateChanger
             if (CurrentFS.Upgrade_FS.info.Option == "Full")
             {
                 PathTolatestBuildExe = Directory.GetFiles(DirFullInstallerName + $"\\{CurrentFS.DirFullBuildName}", "setup.exe").ToList(); // path do glownego instalatora main brandu
+                Log.Debug("Found new build dir: " + PathTolatestBuildExe);
             }
             else
             {
