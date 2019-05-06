@@ -2005,7 +2005,7 @@ namespace UltimateChanger
                         }
                         else
                         {
-                            Log.Debug("Task_GetNewBuild is null" + FittingSoftware_List[i].Task_GetNewBuild.ToString());
+                            Log.Debug("Task_GetNewBuild is null for: " + FittingSoftware_List[i].Name_FS);
                         }
 
                         Log.Debug(FittingSoftware_List[i].Name_FS + " path to new build setup: " + FittingSoftware_List[i].PathToNewVerFS);

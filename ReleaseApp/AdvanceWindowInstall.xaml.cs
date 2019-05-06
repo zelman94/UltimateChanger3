@@ -125,20 +125,7 @@ namespace UltimateChanger
 
             return Roots;
         }
-        public void writeRootPath(string path)
-        {
-            List<string> Roots = new List<string>();
-
-            Roots = File.ReadAllLines(@"C:\Program Files\UltimateChanger\Settings\LastUsedRootPaths.txt").ToList();
-            if (Roots.Count == 10)
-            {
-                Roots.Clear();
-            }
-            Roots.Add(path);
-
-            File.WriteAllLines(@"C:\Program Files\UltimateChanger\Settings\LastUsedRootPaths.txt",Roots);
-        }
-
+      
         public List<string> getPaths()
         {
             List<string> Paths = new List<string>();
@@ -189,7 +176,6 @@ namespace UltimateChanger
                 MessageBox.Show("Add Path(s)");
                 return;
             }
-            writeRootPath(txtpathToBuilds.Text);
             List<string> paths_Azure = databaseManager.Advance_GetPath(txtpathToBuilds.Text);
             if (paths_Azure.Count > 0) // jezeli jest cos na azure 
             {

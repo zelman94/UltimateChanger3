@@ -250,8 +250,7 @@ namespace UltimateChanger
                 {
 
                 }
-                System.Windows.MessageBox.Show(x.ToString());
-            }
+                Log.Debug(x.ToString());            }
             
         }
 
