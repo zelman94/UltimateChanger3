@@ -3727,6 +3727,11 @@ namespace UltimateChanger
             }
             readHI.Connect(device, side);
             HI = readHI.ReadHI(side);
+            if (HI == null)
+            {
+                readHI.shutDown();
+                return;
+            }
             if (side =="Right")
             {
                 txtHIBrand_R.Text = HI[0];

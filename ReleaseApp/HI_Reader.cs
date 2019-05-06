@@ -116,9 +116,17 @@ namespace UltimateChanger
         {
             urlString = @"http://localhost:1111//manager/sessions/default/connections/myConnection" + side + "/hiid.getEimData";
             Log.Info($"ReadHI Started for: {side}");
-           
-            data = client.OpenRead(urlString);
-            reader = new StreamReader(data);
+            try
+            {
+                data = client.OpenRead(urlString);
+                reader = new StreamReader(data);
+            }
+            catch (Exception x)
+            {
+                Log.Debug(x.ToString());
+                return null;
+            }
+            
             List<string> s = findBrandModel(reader.ReadToEnd(),true);
             Console.WriteLine(s[0]);
             data.Close();
