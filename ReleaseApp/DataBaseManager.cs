@@ -14,6 +14,9 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
 using log4net;
+using System.IO;
+using System.Reflection;
+using DataBase_DLL;
 
 namespace UltimateChanger
 {
@@ -85,8 +88,12 @@ namespace UltimateChanger
         {
             try
             {
+                DB_DLL DB_Data = new DB_DLL();
+
+
                 //Create a connection calling the App.config
-                string conn = ConfigurationManager.ConnectionStrings["MyConnection"].ConnectionString;
+                // string conn = ConfigurationManager.ConnectionStrings["MyConnection"].ConnectionString;
+                string conn = DB_Data.connectionString;
                 //The query to use
                 SqlConnection connection = new SqlConnection(conn);
                 //Create a Data Adapter
@@ -243,8 +250,7 @@ namespace UltimateChanger
                 {
 
                 }
-                System.Windows.MessageBox.Show(x.ToString());
-            }
+                Log.Debug(x.ToString());            }
             
         }
 

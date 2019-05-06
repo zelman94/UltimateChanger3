@@ -35,6 +35,8 @@ namespace UltimateChanger
         public List<pathAndDir> lista;
         public int licznik_przejsc;
         public bool komunikat_trash = false;
+        public BackgroundWorker worker = new BackgroundWorker();
+        public string sourcePath, desPath;
         /// <summary>
         /// 
         /// </summary>
@@ -792,9 +794,9 @@ namespace UltimateChanger
                 {
                     getPathToManufacturerInfo_Compo();
                     
-                    doc.Load(FindSettingFileForComposition(licz));
+                    doc.Load(FindSettingFileForComposition(licz - 5));
                     doc.SelectSingleNode("/ManufacturerInfo/MarketName").InnerText = market;
-                    doc.Save(FindSettingFileForComposition(licz));
+                    doc.Save(FindSettingFileForComposition(licz - 5));
                 }
                 return true;
             }
@@ -868,7 +870,7 @@ namespace UltimateChanger
                 return false;
         }
 
-        string[] marki = { "Genie", "Oasis", "EXPRESSfit", "Philips HearSuite", "Philips HearSuite (development mode)", "Genie Medical", "HearSuite","FirmwareUpdater" };
+        public string[] marki = { "Genie", "Genie Medical", "EXPRESSfit", "HearSuite", "Oasis","FirmwareUpdater" };
         bool killRunningProcess(string name)
         {
             //Process[] proc = Process.GetProcessesByName(name);
@@ -927,12 +929,24 @@ namespace UltimateChanger
             return false;
         }
 
-        public void KillFS()
+        public void KillFS(int index = -1)
         {
-            foreach (var item in marki)
+            if (index > -1)
             {
-                killRunningProcess(item);
+
+                killRunningProcess(marki[index]);
+                killRunningProcess(marki[5]); // hattori
+                                              
             }
+            else
+            {
+                foreach (var item in marki)
+                {
+                    killRunningProcess(item);
+                }
+            }
+
+
         }
 
         public List<pathAndDir> getAllDirPath(string release) // pobieram wszystkie sciezki i dir z path i podmieniam w glownym pliku 
@@ -1009,6 +1023,10 @@ namespace UltimateChanger
 
         public FileOperator()
         {
+            worker.WorkerSupportsCancellation = true;
+            worker.WorkerReportsProgress = true;
+            worker.ProgressChanged += worker_ProgressChanged;
+            worker.DoWork += worker_DoWork;
             getPathToManufacturerInfo_Compo();
             licznik_przejsc = 0;
             try
@@ -1075,7 +1093,7 @@ namespace UltimateChanger
             }
             catch (Exception)
             {
-                return new BuildInfo("", "", "", "", "");
+                return new BuildInfo(Brand[0].InnerText, MarketName[0].InnerText, OEM[0].InnerText, SelectedLanguage[0].InnerText, "");
             }
             XmlNodeList Major = xmlDoc2.GetElementsByTagName("Major");
             XmlNodeList Minor = xmlDoc2.GetElementsByTagName("Minor");
@@ -1314,7 +1332,15 @@ namespace UltimateChanger
             {
                 Log.Debug(x.ToString());
             }
-            path = dataBase.executeSelect("Select SSC From UpdateUC")[0];
+            try
+            {
+                path = dataBase.executeSelect("Select SSC From UpdateUC")[0];
+            }
+            catch (Exception)
+            {
+                return;
+            }
+            
             if (!File.Exists(path))
             {
                 path = dataBase.executeSelect("Select Other From UpdateUC")[0];
@@ -1396,6 +1422,7 @@ namespace UltimateChanger
             if (CurrentFS.Upgrade_FS.info.Option == "Full")
             {
                 PathTolatestBuildExe = Directory.GetFiles(DirFullInstallerName + $"\\{CurrentFS.DirFullBuildName}", "setup.exe").ToList(); // path do glownego instalatora main brandu
+                Log.Debug("Found new build dir: " + PathTolatestBuildExe);
             }
             else
             {
@@ -1535,6 +1562,49 @@ namespace UltimateChanger
             {
                 Log.Debug(x.ToString());
                 MessageBox.Show(x.ToString());
+            }
+        }
+
+        public void StartCopyProcess(string source, string des)
+        {
+            sourcePath = source;
+            desPath = des;
+            ((MainWindow)System.Windows.Application.Current.MainWindow).progress_Compo.Visibility = Visibility.Visible;
+            worker.RunWorkerAsync();
+        }
+
+        public void CopyFile(string source, string des) {
+            if (!File.Exists(source))
+            {
+                Log.Info("dir doesnt exist: " + source);
+                return;
+            }
+
+            FileStream fsOut = new FileStream(des,FileMode.Create);
+            FileStream fsIn = new FileStream(source, FileMode.Open,FileAccess.Read);
+            byte[] bt = new byte[1048756];
+            int readByte;
+            while ((readByte = fsIn.Read(bt,0,bt.Length))>0)
+            {
+                fsOut.Write(bt,0,readByte);
+                worker.ReportProgress((int)(fsIn.Position * 100 / fsIn.Length));                   
+            }
+            fsIn.Close();
+            fsOut.Close();
+        }
+
+        private void worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            CopyFile(sourcePath,desPath);
+        }
+        private void worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            Log.Debug("Copy progress: " + e.ProgressPercentage.ToString());
+            ((MainWindow)System.Windows.Application.Current.MainWindow).progress_Compo.Value = e.ProgressPercentage;
+            ((MainWindow)System.Windows.Application.Current.MainWindow).progress_Compo.ToolTip = e.ProgressPercentage.ToString() + " %";
+            if (e.ProgressPercentage == 100)
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).progress_Compo.Visibility = Visibility.Hidden;
             }
         }
 

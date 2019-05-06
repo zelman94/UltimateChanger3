@@ -248,11 +248,22 @@ namespace UltimateChanger
 
         public void getInfoBuild(int index)
         {
-            if (ListPathsToAboutInfo.Count == 0)
+            if (ListPathsToAboutInfo.Count == 0 && !composition)
             {
                 return;
             }
-
+            if (composition)
+            {
+                for (int i = 0; i <= index; i++)
+                {
+                    ListPathsToAboutInfo.Add("");
+                }
+               
+            }
+            if (pathToManu == "")
+            {
+                return;
+            }
             BuildInfo infoAboutFS = fileOperator.GetInfoAboutFs(ListpathsToManInfo[index], ListPathsToAboutInfo[index]);
             Market = infoAboutFS.MarketName;
             OEM = infoAboutFS.OEM;
@@ -504,6 +515,11 @@ namespace UltimateChanger
                     return "";
                 }
             }                    
+        }
+
+        public void Kill()
+        {
+            fileOperator.KillFS(indexFS);
         }
 
         public string string_For_Log()

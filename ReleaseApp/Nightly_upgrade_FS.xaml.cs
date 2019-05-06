@@ -199,7 +199,7 @@ namespace UltimateChanger
             }
             // wlaczyc timer w mainwindow dla sprawdzania czy godzina już jest ok
             ((MainWindow)System.Windows.Application.Current.MainWindow).checkTime_Timer.Start();
-            ((MainWindow)System.Windows.Application.Current.MainWindow).lblTime_toUpgrade.Content = "Time to start: " + (FittingSoftware_list[0].Upgrade_FS.info.Time_Update.Hour - DateTime.Now.Hour) + " H " + (FittingSoftware_list[0].Upgrade_FS.info.Time_Update.Minute - DateTime.Now.Minute) + " M";
+            ((MainWindow)System.Windows.Application.Current.MainWindow).lblTime_toUpgrade.Content = "Start Time: " + (FittingSoftware_list[0].Upgrade_FS.info.Time_Update.Hour) + " H " + (FittingSoftware_list[0].Upgrade_FS.info.Time_Update.Minute) + " M";
             this.Close();
         }
 

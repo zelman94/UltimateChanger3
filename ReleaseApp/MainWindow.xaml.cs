@@ -34,7 +34,7 @@ using log4net;
 [assembly: System.Reflection.AssemblyVersion("4.0.0.0")]
 namespace UltimateChanger
 {//
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window 
     {
         private static readonly ILog Log =
               LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -48,7 +48,7 @@ namespace UltimateChanger
         public DataBaseManager dataBaseManager;
         ClockManager clockManager;
         // DataBaseManager dataBaseManager;
-        DispatcherTimer RefUiTIMER, Rekurencja;
+        DispatcherTimer RefUiTIMER, CopyTimer;
         DispatcherTimer ConnectionToDBTimer;
         public DispatcherTimer uninstallTimer, checkUpdate, InstallTimer, InstallTimer_Normal_Installation,
              checkTime_Timer, // czy juz czas na upgrade FS
@@ -101,12 +101,15 @@ namespace UltimateChanger
         public string Advance_1 = "", Advance_2 = "", Advance_3 = "";
 
        public List<FittingSoftware> FittingSoftware_List = new List<FittingSoftware>();
+        public string pathToCopyOfComposition = "";
+
 
         public MainWindow()
         {            
             InitializeComponent();
             fileOperator = new FileOperator();
-            dataBaseManager = new DataBaseManager(XMLReader.getDefaultSettings("DataBase").ElementAt(0).Value); // tam jest wątek
+            
+             dataBaseManager = new DataBaseManager(XMLReader.getDefaultSettings("DataBase").ElementAt(0).Value); // tam jest wątek
             try
             {
                 
@@ -899,7 +902,7 @@ namespace UltimateChanger
                 foreach (var item in partListFS)
                 {
                     ListFSButtons[counter].ToolTip = item.Brand + ", " + item.OEM + "\n" + item.LogMode;
-                    if (item.Version == "")
+                    if (item.Market == null || item.Version == "")
                     {
                         ListFSButtons[counter].ToolTip = null;
                     }
@@ -997,6 +1000,10 @@ namespace UltimateChanger
             checkTime_Timer = new DispatcherTimer();
             checkTime_Timer.Tick += checkTime_forUpgradeFS;
             checkTime_Timer.Interval = new TimeSpan(0, 1, 0);
+
+            CopyTimer = new DispatcherTimer();
+            CopyTimer.Tick += checkTime_CopyStatus;
+            CopyTimer.Interval = new TimeSpan(0,0,1);
         }
 
         void initializeElements()
@@ -1574,47 +1581,21 @@ namespace UltimateChanger
             {
                 if (TabCompo.IsSelected) // kompozycje
                 {
-                    FileInfo[] infoFile;
-                    try
-                    {
-                         infoFile = new DirectoryInfo(cmbBuild_Compo.ToolTip.ToString() + $"\\DevResults-{cmbRelease_Compo.Text}").GetFiles();
-                    }
-                    catch (Exception )
-                    {
-                        MessageBox.Show("check release and try again");
-                            return;
-                    }
-                  
+                    
+                    string from = cmbBuild_Compo.Text;
+                    FileInfo infoFile = new FileInfo(from);
+                    string to = "C:\\Program Files\\UltimateChanger\\compositions\\" + infoFile.Name;
 
-                    foreach (var item in infoFile)
-                    {
-                        if (item.Name.Contains(listFScomposition[cmbBrandstoinstall_Compo.SelectedIndex]))
-                        {
-                            // nowy maly programik do kopiowania kompozycji na dysk + timer na psrawdzanie czy sie skonczylo
-                            // args 0 Copy
-                            // args 1 from
-                            // args 2 to
-                            string from = System.IO.Path.Combine(cmbBuild_Compo.ToolTip.ToString() + $"\\DevResults-{cmbRelease_Compo.Text}", item.Name);
-                            string to = "C:\\Program Files\\UltimateChanger\\compositions\\"+ item.Name;
-                            //pathToLocalComposition = to;
-                            //MessageBox.Show($"parameters to copy: {from} \n {to}");
-                            //Process.Start(Environment.CurrentDirectory + @"\reku" + @"\Rekurencjon.exe", $"Copy {from} {pathToLocalComposition} ");
-                            copystatus = true; // timer wie ze trwa kopiowanie
-                            cmbRelease_Compo.IsEnabled = false;
-                            cmbBrandstoinstall_Compo.IsEnabled = false;
-                           
-                            cmbBuild2_Compo.IsEnabled = false;
-                            cmbOEM_Compo.IsEnabled = false;
-                            Rekurencja.Start();
-                            progress_Compo.Visibility = Visibility.Visible;
+                    cmbRelease_Compo.IsEnabled = false;
+                    cmbBrandstoinstall_Compo.IsEnabled = false;
 
-                           // Process.Start(from);
-                          //  File.Copy(System.IO.Path.Combine(cmbBuild.ToolTip.ToString() + $"\\DevResults-{cmbRelease.Text}", item.Name), System.IO.Path.Combine("C:\\Program Files\\UltimateChanger", item.Name));
-
-
-                            return;
-                        }
-                    }
+                    cmbBuild2_Compo.IsEnabled = false;
+                    cmbOEM_Compo.IsEnabled = false;
+                    CopyTimer.Start();
+                    fileOperator.StartCopyProcess(from, to);
+                    pathToCopyOfComposition = to; // zmienna globalna do uruchomienia extraktora kompozycji 
+                    progress_Compo.Visibility = Visibility.Visible;
+                    return;                      
                 }
                 else
                 {
@@ -1877,6 +1858,7 @@ namespace UltimateChanger
                     //uninstallTimer.Stop(); // chce skanowac zawsze czy inaczej ?
                     try
                     {
+                        listGlobalPathsToUninstall[0].Kill();
                         Process.Start(listGlobalPathsToUninstall[0].Path_Local_Installer, " /uninstall /quiet");
                         Log.Debug("Silent Uninstallation Started For: "+ listGlobalPathsToUninstall[0].Path_Local_Installer);
                         //FittingSoftware_List[listGlobalPathsToUninstall[0].indexFS].uninstalled = true;
@@ -1940,6 +1922,22 @@ namespace UltimateChanger
 
         }
 
+        private void checkTime_CopyStatus(object sender, EventArgs e)
+        {
+            if (!fileOperator.worker.IsBusy)
+            {
+                try
+                {
+                    Process.Start(pathToCopyOfComposition);
+                    CopyTimer.Stop();
+                }
+                catch (Exception x)
+                {
+                    Log.Debug(x.ToString());
+                }
+                
+            }
+        }
         private void checkUninstall(object sender, EventArgs e) // sprawdz czy uninstallacja trwa jezeli juz sie skonczyla wtedy wlacz timer do instalacji nocnej
         {
             Process currentProcess = Process.GetCurrentProcess();
@@ -2000,8 +1998,14 @@ namespace UltimateChanger
                             while (FittingSoftware_List[i].Task_GetNewBuild.Status == TaskStatus.Running) // czekam az sie nie skonczy szukanie patha
                             {
                                 FittingSoftware_List[i].Task_GetNewBuild.Wait();
+                                
                             }
+                            MessageBox.Show(FittingSoftware_List[i].Task_GetNewBuild.Status.ToString());
                             Thread.Sleep(1000);
+                        }
+                        else
+                        {
+                            Log.Debug("Task_GetNewBuild is null for: " + FittingSoftware_List[i].Name_FS);
                         }
 
                         Log.Debug(FittingSoftware_List[i].Name_FS + " path to new build setup: " + FittingSoftware_List[i].PathToNewVerFS);
@@ -3296,7 +3300,7 @@ namespace UltimateChanger
             Window AdvanceInstall = new AdvanceWindowInstalla(dataBaseManager);
             AdvanceInstall.Owner = this;
             AdvanceInstall.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            AdvanceInstall.ShowDialog();
+            AdvanceInstall.ShowDialog();           
         }
 
         private void btnGenieImage_Click(object sender, RoutedEventArgs e)
@@ -3499,16 +3503,19 @@ namespace UltimateChanger
                                         else
                                         {
                                             setNewSavedTime(10);
-                                        }                                   
+                                        }
                                     }
                                     else
                                     {
-                                        if (fileOperator.setMarket(licz, BindCombobox.marketIndex[cmbMarket_Compo.SelectedIndex], Full))
+                                        if (!FittingSoftware_List[licz + 5].setMarket(BindCombobox.marketIndex[cmbMarket_Compo.SelectedIndex])) // jezeli sie nie udalo to zmieniam message
                                         {
                                             message = "error: ";
-                                        }                                        
+                                        }
+                                        else
+                                        {
+                                            setNewSavedTime(10);
+                                        }
                                     }
-                                    
                                     message = message + item.Name + "\n";
                                     flag = true;
                                 }

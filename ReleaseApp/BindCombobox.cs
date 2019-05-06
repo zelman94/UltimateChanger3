@@ -207,14 +207,15 @@ namespace UltimateChanger
 
         public void setOEMComboBox(string FS)
         {
-            if (FS.Contains("Genie") || FS.Contains("Oticon"))
+            if (FS.Contains("GenieMedical"))
             {
-                List<string> bind = new List<string> { "Audigy", "Audika", "Audionova", "Avada", "Kind", "Oticon", "VA" };
+                List<string> bind = new List<string> { "GenieMedical" };
                 ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM.ItemsSource = bind;
-                ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM.SelectedIndex = 5;
+                ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM.SelectedIndex = 0;
                 ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM_Compo.ItemsSource = bind;
-                ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM_Compo.SelectedIndex = 5;
+                ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM_Compo.SelectedIndex = 0;
             }
+            
             else if (FS.Contains("Oasis") || FS.Contains("Bernafon"))
             {
                 List<string> bind = new List<string> { "PrivateLable", "AccuQuest", "Audilab", "Bernafon", "Costco", "GPL", "HansAnders", "Horex", "Maico", "Meditrend", "ProAkustik" };
@@ -233,19 +234,19 @@ namespace UltimateChanger
             }
             else if (FS.Contains("HearSuite") || FS.Contains("Philips"))
             {
-                List<string> bind = new List<string> { "HearSuite" };
+                List<string> bind = new List<string> { "Philips" };
                 ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM.ItemsSource = bind;
                 ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM.SelectedIndex = 0;
                 ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM_Compo.ItemsSource = bind;
                 ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM_Compo.SelectedIndex = 0;
             }
-            else if (FS.Contains("GenieMedical"))
+            else if(FS.Contains("Genie") || FS.Contains("Oticon"))
             {
-                List<string> bind = new List<string> { "GenieMedical" };
+                List<string> bind = new List<string> { "Audigy", "Audika", "Audionova", "Avada", "Kind", "Oticon", "VA" };
                 ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM.ItemsSource = bind;
-                ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM.SelectedIndex = 0;
+                ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM.SelectedIndex = 5;
                 ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM_Compo.ItemsSource = bind;
-                ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM_Compo.SelectedIndex = 0;
+                ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOEM_Compo.SelectedIndex = 5;
             }
 
 
