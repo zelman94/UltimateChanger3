@@ -198,8 +198,29 @@ namespace UltimateChanger
                 default:
                     indexFS = -1;
                     break;
+
+
+
             }
-            if (!composition) // dla full builds
+            if (composition) // dla kompozycji
+            {
+
+                ListpathsToManInfo = fileOperator.getPathToManufacturerInfo_Compo_List();
+                try
+                {
+                    pathToExe = fileOperator.GetExeCompo(indexFS - 5)[0];
+                }
+                catch (Exception)
+                {
+                    pathToExe = "";
+                }
+
+                pathToManu = fileOperator.FindSettingFileForComposition(indexFS - 5);
+                getInfoBuild(indexFS - 5);
+
+                
+            }
+            else
             {
                 pathToExe = BuildInfo.ListPathsToSetup[indexFS];
 
@@ -208,15 +229,15 @@ namespace UltimateChanger
 
                 pathToManu = ListpathsToManInfo[indexFS];
                 getInfoBuild(indexFS);
-                Timer_InfoFS = new DispatcherTimer();
-                Timer_InfoFS.Tick += updateInfoFS;
-                Timer_InfoFS.Interval = new TimeSpan(0, 0, 10);
-                Timer_InfoFS.Start();
+                //Timer_InfoFS = new DispatcherTimer();
+                //Timer_InfoFS.Tick += updateInfoFS;
+                //Timer_InfoFS.Interval = new TimeSpan(0, 0, 10);
+                //Timer_InfoFS.Start();
 
 
                 TimerCheckUninstall = new DispatcherTimer();
-                Timer_InfoFS.Tick += checkUninstallStatus;
-                Timer_InfoFS.Interval = new TimeSpan(0, 0, 10);
+                TimerCheckUninstall.Tick += checkUninstallStatus;
+                TimerCheckUninstall.Interval = new TimeSpan(0, 0, 10);
 
                 // nowy timer dla sprawdzania czy nadszedl czas dla update FS ? 
                 // jezeli null to wychodze ze sprawdzenia jezeli cos jest to wejsc do srodka obiektu i spr czy zgadza sie czas 
@@ -226,21 +247,10 @@ namespace UltimateChanger
                 // a jezeli zaczne już robić update to po przekazaniu listy od wszystkich dostepnych FS  z pathami do nowszej wersji 
                 // mozna usunac obiekty i wylaczyc sprawdzanie timera czy obiekt jest nullem
             }
-            else
-            {
-                ListpathsToManInfo = fileOperator.getPathToManufacturerInfo_Compo_List() ;
-                try
-                {
-                    pathToExe = fileOperator.GetExeCompo(indexFS - 5)[0];
-                }
-                catch (Exception)
-                {
-                    pathToExe = "";
-                }
-               
-                pathToManu = fileOperator.FindSettingFileForComposition(indexFS - 5);
-                getInfoBuild(indexFS - 5);
-            }
+            Timer_InfoFS = new DispatcherTimer();
+            Timer_InfoFS.Tick += updateInfoFS;
+            Timer_InfoFS.Interval = new TimeSpan(0, 0, 10);
+            Timer_InfoFS.Start();
 
             Emulator_Path = fileOperator.getPathToEmulator(indexFS, composition, pathToExe);
             Log.Debug(this.string_For_Log());

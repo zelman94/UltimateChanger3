@@ -1396,7 +1396,7 @@ namespace UltimateChanger
                 {
                     count++;
                     flag = false;
-                    labelListsforUninstall.Add(listlabelsinfoFS_Version[countFS]);
+                    labelListsforUninstall.Add(listlabelsinfoFS_Version[countFS]); 
                     listIndexOfCheckedFS.Add(countFS);
                 }
                 if (flag)
@@ -1414,14 +1414,14 @@ namespace UltimateChanger
             if (count == 1 && mode_uninstall) // 1 FS with UI
             {
                 Log.Debug("Normal Uninstall Started for: \n" + FittingSoftware_List[chechboxNr].string_For_Log());
-                FittingSoftware_List[chechboxNr].uninstallFS(true);
+                FittingSoftware_List[chechboxNr].uninstallFS(true); 
                 return;
             }
-
+            
             for (int i = 0; i < listIndexOfCheckedFS.Count; i++)
             {
-                Log.Debug("Silent Uninstallation for: \n\n" + FittingSoftware_List[chechboxNr].string_For_Log());
-                listGlobalPathsToUninstall.Add(FittingSoftware_List[chechboxNr]);
+                Log.Debug("Silent Uninstallation for: \n\n" + FittingSoftware_List[listIndexOfCheckedFS[i]].string_For_Log());
+                listGlobalPathsToUninstall.Add(FittingSoftware_List[listIndexOfCheckedFS[i]]);// dodaje FS do listy FS do usuniecia
             }
 
             uninstallTimer.Start();
