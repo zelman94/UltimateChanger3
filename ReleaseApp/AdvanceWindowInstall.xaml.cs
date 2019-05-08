@@ -43,14 +43,17 @@ namespace UltimateChanger
             InitializeComponent();
             databaseManager = databaseManager_;
 
-            cmbRelease.ItemsSource = databaseManager.executeSelect("select DISTINCT release from builds where type = 'FULL' order by release");
+            List <string> bindRelease = databaseManager.executeSelect("select DISTINCT release from builds where type = 'FULL' order by release");
+            cmbRelease.ItemsSource = bindRelease;
             try
             {
-                cmbRelease.SelectedIndex = 0;
+                cmbRelease.SelectedIndex = bindRelease.FindIndex(x => x.StartsWith(((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease.Text));
+
+                // ((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease
             }
             catch (Exception)
             {
-
+                cmbRelease.SelectedIndex = 0;
             }
             cmbMode.ItemsSource = new List<string>() { { "IP" }, { "RC" }, { "Master" } };
             cmbMode.SelectedIndex = 0;
@@ -79,6 +82,7 @@ namespace UltimateChanger
 
             setDefaultSkin();
             progressAdvanceInstall.Visibility = Visibility.Hidden;
+           
             //cmbLastselected.ItemsSource = getLastUsedPaths();
         }
 
