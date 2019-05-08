@@ -232,6 +232,7 @@ namespace UltimateChanger
             {
                 ((MainWindow)System.Windows.Application.Current.MainWindow).ProgressInstallation.Visibility = Visibility.Visible;
                 ((MainWindow)System.Windows.Application.Current.MainWindow).InstallTimer.Start();
+                ((MainWindow)System.Windows.Application.Current.MainWindow).ProgressInstallation.ToolTip = "Installation in progress";
             }
             this.Close();
         }

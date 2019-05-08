@@ -360,7 +360,7 @@ namespace UltimateChanger
                 {
                     FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(item);
 
-                    if ((myFileVersionInfo.FileName.Contains("OticonMedium") || fileOperator.checkIfGenie(myFileVersionInfo.FileDescription)) && Name_FS.Contains("2"))
+                    if ((myFileVersionInfo.FileName.Contains("OticonMedium") || fileOperator.checkIfGenie(myFileVersionInfo.FileDescription)))
                     {
                         return item;
                     }

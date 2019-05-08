@@ -31,7 +31,7 @@ using System.Data;
 using Rekurencjon; // logi
 using log4net;
 
-[assembly: System.Reflection.AssemblyVersion("4.0.0.0")]
+[assembly: System.Reflection.AssemblyVersion("3.9.1.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window 
@@ -1855,11 +1855,13 @@ namespace UltimateChanger
             {
                 if (listGlobalPathsToUninstall.Count != 0)
                 {
+                   ProgressInstallation.ToolTip = "Uninstall in progress";
                     //uninstallTimer.Stop(); // chce skanowac zawsze czy inaczej ?
                     try
                     {
                         listGlobalPathsToUninstall[0].Kill();
                         Process.Start(listGlobalPathsToUninstall[0].Path_Local_Installer, " /uninstall /quiet");
+                        FittingSoftware_List[listGlobalPathsToUninstall[0].indexFS].uninstalled = true;
                         Log.Debug("Silent Uninstallation Started For: "+ listGlobalPathsToUninstall[0].Path_Local_Installer);
                         //FittingSoftware_List[listGlobalPathsToUninstall[0].indexFS].uninstalled = true;
                         listGlobalPathsToUninstall.RemoveAt(0);
