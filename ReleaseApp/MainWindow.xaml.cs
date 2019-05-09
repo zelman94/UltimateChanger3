@@ -31,7 +31,7 @@ using System.Data;
 using Rekurencjon; // logi
 using log4net;
 
-[assembly: System.Reflection.AssemblyVersion("3.9.11.0")]
+[assembly: System.Reflection.AssemblyVersion("3.9.20.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window 
@@ -1305,7 +1305,8 @@ namespace UltimateChanger
                 }
                 licznik++;
             }
-         
+            Log.Debug(message2);
+            Log.Debug("btnDelete_Click");
                 
                 
         }
@@ -1844,10 +1845,15 @@ namespace UltimateChanger
                 else
                 {
                     uninstallTimer.Stop();
+                    ProgressInstallation.Visibility = Visibility.Hidden;
                     btnuninstal.IsEnabled = true;
                     btninstal.IsEnabled = true;
                     btnDelete.IsEnabled = true;
                     Log.Debug("Uninstallation DONE");
+                    if (RByesRemove.IsChecked.Value) // jezeli chcemy usuwac smieci to usuwamy
+                    {
+                        btnDelete_Click(new object(), new RoutedEventArgs());
+                    }
                    // MessageBox.Show("Uninstallation DONE");
                 }
             }
