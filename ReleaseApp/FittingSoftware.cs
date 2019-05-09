@@ -526,6 +526,19 @@ namespace UltimateChanger
                 }
             }                    
         }
+        public bool checkTrashInstance() // jezeli sa smieci to true
+        {
+
+            foreach (var item in PathTrash)
+            {
+                if (Directory.Exists(item) && !item.Contains("SoundStudio"))
+                {
+                    return true;  
+                }
+            }
+            return false;
+
+        }
 
         public void Kill()
         {

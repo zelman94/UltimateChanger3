@@ -144,11 +144,7 @@ namespace UltimateChanger
                 initializeElements();
                 
                 initiationForprograms();
-                BindCombo.setFScomboBox();
-                BindCombo.setReleaseComboBox();
-                BindCombo.setMarketCmb();
-                BindCombo.bindlogmode();
-                BindCombo.bindListBox();
+
                
                 initializeTimers();
 
@@ -258,6 +254,20 @@ namespace UltimateChanger
             savedTime = Convert.ToInt32(fileOperator.getSavedTime());
             setNewSavedTime(0);
             tabControl.IsEnabled = true;
+
+            try
+            {
+                BindCombo.setFScomboBox();
+                BindCombo.setReleaseComboBox();
+                BindCombo.setMarketCmb();
+                BindCombo.bindlogmode();
+                BindCombo.bindListBox();
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.ToString());
+            }
+
 
             try
             {
@@ -1181,75 +1191,29 @@ namespace UltimateChanger
         {
             if (TabFull.IsSelected)
             {
-                // if (!File.Exists(@"C:/Program Files (x86)/Oticon/Genie/Genie2/Genie.exe"))
-                if (!Directory.Exists(@"C:\ProgramData\Oticon"))
+                byte counter = 0;
+                if (FittingSoftware_List.Count<0)
                 {
-                    Oticon.IsEnabled = false;
-                    //lblG.Foreground = new SolidColorBrush(Colors.Red);
-                    lblG.Content = "FS not installed";
-                    Oticon.IsChecked = false;
-                    //oticonRectangle.Opacity = 0.3;
+                    return;
                 }
-                else
-                {
-                    Oticon.IsEnabled = true;
-                    //oticonRectangle.Opacity = 1.0;
-                }
-                // if (!File.Exists(@"C:/Program Files (x86)/Bernafon/Oasis/Oasis2/Oasis.exe"))
-                if (!Directory.Exists(@"C:\ProgramData\Bernafon"))
-                {
-                    Bernafon.IsEnabled = false;
-                   /// lblO.Foreground = new SolidColorBrush(Colors.Red);
-                    lblO.Content = "FS not installed";
-                    Bernafon.IsChecked = false;
-                    //bernafonRectangle.Opacity = 0.3;
-                }
-                else
-                {
-                    Bernafon.IsEnabled = true;
-                    //bernafonRectangle.Opacity = 1.0;
-                }
-                //if (!File.Exists(@"C:/Program Files (x86)/Sonic/ExpressFit/ExpressFit2/ExpressFit.exe"))
-                if (!Directory.Exists(@"C:\ProgramData\Sonic"))
-                {
-                    Sonic.IsEnabled = false;
-                    //lblE.Foreground = new SolidColorBrush(Colors.Red);
-                    lblE.Content = "FS not installed";
-                    Sonic.IsChecked = false;
-                    //sonicRectangle.Opacity = 0.3;
-                }
-                else
-                {
-                    Sonic.IsEnabled = true;
-                    //sonicRectangle.Opacity = 1.0;
-                }
-
-                if (!Directory.Exists(@"C:\ProgramData\Oticon Medical")) // medical
-                {
-                    Medical.IsEnabled = false;
-                    //lblM.Foreground = new SolidColorBrush(Colors.Red);
-                    lblM.Content = "FS not installed";
-                    Medical.IsChecked = false;
-                    //oticonmedicalnRectangle.Opacity = 0.3;
-                }
-                else
-                {
-                    Medical.IsEnabled = true;
-                    //oticonmedicalnRectangle.Opacity = 1.0;
-                }
-
-                if (!Directory.Exists(@"C:\ProgramData\Philips HearSuite")) // cumulus
-                {
-                    Cumulus.IsEnabled = false;
-                    //lblC.Foreground = new SolidColorBrush(Colors.Red);
-                    lblC.Content = "FS not installed";
-                    Cumulus.IsChecked = false;
-                    //startoRectangle.Opacity = 0.3;
-                }
-                else
-                {
-                    Cumulus.IsEnabled = true;
-                    //startoRectangle.Opacity = 1.0;
+                foreach (var item in checkBoxList)
+                {                  
+                    if (!File.Exists(FittingSoftware_List[counter].pathToExe) && !item.Name.Contains("Night")) // jezeli nie ma path to nie ma kompozycji 
+                    {
+                        if (!FittingSoftware_List[counter].checkTrashInstance()) // jezeli nie ma smieci
+                        {
+                            item.IsEnabled = false;
+                            item.IsChecked = false;
+                        }
+                        // dodac funkcje sprawdzajaca czy sa jeszcze smieci do usuniecia
+                        labelListsforRefreshUI[counter].Content = "FS not installed";
+                        FittingSoftware_List[counter] = new FittingSoftware(FittingSoftware_List[counter].Name_FS);
+                    }
+                    else
+                    {
+                        item.IsEnabled = true;
+                    }
+                    counter++;
                 }
             }
             else // sprawdzanie kompozycji
@@ -1258,7 +1222,7 @@ namespace UltimateChanger
                 byte counter = 0;
                 foreach (var item in checkBoxList)
                 {
-                    if (FittingSoftware_List[counter+5].pathToExe == "") // jezeli nie ma path to nie ma kompozycji 
+                    if (FittingSoftware_List[counter+5].pathToExe == "" && !item.Name.Contains("Night")) // jezeli nie ma path to nie ma kompozycji 
                     {
                         item.IsEnabled = false;
                         item.IsChecked = false;
@@ -1317,9 +1281,8 @@ namespace UltimateChanger
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            TrashCleaner smieciarka = new TrashCleaner();
             byte licznik = 0;
-
+            
             string message = "Deleted: \n";
             string message2 = "Close FS or uninstall: \n";
             foreach (var item in checkBoxList)
