@@ -1317,16 +1317,17 @@ namespace UltimateChanger
 
         public void checkVersion()
         {
-            string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+           Version version_app = new Version(System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
             //-----------------------------------
             int[] ver = new int[3]; // wersja z srvera
             string path;
 
 
-            string versionInfo ="0.0.0";
+            string versionInfo ="0.0.0.0";
+            Version version_Server = new Version(versionInfo);
             try
             {
-                versionInfo = dataBase.executeSelect("Select Version From UpdateUC")[0];
+                version_Server = new Version(dataBase.executeSelect("Select Version From UpdateUC")[0]);
             }
             catch (Exception x)
             {
@@ -1345,30 +1346,12 @@ namespace UltimateChanger
             {
                 path = dataBase.executeSelect("Select Other From UpdateUC")[0];
             }
-
-            int.TryParse(versionInfo[0].ToString(), out ver[0]);
-            int.TryParse(versionInfo[2].ToString(), out ver[1]);
-            int.TryParse(versionInfo[4].ToString(), out ver[2]);
-            //-----------------------------------------
-            //wersja apki
-            int[] ver_apki = new int[3];
-
-            int.TryParse(version[0].ToString(), out ver_apki[0]);
-            int.TryParse(version[2].ToString(), out ver_apki[1]);
-            int.TryParse(version[4].ToString(), out ver_apki[2]);
-
-            bool message = false;
-            for (int i = 0; i < 3; i++)
+            var result = version_app.CompareTo(version_Server);
+            if (result < 0) //version_Server is greater
             {
-                if (ver_apki[i] < ver[i] && message == false)
-                {
-                    //System.Windows.Forms.MessageBox.Show($"Update available: {Kolumna[1]}");
-
-                    Window Update = new UpdateWindow(path, getChangeLog(true));
-                    Update.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-                    Update.ShowDialog();
-                    message = true; /*HATORI NARAZIE PODZIEKUJEMY*/
-                }
+                Window Update = new UpdateWindow(path, getChangeLog(true));
+                Update.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                Update.ShowDialog();              
             }
 
         }
@@ -1416,13 +1399,26 @@ namespace UltimateChanger
                     }
                 }
             }
+            if (DirFullInstallerName == "")
+            {
+                return DirFullInstallerName;
+            }
 
             List<string> PathTolatestBuildExe = new List<string>();
             //
             if (CurrentFS.Upgrade_FS.info.Option == "Full")
             {
-                PathTolatestBuildExe = Directory.GetFiles(DirFullInstallerName + $"\\{CurrentFS.DirFullBuildName}", "setup.exe").ToList(); // path do glownego instalatora main brandu
-                Log.Debug("Found new build dir: " + PathTolatestBuildExe);
+                try
+                {
+                    PathTolatestBuildExe = Directory.GetFiles(DirFullInstallerName + $"\\{CurrentFS.DirFullBuildName}", "setup.exe").ToList(); // path do glownego instalatora main brandu
+                    Log.Debug("Found new build dir: " + PathTolatestBuildExe);
+                }
+                catch (Exception x)
+                {
+                    Log.Debug(x.ToString());
+                    return DirFullInstallerName;                    
+                }
+               
             }
             else
             {
@@ -1469,6 +1465,33 @@ namespace UltimateChanger
 
             return DirFullInstallerName;
         }
+
+        public string GetAvailableNewFS(FittingSoftware CurrentFS, bool Azure = true)
+        {
+            // pobranie z Azure path do najnowszego buildu Full, IP lub RC 
+            // pobranie pierwszego najnowszego builda
+           List<string> listodptahToNewBuild = dataBase.executeSelect($"select Top 1 path from builds where type='full' AND brand ='{CurrentFS.Name_FS}' AND oem ='{CurrentFS.OEM}'  order by creationdate desc");
+            List<string> AboutList = dataBase.executeSelect($"select Top 1 about from builds where type='full' AND brand ='{CurrentFS.Name_FS}' AND oem ='{CurrentFS.OEM}'  order by creationdate desc");
+            if (listodptahToNewBuild.Count > 0)
+            {
+                // sprawdzic czy obecnie zainstalowany build jest starszy jezeli jest to zwracam ""
+                if (CurrentFS.Version != AboutList[0])
+                {
+                    return listodptahToNewBuild[0];
+                }
+                else
+                {
+                    return "";
+                }
+
+            }
+            else
+            {
+                return "";
+            }
+
+        }
+
 
         public string getPathToEmulator(int index, bool composition, string pathToExe_FS)
         {

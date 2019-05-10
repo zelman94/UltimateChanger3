@@ -1168,6 +1168,7 @@
                             <Button x:Name="btnFS" Grid.Row="4" Grid.Column="2" Content="Start FS" Click="btnFSRun" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10,12" Height="Auto"/>
                             <Button x:Name="btnHattori" Content="Start Hattori" Click="btnHattori_Click" Grid.Row="4" Grid.Column="3" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10,12" Height="Auto"/>
                             <Button x:Name="btnAdvanceInstall" Content="Advance" HorizontalAlignment="Left"  Grid.Row="4" Margin="10,12,0,12" Width="175" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Click="btnAdvanceInstall_Click" Height="Auto"/>
+                            <Button x:Name="btnUpdateFS" Content="Update FS" HorizontalAlignment="Left"  Grid.Row="4" Grid.Column="1" Margin="10,12,0,12" Width="175" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Height="Auto" Click="btnUpdateFS_Click"/>
                             <ProgressBar Name="ProgressInstallation" ToolTip="Uninstall in progress"  Visibility="Hidden" Height="32" Grid.Row="5" Grid.Column="0" VerticalAlignment ="Center" Margin="19,12,0,13" HorizontalAlignment="Left" Width="156" BorderBrush="#FF424242" Background="#FF616161" Foreground="White"/>
                         </Grid>
                     </TabItem>

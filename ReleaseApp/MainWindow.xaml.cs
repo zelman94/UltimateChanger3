@@ -31,7 +31,7 @@ using System.Data;
 using Rekurencjon; // logi
 using log4net;
 
-[assembly: System.Reflection.AssemblyVersion("3.9.20.0")]
+[assembly: System.Reflection.AssemblyVersion("3.9.21.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window 
@@ -1943,54 +1943,69 @@ namespace UltimateChanger
             }
 
         }
+
+        private void InitFindingNewBuild()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                try
+                {
+                    if (FittingSoftware_List[i].Upgrade_FS.info.path_to_root == "")
+                    {
+                        FittingSoftware_List[i].getNewFSPath();
+                    }
+                    else
+                    {
+                        // tylko full 
+                        FittingSoftware_List[i].PathToNewVerFS = fileOperator.getPathToSetup(FittingSoftware_List[i]); // dodac wyszukiwanie z rootpatha path to setup.exe dla main brandu                     
+                    }
+                }
+                catch (Exception)
+                {
+                    Log.Debug($"FittingSoftware_List[{i}].Upgrade_FS was null");
+                }
+
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                if (FittingSoftware_List[i].Task_GetNewBuild != null) // jezeli jest rozny od null
+                {
+                    while (FittingSoftware_List[i].Task_GetNewBuild.Status == TaskStatus.Running) // czekam az sie nie skonczy szukanie patha
+                    {
+                        FittingSoftware_List[i].Task_GetNewBuild.Wait();
+
+                    }
+                    MessageBox.Show(FittingSoftware_List[i].Task_GetNewBuild.Status.ToString());
+                    Thread.Sleep(1000);
+                }
+                else
+                {
+                    Log.Debug("Task_GetNewBuild is null for: " + FittingSoftware_List[i].Name_FS);
+                }
+
+                Log.Debug(FittingSoftware_List[i].Name_FS + " path to new build setup: " + FittingSoftware_List[i].PathToNewVerFS);
+
+                if (FittingSoftware_List[i].PathToNewVerFS != "") // jezlei jest nowsza warsja to dodaje do usuniecia checkbox
+                {
+                    checkBoxList[i].IsChecked = true;
+                    listOfPathsToInstall.Add(FittingSoftware_List[i].PathToNewVerFS); // dodaje na liste paths do instalacji
+                }
+                else
+                {
+                    checkBoxList[i].IsChecked = false;
+                }
+            }
+        }
+
         private void checkTime_forUpgradeFS(object sender, EventArgs e) // sprawdz czy uninstallacja trwa jezeli juz sie skonczyla wtedy wlacz timer do instalacji nocnej
         {
             if (FittingSoftware_List[0].Upgrade_FS.info.Time_Update.Hour == DateTime.Now.Hour) // jezeli godzina sie zgadza
             {
                 if (DateTime.Now.Minute >= FittingSoftware_List[0].Upgrade_FS.info.Time_Update.Minute) // jezeli minuta sie zgadza lub juz minela
                 {
-                    for (int i = 0; i < 5; i++)
-                    {
-                        if (FittingSoftware_List[i].Upgrade_FS.info.path_to_root == "")
-                        {
-                            FittingSoftware_List[i].getNewFSPath();
-                        }
-                        else
-                        {
-                            // tylko full 
-                            FittingSoftware_List[i].PathToNewVerFS = fileOperator.getPathToSetup(FittingSoftware_List[i]); // dodac wyszukiwanie z rootpatha path to setup.exe dla main brandu                     
-                        }
-                    }
-                                   
-                    for (int i = 0; i < 5; i++)
-                    {
-                        if (FittingSoftware_List[i].Task_GetNewBuild != null) // jezeli jest rozny od null
-                        {
-                            while (FittingSoftware_List[i].Task_GetNewBuild.Status == TaskStatus.Running) // czekam az sie nie skonczy szukanie patha
-                            {
-                                FittingSoftware_List[i].Task_GetNewBuild.Wait();
-                                
-                            }
-                            MessageBox.Show(FittingSoftware_List[i].Task_GetNewBuild.Status.ToString());
-                            Thread.Sleep(1000);
-                        }
-                        else
-                        {
-                            Log.Debug("Task_GetNewBuild is null for: " + FittingSoftware_List[i].Name_FS);
-                        }
-
-                        Log.Debug(FittingSoftware_List[i].Name_FS + " path to new build setup: " + FittingSoftware_List[i].PathToNewVerFS);
-                        
-                        if (FittingSoftware_List[i].PathToNewVerFS != "") // jezlei jest nowsza warsja to dodaje do usuniecia checkbox
-                        {
-                            checkBoxList[i].IsChecked = true;
-                            listOfPathsToInstall.Add(FittingSoftware_List[i].PathToNewVerFS); // dodaje na liste paths do instalacji
-                        }
-                        else
-                        {
-                            checkBoxList[i].IsChecked = false;
-                        }
-                    }                    
+                    InitFindingNewBuild();
+                
                     // zamykam wszystkie FS
                     Button_Click_2(new object(), new RoutedEventArgs());
                     // po zaznaczeniu checkboxow uruchamiam uninstalacje
@@ -3621,6 +3636,24 @@ namespace UltimateChanger
         {
             cmbBuild2_Compo.Items.Refresh();
             cmbBuild_Compo.ItemsSource = dataBaseManager.getBuilds("Composition", cmbRelease_Compo.Text, cmbBuild2_Compo.Text, cmbBrandstoinstall_Compo.Text, cmbBrandstoinstall_Compo.Text);
+        }
+
+        private void btnUpdateFS_Click(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                FittingSoftware_List[i].PathToNewVerFS = fileOperator.GetAvailableNewFS(FittingSoftware_List[i],true);
+                listOfPathsToInstall.Add(FittingSoftware_List[i].PathToNewVerFS); // dodaje na liste paths do instalacji
+            }
+
+            // zamykam wszystkie FS
+            Button_Click_2(new object(), new RoutedEventArgs());
+            // po zaznaczeniu checkboxow uruchamiam uninstalacje
+            RBsilet.IsChecked = true;
+            btnuninstal_Click(new object(), new RoutedEventArgs());
+            // dodac timer sprawdzajacy czy uninstallsilet sie skonczyl jezeli sie skonczyl to uruchomić silet instalacje 
+            silentUninstal_Install_Timer.Start(); // jezeli uninstall sie skonczy to uruchomi tam InstallTimer.Start() i zainstaluje wszystkie FS;
+
         }
 
         private void btnReadHI_Click(object sender, RoutedEventArgs e)
