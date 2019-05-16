@@ -1035,7 +1035,7 @@
 
                 </Grid>
 
-                <TabControl x:Name="tabControl2" Background="#FF212121" Grid.ColumnSpan="2" Grid.Row="1" SelectionChanged="tabControl2_SelectionChanged">
+                <TabControl x:Name="tabControl2" Background="#FF212121" Grid.ColumnSpan="2" Grid.Row="1" SelectionChanged="tabControl2_SelectionChanged" Margin="0,5,0,-5">
                     <TabControl.Resources>
                         <Style TargetType="TabItem">
                             <Setter Property="Template">
@@ -1147,7 +1147,7 @@
                             <ComboBox x:Name="cmbBuild" Grid.Row="2" Grid.Column="1" SelectionChanged="cmbbuild_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5 5" VerticalAlignment="Bottom"/>
 
                             <Button x:Name="btninstal" Content="Install" Click="btninstal_Click" Grid.Row="3" Grid.Column="0" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10,12" Height="Auto"/>
-                            <Button x:Name="btnInfo" Content="Copy path to build" Grid.Row="3" Grid.Column="1" Click="btnInfo_Click" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10,12" Height="Auto"/>
+                            <Button x:Name="btnInfo" Content="Copy path to build" Grid.Row="3" Grid.Column="1" Click="btnInfo_Click" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="0,12,10,12" Height="Auto" HorizontalAlignment="Right" Width="175"/>
                             <Button x:Name="btnuninstal"  Grid.Row="5" Content="Uninstall FS(s)" Click="btnuninstal_Click" Grid.Column="2" IsEnabled="false" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10,12,10,13" Height="Auto"/>
                             <Button x:Name="btnDelete" Grid.Row="5" Grid.Column="3" Content="Delete trash" Click="btnDelete_Click" ToolTip="All data files of selected FS will be deleted (also client sesion)" IsEnabled="False" Foreground="#E5FFFFFF" BorderBrush="#FF424242" Background="#FF616161" Margin="10,12,10,13" Height="Auto"/>
 

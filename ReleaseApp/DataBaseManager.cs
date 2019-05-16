@@ -318,7 +318,7 @@ namespace UltimateChanger
             {
                 SQLConnection.Open();
 
-                SqlCommand command = new SqlCommand($"select path from builds where type = '{TYPE}' AND release = '{RELEASE}' AND mode LIKE '%{MODE}%' AND brand = '{BRAND}' AND oem = '{OEM}' order by about desc", SQLConnection);
+                SqlCommand command = new SqlCommand($"select path from builds where type = '{TYPE}' AND release = '{RELEASE}' AND mode LIKE '%{MODE}%' AND brand = '{BRAND}' AND oem = '{OEM}' order by CreationDate,about desc", SQLConnection);
                 Log.Debug("getBuilds:  TYPE,  RELEASE,  MODE,  BRAND,  OEM \n" + TYPE + " " + RELEASE + " " + MODE + " " + BRAND + " " + OEM);
                 Log.Debug(command.CommandText);
                 using (SqlDataReader reader = command.ExecuteReader())

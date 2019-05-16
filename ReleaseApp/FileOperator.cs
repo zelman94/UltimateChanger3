@@ -1335,17 +1335,25 @@ namespace UltimateChanger
             }
             try
             {
-                path = dataBase.executeSelect("Select SSC From UpdateUC")[0];
+                path = dataBase.executeSelect("Select SSC From UpdateUC")[0] ;
+                path += "s";
             }
             catch (Exception)
             {
                 return;
             }
-            
-            if (!File.Exists(path))
+            try // try bo moze ktos nie ma dostepu i wywali wyjatek ?
+            {
+                if (!File.Exists(path))
+                {
+                    path = dataBase.executeSelect("Select Other From UpdateUC")[0];
+                }
+            }
+            catch (Exception)
             {
                 path = dataBase.executeSelect("Select Other From UpdateUC")[0];
-            }
+            } 
+           
             var result = version_app.CompareTo(version_Server);
             if (result < 0) //version_Server is greater
             {
@@ -1468,14 +1476,34 @@ namespace UltimateChanger
 
         public string GetAvailableNewFS(FittingSoftware CurrentFS, bool Azure = true)
         {
+            // zneleźć odpowiedni release dla konkretnego about nr
+
+            List<string> listReleaseForAbout;
+            try
+            {
+                listReleaseForAbout = dataBase.executeSelect($"select Top 1 release from builds where about  like '{CurrentFS.Version_build.Major.ToString()}.%'");
+                if (listReleaseForAbout.Count == 0)
+                {
+                    Log.Debug($"No Available new build for update {CurrentFS.Name_FS}");
+                    return "";
+                }
+                Log.Debug($"Available new build for update {CurrentFS.Name_FS} : {listReleaseForAbout[0]}");
+            }
+            catch (Exception x)
+            {
+                Log.Debug($"Available new build for update {CurrentFS.Name_FS} : Exception: \n{x.ToString()}");
+                return "";
+            }
+
+
             // pobranie z Azure path do najnowszego buildu Full, IP lub RC 
             // pobranie pierwszego najnowszego builda
-           List<string> listodptahToNewBuild = dataBase.executeSelect($"select Top 1 path from builds where type='full' AND brand ='{CurrentFS.Name_FS}' AND oem ='{CurrentFS.OEM}'  order by creationdate desc");
-            List<string> AboutList = dataBase.executeSelect($"select Top 1 about from builds where type='full' AND brand ='{CurrentFS.Name_FS}' AND oem ='{CurrentFS.OEM}'  order by creationdate desc");
+           List<string> listodptahToNewBuild = dataBase.executeSelect($"select Top 1 path from builds where type='full' AND brand ='{CurrentFS.Name_FS}' AND oem ='{CurrentFS.OEM}' AND release ='{listReleaseForAbout[0]}' order by creationdate desc");
+            List<string> AboutList = dataBase.executeSelect($"select Top 1 about from builds where type='full' AND brand ='{CurrentFS.Name_FS}' AND oem ='{CurrentFS.OEM}' AND release ='{listReleaseForAbout[0]}' order by creationdate desc");
             if (listodptahToNewBuild.Count > 0)
             {
                 // sprawdzic czy obecnie zainstalowany build jest starszy jezeli jest to zwracam ""
-                if (CurrentFS.Version != AboutList[0])
+                if (CurrentFS.Version_build.ToString() != AboutList[0])
                 {
                     return listodptahToNewBuild[0];
                 }

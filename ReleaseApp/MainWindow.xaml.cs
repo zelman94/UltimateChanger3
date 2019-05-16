@@ -31,7 +31,7 @@ using System.Data;
 using Rekurencjon; // logi
 using log4net;
 
-[assembly: System.Reflection.AssemblyVersion("3.9.30.0")]
+[assembly: System.Reflection.AssemblyVersion("3.9.31.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window 
@@ -1004,7 +1004,7 @@ namespace UltimateChanger
             InstallTimer_Normal_Installation.Interval = new TimeSpan(0, 0, 5);
 
             silentUninstal_Install_Timer = new DispatcherTimer();
-            silentUninstal_Install_Timer.Tick += checkUninstall;
+            silentUninstal_Install_Timer.Tick += checkUninstall; 
             silentUninstal_Install_Timer.Interval = new TimeSpan(0, 1, 0);
 
             checkTime_Timer = new DispatcherTimer();
@@ -1437,7 +1437,7 @@ namespace UltimateChanger
                     {
                         if (item.IsChecked.Value)
                         {
-                            FittingSoftware_List[licznik].setLogMode(cmbLogMode.Text,cmbLogSettings.SelectedIndex, TabFull.IsEnabled);
+                            FittingSoftware_List[licznik].setLogMode(cmbLogMode.Text,cmbLogSettings.SelectedIndex, TabFull.IsSelected);
                             setNewSavedTime(20);
                             message = message + item.Name + "\n";                            
                         }
@@ -1466,7 +1466,7 @@ namespace UltimateChanger
                     {
                         if (item.IsChecked.Value)
                         {
-                            FittingSoftware_List[licznik].setLogMode(cmbLogMode.Text, cmbLogSettings.SelectedIndex, TabFull.IsEnabled);
+                            FittingSoftware_List[licznik].setLogMode(cmbLogMode.Text, cmbLogSettings.SelectedIndex, TabFull.IsSelected);
                             message = message + item.Name + "\n";
                             flag = true;
                         }
@@ -1787,6 +1787,7 @@ namespace UltimateChanger
                     catch (Exception x)
                     {
                         Log.Debug(x.ToString());
+                        Log.Debug("path to setup: " + listOfPathsToInstall[0]);
                         InstallTimer.Stop();
                         MessageBox.Show("Error installation");
                         return;
@@ -1913,6 +1914,8 @@ namespace UltimateChanger
         {
             Process currentProcess = Process.GetCurrentProcess();
             List<string> childs = FileOperator.FindAllProcessesSpawnedBy(Convert.ToUInt32(currentProcess.Id));
+            // przerobic na sprawdzenie czy jest cos na liscie do uninstallacji i moze przejscie po FS czy trwa uninstlacja?
+           
             if (childs.Count > 0)
             {
                 ProgressInstallation.Visibility = Visibility.Visible;
@@ -1923,25 +1926,28 @@ namespace UltimateChanger
                     ProgressInstallation.Value = 0;
                 }
             }
-            else
+            else if(!uninstallTimer.IsEnabled && childs.Count == 0) // jezeli nie ma nic do usuniecia bo wylaczony timer i nie ma procesu odpalonego
             {
                 try
                 {
-                    if (FittingSoftware_List[0].Upgrade_FS.info.TrashCleaner)
+                    for (int i = 0; i < 4; i++)
                     {
-                        btnDelete_Click(new object(), new RoutedEventArgs());
-                    }
+                        if (FittingSoftware_List[i].Upgrade_FS.info.TrashCleaner)
+                        {
+                            btnDelete_Click(new object(), new RoutedEventArgs());
+                            break;
+                        }
+                    }                    
                 }
                 catch (Exception)
                 {
 
                 }
-                InstallTimer_Normal_Installation.Stop();
-                
+                InstallTimer_Normal_Installation.Stop();                
                 InstallTimer.Start();
                 ProgressInstallation.Visibility = Visibility.Hidden;
+                silentUninstal_Install_Timer.Stop();
             }
-
         }
 
         private void InitFindingNewBuild()
@@ -2000,9 +2006,30 @@ namespace UltimateChanger
 
         private void checkTime_forUpgradeFS(object sender, EventArgs e) // sprawdz czy uninstallacja trwa jezeli juz sie skonczyla wtedy wlacz timer do instalacji nocnej
         {
-            if (FittingSoftware_List[0].Upgrade_FS.info.Time_Update.Hour == DateTime.Now.Hour) // jezeli godzina sie zgadza
+            int countFS_WithUpdate = -1;
+            try
             {
-                if (DateTime.Now.Minute >= FittingSoftware_List[0].Upgrade_FS.info.Time_Update.Minute) // jezeli minuta sie zgadza lub juz minela
+                for (int i = 0; i < 4; i++)
+                {
+                    if (FittingSoftware_List[i].Upgrade_FS != null)
+                    {
+                        countFS_WithUpdate = i;
+                    }
+                }
+                if (countFS_WithUpdate == -1)
+                {
+                    return;
+                }
+
+            }
+            catch (Exception)
+            {
+
+            }
+
+            if (FittingSoftware_List[countFS_WithUpdate].Upgrade_FS.info.Time_Update.Hour == DateTime.Now.Hour) // jezeli godzina sie zgadza
+            {
+                if (DateTime.Now.Minute >= FittingSoftware_List[countFS_WithUpdate].Upgrade_FS.info.Time_Update.Minute) // jezeli minuta sie zgadza lub juz minela
                 {
                     InitFindingNewBuild();
                 
@@ -2017,12 +2044,12 @@ namespace UltimateChanger
                 }
                 else
                 {
-                    lblTime_toUpgrade.Content = "Time to start: " + (FittingSoftware_List[0].Upgrade_FS.info.Time_Update.Hour - DateTime.Now.Hour) + " H " + (FittingSoftware_List[0].Upgrade_FS.info.Time_Update.Minute - DateTime.Now.Minute) + " M";
+                    lblTime_toUpgrade.Content = "Time to start: " + (FittingSoftware_List[countFS_WithUpdate].Upgrade_FS.info.Time_Update.Hour - DateTime.Now.Hour) + " H " + (FittingSoftware_List[countFS_WithUpdate].Upgrade_FS.info.Time_Update.Minute - DateTime.Now.Minute) + " M";
                 }
             }
             else
             {
-                lblTime_toUpgrade.Content = "Time to start: " + (FittingSoftware_List[0].Upgrade_FS.info.Time_Update.Hour - DateTime.Now.Hour) + " H " + ( FittingSoftware_List[0].Upgrade_FS.info.Time_Update.Minute - DateTime.Now.Minute) + " M";
+                lblTime_toUpgrade.Content = "Time to start: " + (FittingSoftware_List[countFS_WithUpdate].Upgrade_FS.info.Time_Update.Hour - DateTime.Now.Hour) + " H " + ( FittingSoftware_List[countFS_WithUpdate].Upgrade_FS.info.Time_Update.Minute - DateTime.Now.Minute) + " M";
             }
         }       
 
@@ -3643,7 +3670,16 @@ namespace UltimateChanger
             for (int i = 0; i < 5; i++)
             {
                 FittingSoftware_List[i].PathToNewVerFS = fileOperator.GetAvailableNewFS(FittingSoftware_List[i],true);
-                listOfPathsToInstall.Add(FittingSoftware_List[i].PathToNewVerFS); // dodaje na liste paths do instalacji
+                //listOfPathsToInstall.Add(FittingSoftware_List[i].PathToNewVerFS); // dodaje na liste paths do instalacji
+                if (FittingSoftware_List[i].PathToNewVerFS != "")
+                {
+                    checkBoxList[i].IsChecked = true;
+                    listOfPathsToInstall.Add(FittingSoftware_List[i].PathToNewVerFS);
+                }
+                else
+                {
+                    checkBoxList[i].IsChecked = false;
+                }
             }
 
             // zamykam wszystkie FS

@@ -18,6 +18,7 @@ namespace UltimateChanger
         public string Name_FS;
         public string Path_Local_Installer;
         public string Version;
+        public Version Version_build;
         public string Market;
         public string Hattori_Path;
         public bool customPath; // jezeli customowa lokalizacja FS
@@ -48,6 +49,7 @@ namespace UltimateChanger
             Name_FS = tmpFS.Name_FS;
             Path_Local_Installer = tmpFS.Path_Local_Installer;
             Version = tmpFS.Version;
+            Version_build = tmpFS.Version_build;
             Market = tmpFS.Market;
             customPath = false;
             Brand = tmpFS.Brand;
@@ -65,8 +67,9 @@ namespace UltimateChanger
         {
             Name_FS = Name;
             Path_Local_Installer = findUnInstaller();
-            Version = getFS_Version();
-           // Market = getMarket();
+
+            
+            // Market = getMarket();
             customPath = false;
             var localCompo = fileOperator.GetAllLocalCompositions();
             switch (Name)
@@ -247,6 +250,16 @@ namespace UltimateChanger
                 // a jezeli zaczne już robić update to po przekazaniu listy od wszystkich dostepnych FS  z pathami do nowszej wersji 
                 // mozna usunac obiekty i wylaczyc sprawdzanie timera czy obiekt jest nullem
             }
+            Version = getFS_Version();
+            try
+            {
+                Version_build = new Version(Version+"0");
+            }
+            catch (Exception)
+            {
+                Version_build = new Version("0.0.0.0");
+            }
+
             Timer_InfoFS = new DispatcherTimer();
             Timer_InfoFS.Tick += updateInfoFS;
             Timer_InfoFS.Interval = new TimeSpan(0, 0, 10);
@@ -353,17 +366,12 @@ namespace UltimateChanger
 
             public string findUnInstaller()
             {
-            var allFiles = Directory.GetFiles(@"C:\ProgramData\Package Cache", "*.exe", SearchOption.AllDirectories);
+            var allFiles = Directory.GetFiles(@"C:\ProgramData\Package Cache", "Install.exe", SearchOption.AllDirectories);
             foreach (var item in allFiles)
             {
                 try
                 {
                     FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(item);
-
-                    if ((myFileVersionInfo.FileName.Contains("OticonMedium") || fileOperator.checkIfGenie(myFileVersionInfo.FileDescription)))
-                    {
-                        return item;
-                    }
 
                     if ((myFileVersionInfo.FileName.Contains("OticonMedicalMedium") || fileOperator.checkIfMedical(myFileVersionInfo.FileDescription)) && Name_FS.Contains("Medical"))
                     {
@@ -381,6 +389,10 @@ namespace UltimateChanger
                     }
 
                     if ((myFileVersionInfo.FileName.Contains("PhilipsMedium") || fileOperator.checkIfPhilips(myFileVersionInfo.FileDescription)) && Name_FS.Contains("HearSuite"))
+                    {
+                        return item;
+                    }
+                    if ((myFileVersionInfo.FileName.Contains("OticonMedium") || fileOperator.checkIfGenie(myFileVersionInfo.FileDescription)) && this.Name_FS == "Genie")
                     {
                         return item;
                     }
@@ -507,7 +519,7 @@ namespace UltimateChanger
                 {
                     FileVersionInfo tmp = FileVersionInfo.GetVersionInfo(pathToExe);
 
-                    return tmp.FileVersion;
+                    return tmp.FileVersion + "0";
                 }
                 catch (Exception)
                 {
