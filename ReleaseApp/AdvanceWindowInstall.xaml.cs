@@ -197,8 +197,7 @@ namespace UltimateChanger
                 {
                     PathTobuildsUI = findBuildsInPaths(Paths, root);
                 });
-                cmbLastselected.ItemsSource = getLastUsedPaths();
-               
+                
             }            
         }
 
@@ -239,19 +238,6 @@ namespace UltimateChanger
                 ((MainWindow)System.Windows.Application.Current.MainWindow).ProgressInstallation.ToolTip = "Installation in progress";
             }
             this.Close();
-        }
-
-        private void cmbLastselected_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            cmbLastselected.Items.Refresh();
-            if (cmbLastselected.SelectedIndex !=-1)
-            {
-                txtpathToBuilds.Text = cmbLastselected.Text;
-                if (databaseManager != null)
-                {
-                    updateUIListPaths(databaseManager.Advance_GetPath(txtpathToBuilds.Text));
-                }                
-            }
         }
 
         private void updateUIListPaths(List <string> listOfPaths)  // aktualizacja listy paths po pobraniu danych z SQL

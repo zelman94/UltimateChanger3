@@ -41,9 +41,6 @@ namespace UltimateChanger
 
 
         int Licznik_All_button = 0;
-
-        bool copystatus = false; // to know if copy composition is running in rekurencjon.exe
-
         FileOperator fileOperator;
         public DataBaseManager dataBaseManager;
         ClockManager clockManager;
@@ -216,27 +213,6 @@ namespace UltimateChanger
                 MessageBox.Show("inicjalizacja \n" + x.ToString());
             }
 
-            try
-            {
-                sliderRelease.Maximum = cmbRelease.Items.Count - 1; // max dla slidera -1 bo count nie uwzglednia zerowego indexu
-                sliderWeightWireless.Maximum = 1;
-                sliderRelease.Value = cmbRelease.SelectedIndex; // ustalenie defaulta jako obecny release
-                
-                sliderWeightWireless.Value = 0.5; // to oznacza ze nic nie zmieniam i wszystko jes po rowno w szansach 
-                lblWeightWireless.Content = sliderWeightWireless.Value.ToString();
-                cmbLogSettings_Compo.SelectedIndex = 0;
-
-                ListBoxOfAvailableFeautures.SelectionMode = SelectionMode.Multiple;
-
-                ListBoxOfAvailableStyles.SelectionMode = SelectionMode.Multiple;
-                ListBoxOfAvailableTypes.SelectionMode = SelectionMode.Multiple;
-                
-            }
-            catch (Exception x)
-            {
-                Log.Debug(x.ToString());
-                MessageBox.Show("inicjalizacja part 2 \n" + x.ToString());
-            }
             btnIdentify.Visibility = Visibility.Hidden;
 
             List<MenuItem> menuitems = new List<MenuItem>();
@@ -271,6 +247,28 @@ namespace UltimateChanger
 
             try
             {
+                sliderRelease.Maximum = cmbRelease.Items.Count - 1; // max dla slidera -1 bo count nie uwzglednia zerowego indexu
+                sliderWeightWireless.Maximum = 1;
+                sliderRelease.Value = cmbRelease.SelectedIndex; // ustalenie defaulta jako obecny release
+
+                sliderWeightWireless.Value = 0.5; // to oznacza ze nic nie zmieniam i wszystko jes po rowno w szansach 
+                lblWeightWireless.Content = sliderWeightWireless.Value.ToString();
+                cmbLogSettings_Compo.SelectedIndex = 0;
+
+                ListBoxOfAvailableFeautures.SelectionMode = SelectionMode.Multiple;
+
+                ListBoxOfAvailableStyles.SelectionMode = SelectionMode.Multiple;
+                ListBoxOfAvailableTypes.SelectionMode = SelectionMode.Multiple;
+
+            }
+            catch (Exception x)
+            {
+                Log.Debug(x.ToString());
+                MessageBox.Show("inicjalizacja part 2 \n" + x.ToString());
+            }
+
+            try
+            {
 
                 setUIdefaults(XMLReader.getDefaultSettings("RadioButtons"), "RadioButtons");
                 setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
@@ -282,7 +280,6 @@ namespace UltimateChanger
                 Log.Debug(x.ToString());
                 MessageBox.Show(x.ToString());
             }
-
 
             //-- DSZY LOSU LOSU--//
             listboxTeam.SelectionMode = SelectionMode.Multiple;
@@ -1220,6 +1217,12 @@ namespace UltimateChanger
             {
                 // if (!File.Exists(@"C:/Program Files (x86)/Oticon/Genie/Genie2/Genie.exe"))
                 byte counter = 0;
+
+                for (int i = 5; i < FittingSoftware_List.Count; i++)
+                {
+                    FittingSoftware_List[i] = new FittingSoftware(FittingSoftware_List[i].Name_FS, true);
+                }
+
                 foreach (var item in checkBoxList)
                 {
                     if (FittingSoftware_List[counter+5].pathToExe == "" && !item.Name.Contains("Night")) // jezeli nie ma path to nie ma kompozycji 
@@ -1547,6 +1550,10 @@ namespace UltimateChanger
                 {
                     
                     string from = cmbBuild_Compo.Text;
+                    if (!File.Exists(from))
+                    {
+                        return;
+                    }
                     FileInfo infoFile = new FileInfo(from);
                     string to = "C:\\Program Files\\UltimateChanger\\compositions\\" + infoFile.Name;
 
@@ -1898,6 +1905,10 @@ namespace UltimateChanger
         {
             if (!fileOperator.worker.IsBusy)
             {
+                cmbBrandstoinstall_Compo.IsEnabled = true;
+                cmbOEM_Compo.IsEnabled = true;
+                cmbRelease_Compo.IsEnabled = true;
+                cmbBuild2_Compo.IsEnabled = true;
                 try
                 {
                     Process.Start(pathToCopyOfComposition);
@@ -3599,6 +3610,8 @@ namespace UltimateChanger
                 if (TabCompo.IsEnabled)
                 {
                     refreshUI(new object(), new EventArgs());
+
+
                     cmbBuild2_Compo.SelectedIndex = 1;
                     BindCombo.setFScomboBox_compositions(); // bindowanie do compozycjji  
                     cmbRelease_Compo.Text = cmbRelease.Text;
@@ -3624,6 +3637,7 @@ namespace UltimateChanger
                     TabCompo.IsEnabled = false;
                     TabFull.IsEnabled = true;
                     cmbBrandstoinstall.SelectedIndex = 0;
+
                 }               
             }
         }
