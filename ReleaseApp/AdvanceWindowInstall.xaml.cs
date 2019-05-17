@@ -43,14 +43,17 @@ namespace UltimateChanger
             InitializeComponent();
             databaseManager = databaseManager_;
 
-            cmbRelease.ItemsSource = databaseManager.executeSelect("select DISTINCT release from builds where type = 'FULL' order by release");
+            List <string> bindRelease = databaseManager.executeSelect("select DISTINCT release from builds where type = 'FULL' order by release");
+            cmbRelease.ItemsSource = bindRelease;
             try
             {
-                cmbRelease.SelectedIndex = 0;
+                cmbRelease.SelectedIndex = bindRelease.FindIndex(x => x.StartsWith(((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease.Text));
+
+                // ((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease
             }
             catch (Exception)
             {
-
+                cmbRelease.SelectedIndex = 0;
             }
             cmbMode.ItemsSource = new List<string>() { { "IP" }, { "RC" }, { "Master" } };
             cmbMode.SelectedIndex = 0;
@@ -79,6 +82,7 @@ namespace UltimateChanger
 
             setDefaultSkin();
             progressAdvanceInstall.Visibility = Visibility.Hidden;
+           
             //cmbLastselected.ItemsSource = getLastUsedPaths();
         }
 
@@ -193,8 +197,7 @@ namespace UltimateChanger
                 {
                     PathTobuildsUI = findBuildsInPaths(Paths, root);
                 });
-                cmbLastselected.ItemsSource = getLastUsedPaths();
-               
+                
             }            
         }
 
@@ -232,21 +235,9 @@ namespace UltimateChanger
             {
                 ((MainWindow)System.Windows.Application.Current.MainWindow).ProgressInstallation.Visibility = Visibility.Visible;
                 ((MainWindow)System.Windows.Application.Current.MainWindow).InstallTimer.Start();
+                ((MainWindow)System.Windows.Application.Current.MainWindow).ProgressInstallation.ToolTip = "Installation in progress";
             }
             this.Close();
-        }
-
-        private void cmbLastselected_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            cmbLastselected.Items.Refresh();
-            if (cmbLastselected.SelectedIndex !=-1)
-            {
-                txtpathToBuilds.Text = cmbLastselected.Text;
-                if (databaseManager != null)
-                {
-                    updateUIListPaths(databaseManager.Advance_GetPath(txtpathToBuilds.Text));
-                }                
-            }
         }
 
         private void updateUIListPaths(List <string> listOfPaths)  // aktualizacja listy paths po pobraniu danych z SQL

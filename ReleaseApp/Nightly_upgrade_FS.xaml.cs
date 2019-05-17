@@ -190,11 +190,13 @@ namespace UltimateChanger
             {
                 if (txtPathRoot.Text != "")
                 {
-                    this.FittingSoftware_list[i].Upgrade_FS = new Upgrade_FittingSoftware(cmbOption.Text,txtPathRoot.Text,Time_now, TrashCleaner);
+                    this.FittingSoftware_list[i].Upgrade_FS = new Upgrade_FittingSoftware(cmbOption.Text, txtPathRoot.Text, Time_now, TrashCleaner); // opcja od MCAJ
                 }
                 else
-                this.FittingSoftware_list[i].Upgrade_FS = new Upgrade_FittingSoftware(cmbRelease.Text,cmbBranch.Text,cmbOption.Text ,Time_now, TrashCleaner);
-
+                {
+                    this.FittingSoftware_list[i].Upgrade_FS = new Upgrade_FittingSoftware(cmbRelease.Text, cmbBranch.Text, cmbOption.Text, Time_now, TrashCleaner); // opcja GRSK
+                    this.FittingSoftware_list[i].Upgrade_FS.info.path_to_root = "";
+                }
                 ((MainWindow)System.Windows.Application.Current.MainWindow).FittingSoftware_List[i] = this.FittingSoftware_list[i]; // przekazanie obiektów do odpowiednikow glownych
             }
             // wlaczyc timer w mainwindow dla sprawdzania czy godzina już jest ok

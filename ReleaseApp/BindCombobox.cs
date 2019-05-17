@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,7 +11,8 @@ namespace UltimateChanger
 {
     class BindCombobox
     {
-
+        private static readonly ILog Log =
+             LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public SortedDictionary<string, string> market = new SortedDictionary<string, string>
         {
             { "Australia (AU)", "AU"},
@@ -170,40 +172,17 @@ namespace UltimateChanger
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease_Compo.ItemsSource = bind;
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbBuild2_Compo.ItemsSource = listOfSerchingOption;
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbBuild_mode.ItemsSource = listOfSerchingOption;
-            ((MainWindow)System.Windows.Application.Current.MainWindow).cmbBuild_mode.SelectedIndex = 0;
 
-            int rok = System.DateTime.Today.Year;
-            int release = rok - 2000;
-
-            int miesiac = System.DateTime.Today.Month;
-            int wydanie = miesiac - 6;
-
-            foreach (var item in bind)
+            try
             {
-                if (item.Contains(release.ToString()))
-                {
-                    tmp.Add(item);
-                }
+                ((MainWindow)System.Windows.Application.Current.MainWindow).cmbBuild_mode.SelectedIndex = 0;
             }
-            if (tmp.Count == 1)
+            catch (Exception x)
             {
-                //((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease.SelectedItem = "19.1";// tmp[0];
-            }
-            else
-            {
-                if (wydanie < 0)
-                {
-                   // ((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease.SelectedItem = release + ".1";
-                }
-                else
-                {
-                    //((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease.SelectedItem = release + ".2";
-                }
-            }
+                Log.Debug(x.ToString());
+            }   
 
         }
-
-
 
         public void setOEMComboBox(string FS)
         {

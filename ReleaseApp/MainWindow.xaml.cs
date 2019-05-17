@@ -31,7 +31,7 @@ using System.Data;
 using Rekurencjon; // logi
 using log4net;
 
-[assembly: System.Reflection.AssemblyVersion("4.0.0.0")]
+[assembly: System.Reflection.AssemblyVersion("3.9.31.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window 
@@ -41,9 +41,6 @@ namespace UltimateChanger
 
 
         int Licznik_All_button = 0;
-
-        bool copystatus = false; // to know if copy composition is running in rekurencjon.exe
-
         FileOperator fileOperator;
         public DataBaseManager dataBaseManager;
         ClockManager clockManager;
@@ -144,11 +141,7 @@ namespace UltimateChanger
                 initializeElements();
                 
                 initiationForprograms();
-                BindCombo.setFScomboBox();
-                BindCombo.setReleaseComboBox();
-                BindCombo.setMarketCmb();
-                BindCombo.bindlogmode();
-                BindCombo.bindListBox();
+
                
                 initializeTimers();
 
@@ -220,27 +213,6 @@ namespace UltimateChanger
                 MessageBox.Show("inicjalizacja \n" + x.ToString());
             }
 
-            try
-            {
-                sliderRelease.Maximum = cmbRelease.Items.Count - 1; // max dla slidera -1 bo count nie uwzglednia zerowego indexu
-                sliderWeightWireless.Maximum = 1;
-                sliderRelease.Value = cmbRelease.SelectedIndex; // ustalenie defaulta jako obecny release
-                
-                sliderWeightWireless.Value = 0.5; // to oznacza ze nic nie zmieniam i wszystko jes po rowno w szansach 
-                lblWeightWireless.Content = sliderWeightWireless.Value.ToString();
-                cmbLogSettings_Compo.SelectedIndex = 0;
-
-                ListBoxOfAvailableFeautures.SelectionMode = SelectionMode.Multiple;
-
-                ListBoxOfAvailableStyles.SelectionMode = SelectionMode.Multiple;
-                ListBoxOfAvailableTypes.SelectionMode = SelectionMode.Multiple;
-                
-            }
-            catch (Exception x)
-            {
-                Log.Debug(x.ToString());
-                MessageBox.Show("inicjalizacja part 2 \n" + x.ToString());
-            }
             btnIdentify.Visibility = Visibility.Hidden;
 
             List<MenuItem> menuitems = new List<MenuItem>();
@@ -261,6 +233,42 @@ namespace UltimateChanger
 
             try
             {
+                BindCombo.setFScomboBox();
+                BindCombo.setReleaseComboBox();
+                BindCombo.setMarketCmb();
+                BindCombo.bindlogmode();
+                BindCombo.bindListBox();
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.ToString());
+            }
+
+
+            try
+            {
+                sliderRelease.Maximum = cmbRelease.Items.Count - 1; // max dla slidera -1 bo count nie uwzglednia zerowego indexu
+                sliderWeightWireless.Maximum = 1;
+                sliderRelease.Value = cmbRelease.SelectedIndex; // ustalenie defaulta jako obecny release
+
+                sliderWeightWireless.Value = 0.5; // to oznacza ze nic nie zmieniam i wszystko jes po rowno w szansach 
+                lblWeightWireless.Content = sliderWeightWireless.Value.ToString();
+                cmbLogSettings_Compo.SelectedIndex = 0;
+
+                ListBoxOfAvailableFeautures.SelectionMode = SelectionMode.Multiple;
+
+                ListBoxOfAvailableStyles.SelectionMode = SelectionMode.Multiple;
+                ListBoxOfAvailableTypes.SelectionMode = SelectionMode.Multiple;
+
+            }
+            catch (Exception x)
+            {
+                Log.Debug(x.ToString());
+                MessageBox.Show("inicjalizacja part 2 \n" + x.ToString());
+            }
+
+            try
+            {
 
                 setUIdefaults(XMLReader.getDefaultSettings("RadioButtons"), "RadioButtons");
                 setUIdefaults(XMLReader.getDefaultSettings("CheckBoxes"), "CheckBoxes");
@@ -272,7 +280,6 @@ namespace UltimateChanger
                 Log.Debug(x.ToString());
                 MessageBox.Show(x.ToString());
             }
-
 
             //-- DSZY LOSU LOSU--//
             listboxTeam.SelectionMode = SelectionMode.Multiple;
@@ -994,7 +1001,7 @@ namespace UltimateChanger
             InstallTimer_Normal_Installation.Interval = new TimeSpan(0, 0, 5);
 
             silentUninstal_Install_Timer = new DispatcherTimer();
-            silentUninstal_Install_Timer.Tick += checkUninstall;
+            silentUninstal_Install_Timer.Tick += checkUninstall; 
             silentUninstal_Install_Timer.Interval = new TimeSpan(0, 1, 0);
 
             checkTime_Timer = new DispatcherTimer();
@@ -1181,84 +1188,44 @@ namespace UltimateChanger
         {
             if (TabFull.IsSelected)
             {
-                // if (!File.Exists(@"C:/Program Files (x86)/Oticon/Genie/Genie2/Genie.exe"))
-                if (!Directory.Exists(@"C:\ProgramData\Oticon"))
+                byte counter = 0;
+                if (FittingSoftware_List.Count<0)
                 {
-                    Oticon.IsEnabled = false;
-                    //lblG.Foreground = new SolidColorBrush(Colors.Red);
-                    lblG.Content = "FS not installed";
-                    Oticon.IsChecked = false;
-                    //oticonRectangle.Opacity = 0.3;
+                    return;
                 }
-                else
-                {
-                    Oticon.IsEnabled = true;
-                    //oticonRectangle.Opacity = 1.0;
-                }
-                // if (!File.Exists(@"C:/Program Files (x86)/Bernafon/Oasis/Oasis2/Oasis.exe"))
-                if (!Directory.Exists(@"C:\ProgramData\Bernafon"))
-                {
-                    Bernafon.IsEnabled = false;
-                   /// lblO.Foreground = new SolidColorBrush(Colors.Red);
-                    lblO.Content = "FS not installed";
-                    Bernafon.IsChecked = false;
-                    //bernafonRectangle.Opacity = 0.3;
-                }
-                else
-                {
-                    Bernafon.IsEnabled = true;
-                    //bernafonRectangle.Opacity = 1.0;
-                }
-                //if (!File.Exists(@"C:/Program Files (x86)/Sonic/ExpressFit/ExpressFit2/ExpressFit.exe"))
-                if (!Directory.Exists(@"C:\ProgramData\Sonic"))
-                {
-                    Sonic.IsEnabled = false;
-                    //lblE.Foreground = new SolidColorBrush(Colors.Red);
-                    lblE.Content = "FS not installed";
-                    Sonic.IsChecked = false;
-                    //sonicRectangle.Opacity = 0.3;
-                }
-                else
-                {
-                    Sonic.IsEnabled = true;
-                    //sonicRectangle.Opacity = 1.0;
-                }
-
-                if (!Directory.Exists(@"C:\ProgramData\Oticon Medical")) // medical
-                {
-                    Medical.IsEnabled = false;
-                    //lblM.Foreground = new SolidColorBrush(Colors.Red);
-                    lblM.Content = "FS not installed";
-                    Medical.IsChecked = false;
-                    //oticonmedicalnRectangle.Opacity = 0.3;
-                }
-                else
-                {
-                    Medical.IsEnabled = true;
-                    //oticonmedicalnRectangle.Opacity = 1.0;
-                }
-
-                if (!Directory.Exists(@"C:\ProgramData\Philips HearSuite")) // cumulus
-                {
-                    Cumulus.IsEnabled = false;
-                    //lblC.Foreground = new SolidColorBrush(Colors.Red);
-                    lblC.Content = "FS not installed";
-                    Cumulus.IsChecked = false;
-                    //startoRectangle.Opacity = 0.3;
-                }
-                else
-                {
-                    Cumulus.IsEnabled = true;
-                    //startoRectangle.Opacity = 1.0;
+                foreach (var item in checkBoxList)
+                {                  
+                    if (!File.Exists(FittingSoftware_List[counter].pathToExe) && !item.Name.Contains("Night")) // jezeli nie ma path to nie ma kompozycji 
+                    {
+                        if (!FittingSoftware_List[counter].checkTrashInstance()) // jezeli nie ma smieci
+                        {
+                            item.IsEnabled = false;
+                            item.IsChecked = false;
+                        }
+                        // dodac funkcje sprawdzajaca czy sa jeszcze smieci do usuniecia
+                        labelListsforRefreshUI[counter].Content = "FS not installed";
+                        FittingSoftware_List[counter] = new FittingSoftware(FittingSoftware_List[counter].Name_FS);
+                    }
+                    else
+                    {
+                        item.IsEnabled = true;
+                    }
+                    counter++;
                 }
             }
             else // sprawdzanie kompozycji
             {
                 // if (!File.Exists(@"C:/Program Files (x86)/Oticon/Genie/Genie2/Genie.exe"))
                 byte counter = 0;
+
+                for (int i = 5; i < FittingSoftware_List.Count; i++)
+                {
+                    FittingSoftware_List[i] = new FittingSoftware(FittingSoftware_List[i].Name_FS, true);
+                }
+
                 foreach (var item in checkBoxList)
                 {
-                    if (FittingSoftware_List[counter+5].pathToExe == "") // jezeli nie ma path to nie ma kompozycji 
+                    if (FittingSoftware_List[counter+5].pathToExe == "" && !item.Name.Contains("Night")) // jezeli nie ma path to nie ma kompozycji 
                     {
                         item.IsEnabled = false;
                         item.IsChecked = false;
@@ -1317,9 +1284,8 @@ namespace UltimateChanger
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            TrashCleaner smieciarka = new TrashCleaner();
             byte licznik = 0;
-
+            
             string message = "Deleted: \n";
             string message2 = "Close FS or uninstall: \n";
             foreach (var item in checkBoxList)
@@ -1342,7 +1308,8 @@ namespace UltimateChanger
                 }
                 licznik++;
             }
-         
+            Log.Debug(message2);
+            Log.Debug("btnDelete_Click");
                 
                 
         }
@@ -1396,7 +1363,7 @@ namespace UltimateChanger
                 {
                     count++;
                     flag = false;
-                    labelListsforUninstall.Add(listlabelsinfoFS_Version[countFS]);
+                    labelListsforUninstall.Add(listlabelsinfoFS_Version[countFS]); 
                     listIndexOfCheckedFS.Add(countFS);
                 }
                 if (flag)
@@ -1414,14 +1381,14 @@ namespace UltimateChanger
             if (count == 1 && mode_uninstall) // 1 FS with UI
             {
                 Log.Debug("Normal Uninstall Started for: \n" + FittingSoftware_List[chechboxNr].string_For_Log());
-                FittingSoftware_List[chechboxNr].uninstallFS(true);
+                FittingSoftware_List[chechboxNr].uninstallFS(true); 
                 return;
             }
-
+            
             for (int i = 0; i < listIndexOfCheckedFS.Count; i++)
             {
-                Log.Debug("Silent Uninstallation for: \n\n" + FittingSoftware_List[chechboxNr].string_For_Log());
-                listGlobalPathsToUninstall.Add(FittingSoftware_List[chechboxNr]);
+                Log.Debug("Silent Uninstallation for: \n\n" + FittingSoftware_List[listIndexOfCheckedFS[i]].string_For_Log());
+                listGlobalPathsToUninstall.Add(FittingSoftware_List[listIndexOfCheckedFS[i]]);// dodaje FS do listy FS do usuniecia
             }
 
             uninstallTimer.Start();
@@ -1473,7 +1440,7 @@ namespace UltimateChanger
                     {
                         if (item.IsChecked.Value)
                         {
-                            FittingSoftware_List[licznik].setLogMode(cmbLogMode.Text,cmbLogSettings.SelectedIndex, TabFull.IsEnabled);
+                            FittingSoftware_List[licznik].setLogMode(cmbLogMode.Text,cmbLogSettings.SelectedIndex, TabFull.IsSelected);
                             setNewSavedTime(20);
                             message = message + item.Name + "\n";                            
                         }
@@ -1502,7 +1469,7 @@ namespace UltimateChanger
                     {
                         if (item.IsChecked.Value)
                         {
-                            FittingSoftware_List[licznik].setLogMode(cmbLogMode.Text, cmbLogSettings.SelectedIndex, TabFull.IsEnabled);
+                            FittingSoftware_List[licznik].setLogMode(cmbLogMode.Text, cmbLogSettings.SelectedIndex, TabFull.IsSelected);
                             message = message + item.Name + "\n";
                             flag = true;
                         }
@@ -1583,6 +1550,10 @@ namespace UltimateChanger
                 {
                     
                     string from = cmbBuild_Compo.Text;
+                    if (!File.Exists(from))
+                    {
+                        return;
+                    }
                     FileInfo infoFile = new FileInfo(from);
                     string to = "C:\\Program Files\\UltimateChanger\\compositions\\" + infoFile.Name;
 
@@ -1823,6 +1794,7 @@ namespace UltimateChanger
                     catch (Exception x)
                     {
                         Log.Debug(x.ToString());
+                        Log.Debug("path to setup: " + listOfPathsToInstall[0]);
                         InstallTimer.Stop();
                         MessageBox.Show("Error installation");
                         return;
@@ -1855,11 +1827,13 @@ namespace UltimateChanger
             {
                 if (listGlobalPathsToUninstall.Count != 0)
                 {
+                   ProgressInstallation.ToolTip = "Uninstall in progress";
                     //uninstallTimer.Stop(); // chce skanowac zawsze czy inaczej ?
                     try
                     {
                         listGlobalPathsToUninstall[0].Kill();
                         Process.Start(listGlobalPathsToUninstall[0].Path_Local_Installer, " /uninstall /quiet");
+                        FittingSoftware_List[listGlobalPathsToUninstall[0].indexFS].uninstalled = true;
                         Log.Debug("Silent Uninstallation Started For: "+ listGlobalPathsToUninstall[0].Path_Local_Installer);
                         //FittingSoftware_List[listGlobalPathsToUninstall[0].indexFS].uninstalled = true;
                         listGlobalPathsToUninstall.RemoveAt(0);
@@ -1879,10 +1853,15 @@ namespace UltimateChanger
                 else
                 {
                     uninstallTimer.Stop();
+                    ProgressInstallation.Visibility = Visibility.Hidden;
                     btnuninstal.IsEnabled = true;
                     btninstal.IsEnabled = true;
                     btnDelete.IsEnabled = true;
                     Log.Debug("Uninstallation DONE");
+                    if (RByesRemove.IsChecked.Value) // jezeli chcemy usuwac smieci to usuwamy
+                    {
+                        btnDelete_Click(new object(), new RoutedEventArgs());
+                    }
                    // MessageBox.Show("Uninstallation DONE");
                 }
             }
@@ -1926,6 +1905,10 @@ namespace UltimateChanger
         {
             if (!fileOperator.worker.IsBusy)
             {
+                cmbBrandstoinstall_Compo.IsEnabled = true;
+                cmbOEM_Compo.IsEnabled = true;
+                cmbRelease_Compo.IsEnabled = true;
+                cmbBuild2_Compo.IsEnabled = true;
                 try
                 {
                     Process.Start(pathToCopyOfComposition);
@@ -1942,6 +1925,8 @@ namespace UltimateChanger
         {
             Process currentProcess = Process.GetCurrentProcess();
             List<string> childs = FileOperator.FindAllProcessesSpawnedBy(Convert.ToUInt32(currentProcess.Id));
+            // przerobic na sprawdzenie czy jest cos na liscie do uninstallacji i moze przejscie po FS czy trwa uninstlacja?
+           
             if (childs.Count > 0)
             {
                 ProgressInstallation.Visibility = Visibility.Visible;
@@ -1952,74 +1937,113 @@ namespace UltimateChanger
                     ProgressInstallation.Value = 0;
                 }
             }
-            else
+            else if(!uninstallTimer.IsEnabled && childs.Count == 0) // jezeli nie ma nic do usuniecia bo wylaczony timer i nie ma procesu odpalonego
             {
                 try
                 {
-                    if (FittingSoftware_List[0].Upgrade_FS.info.TrashCleaner)
+                    for (int i = 0; i < 4; i++)
                     {
-                        btnDelete_Click(new object(), new RoutedEventArgs());
-                    }
+                        if (FittingSoftware_List[i].Upgrade_FS.info.TrashCleaner)
+                        {
+                            btnDelete_Click(new object(), new RoutedEventArgs());
+                            break;
+                        }
+                    }                    
                 }
                 catch (Exception)
                 {
 
                 }
-                InstallTimer_Normal_Installation.Stop();
-                
+                InstallTimer_Normal_Installation.Stop();                
                 InstallTimer.Start();
                 ProgressInstallation.Visibility = Visibility.Hidden;
+                silentUninstal_Install_Timer.Stop();
+            }
+        }
+
+        private void InitFindingNewBuild()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                try
+                {
+                    if (FittingSoftware_List[i].Upgrade_FS.info.path_to_root == "")
+                    {
+                        FittingSoftware_List[i].getNewFSPath();
+                    }
+                    else
+                    {
+                        // tylko full 
+                        FittingSoftware_List[i].PathToNewVerFS = fileOperator.getPathToSetup(FittingSoftware_List[i]); // dodac wyszukiwanie z rootpatha path to setup.exe dla main brandu                     
+                    }
+                }
+                catch (Exception)
+                {
+                    Log.Debug($"FittingSoftware_List[{i}].Upgrade_FS was null");
+                }
+
             }
 
+            for (int i = 0; i < 5; i++)
+            {
+                if (FittingSoftware_List[i].Task_GetNewBuild != null) // jezeli jest rozny od null
+                {
+                    while (FittingSoftware_List[i].Task_GetNewBuild.Status == TaskStatus.Running) // czekam az sie nie skonczy szukanie patha
+                    {
+                        FittingSoftware_List[i].Task_GetNewBuild.Wait();
+
+                    }
+                    MessageBox.Show(FittingSoftware_List[i].Task_GetNewBuild.Status.ToString());
+                    Thread.Sleep(1000);
+                }
+                else
+                {
+                    Log.Debug("Task_GetNewBuild is null for: " + FittingSoftware_List[i].Name_FS);
+                }
+
+                Log.Debug(FittingSoftware_List[i].Name_FS + " path to new build setup: " + FittingSoftware_List[i].PathToNewVerFS);
+
+                if (FittingSoftware_List[i].PathToNewVerFS != "") // jezlei jest nowsza warsja to dodaje do usuniecia checkbox
+                {
+                    checkBoxList[i].IsChecked = true;
+                    listOfPathsToInstall.Add(FittingSoftware_List[i].PathToNewVerFS); // dodaje na liste paths do instalacji
+                }
+                else
+                {
+                    checkBoxList[i].IsChecked = false;
+                }
+            }
         }
+
         private void checkTime_forUpgradeFS(object sender, EventArgs e) // sprawdz czy uninstallacja trwa jezeli juz sie skonczyla wtedy wlacz timer do instalacji nocnej
         {
-            if (FittingSoftware_List[0].Upgrade_FS.info.Time_Update.Hour == DateTime.Now.Hour) // jezeli godzina sie zgadza
+            int countFS_WithUpdate = -1;
+            try
             {
-                if (DateTime.Now.Minute >= FittingSoftware_List[0].Upgrade_FS.info.Time_Update.Minute) // jezeli minuta sie zgadza lub juz minela
+                for (int i = 0; i < 4; i++)
                 {
-                    for (int i = 0; i < 5; i++)
+                    if (FittingSoftware_List[i].Upgrade_FS != null)
                     {
-                        if (FittingSoftware_List[i].Upgrade_FS.info.path_to_root == "")
-                        {
-                            FittingSoftware_List[i].getNewFSPath();
-                        }
-                        else
-                        {
-                            // tylko full 
-                            FittingSoftware_List[i].PathToNewVerFS = fileOperator.getPathToSetup(FittingSoftware_List[i]); // dodac wyszukiwanie z rootpatha path to setup.exe dla main brandu                     
-                        }
+                        countFS_WithUpdate = i;
                     }
-                                   
-                    for (int i = 0; i < 5; i++)
-                    {
-                        if (FittingSoftware_List[i].Task_GetNewBuild != null) // jezeli jest rozny od null
-                        {
-                            while (FittingSoftware_List[i].Task_GetNewBuild.Status == TaskStatus.Running) // czekam az sie nie skonczy szukanie patha
-                            {
-                                FittingSoftware_List[i].Task_GetNewBuild.Wait();
-                                
-                            }
-                            MessageBox.Show(FittingSoftware_List[i].Task_GetNewBuild.Status.ToString());
-                            Thread.Sleep(1000);
-                        }
-                        else
-                        {
-                            Log.Debug("Task_GetNewBuild is null for: " + FittingSoftware_List[i].Name_FS);
-                        }
+                }
+                if (countFS_WithUpdate == -1)
+                {
+                    return;
+                }
 
-                        Log.Debug(FittingSoftware_List[i].Name_FS + " path to new build setup: " + FittingSoftware_List[i].PathToNewVerFS);
-                        
-                        if (FittingSoftware_List[i].PathToNewVerFS != "") // jezlei jest nowsza warsja to dodaje do usuniecia checkbox
-                        {
-                            checkBoxList[i].IsChecked = true;
-                            listOfPathsToInstall.Add(FittingSoftware_List[i].PathToNewVerFS); // dodaje na liste paths do instalacji
-                        }
-                        else
-                        {
-                            checkBoxList[i].IsChecked = false;
-                        }
-                    }                    
+            }
+            catch (Exception)
+            {
+
+            }
+
+            if (FittingSoftware_List[countFS_WithUpdate].Upgrade_FS.info.Time_Update.Hour == DateTime.Now.Hour) // jezeli godzina sie zgadza
+            {
+                if (DateTime.Now.Minute >= FittingSoftware_List[countFS_WithUpdate].Upgrade_FS.info.Time_Update.Minute) // jezeli minuta sie zgadza lub juz minela
+                {
+                    InitFindingNewBuild();
+                
                     // zamykam wszystkie FS
                     Button_Click_2(new object(), new RoutedEventArgs());
                     // po zaznaczeniu checkboxow uruchamiam uninstalacje
@@ -2031,12 +2055,12 @@ namespace UltimateChanger
                 }
                 else
                 {
-                    lblTime_toUpgrade.Content = "Time to start: " + (FittingSoftware_List[0].Upgrade_FS.info.Time_Update.Hour - DateTime.Now.Hour) + " H " + (FittingSoftware_List[0].Upgrade_FS.info.Time_Update.Minute - DateTime.Now.Minute) + " M";
+                    lblTime_toUpgrade.Content = "Time to start: " + (FittingSoftware_List[countFS_WithUpdate].Upgrade_FS.info.Time_Update.Hour - DateTime.Now.Hour) + " H " + (FittingSoftware_List[countFS_WithUpdate].Upgrade_FS.info.Time_Update.Minute - DateTime.Now.Minute) + " M";
                 }
             }
             else
             {
-                lblTime_toUpgrade.Content = "Time to start: " + (FittingSoftware_List[0].Upgrade_FS.info.Time_Update.Hour - DateTime.Now.Hour) + " H " + ( FittingSoftware_List[0].Upgrade_FS.info.Time_Update.Minute - DateTime.Now.Minute) + " M";
+                lblTime_toUpgrade.Content = "Time to start: " + (FittingSoftware_List[countFS_WithUpdate].Upgrade_FS.info.Time_Update.Hour - DateTime.Now.Hour) + " H " + ( FittingSoftware_List[countFS_WithUpdate].Upgrade_FS.info.Time_Update.Minute - DateTime.Now.Minute) + " M";
             }
         }       
 
@@ -3586,6 +3610,8 @@ namespace UltimateChanger
                 if (TabCompo.IsEnabled)
                 {
                     refreshUI(new object(), new EventArgs());
+
+
                     cmbBuild2_Compo.SelectedIndex = 1;
                     BindCombo.setFScomboBox_compositions(); // bindowanie do compozycjji  
                     cmbRelease_Compo.Text = cmbRelease.Text;
@@ -3611,6 +3637,7 @@ namespace UltimateChanger
                     TabCompo.IsEnabled = false;
                     TabFull.IsEnabled = true;
                     cmbBrandstoinstall.SelectedIndex = 0;
+
                 }               
             }
         }
@@ -3650,6 +3677,33 @@ namespace UltimateChanger
         {
             cmbBuild2_Compo.Items.Refresh();
             cmbBuild_Compo.ItemsSource = dataBaseManager.getBuilds("Composition", cmbRelease_Compo.Text, cmbBuild2_Compo.Text, cmbBrandstoinstall_Compo.Text, cmbBrandstoinstall_Compo.Text);
+        }
+
+        private void btnUpdateFS_Click(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                FittingSoftware_List[i].PathToNewVerFS = fileOperator.GetAvailableNewFS(FittingSoftware_List[i],true);
+                //listOfPathsToInstall.Add(FittingSoftware_List[i].PathToNewVerFS); // dodaje na liste paths do instalacji
+                if (FittingSoftware_List[i].PathToNewVerFS != "")
+                {
+                    checkBoxList[i].IsChecked = true;
+                    listOfPathsToInstall.Add(FittingSoftware_List[i].PathToNewVerFS);
+                }
+                else
+                {
+                    checkBoxList[i].IsChecked = false;
+                }
+            }
+
+            // zamykam wszystkie FS
+            Button_Click_2(new object(), new RoutedEventArgs());
+            // po zaznaczeniu checkboxow uruchamiam uninstalacje
+            RBsilet.IsChecked = true;
+            btnuninstal_Click(new object(), new RoutedEventArgs());
+            // dodac timer sprawdzajacy czy uninstallsilet sie skonczyl jezeli sie skonczyl to uruchomić silet instalacje 
+            silentUninstal_Install_Timer.Start(); // jezeli uninstall sie skonczy to uruchomi tam InstallTimer.Start() i zainstaluje wszystkie FS;
+
         }
 
         private void btnReadHI_Click(object sender, RoutedEventArgs e)
@@ -3727,6 +3781,11 @@ namespace UltimateChanger
             }
             readHI.Connect(device, side);
             HI = readHI.ReadHI(side);
+            if (HI == null)
+            {
+                readHI.shutDown();
+                return;
+            }
             if (side =="Right")
             {
                 txtHIBrand_R.Text = HI[0];
