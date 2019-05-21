@@ -11,6 +11,14 @@ using System.Windows.Threading;
 
 namespace UltimateChanger
 {
+
+    public struct BuildInformation
+    {
+        public Version Version;
+        public string Type; // RC/IP
+        public DateTime CreationDate; 
+    }
+
     public class FittingSoftware
     {
         private static readonly ILog Log =
@@ -39,10 +47,11 @@ namespace UltimateChanger
         FileOperator fileOperator = new FileOperator();
         public bool composition,uninstallation=false;
         public string PathToNewVerFS=""; // path do nowej wersji FS tylko dla fulli bedzie
-        public Task Task_GetNewBuild =null;
+        public Task Task_GetNewBuild =null, Task_GetInformationAboutBuild = null;
         public string path_ConfigData = "";
         public Upgrade_FittingSoftware Upgrade_FS = null; // jezeli null to nie ma zgody na nocny update
         public bool uninstalled; // true byl odinstalowany - wlaczyc skanowanie czy build sie pojawil // false build jest zainstalowany 
+        public BuildInformation buildInformation; // information about current build: Version, RC/IP
 
         public FittingSoftware(FittingSoftware tmpFS)
         {
@@ -290,6 +299,10 @@ namespace UltimateChanger
             BuildInfo infoAboutFS = fileOperator.GetInfoAboutFs(ListpathsToManInfo[index], ListPathsToAboutInfo[index]);
             Market = infoAboutFS.MarketName;
             OEM = infoAboutFS.OEM;
+            if (OEM == "OticonMedical")// bo w bazie danych jest geniemedical jako oem medicala
+            {
+                OEM = "GenieMedical";
+            }
             SelectedLanguage = infoAboutFS.SelectedLanguage;
             Version = infoAboutFS.Version;
             LogMode = fileOperator.getLogMode(index, PathToLogMode)[0];
@@ -505,6 +518,65 @@ namespace UltimateChanger
             }
 
         }
+
+        public void getInfoAboutNewestBuild()
+        {
+            BuildInformation TMP_buildInformation = new BuildInformation();
+            Log.Debug("getInfoAboutNewestBuild Started");
+            // getNewFSPath();
+            DataBaseManager dataBase = new DataBaseManager();
+
+            try
+            {
+                Log.Debug("Wait for the Task");
+                //Task_GetNewBuild.Wait(); // czekam az znajdzie buildy
+                Log.Debug("Stop Wait for the Task");
+                string pathtoNewestBuild = fileOperator.GetAvailableNewFS(this,true); // get path to new builds
+
+                FileInfo fileInfo = new FileInfo(pathtoNewestBuild);
+
+                TMP_buildInformation.CreationDate = fileInfo.CreationTime;
+                TMP_buildInformation.Version = new Version(FileVersionInfo.GetVersionInfo(pathtoNewestBuild).FileVersion);
+                if (pathtoNewestBuild.Contains("IP"))
+                {
+                    TMP_buildInformation.Type = "IP";
+                }
+                else
+                {
+                    TMP_buildInformation.Type = "RC";
+                }
+                buildInformation = TMP_buildInformation;
+            }
+            catch (Exception x)
+            {
+                Log.Debug("error in getInfoAboutNewestBuild: \n");
+                Log.Debug(x.ToString());
+            }
+
+        }
+
+        public bool checkValidationFS() // sprawdzam czy FS zainstalowany jest najnowszy 
+        {
+            getInfoAboutNewestBuild();
+          
+            try
+            {
+                if (buildInformation.Version == this.Version_build)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.ToString());
+                return false;
+            }
+        }
+
         public void setUninstallation(bool status)
         {
             uninstallation = status;

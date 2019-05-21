@@ -1050,7 +1050,7 @@ namespace UltimateChanger
                 MessageBox.Show("can not create new directory C:\\Program Files\\UltimateChanger\\Data");
             }
             Log.Info("FileOperator Created");
-            dataBase = new DataBaseManager("");
+            dataBase = new DataBaseManager();
         }
 
         public FileOperator(DataBaseManager dataBase, Label genie, Label oasis, Label expressFit, ComboBox cmbMarket, List<CheckBox> checkBoxList, List<string> marketIndex, Image imgOticon, Image imgBernafon, Image imgSonic)

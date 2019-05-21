@@ -65,11 +65,11 @@ namespace UltimateChanger
             return $"{FormatElementOfDate(now.Day.ToString())}.{FormatElementOfDate(now.Month.ToString())}.{now.Year} {FormatElementOfDate(now.Hour.ToString())}:{FormatElementOfDate(now.Minute.ToString())}:{FormatElementOfDate(now.Second.ToString())}";
         }
 
-        public DataBaseManager(string switch_)
+        public DataBaseManager()
         {
 
             TaskConnectToDB = Task.Run(() => {
-                SQLConnection = ConnectToDB(switch_);
+                SQLConnection = ConnectToDB();
                 try
                 {                    
                     DB_connection = true;
@@ -84,7 +84,7 @@ namespace UltimateChanger
             TaskConnectToDB.Wait();
         }
 
-        private SqlConnection ConnectToDB(string switch_)
+        private SqlConnection ConnectToDB()
         {
             try
             {
