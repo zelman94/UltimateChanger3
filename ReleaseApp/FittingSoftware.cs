@@ -380,7 +380,13 @@ namespace UltimateChanger
 
             public string findUnInstaller()
             {
-            var allFiles = Directory.GetFiles(@"C:\ProgramData\Package Cache", "Install.exe", SearchOption.AllDirectories);
+            var allInstall = Directory.GetFiles(@"C:\ProgramData\Package Cache", "Install.exe", SearchOption.AllDirectories);
+            var allmediums = Directory.GetFiles(@"C:\ProgramData\Package Cache", "*Medium*.exe", SearchOption.AllDirectories);
+
+            var allFiles = new List<string>();
+            allFiles.AddRange(allInstall);
+            allFiles.AddRange(allmediums);
+
             foreach (var item in allFiles)
             {
                 try
