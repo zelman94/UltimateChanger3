@@ -71,6 +71,7 @@ namespace UltimateChanger
         List<Label> labelListsforUninstall = new List<Label>() ; // lista zaznaczonych do usuniecia FS
         List<ListBox> listBoxForUi = new List<ListBox>();
         public List<string> listOfPathsToInstall = new List<string>(); // lista do zapisania pathów do instalatorow sillent install !
+        List<Image> imagesListWarning = new List<Image>();
 
         List<CheckBox> checkBoxListForUi = new List<CheckBox>();
         List<ComboBox> comboBoxListForUi = new List<ComboBox>();
@@ -99,14 +100,16 @@ namespace UltimateChanger
 
        public List<FittingSoftware> FittingSoftware_List = new List<FittingSoftware>();
         public string pathToCopyOfComposition = "";
-
+        Task task_checkValidation;
+        DispatcherTimer timer_checkValidation;
+        List<int> list_checkValidation = new List<int>(); // 0 - uptodate / 1 - old / 2 - IP
 
         public MainWindow()
         {            
             InitializeComponent();
             fileOperator = new FileOperator();
             
-             dataBaseManager = new DataBaseManager(XMLReader.getDefaultSettings("DataBase").ElementAt(0).Value); // tam jest wątek
+             dataBaseManager = new DataBaseManager(); // tam jest wątek
             try
             {
                 
@@ -155,6 +158,15 @@ namespace UltimateChanger
                     {
                         listBoxForUi.Add(item);
                     }
+
+                    foreach (Image item in FindLogicalChildren<Image>(this))
+                    {
+                        if (item.Name.Contains("Warning"))
+                        {
+                            imagesListWarning.Add(item);
+                        }
+                    }
+
                     foreach (Button item in FindLogicalChildren<Button>(this))
                     {
                         if (!item.Name.Contains("Image")) // jezeli nie jest bo button od FS 
@@ -227,6 +239,35 @@ namespace UltimateChanger
             FittingSoftware_List.Add(new FittingSoftware("ExpressFit", true));
             FittingSoftware_List.Add(new FittingSoftware("HearSuite",true));
             FittingSoftware_List.Add(new FittingSoftware("Oasis",true));
+
+            // ------- uruchomienie sprawdzania w tasku 
+            // do l isty bool 5 elementowej dodawac wyniki z checkValidation, 
+            // uruchomic timer sprawdzajacy czy task się zakończył, jezeli tak to przejsc po 
+            // liscie i uruchomic obrazki
+
+            task_checkValidation = Task.Run(() => { // watek 
+
+                try
+                {
+                    for (int i = 0; i < 5; i++)
+                    {
+                        list_checkValidation.Add(FittingSoftware_List[i].checkValidationFS());
+                    }
+                }
+                catch (Exception x)
+                {
+                    MessageBox.Show(x.ToString());
+                }
+                           
+
+            });
+            timer_checkValidation.Start(); // rozpoczynam sprawdanie czy task sie skonczyl
+
+            //----------------------------------
+
+
+
+
             savedTime = Convert.ToInt32(fileOperator.getSavedTime());
             setNewSavedTime(0);
             tabControl.IsEnabled = true;
@@ -996,6 +1037,11 @@ namespace UltimateChanger
                 Log.Debug(x.ToString());
             }
 
+
+            timer_checkValidation = new DispatcherTimer();
+            timer_checkValidation.Tick += checkValidation_Tick;
+            timer_checkValidation.Interval = new TimeSpan(0, 0, 2);
+
             InstallTimer_Normal_Installation = new DispatcherTimer();
             InstallTimer_Normal_Installation.Tick += checkNormal_Installation;
             InstallTimer_Normal_Installation.Interval = new TimeSpan(0, 0, 5);
@@ -1202,9 +1248,21 @@ namespace UltimateChanger
                             item.IsEnabled = false;
                             item.IsChecked = false;
                         }
-                        // dodac funkcje sprawdzajaca czy sa jeszcze smieci do usuniecia
+
                         labelListsforRefreshUI[counter].Content = "FS not installed";
                         FittingSoftware_List[counter] = new FittingSoftware(FittingSoftware_List[counter].Name_FS);
+
+                        try
+                        {
+                            list_checkValidation[counter] = 0;
+                            setImagesForWarningFS();
+                        }
+                        catch (Exception)
+                        {
+                            imagesListWarning[counter].Visibility = Visibility.Hidden;
+                        }
+
+
                     }
                     else
                     {
@@ -1921,6 +1979,60 @@ namespace UltimateChanger
                 
             }
         }
+
+        public void setImagesForWarningFS()
+        {
+            try
+            {
+                for (int i = 0; i < 5; i++)
+                {
+
+                    if (list_checkValidation[i] == 0) // uptodate
+                    {
+                        imagesListWarning[i].Visibility = Visibility.Hidden;
+                    }
+                    else if (FittingSoftware_List[i].Currentr_BuildInformation.Type == "IP") // IP // dodac sprawdzanie czy ten build jest IP 
+                    {
+                        imagesListWarning[i].Source = new BitmapImage(new Uri("/Images/IP_Ponint.png", UriKind.Relative));
+                        imagesListWarning[i].Visibility = Visibility.Visible;
+                        imagesListWarning[i].ToolTip = "IP";
+
+                    }
+                    else // old
+                    {
+                        imagesListWarning[i].Source = new BitmapImage(new Uri("/Images/warning.png", UriKind.Relative));
+                        imagesListWarning[i].Visibility = Visibility.Visible;
+                        imagesListWarning[i].ToolTip = FittingSoftware_List[i].buildInformation.Version.ToString();
+                    }
+
+                    //if (list_checkValidation[i])
+                    //{
+                    //    imagesListWarning[i].Visibility = Visibility.Hidden;
+                    //}
+                    //else
+                    //{
+                    //    imagesListWarning[i].Visibility = Visibility.Visible;
+                    //    imagesListWarning[i].ToolTip = FittingSoftware_List[i].buildInformation.Version.ToString();
+                    //}
+                }
+            }
+            catch (Exception x)
+            {
+                Log.Debug(x.ToString());
+            }
+           
+        }
+
+        private void checkValidation_Tick(object sender, EventArgs e) // funkcja sprawdzajaca czy zakonczyl sie task do sprawdzania validacji FS jezeli sie skonczyl to dziala na UI 
+            //i uruchamia odpowiednie ikony
+        {
+            if (task_checkValidation.IsCompleted)
+            {
+                setImagesForWarningFS();
+                timer_checkValidation.Stop();
+            }
+        }
+
         private void checkUninstall(object sender, EventArgs e) // sprawdz czy uninstallacja trwa jezeli juz sie skonczyla wtedy wlacz timer do instalacji nocnej
         {
             Process currentProcess = Process.GetCurrentProcess();
@@ -3684,6 +3796,7 @@ namespace UltimateChanger
             for (int i = 0; i < 5; i++)
             {
                 FittingSoftware_List[i].PathToNewVerFS = fileOperator.GetAvailableNewFS(FittingSoftware_List[i],true);
+                Log.Debug("Path to new Ver FS for: " + FittingSoftware_List[i].Name_FS + FittingSoftware_List[i].PathToNewVerFS);
                 //listOfPathsToInstall.Add(FittingSoftware_List[i].PathToNewVerFS); // dodaje na liste paths do instalacji
                 if (FittingSoftware_List[i].PathToNewVerFS != "")
                 {

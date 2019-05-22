@@ -326,6 +326,9 @@
     <Resource Include="Images\MyTeam.png" />
     <Resource Include="Images\icon_New.ico" />
     <SplashScreen Include="Images\KMDR.png.png" />
+    <Resource Include="Images\IP_Ponint.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Images\refreshDark.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -338,6 +341,9 @@
     <Content Include="Images\update.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\warning.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Resources\REMedy.Installer.Mini.1.0.3.0.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
