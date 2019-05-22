@@ -102,7 +102,7 @@ namespace UltimateChanger
         public string pathToCopyOfComposition = "";
         Task task_checkValidation;
         DispatcherTimer timer_checkValidation;
-        List<bool> list_checkValidation = new List<bool>();
+        List<int> list_checkValidation = new List<int>(); // 0 - uptodate / 1 - old / 2 - IP
 
         public MainWindow()
         {            
@@ -1248,9 +1248,21 @@ namespace UltimateChanger
                             item.IsEnabled = false;
                             item.IsChecked = false;
                         }
-                        // dodac funkcje sprawdzajaca czy sa jeszcze smieci do usuniecia
+
                         labelListsforRefreshUI[counter].Content = "FS not installed";
                         FittingSoftware_List[counter] = new FittingSoftware(FittingSoftware_List[counter].Name_FS);
+
+                        try
+                        {
+                            list_checkValidation[counter] = 0;
+                            setImagesForWarningFS();
+                        }
+                        catch (Exception)
+                        {
+                            imagesListWarning[counter].Visibility = Visibility.Hidden;
+                        }
+
+
                     }
                     else
                     {
@@ -1968,23 +1980,55 @@ namespace UltimateChanger
             }
         }
 
+        public void setImagesForWarningFS()
+        {
+            try
+            {
+                for (int i = 0; i < 5; i++)
+                {
+
+                    if (list_checkValidation[i] == 0) // uptodate
+                    {
+                        imagesListWarning[i].Visibility = Visibility.Hidden;
+                    }
+                    else if (FittingSoftware_List[i].Currentr_BuildInformation.Type == "IP") // IP // dodac sprawdzanie czy ten build jest IP 
+                    {
+                        imagesListWarning[i].Source = new BitmapImage(new Uri("/Images/IP_Ponint.png", UriKind.Relative));
+                        imagesListWarning[i].Visibility = Visibility.Visible;
+                        imagesListWarning[i].ToolTip = "IP";
+
+                    }
+                    else // old
+                    {
+                        imagesListWarning[i].Source = new BitmapImage(new Uri("/Images/warning.png", UriKind.Relative));
+                        imagesListWarning[i].Visibility = Visibility.Visible;
+                        imagesListWarning[i].ToolTip = FittingSoftware_List[i].buildInformation.Version.ToString();
+                    }
+
+                    //if (list_checkValidation[i])
+                    //{
+                    //    imagesListWarning[i].Visibility = Visibility.Hidden;
+                    //}
+                    //else
+                    //{
+                    //    imagesListWarning[i].Visibility = Visibility.Visible;
+                    //    imagesListWarning[i].ToolTip = FittingSoftware_List[i].buildInformation.Version.ToString();
+                    //}
+                }
+            }
+            catch (Exception x)
+            {
+                Log.Debug(x.ToString());
+            }
+           
+        }
+
         private void checkValidation_Tick(object sender, EventArgs e) // funkcja sprawdzajaca czy zakonczyl sie task do sprawdzania validacji FS jezeli sie skonczyl to dziala na UI 
             //i uruchamia odpowiednie ikony
         {
             if (task_checkValidation.IsCompleted)
             {
-                for (int i = 0; i < 5; i++)
-                {
-                    if (list_checkValidation[i])
-                    {
-                        imagesListWarning[i].Visibility = Visibility.Hidden;
-                    }
-                    else
-                    {
-                        imagesListWarning[i].Visibility = Visibility.Visible;
-                        imagesListWarning[i].ToolTip = FittingSoftware_List[i].buildInformation.Version.ToString();
-                    }
-                }
+                setImagesForWarningFS();
                 timer_checkValidation.Stop();
             }
         }

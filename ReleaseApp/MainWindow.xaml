@@ -1158,7 +1158,7 @@
                             <ComboBox x:Name="cmbBuild_mode" Grid.Row="2" Grid.Column="0" BorderBrush="White" Foreground="White" Margin="5,0,5,5" VerticalAlignment="Bottom" SelectionChanged="cmbBuild_mode_SelectionChanged" Grid.ColumnSpan="5" Height="28"/>
 
                             <Label Content="Build:" Grid.Row="2" Grid.Column="5" Foreground="White" FontWeight="SemiBold" FontSize="12.5" VerticalAlignment="Top" Height="27"/>
-                            <ComboBox x:Name="cmbBuild" Grid.Row="2" Grid.Column="5" SelectionChanged="cmbbuild_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5,0,5,5" VerticalAlignment="Bottom" Height="28"/>
+                            <ComboBox x:Name="cmbBuild" Grid.Row="2" Grid.Column="5" SelectionChanged="cmbbuild_SelectionChanged" BorderBrush="White" Foreground="White" Margin="5,23,5,5" VerticalAlignment="Stretch"/>
 
                             <Button x:Name="btninstal" Content="Install" Click="btninstal_Click" Grid.Row="3" Grid.Column="0" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10,12" Height="Auto" Grid.ColumnSpan="5"/>
                             <Button x:Name="btnInfo" Content="Copy path to build" Grid.Row="3" Grid.Column="5" Click="btnInfo_Click" IsEnabled="False" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="10,12,0,12" Height="Auto" HorizontalAlignment="Left" Width="175"/>

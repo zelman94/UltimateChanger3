@@ -1498,8 +1498,8 @@ namespace UltimateChanger
 
             // pobranie z Azure path do najnowszego buildu Full, IP lub RC 
             // pobranie pierwszego najnowszego builda
-           List<string> listodptahToNewBuild = dataBase.executeSelect($"select Top 1 path from builds where type='full' AND brand ='{CurrentFS.Name_FS}' AND oem ='{CurrentFS.OEM}' AND release ='{listReleaseForAbout[0]}' order by creationdate desc");
-            List<string> AboutList = dataBase.executeSelect($"select Top 1 about from builds where type='full' AND brand ='{CurrentFS.Name_FS}' AND oem ='{CurrentFS.OEM}' AND release ='{listReleaseForAbout[0]}' order by creationdate desc");
+            List<string> listodptahToNewBuild = dataBase.executeSelect($"select Top 1 path from builds where type='full' AND brand ='{CurrentFS.Name_FS}' AND oem ='{CurrentFS.OEM}' AND release ='{listReleaseForAbout[0]}' order by about desc");
+            List<string> AboutList = dataBase.executeSelect($"select Top 1 about from builds where type='full' AND brand ='{CurrentFS.Name_FS}' AND oem ='{CurrentFS.OEM}' AND release ='{listReleaseForAbout[0]}' order by about desc");
             if (listodptahToNewBuild.Count > 0)
             {
                 // sprawdzic czy obecnie zainstalowany build jest starszy jezeli jest to zwracam ""
