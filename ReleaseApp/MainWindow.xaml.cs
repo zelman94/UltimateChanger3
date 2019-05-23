@@ -1254,7 +1254,7 @@ namespace UltimateChanger
 
                         try
                         {
-                            list_checkValidation[counter] = 0;
+                            list_checkValidation[counter] = 3;
                             setImagesForWarningFS();
                         }
                         catch (Exception)
@@ -1989,7 +1989,8 @@ namespace UltimateChanger
 
                     if (list_checkValidation[i] == 0) // uptodate
                     {
-                        imagesListWarning[i].Visibility = Visibility.Hidden;
+                        imagesListWarning[i].Source = new BitmapImage(new Uri("/Images/ok.png", UriKind.Relative));
+                        imagesListWarning[i].Visibility = Visibility.Visible;
                     }
                     else if (FittingSoftware_List[i].Currentr_BuildInformation.Type == "IP") // IP // dodac sprawdzanie czy ten build jest IP 
                     {
@@ -1998,11 +1999,15 @@ namespace UltimateChanger
                         imagesListWarning[i].ToolTip = "IP";
 
                     }
-                    else // old
+                    else if(list_checkValidation[i] == 1) // old
                     {
                         imagesListWarning[i].Source = new BitmapImage(new Uri("/Images/warning.png", UriKind.Relative));
                         imagesListWarning[i].Visibility = Visibility.Visible;
                         imagesListWarning[i].ToolTip = FittingSoftware_List[i].buildInformation.Version.ToString();
+                    }
+                    else
+                    {
+                        imagesListWarning[i].Visibility = Visibility.Hidden;
                     }
 
                     //if (list_checkValidation[i])
