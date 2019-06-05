@@ -31,7 +31,7 @@ using System.Data;
 using Rekurencjon; // logi
 using log4net;
 
-[assembly: System.Reflection.AssemblyVersion("3.9.31.0")]
+[assembly: System.Reflection.AssemblyVersion("3.9.40.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window 
@@ -1992,7 +1992,7 @@ namespace UltimateChanger
                         imagesListWarning[i].Source = new BitmapImage(new Uri("/Images/ok.png", UriKind.Relative));
                         imagesListWarning[i].Visibility = Visibility.Visible;
                     }
-                    else if (FittingSoftware_List[i].Currentr_BuildInformation.Type == "IP") // IP // dodac sprawdzanie czy ten build jest IP 
+                    else if (FittingSoftware_List[i].Currentr_BuildInformation.Type == "IP") // IP 
                     {
                         imagesListWarning[i].Source = new BitmapImage(new Uri("/Images/IP_Ponint.png", UriKind.Relative));
                         imagesListWarning[i].Visibility = Visibility.Visible;
@@ -2009,16 +2009,6 @@ namespace UltimateChanger
                     {
                         imagesListWarning[i].Visibility = Visibility.Hidden;
                     }
-
-                    //if (list_checkValidation[i])
-                    //{
-                    //    imagesListWarning[i].Visibility = Visibility.Hidden;
-                    //}
-                    //else
-                    //{
-                    //    imagesListWarning[i].Visibility = Visibility.Visible;
-                    //    imagesListWarning[i].ToolTip = FittingSoftware_List[i].buildInformation.Version.ToString();
-                    //}
                 }
             }
             catch (Exception x)

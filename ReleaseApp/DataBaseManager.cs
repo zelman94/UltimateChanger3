@@ -367,7 +367,8 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
-                System.Windows.MessageBox.Show(x.ToString());
+                //System.Windows.MessageBox.Show(x.ToString());
+                Log.Debug(x.ToString());
                 SQLConnection.Close();
                 returnedValues.Add("");
                 return returnedValues;

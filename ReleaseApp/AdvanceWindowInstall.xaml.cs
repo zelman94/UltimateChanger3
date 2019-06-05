@@ -58,17 +58,6 @@ namespace UltimateChanger
             cmbMode.ItemsSource = new List<string>() { { "IP" }, { "RC" }, { "Master" } };
             cmbMode.SelectedIndex = 0;
 
-            
-
-            try
-            {
-                cmbAbout.SelectedIndex = 0;
-            }
-            catch (Exception)
-            {
-
-            }
-
             FindingPaths = new DispatcherTimer();
             FindingPaths = new DispatcherTimer();
             FindingPaths.Tick += updateListUI;
@@ -82,7 +71,16 @@ namespace UltimateChanger
 
             setDefaultSkin();
             progressAdvanceInstall.Visibility = Visibility.Hidden;
-           
+
+
+            try
+            {
+                cmbAbout.SelectedIndex = 0;
+            }
+            catch (Exception)
+            {
+
+            }
             //cmbLastselected.ItemsSource = getLastUsedPaths();
         }
 
@@ -260,16 +258,17 @@ namespace UltimateChanger
             cmbAbout.Items.Refresh();
             cmbRelease.Items.Refresh();
             cmbAbout.ItemsSource = databaseManager.executeSelect($"select DISTINCT about from builds where type = 'FULL' AND RELEASE = '{cmbRelease.Text}' AND MODE like '%{cmbMode.Text}%' order by about DESC");
-            cmbAbout_SelectionChanged(new object(), null);
+            
             try
             {
                 cmbAbout.SelectedIndex = 0;
+                cmbAbout_SelectionChanged(new object(), null);
             }
             catch (Exception)
             {
 
             }
-
+           
         }
 
         private void cmbAbout_SelectionChanged(object sender, SelectionChangedEventArgs e)
