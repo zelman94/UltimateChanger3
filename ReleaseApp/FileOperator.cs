@@ -1520,6 +1520,39 @@ namespace UltimateChanger
 
         }
 
+        public List<string> GetReleasedIP(string release, string rootPath = @"\\demant.com\data\KBN\RnD\FS_Programs\Fitting Applications\")
+        {
+            List<string> listAbouts = new List<string>();
+            string path = $"\\\\demant.com\\data\\KBN\\RnD\\FS_Programs\\Fitting Applications\\{release}\\Pre-release";
+
+
+            // pobranie listy folderow z IP
+            List<string> IPsDirs;
+            try
+            {
+                IPsDirs = Directory.GetDirectories(path).ToList(); // list with paths to IPs
+            }
+            catch (Exception)
+            {
+                return listAbouts;
+            }
+           
+
+            foreach (var item in IPsDirs)
+            {
+                try
+                {
+                    DirectoryInfo di = new DirectoryInfo(item);
+                    listAbouts.Add(di.GetDirectories()[0].Name);
+                }
+                catch (Exception)
+                {
+
+                }              
+            }
+            listAbouts.Reverse();
+            return listAbouts;
+        }
 
         public string getPathToEmulator(int index, bool composition, string pathToExe_FS)
         {

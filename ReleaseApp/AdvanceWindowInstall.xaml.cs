@@ -56,7 +56,7 @@ namespace UltimateChanger
                 cmbRelease.SelectedIndex = 0;
             }
             cmbMode.ItemsSource = new List<string>() { { "IP" }, { "RC" }, { "Master" } };
-            cmbMode.SelectedIndex = 0;
+            cmbMode.SelectedIndex = 1;
 
             FindingPaths = new DispatcherTimer();
             FindingPaths = new DispatcherTimer();
@@ -257,8 +257,14 @@ namespace UltimateChanger
             cmbMode.Items.Refresh();
             cmbAbout.Items.Refresh();
             cmbRelease.Items.Refresh();
-            cmbAbout.ItemsSource = databaseManager.executeSelect($"select DISTINCT about from builds where type = 'FULL' AND RELEASE = '{cmbRelease.Text}' AND MODE like '%{cmbMode.Text}%' order by about DESC");
-            
+            if (cmbMode.Text == "IP")
+            {
+                cmbAbout.ItemsSource = fileOperator.GetReleasedIP(cmbRelease.Text);
+            }
+            else
+            {
+                cmbAbout.ItemsSource = databaseManager.executeSelect($"select DISTINCT about from builds where type = 'FULL' AND RELEASE = '{cmbRelease.Text}' AND MODE like '%{cmbMode.Text}%' order by about DESC");
+            }
             try
             {
                 cmbAbout.SelectedIndex = 0;
@@ -284,8 +290,19 @@ namespace UltimateChanger
         {
             cmbRelease.Items.Refresh();
             cmbMode.Items.Refresh();
-            cmbAbout.Items.Refresh();
-            cmbAbout.ItemsSource = databaseManager.executeSelect($"select DISTINCT about from builds where type = 'FULL' AND RELEASE = '{cmbRelease.Text}' AND MODE like '%{cmbMode.Text}%' order by about DESC");
+            //cmbAbout.Items.Refresh();
+            //
+            // dodac funkcje w fileoperator do pobierania listy numerkow aobout IP wydanych
+
+            if (cmbMode.Text == "IP")
+            {
+                cmbAbout.ItemsSource = fileOperator.GetReleasedIP(cmbRelease.Text);
+            }
+            else
+            {
+                cmbAbout.ItemsSource = databaseManager.executeSelect($"select DISTINCT about from builds where type = 'FULL' AND RELEASE = '{cmbRelease.Text}' AND MODE like '%{cmbMode.Text}%' order by about DESC");
+            }
+           
             try
             {
                 cmbAbout.SelectedIndex = 0;

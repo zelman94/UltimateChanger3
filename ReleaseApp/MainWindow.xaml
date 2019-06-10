@@ -1762,8 +1762,8 @@
             <Grid x:Name="aboutGrid" Margin="0,2,0,-2">
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="67*"/>
-                    <ColumnDefinition Width="64*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="420*"/>
@@ -1771,6 +1771,110 @@
                     <RowDefinition Height="116*"/>
                 </Grid.RowDefinitions>
 
+                <Grid Name="nightlyGrid" Grid.Column="1" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Content="Path to Root" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtPathRoot" BorderBrush="White" Margin="10,0,10,10" ToolTip="If empty then newest build"  Height="30" Grid.ColumnSpan="2" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="auto"/>
+
+
+                    <Grid Name="TimeButtonsGrid" Grid.Row="1" Grid.Column="1" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+
+                        <Button x:Name="btnHoursDown_Nightly" Grid.Column="0" Grid.Row="2" FontFamily="Marlett" FontSize="20" Content="6" Click="btnHoursDown_Nightly_Click" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF" Margin="5" Height="50" Width="100"/>
+                        <Button x:Name="btnHoursUp_Nightly" Grid.Column="0" Grid.Row="0"   FontFamily="Marlett" FontSize="20" Content="5" Click="btnHoursUp_Nightly_Click" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"  Margin="5" Height="50" Width="100"/>
+
+                        <Button x:Name="btnMinutesDown_Nightly"  Grid.Column="1" Grid.Row="2" FontFamily="Marlett" FontSize="20" Content="6" Click="btnMinutesDown_Nightly_Click" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"  Margin="5" Height="50" Width="100"/>
+                        <Button x:Name="btnMinutesUp_Nightly"   Grid.Column="1" FontFamily="Marlett" FontSize="20" Content="5" Click="btnMinutesUp_Nightly_Click" Grid.Row="0" Background="#FF616161" BorderBrush="#FF424242" Foreground="#E5FFFFFF"  Margin="5" Height="50" Width="100"/>
+
+
+                    </Grid>
+                    <Label x:Name="lblTime_Nightly" Grid.Column="1" Grid.Row="0" FontSize="50" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Content="10:10" Foreground="White"/>
+
+                    <Grid  Grid.Row="0" Grid.Column="0" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        
+                        <Label Content="Release" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <ComboBox Name="cmbRelease_Nightly" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Margin="10" BorderBrush="White" Foreground="White"/>
+
+                        <Label Content="Brach" HorizontalAlignment="Center"  Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" />
+                        <ComboBox Name="cmbBranch" Foreground="White" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="10" Width="120" BorderBrush="White"/>
+
+                    </Grid>
+
+                    <Grid  Grid.Row="1" Grid.Column="0" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <ComboBox Name="cmbOption" IsEnabled="False" ToolTip="medium lub full" HorizontalAlignment="Center"  Grid.Row="0" VerticalAlignment="Center" Margin="10" Width="120" BorderBrush="White"/>
+                        <Label Content="Delete Trash" HorizontalAlignment="Center"  Grid.Row="0" Grid.Column="1" Margin="10" VerticalAlignment="Center"/>
+                        <CheckBox Name="chbox_DeleteTrash" Content="" HorizontalAlignment="Left"  Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Width="auto" Checked="chbox_DeleteTrash_Checked" Unchecked="chbox_DeleteTrash_Unchecked"/>
+                    </Grid>
+
+                    <Grid Name="buttonsGrid" Grid.Row="3" Grid.Column="1" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <Button Name="btnAccept" Content="Accept" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" Width="150" Margin="10" Height="Auto" Click="btnAccept_Click"/>
+                        <Button Name="btnCancel" Content="Cancel" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" Width="150" Margin="10" Height="Auto" Click="btnCancel_Click"/>
+
+                    </Grid>
+
+                    <Grid Name="FSGrid" Grid.Row="3" Grid.Column="0" Margin="5" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <CheckBox Name="chkGenie_Night" Grid.Column="0" Grid.Row="0" Content="Genie"/>
+                        <CheckBox Name="chkMedical_Night" Grid.Column="0" Grid.Row="1" Content="Genie Medical"/>
+                        <CheckBox Name="chkExpressFit_Night" Grid.Column="0" Grid.Row="2" Content="ExpressFit"/>
+                        <CheckBox Name="chkHearSuite_Night" Grid.Column="0" Grid.Row="3" Content="HearSuite"/>
+                        <CheckBox Name="chkOasis_Night" Grid.Column="0" Grid.Row="4" Content="Oasis"/>
+
+                        <Button Name="btnAll_Night" Content="All" Grid.Column="1" Grid.RowSpan="5" Margin="10" Height="30" Width="50" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnAll_Night_Click"/>
+
+                    </Grid>
+
+                </Grid>
+                
+                
                 <Border x:Name="Grid6" Grid.Row="0" BorderBrush="#FF616161" BorderThickness="0,0,1,1"/>
                 <Border x:Name="Grid7" Grid.Row="1" BorderBrush="#FF616161" BorderThickness="0,0,1,1"/>
                 <Border x:Name="Grid7a" Grid.Row="1" Grid.Column="1" BorderBrush="#FF616161" BorderThickness="0,1,0,1"/>
@@ -1781,9 +1885,9 @@
 
                 <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="0,84,0,187" Height="354" Width="192" Grid.RowSpan="2">
                     <Label x:Name="lblDefPathCompo" Content="Path to local Compositions:"/>
-                    <TextBox x:Name="txtLocalCompoPath" Height="auto" TextWrapping="Wrap" ToolTip="Edit, click enter to save" Text="C:\Program Files\UltimateChanger\compositions" KeyDown="txtLocalCompoPath_KeyDown"/>
+                    <TextBox x:Name="txtLocalCompoPath" Margin="5" Height="auto" TextWrapping="Wrap" ToolTip="Edit, click enter to save" Text="C:\Program Files\UltimateChanger\compositions" KeyDown="txtLocalCompoPath_KeyDown"/>
                     <Label Content="-----------------------------------"/>
-                    <CheckBox x:Name="InstallByNight" Content="Install newest build at night" IsChecked="False" Checked="InstallByNight_Checked" Unchecked="InstallByNight_Unchecked" IsEnabled="True" />
+                    <CheckBox x:Name="InstallByNiight" Content="Install newest build at night" IsChecked="False" Checked="InstallByNight_Checked" Unchecked="InstallByNight_Unchecked" IsEnabled="True" />
                     <Label x:Name="lblTime_toUpgrade" Content=""/>
 
                 </StackPanel>
