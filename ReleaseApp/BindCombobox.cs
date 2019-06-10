@@ -169,9 +169,13 @@ namespace UltimateChanger
             bind = myXMLReader.getReleases();
             List<string> tmp = new List<string>();
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease.ItemsSource = bind;
+            List<string> bindRelease = ((MainWindow)System.Windows.Application.Current.MainWindow).
+                dataBaseManager.executeSelect("select DISTINCT release from builds where type = 'FULL' order by release");
+            ((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease_Nightly.ItemsSource = bindRelease;
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbRelease_Compo.ItemsSource = bind;
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbBuild2_Compo.ItemsSource = listOfSerchingOption;
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbBuild_mode.ItemsSource = listOfSerchingOption;
+            ((MainWindow)System.Windows.Application.Current.MainWindow).cmbBranch.ItemsSource = new List<string>() { { "IP" }, { "RC" }, { "Master" } };
 
             try
             {

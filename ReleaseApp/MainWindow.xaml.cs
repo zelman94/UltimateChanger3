@@ -31,7 +31,7 @@ using System.Data;
 using Rekurencjon; // logi
 using log4net;
 
-[assembly: System.Reflection.AssemblyVersion("3.9.31.0")]
+[assembly: System.Reflection.AssemblyVersion("3.9.42.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window 
@@ -79,6 +79,7 @@ namespace UltimateChanger
         List<TextBox> texBoxListForUi = new List<TextBox>();
         List<Border> borderListForUi = new List<Border>();
         List<Slider> sliderListForUi = new List<Slider>();
+        List<CheckBox> CheckBoxNightList = new List<CheckBox>();
 
         List<string> listOfTeammembers = new List<string>();
         public List<FittingSoftware> listGlobalPathsToUninstall = new List<FittingSoftware>();
@@ -91,6 +92,8 @@ namespace UltimateChanger
         myXMLReader XMLReader = new myXMLReader();
         public List<List<string>> AllbuildsPerFS = new List<List<string>>();
         internal List<pathAndDir> Paths_Dirs { get => paths_Dirs; set => paths_Dirs = value; }
+        public DateTime Time_now { get; private set; }
+
         List<string> AllOemPaths = new List<string>();
         
         string User_Power;
@@ -179,9 +182,16 @@ namespace UltimateChanger
                         }
                         
                     }
+                    
                     foreach (CheckBox item in FindLogicalChildren<CheckBox>(this))
                     {
                         checkBoxListForUi.Add(item);
+
+                        if (item.Name.Contains("_Night"))
+                        {
+                            CheckBoxNightList.Add(item);
+                        }
+
                     }
                     foreach (ComboBox item in FindLogicalChildren<ComboBox>(this))
                     {
@@ -970,7 +980,13 @@ namespace UltimateChanger
                     }
 
                     counter++;
-                } 
+                }
+
+                Time_now = new DateTime();
+                Time_now = Time_now.AddHours(DateTime.Now.Hour);
+                Time_now = Time_now.AddMinutes(DateTime.Now.Minute);
+                updateClockUI();
+
             }
             catch (Exception x)
             {
@@ -1044,7 +1060,7 @@ namespace UltimateChanger
 
             InstallTimer_Normal_Installation = new DispatcherTimer();
             InstallTimer_Normal_Installation.Tick += checkNormal_Installation;
-            InstallTimer_Normal_Installation.Interval = new TimeSpan(0, 0, 5);
+            InstallTimer_Normal_Installation.Interval = new TimeSpan(0, 0, 30);
 
             silentUninstal_Install_Timer = new DispatcherTimer();
             silentUninstal_Install_Timer.Tick += checkUninstall; 
@@ -1254,7 +1270,7 @@ namespace UltimateChanger
 
                         try
                         {
-                            list_checkValidation[counter] = 0;
+                            list_checkValidation[counter] = 3;
                             setImagesForWarningFS();
                         }
                         catch (Exception)
@@ -1628,6 +1644,7 @@ namespace UltimateChanger
                 }
                 else
                 {
+                    cmbBuild.Items.Refresh();
                     FSInstaller installer = new FSInstaller();
                     installer.InstallBrand(cmbBuild.Text, RBnormal.IsChecked.Value);
                     InstallTimer_Normal_Installation.Start();
@@ -1941,7 +1958,7 @@ namespace UltimateChanger
         {
             Process currentProcess = Process.GetCurrentProcess();
             List<string> childs = FileOperator.FindAllProcessesSpawnedBy(Convert.ToUInt32(currentProcess.Id));
-            if (childs.Count>0)
+            if (childs.Count > 0)
             {
                 ProgressInstallation.Visibility = Visibility.Visible;
                 ProgressInstallation.Value += 10;
@@ -1989,31 +2006,26 @@ namespace UltimateChanger
 
                     if (list_checkValidation[i] == 0) // uptodate
                     {
-                        imagesListWarning[i].Visibility = Visibility.Hidden;
+                        imagesListWarning[i].Source = new BitmapImage(new Uri("/Images/ok.png", UriKind.Relative));
+                        imagesListWarning[i].Visibility = Visibility.Visible;
                     }
-                    else if (FittingSoftware_List[i].Currentr_BuildInformation.Type == "IP") // IP // dodac sprawdzanie czy ten build jest IP 
+                    else if (FittingSoftware_List[i].Currentr_BuildInformation.Type == "IP") // IP 
                     {
                         imagesListWarning[i].Source = new BitmapImage(new Uri("/Images/IP_Ponint.png", UriKind.Relative));
                         imagesListWarning[i].Visibility = Visibility.Visible;
                         imagesListWarning[i].ToolTip = "IP";
 
                     }
-                    else // old
+                    else if(list_checkValidation[i] == 1) // old
                     {
                         imagesListWarning[i].Source = new BitmapImage(new Uri("/Images/warning.png", UriKind.Relative));
                         imagesListWarning[i].Visibility = Visibility.Visible;
                         imagesListWarning[i].ToolTip = FittingSoftware_List[i].buildInformation.Version.ToString();
                     }
-
-                    //if (list_checkValidation[i])
-                    //{
-                    //    imagesListWarning[i].Visibility = Visibility.Hidden;
-                    //}
-                    //else
-                    //{
-                    //    imagesListWarning[i].Visibility = Visibility.Visible;
-                    //    imagesListWarning[i].ToolTip = FittingSoftware_List[i].buildInformation.Version.ToString();
-                    //}
+                    else
+                    {
+                        imagesListWarning[i].Visibility = Visibility.Hidden;
+                    }
                 }
             }
             catch (Exception x)
@@ -3918,6 +3930,96 @@ namespace UltimateChanger
             progressHI.Value += 10;
             setNewSavedTime(30);
 
+        }
+
+        private void btnHoursUp_Nightly_Click(object sender, RoutedEventArgs e)
+        {
+            Time_now = Time_now.AddHours(1);
+            updateClockUI();
+        }
+
+        private void btnHoursDown_Nightly_Click(object sender, RoutedEventArgs e)
+        {
+            Time_now = Time_now.AddHours(-1);
+            updateClockUI();
+        }
+
+        private void btnMinutesUp_Nightly_Click(object sender, RoutedEventArgs e)
+        {
+            Time_now = Time_now.AddMinutes(1);
+            updateClockUI();
+        }
+
+        private void btnMinutesDown_Nightly_Click(object sender, RoutedEventArgs e)
+        {
+            Time_now = Time_now.AddMinutes(-1);
+            updateClockUI();
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAccept_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void chbox_DeleteTrash_Checked(object sender, RoutedEventArgs e)
+        {
+           
+        }
+
+        private void chbox_DeleteTrash_Unchecked(object sender, RoutedEventArgs e)
+        {
+          
+        }
+
+        private void btnAll_Night_Click(object sender, RoutedEventArgs e)
+        {
+            byte counter = 0;
+            foreach (var item in CheckBoxNightList)
+            {
+                if (item.IsChecked.Value)
+                {
+                    counter++;
+                }
+            }
+            bool value_ForCheckbox = true;
+
+            if (counter == 5)
+            {
+                value_ForCheckbox = false;
+            }
+
+
+            foreach (var item in CheckBoxNightList)
+            {
+                item.IsChecked = value_ForCheckbox;
+            }
+
+        }
+
+        public void updateClockUI()
+        {
+            string time = "";
+            if (Time_now.Hour < 10)
+            {
+                time = $"0{Time_now.Hour}:";
+            }
+            else
+            {
+                time = $"{Time_now.Hour}:";
+            }
+            if (Time_now.Minute < 10)
+            {
+                time += $"0{Time_now.Minute}";
+            }
+            else
+            {
+                time += $"{Time_now.Minute}";
+            }
+            lblTime_Nightly.Content = time;
         }
 
         private void InstallByNight_Checked(object sender, RoutedEventArgs e)
