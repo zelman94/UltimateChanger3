@@ -107,6 +107,8 @@ namespace UltimateChanger
         DispatcherTimer timer_checkValidation;
         List<int> list_checkValidation = new List<int>(); // 0 - uptodate / 1 - old / 2 - IP
 
+        public NightlyUpgradeManager nightlyUpgradeManager = null;
+
         public MainWindow()
         {            
             InitializeComponent();
@@ -301,6 +303,7 @@ namespace UltimateChanger
                 sliderRelease.Maximum = cmbRelease.Items.Count - 1; // max dla slidera -1 bo count nie uwzglednia zerowego indexu
                 sliderWeightWireless.Maximum = 1;
                 sliderRelease.Value = cmbRelease.SelectedIndex; // ustalenie defaulta jako obecny release
+                
 
                 sliderWeightWireless.Value = 0.5; // to oznacza ze nic nie zmieniam i wszystko jes po rowno w szansach 
                 lblWeightWireless.Content = sliderWeightWireless.Value.ToString();
@@ -595,6 +598,15 @@ namespace UltimateChanger
                                     cmbRelease.Text = settings[StringToUI[item2]];
                                     cmbRelease.Items.Refresh();
                                     sliderRelease.Value = cmbRelease.SelectedIndex;
+                                    try
+                                    {
+                                        cmbRelease_Nightly.Text = settings[StringToUI[item2]];
+                                        cmbRelease_Nightly.SelectedIndex = 1;
+                                    }
+                                    catch (Exception)
+                                    {
+                                        //cmbRelease_Nightly.SelectedIndex = 0;
+                                    }
                                 }
                             }
                         }
@@ -981,11 +993,26 @@ namespace UltimateChanger
 
                     counter++;
                 }
+                try
+                {
+                    if (!nightlyUpgradeManager.waitForUpgrade) // jezeli nie czekamy na update to mozna update ui dla time
+                    {
+                        Time_now = new DateTime();
+                        Time_now = Time_now.AddHours(DateTime.Now.Hour);
+                        Time_now = Time_now.AddMinutes(DateTime.Now.Minute);
+                        updateClockUI();
+                    }
+                }
+                catch (Exception)
+                {
+                    Time_now = new DateTime();
+                    Time_now = Time_now.AddHours(DateTime.Now.Hour);
+                    Time_now = Time_now.AddMinutes(DateTime.Now.Minute);
+                    updateClockUI();
+                }
+               
 
-                Time_now = new DateTime();
-                Time_now = Time_now.AddHours(DateTime.Now.Hour);
-                Time_now = Time_now.AddMinutes(DateTime.Now.Minute);
-                updateClockUI();
+                
 
             }
             catch (Exception x)
@@ -1271,7 +1298,11 @@ namespace UltimateChanger
                         try
                         {
                             list_checkValidation[counter] = 3;
-                            setImagesForWarningFS();
+                            if (!timer_checkValidation.IsEnabled)
+                            {
+                                setImagesForWarningFS();
+                            }
+                            
                         }
                         catch (Exception)
                         {
@@ -2040,7 +2071,7 @@ namespace UltimateChanger
         {
             if (task_checkValidation.IsCompleted)
             {
-                setImagesForWarningFS();
+                //setImagesForWarningFS();
                 timer_checkValidation.Stop();
             }
         }
@@ -2144,7 +2175,7 @@ namespace UltimateChanger
             int countFS_WithUpdate = -1;
             try
             {
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     if (FittingSoftware_List[i].Upgrade_FS != null)
                     {
@@ -2619,8 +2650,6 @@ namespace UltimateChanger
             XMLReader.setSetting("Oasis_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
             XMLReader.setSetting("ExpressFit_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
 
-            imgBrandSkin.Visibility = Visibility.Hidden;
-
             //USTAWIENIA LABELI
             foreach (var item in lableListForUi)
             {
@@ -2743,7 +2772,6 @@ namespace UltimateChanger
             XMLReader.setSetting("Oasis_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
             XMLReader.setSetting("ExpressFit_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
 
-            imgBrandSkin.Visibility = Visibility.Hidden;
 
             //USTAWIENIA LABELI
             foreach (var item in lableListForUi)
@@ -3306,8 +3334,6 @@ namespace UltimateChanger
             XMLReader.setSetting("Oasis_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
             XMLReader.setSetting("ExpressFit_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
 
-            imgBrandSkin.Visibility = Visibility.Hidden;
-
             foreach (var item in lableListForUi)
             {
                 item.Foreground = Brushes.White;
@@ -3807,18 +3833,21 @@ namespace UltimateChanger
         {
             for (int i = 0; i < 5; i++)
             {
-                FittingSoftware_List[i].PathToNewVerFS = fileOperator.GetAvailableNewFS(FittingSoftware_List[i],true);
-                Log.Debug("Path to new Ver FS for: " + FittingSoftware_List[i].Name_FS + FittingSoftware_List[i].PathToNewVerFS);
-                //listOfPathsToInstall.Add(FittingSoftware_List[i].PathToNewVerFS); // dodaje na liste paths do instalacji
-                if (FittingSoftware_List[i].PathToNewVerFS != "")
+                if (checkBoxList[i].IsChecked.Value) // tylko dla zaznaczonych buildow
                 {
-                    checkBoxList[i].IsChecked = true;
-                    listOfPathsToInstall.Add(FittingSoftware_List[i].PathToNewVerFS);
-                }
-                else
-                {
-                    checkBoxList[i].IsChecked = false;
-                }
+                    FittingSoftware_List[i].PathToNewVerFS = fileOperator.GetAvailableNewFS(FittingSoftware_List[i], true);
+                    Log.Debug("Path to new Ver FS for: " + FittingSoftware_List[i].Name_FS + FittingSoftware_List[i].PathToNewVerFS);
+                    //listOfPathsToInstall.Add(FittingSoftware_List[i].PathToNewVerFS); // dodaje na liste paths do instalacji
+                    if (FittingSoftware_List[i].PathToNewVerFS != "")
+                    {
+                        //checkBoxList[i].IsChecked = true;
+                        listOfPathsToInstall.Add(FittingSoftware_List[i].PathToNewVerFS);
+                    }
+                    else
+                    {
+                        checkBoxList[i].IsChecked = false;
+                    }
+                }               
             }
 
             // zamykam wszystkie FS
@@ -3958,12 +3987,52 @@ namespace UltimateChanger
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-
+            checkTime_Timer.Stop();
+            nightlyUpgradeManager = null;
         }
 
         private void btnAccept_Click(object sender, RoutedEventArgs e)
         {
+            if (cmbBranch.SelectedIndex == -1 && txtPathRoot.Text == "")
+            {
+                MessageBox.Show("Select Branch");
+                return;
+            }
+            List<bool> listCheckboxStatus = new List<bool>();
+            foreach (var item in CheckBoxNightList)
+            {
+                listCheckboxStatus.Add(item.IsChecked.Value);
+            }
 
+            InfoUpdate infoUpdate = new InfoUpdate();
+            infoUpdate.Release = cmbRelease_Nightly.Text;
+            infoUpdate.Branch = cmbBranch.Text;
+            infoUpdate.Option = cmbOption.Text;
+            infoUpdate.TrashCleaner = chbox_DeleteTrash.IsChecked.Value;
+            infoUpdate.path_to_root = txtPathRoot.Text;
+            infoUpdate.Time_Update = Time_now;
+
+            nightlyUpgradeManager = new NightlyUpgradeManager(infoUpdate, listCheckboxStatus);
+
+            for (int i = 0; i < 5; i++)
+            {
+                if (listCheckboxStatus[i]) // jezeli chcemy zrobic upgrade 
+                {
+                    FittingSoftware_List[i].Upgrade_FS = new Upgrade_FittingSoftware(infoUpdate);
+                    if (txtPathRoot.Text == "")
+                    {
+                        FittingSoftware_List[i].Upgrade_FS.info.path_to_root = "";
+                    }
+                    else
+                    {
+                        FittingSoftware_List[i].Upgrade_FS.info.path_to_root = txtPathRoot.Text;
+                    }
+                                        
+                }
+            }
+            // wlaczyc timer w mainwindow dla sprawdzania czy godzina już jest ok
+            checkTime_Timer.Start();
+           // lblTime_toUpgrade.Content = "Start Time: " + (FittingSoftware_List[0].Upgrade_FS.info.Time_Update.Hour) + " H " + (FittingSoftware_List[0].Upgrade_FS.info.Time_Update.Minute) + " M";
         }
         private void chbox_DeleteTrash_Checked(object sender, RoutedEventArgs e)
         {
@@ -4022,13 +4091,6 @@ namespace UltimateChanger
             lblTime_Nightly.Content = time;
         }
 
-        private void InstallByNight_Checked(object sender, RoutedEventArgs e)
-        {
-            Window win = new Nightly_upgrade_FS(FittingSoftware_List);
-            win.Owner = this;
-            win.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            win.Show();
-        }
         private void InstallByNight_Unchecked(object sender, RoutedEventArgs e)
         {
             for (int i = 0; i < 5; i++)

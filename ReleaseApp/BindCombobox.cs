@@ -176,7 +176,9 @@ namespace UltimateChanger
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbBuild2_Compo.ItemsSource = listOfSerchingOption;
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbBuild_mode.ItemsSource = listOfSerchingOption;
             ((MainWindow)System.Windows.Application.Current.MainWindow).cmbBranch.ItemsSource = new List<string>() { { "IP" }, { "RC" }, { "Master" } };
-
+            ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOption.ItemsSource = new List<string>() { { "Full" } };
+            ((MainWindow)System.Windows.Application.Current.MainWindow).cmbOption.SelectedIndex = 0;
+           
             try
             {
                 ((MainWindow)System.Windows.Application.Current.MainWindow).cmbBuild_mode.SelectedIndex = 0;

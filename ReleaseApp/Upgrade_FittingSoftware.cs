@@ -26,6 +26,10 @@ namespace UltimateChanger
             info.Time_Update = updateTime;
             info.TrashCleaner = TrashCleaner;
         }
+        public Upgrade_FittingSoftware(InfoUpdate info)
+        {
+            this.info = info;
+        }
         public Upgrade_FittingSoftware(string Option,string path_root, DateTime updateTime, bool TrashCleaner)
         {
             info.Release = "";

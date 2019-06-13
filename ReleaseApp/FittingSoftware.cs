@@ -569,13 +569,18 @@ namespace UltimateChanger
 
             try
             {
-                string release = dataBase.executeSelect($"select top 1 release from builds where type ='FULL' and brand ='{this.Name_FS}' AND oem ='{this.OEM}' and about like '{this.Version_build.Major}%'")[0];
+                var tmp = $"select top 1 release from builds where type ='FULL' and brand ='{this.Name_FS}' AND oem ='{this.OEM}' and about like '{this.Version_build.Major}%'";
+                Log.Debug($"getInfoAboutCurrentBuild sql string: {tmp}");
+                System.Threading.Thread.Sleep(500); // bez tego nie dziala ... 
+                string release = dataBase.executeSelect($"select top 1 release from builds where type ='FULL' and brand ='{this.Name_FS}' AND oem ='{this.OEM}' and about like '{this.Version_build.Major}%'")[0].Trim();
                 List<string> pathsInRoot = Directory.GetDirectories(@"\\demant.com\data\KBN\RnD\SWS\Build\Arizona\Phoenix\FullInstaller-"+ release).ToList();
-
+                Log.Debug($"getInfoAboutCurrentBuild release {release}");
+                
                 
                 string pathtoCurentBuild = pathsInRoot
-                        .FirstOrDefault(stringToCheck => stringToCheck.Contains(this.Version));
+                        .FirstOrDefault(stringToCheck => stringToCheck.Contains(this.Version)).Trim();
 
+                Log.Debug($"getInfoAboutCurrentBuild pathtoCurentBuild {pathtoCurentBuild}");
                 // path to current build
                 string modeBuild;
                 if (pathtoCurentBuild.Contains("IP"))
@@ -587,9 +592,18 @@ namespace UltimateChanger
                     modeBuild = "RC";
                 }
 
-                FileInfo fileInfo = new FileInfo(pathtoCurentBuild);
+                Log.Debug($"getInfoAboutCurrentBuild modeBuild {modeBuild}");
 
-                TMP_buildInformation.CreationDate = fileInfo.CreationTime;
+                FileInfo fileInfo = new FileInfo(pathtoCurentBuild);
+                try
+                {
+                    TMP_buildInformation.CreationDate = fileInfo.CreationTime;
+                }
+                catch (Exception)
+                {
+                    TMP_buildInformation.CreationDate = new DateTime();
+                }
+                
                 //TMP_buildInformation.Version = new Version(FileVersionInfo.GetVersionInfo(pathtoCurentBuild).FileVersion);
                 if (modeBuild.Contains("IP"))
                 {
@@ -603,7 +617,7 @@ namespace UltimateChanger
             }
             catch (Exception x)
             {
-                Log.Debug("error in getInfoAboutCurrentBuild: \n");
+                Log.Debug($"error in getInfoAboutCurrentBuild for:{Name_FS} Composition: {composition} \n");
                 Log.Debug(x.ToString());
             }
 
@@ -616,7 +630,6 @@ namespace UltimateChanger
         {
             getInfoAboutNewestBuild();
             getInfoAboutCurrentBuild();
-
 
             try
             {

@@ -158,9 +158,7 @@
     <Compile Include="Log.cs" />
     <Compile Include="MyRandomizer.cs" />
     <Compile Include="myXMLReader.cs" />
-    <Compile Include="Nightly_upgrade_FS.xaml.cs">
-      <DependentUpon>Nightly_upgrade_FS.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="NightlyUpgradeManager.cs" />
     <Compile Include="pathAndDir.cs" />
     <Compile Include="ResultWindow.xaml.cs">
       <DependentUpon>ResultWindow.xaml</DependentUpon>
@@ -211,10 +209,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Nightly_upgrade_FS.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ResultWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -1375,12 +1375,12 @@ namespace UltimateChanger
             {
                 path = @"\\demant.com\data\KBN\RnD\SWS\Build\Arizona\Phoenix\Nightly-" + CurrentFS.Upgrade_FS.info.Release;
             }
-            var all_dirs = Directory.GetDirectories(path); 
+            var all_dirs = Directory.GetDirectories(path.Trim()); 
             SortedDictionary<DateTime, string> All_RCs = new SortedDictionary<DateTime,string>();
 
             foreach (var item in all_dirs)
             {
-                if (item.Contains(CurrentFS.Upgrade_FS.info.Branch))
+                if (item.Contains(CurrentFS.Upgrade_FS.info.Branch.ToLower()))
                 {
                     All_RCs.Add(Directory.GetCreationTime(item), item);                    
                 }
@@ -1433,7 +1433,6 @@ namespace UltimateChanger
                 try
                 {
                     PathTolatestBuildExe = Directory.GetFiles(DirFullInstallerName + $"\\", ".exe").ToList(); // path do glownego instalatora main brandu
-
                 }
                 catch (Exception x)
                 {
@@ -1445,7 +1444,7 @@ namespace UltimateChanger
 
             if (PathTolatestBuildExe.Count > 0)
             {
-                FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(PathTolatestBuildExe[0]);
+                FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(PathTolatestBuildExe[0].Trim());
                 var tmp = myFileVersionInfo.FileVersion;
                 var splitedVerNew = tmp.Split('.');
                 var splitedCurrentVer = CurrentFS.Version.Split('.');
