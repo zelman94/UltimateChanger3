@@ -81,7 +81,7 @@ namespace UltimateChanger
                 }
 
             });
-            TaskConnectToDB.Wait();
+           // TaskConnectToDB.Wait();
         }
 
         private SqlConnection ConnectToDB()

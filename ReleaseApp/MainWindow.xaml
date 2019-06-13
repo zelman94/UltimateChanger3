@@ -1784,7 +1784,7 @@
                     </Grid.RowDefinitions>
 
                     <Label Content="Path to Root" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                    <TextBox x:Name="txtPathRoot" BorderBrush="White" Margin="10,0,10,10" ToolTip="If empty then newest build"  Height="30" Grid.ColumnSpan="2" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="auto"/>
+                    <TextBox x:Name="txtPathRoot" BorderBrush="White" Margin="10" ToolTip="If empty then newest build"  Height="30" Grid.ColumnSpan="2" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="auto"/>
 
 
                     <Grid Name="TimeButtonsGrid" Grid.Row="1" Grid.Column="1" >
@@ -1807,7 +1807,7 @@
                     </Grid>
                     <Label x:Name="lblTime_Nightly" Grid.Column="1" Grid.Row="0" FontSize="50" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Content="10:10" Foreground="White"/>
 
-                    <Grid  Grid.Row="0" Grid.Column="0" >
+                    <Grid  Grid.Row="0" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="1*"/>
@@ -1815,12 +1815,12 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
-                        
-                        <Label Content="Release" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                        <ComboBox Name="cmbRelease_Nightly" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Margin="10" BorderBrush="White" Foreground="White"/>
 
-                        <Label Content="Brach" HorizontalAlignment="Center"  Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" />
-                        <ComboBox Name="cmbBranch" Foreground="White" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="10" Width="120" BorderBrush="White"/>
+                        <Label Content="Release" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <ComboBox Name="cmbRelease_Nightly" HorizontalAlignment="Center" VerticalAlignment="Center" Width="60" Margin="10" BorderBrush="White" Foreground="white"/>
+
+                        <Label Content="Branch" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" />
+                        <ComboBox Name="cmbBranch" Foreground="White" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="10" Width="60" BorderBrush="White"/>
 
                     </Grid>
 
@@ -1832,9 +1832,9 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
-                        <ComboBox Name="cmbOption" IsEnabled="False" ToolTip="medium lub full" HorizontalAlignment="Center"  Grid.Row="0" VerticalAlignment="Center" Margin="10" Width="120" BorderBrush="White"/>
+                        <ComboBox Name="cmbOption" IsEnabled="False" ToolTip="medium lub full" HorizontalAlignment="Center"  Grid.Row="0" VerticalAlignment="Center" Margin="10" Width="60" BorderBrush="White" Foreground="White"/>
                         <Label Content="Delete Trash" HorizontalAlignment="Center"  Grid.Row="0" Grid.Column="1" Margin="10" VerticalAlignment="Center"/>
-                        <CheckBox Name="chbox_DeleteTrash" Content="" HorizontalAlignment="Left"  Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Width="auto" Checked="chbox_DeleteTrash_Checked" Unchecked="chbox_DeleteTrash_Unchecked"/>
+                        <CheckBox Name="chbox_DeleteTrash" Content="" HorizontalAlignment="Right"  Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Width="auto" Checked="chbox_DeleteTrash_Checked" Unchecked="chbox_DeleteTrash_Unchecked" Margin="0,44,76,43"/>
                     </Grid>
 
                     <Grid Name="buttonsGrid" Grid.Row="3" Grid.Column="1" >
@@ -1873,40 +1873,106 @@
                     </Grid>
 
                 </Grid>
-                
-                
+
+
                 <Border x:Name="Grid6" Grid.Row="0" BorderBrush="#FF616161" BorderThickness="0,0,1,1"/>
                 <Border x:Name="Grid7" Grid.Row="1" BorderBrush="#FF616161" BorderThickness="0,0,1,1"/>
                 <Border x:Name="Grid7a" Grid.Row="1" Grid.Column="1" BorderBrush="#FF616161" BorderThickness="0,1,0,1"/>
-
                 <Border x:Name="Grid8" Grid.Row="2" BorderBrush="#FF616161" BorderThickness="0,0,1,0"/>
 
-                <Image x:Name="imgBrandSkin" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Source="Images/sonic.png" Margin="96,10,100,0" Height="74" Width="206"/>
 
-                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="0,84,0,187" Height="354" Width="192" Grid.RowSpan="2">
-                    <Label x:Name="lblDefPathCompo" Content="Path to local Compositions:"/>
-                    <TextBox x:Name="txtLocalCompoPath" Margin="5" Height="auto" TextWrapping="Wrap" ToolTip="Edit, click enter to save" Text="C:\Program Files\UltimateChanger\compositions" KeyDown="txtLocalCompoPath_KeyDown"/>
-                    <Label Content="-----------------------------------"/>
-                    <CheckBox x:Name="InstallByNiight" Content="Install newest build at night" IsChecked="False" Checked="InstallByNight_Checked" Unchecked="InstallByNight_Unchecked" IsEnabled="True" />
-                    <Label x:Name="lblTime_toUpgrade" Content=""/>
+                <Grid Name="settingsGrid" Grid.Row="0" Grid.Column="0" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
 
-                </StackPanel>
+                    <Grid Grid.Row="0" Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Content="Startup settings"  Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="5" FontWeight="SemiBold" FontSize="12.5"/>
+                        <RadioButton Name="rbnStartwithWindows" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center"  Content="Start with Windows" GroupName="group1" Checked="rbnStartwithWindows_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="5"/>
+                        <RadioButton Name="rbnNotStartwithWindows" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center"  Content="Do not Start with Windows" GroupName="group1" Checked="rbnNotStartwithWindows_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="5"/>
+
+                    </Grid>
+                    <Label x:Name="lblDefPathCompo" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Path to local Compositions:"/>
+                    <TextBox x:Name="txtLocalCompoPath" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" Height="auto" TextWrapping="Wrap" ToolTip="Edit, click enter to save" Text="C:\Program Files\UltimateChanger\compositions" KeyDown="txtLocalCompoPath_KeyDown"/>
+                    <Label x:Name="lblTime_toUpgrade"  Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Content=""/>
 
 
-                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="10,84,0,187" Height="354" Width="195" Grid.RowSpan="2">
-                    <Label Content="Startup settings" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
-                    <RadioButton Name="rbnStartwithWindows" Content="Start with Windows" GroupName="group1" Checked="rbnStartwithWindows_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
-                    <RadioButton Name="rbnNotStartwithWindows" Content="Do not Start with Windows" GroupName="group1" Checked="rbnNotStartwithWindows_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 1 0 0"/>
-                    <Label Content="Godzilla logging" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
-                    <RadioButton Name="rbnDeletelogs" Content="On" Checked="rbnDeletelogs_Checked" GroupName="group2" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
-                    <RadioButton Name="rbnholdlogs" Content="Off" GroupName="group2" Checked="rbnholdlogs_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 1 0 0"/>
-                    <Label Content="Always set log to &quot;ALL&quot;" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
-                    <RadioButton Name="rbnLogsAll_YES" Content="Yes" Checked="rbnLogsAll_YES_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
-                    <RadioButton Name="rbnLogsAll_NO" Content="No" Checked="rbnLogsAll_NO_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 1 0 0"/>
-                    <Label Content="Default Installation &#xD;&#xA;mode" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
-                    <RadioButton x:Name="rbnDefaultNormal" Content="Normal" GroupName="group3" Checked="rbnDefaultNormal_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
-                    <RadioButton x:Name="rbnDefaultSilent" Content="Silent" GroupName="group3" Checked="rbnDefaultSilent_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 1 0 0"/>
-                </StackPanel>
+                    <Grid Grid.Row="1" Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Content="Godzilla logging" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Margin="5" FontWeight="SemiBold" FontSize="12.5"/>
+                        <RadioButton Name="rbnDeletelogs" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Content="On" Checked="rbnDeletelogs_Checked" GroupName="group2" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="5"/>
+                        <RadioButton Name="rbnholdlogs" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center"  Content="Off" GroupName="group2" Checked="rbnholdlogs_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="5"/>
+
+                    </Grid>
+
+                    <Grid Grid.Row="2" Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Content="Always set log to &quot;ALL&quot;" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Margin="5" FontWeight="SemiBold" FontSize="12.5"/>
+                        <RadioButton Name="rbnLogsAll_YES" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Yes" Checked="rbnLogsAll_YES_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="5"/>
+                        <RadioButton Name="rbnLogsAll_NO" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Content="No" Checked="rbnLogsAll_NO_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="5"/>
+
+                    </Grid>
+
+                    <Grid Grid.Row="3" Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Content="Default Installation mode" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Margin="5" FontWeight="SemiBold" FontSize="12.5"/>
+                        <RadioButton x:Name="rbnDefaultNormal" Content="Normal" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" GroupName="group3" Checked="rbnDefaultNormal_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="5"/>
+                        <RadioButton x:Name="rbnDefaultSilent" Content="Silent" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" GroupName="group3" Checked="rbnDefaultSilent_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="5"/>
+
+                    </Grid>
+
+                    
+
+                </Grid>
+
+
+              
+
+                
 
                 <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10 0 0 0" Width="162" Height="102">
                     <Label Content="Version" HorizontalAlignment="Left" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
@@ -1920,16 +1986,29 @@
 
                 </StackPanel >
 
-                <StackPanel Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,0,0,-28" Height="144" Width="109">
-                    <Label x:Name="Skin" Content="Skin" Foreground="White" Margin="0 5 0 0" FontWeight="SemiBold" FontSize="12.5"/>
-                    <RadioButton x:Name="rbnLight_skin" Content="Crystal White" Checked="Light_skin_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
-                    <RadioButton x:Name="rbnDark_skin" Content="On the dark side" Checked="Dark_skin_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="0 0 0 1"/>
+                <Grid Name="SettingsAppGrid" Grid.Row="3" Grid.Column="0" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
 
-                </StackPanel>
+                    <Label x:Name="Skin" Content="Skin" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Foreground="White" Margin="5" FontWeight="SemiBold" FontSize="12.5"/>
+                    <RadioButton x:Name="rbnLight_skin" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Content="Crystal White" Checked="Light_skin_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="5"/>
+                    <RadioButton x:Name="rbnDark_skin"  Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Content="On the dark side" Checked="Dark_skin_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="5"/>
+
+
+                    <Label Content="Settings" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
+                    <Button Name="btnImportSettings" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Content="Import" Height="30" Width="auto" Margin="5" Click="btnImportSettings_Click"/>
+                    <Button Name="btnExportSettings" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Content="Export" Height="30" Width="auto" Margin="5" Click="btnExportSettings_Click"/>
+                </Grid>
+
                 <StackPanel Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Right" Height="144" Width="200" Margin="0,0,0,-28">
-                    <Label Content="Settings" HorizontalAlignment="Center" />
-                    <Button Name="btnImportSettings" Content="Import" Height="30" Width="auto" Margin="10,10,10,0" Click="btnImportSettings_Click"/>
-                    <Button Name="btnExportSettings" Content="Export" Height="30" Width="auto" Margin="10,10,10,0" Click="btnExportSettings_Click"/>
+                   
 
                 </StackPanel>
                 <Label Name="lblSavedTime" ToolTip="HH\MM\SS" Content="zaoszczedzony czas: " Grid.Column="1" HorizontalAlignment="Center" Margin="12,11,200,71" Grid.Row="2" VerticalAlignment="Center" Height="34" Width="172"/>
