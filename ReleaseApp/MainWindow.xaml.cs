@@ -957,6 +957,7 @@ namespace UltimateChanger
                 {
                     for (int i = 0; i < 5; i++)
                     {
+                        FittingSoftware_List[i].getInfoBuild(i);
                         partListFS.Add(FittingSoftware_List[i]);
                     }
                 }
@@ -1055,7 +1056,7 @@ namespace UltimateChanger
 
             RefUiTIMER = new DispatcherTimer();
             RefUiTIMER.Tick += refreshUI;
-            RefUiTIMER.Interval = new TimeSpan(0, 0, 20);
+            RefUiTIMER.Interval = new TimeSpan(0, 0, 30);
             RefUiTIMER.Start();
 
             checkUpdate = new DispatcherTimer();
@@ -2096,7 +2097,7 @@ namespace UltimateChanger
             {
                 try
                 {
-                    for (int i = 0; i < 4; i++)
+                    for (int i = 0; i < 5; i++)
                     {
                         if (FittingSoftware_List[i].Upgrade_FS.info.TrashCleaner)
                         {

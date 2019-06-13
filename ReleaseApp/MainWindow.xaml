@@ -1833,8 +1833,7 @@
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
                         <ComboBox Name="cmbOption" IsEnabled="False" ToolTip="medium lub full" HorizontalAlignment="Center"  Grid.Row="0" VerticalAlignment="Center" Margin="10" Width="60" BorderBrush="White" Foreground="White"/>
-                        <Label Content="Delete Trash" HorizontalAlignment="Center"  Grid.Row="0" Grid.Column="1" Margin="10" VerticalAlignment="Center"/>
-                        <CheckBox Name="chbox_DeleteTrash" Content="" HorizontalAlignment="Right"  Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Width="auto" Checked="chbox_DeleteTrash_Checked" Unchecked="chbox_DeleteTrash_Unchecked" Margin="0,44,76,43"/>
+                       <CheckBox Name="chbox_DeleteTrash" Content="Delete Trash" HorizontalAlignment="Right"  Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Width="auto" Checked="chbox_DeleteTrash_Checked" Unchecked="chbox_DeleteTrash_Unchecked" Margin="5"/>
                     </Grid>
 
                     <Grid Name="buttonsGrid" Grid.Row="3" Grid.Column="1" >
@@ -1904,12 +1903,12 @@
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
 
-                        <Label Content="Startup settings"  Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="5" FontWeight="SemiBold" FontSize="12.5"/>
-                        <RadioButton Name="rbnStartwithWindows" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center"  Content="Start with Windows" GroupName="group1" Checked="rbnStartwithWindows_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="5"/>
-                        <RadioButton Name="rbnNotStartwithWindows" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center"  Content="Do not Start with Windows" GroupName="group1" Checked="rbnNotStartwithWindows_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="5"/>
+                        <Label Content="Startup settings" Height="auto" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="4" FontWeight="SemiBold" FontSize="12.5"/>
+                        <RadioButton Name="rbnStartwithWindows" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom"  Content="Start with Windows" GroupName="group1" Checked="rbnStartwithWindows_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="5"/>
+                        <RadioButton Name="rbnNotStartwithWindows" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top"  Content="Do not Start with Windows" GroupName="group1" Checked="rbnNotStartwithWindows_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="5"/>
 
                     </Grid>
-                    <Label x:Name="lblDefPathCompo" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Path to local Compositions:"/>
+                    <Label x:Name="lblDefPathCompo" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Path to local Compositions:" FontWeight="SemiBold" FontSize="12.5"/>
                     <TextBox x:Name="txtLocalCompoPath" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" Height="auto" TextWrapping="Wrap" ToolTip="Edit, click enter to save" Text="C:\Program Files\UltimateChanger\compositions" KeyDown="txtLocalCompoPath_KeyDown"/>
                     <Label x:Name="lblTime_toUpgrade"  Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Content=""/>
 
@@ -1925,9 +1924,9 @@
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
 
-                        <Label Content="Godzilla logging" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Margin="5" FontWeight="SemiBold" FontSize="12.5"/>
-                        <RadioButton Name="rbnDeletelogs" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Content="On" Checked="rbnDeletelogs_Checked" GroupName="group2" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="5"/>
-                        <RadioButton Name="rbnholdlogs" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center"  Content="Off" GroupName="group2" Checked="rbnholdlogs_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="5"/>
+                        <Label Content="Godzilla logging" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Margin="4" FontWeight="SemiBold" FontSize="12.5"/>
+                        <RadioButton Name="rbnDeletelogs" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="On" Checked="rbnDeletelogs_Checked" GroupName="group2" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="5"/>
+                        <RadioButton Name="rbnholdlogs" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top"  Content="Off" GroupName="group2" Checked="rbnholdlogs_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="5"/>
 
                     </Grid>
 
@@ -1942,9 +1941,9 @@
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
 
-                        <Label Content="Always set log to &quot;ALL&quot;" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Margin="5" FontWeight="SemiBold" FontSize="12.5"/>
-                        <RadioButton Name="rbnLogsAll_YES" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Yes" Checked="rbnLogsAll_YES_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="5"/>
-                        <RadioButton Name="rbnLogsAll_NO" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Content="No" Checked="rbnLogsAll_NO_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="5"/>
+                        <Label Content="Always set log to &quot;ALL&quot;" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Margin="4" FontWeight="SemiBold" FontSize="12.5"/>
+                        <RadioButton Name="rbnLogsAll_YES" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="Yes" Checked="rbnLogsAll_YES_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="5"/>
+                        <RadioButton Name="rbnLogsAll_NO" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Content="No" Checked="rbnLogsAll_NO_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="5"/>
 
                     </Grid>
 
@@ -1959,9 +1958,9 @@
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
 
-                        <Label Content="Default Installation mode" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Margin="5" FontWeight="SemiBold" FontSize="12.5"/>
-                        <RadioButton x:Name="rbnDefaultNormal" Content="Normal" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" GroupName="group3" Checked="rbnDefaultNormal_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="5"/>
-                        <RadioButton x:Name="rbnDefaultSilent" Content="Silent" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" GroupName="group3" Checked="rbnDefaultSilent_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="5"/>
+                        <Label Content="Default Installation mode" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Margin="4" FontWeight="SemiBold" FontSize="12.5"/>
+                        <RadioButton x:Name="rbnDefaultNormal" Content="Normal" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" GroupName="group3" Checked="rbnDefaultNormal_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="5"/>
+                        <RadioButton x:Name="rbnDefaultSilent" Content="Silent" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" GroupName="group3" Checked="rbnDefaultSilent_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="5"/>
 
                     </Grid>
 
@@ -1998,8 +1997,8 @@
                     </Grid.RowDefinitions>
 
                     <Label x:Name="Skin" Content="Skin" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Foreground="White" Margin="5" FontWeight="SemiBold" FontSize="12.5"/>
-                    <RadioButton x:Name="rbnLight_skin" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Content="Crystal White" Checked="Light_skin_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="5"/>
-                    <RadioButton x:Name="rbnDark_skin"  Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Content="On the dark side" Checked="Dark_skin_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="5"/>
+                    <RadioButton x:Name="rbnLight_skin" Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" Content="Crystal White" Checked="Light_skin_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="5"/>
+                    <RadioButton x:Name="rbnDark_skin"  Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" Content="On the dark side" Checked="Dark_skin_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="5"/>
 
 
                     <Label Content="Settings" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
@@ -2011,7 +2010,7 @@
                    
 
                 </StackPanel>
-                <Label Name="lblSavedTime" ToolTip="HH\MM\SS" Content="zaoszczedzony czas: " Grid.Column="1" HorizontalAlignment="Center" Margin="12,11,200,71" Grid.Row="2" VerticalAlignment="Center" Height="34" Width="172"/>
+                <Label Name="lblSavedTime" ToolTip="HH\MM\SS" Content="zaoszczedzony czas: " Grid.Column="1" HorizontalAlignment="Left" Margin="10" Grid.Row="2" VerticalAlignment="Top" Height="auto" Width="180" FontWeight="SemiBold" FontSize="12.5"/>
                 <Button Name="btnResetSavedTime" Content="Reset" Grid.Column="1" HorizontalAlignment="Left" Margin="12,71,0,0" Grid.Row="2" Width="76" Height="27" Click="btnResetSavedTime_Click" VerticalAlignment="Top"/>
 
                 <StackPanel Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="12,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="88">
