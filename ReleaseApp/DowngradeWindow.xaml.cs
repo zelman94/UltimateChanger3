@@ -25,7 +25,7 @@ namespace UltimateChanger
             MessageBox.Show("remember to connect Fitting Link 3.0");
             try
             {
-                Process.Start("explorer.exe", Environment.CurrentDirectory + @"\Downgrade\Production\Dongle 2.0.2 Downgrade\");   
+                Process.Start("explorer.exe", @"C:\Program Files\UltimateChanger\\Downgrade\Production\Dongle 2.0.2 Downgrade\");   
             }
             catch (Exception)
             {
@@ -37,7 +37,7 @@ namespace UltimateChanger
         {
             try
             {
-                Process.Start(Environment.CurrentDirectory + @"\Downgrade\NOAHlink WLP downgrade\NLWUpgrader_11063s.exe");
+                Process.Start(@"C:\Program Files\UltimateChanger\\Downgrade\NOAHlink WLP downgrade\NLWUpgrader_11063s.exe");
             }
             catch (Exception)
             {

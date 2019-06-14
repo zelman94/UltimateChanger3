@@ -31,7 +31,7 @@ using System.Data;
 using Rekurencjon; // logi
 using log4net;
 
-[assembly: System.Reflection.AssemblyVersion("3.9.42.0")]
+[assembly: System.Reflection.AssemblyVersion("3.9.50.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window 
