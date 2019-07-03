@@ -30,9 +30,9 @@
 
         <ListBox Name="ListBoxBuilds" SelectionChanged="ListBoxBuilds_SelectionChanged" Grid.Column="0" SelectionMode="Multiple" Grid.Row="1" />
        
-        <Button Name="btnFindPaths" Content="Find " Grid.Column="2" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="75" Click="BtnFindPaths" Margin="11,50,11,40"/>
-        <Button Name="btnInstallFSs" Content="Install" Grid.Column="1" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Width="75" Click="btnInstallFSs_Click" Margin="11,4,11,9"/>
-        <Button Name="btnCancelAdvance" Content="Cancel" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Width="75" Click="btnCancelAdvance_Click" Margin="11,4,11,9"/>
+        <Button Name="btnFindPaths" Content="Find " Grid.Column="2" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="75" Click="BtnFindPaths" Margin="5"/>
+        <Button Name="btnInstallFSs" Content="Install" Grid.Column="1" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Width="75" Click="btnInstallFSs_Click" Margin="5"/>
+        <Button Name="btnCancelAdvance" Content="Cancel" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Width="75" Click="btnCancelAdvance_Click" Margin="5"/>
         
         
 

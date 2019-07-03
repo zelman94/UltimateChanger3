@@ -31,7 +31,7 @@ using System.Data;
 using Rekurencjon; // logi
 using log4net;
 
-[assembly: System.Reflection.AssemblyVersion("3.9.50.0")]
+[assembly: System.Reflection.AssemblyVersion("4.0.0.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window 
@@ -58,7 +58,6 @@ namespace UltimateChanger
         List<CheckBox> checkBoxList = new List<CheckBox>();
         List<ComboBox> comboBoxList = new List<ComboBox>();
         List<TextBox> textBoxList = new List<TextBox>();
-        string skin_name;
         int savedTime ; // to bind => lblSavedTime
         ClickCounter CounterOfclicks = new ClickCounter(10);
 
@@ -95,8 +94,7 @@ namespace UltimateChanger
         public DateTime Time_now { get; private set; }
 
         List<string> AllOemPaths = new List<string>();
-        
-        string User_Power;
+
         public List<string> RandomHardware;
 
         public string Advance_1 = "", Advance_2 = "", Advance_3 = "";
@@ -146,11 +144,8 @@ namespace UltimateChanger
 
                 }
              
-                initializeElements();
-                
-                initiationForprograms();
-
-               
+                initializeElements();                
+                initiationForprograms();               
                 initializeTimers();
 
                 try
@@ -649,7 +644,7 @@ namespace UltimateChanger
         public void initiationForprograms()
         {
             lblVersion.Content = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            User_Power = "USER";
+
 
             var t = Task.Run(() => { // watek 
                 try
@@ -977,7 +972,7 @@ namespace UltimateChanger
                     {
                         ListFSButtons[counter].ToolTip = null;
                     }
-                    if (!uninstallTimer.IsEnabled)
+                    if (!uninstallTimer.IsEnabled && !InstallTimer.IsEnabled)
                     {
                         listlabelsinfoFS_Version[counter].Content = item.Version;
                     }
@@ -1169,78 +1164,6 @@ namespace UltimateChanger
             dataBaseManager.pushLogs();
         }
 
-        void changeMarket(string source)
-        {
-            string[] oldFile;
-            int counter = 0;
-
-            try
-            {
-                oldFile = File.ReadAllLines(source);
-                using (StreamWriter sw = new StreamWriter(source))
-                {
-                    foreach (var line in oldFile)
-                    {
-                        if (counter == 3)
-                        {
-                            sw.WriteLine($"  <MarketName>{cmbMarket.SelectedValue}</MarketName>");
-                        }
-                        else
-                        {
-                            sw.WriteLine(line);
-                        }
-                        counter++;
-                    }
-                }
-            }
-            catch (FileNotFoundException)
-            { }
-            catch (DirectoryNotFoundException)
-            { }
-            catch (NullReferenceException)
-            { }
-        }
-        void UpdateLogModeOnUI()
-        {
-            List<string> mode = new List<string>() { "ALL", "DEBUG", "ERROR" };
-            int numberOfChecks = 0;
-            string[] selectedModes = new string[3];
-            bool AreEqual = true;
-
-            if (Oticon.IsChecked == true)
-            {
-                selectedModes[numberOfChecks] = GetLogMode(@"C:\Program Files (x86)\Oticon\Genie\Genie2\Configure.log4net");
-                numberOfChecks++;
-            }
-            if (Bernafon.IsChecked == true)
-            {
-                selectedModes[numberOfChecks] = GetLogMode(@"C:\Program Files (x86)\Bernafon\Oasis\Oasis2\Configure.log4net");
-                numberOfChecks++;
-            }
-            if (Sonic.IsChecked == true)
-            {
-                selectedModes[numberOfChecks] = GetLogMode(@"C:\Program Files (x86)\Sonic\ExpressFit\ExpressFit2\Configure.log4net");
-                numberOfChecks++;
-            }
-
-            for (int i = 0; i < numberOfChecks - 1; ++i)
-            {
-                if (selectedModes[i] != selectedModes[i + 1])
-                {
-                    AreEqual = false;
-                }
-            }
-
-            if (AreEqual)
-            {
-                cmbLogMode.SelectedIndex = mode.IndexOf(selectedModes[0]);
-            }
-            else
-            {
-                cmbLogMode.SelectedIndex = -1;
-            }
-        }
-
         string GetLogMode(string source)
         {
             string line = "";
@@ -1271,8 +1194,6 @@ namespace UltimateChanger
             }
 
         }
-
-
 
         void verifyInstalledBrands()
         {
@@ -1361,32 +1282,6 @@ namespace UltimateChanger
             }
             return true;
         }
-
-        //void startAnimation()
-        //{
-        //    blinkAnimation = new DoubleAnimation
-        //    {
-        //        From = 1.0,
-        //        To = 0.3,
-        //        Duration = TimeSpan.FromSeconds(1),
-        //        AutoReverse = true,
-        //        RepeatBehavior = RepeatBehavior.Forever
-        //    };
-        //    if (Oticon.IsChecked == true)   oticonRectangle.BeginAnimation(Rectangle.OpacityProperty, blinkAnimation);
-        //    if (Bernafon.IsChecked == true) bernafonRectangle.BeginAnimation(Rectangle.OpacityProperty, blinkAnimation);
-        //    if (Sonic.IsChecked == true)    sonicnRectangle.BeginAnimation(Rectangle.OpacityProperty, blinkAnimation);
-        //}
-
-        //void stopAnimation()
-        //{
-        //    blinkAnimation = new DoubleAnimation();
-        //    if (Oticon.IsChecked == false)   oticonRectangle.BeginAnimation(Rectangle.OpacityProperty, blinkAnimation);
-        //    if (Bernafon.IsChecked == false) bernafonRectangle.BeginAnimation(Rectangle.OpacityProperty, blinkAnimation);
-        //    if (Sonic.IsChecked == false)    sonicnRectangle.BeginAnimation(Rectangle.OpacityProperty, blinkAnimation);
-        //}
-
-
-
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
@@ -1893,9 +1788,14 @@ namespace UltimateChanger
             {
                 if (listOfPathsToInstall.Count != 0)
                 {
+                    ProgressInstallation.Visibility = Visibility.Visible;
+                    ProgressInstallation.ToolTip = "Installation in progress";
                     try
                     {
                         Process.Start(listOfPathsToInstall[0], " /quiet");
+                        //labelListsforRefreshUI[listOfPathsToInstall[0]]
+                        labelListsforUninstall[0].Content = "Installation in progress";
+                        labelListsforUninstall.RemoveAt(0);
                         listOfPathsToInstall.RemoveAt(0);                        
                     }
                     catch (Exception x)
@@ -2149,7 +2049,7 @@ namespace UltimateChanger
                         FittingSoftware_List[i].Task_GetNewBuild.Wait();
 
                     }
-                    MessageBox.Show(FittingSoftware_List[i].Task_GetNewBuild.Status.ToString());
+                   // MessageBox.Show(FittingSoftware_List[i].Task_GetNewBuild.Status.ToString());
                     Thread.Sleep(1000);
                 }
                 else
@@ -2759,7 +2659,6 @@ namespace UltimateChanger
                 Source = new Uri("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Grey.xaml", UriKind.RelativeOrAbsolute)
             });
 
-            skin_name = "On the dark side"; // ustawiam nazwe do logowania do bazy danych
         }
 
         private void Light_skin_Checked(object sender, RoutedEventArgs e)
@@ -2882,7 +2781,6 @@ namespace UltimateChanger
             {
                 Source = new Uri("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml", UriKind.RelativeOrAbsolute)
             });
-            skin_name = "Crystal White"; // ustawiam nazwe do logowania do bazy danych
         }
 
   
@@ -2934,8 +2832,9 @@ namespace UltimateChanger
 
         private void rbnDefaultNormal_Checked(object sender, RoutedEventArgs e)
         {
-            XMLReader.setSetting("InstallModeNormal", "RadioButtons", Convert.ToString(rbnDefaultNormal.IsChecked.Value));
-            bool tmp = rbnDefaultNormal.IsChecked.Value;
+            bool tmp = true;
+            XMLReader.setSetting("InstallModeNormal", "RadioButtons", tmp.ToString());
+            //bool tmp = rbnDefaultNormal.IsChecked.Value;
             tmp = !tmp;
             XMLReader.setSetting("InstallModeSilent", "RadioButtons", Convert.ToString(tmp));
             RBnormal.IsChecked = true;
@@ -2944,8 +2843,9 @@ namespace UltimateChanger
 
         private void rbnDefaultSilent_Checked(object sender, RoutedEventArgs e)
         {
-            XMLReader.setSetting("InstallModeSilent", "RadioButtons", Convert.ToString(RBsilet.IsChecked.Value));
-            bool tmp = RBsilet.IsChecked.Value;
+            bool tmp = true;
+            XMLReader.setSetting("InstallModeSilent", "RadioButtons", tmp.ToString());
+           //bool tmp = RBsilet.IsChecked.Value;
             tmp = !tmp;
             XMLReader.setSetting("InstallModeNormal", "RadioButtons", Convert.ToString(tmp));
             RBnormal.IsChecked = false;
@@ -3832,6 +3732,8 @@ namespace UltimateChanger
 
         private void btnUpdateFS_Click(object sender, RoutedEventArgs e)
         {
+            bool flag = false;
+            string text = "";
             for (int i = 0; i < 5; i++)
             {
                 if (checkBoxList[i].IsChecked.Value) // tylko dla zaznaczonych buildow
@@ -3839,6 +3741,27 @@ namespace UltimateChanger
                     FittingSoftware_List[i].PathToNewVerFS = fileOperator.GetAvailableNewFS(FittingSoftware_List[i], true);
                     Log.Debug("Path to new Ver FS for: " + FittingSoftware_List[i].Name_FS + FittingSoftware_List[i].PathToNewVerFS);
                     //listOfPathsToInstall.Add(FittingSoftware_List[i].PathToNewVerFS); // dodaje na liste paths do instalacji
+                    labelListsforUninstall.Add(listlabelsinfoFS_Version[i]);
+                    text += FittingSoftware_List[i].PathToNewVerFS + "\n";
+                }               
+            }
+            
+
+            var result = MessageBox.Show("Do you want upgrade FS to: \n" + text, "Update FS", MessageBoxButton.YesNo);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                flag = true;
+            }
+            else
+            {
+                return;
+            }
+
+            if (flag)
+            {
+                for (int i = 0; i < 5; i++)
+                {
                     if (FittingSoftware_List[i].PathToNewVerFS != "")
                     {
                         //checkBoxList[i].IsChecked = true;
@@ -3848,7 +3771,7 @@ namespace UltimateChanger
                     {
                         checkBoxList[i].IsChecked = false;
                     }
-                }               
+                }
             }
 
             // zamykam wszystkie FS
@@ -3870,8 +3793,10 @@ namespace UltimateChanger
             txtPP_R.Text = "";
             txtSN.Text = "";
             txtSN_R.Text = "";
-            txtFW.Text = "";
+            txtFW.Text = "";    
             txtFW_R.Text = "";
+            
+           
             progressHI.Value = 0;
             HI_Reader readHI = new HI_Reader();
             progressHI.Value += 10;
@@ -3960,6 +3885,7 @@ namespace UltimateChanger
             progressHI.Value += 10;
             setNewSavedTime(30);
 
+
         }
 
         private void btnHoursUp_Nightly_Click(object sender, RoutedEventArgs e)
@@ -4043,6 +3969,67 @@ namespace UltimateChanger
         private void chbox_DeleteTrash_Unchecked(object sender, RoutedEventArgs e)
         {
           
+        }
+
+        private void btnCheck_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (cmbBranch.SelectedIndex == -1 && txtPathRoot.Text == "")
+            {
+                MessageBox.Show("Select Branch");
+                return;
+            }
+            List<bool> listCheckboxStatus = new List<bool>();
+            foreach (var item in CheckBoxNightList)
+            {
+                listCheckboxStatus.Add(item.IsChecked.Value);
+            }
+
+            InfoUpdate infoUpdate = new InfoUpdate();
+            infoUpdate.Release = cmbRelease_Nightly.Text;
+            infoUpdate.Branch = cmbBranch.Text;
+            infoUpdate.Option = cmbOption.Text;
+            infoUpdate.TrashCleaner = chbox_DeleteTrash.IsChecked.Value;
+            infoUpdate.path_to_root = txtPathRoot.Text;
+            infoUpdate.Time_Update = Time_now;
+
+            nightlyUpgradeManager = new NightlyUpgradeManager(infoUpdate, listCheckboxStatus);
+
+            for (int i = 0; i < 5; i++)
+            {
+                if (listCheckboxStatus[i]) // jezeli chcemy zrobic upgrade 
+                {
+                    FittingSoftware_List[i].Upgrade_FS = new Upgrade_FittingSoftware(infoUpdate);
+                    if (txtPathRoot.Text == "")
+                    {
+                        FittingSoftware_List[i].Upgrade_FS.info.path_to_root = "";
+                    }
+                    else
+                    {
+                        FittingSoftware_List[i].Upgrade_FS.info.path_to_root = txtPathRoot.Text;
+                    }
+
+                }
+            }
+
+
+            for (int i = 0; i < 5; i++)
+            {
+                FittingSoftware_List[i].getNewFSPath();
+            }
+            string text = "";
+
+            for (int i = 0; i < 5; i++)
+            {
+                FittingSoftware_List[i].Task_GetNewBuild.Wait();
+                text += FittingSoftware_List[i].Name_FS + " :\n";
+                text += FittingSoftware_List[i].PathToNewVerFS + "\n";
+                FittingSoftware_List[i].PathToNewVerFS = "";
+                FittingSoftware_List[i].Upgrade_FS = null;
+            }
+
+            MessageBox.Show(text);
+
         }
 
         private void btnAll_Night_Click(object sender, RoutedEventArgs e)

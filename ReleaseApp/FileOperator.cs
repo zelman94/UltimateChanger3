@@ -1367,14 +1367,29 @@ namespace UltimateChanger
         public string GetAvailableNewFS(FittingSoftware CurrentFS)
         {
             string path = "";
-            if (CurrentFS.Upgrade_FS.info.Option == "Full")
+            try
             {
-                path = @"\\demant.com\data\KBN\RnD\SWS\Build\Arizona\Phoenix\FullInstaller-" + CurrentFS.Upgrade_FS.info.Release;
+                if (CurrentFS.Upgrade_FS == null)
+                {
+                    return "";
+                }
+                if (CurrentFS.Upgrade_FS.info.Option == "Full")
+                {
+                    path = @"\\demant.com\data\KBN\RnD\SWS\Build\Arizona\Phoenix\FullInstaller-" + CurrentFS.Upgrade_FS.info.Release;
+                }
+                else
+                {
+                    path = @"\\demant.com\data\KBN\RnD\SWS\Build\Arizona\Phoenix\Nightly-" + CurrentFS.Upgrade_FS.info.Release;
+                }
             }
-            else
+            catch (Exception x)
             {
-                path = @"\\demant.com\data\KBN\RnD\SWS\Build\Arizona\Phoenix\Nightly-" + CurrentFS.Upgrade_FS.info.Release;
+                Log.Debug($"Problem with CurrentFS.Upgrade_FS in {CurrentFS.Name_FS}");
+                Log.Debug(x.ToString());
+
+                return "";
             }
+            
             var all_dirs = Directory.GetDirectories(path.Trim()); 
             SortedDictionary<DateTime, string> All_RCs = new SortedDictionary<DateTime,string>();
 
@@ -1387,8 +1402,20 @@ namespace UltimateChanger
             }
             All_RCs.OrderBy(key => key.Key); //ostatni jest najnowszy
 
-            var Fulls = Directory.GetDirectories(All_RCs.Last().Value); // foldery z najnowszego buildu
-                                                                       // wyszukiwanie  folderu dla odpowiedniego brandu
+
+            string[] Fulls;
+            try
+            {
+                Fulls = Directory.GetDirectories(All_RCs.Last().Value); // foldery z najnowszego buildu
+                                                                            // wyszukiwanie  folderu dla odpowiedniego brandu
+            }
+            catch (Exception x)
+            {
+                Log.Debug($"Problem with Directory.GetDirectories in {CurrentFS.Name_FS}");
+                Log.Debug(x.ToString());
+                return "";
+            }
+
             var DirFullInstallerName = "";
 
             foreach (var item in Fulls)
@@ -1496,13 +1523,29 @@ namespace UltimateChanger
 
 
             // pobranie z Azure path do najnowszego buildu Full, IP lub RC 
+            List<string> AboutList = dataBase.executeSelect($"select Top 10 about from builds where type='full' AND brand ='{CurrentFS.Name_FS}' AND oem ='{CurrentFS.OEM}' AND release ='{listReleaseForAbout[0]}' order by creationdate desc");
+
+            //----- szukanie najnowszego abouta
+
+            List<Version> listVers = new List<Version>();
+
+            foreach (var item in AboutList)
+            {
+                listVers.Add(new Version(item));
+            }
+
+            listVers.Sort();
+            listVers.Reverse(); // [0] jest najnowszy
+            //-----
+
             // pobranie pierwszego najnowszego builda
-            List<string> listodptahToNewBuild = dataBase.executeSelect($"select Top 1 path from builds where type='full' AND brand ='{CurrentFS.Name_FS}' AND oem ='{CurrentFS.OEM}' AND release ='{listReleaseForAbout[0]}' order by about desc");
-            List<string> AboutList = dataBase.executeSelect($"select Top 1 about from builds where type='full' AND brand ='{CurrentFS.Name_FS}' AND oem ='{CurrentFS.OEM}' AND release ='{listReleaseForAbout[0]}' order by about desc");
+            List<string> listodptahToNewBuild = dataBase.executeSelect($"select Top 1 path from builds where type='full' AND brand ='{CurrentFS.Name_FS}' AND oem ='{CurrentFS.OEM}' AND release ='{listReleaseForAbout[0]}' AND about = '{listVers[0].ToString()}' ");
+
+
             if (listodptahToNewBuild.Count > 0)
             {
                 // sprawdzic czy obecnie zainstalowany build jest starszy jezeli jest to zwracam ""
-                if (CurrentFS.Version_build.ToString() != AboutList[0])
+                if (CurrentFS.Version_build.ToString() != listVers[0].ToString())
                 {
                     return listodptahToNewBuild[0];
                 }

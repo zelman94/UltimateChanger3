@@ -42,7 +42,7 @@
     </CheckBoxes>
   <ComboBox>
     <Name>Release</Name>
-    <Value>19.2</Value>
+    <Value>20.1</Value>
   </ComboBox>
   <TextBox>
     <Name>LocalComposition</Name>

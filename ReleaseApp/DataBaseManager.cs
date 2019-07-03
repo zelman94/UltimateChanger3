@@ -317,7 +317,14 @@ namespace UltimateChanger
             List<string> BuildsList = new List<string>();
             try
             {
-                SQLConnection.Open();
+                try
+                {
+                    SQLConnection.Open();
+                }
+                catch (Exception)
+                {
+                    return null;
+                }               
 
                 SqlCommand command = new SqlCommand($"select path from builds where type = '{TYPE}' AND release = '{RELEASE}' AND mode LIKE '%{MODE}%' AND brand = '{BRAND}' AND oem = '{OEM}' order by CREATIONDATE desc", SQLConnection);
                 Log.Debug("getBuilds:  TYPE,  RELEASE,  MODE,  BRAND,  OEM \n" + TYPE + " " + RELEASE + " " + MODE + " " + BRAND + " " + OEM);
@@ -340,7 +347,6 @@ namespace UltimateChanger
                 }
                 catch (Exception)
                 {
-
                 }
                 System.Windows.MessageBox.Show(x.ToString());
                 return BuildsList;
