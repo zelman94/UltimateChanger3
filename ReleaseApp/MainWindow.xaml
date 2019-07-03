@@ -1844,8 +1844,9 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
-                        <Button Name="btnAccept" Content="Accept" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" Width="150" Margin="10" Height="Auto" Click="btnAccept_Click"/>
-                        <Button Name="btnCancel" Content="Cancel" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" Width="150" Margin="10" Height="Auto" Click="btnCancel_Click"/>
+                        <Button Name="btnAccept" Content="Accept" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Row="0" Width="150" Margin="10" Height="Auto" Click="btnAccept_Click"/>
+                        <Button Name="btnCancel" Content="Cancel" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Row="0" Width="150" Margin="10" Height="Auto" Click="btnCancel_Click"/>
+                        <Button Name="btnCheck" Content="Check Newest Build" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="0" Width="180" Margin="10" Height="Auto" Click="btnCheck_Click"/>
 
                     </Grid>
 

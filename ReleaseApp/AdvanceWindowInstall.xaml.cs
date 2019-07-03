@@ -89,7 +89,8 @@ namespace UltimateChanger
             if (TaskFindBuilds.Status != TaskStatus.Running)
             {
                 ListBoxBuilds.ItemsSource = PathTobuildsUI;
-                databaseManager.Advance_AddPath(Paths[0], PathTobuilds); //Paths - root //PathTobuilds - cale pathy to setup.exe
+
+                //databaseManager.Advance_AddPath(Paths[0], PathTobuilds); //Paths - root //PathTobuilds - cale pathy to setup.exe
                 FindingPaths.Stop();
                 progressAdvanceInstall.Visibility = Visibility.Hidden;
             }
@@ -153,9 +154,12 @@ namespace UltimateChanger
                 try
                 {
                     List<string> tmp = Directory.GetFiles(item, "Setup.exe", SearchOption.AllDirectories).ToList();
+
+                    return tmp;
                     foreach (var item2 in tmp)
                     {
                         builds.Add(item2.Remove(0, root.Length));
+
                     }
                     PathTobuilds.AddRange(tmp);
                 }
@@ -178,25 +182,30 @@ namespace UltimateChanger
                 MessageBox.Show("Add Path(s)");
                 return;
             }
-            List<string> paths_Azure = databaseManager.Advance_GetPath(txtpathToBuilds.Text);
-            if (paths_Azure.Count > 0) // jezeli jest cos na azure 
-            {
-                updateUIListPaths(paths_Azure);
-                return;
-            }
-            else // jezeli nie ma to trzeba dodac!
-            {
+            //List<string> paths_Azure = databaseManager.Advance_GetPath(txtpathToBuilds.Text);
+            /* if (paths_Azure.Count > 0) // jezeli jest cos na azure 
+             {
+                 updateUIListPaths(paths_Azure);
+                 return;
+             }
+             else // jezeli nie ma to trzeba dodac!
+             {*/
+                ListBoxBuilds.ItemsSource = null; 
                 Paths = getPaths();
                 // dodanie start dl aprogress bar
                 progressAdvanceInstall.Visibility = Visibility.Visible;
                 string root = txtpathToBuilds.Text;
-                FindingPaths.Start();
+                //FindingPaths.Start();
                 TaskFindBuilds = Task.Run(() =>
                 {
                     PathTobuildsUI = findBuildsInPaths(Paths, root);
+                    //PathTobuilds = PathTobuildsUI;
                 });
-                
-            }            
+
+            TaskFindBuilds.Wait();
+
+            updateUIListPaths(PathTobuildsUI);
+            //}            
         }
 
         private void ListBoxBuilds_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -272,9 +281,8 @@ namespace UltimateChanger
             }
             catch (Exception)
             {
-
             }
-           
+                       
         }
 
         private void cmbAbout_SelectionChanged(object sender, SelectionChangedEventArgs e)
