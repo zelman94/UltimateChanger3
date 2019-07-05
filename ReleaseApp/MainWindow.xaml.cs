@@ -2787,10 +2787,18 @@ namespace UltimateChanger
         private void RBnormal_Checked(object sender, RoutedEventArgs e)
         {
             uninstallTimer.Stop();
+            RBnoRemove.IsChecked = true;
+            RBnoRemove.IsEnabled = false;
+            RByesRemove.IsChecked = false;
+            RByesRemove.IsEnabled = false;
         }
 
         private void RBsilet_Checked(object sender, RoutedEventArgs e)
         {
+            RBnoRemove.IsChecked = true;
+            RBnoRemove.IsEnabled = true;
+            RByesRemove.IsChecked = false;
+            RByesRemove.IsEnabled = true;
         }
 
         private void rbnStartwithWindows_Checked(object sender, RoutedEventArgs e)

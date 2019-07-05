@@ -9,9 +9,9 @@
         xmlns:local="clr-namespace:UltimateChanger"
         xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
         mc:Ignorable="d"
-        Title="Ultimate Changer 4.0" Height="800" Width="800" ResizeMode="CanResize" Closing="Window_Closing_1"
+        Title="Ultimate Changer 4.0" Height="800" Width="850" ResizeMode="CanResize" Closing="Window_Closing_1"
         MinHeight="800"
-        MinWidth="800"
+        MinWidth="850"
         Localization.Attributes="Center"
         >
     <Window.Resources>
@@ -1104,7 +1104,7 @@
 
                                 <Label Content="(Un)Installation settings"  HorizontalAlignment="Center"  Grid.Row="0" Grid.ColumnSpan="2" Foreground="White" FontWeight="SemiBold" FontSize="12.5" />
                                 <RadioButton GroupName="RBsilentNormal" Name="RBsilet" Content="Silent" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBsilet_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="10,8,0,2"/>
-                                <RadioButton GroupName="RBsilentNormal" Name="RBnormal" Content="Normal " Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Checked="RBnormal_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="10,8,0,2"/>
+                                <RadioButton GroupName="RBsilentNormal" Name="RBnormal" Content="Normal " Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Checked="RBnormal_Checked" Foreground="White" Background="White" BorderBrush="#FF424242" Margin="10,0,0,2"/>
 
                             </Grid>
 
@@ -1833,7 +1833,7 @@
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
                         <ComboBox Name="cmbOption" IsEnabled="False" ToolTip="medium lub full" HorizontalAlignment="Center"  Grid.Row="0" VerticalAlignment="Center" Margin="10" Width="60" BorderBrush="White" Foreground="White"/>
-                       <CheckBox Name="chbox_DeleteTrash" Content="Delete Trash" HorizontalAlignment="Right"  Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Width="auto" Checked="chbox_DeleteTrash_Checked" Unchecked="chbox_DeleteTrash_Unchecked" Margin="5"/>
+                        <CheckBox Name="chbox_DeleteTrash" Content="Delete Trash" HorizontalAlignment="Right"  Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Width="auto" Checked="chbox_DeleteTrash_Checked" Unchecked="chbox_DeleteTrash_Unchecked" Margin="5"/>
                     </Grid>
 
                     <Grid Name="buttonsGrid" Grid.Row="3" Grid.Column="1" >
@@ -1965,7 +1965,7 @@
 
                     </Grid>
 
-                    
+
 
                 </Grid>
 
@@ -2046,13 +2046,13 @@
                 </Grid>
 
                 <StackPanel Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Right" Height="144" Width="200" Margin="0,0,0,-28">
-                   
+
 
                 </StackPanel>
                 <Label Name="lblSavedTime" ToolTip="HH\MM\SS" Content="zaoszczedzony czas: " Grid.Column="1" HorizontalAlignment="Left" Margin="10" Grid.Row="2" VerticalAlignment="Top" Height="auto" Width="180" FontWeight="SemiBold" FontSize="12.5"/>
                 <Button Name="btnResetSavedTime" Content="Reset" Grid.Column="1" HorizontalAlignment="Left" Margin="12,71,0,0" Grid.Row="2" Width="76" Height="27" Click="btnResetSavedTime_Click" VerticalAlignment="Top"/>
 
-                
+
 
             </Grid>
         </TabItem>

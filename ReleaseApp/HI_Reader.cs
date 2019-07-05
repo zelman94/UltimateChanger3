@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace UltimateChanger
 {
-
     class HI_Reader
     {
         private static readonly ILog Log =
