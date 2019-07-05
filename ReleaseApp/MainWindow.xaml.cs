@@ -2070,7 +2070,7 @@ namespace UltimateChanger
                 txtPP_R.Text = Right_HI.internalInstrumentModelConfiguration.Value;
                 txtSN.Text = Left_HI.serialNumber.Value;
                 txtSN_R.Text = Right_HI.serialNumber.Value;
-                txtFW.Text = left_HI.chipsetName.Value;
+                txtFW.Text = Left_HI.chipsetName.Value;
                 txtFW_R.Text = Right_HI.chipsetName.Value;
 
                 //-------
