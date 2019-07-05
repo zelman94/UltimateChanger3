@@ -31,6 +31,7 @@ using System.Data;
 using Rekurencjon; // logi
 using log4net;
 using Demant.Pet.Api;
+using Newtonsoft.Json.Linq;
 
 [assembly: System.Reflection.AssemblyVersion("4.0.0.0")]
 namespace UltimateChanger
@@ -1992,81 +1993,87 @@ namespace UltimateChanger
                 // task sie skonczyl mozna zrobic update na UI 
                 MessageBox.Show(Global_readHI_String);
 
-                  data hi = Newtonsoft.Json.JsonConvert.DeserializeObject<data>(Global_readHI_String);
+                JObject jsonn = JObject.Parse(Global_readHI_String);
 
-                /*
-                 
-                 {
-  "data": {
-    "Left": {
-      "GenericProductModelConfiguration": {
-        "FullName": "GenericProductModelConfiguration",
-        "Value": "ClarkS7"
-      },
-      "HardwarePlatformConfiguration": {
-        "FullName": "HardwarePlatformConfiguration",
-        "Value": "ObelixBte13Fl110",
-        "Uid": "3958"
-      },
-      "InternalInstrumentModelConfiguration": {
-        "FullName": "InternalInstrumentModelConfiguration",
-        "Value": "Trek 80",
-        "Uid": "5087"
-      },
-      "BrandedProductModelConfiguration": {
-        "FullName": "BrandedProductModelConfiguration",
-        "Value": "Sonic",
-        "Uid": "3581"
-      },
-      "InternalInstrumentModelConfigurationVersion": {
-        "FullName": "InternalInstrumentModelConfigurationVersion",
-        "Value": "1"
-      },
-      "SerialNumber": {
-        "FullName": "SerialNumber",
-        "Value": "51242384"
-      },
-      "ChipsetName": {
-        "FullName": "ChipsetName",
-        "Value": "Au2Cs4Hi2"
-      }
-    }
-  }
-}
-                 
-                 
-                 */
-
-
-                dynamic data = Newtonsoft.Json.Linq.JObject.Parse(Global_readHI_String);
-
+                HI Left_HI = new HI();
                 try
                 {
-                    dynamic tmpe = data.Left.GenericProductModelConfiguration;
+                    Left_HI.chipsetName.Value = jsonn["data"]["Left"]["ChipsetName"]["Value"].ToString();
                 }
                 catch (Exception)
                 {
-
+                    Left_HI.chipsetName.Value = "error";
                 }
                 try
                 {
-                    var tmp = data.Left.GenericProductModelConfiguration.FullName;
+                    Left_HI.internalInstrumentModelConfiguration.Value = jsonn["data"]["Left"]["ChipsetName"]["Value"].ToString();
                 }
                 catch (Exception)
                 {
-                    
+                    Left_HI.internalInstrumentModelConfiguration.Value = "error";
                 }
-
                 try
                 {
-                    var tmp = data.FullName;
+                    Left_HI.brandedProductModelConfiguration.Value = jsonn["data"]["Left"]["BrandedProductModelConfiguration"]["Value"].ToString();
                 }
                 catch (Exception)
                 {
-       
+                    Left_HI.brandedProductModelConfiguration.Value = "error";
                 }
-                
-                
+                try
+                {
+                    Left_HI.serialNumber.Value = jsonn["data"]["Left"]["SerialNumber"]["Value"].ToString();
+                }
+                catch (Exception)
+                {
+                    Left_HI.serialNumber.Value = "error";
+                }
+                HI Right_HI = new HI();
+                try
+                {
+                    Right_HI.chipsetName.Value = jsonn["data"]["Right"]["ChipsetName"]["Value"].ToString();
+                }
+                catch (Exception)
+                {
+                    Right_HI.chipsetName.Value = "error";
+                }
+                try
+                {
+                    Right_HI.internalInstrumentModelConfiguration.Value = jsonn["data"]["Right"]["InternalInstrumentModelConfiguration"]["Value"].ToString();
+                }
+                catch (Exception)
+                {
+                    Right_HI.internalInstrumentModelConfiguration.Value = "error";
+                }
+                try
+                {
+                    Right_HI.brandedProductModelConfiguration.Value = jsonn["data"]["Right"]["BrandedProductModelConfiguration"]["Value"].ToString();
+                }
+                catch (Exception)
+                {
+                    Right_HI.brandedProductModelConfiguration.Value = "error";
+                }
+                try
+                {
+                    Right_HI.serialNumber.Value = jsonn["data"]["Right"]["SerialNumber"]["Value"].ToString();
+                }
+                catch (Exception)
+                {
+                    Right_HI.serialNumber.Value = "error";
+                }
+
+                //--- UI
+
+                txtHIBrand.Text = Left_HI.brandedProductModelConfiguration.Value;
+                txtHIBrand_R.Text = Right_HI.brandedProductModelConfiguration.Value;
+                txtPP.Text = Left_HI.internalInstrumentModelConfiguration.Value;
+                txtPP_R.Text = Right_HI.internalInstrumentModelConfiguration.Value;
+                txtSN.Text = Left_HI.serialNumber.Value;
+                txtSN_R.Text = Right_HI.serialNumber.Value;
+                txtFW.Text = left_HI.chipsetName.Value;
+                txtFW_R.Text = Right_HI.chipsetName.Value;
+
+                //-------
 
                 ReadHI_Task_Timer.Stop();
             }

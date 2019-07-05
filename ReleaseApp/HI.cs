@@ -8,67 +8,81 @@ namespace UltimateChanger
 {
     class HI
     {
-        data data{ get; set; }
-    }
+        public HI()
+        {
+            this.genericProductModelConfiguration = new GenericProductModelConfiguration();
+            this.hardwarePlatformConfiguration = new HardwarePlatformConfiguration();
+            this.internalInstrumentModelConfiguration = new InternalInstrumentModelConfiguration();
+            this.brandedProductModelConfiguration = new BrandedProductModelConfiguration();
+            this.internalInstrumentModelConfigurationVersion = new InternalInstrumentModelConfigurationVersion();
+            this.serialNumber = new SerialNumber();
+            this.chipsetName = new ChipsetName();
+        }
 
-    class data
-    {
-        Left left { get; set; }
-    }
+        public HI(GenericProductModelConfiguration genericProductModelConfiguration, HardwarePlatformConfiguration hardwarePlatformConfiguration, InternalInstrumentModelConfiguration internalInstrumentModelConfiguration, BrandedProductModelConfiguration brandedProductModelConfiguration, InternalInstrumentModelConfigurationVersion internalInstrumentModelConfigurationVersion, SerialNumber serialNumber, ChipsetName chipsetName)
+        {
+            this.genericProductModelConfiguration = genericProductModelConfiguration;
+            this.hardwarePlatformConfiguration = hardwarePlatformConfiguration;
+            this.internalInstrumentModelConfiguration = internalInstrumentModelConfiguration;
+            this.brandedProductModelConfiguration = brandedProductModelConfiguration;
+            this.internalInstrumentModelConfigurationVersion = internalInstrumentModelConfigurationVersion;
+            this.serialNumber = serialNumber;
+            this.chipsetName = chipsetName;
+        }
 
-    class Left
-    {
-        GenericProductModelConfiguration genericProductModelConfiguration { get; set; }
-        HardwarePlatformConfiguration hardwarePlatformConfiguration { get; set; }
-        InternalInstrumentModelConfiguration internalInstrumentModelConfiguration { get; set; }
-        BrandedProductModelConfiguration brandedProductModelConfiguration { get; set; }
-        InternalInstrumentModelConfigurationVersion internalInstrumentModelConfigurationVersion { get; set; }
-        SerialNumber serialNumber { get; set; }
-        ChipsetName chipsetName { get; set; }
+        public GenericProductModelConfiguration genericProductModelConfiguration { get; set; }
+        public HardwarePlatformConfiguration hardwarePlatformConfiguration { get; set; }
+        public InternalInstrumentModelConfiguration internalInstrumentModelConfiguration { get; set; }
+        public BrandedProductModelConfiguration brandedProductModelConfiguration { get; set; }
+        public InternalInstrumentModelConfigurationVersion internalInstrumentModelConfigurationVersion { get; set; }
+        public SerialNumber serialNumber { get; set; }
+        public ChipsetName chipsetName { get; set; }
+
+
     }
 
     class GenericProductModelConfiguration
     {
-        string FullName { get; set; }
-        string Value { get; set; }
-        string Uid { get; set; }
+        public string FullName { get; set; }
+        public string Value { get; set; }
+        public string Uid { get; set; }
     }
 
     class HardwarePlatformConfiguration
     {
-        string FullName { get; set; }
-        string Value { get; set; }
-        string Uid { get; set; }
+        public string FullName { get; set; }
+        public string Value { get; set; }
+        public string Uid { get; set; }
     }
     class InternalInstrumentModelConfiguration
     {
-        string FullName { get; set; }
-        string Value { get; set; }
-        string Uid { get; set; }
+        public string FullName { get; set; }
+        public string Value { get; set; }
+        public string Uid { get; set; }
     }
     class BrandedProductModelConfiguration
     {
-        string FullName { get; set; }
-        string Value { get; set; }
-        string Uid { get; set; }
+        public string FullName { get; set; }
+        public string Value { get; set; }
+        public string Uid { get; set; }
 
     }
     class InternalInstrumentModelConfigurationVersion
     {
-        string FullName { get; set; }
-        string Value { get; set; }
+        public string FullName { get; set; }
+        public string Value { get; set; }
 
     }
     class SerialNumber
     {
-        string FullName { get; set; }
-        string Value { get; set; }
+        public string FullName { get; set; }
+        public string Value { get; set; }
 
     }
     class ChipsetName
     {
-        string FullName { get; set; }
-        string Value { get; set; }
+       public string FullName { get; set; }
+        public string Value { get; set; }
 
     }
 
