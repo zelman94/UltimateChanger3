@@ -30,6 +30,7 @@ using System.Net;
 using System.Data;
 using Rekurencjon; // logi
 using log4net;
+using Demant.Pet.Api;
 
 [assembly: System.Reflection.AssemblyVersion("4.0.0.0")]
 namespace UltimateChanger
@@ -50,7 +51,8 @@ namespace UltimateChanger
         public DispatcherTimer uninstallTimer, checkUpdate, InstallTimer, InstallTimer_Normal_Installation,
              checkTime_Timer, // czy juz czas na upgrade FS
              silentUninstal_Install_Timer, //silentUninstal_Install_Timer - timer do sprawdzenia czy uninstallacja sie skonczyla 
-             progressHI_Timer;
+             progressHI_Timer,
+            ReadHI_Task_Timer;
         BindCombobox BindCombo;
         private List<pathAndDir> paths_Dirs = new List<pathAndDir>();
         //string OEMname = "";
@@ -89,6 +91,8 @@ namespace UltimateChanger
         //BackgroundWorker worker;
         HIs Random_HI = new HIs();
         myXMLReader XMLReader = new myXMLReader();
+        string Global_readHI_String;
+        Task task_ReadHIs;
         public List<List<string>> AllbuildsPerFS = new List<List<string>>();
         internal List<pathAndDir> Paths_Dirs { get => paths_Dirs; set => paths_Dirs = value; }
         public DateTime Time_now { get; private set; }
@@ -1089,6 +1093,10 @@ namespace UltimateChanger
             silentUninstal_Install_Timer.Tick += checkUninstall; 
             silentUninstal_Install_Timer.Interval = new TimeSpan(0, 1, 0);
 
+            ReadHI_Task_Timer = new DispatcherTimer();
+            ReadHI_Task_Timer.Tick += checkReadHI_Task;
+            ReadHI_Task_Timer.Interval = new TimeSpan(0, 0, 1);
+
             checkTime_Timer = new DispatcherTimer();
             checkTime_Timer.Tick += checkTime_forUpgradeFS;
             checkTime_Timer.Interval = new TimeSpan(0, 1, 0);
@@ -1976,6 +1984,95 @@ namespace UltimateChanger
                 timer_checkValidation.Stop();
             }
         }
+
+        private void checkReadHI_Task(object sender, EventArgs e) // check if readHITask is finish
+        {
+            if (task_ReadHIs.IsCompleted)
+            {
+                // task sie skonczyl mozna zrobic update na UI 
+                MessageBox.Show(Global_readHI_String);
+
+                  data hi = Newtonsoft.Json.JsonConvert.DeserializeObject<data>(Global_readHI_String);
+
+                /*
+                 
+                 {
+  "data": {
+    "Left": {
+      "GenericProductModelConfiguration": {
+        "FullName": "GenericProductModelConfiguration",
+        "Value": "ClarkS7"
+      },
+      "HardwarePlatformConfiguration": {
+        "FullName": "HardwarePlatformConfiguration",
+        "Value": "ObelixBte13Fl110",
+        "Uid": "3958"
+      },
+      "InternalInstrumentModelConfiguration": {
+        "FullName": "InternalInstrumentModelConfiguration",
+        "Value": "Trek 80",
+        "Uid": "5087"
+      },
+      "BrandedProductModelConfiguration": {
+        "FullName": "BrandedProductModelConfiguration",
+        "Value": "Sonic",
+        "Uid": "3581"
+      },
+      "InternalInstrumentModelConfigurationVersion": {
+        "FullName": "InternalInstrumentModelConfigurationVersion",
+        "Value": "1"
+      },
+      "SerialNumber": {
+        "FullName": "SerialNumber",
+        "Value": "51242384"
+      },
+      "ChipsetName": {
+        "FullName": "ChipsetName",
+        "Value": "Au2Cs4Hi2"
+      }
+    }
+  }
+}
+                 
+                 
+                 */
+
+
+                dynamic data = Newtonsoft.Json.Linq.JObject.Parse(Global_readHI_String);
+
+                try
+                {
+                    dynamic tmpe = data.Left.GenericProductModelConfiguration;
+                }
+                catch (Exception)
+                {
+
+                }
+                try
+                {
+                    var tmp = data.Left.GenericProductModelConfiguration.FullName;
+                }
+                catch (Exception)
+                {
+                    
+                }
+
+                try
+                {
+                    var tmp = data.FullName;
+                }
+                catch (Exception)
+                {
+       
+                }
+                
+                
+
+                ReadHI_Task_Timer.Stop();
+            }
+        }
+
+        
 
         private void checkUninstall(object sender, EventArgs e) // sprawdz czy uninstallacja trwa jezeli juz sie skonczyla wtedy wlacz timer do instalacji nocnej
         {
@@ -3803,94 +3900,46 @@ namespace UltimateChanger
             txtSN_R.Text = "";
             txtFW.Text = "";    
             txtFW_R.Text = "";
-            
-           
+            Global_readHI_String = "";
+
+
+
             progressHI.Value = 0;
-            HI_Reader readHI = new HI_Reader();
-            progressHI.Value += 10;
-            readHI.startServer();
-            progressHI.Value += 40;
-            readHI.CreateSession();
-            progressHI.Value += 10;
-            List<string> HI;
-            string device;
+            var petApi = Main.LoadApi();
+            var x = petApi.Initialize();
+            // ---- Settings
             if (rbExpress.IsChecked.Value)
             {
-                device = "ExpressLink";
+                x = petApi.Settings("Medium", "\"ExpressLink\"");
             }
             else
             {
-                device = "HiPro";
+                x = petApi.Settings("Medium", "\"HiPro\"");
             }
-
-            string side;
             if (rbLeft.IsChecked.Value)
             {
-                side = "Left";
-            } else if (rbBoth.IsChecked.Value)
+                x = petApi.Settings("Side", "\"Left\"");
+            }
+            else if (rbRight.IsChecked.Value)
             {
-                side = "Both";
-                try
-                {
-                    readHI.Connect(device, "Left");
-                    HI = readHI.ReadHI("Left");
-                    txtHIBrand.Text = HI[0];
-                    txtPP.Text = HI[1];
-                    txtFW.Text = HI[2];
-                    txtSN.Text = readHI.getSerialNumber("Left");
-                    progressHI.Value += 15;
-                }
-                catch (Exception)
-                {
-                    progressHI.Value += 15;
-                }
-                try
-                {
-                    readHI.Connect(device, "Right");
-                    HI = readHI.ReadHI("Right");
-                    txtHIBrand_R.Text = HI[0];
-                    txtPP_R.Text = HI[1];
-                    txtFW_R.Text = HI[2];
-                    txtSN_R.Text = readHI.getSerialNumber("Right");
-                    progressHI.Value += 15;
-                }
-                catch (Exception)
-                {
-                    progressHI.Value += 15;
-                }
-               
-                readHI.shutDown();
-                progressHI.Value += 10;
-                return;
+                x = petApi.Settings("Side", "\"Right\"");
             }
             else
             {
-                side = "Right";
-            }
-            readHI.Connect(device, side);
-            HI = readHI.ReadHI(side);
-            if (HI == null)
-            {
-                readHI.shutDown();
-                return;
-            }
-            if (side =="Right")
-            {
-                txtHIBrand_R.Text = HI[0];
-                txtPP_R.Text= HI[1];
-                txtFW_R.Text = HI[2];
-                txtSN_R.Text = readHI.getSerialNumber("Right");
-            }
-            else
-            {
-                txtHIBrand.Text = HI[0];
-                txtPP.Text = HI[1];                
-                txtFW.Text = HI[2];
-                txtSN.Text = readHI.getSerialNumber("Left");
-            }
-            progressHI.Value += 30;
-            readHI.shutDown();
-            progressHI.Value += 10;
+                x = petApi.Settings("Side", "\"Both\"");
+            }          
+           //-- settings
+
+            task_ReadHIs = Task.Run(() => {
+
+                Global_readHI_String = petApi.ReadInstrumentData();
+
+            });
+
+            // timer sprawdzajacy czy task sie skonczyl 
+
+            ReadHI_Task_Timer.Start();
+
             setNewSavedTime(30);
 
 

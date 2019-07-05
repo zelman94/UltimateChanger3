@@ -1992,7 +1992,7 @@
 
                     <RadioButton Name="rbBoth" Grid.Column="0" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="Both" GroupName="Side" Margin="2"/>
                     <RadioButton Name="rbExpress" Grid.Column="0" Grid.Row="1" VerticalAlignment="Top" Content="ExpressLink" GroupName="Hardware" IsChecked="True" Margin="2"/>
-                    <RadioButton Name="rbHIPRO" Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" Content="HI-PRO" GroupName="Hardware" IsEnabled="False" Margin="2"/>
+                    <RadioButton Name="rbHIPRO" Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" Content="HI-PRO" GroupName="Hardware" IsEnabled="true" Margin="2"/>
 
                     <Button Name="btnReadHI" Content="Read HI" Grid.Column="0" HorizontalAlignment="Center"  Grid.Row="3" VerticalAlignment="Center" Width="82" Click="btnReadHI_Click" Margin="5"/>
 
