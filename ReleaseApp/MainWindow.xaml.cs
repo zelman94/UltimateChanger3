@@ -30,7 +30,7 @@ using System.Net;
 using System.Data;
 using Rekurencjon; // logi
 using log4net;
-using Demant.Pet.Api;
+//using Demant.Pet.Api;
 using Newtonsoft.Json.Linq;
 
 [assembly: System.Reflection.AssemblyVersion("4.0.0.0")]
@@ -273,7 +273,15 @@ namespace UltimateChanger
                            
 
             });
-            timer_checkValidation.Start(); // rozpoczynam sprawdanie czy task sie skonczyl
+            try
+            {
+                timer_checkValidation.Start(); // rozpoczynam sprawdanie czy task sie skonczyl
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Problem with validation timer");
+            }
+            
 
             //----------------------------------
 
@@ -3910,31 +3918,13 @@ namespace UltimateChanger
             Global_readHI_String = "";
 
 
-
-            progressHI.Value = 0;
             var petApi = Main.LoadApi();
             var x = petApi.Initialize();
             // ---- Settings
-            if (rbExpress.IsChecked.Value)
-            {
-                x = petApi.Settings("Medium", "\"ExpressLink\"");
-            }
-            else
-            {
-                x = petApi.Settings("Medium", "\"HiPro\"");
-            }
-            if (rbLeft.IsChecked.Value)
-            {
-                x = petApi.Settings("Side", "\"Left\"");
-            }
-            else if (rbRight.IsChecked.Value)
-            {
-                x = petApi.Settings("Side", "\"Right\"");
-            }
-            else
-            {
-                x = petApi.Settings("Side", "\"Both\"");
-            }          
+
+                x = petApi.Settings("Medium", $"\"{Hardware.Uid}\"");
+                x = petApi.Settings("Side", $"\"{this.readHIGrid.Uid}\"");
+          
            //-- settings
 
             task_ReadHIs = Task.Run(() => {
@@ -3948,8 +3938,6 @@ namespace UltimateChanger
             ReadHI_Task_Timer.Start();
 
             setNewSavedTime(30);
-
-
         }
 
         private void btnHoursUp_Nightly_Click(object sender, RoutedEventArgs e)
@@ -4033,6 +4021,31 @@ namespace UltimateChanger
         private void chbox_DeleteTrash_Unchecked(object sender, RoutedEventArgs e)
         {
           
+        }
+
+        private void rbExpress_Checked(object sender, RoutedEventArgs e)
+        {
+            Hardware.Uid = "ExpressLink";
+        }
+
+        private void rbHIPRO_Checked(object sender, RoutedEventArgs e)
+        {
+            Hardware.Uid = "HiPro";
+        }
+
+        private void rbLeft_Checked(object sender, RoutedEventArgs e)
+        {
+            this.readHIGrid.Uid = "Left";
+        }
+
+        private void rbRight_Checked(object sender, RoutedEventArgs e)
+        {
+            this.readHIGrid.Uid = "Right";
+        }
+
+        private void rbBoth_Checked(object sender, RoutedEventArgs e)
+        {
+            this.readHIGrid.Uid = "Both";
         }
 
         private void btnCheck_Click(object sender, RoutedEventArgs e)
