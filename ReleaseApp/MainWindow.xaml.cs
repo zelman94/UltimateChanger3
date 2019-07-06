@@ -285,9 +285,6 @@ namespace UltimateChanger
 
             //----------------------------------
 
-
-
-
             savedTime = Convert.ToInt32(fileOperator.getSavedTime());
             setNewSavedTime(0);
             tabControl.IsEnabled = true;
@@ -349,7 +346,7 @@ namespace UltimateChanger
             //--------------------//
 
             refreshUI(new object(), new EventArgs());
-            R_Day.Visibility = Visibility.Hidden;
+            R_Day.Visibility = Visibility.Visible;
             Log.Info("Main created");
             fileOperator.checkVersion();
 
@@ -378,10 +375,7 @@ namespace UltimateChanger
                 // usuwanie kompozycji
             }
             setNewSavedTime(15);
-
         }
-
-
         private void View_OnClick_Context_Change_LogLevel(object sender, RoutedEventArgs e)
         {
             var clickedMenuItem = sender as MenuItem;
@@ -437,8 +431,6 @@ namespace UltimateChanger
             EditFittingSoftware.ShowDialog();
             setNewSavedTime(15);
         }
-
-
         private void View_OnClick_Context_Delete_Trash(object sender, RoutedEventArgs e)
         {
             var clickedMenuItem = sender as MenuItem;
@@ -527,17 +519,12 @@ namespace UltimateChanger
                     add.ShowDialog();
                     BindCombo.setReleaseComboBox();
                 }
-
             }
             else
             {
 
             }
-
         }
-
-        
-
 
         public void setUIdefaults(SortedDictionary<string, string> settings, string mode) // mode to tryb ustawienia co zmieniasz radiobutton checkbox
         {
@@ -921,7 +908,6 @@ namespace UltimateChanger
             }
         }
 
-
         public static IEnumerable<T> FindLogicalChildren<T>(DependencyObject obj) where T : DependencyObject
         {
             if (obj != null)
@@ -1019,10 +1005,6 @@ namespace UltimateChanger
                     Time_now = Time_now.AddMinutes(DateTime.Now.Minute);
                     updateClockUI();
                 }
-               
-
-                
-
             }
             catch (Exception x)
             {
@@ -1172,44 +1154,11 @@ namespace UltimateChanger
 
         //________________________________________________________________________________________________________________________________________________
 
-
-
         private void Window_Closing_1(object sender, CancelEventArgs e) // closing window by X button
         {
             FileOperator.setNextCountUCRun();
             fileOperator.saveSavedTime(savedTime.ToString());
             dataBaseManager.pushLogs();
-        }
-
-        string GetLogMode(string source)
-        {
-            string line = "";
-            if (File.Exists(source))
-            {
-                try
-                {
-                    using (StreamReader sr = new StreamReader(source))
-                    {
-                        for (int i = 0; i < 23; ++i)
-                        {
-                            sr.ReadLine();
-                        }
-                        line = sr.ReadLine();
-                        string[] subLine = line.Split('"');
-                        return subLine[1];
-                    }
-                }
-                catch (Exception)
-                {
-                    return "";
-                }
-               
-            }
-            else
-            {
-                return "";
-            }
-
         }
 
         void verifyInstalledBrands()
@@ -1441,9 +1390,7 @@ namespace UltimateChanger
         private void cmbMarket_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
         }
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-        }
+
         private void btnChange_mode_log(object sender, RoutedEventArgs e)
         {
             CounterOfclicks.AddClick((int)Buttons.UpdateMode);
@@ -1780,10 +1727,6 @@ namespace UltimateChanger
             }
 
         }
-        private void btnNewUser_Click(object sender, RoutedEventArgs e)
-        {
-           
-        }
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
            
@@ -1792,7 +1735,6 @@ namespace UltimateChanger
         private void textBox_TextChanged(object sender, RoutedEventArgs e)
         {
         }
-
 
         private void checkInstallTimer_Tick(object sender, EventArgs e)
         {
@@ -1890,18 +1832,6 @@ namespace UltimateChanger
                 }
             }
         }
-        public bool statusOfProcess(string name)
-        {
-            Process[] pname = Process.GetProcessesByName(name);
-            if (pname.Length > 0) // jezeli process istnieje
-            {
-                return true;
-            }
-            else
-            {
-                return false; // process nie istnieje
-            }
-        }
 
         private void checkNormal_Installation(object sender, EventArgs e)
         {
@@ -1994,98 +1924,6 @@ namespace UltimateChanger
             }
         }
 
-        private void checkReadHI_Task(object sender, EventArgs e) // check if readHITask is finish
-        {
-            if (task_ReadHIs.IsCompleted)
-            {
-                // task sie skonczyl mozna zrobic update na UI 
-                MessageBox.Show(Global_readHI_String);
-
-                JObject jsonn = JObject.Parse(Global_readHI_String);
-
-                HI Left_HI = new HI();
-                try
-                {
-                    Left_HI.chipsetName.Value = jsonn["data"]["Left"]["ChipsetName"]["Value"].ToString();
-                }
-                catch (Exception)
-                {
-                    Left_HI.chipsetName.Value = "error";
-                }
-                try
-                {
-                    Left_HI.internalInstrumentModelConfiguration.Value = jsonn["data"]["Left"]["ChipsetName"]["Value"].ToString();
-                }
-                catch (Exception)
-                {
-                    Left_HI.internalInstrumentModelConfiguration.Value = "error";
-                }
-                try
-                {
-                    Left_HI.brandedProductModelConfiguration.Value = jsonn["data"]["Left"]["BrandedProductModelConfiguration"]["Value"].ToString();
-                }
-                catch (Exception)
-                {
-                    Left_HI.brandedProductModelConfiguration.Value = "error";
-                }
-                try
-                {
-                    Left_HI.serialNumber.Value = jsonn["data"]["Left"]["SerialNumber"]["Value"].ToString();
-                }
-                catch (Exception)
-                {
-                    Left_HI.serialNumber.Value = "error";
-                }
-                HI Right_HI = new HI();
-                try
-                {
-                    Right_HI.chipsetName.Value = jsonn["data"]["Right"]["ChipsetName"]["Value"].ToString();
-                }
-                catch (Exception)
-                {
-                    Right_HI.chipsetName.Value = "error";
-                }
-                try
-                {
-                    Right_HI.internalInstrumentModelConfiguration.Value = jsonn["data"]["Right"]["InternalInstrumentModelConfiguration"]["Value"].ToString();
-                }
-                catch (Exception)
-                {
-                    Right_HI.internalInstrumentModelConfiguration.Value = "error";
-                }
-                try
-                {
-                    Right_HI.brandedProductModelConfiguration.Value = jsonn["data"]["Right"]["BrandedProductModelConfiguration"]["Value"].ToString();
-                }
-                catch (Exception)
-                {
-                    Right_HI.brandedProductModelConfiguration.Value = "error";
-                }
-                try
-                {
-                    Right_HI.serialNumber.Value = jsonn["data"]["Right"]["SerialNumber"]["Value"].ToString();
-                }
-                catch (Exception)
-                {
-                    Right_HI.serialNumber.Value = "error";
-                }
-
-                //--- UI
-
-                txtHIBrand.Text = Left_HI.brandedProductModelConfiguration.Value;
-                txtHIBrand_R.Text = Right_HI.brandedProductModelConfiguration.Value;
-                txtPP.Text = Left_HI.internalInstrumentModelConfiguration.Value;
-                txtPP_R.Text = Right_HI.internalInstrumentModelConfiguration.Value;
-                txtSN.Text = Left_HI.serialNumber.Value;
-                txtSN_R.Text = Right_HI.serialNumber.Value;
-                txtFW.Text = Left_HI.chipsetName.Value;
-                txtFW_R.Text = Right_HI.chipsetName.Value;
-
-                //-------
-
-                ReadHI_Task_Timer.Stop();
-            }
-        }
 
         
 
@@ -2238,10 +2076,6 @@ namespace UltimateChanger
             // Releases_prereleases          
         }
 
-        private void txtOEM_TextChanged(object sender, TextChangedEventArgs e)
-        {
-        }
-
         private void btnInfo_Click(object sender, RoutedEventArgs e)
         {
             if (TabFull.IsSelected)
@@ -2298,11 +2132,6 @@ namespace UltimateChanger
             }
                 
         }
-        private void cmbOEM_Compo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {            
-            cmbBuild_Compo.ItemsSource = Paths_Dirs[0].dir;
-        }
-
         private void btnFSRun(object sender, RoutedEventArgs e)
         {
             int licznik = 0;
@@ -2386,14 +2215,13 @@ namespace UltimateChanger
         private void Downgrade(object sender, RoutedEventArgs e)
         {            
             Window downgrade = new DowngradeWindow();
-            //downgrade.ShowDialog();
             downgrade.Show();
             CounterOfclicks.AddClick((int)Buttons.Downgrade);
         }
 
 
         private void btnRANDHI_Click(object sender, RoutedEventArgs e)
-        {
+        { // zrobić osobną klase 
             if (ListBoxOfAvailableTypes.SelectedIndex == -1)
             {
                 MessageBox.Show("Select Style to Rand");
@@ -3342,119 +3170,7 @@ namespace UltimateChanger
 
         private void ListBoxOfAvailableTypes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-        } 
-
-    
-        private void Radio_Christmas_Checked(object sender, RoutedEventArgs e)
-        {
-            //Zmiany na ciemny motyw (można zmienić kolor ramki itd.)
-            XMLReader.setSetting("Dark_skin", "RadioButtons", Convert.ToString(rbnDark_skin.IsChecked.Value).ToUpper());
-            bool tmp = !rbnDark_skin.IsChecked.Value;
-            XMLReader.setSetting("Light_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
-            XMLReader.setSetting("Genie_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
-            XMLReader.setSetting("Oasis_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
-            XMLReader.setSetting("ExpressFit_skin", "RadioButtons", Convert.ToString(tmp).ToUpper());
-
-            foreach (var item in lableListForUi)
-            {
-                item.Foreground = Brushes.White;
-            }
-            foreach (var item in listBoxForUi)
-            {
-                item.Foreground = Brushes.White;
-                item.BorderBrush = Brushes.White;
-
-            }
-            var converter = new System.Windows.Media.BrushConverter();
-            //var brush = (Brush)converter.ConvertFromString("#8A959B");
-
-            foreach (var item in buttonListForUi)
-            {
-                item.Background = (Brush)converter.ConvertFromString("#FF616161");
-                item.Foreground = (Brush)converter.ConvertFromString("#E5FFFFFF");
-                item.BorderBrush = (Brush)converter.ConvertFromString("#FF424242");
-                item.Opacity = 1;
-            }
-
-            foreach (var item in checkBoxListForUi)
-            {
-                item.Foreground = Brushes.White;
-                item.BorderBrush = (Brush)converter.ConvertFromString("#FF424242");
-                item.Background = Brushes.White;
-                UpdateLayout();
-                item.Style = Resources["CheckboxDark"] as Style;
-            }
-
-            foreach (var item in comboBoxListForUi)
-            {
-                item.Foreground = Brushes.White;
-                item.BorderBrush = Brushes.White;
-            }
-
-            foreach (var item in radioButtonListForUi)
-            {
-                item.Foreground = Brushes.White;
-                item.BorderBrush = Brushes.White;
-                item.Background = Brushes.White;
-                UpdateLayout();
-                item.Style = Resources["RadiobuttonDark"] as Style;
-            }
-
-            foreach (var item in texBoxListForUi)
-            {
-                item.Foreground = Brushes.White;
-                item.BorderBrush = Brushes.White;
-            }
-
-            foreach (var item in sliderListForUi)
-            {
-                item.Foreground = Brushes.White;
-                item.BorderBrush = Brushes.White;
-
-            }
-
-            foreach (var item in borderListForUi)
-            {
-                item.BorderBrush = (Brush)converter.ConvertFromString("#FF616161");
-            }
-
-            tabControl.Background = (Brush)converter.ConvertFromString("#FF212121");
-            tabControl.Foreground = Brushes.White;
-            passwordBox.Foreground = Brushes.White;
-            passwordBox.BorderBrush = Brushes.White;
-            //oticonRectangle.Fill = (Brush)converter.ConvertFromString("#FAFAFA");
-
-            UpdateLayout();
-            GridDataRandomHardware.ColumnHeaderStyle = Resources["DataGridDark"] as Style;
-            UpdateLayout();
-            tabControl.ItemContainerStyle = Resources["TabItemDark"] as Style;
-            tabControl.Background = (Brush)converter.ConvertFromString("#FF212121");
-            this.Background = (Brush)converter.ConvertFromString("#E2212121");
-            //oticonmedicalnRectangle.Fill = (Brush)converter.ConvertFromString("#FFECB3");
-
-            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
-            {
-                Source = new Uri("pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml", UriKind.RelativeOrAbsolute)
-            });
-
-            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
-            {
-                Source = new Uri("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Grey.xaml", UriKind.RelativeOrAbsolute)
-            });
-        }
-
-        private void RBcomposition_Checked(object sender, RoutedEventArgs e)
-        {
-           
-        }
-
-        private void RBfullMedium_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-
-
+        }     
         private void btn_Gearbox(object sender, RoutedEventArgs e)
         {
             try
@@ -3531,19 +3247,6 @@ namespace UltimateChanger
         private void ListTeamPerson_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-        }
-
-        private void ContextMenu_Genie_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Return)
-            {
-                MessageBox.Show("tststst");
-            }
-        }
-
-        private void ContextMenu_Genie_IsMouseCapturedChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            MessageBox.Show("test33");
         }
 
         private void btnResetSavedTime_Click(object sender, RoutedEventArgs e)
@@ -3939,6 +3642,101 @@ namespace UltimateChanger
 
             setNewSavedTime(30);
         }
+
+        private void checkReadHI_Task(object sender, EventArgs e) // check if readHITask is finish
+        {
+            if (task_ReadHIs.IsCompleted)
+            {
+                // task sie skonczyl mozna zrobic update na UI 
+                MessageBox.Show(Global_readHI_String);
+
+                JObject jsonn = JObject.Parse(Global_readHI_String);
+
+                HI Left_HI = new HI();
+                try
+                {
+                    Left_HI.chipsetName.Value = jsonn["data"]["Left"]["ChipsetName"]["Value"].ToString();
+                }
+                catch (Exception)
+                {
+                    Left_HI.chipsetName.Value = "error";
+                }
+                try
+                {
+                    Left_HI.internalInstrumentModelConfiguration.Value = jsonn["data"]["Left"]["ChipsetName"]["Value"].ToString();
+                }
+                catch (Exception)
+                {
+                    Left_HI.internalInstrumentModelConfiguration.Value = "error";
+                }
+                try
+                {
+                    Left_HI.brandedProductModelConfiguration.Value = jsonn["data"]["Left"]["BrandedProductModelConfiguration"]["Value"].ToString();
+                }
+                catch (Exception)
+                {
+                    Left_HI.brandedProductModelConfiguration.Value = "error";
+                }
+                try
+                {
+                    Left_HI.serialNumber.Value = jsonn["data"]["Left"]["SerialNumber"]["Value"].ToString();
+                }
+                catch (Exception)
+                {
+                    Left_HI.serialNumber.Value = "error";
+                }
+                HI Right_HI = new HI();
+                try
+                {
+                    Right_HI.chipsetName.Value = jsonn["data"]["Right"]["ChipsetName"]["Value"].ToString();
+                }
+                catch (Exception)
+                {
+                    Right_HI.chipsetName.Value = "error";
+                }
+                try
+                {
+                    Right_HI.internalInstrumentModelConfiguration.Value = jsonn["data"]["Right"]["InternalInstrumentModelConfiguration"]["Value"].ToString();
+                }
+                catch (Exception)
+                {
+                    Right_HI.internalInstrumentModelConfiguration.Value = "error";
+                }
+                try
+                {
+                    Right_HI.brandedProductModelConfiguration.Value = jsonn["data"]["Right"]["BrandedProductModelConfiguration"]["Value"].ToString();
+                }
+                catch (Exception)
+                {
+                    Right_HI.brandedProductModelConfiguration.Value = "error";
+                }
+                try
+                {
+                    Right_HI.serialNumber.Value = jsonn["data"]["Right"]["SerialNumber"]["Value"].ToString();
+                }
+                catch (Exception)
+                {
+                    Right_HI.serialNumber.Value = "error";
+                }
+
+                //--- UI
+
+                txtHIBrand.Text = Left_HI.brandedProductModelConfiguration.Value;
+                txtHIBrand_R.Text = Right_HI.brandedProductModelConfiguration.Value;
+                txtPP.Text = Left_HI.internalInstrumentModelConfiguration.Value;
+                txtPP_R.Text = Right_HI.internalInstrumentModelConfiguration.Value;
+                txtSN.Text = Left_HI.serialNumber.Value;
+                txtSN_R.Text = Right_HI.serialNumber.Value;
+                txtFW.Text = Left_HI.chipsetName.Value;
+                txtFW_R.Text = Right_HI.chipsetName.Value;
+
+                //-------
+
+                ReadHI_Task_Timer.Stop();
+            }
+        }
+
+
 
         private void btnHoursUp_Nightly_Click(object sender, RoutedEventArgs e)
         {
