@@ -35,6 +35,10 @@
             <Value>FALSE</Value>
       <Name>ExpressFit_skin</Name>
             <Value>FALSE</Value>
+      <Name>ExpressLink</Name>
+            <Value>FALSE</Value>
+      <Name>HiPro</Name>
+            <Value>TRUE</Value>
   </RadioButtons>
   <CheckBoxes>
     <Name>TEST</Name>

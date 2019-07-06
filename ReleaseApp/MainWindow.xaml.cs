@@ -131,8 +131,18 @@ namespace UltimateChanger
                 {
                     //wersja apki
                     string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-                    Window ChangeLogWindow = new ChangeLog(dataBaseManager, version);
-                    ChangeLogWindow.ShowDialog();
+
+                    try
+                    {
+                        Window ChangeLogWindow = new ChangeLog(dataBaseManager, version);
+                        ChangeLogWindow.ShowDialog();
+                    }
+                    catch (Exception x)
+                    {
+                        Log.Debug("Problem with Change log");
+                        Log.Debug(x.ToString());
+                    }
+                   
 
                 }
 
@@ -759,6 +769,8 @@ namespace UltimateChanger
             StringToUI.Add("rbnTurnOnVerifit", "TurnOnVerifit");
             StringToUI.Add("rbnTurnOffVerifit", "TurnOffVerifit");
             StringToUI.Add("txtLocalCompoPath", "LocalComposition");
+            StringToUI.Add("rbExpress", "ExpressLink");
+            StringToUI.Add("rbHIPRO", "HiPro");
             //get savedTime
             fileOperator.getSavedTime();
 
@@ -1122,6 +1134,8 @@ namespace UltimateChanger
                 rbnDark_skin,
                 rbnLogsAll_YES,
                 rbnLogsAll_NO,
+                rbExpress,
+                rbHIPRO,
             };
             comboBoxList = new List<ComboBox>()
             {
@@ -3621,18 +3635,18 @@ namespace UltimateChanger
             Global_readHI_String = "";
 
 
-            var petApi = Main.LoadApi();
-            var x = petApi.Initialize();
-            // ---- Settings
+            //var petApi = Main.LoadApi();
+            //var x = petApi.Initialize();
+            //// ---- Settings
 
-                x = petApi.Settings("Medium", $"\"{Hardware.Uid}\"");
-                x = petApi.Settings("Side", $"\"{this.readHIGrid.Uid}\"");
+            //    x = petApi.Settings("Medium", $"\"{Hardware.Uid}\"");
+            //    x = petApi.Settings("Side", $"\"{this.readHIGrid.Uid}\"");
           
            //-- settings
 
             task_ReadHIs = Task.Run(() => {
 
-                Global_readHI_String = petApi.ReadInstrumentData();
+               // Global_readHI_String = petApi.ReadInstrumentData();
 
             });
 
@@ -3824,11 +3838,21 @@ namespace UltimateChanger
         private void rbExpress_Checked(object sender, RoutedEventArgs e)
         {
             Hardware.Uid = "ExpressLink";
+
+            XMLReader.setSetting("ExpressLink", "RadioButtons", Convert.ToString(rbExpress.IsChecked.Value));
+            bool tmp = rbExpress.IsChecked.Value;
+            tmp = !tmp;
+            XMLReader.setSetting("HiPro", "RadioButtons", Convert.ToString(tmp));
         }
 
         private void rbHIPRO_Checked(object sender, RoutedEventArgs e)
         {
             Hardware.Uid = "HiPro";
+
+            XMLReader.setSetting("HiPro", "RadioButtons", Convert.ToString(rbHIPRO.IsChecked.Value));
+            bool tmp = rbHIPRO.IsChecked.Value;
+            tmp = !tmp;
+            XMLReader.setSetting("ExpressLink", "RadioButtons", Convert.ToString(tmp));
         }
 
         private void rbLeft_Checked(object sender, RoutedEventArgs e)
