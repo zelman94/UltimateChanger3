@@ -5,30 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.IO;
 using System.Diagnostics;
-using System.Windows.Media.Animation;
-using System.Data.SqlClient;
-using MySql;
-using MySql.Data.MySqlClient;
 using System.ComponentModel;
 using Microsoft.Win32;
 using System.Threading;
 using System.Windows.Threading;
-using System.Windows.Forms.Integration;
-using System.Text.RegularExpressions;
-using ICSharpCode.SharpZipLib;
-using ICSharpCode.SharpZipLib.Zip;
 using System.Net;
 using System.Data;
-using Rekurencjon; // logi
 using log4net;
 //using Demant.Pet.Api;
 using Newtonsoft.Json.Linq;
@@ -2197,7 +2184,7 @@ namespace UltimateChanger
                                 System.IO.Compression.ZipFile.CreateFromDirectory(FittingSoftware_List[licznik].pathToLogs, saveFileDialog1.FileName + "_" + item.Name + ".zip"); // dziala 
                                 listFiles.Add(saveFileDialog1.FileName);
                             }
-                            catch (IOException y)
+                            catch (IOException )
                             {
                                 File.Delete(saveFileDialog1.FileName + "_" + item.Name + ".zip");
                                 System.IO.Compression.ZipFile.CreateFromDirectory(FittingSoftware_List[licznik].pathToLogs, saveFileDialog1.FileName + "_" + item.Name + ".zip"); // dziala 
@@ -3633,20 +3620,22 @@ namespace UltimateChanger
             txtFW.Text = "";    
             txtFW_R.Text = "";
             Global_readHI_String = "";
+            progressHI.Value = 0;
 
+                        //var petApi = Main.LoadApi();
+                        //var x = petApi.Initialize();
+                        //// ---- Settings
 
-            //var petApi = Main.LoadApi();
-            //var x = petApi.Initialize();
-            //// ---- Settings
+                        //    x = petApi.Settings("Medium", $"\"{Hardware.Uid}\"");
+                        //    x = petApi.Settings("Side", $"\"{this.readHIGrid.Uid}\"");
 
-            //    x = petApi.Settings("Medium", $"\"{Hardware.Uid}\"");
-            //    x = petApi.Settings("Side", $"\"{this.readHIGrid.Uid}\"");
-          
-           //-- settings
+                        //-- settings
 
-            task_ReadHIs = Task.Run(() => {
+                        task_ReadHIs = Task.Run(() => {
 
-               // Global_readHI_String = petApi.ReadInstrumentData();
+                // Global_readHI_String = petApi.ReadInstrumentData();
+                 Global_readHI_String = File.ReadAllText("test.txt");
+                            progressHI.Value += 10;
 
             });
 
@@ -3662,9 +3651,19 @@ namespace UltimateChanger
             if (task_ReadHIs.IsCompleted)
             {
                 // task sie skonczyl mozna zrobic update na UI 
-                MessageBox.Show(Global_readHI_String);
-
-                JObject jsonn = JObject.Parse(Global_readHI_String);
+                //MessageBox.Show(Global_readHI_String);
+                JObject jsonn;
+                try
+                {
+                    jsonn = JObject.Parse(Global_readHI_String);
+                }
+                catch (Exception x)
+                {
+                    Console.WriteLine(x.ToString());
+                    ReadHI_Task_Timer.Stop();
+                    return;
+                }
+                progressHI.Value += 10;
 
                 HI Left_HI = new HI();
                 try
@@ -3677,7 +3676,7 @@ namespace UltimateChanger
                 }
                 try
                 {
-                    Left_HI.internalInstrumentModelConfiguration.Value = jsonn["data"]["Left"]["ChipsetName"]["Value"].ToString();
+                    Left_HI.internalInstrumentModelConfiguration.Value = jsonn["data"]["Left"]["InternalInstrumentModelConfiguration"]["Value"].ToString();
                 }
                 catch (Exception)
                 {
@@ -3700,6 +3699,7 @@ namespace UltimateChanger
                     Left_HI.serialNumber.Value = "error";
                 }
                 HI Right_HI = new HI();
+                progressHI.Value += 10;
                 try
                 {
                     Right_HI.chipsetName.Value = jsonn["data"]["Right"]["ChipsetName"]["Value"].ToString();
@@ -3735,19 +3735,31 @@ namespace UltimateChanger
 
                 //--- UI
 
-                txtHIBrand.Text = Left_HI.brandedProductModelConfiguration.Value;
-                txtHIBrand_R.Text = Right_HI.brandedProductModelConfiguration.Value;
-                txtPP.Text = Left_HI.internalInstrumentModelConfiguration.Value;
-                txtPP_R.Text = Right_HI.internalInstrumentModelConfiguration.Value;
-                txtSN.Text = Left_HI.serialNumber.Value;
-                txtSN_R.Text = Right_HI.serialNumber.Value;
-                txtFW.Text = Left_HI.chipsetName.Value;
-                txtFW_R.Text = Right_HI.chipsetName.Value;
-
+                bool flag = false;
+                if (rbBoth.IsChecked.Value) //oba
+                {
+                    // flaga na both
+                    flag = true;
+                }
+                if (rbLeft.IsChecked.Value || flag) // jezeli lewy to lewy jezeli nie lewy ale both to lewy
+                {
+                    txtHIBrand.Text = Left_HI.brandedProductModelConfiguration.Value;
+                    txtPP.Text = Left_HI.internalInstrumentModelConfiguration.Value;
+                    txtSN.Text = Left_HI.serialNumber.Value;
+                    txtFW.Text = Left_HI.chipsetName.Value;
+                }
+                if (rbRight.IsChecked.Value || flag)// jezeli prawy to prawy jezeli nie prawy ale both to prawy
+                {
+                    txtHIBrand_R.Text = Right_HI.brandedProductModelConfiguration.Value;
+                    txtPP_R.Text = Right_HI.internalInstrumentModelConfiguration.Value;
+                    txtSN_R.Text = Right_HI.serialNumber.Value;
+                    txtFW_R.Text = Right_HI.chipsetName.Value;
+                }
                 //-------
-
+                progressHI.Value += 100 - progressHI.Value;
                 ReadHI_Task_Timer.Stop();
             }
+            progressHI.Value += 1;
         }
 
 

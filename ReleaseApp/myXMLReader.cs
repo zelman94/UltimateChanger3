@@ -288,7 +288,7 @@ namespace UltimateChanger
                     Styles.Add(item.Name);
                 }
             }
-            catch (Exception x)
+            catch (Exception)
             {
                 //System.Windows.MessageBox.Show(x.ToString());
             }

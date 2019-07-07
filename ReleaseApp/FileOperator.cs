@@ -21,17 +21,17 @@ namespace UltimateChanger
     {
         private static readonly ILog Log =
               LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private Label lblGenie;
-        private Label lblOasis;
-        private Label lblExpressFit;
-        private ComboBox cmbMarket;
-        private List<CheckBox> checkBoxList;
-        private List<string> marketIndex;
+        private readonly Label lblGenie;
+        private readonly Label lblOasis;
+        private readonly Label lblExpressFit;
+        private readonly ComboBox cmbMarket;
+        private readonly List<CheckBox> checkBoxList;
+        private readonly List<string> marketIndex;
         private DataBaseManager dataBase;
         //BackgroundWorker worker;
-        private Image imgOticon;
-        private Image imgBernafon;
-        private Image imgSonic;
+        private readonly Image imgOticon;
+        private readonly Image imgBernafon;
+        private readonly Image imgSonic;
         public List<pathAndDir> lista;
         public int licznik_przejsc;
         public bool komunikat_trash = false;
