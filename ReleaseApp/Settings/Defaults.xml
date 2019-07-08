@@ -39,6 +39,10 @@
             <Value>FALSE</Value>
       <Name>HiPro</Name>
             <Value>TRUE</Value>
+      <Name>TrashCleaner</Name>
+            <Value>FALSE</Value>
+		<Name>TrashCleaner_NO</Name>
+            <Value>TRUE</Value>
   </RadioButtons>
   <CheckBoxes>
     <Name>TEST</Name>

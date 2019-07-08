@@ -67,7 +67,6 @@ namespace UltimateChanger
             if (System.IO.File.Exists("Settings\\Defaults.xml"))
             {
                 doc2.Load("Settings\\Defaults.xml");
-
             }
             else
             {

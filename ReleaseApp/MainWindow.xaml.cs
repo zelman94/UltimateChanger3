@@ -17,7 +17,7 @@ using System.Windows.Threading;
 using System.Net;
 using System.Data;
 using log4net;
-//using Demant.Pet.Api;
+using Demant.Pet.Api;
 using Newtonsoft.Json.Linq;
 
 [assembly: System.Reflection.AssemblyVersion("4.0.0.0")]
@@ -758,6 +758,8 @@ namespace UltimateChanger
             StringToUI.Add("txtLocalCompoPath", "LocalComposition");
             StringToUI.Add("rbExpress", "ExpressLink");
             StringToUI.Add("rbHIPRO", "HiPro");
+            StringToUI.Add("rbnDeleteTrash", "TrashCleaner");
+            StringToUI.Add("rbnholdTrash", "TrashCleaner_NO");
             //get savedTime
             fileOperator.getSavedTime();
 
@@ -1123,6 +1125,8 @@ namespace UltimateChanger
                 rbnLogsAll_NO,
                 rbExpress,
                 rbHIPRO,
+                rbnDeleteTrash,
+                rbnholdTrash,
             };
             comboBoxList = new List<ComboBox>()
             {
@@ -3620,25 +3624,27 @@ namespace UltimateChanger
             txtFW.Text = "";    
             txtFW_R.Text = "";
             Global_readHI_String = "";
+            lblLeftHI.ToolTip = null;
+            lblRightHI.ToolTip = null;
             progressHI.Value = 0;
+            btnReadHI.IsEnabled = false;
+            btnAddHI.IsEnabled = false;
 
-                        //var petApi = Main.LoadApi();
-                        //var x = petApi.Initialize();
-                        //// ---- Settings
+            var petApi = Main.LoadApi();
+            var x = petApi.Initialize();
+            // ---- Settings
 
-                        //    x = petApi.Settings("Medium", $"\"{Hardware.Uid}\"");
-                        //    x = petApi.Settings("Side", $"\"{this.readHIGrid.Uid}\"");
+            x = petApi.Settings("Medium", $"\"{Hardware.Uid}\"");
+            x = petApi.Settings("Side", $"\"{this.readHIGrid.Uid}\"");
 
-                        //-- settings
+            //-- settings
 
-                        task_ReadHIs = Task.Run(() => {
+            task_ReadHIs = Task.Run(() => {
 
-                // Global_readHI_String = petApi.ReadInstrumentData();
-                 Global_readHI_String = File.ReadAllText("test.txt");
+                 Global_readHI_String = petApi.ReadInstrumentData();
+                // Global_readHI_String = File.ReadAllText("test.txt");
                             progressHI.Value += 10;
-
             });
-
             // timer sprawdzajacy czy task sie skonczyl 
 
             ReadHI_Task_Timer.Start();
@@ -3661,78 +3667,16 @@ namespace UltimateChanger
                 {
                     Console.WriteLine(x.ToString());
                     ReadHI_Task_Timer.Stop();
+                    btnReadHI.IsEnabled = true;
                     return;
                 }
                 progressHI.Value += 10;
 
-                HI Left_HI = new HI();
-                try
-                {
-                    Left_HI.chipsetName.Value = jsonn["data"]["Left"]["ChipsetName"]["Value"].ToString();
-                }
-                catch (Exception)
-                {
-                    Left_HI.chipsetName.Value = "error";
-                }
-                try
-                {
-                    Left_HI.internalInstrumentModelConfiguration.Value = jsonn["data"]["Left"]["InternalInstrumentModelConfiguration"]["Value"].ToString();
-                }
-                catch (Exception)
-                {
-                    Left_HI.internalInstrumentModelConfiguration.Value = "error";
-                }
-                try
-                {
-                    Left_HI.brandedProductModelConfiguration.Value = jsonn["data"]["Left"]["BrandedProductModelConfiguration"]["Value"].ToString();
-                }
-                catch (Exception)
-                {
-                    Left_HI.brandedProductModelConfiguration.Value = "error";
-                }
-                try
-                {
-                    Left_HI.serialNumber.Value = jsonn["data"]["Left"]["SerialNumber"]["Value"].ToString();
-                }
-                catch (Exception)
-                {
-                    Left_HI.serialNumber.Value = "error";
-                }
-                HI Right_HI = new HI();
+                HI Left_HI = new HI(jsonn,"Left");
+               
+                HI Right_HI = new HI(jsonn,"Right");
                 progressHI.Value += 10;
-                try
-                {
-                    Right_HI.chipsetName.Value = jsonn["data"]["Right"]["ChipsetName"]["Value"].ToString();
-                }
-                catch (Exception)
-                {
-                    Right_HI.chipsetName.Value = "error";
-                }
-                try
-                {
-                    Right_HI.internalInstrumentModelConfiguration.Value = jsonn["data"]["Right"]["InternalInstrumentModelConfiguration"]["Value"].ToString();
-                }
-                catch (Exception)
-                {
-                    Right_HI.internalInstrumentModelConfiguration.Value = "error";
-                }
-                try
-                {
-                    Right_HI.brandedProductModelConfiguration.Value = jsonn["data"]["Right"]["BrandedProductModelConfiguration"]["Value"].ToString();
-                }
-                catch (Exception)
-                {
-                    Right_HI.brandedProductModelConfiguration.Value = "error";
-                }
-                try
-                {
-                    Right_HI.serialNumber.Value = jsonn["data"]["Right"]["SerialNumber"]["Value"].ToString();
-                }
-                catch (Exception)
-                {
-                    Right_HI.serialNumber.Value = "error";
-                }
-
+               
                 //--- UI
 
                 bool flag = false;
@@ -3747,6 +3691,7 @@ namespace UltimateChanger
                     txtPP.Text = Left_HI.internalInstrumentModelConfiguration.Value;
                     txtSN.Text = Left_HI.serialNumber.Value;
                     txtFW.Text = Left_HI.chipsetName.Value;
+                    lblLeftHI.ToolTip = Left_HI.hardwarePlatformConfiguration.Value;
                 }
                 if (rbRight.IsChecked.Value || flag)// jezeli prawy to prawy jezeli nie prawy ale both to prawy
                 {
@@ -3754,10 +3699,13 @@ namespace UltimateChanger
                     txtPP_R.Text = Right_HI.internalInstrumentModelConfiguration.Value;
                     txtSN_R.Text = Right_HI.serialNumber.Value;
                     txtFW_R.Text = Right_HI.chipsetName.Value;
+                    lblRightHI.ToolTip = Right_HI.hardwarePlatformConfiguration.Value;
                 }
                 //-------
                 progressHI.Value += 100 - progressHI.Value;
                 ReadHI_Task_Timer.Stop();
+                btnReadHI.IsEnabled = true;
+                btnAddHI.IsEnabled = true;
             }
             progressHI.Value += 1;
         }
@@ -3880,6 +3828,45 @@ namespace UltimateChanger
         private void rbBoth_Checked(object sender, RoutedEventArgs e)
         {
             this.readHIGrid.Uid = "Both";
+        }
+
+        private void btnAddHI_Click(object sender, RoutedEventArgs e)
+        {
+            bool flag_both = false;
+            if (rbBoth.IsChecked.Value) //oba
+            {
+                // flaga na both
+                flag_both = true;
+            }
+            if (rbLeft.IsChecked.Value || flag_both) // jezeli lewy to lewy jezeli nie lewy ale both to lewy
+            {
+                myXMLReader.SetNewHardware(txtPP.Text, txtHIBrand.Text, "HI", txtSN.Text,"" );
+            }
+            if (rbRight.IsChecked.Value || flag_both)// jezeli prawy to prawy jezeli nie prawy ale both to prawy
+            {
+                myXMLReader.SetNewHardware(txtPP_R.Text, txtHIBrand_R.Text, "HI", txtSN_R.Text, "");
+            }
+            
+            BindCombo.bindListBox();
+        }
+
+        private void rbnDeleteTrash_Checked(object sender, RoutedEventArgs e)
+        {
+            RByesRemove.IsChecked = true;
+            RBnoRemove.IsChecked = false;
+            XMLReader.setSetting("TrashCleaner", "RadioButtons", Convert.ToString(RByesRemove.IsChecked.Value));
+
+
+            XMLReader.setSetting("TrashCleaner_NO", "RadioButtons", Convert.ToString(RBnoRemove.IsChecked.Value));
+        }
+
+        private void rbnholdTrash_Checked(object sender, RoutedEventArgs e)
+        {
+            RByesRemove.IsChecked = false;
+            RBnoRemove.IsChecked = true;
+            XMLReader.setSetting("TrashCleaner_NO", "RadioButtons", Convert.ToString(RBnoRemove.IsChecked.Value));
+
+            XMLReader.setSetting("TrashCleaner", "RadioButtons", Convert.ToString(RByesRemove.IsChecked.Value));
         }
 
         private void btnCheck_Click(object sender, RoutedEventArgs e)
