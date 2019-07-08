@@ -1283,7 +1283,7 @@
                 </Grid.RowDefinitions>
 
                 <Viewbox>
-                    <Calendar x:Name="calendar"/>
+                    <Calendar x:Name="calendar" />
                 </Viewbox>
 
                 <Grid x:Name="Hours" Grid.Column="1">

@@ -31,6 +31,9 @@ namespace UltimateChanger
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
             btnUpdate.IsEnabled = false;
+
+
+
             string SSC = "", KBN="";
             string[] lines = PATHS.Split(Environment.NewLine.ToCharArray());
                 try

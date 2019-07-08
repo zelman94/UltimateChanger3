@@ -20,7 +20,7 @@ using log4net;
 using Demant.Pet.Api;
 using Newtonsoft.Json.Linq;
 
-[assembly: System.Reflection.AssemblyVersion("4.0.0.0")]
+[assembly: System.Reflection.AssemblyVersion("4.0.1.0")]
 namespace UltimateChanger
 {//
     public partial class MainWindow : Window 
@@ -96,9 +96,7 @@ namespace UltimateChanger
         Task task_checkValidation;
         DispatcherTimer timer_checkValidation;
         List<int> list_checkValidation = new List<int>(); // 0 - uptodate / 1 - old / 2 - IP
-
         public NightlyUpgradeManager nightlyUpgradeManager = null;
-
         public MainWindow()
         {            
             InitializeComponent();
@@ -350,7 +348,6 @@ namespace UltimateChanger
         }
         //________________________________________________________________________________________________________________________________________________
         FSInstaller instal = new FSInstaller();
-
         private void View_OnClick_Context_Uninstall(object sender, RoutedEventArgs e)
         {
             var clickedMenuItem = sender as MenuItem;
@@ -390,9 +387,7 @@ namespace UltimateChanger
                 FittingSoftware_List[Convert.ToInt32(parent_ID)+5].setLogMode("ALL", 0, TabFull.IsSelected);
             }
             setNewSavedTime(15);
-        }
-
-        
+        }       
         private void View_OnClick_Context_Emulator(object sender, RoutedEventArgs e)
         {
             var clickedMenuItem = sender as MenuItem;
@@ -408,7 +403,6 @@ namespace UltimateChanger
             }
             setNewSavedTime(15);
         }
-
         private void View_OnClick_Context_Edit(object sender, RoutedEventArgs e)
             {
             Window EditFittingSoftware = null;
@@ -444,7 +438,6 @@ namespace UltimateChanger
             refreshUI(new object(), new EventArgs());
             setNewSavedTime(20);
         }
-
         private void View_OnClick_Context_DeleteLogs(object sender, RoutedEventArgs e)
         {
             var clickedMenuItem = sender as MenuItem;
@@ -458,9 +451,7 @@ namespace UltimateChanger
                 FittingSoftware_List[Convert.ToInt32(menuText) + 5].deleteLogs();
             }
             setNewSavedTime(20);
-        }
-        
-
+        }       
         private void View_OnClick_Context_Change_Market_US(object sender, RoutedEventArgs e)
         {
             var clickedMenuItem = sender as MenuItem;
@@ -522,7 +513,6 @@ namespace UltimateChanger
 
             }
         }
-
         public void setUIdefaults(SortedDictionary<string, string> settings, string mode) // mode to tryb ustawienia co zmieniasz radiobutton checkbox
         {
 
@@ -637,7 +627,6 @@ namespace UltimateChanger
 
 
         }
-
         public void initiationForprograms()
         {
             lblVersion.Content = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
@@ -764,7 +753,6 @@ namespace UltimateChanger
             fileOperator.getSavedTime();
 
         }
-
         public void checkbox(object sender, RoutedEventArgs e)
         {
             btnUpdate.IsEnabled = true;
@@ -908,7 +896,6 @@ namespace UltimateChanger
                 }
             }
         }
-
         public static IEnumerable<T> FindLogicalChildren<T>(DependencyObject obj) where T : DependencyObject
         {
             if (obj != null)
@@ -921,7 +908,6 @@ namespace UltimateChanger
                         yield return c;
             }
         }
-
         public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject // funkcja wyszukujaca okreslony typ UI Label itp...
         {
             if (depObj != null)
@@ -1012,7 +998,6 @@ namespace UltimateChanger
                 Log.Debug(x.ToString());
             }           
         }
-
         public void updateConnectionStatusUI(object sender, EventArgs e)
         {
             if (dataBaseManager.getConnectionstatus())
@@ -1025,12 +1010,10 @@ namespace UltimateChanger
             }
 
         }
-
         public void checkUpdateOnServer(object sender, EventArgs e)
         {
             fileOperator.checkVersion();
         }
-
         void initializeTimers()
         {
             try
@@ -1097,7 +1080,6 @@ namespace UltimateChanger
             CopyTimer.Tick += checkTime_CopyStatus;
             CopyTimer.Interval = new TimeSpan(0,0,1);
         }
-
         void initializeElements()
         {
             checkBoxList = new List<CheckBox>()
@@ -1165,7 +1147,6 @@ namespace UltimateChanger
             fileOperator.saveSavedTime(savedTime.ToString());
             dataBaseManager.pushLogs();
         }
-
         void verifyInstalledBrands()
         {
             if (TabFull.IsSelected)
@@ -1237,7 +1218,6 @@ namespace UltimateChanger
                 }              
             }          
         }
-
         bool checkRunningProcess(string name)
         {
             Process[] proc = Process.GetProcessesByName(name);
@@ -1253,7 +1233,6 @@ namespace UltimateChanger
             }
             return true;
         }
-
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             byte licznik = 0;
@@ -1395,7 +1374,6 @@ namespace UltimateChanger
         private void cmbMarket_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
         }
-
         private void btnChange_mode_log(object sender, RoutedEventArgs e)
         {
             CounterOfclicks.AddClick((int)Buttons.UpdateMode);
@@ -1585,7 +1563,6 @@ namespace UltimateChanger
                 }
             }
         }
-
         public void ChangedBrandOfFittingSoftware()
         {
 
@@ -1619,7 +1596,6 @@ namespace UltimateChanger
                 }
             }
         }
-
         private void cmbbrandstoinstall_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             cmbBrandstoinstall.Items.Refresh();
@@ -1642,7 +1618,6 @@ namespace UltimateChanger
                 btnInfo.IsEnabled = false;
             }
         }
-
         private void cmbBuild_Compo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (cmbBuild_Compo.SelectedIndex != -1)
@@ -1660,7 +1635,6 @@ namespace UltimateChanger
                 btnInfo_Compo.IsEnabled = false;
             }
         }
-
         private void LoggingMouseEnter(object sender, MouseEventArgs e)
         {
             int border;
@@ -1929,9 +1903,6 @@ namespace UltimateChanger
             }
         }
 
-
-        
-
         private void checkUninstall(object sender, EventArgs e) // sprawdz czy uninstallacja trwa jezeli juz sie skonczyla wtedy wlacz timer do instalacji nocnej
         {
             Process currentProcess = Process.GetCurrentProcess();
@@ -2074,13 +2045,6 @@ namespace UltimateChanger
                 lblTime_toUpgrade.Content = "Time to start: " + (FittingSoftware_List[countFS_WithUpdate].Upgrade_FS.info.Time_Update.Hour - DateTime.Now.Hour) + " H " + ( FittingSoftware_List[countFS_WithUpdate].Upgrade_FS.info.Time_Update.Minute - DateTime.Now.Minute) + " M";
             }
         }       
-
-
-        private void txtCompositionPart2_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            // Releases_prereleases          
-        }
-
         private void btnInfo_Click(object sender, RoutedEventArgs e)
         {
             if (TabFull.IsSelected)
@@ -3632,6 +3596,7 @@ namespace UltimateChanger
 
             var petApi = Main.LoadApi();
             var x = petApi.Initialize();
+
             // ---- Settings
 
             x = petApi.Settings("Medium", $"\"{Hardware.Uid}\"");
@@ -3977,16 +3942,7 @@ namespace UltimateChanger
             lblTime_Nightly.Content = time;
         }
 
-        private void InstallByNight_Unchecked(object sender, RoutedEventArgs e)
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                FittingSoftware_List[i].Upgrade_FS = null;
-            }
-            lblTime_toUpgrade.Content = "";
-        }
-        
-
+       
         List<string> listOfPeople = new List<string>();
 
         public void SetButtons(bool state)
@@ -4032,8 +3988,6 @@ namespace UltimateChanger
                     listboxTeam.Items.Add(line);
             }
         }
-
-
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
             txtbxPerson.Text = txtbxPerson.Text.Replace(" ", "");
@@ -4113,7 +4067,7 @@ namespace UltimateChanger
 
             MessageBox.Show("There is no one to remove!", "Are you kidding me?");
         }
-
+        
         private void btnRemove_Click_DSZY(object sender, RoutedEventArgs e)
         {
             if (this.listboxTeam.SelectedIndex >= 0)

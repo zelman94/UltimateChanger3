@@ -255,9 +255,6 @@
     <None Include="Downgrade\Production\Release_Test_Light.bat" />
     <None Include="Downgrade\Production\WirelessProgrammerFQCAComplete.cmd" />
     <None Include="Downgrade\Production\WirelessProgrammerFQCASettingsOnly.cmd" />
-    <None Include="UpdaterCopy.exe.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <Resource Include="ChangeLog.txt">
       <Generator>MSBuild:Compile</Generator>
     </Resource>
@@ -358,12 +355,6 @@
     </Content>
     <Content Include="tmp.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="UpdaterCopy.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="UpdaterCopy.pdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Updater\UltimateChangerUpdater.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -475,6 +466,7 @@
     </Content>
     <Content Include="Settings\Defaults.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>

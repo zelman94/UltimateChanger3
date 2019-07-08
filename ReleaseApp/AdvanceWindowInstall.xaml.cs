@@ -268,7 +268,16 @@ namespace UltimateChanger
             cmbRelease.Items.Refresh();
             if (cmbMode.Text == "IP")
             {
-                cmbAbout.ItemsSource = fileOperator.GetReleasedIP(cmbRelease.Text);
+                var list = fileOperator.GetReleasedIP(cmbRelease.Text);                
+
+                if (list.Count == 0)
+                {
+                    cmbAbout.ItemsSource = databaseManager.executeSelect($"select DISTINCT about from builds where type = 'FULL' AND RELEASE = '{cmbRelease.Text}' AND MODE like '%{cmbMode.Text}%' order by about DESC");
+                }
+                else
+                {
+                    cmbAbout.ItemsSource = list;
+                }
             }
             else
             {
